@@ -1,7 +1,7 @@
 ---
 title: "Hello World from Techie One"
 date: 2024-12-01
-categories: [intro]
+categories: [blog]
 tags: [hello, tech]
 ---
 
