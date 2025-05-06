@@ -1,4 +1,67 @@
 ---
 layout: home
 author_profile: true
+paginate: true
+paginate_path: "/page:num/"
+permalink: /blog/:categories/:title/
 ---
+
+<!-- Main Container for the Blog -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="display-4">Welcome to Rajkumar's Blog</h1>
+            <p class="lead">
+                Techie One is a modern tech blog exploring software engineering, web development, system design, and the latest in technology trends — where innovation meets simplicity.
+            </p>
+            <hr>
+
+            <!-- Display Blog Posts -->
+            {% for post in site.posts %}
+            <div class="post-preview">
+                <h2 class="post-title">
+                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                </h2>
+                <p class="post-meta">
+                    Posted by <a href="{{ site.url }}/author/{{ post.author | slugify }}">{{ post.author }}</a> on {{ post.date | date: "%B %d, %Y" }}
+                </p>
+                <p class="post-excerpt">
+                    {{ post.excerpt }}
+                </p>
+                <a href="{{ post.url | relative_url }}" class="btn btn-primary">Read More</a>
+                <hr>
+            </div>
+            {% endfor %}
+
+            <!-- Pagination Links -->
+            <div class="pagination">
+                {% if paginator.previous_page %}
+                <a class="btn btn-secondary" href="{{ paginator.previous_page_path | relative_url }}">&laquo; Previous</a>
+                {% endif %}
+                {% if paginator.next_page %}
+                <a class="btn btn-secondary" href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Sidebar: Author Profile and Links -->
+        <div class="col-md-4">
+            <div class="author-profile">
+                <h3>About the Author</h3>
+                <img src="{{ site.author.avatar | relative_url }}" alt="Author Photo" class="img-fluid rounded-circle" />
+                <p>{{ site.author.bio }}</p>
+                <ul class="social-links">
+                    <li><a href="{{ site.author.links[0].url }}" target="_blank" class="fab fa-linkedin"></a></li>
+                    <li><a href="{{ site.author.links[1].url }}" target="_blank" class="fab fa-twitter"></a></li>
+                    <li><a href="{{ site.author.links[2].url }}" target="_blank" class="fab fa-github"></a></li>
+                </ul>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center my-5">
+    <p>&copy; {{ site.time | date: "%Y" }} Rajkumar's Blog. All rights reserved.</p>
+</footer>
