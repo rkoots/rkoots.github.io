@@ -36,6 +36,7 @@ timezone: Asia/Kolkata
 
 include:
   - _pages
+  - _posts
 
 # Plugins (previously gems:)
 plugins:
