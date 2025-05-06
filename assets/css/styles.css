@@ -329,7 +329,7 @@ body.light-theme {
 }
 
 .home__img {
-  width: 160px;
+  width: 185px;
 }
 
 .home__handle {
@@ -711,9 +711,10 @@ body.light-theme {
 }
 
 .testimonial__img {
-  width: 60px;
-  border-radius: 3rem;
+  width: 150px;
+  border-radius: 1rem;
   margin-bottom: 1rem;
+  float: right;
 }
 
 .testimonial__name {
@@ -928,7 +929,7 @@ body.light-theme {
   }
 
   .home__img {
-    width: 130px;
+    width: 150px;
   }
 
   .about__info {
@@ -1107,7 +1108,7 @@ body.light-theme {
   }
 
   .home__img {
-    width: 220px;
+    width: 290px;
   }
   .home__social-link {
     padding: 0.4rem;
