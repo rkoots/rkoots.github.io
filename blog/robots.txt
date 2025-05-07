@@ -1,1 +1,1 @@
-Sitemap: https://rkoots.github.io/blog/sitemap.xml
+Sitemap: https://rkoots.github.io/sitemap.xml
