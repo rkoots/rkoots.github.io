@@ -145,11 +145,30 @@
       </ul>
     </div>
 
+
     <div class="page__footer-copyright">
-      &copy; 2025 Rajkumar Venkataraman. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp;
-      <a href="https://github.com/rkoots/rkoots.github.io">rkoots</a>, a fork of
-      Site last updated 2025-05-07
+      &copy; <span id="current-year"></span> Rajkumar Venkataraman, Powered by
+      <a href="https://rkoots.github.io/" rel="nofollow">rkoots</a> &amp;
+      <a href="https://github.com/rkoots/">rkoots</a>.<br />
+      Site last updated <span id="last-updated"></span>
     </div>
+  </footer>
+</div>
+<script src="https://rkoots.github.io/blog/assets/js/main.min.js"></script>
+
+<script>
+  // Get current year dynamically
+  document.getElementById('current-year').textContent = new Date().getFullYear();
+
+  // Set the site last updated time (you can change this as needed)
+  const lastUpdatedDate = new Date('2025-05-07');
+  const today = new Date();
+  const diffTime = Math.abs(today - lastUpdatedDate);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  // Format the "last updated" text
+  document.getElementById('last-updated').textContent = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+</script>
   </footer>
 </div>
 
