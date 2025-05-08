@@ -8,7 +8,7 @@ title: TechNews
     <p class="page-subtitle" style="text-align: center; font-style: italic; margin-top: -10px;">
         Stay Updated with the Latest in Tech - Curated news, breakthroughs, and updates from across the tech industry to keep you informed and ahead of the curve.
     </p>
-    {% assign blog_posts = site.news.blog | sort: "date" | reverse %}
+    {% assign blog_posts = site.news | sort: "date" | reverse %}
     {% if blog_posts.size > 0 %}
     <div class="posts-grid">
         {% for post in blog_posts %}
