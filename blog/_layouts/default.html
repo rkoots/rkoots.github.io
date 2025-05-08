@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>{{ page.title | escape }} - {{ site.title | default: "Blog" }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% seo %}  <!-- If you're using jekyll-seo-tag plugin -->
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/academicons.css' | relative_url }}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ '/images/favicon.svg' | relative_url }}">
+    <link rel="manifest" href="{{ '/images/manifest.json' | relative_url }}">
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+<!-- Header -->
+<div class="masthead">
+    <div class="masthead__inner-wrap">
+        <div class="masthead__menu">
+            <nav id="site-nav" class="greedy-nav">
+                <button><div class="navicon"></div></button>
+                <ul class="visible-links">
+                    <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="{{ '/' | relative_url }}">Your Gateway to Tech Mastery</a></li>
+                    <li class="masthead__menu-item"><a href="{{ '/blog/TechNews/' | relative_url }}">Tech News</a></li>
+                    <li class="masthead__menu-item"><a href="{{ '/talks/' | relative_url }}">Tools & Resources</a></li>
+                    <li class="masthead__menu-item"><a href="{{ '/teaching/' | relative_url }}">Insights</a></li>
+                    <li class="masthead__menu-item"><a href="{{ '/year-archive/' | relative_url }}">Tech Blog</a></li>
+                    <li class="masthead__menu-item"><a href="{{ '/markdown/' | relative_url }}">Tech Guide</a></li>
+                    <li class="masthead__menu-item"><a href="{{ '/cv/' | relative_url }}">CV / About Me</a></li>
+                    <li id="theme-toggle" class="masthead__menu-item persist tail">
+                        <a><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+                    </li>
+                </ul>
+                <ul class="hidden-links hidden"></ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<main id="main" role="main">
+    {{ content }}
+</main>
+
+<!-- Footer -->
+<div class="page__footer">
+    <footer>
+        <a href="{{ '/sitemap/' | relative_url }}">Sitemap</a>
+        <div class="page__footer-follow">
+            <ul class="social-icons">
+                <li><strong>Follow:</strong></li>
+                <li><a href="http://github.com/rkoots"><i class="fab fa-github"></i> GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/rkoots/"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                <li><a href="{{ '/feed.xml' | relative_url }}"><i class="fa fa-fw fa-rss-square"></i> Feed</a></li>
+            </ul>
+        </div>
+        <div class="page__footer-copyright">
+            &copy; <span id="current-year"></span> Rajkumar Venkataraman, Powered by
+            <a href="https://rkoots.github.io/" rel="nofollow">rkoots</a> (aka)
+            <a href="https://github.com/rkoots/">RK</a>.<br />
+            Site last updated <span id="last-updated"></span>
+        </div>
+    </footer>
+</div>
+
+<!-- Scripts -->
+<script src="{{ '/assets/js/main.min.js' | relative_url }}"></script>
+<script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    const lastUpdatedDate = new Date('2025-05-07');
+    const today = new Date();
+    const diffTime = Math.abs(today - lastUpdatedDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    document.getElementById('last-updated').textContent = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+</script>
+</body>
+</html>
