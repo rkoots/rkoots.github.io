@@ -1,5 +1,5 @@
 ---
-layout: article
+layout: year-archive
 title: Tech Blog
-permalink: /blog/article/
+permalink: /blog/year-archive/
 ---
