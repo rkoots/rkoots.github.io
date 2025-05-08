@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+
+    <meta property="og:locale" content="en-US">
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+
+    <link rel="canonical" href="{{ page.url | absolute_url }}">
+    <link href="{{ "/feed.xml" | relative_url }}" type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ "/assets/css/academicons.css" | relative_url }}">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ "/images/favicon.svg" | relative_url }}">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- MathJax -->
+    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+<!-- Header -->
+<div class="masthead">
+    <div class="masthead__inner-wrap">
+        <div class="masthead__menu">
+            <nav id="site-nav" class="greedy-nav">
+                <button><div class="navicon"></div></button>
+                <ul class="visible-links">
+                    <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="{{ site.baseurl }}/">Your Gateway to Tech Mastery</a></li>
+                    <li class="masthead__menu-item"><a href="{{ site.baseurl }}/TechNews/">Tech News</a></li>
+                    <li class="masthead__menu-item"><a href="{{ site.baseurl }}/talks/">Tools & Resources</a></li>
+                    <li class="masthead__menu-item"><a href="{{ site.baseurl }}/teaching/">Insights</a></li>
+                    <li class="masthead__menu-item"><a href="{{ site.baseurl }}/year-archive/">Tech Blog</a></li>
+                    <li class="masthead__menu-item"><a href="{{ site.baseurl }}/markdown/">Tech Guide</a></li>
+                    <li class="masthead__menu-item"><a href="{{ site.baseurl }}/cv/">CV / About Me</a></li>
+                    <li id="theme-toggle" class="masthead__menu-item persist tail">
+                        <a><i id="theme-icon" class="fa-solid fa-sun" title="toggle theme"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<main id="main" role="main">
+    {{ content }}
+</main>
+
+<!-- Footer -->
+<footer class="page__footer">
+    <div class="page__footer-follow">
+        <ul class="social-icons">
+            <li><strong>Follow:</strong></li>
+            <li><a href="http://github.com/rkoots"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/rkoots/"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+            <li><a href="{{ "/feed.xml" | relative_url }}"><i class="fa fa-rss-square"></i> Feed</a></li>
+        </ul>
+    </div>
+    <div class="page__footer-copyright">
+        &copy; {{ site.time | date: "%Y" }} {{ site.author.name }}, Powered by <a href="{{ site.url }}">rkoots</a>.
+    </div>
+</footer>
+</body>
+</html>
