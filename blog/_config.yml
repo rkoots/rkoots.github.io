@@ -6,3 +6,4 @@ collections:
     permalink: /blog/:year/:month/:day/:title/
   news:
     output: true
+    permalink: /news/:year/:month/:day/:title/
