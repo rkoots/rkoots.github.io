@@ -1,302 +1,94 @@
+---
+layout: default
+title: Tools & Resources
+---
 
+<section class="blog-listing">
+    <h1 class="page-title">📚 Developer Toolkit & References </h1>
+    <p class="page-subtitle" style="text-align: center; font-style: italic; margin-top: -10px;">
+        🛠️ Essential Tools & Resources for Developers - A handpicked collection of frameworks, libraries, platforms, and learning materials to streamline your workflow and expand your capabilities.
+    </p>
 
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
+    {% assign blog_posts = site.categories.news | sort: "date" | reverse %}
+    {% if blog_posts.size > 0 %}
+    <div class="posts-grid">
+        {% for post in blog_posts %}
+        <article class="post-card">
+            <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+            <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
+            {% if post.excerpt %}
+            <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+            {% endif %}
+            <a class="read-more" href="{{ post.url | relative_url }}">Read more →</a>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No blog posts found in the "blog" category.</p>
+    {% endif %}
+</section>
 
-<meta charset="utf-8">
-
-
-
-<!-- begin SEO -->
-
-
-
-
-
-
-
-
-
-<title>Talks and presentations - Your Gateway to Tech Mastery</title>
-
-
-
-
-
-
-
-<meta property="og:locale" content="en-US">
-<meta property="og:site_name" content="Your Gateway to Tech Mastery">
-<meta property="og:title" content="Talks and presentations">
-
-
-  <link rel="canonical" href="https://rkoots.github.io/blog/talks/">
-  <meta property="og:url" content="https://rkoots.github.io/blog/talks/">
-
-
-
-
-
-
-
-  
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context" : "http://schema.org",
-      "@type" : "Person",
-      "name" : "Your Name",
-      "url" : "https://rkoots.github.io/blog",
-      "sameAs" : null
+<style>
+    .blog-listing {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
     }
-  </script>
 
-
-
-
-
-
-<!-- end SEO -->
-
-
-<link href="https://rkoots.github.io/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Your Gateway to Tech Mastery Feed">
-
-<!-- http://t.co/dKP3o1e -->
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script>
-  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
-</script>
-
-<!-- For all browsers -->
-<link rel="stylesheet" href="https://rkoots.github.io/blog/assets/css/main.css">
-
-<meta http-equiv="cleartype" content="on">
-    
-
-<!-- start custom head snippets -->
-
-<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
-<link rel="apple-touch-icon" sizes="180x180" href="https://rkoots.github.io/blog/images/apple-touch-icon-180x180.png"/>
-<link rel="icon" type="image/svg+xml" href="https://rkoots.github.io/blog/images/favicon.svg"/>
-<link rel="icon" type="image/png" href="https://rkoots.github.io/blog/images/favicon-32x32.png" sizes="32x32"/>
-<link rel="icon" type="image/png" href="https://rkoots.github.io/blog/images/favicon-192x192.png" sizes="192x192"/>
-<link rel="manifest" href="https://rkoots.github.io/blog/images/manifest.json"/>
-<link rel="icon" href="/images/favicon.ico"/>
-<meta name="theme-color" content="#ffffff"/>
-<link rel="stylesheet" href="https://rkoots.github.io/blog/assets/css/academicons.css"/>
-
-
-<!-- Support for MatJax -->
-<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-<!-- end custom head snippets -->
-
-  </head>
-
-  <body>
-
-    <!--[if lt IE 9]>
-<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
-<![endif]-->
-
-
-    <!-- MY Header TAG -->
-    <div class="masthead">
-        <div class="masthead__inner-wrap">
-            <div class="masthead__menu">
-                <nav id="site-nav" class="greedy-nav">
-                    <button><div class="navicon"></div></button>
-                    <ul class="visible-links">
-                        <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="https://rkoots.github.io/blog/">Your Gateway to Tech Mastery</a></li>
-                        <li class="masthead__menu-item"><a href="https://rkoots.github.io/blog/TechNews/">Tech News</a></li>
-                        <li class="masthead__menu-item"><a href="https://rkoots.github.io/blog/talks/">Tools & Resources</a></li>
-                        <li class="masthead__menu-item"><a href="https://rkoots.github.io/blog/teaching/">Insights</a></li>
-                        <li class="masthead__menu-item"><a href="https://rkoots.github.io/blog/article/">Tech Blog</a></li>
-                        <li class="masthead__menu-item"><a href="https://rkoots.github.io/blog/markdown/">Tech Guide</a></li>
-                        <li class="masthead__menu-item"><a href="https://rkoots.github.io/blog/cv/">CV / About Me</a></li>
-                        <li id="theme-toggle" class="masthead__menu-item persist tail">
-                            <a><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
-                        </li>
-                    </ul>
-                    <ul class="hidden-links hidden"></ul>
-                </nav>
-            </div>
-        </div>
-    </div>
-
-
-
-
-<div id="main" role="main">
-  
-
-
-
-
-
-  <div class="archive">
-    
-      <h1 class="page__title">Talks and presentations</h1>
-    
-    
-
-
-  
-
-
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="https://rkoots.github.io/blog/talks/2014-03-01-talk-3" rel="permalink">Conference Proceeding talk 3 on Relevant Topic in Your Field
-</a>
-      
-    </h2>
-    
-    <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> March 01, 2014</p>
-    <p class="archive__item-excerpt" itemprop="description">Conference proceedings talk, Testing Institute of America 2014 Annual Conference,  Los Angeles, CA, USA 
-    <p class="archive__item-excerpt" itemprop="description"><p>This is a description of your conference proceedings talk, note the different field in type. You can put anything in this field.</p>
-</p>
-  </article>
-</div>
-
-
-  
-
-
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="https://rkoots.github.io/blog/talks/2014-02-01-talk-2" rel="permalink">Talk 2 on Relevant Topic in Your Field
-</a>
-      
-    </h2>
-    
-    <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> February 01, 2014</p>
-    <p class="archive__item-excerpt" itemprop="description">Talk, London School of Testing,  London, UK 
-    <p class="archive__item-excerpt" itemprop="description"><p><a href="http://example2.com">More information here</a></p>
-
-</p>
-  </article>
-</div>
-
-
-  
-
-
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="https://rkoots.github.io/blog/talks/2013-03-01-tutorial-1" rel="permalink">Tutorial 1 on Relevant Topic in Your Field
-</a>
-      
-    </h2>
-    
-    <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> March 01, 2013</p>
-    <p class="archive__item-excerpt" itemprop="description">Tutorial, UC-Berkeley Institute for Testing Science,  Berkeley, CA, USA 
-    <p class="archive__item-excerpt" itemprop="description"><p><a href="http://exampleurl.com">More information here</a></p>
-
-</p>
-  </article>
-</div>
-
-
-  
-
-
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="https://rkoots.github.io/blog/talks/2012-03-01-talk-1" rel="permalink">Talk 1 on Relevant Topic in Your Field
-</a>
-      
-    </h2>
-    
-    <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> March 01, 2012</p>
-    <p class="archive__item-excerpt" itemprop="description">Talk, UC San Francisco, Department of Testing,  San Francisco, CA, USA 
-    <p class="archive__item-excerpt" itemprop="description"><p>This is a description of your talk, which is a markdown file that can be all markdown-ified like any other post. Yay markdown!</p>
-</p>
-  </article>
-</div>
-
-
-
-  </div>
-</div>
-
-
-    <div class="page__footer">
-        <footer>
-            <!-- start custom footer snippets -->
-            <a href="/sitemap/">Sitemap</a>
-            <!-- end custom footer snippets -->
-            <div class="page__footer-follow">
-                <ul class="social-icons">
-                    <li><strong>Follow:</strong></li>
-                    <li><a href="http://github.com/rkoots"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
-                    <li><a href="https://www.linkedin.com/in/rkoots/"><i class="fab fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
-                    <li><a href="https://rkoots.github.io/blog/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
-                </ul>
-            </div>
-            <div class="page__footer-copyright">
-                &copy; <span id="current-year"></span> Rajkumar Venkataraman, Powered by
-                <a href="https://rkoots.github.io/" rel="nofollow">rkoots</a> (aka)
-                <a href="https://github.com/rkoots/">RK</a>.<br />
-                Site last updated <span id="last-updated"></span>
-            </div>
-        </footer>
-    </div>
-    <script src="https://rkoots.github.io/blog/assets/js/main.min.js"></script>
-    <script>
-        // Get current year dynamically
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-
-        // Set the site last updated time (you can change this as needed)
-        const lastUpdatedDate = new Date('2025-05-07');
-        const today = new Date();
-        const diffTime = Math.abs(today - lastUpdatedDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-        // Format the "last updated" text
-        document.getElementById('last-updated').textContent = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
-    </script>
-  </body>
-</html>
+    .page-title {
+      font-size: 2.2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .posts-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .post-card {
+      border: 1px solid #eee;
+      padding: 1.2rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .post-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .post-card h2 {
+      margin: 0 0 0.3rem;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .post-card h2 a {
+      text-decoration: none;
+      color: #0056b3;
+    }
+
+    .post-meta {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .post-excerpt {
+      font-size: 1rem;
+      color: #444;
+      margin: 0.7rem 0;
+    }
+
+    .read-more {
+      font-weight: bold;
+      text-decoration: none;
+      color: #007acc;
+    }
+
+    .read-more:hover {
+      text-decoration: underline;
+    }
+</style>
