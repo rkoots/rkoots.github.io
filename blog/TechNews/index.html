@@ -14,7 +14,7 @@ title: TechNews
     <p>Total news posts: {{ site.news | size }}</p>
     <ul>
         {% for key in site %}
-        <li>{{ key[0] }}</li>
+        <li>{{ key }}</li>
         {% endfor %}
     </ul>
     {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
