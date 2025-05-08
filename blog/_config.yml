@@ -1,12 +1,6 @@
+permalink: /:categories/:year/:month/:day/:title/
+
 collections:
-  posts:
+  blog:
     output: true
-
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: post
-
-permalink: /blog/:title/
+    permalink: /post/:year/:month/:day/:title/
