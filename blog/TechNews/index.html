@@ -11,7 +11,7 @@ title: TechNews
     {% for post in site.collections_dir %}
     <p>{{ post }} </p>
     {% endfor %}
-    <p>Total news posts: {{ site.collections_dir | size }}</p>
+    <p>Total news posts: {{ site.news | size }}</p>
     <ul>
         {% for key in site %}
         <li>{{ key }}</li>
