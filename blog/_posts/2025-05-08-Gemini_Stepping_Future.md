@@ -5,11 +5,9 @@ date: 2025-05-08
 categories: blog
 ---
 
-> *“75% of Indians wish they had a daily growth partner,”* says Google and Kantar’s latest report. And guess what? That wish just might be coming true.
-
----
-
 ## 🚀 Google's Gemini Is Stepping Into the Future — And Taking You With It
+
+> *“75% of Indians wish they had a daily growth partner,”* says Google and Kantar’s latest report. And guess what? That wish just might be coming true.
 
 Imagine having an AI assistant that doesn’t just answer questions, but helps you write code, creates videos from ideas, summarizes the internet, and even chats with you about what your camera sees. That’s what Gemini is fast becoming — Google’s most advanced, personal, and powerful AI yet.
 
