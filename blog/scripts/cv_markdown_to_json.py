@@ -248,12 +248,12 @@ def parse_skills(skills_text):
     
     return skills_entries
 
-def parse_publications(pub_dir):
-    """Parse publications from the _publications directory."""
-    publications = []
+def parse_TechNews(pub_dir):
+    """Parse TechNews from the _TechNews directory."""
+    TechNews = []
     
     if not os.path.exists(pub_dir):
-        return publications
+        return TechNews
     
     for pub_file in sorted(glob.glob(os.path.join(pub_dir, "*.md"))):
         with open(pub_file, 'r', encoding='utf-8') as file:
@@ -273,9 +273,9 @@ def parse_publications(pub_dir):
                 "summary": front_matter.get('excerpt', '')
             }
             
-            publications.append(pub_entry)
+            TechNews.append(pub_entry)
     
-    return publications
+    return TechNews
 
 def parse_talks(talks_dir):
     """Parse talks from the _talks directory."""
@@ -386,8 +386,8 @@ def create_cv_json(md_file, config_file, repo_root, output_file):
         "references": []
     }
     
-    # Add publications
-    cv_json["publications"] = parse_publications(os.path.join(repo_root, "_publications"))
+    # Add TechNews
+    cv_json["TechNews"] = parse_TechNews(os.path.join(repo_root, "_TechNews"))
     
     # Add talks
     cv_json["presentations"] = parse_talks(os.path.join(repo_root, "_talks"))
