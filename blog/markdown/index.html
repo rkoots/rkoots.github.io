@@ -9,7 +9,7 @@ title: Tech Guide
     Clear, actionable walkthroughs and how-tos designed to help you master tools, platforms, and technical concepts.
   </p>
 
-  {% assign blog_posts = site.categories.news | sort: "date" | reverse %}
+  {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
   {% if blog_posts.size > 0 %}
   <div class="posts-grid">
     {% for post in blog_posts %}

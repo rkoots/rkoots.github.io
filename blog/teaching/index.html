@@ -9,7 +9,7 @@ title: Insights
     In-depth perspectives on emerging technologies, strategic thinking, and key industry shifts shaping the future.
   </p>
 
-  {% assign blog_posts = site.categories.news | sort: "date" | reverse %}
+  {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
   {% if blog_posts.size > 0 %}
   <div class="posts-grid">
     {% for post in blog_posts %}
