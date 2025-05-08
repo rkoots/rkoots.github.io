@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "First Blog Post"
-date:   2025-05-07 10:00:00 +0530
+date:   2024-07-23 10:00:00 +0530
 categories: blog
 ---
 
