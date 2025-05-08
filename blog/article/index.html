@@ -5,7 +5,9 @@ title: Blog
 
 <section class="blog-listing">
     <h1 class="page-title">📚 The Blog Shelf </h1>
-
+    <p class="page-subtitle" style="text-align: center; font-style: italic; margin-top: -10px;">
+        ✍️ Experiences, Experiments & Engineering - Articles straight from the trenches — covering real-world projects, lessons learned, and behind-the-scenes of building technology.
+    </p>
     {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
     {% if blog_posts.size > 0 %}
     <div class="posts-grid">
