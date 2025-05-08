@@ -12,7 +12,7 @@ title: TechNews
     <p>{{ post }} </p>
     {% endfor %}
 
-    {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
+    {% assign blog_posts = site.news | sort: "date" | reverse %}
     {% if blog_posts.size > 0 %}
     <div class="posts-grid">
         {% for post in blog_posts %}
