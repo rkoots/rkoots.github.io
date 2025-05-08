@@ -18,6 +18,13 @@ title: TechNews
         {% endfor %}
     </ul>
     {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
+
+    <ul>
+        {% for collection in site.collections %}
+        <li>{{ collection.label }}</li>
+        {% endfor %}
+    </ul>
+
     {% if blog_posts.size > 0 %}
     <div class="posts-grid">
         {% for post in blog_posts %}
