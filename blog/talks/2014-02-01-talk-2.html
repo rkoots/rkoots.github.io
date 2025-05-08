@@ -196,21 +196,24 @@
 
       </footer>
 
-      
 
-<section class="page__share">
-  
-    <h4 class="page__share-title">Share on</h4>
-  
 
-  <a href="https://bsky.app/intent/compose?text=https://rkoots.github.io/blog/talks/2014-02-01-talk-2" class="btn btn--bluesky" title="Share on Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+      <section class="page__share">
+        <h4 class="page__share-title">Share on</h4>
+        {% assign full_url = site.url | append: page.url %}
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https://rkoots.github.io/blog/talks/2014-02-01-talk-2" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ full_url | uri_escape }}" class="btn btn--linkedin" title="Share on LinkedIn">
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span>
+        </a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://rkoots.github.io/blog/talks/2014-02-01-talk-2" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+        <a href="https://x.com/intent/post?text={{ full_url | uri_escape }}" class="btn btn--x" title="Share on X">
+          <i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span>
+        </a>
 
-  <a href="https://x.com/intent/post?text=https://rkoots.github.io/blog/talks/2014-02-01-talk-2" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
-</section>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ full_url | uri_escape }}" class="btn btn--facebook" title="Share on Facebook">
+          <i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span>
+        </a>
+      </section>
 
 
       
