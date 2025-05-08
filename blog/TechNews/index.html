@@ -11,8 +11,13 @@ title: TechNews
     {% for post in site.news %}
     <p>{{ post }} </p>
     {% endfor %}
-
-    {% assign blog_posts = site.news | sort: "date" | reverse %}
+    <p>Total news posts: {{ site.news | size }}</p>
+    <ul>
+        {% for key in site %}
+        <li>{{ key[0] }}</li>
+        {% endfor %}
+    </ul>
+    {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
     {% if blog_posts.size > 0 %}
     <div class="posts-grid">
         {% for post in blog_posts %}
