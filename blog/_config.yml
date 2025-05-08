@@ -3,4 +3,4 @@ permalink: /:categories/:year/:month/:day/:title/
 collections:
   blog:
     output: true
-    permalink: /post/:year/:month/:day/:title/
+    permalink: /blog/:year/:month/:day/:title/
