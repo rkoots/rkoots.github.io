@@ -1,0 +1,12 @@
+collections:
+  posts:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+
+permalink: /blog/:title/
