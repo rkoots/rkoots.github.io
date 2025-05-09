@@ -1247,3 +1247,103 @@ body.light-theme {
       gap: 0.5rem;
     }
   }
+
+
+  .landing-page {
+    max-width: 1080px;
+    margin: auto;
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 4rem 1rem;
+    background: #f4f8ff;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero .cta-btn {
+    background: #005fcc;
+    color: white;
+    padding: 0.8rem 1.4rem;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  .featured h2,
+  .topics h2,
+  .subscribe h2 {
+    text-align: center;
+    margin: 3rem 0 1rem;
+  }
+
+  .card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    padding: 1.5rem;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  .read-more {
+    color: #005fcc;
+    font-weight: bold;
+  }
+
+  .topic-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .topic-card {
+    background: #e6f0ff;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  .subscribe-form {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .subscribe-form input[type="email"] {
+    padding: 0.6rem;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .subscribe-form button {
+    background: #005fcc;
+    color: white;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .footer-cta {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #ddd;
+  }
