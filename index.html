@@ -6,54 +6,125 @@ description: "Engineering stories on scalable backend systems, cloud infrastruct
 keywords: ["backend systems", "cloud architecture", "AI engineering", "tech blog", "scalable infrastructure", "rkoots"]
 ---
 
-<div class="landing-page">
+<style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+    .main-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 220px;
+      background: #2f4f4f;
+      color: white;
+      padding: 1rem;
+    }
+    .sidebar h2 {
+      font-size: 1.4rem;
+      margin-top: 0;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      margin: 0.8rem 0;
+    }
+    .sidebar ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .sidebar ul li a:hover {
+      text-decoration: underline;
+    }
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <h1>Build Scalable Systems, Smarter</h1>
-        <p>Your hub for engineering insights on cloud infrastructure, backend design, AI in production, and high-scale systems.</p>
-        <a href="/blog" class="cta-btn">Explore the Blog</a>
-    </section>
+    .content {
+      flex: 1;
+      padding: 2rem;
+      background: white;
+    }
+    .content h1 {
+      font-size: 2rem;
+      margin-top: 0;
+    }
 
-    <!-- FEATURED ARTICLES -->
-    <section class="featured">
-        <h2>Featured Stories</h2>
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 1rem;
+      flex: 1;
+      min-width: 250px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+    .card a {
+      text-decoration: none;
+      color: #0066cc;
+    }
+
+    @media (max-width: 768px) {
+      .main-layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        text-align: center;
+      }
+      .content {
+        padding: 1rem;
+      }
+      .card-grid {
+        flex-direction: column;
+      }
+    }
+</style>
+
+
+
+<div class="main-layout">
+    <aside class="sidebar">
+        <h2>Learn</h2>
+        <ul>
+            <li><a href="/backend">Backend Engineering</a></li>
+            <li><a href="/system-design">System Design</a></li>
+            <li><a href="/cloud">Cloud Infrastructure</a></li>
+            <li><a href="/mlops">ML & AI Ops</a></li>
+            <li><a href="/devops">DevOps</a></li>
+        </ul>
+    </aside>
+
+    <main class="content">
+        <h1>Welcome to RKoots Learn</h1>
+        <p>A resource hub for engineers building reliable, scalable systems.</p>
+
         <div class="card-grid">
-            {% for post in site.posts limit:3 %}
             <div class="card">
-                <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-                <p>{{ post.excerpt | strip_html | truncate: 110 }}</p>
-                <a href="{{ post.url }}" class="read-more">Read more →</a>
+                <h3><a href="/backend/intro">Intro to Backend Engineering</a></h3>
+                <p>Understand how backend systems power real-time applications and APIs.</p>
             </div>
-            {% endfor %}
+            <div class="card">
+                <h3><a href="/system-design/cap-theorem">CAP Theorem Simplified</a></h3>
+                <p>What it really means to trade off between Consistency, Availability, and Partition Tolerance.</p>
+            </div>
+            <div class="card">
+                <h3><a href="/cloud/aws-vs-gcp">AWS vs GCP for Startups</a></h3>
+                <p>A practical guide on choosing the right cloud provider with cost and scaling in mind.</p>
+            </div>
         </div>
-    </section>
-
-    <!-- TOPICS SECTION -->
-    <section class="topics">
-        <h2>What We Cover</h2>
-        <div class="topic-grid">
-            <div class="topic-card"><a href="/cloud">Cloud Infrastructure</a></div>
-            <div class="topic-card"><a href="/backend">Backend Architecture</a></div>
-            <div class="topic-card"><a href="/ai">AI in Production</a></div>
-            <div class="topic-card"><a href="/system-design">System Design</a></div>
-            <div class="topic-card"><a href="/devops">DevOps & CI/CD</a></div>
-        </div>
-    </section>
-
-    <!-- NEWSLETTER CTA -->
-    <section class="subscribe">
-        <h2>Stay in the Loop</h2>
-        <p>Get engineering deep-dives delivered to your inbox. No spam, just substance.</p>
-        <form action="https://formspree.io/f/your-form-id" method="POST" class="subscribe-form">
-            <input type="email" name="email" placeholder="you@domain.com" required>
-            <button type="submit">Subscribe</button>
-        </form>
-    </section>
-
-    <!-- FOOTER CTA -->
-    <section class="footer-cta">
-        <p>🚀 Designed for engineering leaders, backend architects & curious devs. Explore <a href="/blog">our latest content</a>.</p>
-    </section>
-
+    </main>
 </div>
