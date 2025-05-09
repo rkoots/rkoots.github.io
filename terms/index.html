@@ -99,25 +99,37 @@
     </article>
 </div>
 
-<div class="page__footer">
+
+<div class="page__footer text-center">
+
     <footer>
-        <a href="/sitemap/">Sitemap</a>
+        <nav class="footer-nav">
+            <a href="/about/">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;
+            <a href="https://rkoots.github.io/#contact">Contact</a>&nbsp;&nbsp;&nbsp;|&nbsp;
+            <a href="/sitemap/">Sitemap</a>&nbsp;&nbsp;&nbsp;|&nbsp;
+            <a href="/projects/">Projects</a>&nbsp;&nbsp;&nbsp;|&nbsp;
+            <a href="/cv/">Portfolio</a>&nbsp;&nbsp;&nbsp;|&nbsp;
+            <a href="/terms/">Terms & Privacy Policy</a>
+        </nav>
         <div class="page__footer-follow">
             <ul class="social-icons">
                 <li><strong>Follow:</strong></li>
-                <li><a href="http://github.com/rkoots"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
-                <li><a href="https://www.linkedin.com/in/rkoots/"><i class="fab fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
-                <li><a href="https://rkoots.github.io/blog/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+                <li><a href="http://github.com/rkoots"><i class="fab fa-github"></i> GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/rkoots/"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                <li><a href="{{ '/feed.xml' | relative_url }}"><i class="fa fa-fw fa-rss-square"></i> Feed</a></li>
             </ul>
         </div>
         <div class="page__footer-copyright">
-            &copy; <span id="current-year"></span> RKoots, Powered by <a href="https://rkoots.github.io/" rel="nofollow">RKoots</a>.<br />
+            &copy; <span id="current-year"></span> Rajkumar Venkataraman, Powered by
+            <a href="https://rkoots.github.io/" rel="nofollow">rkoots</a> (aka)
+            <a href="https://github.com/rkoots/">RK</a>.<br />
             Site last updated <span id="last-updated"></span>
         </div>
     </footer>
 </div>
 
-<script src="https://rkoots.github.io/blog/assets/js/main.min.js"></script>
+<!-- Scripts -->
+<script src="https://rkoots.github.io/assets/js/main.min.js"></script>
 <script>
     document.getElementById('current-year').textContent = new Date().getFullYear();
     const lastUpdatedDate = new Date('2025-05-07');
