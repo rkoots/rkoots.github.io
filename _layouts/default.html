@@ -15,6 +15,7 @@
     {% seo %}
 
     <!-- Keywords Imports -->
+
     {% if page.keywords %}
     <meta name="keywords" content="{{ page.keywords | join: ', ' }}">
     {% endif %}
@@ -23,11 +24,15 @@
     <link rel="alternate" type="application/atom+xml" title="rkoots Feed" href="https://rkoots.github.io/blog/feed.xml">
     <script type="application/ld+json">
         {
-            "@context": "http://schema.org",
-            "@type": "Person",
-            "name": "Rajkumar Venkataraman",
-            "url": "https://rkoots.github.io/blog",
-            "sameAs": []
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "rkoots",
+            "url": "https://rkoots.github.io/",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://rkoots.github.io/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
         }
     </script>
 
