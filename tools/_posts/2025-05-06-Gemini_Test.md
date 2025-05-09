@@ -2,7 +2,7 @@
 layout: default
 title: "Gemini AI Superpowers"
 date: 2025-05-06
-categories: news
+categories: blog
 ---
 
 ## 🚀 Google's Gemini Is Stepping Into the Future

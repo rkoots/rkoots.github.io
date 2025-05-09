@@ -9,7 +9,7 @@ title: TechNews
         Stay Updated with the Latest in Tech - Curated news, breakthroughs, and updates from across the tech industry to keep you informed and ahead of the curve.
     </p>
 
-    {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
+    {% assign blog_posts = site.categories.news | sort: "date" | reverse %}
 
     {% if blog_posts.size > 0 %}
     <div class="posts-grid">
@@ -27,6 +27,10 @@ title: TechNews
     {% else %}
     <p>No blog posts found in the "blog" category.</p>
     {% endif %}
+
+    {% for aa in site.categories %}
+    <p>{{aa}}</p>
+    {% endfor %}
 
 </section>
 
