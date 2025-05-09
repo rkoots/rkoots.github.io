@@ -3,6 +3,12 @@ layout: default
 title: "Google's Gemini Is Stepping Into the Future — And Taking You With It"
 date: 2025-05-07
 categories: blog
+author: rkoots
+keywords:
+  - Gemini
+  - AI
+  - Next Step
+  - Future Tech
 ---
 
 ## 🚀Google's Gemini Is Stepping Into the Future — And Taking You With It
