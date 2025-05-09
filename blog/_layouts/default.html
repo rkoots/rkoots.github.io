@@ -94,6 +94,11 @@
     </div>
 </div>
 
+
+{% for post in site.seo.keywords %}
+<p>{{ post.url }}</p>
+{% endfor %}
+
 <!-- Main content -->
 <main id="main" role="main">
     {{ content }}
