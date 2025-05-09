@@ -1,8 +1,8 @@
 ---
 layout: default
 title: "Complete Guide to Python"
-date: 2024-01-01
-categories: guide
+date: 2025-05-07
+categories: tutorial
 author: "RK"
 tags: ["Python", "Programming", "Tutorial"]
 keywords: "Python tutorial, Python guide, Python programming"
