@@ -39,8 +39,8 @@
     </script>
 
     <!-- Styles & Theme -->
-    <link rel="stylesheet" href="https://rkoots.github.io/blog/assets/css/main.css">
-    <link rel="stylesheet" href="https://rkoots.github.io/blog/assets/css/academicons.css">
+    <link rel="stylesheet" href="https://rkoots.github.io/assets/css/main.css">
+    <link rel="stylesheet" href="https://rkoots.github.io/assets/css/academicons.css">
     <link rel="icon" type="image/svg+xml" href="https://rkoots.github.io/blog/images/favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="https://rkoots.github.io/blog/images/apple-touch-icon-180x180.png">
     <link rel="icon" type="image/png" href="https://rkoots.github.io/blog/images/favicon-32x32.png" sizes="32x32">
@@ -57,15 +57,6 @@
     <!-- MathJax Support -->
     <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    <!-- Optional Custom Scripts -->
-    <script>
-        document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
-        setInterval(() => {
-          const themeBtn = document.getElementById('theme-button');
-          if (themeBtn) themeBtn.click();
-        }, 10000);
-    </script>
 
     <!-- Misc -->
     <meta name="HandheldFriendly" content="True">
@@ -385,18 +376,24 @@
 
 </div>
 
+    <div class="page__footer text-center">
 
-    <div class="page__footer">
         <footer>
-            <!-- start custom footer snippets -->
-            <a href="/sitemap/">Sitemap</a>
-            <!-- end custom footer snippets -->
+            <nav class="footer-nav">
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+                <a href="/sitemap/">Sitemap</a>
+                <a href="/projects/">Projects</a>
+                <a href="/cv/">Portfolio</a>
+                <a href="/terms/">Terms of Use</a>
+                <a href="/privacy/">Privacy Policy</a>
+            </nav>
             <div class="page__footer-follow">
                 <ul class="social-icons">
                     <li><strong>Follow:</strong></li>
-                    <li><a href="http://github.com/rkoots"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
-                    <li><a href="https://www.linkedin.com/in/rkoots/"><i class="fab fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
-                    <li><a href="https://rkoots.github.io/blog/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+                    <li><a href="http://github.com/rkoots"><i class="fab fa-github"></i> GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/rkoots/"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    <li><a href="{{ '/feed.xml' | relative_url }}"><i class="fa fa-fw fa-rss-square"></i> Feed</a></li>
                 </ul>
             </div>
             <div class="page__footer-copyright">
@@ -407,18 +404,15 @@
             </div>
         </footer>
     </div>
-    <script src="https://rkoots.github.io/blog/assets/js/main.min.js"></script>
-    <script>
-        // Get current year dynamically
-        document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Set the site last updated time (you can change this as needed)
+    <!-- Scripts -->
+    <script src="{{ '/assets/js/main.min.js' | relative_url }}"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
         const lastUpdatedDate = new Date('2025-05-07');
         const today = new Date();
         const diffTime = Math.abs(today - lastUpdatedDate);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-        // Format the "last updated" text
         document.getElementById('last-updated').textContent = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
     </script>
   </body>
