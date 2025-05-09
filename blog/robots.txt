@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-
-Sitemap: https://rkoots.github.io/sitemap.xml
