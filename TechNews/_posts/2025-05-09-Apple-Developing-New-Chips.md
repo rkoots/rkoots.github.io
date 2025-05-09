@@ -18,7 +18,7 @@ According to Bloomberg's Mark Gurman, one of these chips is said to draw inspira
 
 Apple's CEO, Tim Cook, is reportedly determined to surpass Meta's success in the smart glasses space, making it a major focus for the company. Sources indicate that Apple is targeting mass production of these chips in collaboration with TSMC by the end of next year, or potentially by 2027.
 
-![Apple Smart Glasses Concept](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Apple_logo_black.svg/1200px-Apple_logo_black.svg.png)
+![Apple Smart Glasses Concept](https://images.pexels.com/photos/30547578/pexels-photo-30547578/free-photo-of-futuristic-red-and-black-digital-art-illustration.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)
 
 ### Non-AR Glasses: A New Frontier
 

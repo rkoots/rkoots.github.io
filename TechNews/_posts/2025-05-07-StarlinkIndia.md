@@ -28,8 +28,6 @@ The official rollout of Starlink’s services in India is expected to take betwe
 
 This latest move signals a welcoming gesture from the Indian government towards Musk and Starlink, which has been looking to launch in the country for quite some time. With a population exceeding 1.4 billion people and only about 950 million internet subscribers, India presents a promising market for Starlink or any company seeking to provide internet connectivity through innovative approaches.
 
-![Starlink](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Starlink_logo.svg/1200px-Starlink_logo.svg.png)
-
 ---
 
 Starlink’s expansion into India marks a significant milestone in the company’s global growth. With such a large untapped user base, the future of satellite internet in India looks very promising.

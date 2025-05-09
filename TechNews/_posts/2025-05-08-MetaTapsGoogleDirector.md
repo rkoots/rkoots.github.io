@@ -24,7 +24,7 @@ In addition to this, Meta’s previous VP of AI Research, Joelle Pineau, announc
 
 With Robert Fergus now at the helm of FAIR, Meta hopes to revitalize the lab and push the boundaries of its AI research. His leadership will be crucial in helping Meta regain its standing in the competitive AI space.
 
-![Meta AI](https://upload.wikimedia.org/wikipedia/commons/5/55/Meta_Platforms_logo.svg)
+![Meta AI](https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=600)
 
 ---
 

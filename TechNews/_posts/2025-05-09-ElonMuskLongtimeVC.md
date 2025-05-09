@@ -24,7 +24,7 @@ Raffaelli had secured deals that allowed him to invest in Musk companies like Sp
 
 This lawsuit marks a highly public dispute for Raffaelli, who previously served as a partner at the VC firm then known as Draper Fisher Jurvetson (DFJ), which was instrumental in funding Musk's ventures. Raffaelli’s efforts to secure investments in Musk-related projects appear to have been one of the key factors behind his falling out with Brookfield.
 
-![Elon Musk's Companies](https://upload.wikimedia.org/wikipedia/commons/4/47/SpaceX_Logo.svg)
+![Elon Musk's Companies](https://images.pexels.com/photos/30945293/pexels-photo-30945293/free-photo-of-scrabble-tiles-spelling-musk-on-wooden-surface.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)
 
 ---
 

@@ -30,8 +30,6 @@ The pricing for the web search API starts at $10 per 1,000 searches. This functi
 
 In related news, Anthropic is extending the web search feature to **Claude Code**, its tool for developers to leverage Claude for coding tasks. With web search enabled, Claude Code will be able to access current API documentation, technical articles, and other information about development tools and libraries.
 
-![Anthropic Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Anthropic_logo.svg/1200px-Anthropic_logo.svg.png)
-
 ---
 
 Claude Code remains in beta as a research preview.
