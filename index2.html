@@ -1,0 +1,130 @@
+---
+layout: default
+title: Scalable Engineering by RKoots
+permalink: /test
+description: "Engineering stories on scalable backend systems, cloud infrastructure, and AI in production. Built for tech leads, architects, and backend engineers."
+keywords: ["backend systems", "cloud architecture", "AI engineering", "tech blog", "scalable infrastructure", "rkoots"]
+---
+
+<style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+    .main-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 220px;
+      background: #2f4f4f;
+      color: white;
+      padding: 1rem;
+    }
+    .sidebar h2 {
+      font-size: 1.4rem;
+      margin-top: 0;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      margin: 0.8rem 0;
+    }
+    .sidebar ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .sidebar ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .content {
+      flex: 1;
+      padding: 2rem;
+      background: white;
+    }
+    .content h1 {
+      font-size: 2rem;
+      margin-top: 0;
+    }
+
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 1rem;
+      flex: 1;
+      min-width: 250px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+    .card a {
+      text-decoration: none;
+      color: #0066cc;
+    }
+
+    @media (max-width: 768px) {
+      .main-layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        text-align: center;
+      }
+      .content {
+        padding: 1rem;
+      }
+      .card-grid {
+        flex-direction: column;
+      }
+    }
+</style>
+
+
+
+<div class="main-layout">
+    <aside class="sidebar">
+        <h2>Learn</h2>
+        <ul>
+            <li><a href="/backend">Backend Engineering</a></li>
+            <li><a href="/system-design">System Design</a></li>
+            <li><a href="/cloud">Cloud Infrastructure</a></li>
+            <li><a href="/mlops">ML & AI Ops</a></li>
+            <li><a href="/devops">DevOps</a></li>
+        </ul>
+    </aside>
+
+    <main class="content">
+        <h1>Welcome to RKoots Learn</h1>
+        <p>A resource hub for engineers building reliable, scalable systems.</p>
+
+        <div class="card-grid">
+            <div class="card">
+                <h3><a href="/backend/intro">Intro to Backend Engineering</a></h3>
+                <p>Understand how backend systems power real-time applications and APIs.</p>
+            </div>
+            <div class="card">
+                <h3><a href="/system-design/cap-theorem">CAP Theorem Simplified</a></h3>
+                <p>What it really means to trade off between Consistency, Availability, and Partition Tolerance.</p>
+            </div>
+            <div class="card">
+                <h3><a href="/cloud/aws-vs-gcp">AWS vs GCP for Startups</a></h3>
+                <p>A practical guide on choosing the right cloud provider with cost and scaling in mind.</p>
+            </div>
+        </div>
+    </main>
+</div>
