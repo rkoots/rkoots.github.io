@@ -12,7 +12,7 @@ keywords: ["engineering insights", "leadership in tech", "product scaling", "sof
     In-depth perspectives on emerging technologies, strategic thinking, and key industry shifts shaping the future.
   </p>
 
-  {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
+  {% assign blog_posts = site.posts | where_exp: "post", "post.url contains '/insights/'" %}
   {% if blog_posts.size > 0 %}
   <div class="posts-grid">
     {% for post in blog_posts %}

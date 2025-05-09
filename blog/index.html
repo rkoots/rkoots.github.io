@@ -11,7 +11,7 @@ keywords: ["Tech blog", "Rajkumar Venkataraman", "rkoots blog", "engineering blo
     <p class="page-subtitle" style="text-align: center; font-style: italic; margin-top: -10px;">
         ✍️ Experiences, Experiments & Engineering - Articles straight from the trenches — covering real-world projects, lessons learned, and behind-the-scenes of building technology.
     </p>
-    {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
+    {% assign blog_posts = site.posts | where_exp: "post", "post.url contains '/blog/'" %}
     {% if blog_posts.size > 0 %}
     <div class="posts-grid">
         {% for post in blog_posts %}

@@ -13,7 +13,7 @@ keywords: ["developer guides", "engineering tutorials", "backend implementation"
     Clear, actionable walkthroughs and how-tos designed to help you master tools, platforms, and technical concepts.
   </p>
 
-  {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
+  {% assign blog_posts = site.posts | where_exp: "post", "post.url contains '/guide/'" %}
   {% if blog_posts.size > 0 %}
   <div class="posts-grid">
     {% for post in blog_posts %}

@@ -13,7 +13,7 @@ keywords: ["developer tools", "rkoots utilities", "engineering tools", "open-sou
         🛠️ Essential Tools & Resources for Developers - A handpicked collection of frameworks, libraries, platforms, and learning materials to streamline your workflow and expand your capabilities.
     </p>
 
-    {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
+    {% assign blog_posts = site.posts | where_exp: "post", "post.url contains '/tools/'" %}
     {% if blog_posts.size > 0 %}
     <div class="posts-grid">
         {% for post in blog_posts %}
