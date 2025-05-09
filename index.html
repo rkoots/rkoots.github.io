@@ -191,7 +191,8 @@ keywords: ["backend systems", "cloud architecture", "AI engineering", "tech blog
 
           <div class="container">
             <div class="row gy-4">
-
+              {% assign blog_posts = site.categories.blog | sort: "date" | reverse %}
+              {% if blog_posts.size > 0 %}
               {% assign svgs = "bi-pencil,bi-journal-text,bi-lightbulb,bi-globe,bi-cpu,bi-bug" | split: "," %}
               {% for post in blog_posts limit:6 %}
               <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.index0 | times: 100 }}">
@@ -211,7 +212,7 @@ keywords: ["backend systems", "cloud architecture", "AI engineering", "tech blog
                 </div>
               </div><!-- End Post Card -->
               {% endfor %}
-
+              {% endif %}
             </div>
           </div>
 
