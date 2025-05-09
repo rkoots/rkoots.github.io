@@ -15,12 +15,15 @@
 
 
     {% seo %}
-    {% assign site_keywords = site.seo.keywords | default: '' %}
-    {% assign page_keywords = page.keywords | default: '' %}
+    {% assign site_keywords = site.seo.keywords %}
+    {% assign page_keywords = page.keywords %}
+    {% assign site_keywords = site_keywords | default: "" | split: ", " %}
+    {% assign page_keywords = page_keywords | default: "" | split: ", " %}
     {% assign all_keywords = site_keywords | concat: page_keywords | uniq %}
-    {% if all_keywords %}
+    {% if all_keywords != empty %}
     <meta name="keywords" content="{{ all_keywords | join: ', ' }}">
     {% endif %}
+
 
 
     <!-- SEO & Structured Data -->
