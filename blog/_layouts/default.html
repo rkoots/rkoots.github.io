@@ -13,10 +13,15 @@
         gtag('config', 'G-CLY6CQ5DNK');
     </script>
 
+
     {% seo %}
-    {% if page.keywords %}
-    <meta name="keywords" content="{{ page.keywords | join: ', ' }}">
+    {% assign site_keywords = site.seo.keywords | default: '' %}
+    {% assign page_keywords = page.keywords | default: '' %}
+    {% assign all_keywords = site_keywords | concat: page_keywords | uniq %}
+    {% if all_keywords %}
+    <meta name="keywords" content="{{ all_keywords | join: ', ' }}">
     {% endif %}
+
 
     <!-- SEO & Structured Data -->
     <link rel="alternate" type="application/atom+xml" title="rkoots Feed" href="https://rkoots.github.io/blog/feed.xml">
