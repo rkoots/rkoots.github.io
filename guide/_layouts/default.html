@@ -9,12 +9,11 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
+
         gtag('config', 'G-CLY6CQ5DNK');
     </script>
 
     {% seo %}
-
-    <!-- Keywords Imports -->
     {% if page.keywords %}
     <meta name="keywords" content="{{ page.keywords | join: ', ' }}">
     {% endif %}
@@ -41,6 +40,7 @@
     <link rel="manifest" href="https://rkoots.github.io/blog/images/manifest.json">
     <meta name="theme-color" content="#ffffff">
 
+
     <!-- Chatbot -->
     <script src="https://app.livechatai.com/embed.js" data-id="cmab1hc9r0003ky0crgu3deor" async defer></script>
 
@@ -48,16 +48,26 @@
     <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
+    <!-- Optional Custom Scripts -->
+    <script>
+        document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+        setInterval(() => {
+          const themeBtn = document.getElementById('theme-button');
+          if (themeBtn) themeBtn.click();
+        }, 10000);
+    </script>
+
     <!-- Misc -->
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta http-equiv="cleartype" content="on">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="{{ 'blog/images/favicon.svg' | relative_url }}">
-    <link rel="manifest" href="{{ 'blog/images/manifest.json' | relative_url }}">
+    <link rel="icon" type="image/svg+xml" href="{{ '/images/favicon.svg' | relative_url }}">
+    <link rel="manifest" href="{{ '/images/manifest.json' | relative_url }}">
 
 </head>
+
 
 <body>
 <!-- Header -->
@@ -67,12 +77,12 @@
             <nav id="site-nav" class="greedy-nav">
                 <button><div class="navicon"></div></button>
                 <ul class="visible-links">
-                    <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="{{ '/blog/' | relative_url }}">Your Gateway to Tech Mastery</a></li>
+                    <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="{{ '/' | relative_url }}">Your Gateway to Tech Mastery</a></li>
                     <li class="masthead__menu-item"><a href="{{ '/technews/' | relative_url }}">Tech News</a></li>
-                    <li class="masthead__menu-item"><a href="{{ '/tools/' | relative_url }}">Tools & Resources</a></li>
-                    <li class="masthead__menu-item"><a href="{{ '/insights/' | relative_url }}">Insights</a></li>
-                    <li class="masthead__menu-item"><a href="{{ '/blog/article/' | relative_url }}">Tech Blog</a></li>
-                    <li class="masthead__menu-item"><a href="{{ '/guide/' | relative_url }}">Tech Guide</a></li>
+                    <li class="masthead__menu-item"><a href="{{ '/talks/' | relative_url }}">Tools & Resources</a></li>
+                    <li class="masthead__menu-item"><a href="{{ '/teaching/' | relative_url }}">Insights</a></li>
+                    <li class="masthead__menu-item"><a href="{{ '/year-archive/' | relative_url }}">Tech Blog</a></li>
+                    <li class="masthead__menu-item"><a href="{{ '/markdown/' | relative_url }}">Tech Guide</a></li>
                     <li class="masthead__menu-item"><a href="{{ '/cv/' | relative_url }}">CV / About Me</a></li>
                     <li id="theme-toggle" class="masthead__menu-item persist tail">
                         <a><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
@@ -90,30 +100,7 @@
 </main>
 
 <!-- Footer -->
-
-<section class="page__share text-center">
-    <h4 class="page__share-title">Share on</h4>
-    <a id="linkedin-share" class="btn btn--linkedin" title="Share on LinkedIn">
-        <i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span>
-    </a>
-    <a id="twitter-share" class="btn btn--x" title="Share on X">
-        <i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span>
-    </a>
-    <a id="facebook-share" class="btn btn--facebook" title="Share on Facebook">
-        <i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span>
-    </a>
-</section>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const pageUrl = encodeURIComponent(window.location.href);
-      document.getElementById("linkedin-share").href = `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}`;
-      document.getElementById("twitter-share").href = `https://x.com/intent/post?text=${pageUrl}`;
-      document.getElementById("facebook-share").href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
-    });
-</script>
-
 <div class="page__footer">
-
     <footer>
         <a href="{{ '/sitemap/' | relative_url }}">Sitemap</a>
         <div class="page__footer-follow">
