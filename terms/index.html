@@ -1,47 +1,12 @@
-<!doctype html>
-<html lang="en" class="no-js">
-<head>
-    <meta charset="utf-8">
-    <title>Terms and Privacy Policy - RKoots Educational Hub</title>
+---
+layout: default
+title: Terms & Conditions
+permalink: /terms/
+description: "Read the terms and conditions for accessing, using, and contributing to rkoots.github.io and its related content."
+keywords: ["terms of service", "rkoots terms", "site policy", "usage terms", "blog policy", "disclaimer", "user agreement"]
+---
 
-    <meta property="og:locale" content="en-US">
-    <meta property="og:site_name" content="RKoots Educational Hub">
-    <meta property="og:title" content="Terms and Privacy Policy">
-    <link rel="canonical" href="https://rkoots.github.io/blog/terms/">
-    <meta property="og:url" content="https://rkoots.github.io/blog/terms/">
 
-    <link href="https://rkoots.github.io/blog/feed.xml" type="application/atom+xml" rel="alternate" title="RKoots Educational Hub Feed">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
-    </script>
-    <link rel="stylesheet" href="https://rkoots.github.io/blog/assets/css/main.css">
-    <meta http-equiv="cleartype" content="on">
-</head>
-
-<body>
-<div class="masthead">
-    <div class="masthead__inner-wrap">
-        <div class="masthead__menu">
-            <nav id="site-nav" class="greedy-nav">
-                <button><div class="navicon"></div></button>
-                <ul class="visible-links">
-                    <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="https://rkoots.github.io/blog/">RKoots Educational Hub</a></li>
-                    <li class="masthead__menu-item"><a href="https://rkoots.github.io/blog/TechNews/">Tech News</a></li>
-                    <li class="masthead__menu-item"><a href="https://rkoots.github.io/blog/talks/">Tools & Resources</a></li>
-                    <li class="masthead__menu-item"><a href="https://rkoots.github.io/blog/teaching/">Insights</a></li>
-                    <li class="masthead__menu-item"><a href="https://rkoots.github.io/blog/article/">Tech Blog</a></li>
-                    <li class="masthead__menu-item"><a href="https://rkoots.github.io/blog/markdown/">Tech Guide</a></li>
-                    <li class="masthead__menu-item"><a href="https://rkoots.github.io/blog/cv/">CV / About Me</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</div>
-
-<div id="main" role="main">
     <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
         <meta itemprop="headline" content="Terms and Privacy Policy">
         <meta itemprop="dateModified" content="June 06, 2016">
@@ -97,46 +62,3 @@
             <footer class="page__meta"></footer>
         </div>
     </article>
-</div>
-
-
-<div class="page__footer text-center">
-
-    <footer>
-        <nav class="footer-nav">
-            <a href="/about/">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;
-            <a href="https://rkoots.github.io/#contact">Contact</a>&nbsp;&nbsp;&nbsp;|&nbsp;
-            <a href="/sitemap/">Sitemap</a>&nbsp;&nbsp;&nbsp;|&nbsp;
-            <a href="/projects/">Projects</a>&nbsp;&nbsp;&nbsp;|&nbsp;
-            <a href="/cv/">Portfolio</a>&nbsp;&nbsp;&nbsp;|&nbsp;
-            <a href="/terms/">Terms & Privacy Policy</a>
-        </nav>
-        <div class="page__footer-follow">
-            <ul class="social-icons">
-                <li><strong>Follow:</strong></li>
-                <li><a href="http://github.com/rkoots"><i class="fab fa-github"></i> GitHub</a></li>
-                <li><a href="https://www.linkedin.com/in/rkoots/"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-                <li><a href="{{ '/feed.xml' | relative_url }}"><i class="fa fa-fw fa-rss-square"></i> Feed</a></li>
-            </ul>
-        </div>
-        <div class="page__footer-copyright">
-            &copy; <span id="current-year"></span> Rajkumar Venkataraman, Powered by
-            <a href="https://rkoots.github.io/" rel="nofollow">rkoots</a> (aka)
-            <a href="https://github.com/rkoots/">RK</a>.<br />
-            Site last updated <span id="last-updated"></span>
-        </div>
-    </footer>
-</div>
-
-<!-- Scripts -->
-<script src="https://rkoots.github.io/assets/js/main.min.js"></script>
-<script>
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-    const lastUpdatedDate = new Date('2025-05-07');
-    const today = new Date();
-    const diffTime = Math.abs(today - lastUpdatedDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    document.getElementById('last-updated').textContent = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
-</script>
-</body>
-</html>
