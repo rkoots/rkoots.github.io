@@ -27,6 +27,11 @@ title: TechNews
     {% else %}
     <p>No blog posts found in the "blog" category.</p>
     {% endif %}
+
+    {% for collection in site.collections %}
+    <li>{{ collection.label }}</li>
+    {% endfor %}
+
 </section>
 
 <style>
