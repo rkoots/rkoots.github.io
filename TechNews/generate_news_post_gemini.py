@@ -21,7 +21,7 @@ You are a tech journalist writing for a Jekyll blog. Based write a clear and tre
 ---
 layout: default
 title: "<best sutaiable>"
-date: YYYY-MM-DD
+date: YYYY-MM-DD (must be todays date)
 categories: tech-news
 author: "GPT News Bot"
 tags: [Technology, AI, News]

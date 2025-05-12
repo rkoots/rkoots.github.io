@@ -20,7 +20,7 @@ You are a tech journalist writing for a Jekyll blog. Based write a clear and tre
 ---
 layout: default
 title: "<best sutaiable>"
-date: {{today}}
+date: {{today}} (must be todays date)
 categories: blog
 author: "rkoots Bot"
 tags: [<Create a list>]

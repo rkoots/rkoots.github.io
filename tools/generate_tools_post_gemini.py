@@ -20,7 +20,7 @@ You are a tech analyst writing for a Jekyll gadget of the day post. Based write 
 ---
 layout: default
 title: "<best sutaiable>"
-date: {{today}}
+date: {{today}} (must be todays date)
 categories: tool
 author: "rkoots research Bot"
 tags: [<relavent tag list>]
