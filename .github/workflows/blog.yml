@@ -1,8 +1,11 @@
-name: Blog Post - Generate
+name: News Post - Generate
 
 on:
+  #  push:
+  #    branches:
+  #      - main
   schedule:
-    - cron: '0 */12 * * *'  # Every 4 hours
+    - cron: '0 */4 * * *'  # Every 4 hours
   workflow_dispatch:  # Optional: allows manual trigger from GitHub UI
 
 jobs:
@@ -41,5 +44,5 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
           git add _posts/
-          git commit -m "Add blog post"
+          git commit -m "Add news post"
           git push https://${{ secrets.GITHUB_TOKEN }}@github.com/rkoots/rkoots.github.io.git HEAD:main
