@@ -14,7 +14,7 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 
 
 prompt = f"""
-You are a tech journalist writing for a Jekyll blog. Based on the following headline and link, write a clear and trending article in Markdown format with this exact front matter structure:
+You are a tech journalist writing for a Jekyll blog. Based write a clear and trending article in Markdown format with this exact front matter structure from the latest tech news of today:
 
 ---
 layout: default
@@ -28,9 +28,7 @@ keywords: [Tech News, AI, Startups, Innovation]
 
 ## <best attractive sutaiable title>
 
-Write a decent big tech news article summarizing or expanding on this topic.
-Be concise, informative, and objective.
-<Anything latest news from technology, IT , AI etc.>
+Write a decent big tech news article summarizing or expanding on this topic of today's trending news from technology, IT , AI, ML or gadgets with reference links also. Be concise, informative, and objective.
 """
 # Generate response
 response = model.generate_content(prompt)
