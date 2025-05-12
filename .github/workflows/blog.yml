@@ -21,7 +21,9 @@ jobs:
           python-version: '3.12'
           
       - name: Install Print
-        run: python -c "from datetime import datetime; print(datetime.now())"
+        run: |
+          cd ./blog 
+          python -c "from datetime import datetime; print(datetime.now())"
  
       # Install dependencies
       - name: Install dependencies
