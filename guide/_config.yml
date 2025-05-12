@@ -1,6 +1,6 @@
-permalink: /:categories/:year/:month/:day/:title/
+permalink: /:categories/:title/
 
 collections:
   technews:
     output: true
-    permalink: /guide/:year/:month/:day/:title/
+    permalink: /guide/:title/

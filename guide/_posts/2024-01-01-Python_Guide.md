@@ -8,6 +8,27 @@ tags: [python, programming, tutorial, beginners]
 keywords: [learn python, python tutorial, python certificate, python guide, python learning path]
 ---
 
+<style>
+  .floating-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #28a745;
+    color: white;
+    padding: 15px 30px;
+    font-size: 16px;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .floating-btn:hover {
+    background-color: #218838;
+  }
+</style>
+
 # 🚀 Master Python Programming and Get Certified!
 
 Want to showcase your Python skills to the world? Here's your chance to take the test, validate your expertise, and earn a certificate that boosts your credibility!
@@ -17,7 +38,7 @@ We offer various platforms to test your knowledge and earn a certificate that pr
 
 ---
 
-# Python Complete Learning Guide
+## Python Complete Learning Guide
 
 Welcome to your ultimate guide for mastering Python! Whether you're starting as a beginner or aiming to sharpen your skills, this tutorial covers everything you need to know about Python programming.
 
@@ -30,15 +51,15 @@ Python is a powerful and beginner-friendly programming language used in web deve
 ### 🔧 How to Start Learning Python
 
 1. **Install Python**
-    - Download the latest version from the official site: [Python Downloads](https://www.python.org/downloads/)
-    - Follow setup instructions for Windows, macOS, or Linux.
+   - Download the latest version from the official site: [Python Downloads](https://www.python.org/downloads/)
+   - Follow setup instructions for Windows, macOS, or Linux.
 
 2. **Choose an Editor**
-    - **Beginners**: [Thonny](https://thonny.org/), [Mu Editor](https://codewith.mu/)
-    - **Intermediate/Advanced**: [VS Code](https://code.visualstudio.com/), [PyCharm](https://www.jetbrains.com/pycharm/)
+   - **Beginners**: [Thonny](https://thonny.org/), [Mu Editor](https://codewith.mu/)
+   - **Intermediate/Advanced**: [VS Code](https://code.visualstudio.com/), [PyCharm](https://www.jetbrains.com/pycharm/)
 
 3. **Understand the Basics**
-    - Learn core concepts like Variables, Data Types, Operators, Control Flow (if-else, loops), Functions, and Classes.
+   - Learn core concepts like Variables, Data Types, Operators, Control Flow (if-else, loops), Functions, and Classes.
 
 ---
 
@@ -97,14 +118,15 @@ Python is a powerful and beginner-friendly programming language used in web deve
 
 ---
 
-## 🧪 Take Test & Get Certified
+## 🧪 Take Test & Get Certified with RKoots
 
-🎓 You can test your Python knowledge and earn certifications:
+Ready to prove your Python skills? Take the test now, and earn a **free certificate**! 🎓
 
-- [rkoots Certifications](./python_test)
-
-Take the test, validate your skills, and share your certification to enhance your career prospects!
+[**Take the Test & Get Certified with RKoots**](./python_exercise)
 
 ---
 
 **Happy Learning & Keep Coding! 💻🐍**
+
+<!-- Floating Button -->
+<a href="./python_exercise" class="floating-btn">Take the Test – Free Certificate!</a>
