@@ -29,7 +29,7 @@ keywords: [<Create a list>]
 
 ## <best attractive sutaiable title>
 
-Write a decent big tech topic article summarizing or expanding on this topic, more detailed technical specifications and details of today's trending topic from technology, AI, ML or gadgets with reference links also. Be concise, informative, and objective.
+Write a decent big tech topic article summarizing or expanding on this topic, more detailed technical specifications and details of today's trending topic from technology, AI, ML or gadgets with actual reference links of source for further references. Be concise, informative, and objective.
 """
 # Generate response
 response = model.generate_content(prompt)

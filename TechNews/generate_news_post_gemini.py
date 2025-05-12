@@ -30,7 +30,7 @@ keywords: [Tech News, AI, Startups, Innovation]
 
 ## <best attractive sutaiable title>
 
-Write a decent big tech news article summarizing or expanding on this topic of today's trending news from technology, IT , AI, ML or gadgets with reference links also. Be concise, informative, and objective.
+Write a decent big tech news article summarizing or expanding on this topic of today's trending news from technology, IT , AI, ML or gadgets with actual reference links of source for further references. Be concise, informative, and objective.
 """
 # Generate response
 response = model.generate_content(prompt)
