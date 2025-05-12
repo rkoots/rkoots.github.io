@@ -5,6 +5,23 @@ permalink: /
 description: "Engineering stories on scalable backend systems, cloud infrastructure, and AI in production. Built for tech leads, architects, and backend engineers."
 keywords: ["backend systems", "cloud architecture", "AI engineering", "tech blog", "scalable infrastructure", "rkoots"]
 ---
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // Collapse all
+        faqItems.forEach(i => {
+          i.classList.remove('faq-active');
+        });
+
+        // Expand clicked one
+        item.classList.toggle('faq-active');
+      });
+    });
+  });
+</script>
 
   <!-- Favicons -->
   <link href="https://rkoots.github.io/assets/img/favicon.png" rel="icon">
