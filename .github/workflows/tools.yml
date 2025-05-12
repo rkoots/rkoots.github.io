@@ -1,11 +1,11 @@
 name: Tools Post - Generate
 
 on:
-#  push:
-#    branches:
-#      - main
+  # push:
+  #   branches:
+  #     - main
   schedule:
-    - cron: '0 13 */2 * *'  # Every 4 hours
+    - cron: '0 13 */2 * *'  # Every 2 days at 13:00 UTC
   workflow_dispatch:  # Optional: allows manual trigger from GitHub UI
 
 jobs:
@@ -43,7 +43,6 @@ jobs:
           cd ./tools  
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
-         # git pull --rebase origin main  # ✅ This pulls latest commits safely
           git add _posts/
-          git commit -m "Add tool post"
+          git commit -m "Add tool post" || echo "No changes to commit"
           git push https://${{ secrets.GITHUB_TOKEN }}@github.com/rkoots/rkoots.github.io.git HEAD:main
