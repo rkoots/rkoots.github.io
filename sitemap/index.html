@@ -1,0 +1,19 @@
+---
+layout: default
+title: Sitemap
+permalink: /sitemap/
+description: "Find a complete index of all pages, blog posts, and resources on rkoots.github.io to help you navigate the site."
+keywords: ["site index", "sitemap", "navigation", "site structure", "rkoots.github.io pages", "all content", "browse site"]
+---
+
+
+
+<h1>Sitemap</h1>
+
+<ul>
+    {% for post in site.posts %}
+    <li>
+        <a href="{{ post.url }}">{{ post.title }}</a> - {{ post.date | date: "%B %d, %Y" }}
+    </li>
+    {% endfor %}
+</ul>

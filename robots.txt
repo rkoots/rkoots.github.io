@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rkoots.github.io/sitemap.xml

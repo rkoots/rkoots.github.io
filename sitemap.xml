@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <!-- Main Pages -->
+    <url>
+        <loc>https://rkoots.github.io/</loc>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/about/</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/contact/</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/cv/</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/resume/</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/projects/</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/terms/</loc>
+        <priority>0.4</priority>
+    </url>
+
+    <!-- Content Sections -->
+    <url>
+        <loc>https://rkoots.github.io/technews/</loc>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/tools/</loc>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/insights/</loc>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/blog/</loc>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/guide/</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Blog Posts -->
+    <url>
+        <loc>https://rkoots.github.io/blog/2025/05/08/Gemini_Stepping_Future.html</loc>
+        <lastmod>2025-05-08</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/blog/2025/04/25/Rise_of_quantum_compution.html</loc>
+        <lastmod>2025-04-25</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/blog/2025/04/18/AI_in_Healthcare.html</loc>
+        <lastmod>2025-04-18</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/blog/2025/04/10/Metaverse_internet_rise.html</loc>
+        <lastmod>2025-04-10</lastmod>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/blog/2025/04/01/5G_rev.html</loc>
+        <lastmod>2025-04-01</lastmod>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Feeds -->
+    <url>
+        <loc>https://rkoots.github.io/feed.xml</loc>
+        <priority>0.3</priority>
+    </url>
+
+</urlset>

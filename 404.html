@@ -1,0 +1,62 @@
+---
+layout: default
+title: "Page Not Found - 404"
+permalink: /404.html
+description: "Oops! The page you're looking for doesn’t exist. Explore other pages on rkoots.github.io – a blog and portfolio by Rajkumar Venkataraman."
+keywords: ["404 page", "page not found", "rkoots 404", "Rajkumar Venkataraman", "technical blog error", "broken link", "not found", "engineering blog"]
+---
+
+<style>
+  .not-found-container {
+    text-align: center;
+    padding: 5rem 1rem;
+  }
+  .not-found-svg {
+    max-width: 300px;
+    margin: 0 auto 2rem;
+  }
+  .not-found-svg path {
+    animation: blink 1.5s infinite;
+    transform-origin: center;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .not-found-links a {
+    display: inline-block;
+    margin: 1rem;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: #007acc;
+    color: white;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  .not-found-links a:hover {
+    background: #005fa3;
+  }
+</style>
+
+<div class="not-found-container">
+  <div class="not-found-svg">
+    <!-- Simple Animated Inline SVG -->
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="80" fill="#f2f2f2"/>
+      <path d="M70 80 Q100 50 130 80" stroke="#ff6f61" stroke-width="4" fill="none"/>
+      <circle cx="80" cy="110" r="5" fill="#333"/>
+      <circle cx="120" cy="110" r="5" fill="#333"/>
+      <path d="M80 140 Q100 160 120 140" stroke="#333" stroke-width="4" fill="none"/>
+    </svg>
+  </div>
+
+  <h1>Oops! Page Not Found (404)</h1>
+  <p>The page you're looking for doesn't exist or may have moved.</p>
+  <p>If you believe this is an error, <a href="mailto:rajkumarv88@outlook.com">drop me a note</a>.</p>
+
+  <div class="not-found-links">
+    <a href="/">Go Home</a>
+    <a href="/blog/">Visit Blog</a>
+    <a href="/projects/">See Projects</a>
+  </div>
+</div>

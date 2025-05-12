@@ -1,0 +1,6 @@
+permalink: /:categories/:year/:month/:day/:title/
+
+collections:
+  blog:
+    output: true
+    permalink: /blog/:year/:month/:day/:title/

@@ -1,0 +1,100 @@
+---
+layout: default
+title: Tech News
+permalink: /technews/
+description: "Curated technical news, industry trends, and major updates in the world of software development, AI, cloud, and fintech."
+keywords: ["tech news", "latest in engineering", "software trends", "fintech updates", "cloud news", "AI news", "GCP", "AWS", "DevOps tools", "backend development"]
+---
+
+
+<section class="blog-listing">
+    <h1 class="page-title">📚 What’s New around the World </h1>
+    <p class="page-subtitle" style="text-align: center; font-style: italic; margin-top: -10px;">
+        Stay Updated with the Latest in Tech - Curated news, breakthroughs, and updates from across the tech industry to keep you informed and ahead of the curve.
+    </p>
+
+    {% assign blog_posts = site.posts | where_exp: "post", "post.url contains '/technews/'" %}
+
+    {% if blog_posts.size > 0 %}
+    <div class="posts-grid">
+        {% for post in blog_posts %}
+        <article class="post-card">
+            <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+            <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
+            {% if post.excerpt %}
+            <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+            {% endif %}
+            <a class="read-more" href="{{ post.url | relative_url }}">Read more →</a>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No blog posts found in the "blog" category.</p>
+    {% endif %}
+
+</section>
+
+<style>
+    .blog-listing {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      font-size: 2.2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .posts-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .post-card {
+      border: 1px solid #eee;
+      padding: 1.2rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .post-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .post-card h2 {
+      margin: 0 0 0.3rem;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .post-card h2 a {
+      text-decoration: none;
+      color: #0056b3;
+    }
+
+    .post-meta {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .post-excerpt {
+      font-size: 1rem;
+      color: #444;
+      margin: 0.7rem 0;
+    }
+
+    .read-more {
+      font-weight: bold;
+      text-decoration: none;
+      color: #007acc;
+    }
+
+    .read-more:hover {
+      text-decoration: underline;
+    }
+</style>
