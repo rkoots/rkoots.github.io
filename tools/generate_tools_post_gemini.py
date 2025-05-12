@@ -15,12 +15,12 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 today = datetime.today().strftime("%Y-%m-%d")
 
 prompt = f"""
-You are a tech analyst writing for a Jekyll gadget of the day post. Based write a short brief of tool in Markdown format with this exact front matter structure from the latest tech tools of today:
+You are a tech analyst writing for a Jekyll gadget of the day post. Based write a short brief of tool in Markdown format with this exact front matter structure from the latest tech tools of {today}:
 
 ---
 layout: default
 title: "<best sutaiable>"
-date: {{today}} (must be todays date)
+date: {today} (must be todays date)
 categories: tool
 author: "rkoots research Bot"
 tags: [<relavent tag list>]
