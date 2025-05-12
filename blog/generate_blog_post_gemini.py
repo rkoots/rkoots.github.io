@@ -13,9 +13,9 @@ genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 today = datetime.today().strftime("%Y-%m-%d")
-print(today)
+
 prompt = f"""
-You are a tech journalist writing for a Jekyll blog. Based write a clear and trending article in Markdown format with this exact front matter structure from the latest tech innovative topic of today:
+You are a tech journalist writing for a Jekyll blog. Based write a clear and trending article in Markdown format with this exact front matter structure from the latest tech innovative topic of today({{today}}):
 
 ---
 layout: default
@@ -31,6 +31,8 @@ keywords: [<Create a list>]
 
 Write a decent big tech topic article summarizing or expanding on this topic, more detailed technical specifications and details of today's trending topic from technology, AI, ML or gadgets with actual reference links of source for further references. Be concise, informative, and objective.
 """
+
+print(prompt)
 # Generate response
 response = model.generate_content(prompt)
 print(response)
