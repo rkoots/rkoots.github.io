@@ -12,6 +12,7 @@ if not api_key:
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-1.5-flash")
 
+today = datetime.today().strftime("%Y-%m-%d")
 
 prompt = f"""
 You are a tech analyst writing for a Jekyll gadget of the day post. Based write a short brief of tool in Markdown format with this exact front matter structure from the latest tech tools of today:
@@ -19,7 +20,7 @@ You are a tech analyst writing for a Jekyll gadget of the day post. Based write 
 ---
 layout: default
 title: "<best sutaiable>"
-date: YYYY-MM-DD
+date: {{today}}
 categories: tool
 author: "rkoots research Bot"
 tags: [<relavent tag list>]
@@ -48,9 +49,7 @@ slug = re.sub(r'[^\w\s-]', '', title).strip().lower()
 slug = re.sub(r'[\s_]+', '-', slug)
 
 # Create filename using today's date
-today = datetime.today().strftime("%Y-%m-%d")
 filename = f"_posts/{today}-{slug}.md"
-
 
 # Save the output to a Markdown file
 os.makedirs("_posts", exist_ok=True)
