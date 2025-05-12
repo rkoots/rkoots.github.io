@@ -18,7 +18,7 @@ You are a tech journalist writing for a Jekyll blog. Based on the following head
 
 ---
 layout: default
-title: <best sutaiable>
+title: "<best sutaiable>"
 date: YYYY-MM-DD
 categories: tech-news
 author: "GPT News Bot"
