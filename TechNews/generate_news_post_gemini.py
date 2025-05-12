@@ -12,6 +12,7 @@ if not api_key:
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-1.5-flash")
 
+
 prompt = f"""
 You are a tech journalist writing for a Jekyll blog. Based on the following headline and link, write a clear and trending article in Markdown format with this exact front matter structure:
 
@@ -35,6 +36,22 @@ Be concise, informative, and objective.
 response = model.generate_content(prompt)
 print(response)
 markdown_output = response.text.strip()
+
+# Extract title from front matter
+title_match = re.search(r'title:\s*["\']?(.+?)["\']?\s*$', markdown_output, re.MULTILINE)
+if not title_match:
+    raise ValueError("Could not extract title from the markdown output.")
+
+title = title_match.group(1)
+
+# Create slug from title
+slug = re.sub(r'[^\w\s-]', '', title).strip().lower()
+slug = re.sub(r'[\s_]+', '-', slug)
+
+# Create filename using today's date
+today = datetime.today().strftime("%Y-%m-%d")
+filename = f"_posts/{today}-{slug}.md"
+
 
 # Save the output to a Markdown file
 os.makedirs("_posts", exist_ok=True)
