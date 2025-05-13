@@ -29,7 +29,7 @@ keywords: [<relavent keyword list>]
 
 ## <best attractive sutaiable title>
 
-Write about tools with about one tool of the day with link to the tool trending from technology, IT, AI, ML or gadgets (example : home.by.me, make.com, notion.com). Be concise, informative, and objective. In random design content format supported by MD file with details to links, how it works, documentation links, and reference also that we have online. 
+Write about tools with about one tool of the day with link to the tool trending from technology, IT, AI, ML or gadgets (example : home.by.me, make.com, notion.com). Be concise, informative, and objective (Random tool). In random design content format supported by MD file with details to links, how it works, documentation links, and reference also that we have online. 
 
 """
 # Generate response

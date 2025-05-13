@@ -16,7 +16,7 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 today = datetime.today().strftime("%Y-%m-%d")
 
 prompt = f"""
-You are a tech journalist writing for a Jekyll blog. Based write a clear and trending article in Markdown format with this exact front matter structure from the latest tech news of today({today}):
+You are a tech journalist writing for a Jekyll blog. Based write a clear and trending article (Random topic) in Markdown format with this exact front matter structure from the latest tech news of today({today}):
 
 ---
 layout: default
