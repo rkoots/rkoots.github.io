@@ -210,4 +210,4 @@ Pick your fighter wisely, and start coding your legacy! 🚀
 
 ---
 
-> 💡 *Got a favorite IDE we missed? Drop it in the comments or [contact me](https://rkoots.github.io/cv/#contact). Let’s keep the dev talk going!*
+> 💡 *Got a favorite IDE we missed? Drop it in the comments or [contact me](/cv/#contact). Let’s keep the dev talk going!*
