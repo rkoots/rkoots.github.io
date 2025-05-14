@@ -15,23 +15,67 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 
 today = datetime.today().strftime("%Y-%m-%d")
 
+RSS_FEEDS = [
+    "https://feeds.feedburner.com/TechCrunch/",
+    "https://www.theverge.com/rss/index.xml",
+    "https://www.wired.com/feed/rss",
+    "https://www.cnet.com/rss/all/",
+    "https://www.zdnet.com/news/rss.xml",
+    "https://arstechnica.com/feed/",
+    "https://www.engadget.com/rss.xml"
+]
+
+used_topics_file = "used_topics.json"
+if os.path.exists(used_topics_file):
+    with open(used_topics_file, "r") as f:
+        used_topics = json.load(f)
+else:
+    used_topics = []
+
+random.shuffle(RSS_FEEDS)
+topic = None
+
+
+
+for url in RSS_FEEDS:
+    feed = feedparser.parse(url)
+    entries = feed.entries
+    random.shuffle(entries)
+
+    for entry in entries:
+        title = entry.title.strip()
+        link = entry.link.strip()
+        if title not in used_topics:
+            topic = {"title": title, "link": link}
+            used_topics.append(title)
+            break
+    if topic:
+        break
+
+if not topic:
+    raise Exception("No new topics found in any feed.")
+
 prompt = f"""
-You are a tech journalist writing for a Jekyll blog. Based write a clear and trending article (Random topic) in Markdown format with this exact front matter structure from the latest tech news of today({today}):
+You are a tech journalist writing for a Jekyll blog. Write a trending blog post in Markdown format using the following front matter and tech topic from today ({today}).
+
+Topic: {topic['title']}
+Source: {topic['link']}
 
 ---
 layout: default
-title: "<best sutaiable>"
-date: {today} (must be todays date)
-categories: tech-news
-author: "GPT News Bot"
-tags: [Technology, AI, News]
-keywords: [Tech News, AI, Startups, Innovation]
+title: "{topic['title']}"
+date: {today}
+categories: blog
+author: "rkoots Bot"
+tags: [technology, innovation, AI]
+keywords: [tech, {topic['title']}, {today}]
 ---
 
-## <best attractive sutaiable title>
+## {topic['title']}
 
-Write a decent big tech news article summarizing or expanding on this topic of today's trending news from technology, IT , AI, ML or gadgets with actual reference links of source for further references. Be concise, informative, and objective.
+Write an informative and engaging article about the topic above. Include relevant technical details, implications, or industry impact. End with a link to the original source for reference.
 """
+
 # Generate response
 response = model.generate_content(prompt)
 print(response)
