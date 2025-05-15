@@ -1,0 +1,6 @@
+permalink: /:categories/:year/:month/:day/:title/
+
+collections:
+  styleguide:
+    output: true
+    permalink: /styleguide/:year/:month/:day/:title/
