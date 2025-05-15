@@ -1,7 +1,11 @@
 ---
 layout: default
 title: "Python Quiz - Get Your Certificate"
-permalink: /python-quiz/
+date: 2025-05-12
+categories: guide
+author: "RK"
+tags: [bootstrap, frontend, web development]
+keywords: [bootstrap 5, frontend tutorial, responsive design, CSS framework]
 ---
 
 # Python Quiz
