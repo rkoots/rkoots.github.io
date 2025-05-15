@@ -3,39 +3,79 @@ import re
 import feedparser
 from datetime import datetime
 import google.generativeai as genai
-# Configure Gemini
-api_key=os.getenv("GOOGLE_API_KEY")
+import random
 
+# --- CONFIGURATION ---
+
+# Setup Gemini
+api_key = os.getenv("GOOGLE_API_KEY")
 if not api_key:
     raise ValueError("API key is not set in the environment variables")
 
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-1.5-flash")
 
+# RSS feeds from 3 top tech sites
+rss_feeds = {
+    "TechCrunch": "https://techcrunch.com/feed/",
+    "The Verge": "https://www.theverge.com/rss/index.xml",
+    "Wired": "https://www.wired.com/feed/rss"
+}
+
+# --- FETCH AND SELECT ARTICLE ---
+
+# Parse all feeds and collect entries
+articles = []
+
+for source, url in rss_feeds.items():
+    feed = feedparser.parse(url)
+    for entry in feed.entries:
+        if "summary" in entry and "link" in entry:
+            articles.append({
+                "source": source,
+                "title": entry.title,
+                "link": entry.link,
+                "summary": re.sub('<[^<]+?>', '', entry.summary)  # Clean HTML tags
+            })
+
+# Ensure articles were fetched
+if not articles:
+    raise ValueError("No articles found from any RSS feed.")
+
+# Pick a random article
+article = random.choice(articles)
+
+# --- BUILD PROMPT ---
+
 today = datetime.today().strftime("%Y-%m-%d")
 
 prompt = f"""
-You are a tech journalist writing for a Jekyll blog. Based write a clear and trending article (Random topic) in Markdown format with this exact front matter structure from the latest tech innovative topic of today({today}):
+You are a tech journalist writing for a Jekyll blog. Based on the following tech blog summary from {article['source']}, write a clear and trending blog article in Markdown format with this exact front matter structure:
+
+blog Title: {article['title']}
+blog Summary: {article['summary']}
+Source: {article['link']}
 
 ---
+
 layout: default
-title: "<best sutaiable>"
-date: {today} (must be todays date)
+title: "{article['title']}"
+date: {today}
 categories: blog
-author: "rkoots Bot"
-tags: [<Create a list>]
-keywords: [<Create a list>]
+author: "blog Bot"
+tags: [technology, innovation, startup, AI]
+keywords: [tech, {article['title'].lower().replace(' ', '-')}, blog]
 ---
 
-## <best attractive sutaiable title>
+## {article['title']}
 
-Write a decent big tech topic article summarizing or expanding on this topic, more detailed technical specifications and details of today's trending topic from technology, AI, ML or gadgets with actual reference links of source for further references. Be concise, informative, and objective.
+Write a detailed blog post based on this blog topic. Include expanded technical details, relevance in the tech/startup/AI industry, and cite the original source ({article['link']}) at the end for reference.
 """
 
-print(prompt)
-# Generate response
+# --- GENERATE CONTENT ---
+
 response = model.generate_content(prompt)
-print(response)
+
 markdown_output = response.text.strip()
 
 # Extract title from front matter

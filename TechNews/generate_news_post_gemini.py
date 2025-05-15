@@ -3,82 +3,79 @@ import re
 import feedparser
 from datetime import datetime
 import google.generativeai as genai
-# Configure Gemini
-api_key=os.getenv("GOOGLE_API_KEY")
+import random
 
+# --- CONFIGURATION ---
+
+# Setup Gemini
+api_key = os.getenv("GOOGLE_API_KEY")
 if not api_key:
     raise ValueError("API key is not set in the environment variables")
 
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-1.5-flash")
 
+# RSS feeds from 3 top tech sites
+rss_feeds = {
+    "TechCrunch": "https://techcrunch.com/feed/",
+    "The Verge": "https://www.theverge.com/rss/index.xml",
+    "Wired": "https://www.wired.com/feed/rss"
+}
+
+# --- FETCH AND SELECT ARTICLE ---
+
+# Parse all feeds and collect entries
+articles = []
+
+for source, url in rss_feeds.items():
+    feed = feedparser.parse(url)
+    for entry in feed.entries:
+        if "summary" in entry and "link" in entry:
+            articles.append({
+                "source": source,
+                "title": entry.title,
+                "link": entry.link,
+                "summary": re.sub('<[^<]+?>', '', entry.summary)  # Clean HTML tags
+            })
+
+# Ensure articles were fetched
+if not articles:
+    raise ValueError("No articles found from any RSS feed.")
+
+# Pick a random article
+article = random.choice(articles)
+
+# --- BUILD PROMPT ---
 
 today = datetime.today().strftime("%Y-%m-%d")
 
-RSS_FEEDS = [
-    "https://feeds.feedburner.com/TechCrunch/",
-    "https://www.theverge.com/rss/index.xml",
-    "https://www.wired.com/feed/rss",
-    "https://www.cnet.com/rss/all/",
-    "https://www.zdnet.com/news/rss.xml",
-    "https://arstechnica.com/feed/",
-    "https://www.engadget.com/rss.xml"
-]
-
-used_topics_file = "used_topics.json"
-if os.path.exists(used_topics_file):
-    with open(used_topics_file, "r") as f:
-        used_topics = json.load(f)
-else:
-    used_topics = []
-
-random.shuffle(RSS_FEEDS)
-topic = None
-
-
-
-for url in RSS_FEEDS:
-    feed = feedparser.parse(url)
-    entries = feed.entries
-    random.shuffle(entries)
-
-    for entry in entries:
-        title = entry.title.strip()
-        link = entry.link.strip()
-        if title not in used_topics:
-            topic = {"title": title, "link": link}
-            used_topics.append(title)
-            break
-    if topic:
-        break
-
-if not topic:
-    raise Exception("No new topics found in any feed.")
-
 prompt = f"""
-You are a tech journalist writing for a Jekyll blog. Write a trending blog post in Markdown format using the following front matter and tech topic from today ({today}).
+You are a tech journalist writing for a Jekyll blog. Based on the following tech news summary from {article['source']}, write a clear and trending news article in Markdown format with this exact front matter structure:
 
-Topic: {topic['title']}
-Source: {topic['link']}
+News Title: {article['title']}
+News Summary: {article['summary']}
+Source: {article['link']}
 
 ---
+
 layout: default
-title: "{topic['title']}"
+title: "{article['title']}"
 date: {today}
-categories: blog
-author: "rkoots Bot"
-tags: [technology, innovation, AI]
-keywords: [tech, {topic['title']}, {today}]
+categories: news
+author: "news Bot"
+tags: [technology, innovation, startup, AI]
+keywords: [tech, {article['title'].lower().replace(' ', '-')}, news]
 ---
 
-## {topic['title']}
+## {article['title']}
 
-Write an informative and engaging article about the topic above. Include relevant technical details, implications, or industry impact. End with a link to the original source for reference.
+Write a detailed news post based on this news topic. Include expanded technical details, relevance in the tech/startup/AI industry, and cite the original source ({article['link']}) at the end for reference.
 """
 
-# Generate response
+# --- GENERATE CONTENT ---
+
 response = model.generate_content(prompt)
-print(response)
+
 markdown_output = response.text.strip()
 
 # Extract title from front matter
@@ -94,6 +91,7 @@ slug = re.sub(r'[\s_]+', '-', slug)
 
 # Create filename using today's date
 filename = f"_posts/{today}-{slug}.md"
+
 
 # Save the output to a Markdown file
 os.makedirs("_posts", exist_ok=True)
