@@ -4,3 +4,9 @@ collections:
   blog:
     output: true
     permalink: /blog/:year/:month/:day/:title/
+
+plugins:
+  - jekyll-feed
+
+feed:
+  path: feed.xml
