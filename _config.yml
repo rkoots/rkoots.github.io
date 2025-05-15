@@ -1,0 +1,12 @@
+title: rkoots TechGuide
+url: "https://rkoots.github.io"
+
+permalink: /:categories/:year/:month/:day/:title/
+
+plugins:
+  - jekyll-feed
+
+feed:
+  path: feed.xml
+  collections:
+    - posts
