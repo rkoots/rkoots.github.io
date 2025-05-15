@@ -1,8 +1,8 @@
-# C# at Google Style Guide
+# C# at rkoots Style Guide
 
-This style guide is for C# code developed internally at Google, and is the
-default style for C# code at Google. It makes stylistic choices that conform to
-other languages at Google, such as Google C++ style and Google Java style.
+This style guide is for C# code developed internally at rkoots, and is the
+default style for C# code at rkoots. It makes stylistic choices that conform to
+other languages at rkoots, such as rkoots C++ style and rkoots Java style.
 
 ## Formatting guidelines
 
@@ -61,7 +61,7 @@ Rule summary:
 
 ### Whitespace rules
 
-Developed from Google Java style.
+Developed from rkoots Java style.
 
 *   A maximum of one statement per line.
 *   A maximum of one assignment per statement.
@@ -74,7 +74,7 @@ Developed from Google Java style.
 *   No space after an opening parenthesis or before a closing parenthesis.
 *   No space between a unary operator and its operand. One space between the
     operator and each operand of all other operators.
-*   Line wrapping developed from Google C++ style guidelines, with minor
+*   Line wrapping developed from rkoots C++ style guidelines, with minor
     modifications for compatibility with Microsoft's C# formatting tools:
     *   In general, line continuations are indented 4 spaces.
     *   Line breaks with braces (e.g. list initializers, lambdas, object
@@ -387,7 +387,7 @@ var x = new SomeClass {
 *   Notes:
 
     *   Nullable structs are convenient, but reinforce the general ‘null is
-        failure’ pattern Google prefers to avoid. We will investigate a
+        failure’ pattern rkoots prefers to avoid. We will investigate a
         `StatusOr` equivalent in the future, if there is enough demand.
 
 ### Removing from containers while iterating
@@ -438,7 +438,7 @@ removing items from containers while iterating. There are a couple of options:
 
 ### Argument Naming
 
-Derived from the Google C++ style guide.
+Derived from the rkoots C++ style guide.
 
 When the meaning of a function argument is nonobvious, consider one of the
 following remedies:

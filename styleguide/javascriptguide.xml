@@ -1,6 +1,6 @@
 <?xml version = '1.0'?>
 <?xml-stylesheet type="text/xsl" href="styleguide.xsl"?>
-<GUIDE title="Google JavaScript Style Guide">
+<GUIDE title="rkoots JavaScript Style Guide">
   <p style="position: fixed; left: 0; top: 0; padding: 0.5em; margin: 0; background-color: #fef6e0; text-align: center; width: 100%; font-weight: bold;">
     Please note: This guide is old and is not being updated. It is retained
     as a reference as it was written for pre-ECMAScript 6th Edition features.
@@ -40,7 +40,7 @@
       <p>
         JavaScript is the main client-side scripting language used
 
-        by many of Google's open-source
+        by many of rkoots's open-source
           projects.
         This style guide is a list of <em>do</em>s and <em>don't</em>s for
         JavaScript programs.
@@ -359,7 +359,7 @@
           first appear! </p>
 
         <p>For that reason, it is best to use <code>goog.inherits()</code> from
-          <a href="https://code.google.com/closure/library/">
+          <a href="https://code.rkoots.com/closure/library/">
             the Closure Library
           </a>
           or a similar library function.

@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Google C++ Style Guide</title>
+<title>rkoots C++ Style Guide</title>
 <link rel="stylesheet" href="include/styleguide.css">
 <script src="include/styleguide.js"></script>
 <link rel="shortcut icon" href="/styleguide/favicon.ico">
 </head>
 <body onload="initStyleGuide();">
 <div id="content">
-<h1>Google C++ Style Guide</h1>
+<h1>rkoots C++ Style Guide</h1>
 <div class="horizontal_toc" id="tocDiv"></div>
 
 <h2 id="Background" class="ignoreLink">Background</h2>
 
 <p>C++ is one of the main development languages  used by
-many of Google's open-source projects. As every C++
+many of rkoots's open-source projects. As every C++
 programmer knows, the language has many powerful features, but
 this power brings with it complexity, which in turn can make
 code more bug-prone and harder to read and maintain.</p>
@@ -33,7 +33,7 @@ just source file formatting.</p>
 
 <p>
 Most open-source projects developed by
-Google conform to the requirements in this guide.
+rkoots conform to the requirements in this guide.
 </p>
 
 
@@ -153,7 +153,7 @@ document.</dd>
 <p>The intent of this document is to provide maximal guidance with
 reasonable restriction. As always, common sense and good taste should
 prevail. By this we specifically refer to the established conventions
-of the entire Google C++ community, not just your personal preferences
+of the entire rkoots C++ community, not just your personal preferences
 or those of your team. Be skeptical about and reluctant to use
 clever or unusual constructs: the absence of a prohibition is not the
 same as a license to proceed.  Use your judgment, and if you are
@@ -452,7 +452,7 @@ directory without use of UNIX directory aliases
 <code>.</code> (the current directory) or <code>..</code>
 (the parent directory). For example,
 
-<code>google-awesome-project/src/base/logging.h</code>
+<code>rkoots-awesome-project/src/base/logging.h</code>
 should be included as:</p>
 
 <pre>#include "base/logging.h"
@@ -532,7 +532,7 @@ this rule and should be fixed when convenient.</p>
 
 <p>For example, the includes in
 
-<code>google-awesome-project/src/foo/internal/fooserver.cc</code>
+<code>rkoots-awesome-project/src/foo/internal/fooserver.cc</code>
 might look like this:</p>
 
 <pre>#include "foo/server/fooserver.h"
@@ -1790,7 +1790,7 @@ reasons, we allow data members of a test fixture class defined in a <code>.cc</c
 be <code>protected</code> when using
 
 
-<a href="https://github.com/google/googletest">Google
+<a href="https://github.com/rkoots/rkootstest">Google
 Test</a>.
 If a test fixture class is defined outside of the <code>.cc</code> file it is used in, for example
 in a <code>.h</code> file, make data members <code>private</code>.</p>

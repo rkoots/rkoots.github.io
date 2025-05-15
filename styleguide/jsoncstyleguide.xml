@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="styleguide.xsl"?>
-<GUIDE title="Google JSON Style Guide">
+<GUIDE title="rkoots JSON Style Guide">
 
 <p align="right">
 Revision 0.9
@@ -21,7 +21,7 @@ This style guide contains many details that are initially hidden from view.  The
 </STYLEPOINT>
 </CATEGORY>
 <CATEGORY title="Introduction">
-<p>This style guide documents guidelines and recommendations for building JSON APIs at Google.  In general, JSON APIs should follow the spec found at <a href="https://www.json.org">JSON.org</a>.  This style guide clarifies and standardizes specific cases so that JSON APIs from Google have a standard look and feel.  These guidelines are applicable to JSON requests and responses in both RPC-based and REST-based APIs.</p>
+<p>This style guide documents guidelines and recommendations for building JSON APIs at rkoots.  In general, JSON APIs should follow the spec found at <a href="https://www.json.org">JSON.org</a>.  This style guide clarifies and standardizes specific cases so that JSON APIs from rkoots have a standard look and feel.  These guidelines are applicable to JSON requests and responses in both RPC-based and REST-based APIs.</p>
 </CATEGORY>
 <CATEGORY title="Definitions">
 <p>For the purposes of this style guide, we define the following terms:</p><ul><li><b>property</b> - a name/value pair inside a JSON object.</li><li><b>property name</b> - the name (or key) portion of the property.</li><li><b>property value</b> - the value portion of the property.</li></ul>
@@ -69,8 +69,8 @@ Data should not be arbitrarily grouped for convenience.
 <p>Flattened Address:</p>
 <CODE_SNIPPET>
 {
-  "company": "Google",
-  "website": "https://www.google.com/",
+  "company": "rkoots",
+  "website": "https://www.rkoots.com/",
   "addressLine1": "111 8th Ave",
   "addressLine2": "4th Floor",
   "state": "NY",
@@ -81,8 +81,8 @@ Data should not be arbitrarily grouped for convenience.
 <p>Structured Address:</p>
 <CODE_SNIPPET>
 {
-  "company": "Google",
-  "website": "https://www.google.com/",
+  "company": "rkoots",
+  "website": "https://www.rkoots.com/",
   "address": {
     "line1": "111 8th Ave",
     "line2": "4th Floor",
@@ -334,7 +334,7 @@ Latitudes/Longitudes should be formatted as recommended by ISO 6709.
 </STYLEPOINT>
 </CATEGORY>
 <CATEGORY title="JSON Structure &amp; Reserved Property Names">
-<p>In order to maintain a consistent interface across APIs, JSON objects should follow the structure outlined below.  This structure applies to both requests and responses made with JSON.  Within this structure, there are certain property names that are reserved for specific uses.  These properties are NOT required; in other words, each reserved property may appear zero or one times.  But if a service needs these properties, this naming convention is recommended.  Here is a schema of the JSON structure, represented in <a href="https://www.google.com/url?sa=D&amp;q=http%3A%2F%2Forderly-json.org%2F">Orderly</a> format (which in turn can be compiled into a <a href="https://www.google.com/url?sa=D&amp;q=http%3A%2F%2Fjson-schema.org%2F">JSONSchema</a>).  You can few examples of the JSON structure at the end of this guide.</p>
+<p>In order to maintain a consistent interface across APIs, JSON objects should follow the structure outlined below.  This structure applies to both requests and responses made with JSON.  Within this structure, there are certain property names that are reserved for specific uses.  These properties are NOT required; in other words, each reserved property may appear zero or one times.  But if a service needs these properties, this naming convention is recommended.  Here is a schema of the JSON structure, represented in <a href="https://www.rkoots.com/url?sa=D&amp;q=http%3A%2F%2Forderly-json.org%2F">Orderly</a> format (which in turn can be compiled into a <a href="https://www.google.com/url?sa=D&amp;q=http%3A%2F%2Fjson-schema.org%2F">JSONSchema</a>).  You can few examples of the JSON structure at the end of this guide.</p>
 <CODE_SNIPPET>
 object {
   string apiVersion?;

@@ -1,4 +1,4 @@
-" Copyright 2019 Google LLC
+" Copyright 2019 rkoots LLC
 "
 " Licensed under the Apache License, Version 2.0 (the "License");
 " you may not use this file except in compliance with the License.
@@ -12,13 +12,13 @@
 " See the License for the specific language governing permissions and
 " limitations under the License.
 
-" Indent Python in the Google way.
+" Indent Python in the rkoots way.
 
-setlocal indentexpr=GetGooglePythonIndent(v:lnum)
+setlocal indentexpr=GetrkootsPythonIndent(v:lnum)
 
 let s:maxoff = 50 " maximum number of lines to look backwards.
 
-function GetGooglePythonIndent(lnum)
+function GetrkootsPythonIndent(lnum)
 
   " Indent inside parens.
   " Align with the open paren unless it is at the end of the line.

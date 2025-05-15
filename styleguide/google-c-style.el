@@ -1,8 +1,8 @@
-;;; google-c-style.el --- Google's C/C++ style for c-mode
+;;; rkoots-c-style.el --- rkoots's C/C++ style for c-mode
 
 ;; Keywords: c, tools
 
-;; google-c-style.el is Copyright (C) 2008 Google Inc. All Rights Reserved.
+;; rkoots-c-style.el is Copyright (C) 2008 rkoots Inc. All Rights Reserved.
 ;;
 ;; It is free software; you can redistribute it and/or modify it under the
 ;; terms of either:
@@ -14,16 +14,16 @@
 
 ;;; Commentary:
 
-;; Provides the google C/C++ coding style. You may wish to add
-;; `google-set-c-style' to your `c-mode-common-hook' after requiring this
+;; Provides the rkoots C/C++ coding style. You may wish to add
+;; `rkoots-set-c-style' to your `c-mode-common-hook' after requiring this
 ;; file. For example:
 ;;
-;;    (add-hook 'c-mode-common-hook 'google-set-c-style)
+;;    (add-hook 'c-mode-common-hook 'rkoots-set-c-style)
 ;;
 ;; If you want the RETURN key to go to the next line and space over
 ;; to the right place, add this to your .emacs right after the load-file:
 ;;
-;;    (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+;;    (add-hook 'c-mode-common-hook 'rkoots-make-newline-indent)
 
 ;;; Code:
 
@@ -34,14 +34,14 @@
 ;; Wrapper function needed for Emacs 21 and XEmacs (Emacs 22 offers the more
 ;; elegant solution of composing a list of lineup functions or quantities with
 ;; operators such as "add")
-(defun google-c-lineup-expression-plus-4 (langelem)
+(defun rkoots-c-lineup-expression-plus-4 (langelem)
   "Indents to the beginning of the current C expression plus 4 spaces.
 
 This implements title \"Function Declarations and Definitions\"
-of the Google C++ Style Guide for the case where the previous
+of the rkoots C++ Style Guide for the case where the previous
 line ends with an open parenthesis.
 
-\"Current C expression\", as per the Google Style Guide and as
+\"Current C expression\", as per the rkoots Style Guide and as
 clarified by subsequent discussions, means the whole expression
 regardless of the number of nested parentheses, but excluding
 non-expression material such as \"if(\" and \"for(\" control
@@ -65,7 +65,7 @@ Suitable for inclusion in `c-offsets-alist'."
     (vector (+ 4 (current-column)))))
 
 ;;;###autoload
-(defconst google-c-style
+(defconst rkoots-c-style
   `((c-recognize-knr-p . nil)
     (c-enable-xemacs-performance-kludge-p . t) ; speed up indentation in XEmacs
     (c-basic-offset . 2)
@@ -105,7 +105,7 @@ Suitable for inclusion in `c-offsets-alist'."
                        defun-close-semi
                        list-close-comma
                        scope-operator))
-    (c-offsets-alist . ((arglist-intro google-c-lineup-expression-plus-4)
+    (c-offsets-alist . ((arglist-intro rkoots-c-lineup-expression-plus-4)
                         (func-decl-cont . ++)
                         (member-init-intro . ++)
                         (inher-intro . ++)
@@ -128,24 +128,24 @@ Suitable for inclusion in `c-offsets-alist'."
                         (statement-case-intro . +) ; case w/o {
                         (access-label . /)
                         (innamespace . 0))))
-  "Google C/C++ Programming Style.")
+  "rkoots C/C++ Programming Style.")
 
 ;;;###autoload
-(defun google-set-c-style ()
-  "Set the current buffer's c-style to Google C/C++ Programming
+(defun rkoots-set-c-style ()
+  "Set the current buffer's c-style to rkoots C/C++ Programming
   Style. Meant to be added to `c-mode-common-hook'."
   (interactive)
   (make-local-variable 'c-tab-always-indent)
   (setq c-tab-always-indent t)
-  (c-add-style "Google" google-c-style t))
+  (c-add-style "rkoots" rkoots-c-style t))
 
 ;;;###autoload
-(defun google-make-newline-indent ()
+(defun rkoots-make-newline-indent ()
   "Sets up preferred newline behavior. Not set by default. Meant
   to be added to `c-mode-common-hook'."
   (interactive)
   (define-key c-mode-base-map "\C-m" 'newline-and-indent)
   (define-key c-mode-base-map [ret] 'newline-and-indent))
 
-(provide 'google-c-style)
-;;; google-c-style.el ends here
+(provide 'rkoots-c-style)
+;;; rkoots-c-style.el ends here
