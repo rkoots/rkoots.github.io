@@ -10,3 +10,5 @@ plugins:
 
 feed:
   path: feed.xml
+  collections:
+    - posts
