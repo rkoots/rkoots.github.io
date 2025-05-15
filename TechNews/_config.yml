@@ -4,9 +4,3 @@ collections:
   technews:
     output: true
     permalink: /technews/:year/:month/:day/:title/
-
-plugins:
-  - jekyll-feed
-
-feed:
-  path: feed.xml
