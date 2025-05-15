@@ -1,18 +1,7 @@
----
-layout: default
-title: "Documentation Best Practices"
-date: 2025-05-12
-categories: guide
-author: "RK"
-description: "Practical guidelines for writing clear, concise, and maintainable documentation, emphasizing simplicity, continuous updates, and avoiding duplication."
-keywords: ["documentation best practices", "technical documentation", "writing documentation", "maintainable docs", "update docs with code", "delete dead documentation", "documentation guidelines", "agile documentation", "clear documentation", "docstring best practices", "documentation tips"]
-tags: ["documentation", "best-practices", "technical-writing", "code-docs", "agile", "documentation-guidelines", "writing-guidelines", "developer-docs", "content-authoring", "maintainability"]
----
-
 # Documentation Best Practices
 
 "Say what you mean, simply and directly." -
-
+[Brian Kernighan](https://en.wikipedia.org/wiki/The_Elements_of_Programming_Style)
 
 Contents:
 
