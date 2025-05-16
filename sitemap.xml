@@ -1,3 +1,8 @@
+---
+layout: null
+permalink: /sitemap.xml
+---
+
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <!-- Homepage -->
@@ -90,19 +95,99 @@
         <lastmod>2025-05-12</lastmod>
         <priority>0.70</priority>
     </url>
-
+    <!-- guide  Page -->
+    <url>
+        <loc>https://rkoots.github.io/styleguide/</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.70</priority>
+    </url>
     <!-- Robots.txt -->
     <url>
         <loc>https://rkoots.github.io/robots.txt</loc>
         <lastmod>2025-05-12</lastmod>
         <priority>0.30</priority>
     </url>
-
     <!-- Ads.txt -->
     <url>
         <loc>https://rkoots.github.io/ads.txt</loc>
         <lastmod>2025-05-12</lastmod>
         <priority>0.30</priority>
     </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/cppguide</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/csharp-style</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/Rguide</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/htmlcssguide</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/javaguide</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/jsguide</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/tsguide</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/xmlstyle</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/jsoncstyleguide.xml</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/objcguide</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/pyguide</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/shellguide</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/styleguide/angularjs-style</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+
+
+    {% assign all_posts = site.posts | sort: "date" | reverse %}
+    {% for post in all_posts %}
+        <url>
+            <loc>{{ site.url }}{{ post.url }}</loc>
+            <lastmod>{{ post.date | date_to_rfc822 }}</lastmod>
+            <priority>0.60</priority>
+        </url>
+    {% endfor %}
+
 
 </urlset>
