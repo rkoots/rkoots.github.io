@@ -1,13 +1,20 @@
----
-layout: default
-title: An AngularJS Style Guide
-permalink: /styleguide/angularjs-style/
-desc: ["Comprehensive AngularJS style guide", "Best practices for AngularJS coding", "AngularJS formatting standards", "JavaScript MVC structure tips", "Consistent AngularJS coding patterns"]
-keywords: ["AngularJS", "AngularJS style guide", "AngularJS best practices", "JavaScript MVC", "Angular coding standards", "AngularJS conventions", "Frontend development", "Angular architecture"]
----
 
-
-<h1 class="external">An AngularJS Style Guide</h1>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "https://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <script src="include/styleguide.js"></script>
+    <link href="/styleguide/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <script src="include/jsguide.js"></script>
+    <link rel="stylesheet" type="text/css" href="styleguide.css">
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <title>rkoots's AngularJS Style Guide</title>
+    <style type="text/css"><!--
+    th { background-color: #ddd; }
+    //--></style>
+</head>
+<body onload="initStyleGuide();">
+<h1 class="external">An AngularJS Style Guide for Closure Users at rkoots</h1>
 
 <h2 id="Background" class="ignoreLink">Background</h2>
 
@@ -123,7 +130,7 @@ goog.provide('hello.versions.Versions');
     onto the scope. This is fully implemented in Angular 1.2 and can be mimicked in pre-Angular 1.2
     builds.
 </p>
-{% raw %}
+
 <p>Pre Angular 1.2, this looks like:</p>
 <pre class="prettyprint lang-js">
 /**
@@ -155,17 +162,15 @@ hello.mainpage.HomeCtrl.prototype.add = function(a, b) {
   return a + b;
 };
 </pre>
-{% endraw %}
 
 <p>And the template:</p>
 
-{% raw %}
-<div ng-controller="hello.mainpage.HomeCtrl">
-    <span ng-class="homeCtrl.myColor">I'm in a color!</span>
-    <span>{{homeCtrl.add(5, 6)}}</span>
-</div>
-{% endraw %}
-
+<pre>
+&lt;div ng-controller="hello.mainpage.HomeCtrl"/&gt;
+  &lt;span ng-class="homeCtrl.myColor"&gt;I'm in a color!&lt;/span&gt;
+  &lt;span&gt;{{homeCtrl.add(5, 6)}}&lt;/span&gt;
+&lt;/div&gt;
+</pre>
 
 <p>After Angular 1.2, this looks like:</p>
 
@@ -200,14 +205,14 @@ hello.mainpage.HomeCtrl.prototype.add = function(a, b) {
     annotation. Remember to @export the constructor as well.</p>
 
 <p>And in the template:</p>
-{% raw %}
+
 <pre>
 &lt;div ng-controller="hello.mainpage.HomeCtrl as homeCtrl"/&gt;
   &lt;span ng-class="homeCtrl.myColor"&gt;I'm in a color!&lt;/span&gt;
   &lt;span&gt;{{homeCtrl.add(5, 6)}}&lt;/span&gt;
 &lt;/div&gt;
 </pre>
-{% endraw %}
+
 <p><b>Why?</b>
     Putting methods and properties directly onto the controller, instead of building up a scope
     object, fits better with the Google Closure class style. Additionally, using 'controller as'
@@ -355,5 +360,7 @@ my.app.MyCtrl = function($http, myService) {
         Meetup video</a> (not Google specific)</li>
 </ul>
 <address>
-    Last modified Feb 07 2025
+    Last modified Feb 07 2013
 </address>
+</body>
+<html>
