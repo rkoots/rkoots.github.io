@@ -951,14 +951,14 @@ Fundamental types (like pointers and <code>int</code>) are trivially
 destructible, as are arrays of trivially destructible types. Note that
 variables marked with <code>constexpr</code> are trivially destructible.</p>
 <pre>const int kNum = 10;  // Allowed
-
+{% raw %}
 struct X { int n; };
 const X kX[] = {{1}, {2}, {3}};  // Allowed
 
 void foo() {
   static const char* const kMessages[] = {"hello", "world"};  // Allowed
 }
-
+{% endraw %}
 // Allowed: constexpr guarantees trivial destructor.
 constexpr std::array&lt;int, 3&gt; kArray = {1, 2, 3};</pre>
 <pre class="badcode">// bad: non-trivial destructor

@@ -158,12 +158,13 @@ hello.mainpage.HomeCtrl.prototype.add = function(a, b) {
 
 <p>And the template:</p>
 
-<pre>
-&lt;div ng-controller="hello.mainpage.HomeCtrl"/&gt;
-  &lt;span ng-class="homeCtrl.myColor"&gt;I'm in a color!&lt;/span&gt;
-  &lt;span&gt;{{homeCtrl.add(5, 6)}}&lt;/span&gt;
-&lt;/div&gt;
-</pre>
+{% raw %}
+<div ng-controller="hello.mainpage.HomeCtrl">
+    <span ng-class="homeCtrl.myColor">I'm in a color!</span>
+    <span>{{homeCtrl.add(5, 6)}}</span>
+</div>
+{% endraw %}
+
 
 <p>After Angular 1.2, this looks like:</p>
 
