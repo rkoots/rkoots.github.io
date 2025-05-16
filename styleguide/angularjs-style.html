@@ -123,7 +123,7 @@ goog.provide('hello.versions.Versions');
     onto the scope. This is fully implemented in Angular 1.2 and can be mimicked in pre-Angular 1.2
     builds.
 </p>
-
+{% raw %}
 <p>Pre Angular 1.2, this looks like:</p>
 <pre class="prettyprint lang-js">
 /**
@@ -155,6 +155,7 @@ hello.mainpage.HomeCtrl.prototype.add = function(a, b) {
   return a + b;
 };
 </pre>
+{% endraw %}
 
 <p>And the template:</p>
 
@@ -199,14 +200,14 @@ hello.mainpage.HomeCtrl.prototype.add = function(a, b) {
     annotation. Remember to @export the constructor as well.</p>
 
 <p>And in the template:</p>
-
+{% raw %}
 <pre>
 &lt;div ng-controller="hello.mainpage.HomeCtrl as homeCtrl"/&gt;
   &lt;span ng-class="homeCtrl.myColor"&gt;I'm in a color!&lt;/span&gt;
   &lt;span&gt;{{homeCtrl.add(5, 6)}}&lt;/span&gt;
 &lt;/div&gt;
 </pre>
-
+{% endraw %}
 <p><b>Why?</b>
     Putting methods and properties directly onto the controller, instead of building up a scope
     object, fits better with the Google Closure class style. Additionally, using 'controller as'
