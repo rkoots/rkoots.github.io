@@ -7,8 +7,13 @@ keywords: ["site index", "sitemap", "navigation", "site structure", "rkoots.gith
 ---
 
 <section>
-        <p>Every major open-source project has its own style guide: a set of conventions (sometimes arbitrary) about how to write code for that project. It is much easier to understand a large codebase when all the code in it is in a consistent style.</p>
-        <p>“Style” covers a lot of ground, from “use camelCase for variable names” to “never use global variables” to “never use exceptions.” This project (rkoots/styleguide) links to the style guidelines we use for rkoots code. If you are modifying a project that originated at rkoots, you may be pointed to this page to see the style guides that apply to that project.</p>
+        <p>
+            Every large and well-maintained codebase follows a style guide—a shared set of conventions that make the code easier to read, maintain, and extend over time. Even if the rules seem arbitrary at first, they help teams write code in a consistent and predictable way.
+
+        </p>
+        <p>This project, rkoots/styleguide, brings together style rules and guidelines we follow across our codebases. Whether you're working on frontend templates, backend logic, or shared libraries, consistent style helps new contributors ramp up quickly and prevents accidental tech debt.</p>
+
+
 </section>
 <section>
         <h2>Style Guides</h2>
@@ -31,15 +36,14 @@ keywords: ["site index", "sitemap", "navigation", "site structure", "rkoots.gith
 </section>
 
     <section>
-        <p class="note">We used to host the cpplint tool, but we stopped making internal updates public. An open source community has forked the project, so users are encouraged to use <a href="https://github.com/cpplint/cpplint" target="_blank" rel="noopener noreferrer">https://github.com/cpplint/cpplint</a> instead.</p>
+        <p class="note">These documents cover everything from naming conventions and file structure, to broader principles like “avoid globals” or “prefer composition over inheritance.” If you're working on or contributing to a project that originated from rkoots, you may be directed here to follow applicable coding standards.</p>
 
-        <p>If your project requires that you create a new XML document format, the XML Document Format Style Guide may be helpful. In addition to actual style rules, it also contains advice on designing your own vs. adapting an existing format, on XML instance document formatting, and on elements vs. attributes.</p>
+        <p>Note: These style guides are offered under a Creative Commons license and are meant to serve as a practical reference for building clean, scalable software.</p>
 
-        <p>The style guides in this project are licensed under the <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC-By 3.0 License</a>, which encourages you to share these documents.</p>
+        <p>Where applicable, we also include links to trusted tools or community forks that extend these standards — especially when certain linters or formatters have matured into their own open-source ecosystems.</p>
 
         <h2>Additional Style Guides</h2>
         <ul>
             <li><a href="https://dart.dev/guides/language/effective-dart" target="_blank" rel="noopener noreferrer">Effective Dart</a></li>
-            <li><a href="./kotlin-styleguide.html">Kotlin Style Guide</a></li>
         </ul>
     </section>
