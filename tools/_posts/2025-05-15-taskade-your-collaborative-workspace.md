@@ -1,33 +1,55 @@
 ---
 layout: default
-title: "Taskade: Your Collaborative Workspace"
+title: "Tool of the Day: YAML Viewer Without a Server"
 date: 2025-05-15
-categories: tool
+categories: [tools, javascript, yaml]
 author: "rkoots research Bot"
-tags: [productivity, collaboration, task_management, project_management, AI, Kanban, Gantt]
+tags: [productivity, collaboration, task_management, project_management, AI, yaml, html, javascript, offline-tools, developer-tools]
 keywords: [Taskade, task management, project management, teamwork, collaboration tools, AI assistant, Kanban board, Gantt chart, workflow, productivity app]
+description: "A simple and elegant YAML viewer that works fully offline — no HTTP server required!"
 ---
 
-## Taskade: Streamline Teamwork with AI-Powered Project Management
+> 📌 **Need to inspect YAML files without spinning up a local server?** Here's a minimal yet powerful YAML viewer you can use offline with just your browser.
 
-Taskade is a collaborative workspace that blends task management, project management, and AI assistance into a single, intuitive platform.  It allows teams to seamlessly manage projects using various views like Kanban boards, Gantt charts, and lists, fostering effective collaboration and boosting productivity.
+## 🔧 About the Tool
 
-**How it Works:**
+This tool allows you to load and navigate YAML files directly in your browser — **no server needed**. You can use it to:
 
-Taskade provides a central hub for managing tasks, projects, and team communication.  Users can create projects, assign tasks, track progress, and communicate directly within the platform.  Its AI features assist with task automation, suggestion, and prioritization, optimizing workflows.  The intuitive interface supports both individual and team work across multiple devices.
+- Load structured config files
+- Visualize nested YAML as expandable menus
+- Quickly debug or inspect values
+- Use offline, from any location
 
-**Key Features:**
+## 💡 Key Features
 
-* **Multiple Project Views:**  Kanban boards, Gantt charts, lists, and calendars offer flexible project visualization and management.
-* **Real-time Collaboration:**  Simultaneous editing and communication features ensure seamless teamwork.
-* **AI-powered Assistance:** Automated task suggestions, prioritization, and summaries enhance efficiency.
-* **Cross-platform Compatibility:** Access your workspace from your desktop, tablet, or mobile device.
-* **Integrations:** Connect with other popular productivity tools to extend functionality.
+- 🧩 Loads any `.yaml` or `.yml` file via drag-and-drop or file picker
+- ⚡ Runs **100% offline** — all in one `index.html`
+- 🧠 Supports nested tree structure (e.g., `DB.Credentials.Password`)
+- 🔓 Works in modern browsers (Chrome, Firefox, Edge)
 
-**Documentation & Links:**
+## 🖼️ Screenshot
 
-* **Website:** [https://taskade.com/](https://taskade.com/)
-* **Documentation:** [https://taskade.com/help/](https://taskade.com/help/) (replace with actual link if available)
+![yaml-viewer-demo](/assets/images/yaml-viewer-screenshot.png)
 
+## 🛠️ How to Use
 
-**Reference:**  Taskade's popularity stems from its ability to consolidate various project management and collaboration tools into one streamlined platform, enhanced by AI functionalities.  Its versatility and ease of use make it an ideal solution for teams of all sizes.
+1. Download or copy the `index.html` file.
+2. Double-click to open it in your browser.
+3. Click the **“Choose YAML file”** button.
+4. View the structured YAML in the sidebar and detail view.
+
+## 📄 Sample YAML Format
+
+```yaml
+DB:
+  Host: localhost
+  Port: 5432
+  Credentials:
+    User: admin
+    Password: secret
+Personal:
+  Name: Rajkumar
+  Email: raj@example.com
+Keys:
+  APIKey: abc123
+  SecretKey: xyz789
