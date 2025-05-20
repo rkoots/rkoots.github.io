@@ -1347,3 +1347,10 @@ body.light-theme {
     padding-top: 2rem;
     border-top: 1px solid #ddd;
   }
+
+html {
+  font-size: 100%; /* Equals 16px on most browsers */
+}
+p {
+  font-size: 1rem; /* 16px */
+}
