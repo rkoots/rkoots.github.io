@@ -4,8 +4,6 @@ title: Blog
 permalink: /blog/
 description: "Read insightful articles, tutorials, and engineering stories covering software architecture, backend systems, cloud infrastructure, and more."
 keywords: ["Tech blog", "rkoots blog", "engineering blog", "backend tutorials", "fintech blog", "cloud engineering", "software design", "API development"]
-pagination:
-enabled: true
 ---
 
 <section class="blog-listing">
@@ -33,4 +31,66 @@ enabled: true
 </section>
 
 <style>
+    .blog-listing {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      font-size: 2.2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .posts-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .post-card {
+      border: 1px solid #eee;
+      padding: 1.2rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .post-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .post-card h2 {
+      margin: 0 0 0.3rem;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .post-card h2 a {
+      text-decoration: none;
+      color: #0056b3;
+    }
+
+    .post-meta {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .post-excerpt {
+      font-size: 1rem;
+      color: #444;
+      margin: 0.7rem 0;
+    }
+
+    .read-more {
+      font-weight: bold;
+      text-decoration: none;
+      color: #007acc;
+    }
+
+    .read-more:hover {
+      text-decoration: underline;
+    }
 </style>
