@@ -2,21 +2,21 @@
 layout: default
 title: Blog
 permalink: /blog/
-pagination:
-enabled: true
 description: "Read insightful articles, tutorials, and engineering stories covering software architecture, backend systems, cloud infrastructure, and more."
 keywords: ["Tech blog", "rkoots blog", "engineering blog", "backend tutorials", "fintech blog", "cloud engineering", "software design", "API development"]
+pagination:
+enabled: true
 ---
 
 <section class="blog-listing">
-    <h1 class="page-title">📚 The Blog Shelf</h1>
+    <h1 class="page-title">📚 The Blog Shelf </h1>
     <p class="page-subtitle" style="text-align: center; font-style: italic; margin-top: -10px;">
         ✍️ Experiences, Experiments & Engineering - Articles straight from the trenches — covering real-world projects, lessons learned, and behind-the-scenes of building technology.
     </p>
-
-    {% if paginator.posts %}
+    {% assign blog_posts = site.posts | where_exp: "post", "post.url contains '/blog/'" %}
+    {% if blog_posts.size > 0 %}
     <div class="posts-grid">
-        {% for post in paginator.posts %}
+        {% for post in blog_posts %}
         <article class="post-card">
             <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
             <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
@@ -27,18 +27,10 @@ keywords: ["Tech blog", "rkoots blog", "engineering blog", "backend tutorials", 
         </article>
         {% endfor %}
     </div>
-
-    <!-- Pagination Links -->
-    <div class="pagination-nav">
-        {% if paginator.previous_page %}
-        <a class="prev" href="{{ paginator.previous_page_path | relative_url }}">← Previous</a>
-        {% endif %}
-
-        {% if paginator.next_page %}
-        <a class="next" href="{{ paginator.next_page_path | relative_url }}">Next →</a>
-        {% endif %}
-    </div>
     {% else %}
-    <p>No blog posts found.</p>
+    <p>No blog posts found in the "blog" category.</p>
     {% endif %}
 </section>
+
+<style>
+</style>

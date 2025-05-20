@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "'Fortnite' Players Are Already Making AI Darth Vader Swear"
+title: "'Fortnite Players Are Already Making AI Darth Vader Swear"
 date: 2025-05-19
 categories: blog
 author: "blog Bot"
 tags: [technology, innovation, startup, AI]
-keywords: [tech, 'fortnite'-players-are-already-making-ai-darth-vader-swear, blog]
+keywords: [tech, fortnite,players-are-already-making-ai-darth-vader-swear, blog]
 ---
 
 ## 'Fortnite' Players Are Already Making AI Darth Vader Swear
