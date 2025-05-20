@@ -5,7 +5,7 @@ date: 2025-05-20
 categories: blog
 author: "blog Bot"
 tags: [technology, innovation, startup, AI]
-keywords: [tech, polestar-4-2025-review:-prices,-specs,-availability, blog]
+keywords: [tech, polestar-4-2025-review,prices,specs,availability, blog]
 ---
 
 ## Polestar 4 2025 Review: Prices, Specs, Availability
