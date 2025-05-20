@@ -198,7 +198,7 @@
     const today = new Date();
     const diffTime = Math.abs(today - lastUpdatedDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    document.getElementById('last-updated').textContent = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+    document.getElementById('last-updated').textContent = ` yesterday`;
 </script>
 </body>
 </html>
