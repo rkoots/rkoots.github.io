@@ -10,6 +10,13 @@ keywords: "AI, Healthcare, Patient Care, Medical Technology, Innovation"
 
 ## Tools and Resources
 
+
+# 🧠 AI Tools & Developer Resources Directory
+
+Welcome to the ultimate AI & DevTools resource list! Here you'll find hundreds of useful websites and tools to enhance productivity, automate tasks, generate content, build websites, create visuals, and much more.
+
+> 🔗 **Note**: Some tools may require free signup. Explore wisely!
+
 **Certificate:**
 * [The Forage](https://www.theforage.com/): Provides virtual work experience programs and company-backed micro-internships to help you explore different career paths and gain practical skills.
 
@@ -199,3 +206,372 @@ keywords: "AI, Healthcare, Patient Care, Medical Technology, Innovation"
 * 3- free programming books: Refers to websites or lists offering free programming books and resources.
 * Scribe ([scribehow.com](https://scribehow.com/)): A tool for automatically creating step-by-step guides and documentation.
 * [Borehumans.com](https://borehumans.com/): A website offering AI-generated content for various purposes.
+
+
+## 🎓 AI Learning, Summarizing, and Studying Tools
+- **Chatedu AI Study Tool** - `chatedu.io`
+- **Hacksplaining** - Learn about web security interactively.
+- **Runway.ml** - AI video and text generation.
+- **ChatWithPDF**, **LightPDF**, **Tldv.io** - AI tools for working with documents and meetings.
+- **Perplexity**, **Talk2Books**, **FlowGPT** - ChatGPT-enhanced research and prompt libraries.
+
+## 🧰 Developer Resources & Repositories
+- [PKScreener Bot](https://github.com/pkjmesra/PKScreener/blob/main/pkscreener/pkscreenerbot.py)
+- [Developer Portfolios](https://github.com/emmabostian/developer-portfolios)
+- [Python Mini Projects](https://github.com/python-mini-project)
+- GitHub profiles:
+  - https://github.com/jayantverma2809
+  - https://github.com/Hareem-Gohar
+  - https://github.com/DinankSoni
+  - https://github.com/Xensen008
+  - https://github.com/bhavsarhem
+  - https://github.com/2003harsh
+  - https://github.com/s2sofficial
+  - https://github.com/TechMaxTro
+
+## 🧪 AI Utilities & No-Code Builders
+- **Bardeen.ai** - Automate manual work with no code.
+- **Momen.app** - Build apps with drag-and-drop.
+- **Pop AI** - Create CVs, essays, presentations.
+- **Chatsimple.ai** - Train your own chatbot in 5 minutes.
+- **Pixpic AI** - Portrait and headshot generator.
+- **Numerous AI** - Excel and Sheets automation.
+- **Bookwiz** - AI book editor and seller.
+- **Vidnoz AI**, **Flexclip** - AI video generators.
+
+## 🎨 Design, Image, and Animation Tools
+- **Patterned.ai**, **StockIMG**, **Illustroke** - Generate patterns, stock images, illustrations.
+- **SketchWow AI**, **Sketch to Animation Maker**, **Mojo Logo Animator**
+- **Recraft.ai**, **Designify**, **Erase.bg**, **Dzine AI**
+- **Free Ad Copy**, **Clipdrop.co**, **Mazwai.com**, **pfpmaker.com**
+- **Vertex 3D Icons**, **Jitter.io**, **Flair.ai**
+
+## 💬 Content & Copywriting Tools
+- **Copy.ai**, **Jasper.ai**, **Peppertype**, **Writesonic**
+- **Dotcomkings**, **Startmybusiness**, **Adcreative.ai**
+- **Storylab**, **Neural Text**, **LongShot AI**, **INK for All**
+
+## 📊 Analytics, SEO, and Marketing
+- **Flowpoint**, **Quills AI**, **Consensus**, **Calculus IQ**
+- **SmartBird**, **OptinMagic**, **Aiter.io**, **Cuppa**
+- **SalesBoom.AI**, **MailMaestro**, **Pareto AI**, **Remail**
+
+## 🌐 Website Builders & Hosting
+- **Websim.ai**, **URL to Website Maker**, **AI Web Designer**
+- **Bubble.io**, **Websim**, **Explorer.globe.engineer**
+- **Beautiful.ai**, **Studio.polotno.com**, **edraw.ai**
+
+## 💼 Remote Work Job Boards
+- [GoTranscript](https://gotranscript.com)
+- [Rev](https://rev.com)
+- [Upwork](https://upwork.com)
+- [NoDesk](https://nodesk.co)
+- [Remote OK](https://remoteok.com)
+- [Himalayas](https://himalayas.app)
+- [WeWorkRemotely](https://weworkremotely.com)
+
+## 🔍 Cheatsheets & Reference Guides
+- [Cheatography](https://cheatography.com/)
+- [QuickRef](https://quickref.me/)
+- [OverAPI](https://overapi.com/)
+
+## 📦 Miscellaneous
+- [Mindluster](https://mindluster.com) - Free certifications
+- [Toolify](https://toolify.ai) - AI tools directory
+- [Fakespot](https://fakespot.com) - Fake review checker
+- [Dev.to Free Tools](https://dev.to/crafting-code/150-free-resources-every-developer-needs-to-know-21l3)
+
+
+# 🧰 AI Tools & Developer Resources Directory
+
+Explore free and powerful AI tools, automation platforms, developer utilities, and design aids.
+
+## 🎨 Design & Animation Tools
+
+- Mojo App AI Logo Animator
+- SketchWow AI
+- [Illustroke](https://www.illustroke.com)
+- [Patterned](https://www.patterned.ai)
+- [Flexclip](https://flexclip.com)
+- [Vidnoz AI](https://vidnoz.com)
+
+## 🤖 AI Tools
+
+- [Writesonic](https://writesonic.com)
+- [Runway.ml](https://runwayml.com)
+- [FlowGPT](https://flowgpt.com)
+- [Gemini Bard](Google's AI writer)
+- [Tugan AI](Transform content with AI)
+- [Undetectable AI](Authentic AI content detection)
+
+## 🧠 Productivity & Automation
+
+- [Bardeen AI](https://bardeen.ai)
+- [Chatsimple](https://chatsimple.ai)
+- [Zapier AI](https://zapier.com)
+- Motion – AI scheduling
+- InboxPro – Gmail AI
+
+## 📊 Analytics & SEO
+
+- [INK For All](https://inkforall.com)
+- Flowpoint
+- Quills AI
+- ChartPixel
+- Consensus
+
+## 🎥 Video & Audio Tools
+
+- Synthesia
+- Heygen
+- Lovo AI
+- Docus AI
+- Eleven Labs – Voice Cloning
+
+1. Perplexity - Al Research Companion
+2. Eightify - Youtube summaries with ChatGPT
+3. Opus pro - Viral Short-form Videos with Al
+4. Writesonic - Write 10x faster Using Al
+5. Decktopus - Al Presentations Builder
+6. Tldv io - Al Meeting Summaries
+7. Usestyle ai - Al Website Builder
+8. Stockimg ai - Al Stock Images
+9. DallE-3 - Al Image Generator
+12. Talkflow ai - Al Business assistant
+13. Kickresume com - Al Resume Builder
+14. Finchat io - ChatGPT for Finance
+15. Lightpdf - Chat with any PDF
+16. Rows - Create spreadsheets
+17. Vidiq - YouTube marketer
+20. FlowGPT - Find & use the best prompts
+## 💼 Job Boards & Freelance Platforms
+
+- [FlexJobs](https://flexjobs.com)
+- [RemoteHunt](https://remotehunt.com)
+- [WorkingNomads](https://workingnomads.com)
+- [JustRemote](https://justremote.co)
+
+
+> 💡 Have a tool to suggest or found a broken link? Open a pull request or contact us!
+
+
+scrambli.io
+contentidea.io
+pixelhunter.io
+vertex 3d icon
+web.archive.org
+rosebud.ai
+paperanimator
+hunyuan-3d.com
+
+
+Real Work From Anywhere Job Listing
+Adorilabs Article To Video Maker
+Synthesis Talking AI Avatar Maker
+Napkin AI Text To Infographic Maker
+Websim URL To Website Maker
+Playground Image Editor
+Sketch To Animation Maker
+Mojo App AI Logo Animator
+Dzine AI
+Free Ad Copy
+SketchWow AI,
+https://browsercopilot.ai/
+http://mapify.so/
+https://www.mymap.ai/signup
+https://mindmapdesign.com/
+explorer.globe.engineer
+graphy.app
+firefiles.ai
+-https://www.buymeacoffee.com/codewithmuhilan/e/241984
+https://buymeacoffee.com/codewithmuhilan/e/257917
+Websites you can explore for this:
+1. GoTranscript
+2. Rev.com
+3. SpeechPad
+4. QA World
+5. TranscribeMe
+6. Upwork
+1. Doratoon
+2. QR Code Chimp Business Card
+3. Trendhunter
+   copy.ai
+3. 10minutemail
+2. Mazwai.com
+   kapwing
+   texti.app
+5. Neural Text- Automate your content operations with this all in one content marketing platform. It helps with content research: keyword identification, topic research and outlining of blogs.
+   labs.openai.com
+   levels.fyi
+   Website name - http://futurepedia.io
+   zorp.one
+4. INK For All – Best For SEO
+   jiotvlive.
+   bigspeak ai
+   rpcs3 - run game  "donwload gpw"
+   Use it for free now on VScode and better than github copilot:
+1) go to VScode
+2) install the blackbox extension
+3) type: //
+4) type your question and specify the language
+5) dont forget the “?“
+6) press Tab to take the answer
+   Clipdrop.co
+   www.theresanaiforthat.com
+   Meet Glimpse
+   F6S
+   Website Link - https://www.fakespot.com
+   freesoft.com
+1. Flair - www.flair.ai
+   This is a next-level tool for #productphotography .. as it helps you add any kind of environment in your photos to give your product the asthetic it deserves
+3. StockIMG - www.stockimg.ai
+   We know how much we use stock images when it comrs to designing anything related to a brand, be it #socialmedia post or product #packaging .. we need #stockphotos .. and for that, this tool is best. It creates image based on what you're looking for, so no hassle in finding that one perfect image in the plethora of online database of images. Just create it!
+1. Momen
+   Create Web Apps with ZERO Coding.
+   Design, Develop, and Scale Your Apps Easily.
+   Craft your app from frontend to backend with a simple drag-and-drop editor.
+   🔗 momen.app
+2. Pop Ai
+   Your Personal AI Workspace
+   You can:
+- Create presentations
+- Craft CVs and resumes
+- Write academic essays
+- Design flowcharts
+- Write blogs
+- Debug code, and much more.
+  🔗 shorturl.at/oAC29
+3. Pixpic AI
+   An AI-powered portrait generator app.
+   With pixpic you can:
+- Generate professional headshots
+- Create a wide variety of portrait styles
+- Produce ID photos and
+  🔗 bit.ly/3UR96T0
+4. Numerous AI
+   AI assistant to breeze through busywork in
+   Excel and Google Sheets.
+   It can:
+- Generate formulas
+- Write and rewrite text in batches
+- Reformat and clean data
+- Classify items
+- And lots more
+  🔗 numerous.ai
+  Build AI automation (for almost any use) without any code in minutes.
+  Or automate manual work with one click.
+- Write emails, tweets, and blogs.
+- Website scraper.
+- Anything you can think of.
+7. Human Generator
+   Generate hyperrealistic full-body photos of people instantly.
+   Get the perfect photo in just a few clicks.
+   🔗 generated.photos/human-generater
+8. Bookwiz - an AI Book Editor
+   Now you can write and sell books online in just a week with the help of AI.
+   Bookwiz simplifies the writing and editing process.
+   🔗 bookwiz.io/a/log
+
+Rask AI → Video AI.
+InboxPro → Gmail AI.
+Aragon → AI headshots.
+Motion → AI scheduling.
+Guidde → AI for training.
+Zapier AI → Automation.
+Midjourney → AI for images.
+Tubebuddy →AI for YouTube.
+Beautiful AI →Presentations.
+Eleven Labs → Voice Cloning.
+Adcreative AI → Instant ad AI.
+SmartBird → For Easy writing.
+Taplio → AI LinkedIn branding.
+QuillBot → AI for Summarizing.
+Beautiful ai → AI presentations.
+Gemini Bard → Google's AI writer.
+TalkEze → Simple Speaker Note.
+MeetGeek → AI Meeting Assistant.
+Tugan AI → Transform content with AI.
+Undetectable AI → Authentic AI content.
+Here are the Prompts 👇
+1. Blue Ocean Strategy
+   Prompt: "ChatGPT, how can I identify and exploit a Blue Ocean in [Your Industry] by offering something unique?"
+2. Moat analysis
+   Prompt: "ChatGPT, help me outline a moat for my [Product/Service] that will fend off competitors by focusing on [Unique Value Proposition]."
+3. SWOT analysis
+   Prompt: "ChatGPT, conduct a SWOT analysis for [Your Business/Project] to identify areas of growth and improvement."
+4. The Eisenhower Matrix
+   Prompt: "ChatGPT, help me organize my tasks using the Eisenhower Matrix for [Today/This Week] to maximize output."
+5. Porter's five forces
+   Prompt: "ChatGPT, analyze [Your Industry] using Porter's Five Forces to uncover strategic positions."
+6. Jobs-to-be-done
+   Prompt: "ChatGPT, help me identify the core jobs-to-be-done for [Target Audience] in [Your Industry]."
+7. Product by Martket fit
+   Prompt: "ChatGPT, what steps can I take to achieve a tighter product-market fit for [Your Product]?"
+   iphone ace app
+   AI-ML Repo
+   Allgame : flgirl-repack.site
+   https://dev.to/crafting-code/150-free-resources-every-developer-needs-to-know-21l3
+   https://dev.to/crafting-code/150-free-resources-every-developer-needs-to-know-21l3
+   shards.ai shadcn/ui
+   new AI assistant, Postbot, is here to help you developer and manage your APIs! 👨‍🚀
+   Postman Flows enables us to create custom workflows to test data pipelines and automations. 🤖
+   Tool: GptBoss
+   aixploria.com
+   wepik
+   facechecker.id
+   bubble.io
+   https://sketch.metademolab.com/
+   Createtopay
+   designify.
+   igram.io
+   bit.ly/aadharchecknow
+   ewasion github.io
+   paint.toys
+   Visualgo.net
+   Website: https://www.codingame.com/start/
+   jitter
+1. Sapiens
+2. Loomies
+3. Lucasz Adam
+4. 3Dicons
+   listmyai.net
+   mdfaizan973
+   Https://www.github.com/kiniv-21
+   github.com/ma748
+   SatishK2022
+   https://github.com/DeviPrasadKL
+   https://github.com/rohitsinghkcodes
+   builder.ai/appbuilder
+   prometai.app
+   namelix.com
+   Shodan is a search engine for internet-connected devices, providing information about their
+   https://www.visme.co/templates/forms-surveys/contact-forms/
+   phind
+   github.com/python-mini-project
+   chat.jointechmart.com
+   Facebook Pixel tracking snippet - Loads the Facebook Pixel script (fbevents.js)
+   yahoo tracking s.yimg.com
+   yahoo analytics
+   google analytics
+   google tag manager
+   Google (DoubleClick/Google Ads) service snippet - google ads
+   sharpen.design
+   📊 Analytics: Flowpoint, Quills AI, Calculus IQ, ChartPixel, Consensus
+   🤖 Automation: B12 No-code AI, DeepOpinion, Maax AI, Auto-GPT, Vocol.AI
+   📈 Marketing: Aiter.io, OptinMagic, Cuppa, CreativAI
+   🔍 SEO: Flowpoint, Quills AI, Calculus IQ, ChartPixel, Consensus
+   💼 Sales: SalesBoom.AI, Pareto AI, Remail, Copilot, MailMaestro
+   📧 Outreach: MailMaestro, AlmReply, SalesBoom.AI, Remail, Krisp
+   Website link - aiwebdesigner.io (also link in bio)
+   codecraft-io/github
+   Hubspot Marketing Template - Great help for Solopreneurs
+   AI Tools Directory - To find free AI tools for anything you want to do
+   https://github.com/emmabostian/developer-portfolios
+   https://www.abhisheksah.dev/projects/aushadhalay
+   https://www.abhishekworks.com/
+   https://aditya.medhe.in/
+   https://www.alvalens.my.id/#projects
+   https://andres-alcaraz.netlify.app/
+   https://bhaveshmishra.dev/card
+   https://www.davidesantangelo.com/
+   https://malaypatrav2.vercel.app/
