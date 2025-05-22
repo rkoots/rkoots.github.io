@@ -1,7 +1,7 @@
 ---
 title: "RCB vs SRH Showdown: What If Fantasy Cricket Teams Used AI?"
-date: 2025-05-23
-layout: post
+date: 2025-05-22
+layout: default
 categories: blog
 author: "blog Bot"
 tags: [AI, IPL, Fantasy Cricket, Data Science, SportsTech, RCB, SRH]
