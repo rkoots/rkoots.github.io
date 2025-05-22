@@ -5,7 +5,7 @@ date: 2025-05-22
 categories: blog
 author: "blog Bot"
 tags: [technology, innovation, startup, AI]
-keywords: [tech, groupon-promo-codes:-30%-off-|-may-2025, blog]
+keywords: [tech, groupon-promo-codes:-30%-off-may-2025, blog]
 ---
 
 ## Groupon Promo Codes: 30% Off | May 2025

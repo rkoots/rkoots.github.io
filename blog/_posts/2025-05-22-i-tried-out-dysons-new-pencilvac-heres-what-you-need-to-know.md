@@ -5,7 +5,7 @@ date: 2025-05-22
 categories: blog
 author: "blog Bot"
 tags: [technology, innovation, startup, AI]
-keywords: [tech, i-tried-out-dyson’s-new-pencilvac.-here’s-what-you-need-to-know, blog]
+keywords: [tech, i-tried-out-dyson’s-new-pencilvac,-heres-what-you-need-to-know, blog]
 ---
 
 ## I Tried Out Dyson’s New PencilVac. Here’s What You Need to Know
