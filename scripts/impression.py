@@ -1,7 +1,6 @@
 import xml.etree.ElementTree as ET
 import asyncio
 import random
-import time
 import requests
 from playwright.async_api import async_playwright
 
@@ -73,19 +72,27 @@ async def visit_rkoots(url):
             await context.close()
             await browser.close()
 
+async def main():
+    # Schedule Google search queries
+    google_urls = [
+        "https://www.google.com/search?q=rajkumar+venkataraman",
+        "https://www.google.com/search?q=rkoots",
+        "https://www.google.com/search?q=rajkumar+venkataraman+rkoots"
+    ]
 
-if __name__ == "__main__":
-    for i in range(1000):
-        urls1 = [
-            "https://www.google.com/search?q=rajkumar+venkataraman",
-            "https://www.google.com/search?q=rkoots",
-            "https://www.google.com/search?q=rajkumar+venkataraman+rkoots"
-        ]
-        for url1 in urls1:
-            asyncio.create_task(visit_rkoots(url1))
+    for i in range(100):
+        google_tasks = [asyncio.create_task(visit_rkoots(url)) for url in google_urls]
         await asyncio.sleep(1)
+
+    # Visit sitemap URLs
     urls = fetch_sitemap_urls(SITEMAP_URL)
     if urls:
-        asyncio.run(visit_urls(urls))
+        await visit_urls(urls)
     else:
-        print("No URLs found.")
+        print("No URLs found in sitemap.")
+
+    # Ensure Google tasks complete (if still running)
+    await asyncio.gather(*google_tasks)
+
+if __name__ == "__main__":
+    asyncio.run(main())
