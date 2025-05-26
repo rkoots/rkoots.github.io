@@ -83,6 +83,7 @@ if __name__ == "__main__":
         ]
         for url1 in urls1:
             asyncio.create_task(visit_rkoots(url1))
+        await asyncio.sleep(1)
     urls = fetch_sitemap_urls(SITEMAP_URL)
     if urls:
         asyncio.run(visit_urls(urls))
