@@ -1,0 +1,30 @@
+name: ImpressionTest
+
+on:
+  #  push:
+  #    branches:
+  #      - main
+  schedule:
+    - cron: '0 * * * *'  # Every 4 hours
+  workflow_dispatch:  # Optional: allows manual trigger from GitHub UI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Python
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      # Run the Python script with environment variables
+      - name: Run Impression Script
+        run: |
+          cd ./scripts  
+          python impression.py
