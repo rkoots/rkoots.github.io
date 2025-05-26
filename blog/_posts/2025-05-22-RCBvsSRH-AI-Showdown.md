@@ -11,7 +11,7 @@ description: "Explore what fantasy cricket could look like if AI picked your dre
 
 # 🏏 RCB vs SRH: What If AI Picked Your Fantasy Team?
 
-The IPL is heating up, and tomorrow’s **RCB vs SRH** match is already the talk of every cricket fan’s feed. But let’s take a step into the **near-future fantasy** — not just of cricket, but of **tech-powered cricket**.
+The IPL is heating up, **RCB vs SRH** match is already the talk of every cricket fan’s feed. But let’s take a step into the **near-future fantasy** — not just of cricket, but of **tech-powered cricket**.
 
 What if you didn’t have to manually pick your fantasy team?  
 What if **AI**, **machine learning**, and **real-time analytics** could do it for you — better, faster, and smarter?
