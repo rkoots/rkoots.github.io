@@ -77,7 +77,11 @@ async def main():
     google_urls = [
         "https://www.google.com/search?q=rajkumar+venkataraman",
         "https://www.google.com/search?q=rkoots",
-        "https://www.google.com/search?q=rajkumar+venkataraman+rkoots"
+        "https://www.google.com/search?q=rajkumar+venkataraman+rkoots",
+        "https://www.bing.com/search?q=%2brkoots&filters=rcrse%3a%221%22&FORM=RCRE",
+        "https://www.bing.com/search?q=rajkumar%20venkataraman&qs=n&form=QBRE&sp=-1&ghc=1&lq=0&pq=rajkumar%20venkataraman",
+        "https://www.bing.com/search?q=rajkumar%20venkataraman%20rkoots&qs=n&form=QBRE&sp=-1&ghc=1&lq=0&pq=rajkumar%20venkataraman%20rkoots",
+        "https://www.google.com/search?q=Rajkumar+ADF",
     ]
 
     for i in range(100):
