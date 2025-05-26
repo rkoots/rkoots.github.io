@@ -38,17 +38,16 @@ def fetch_sitemap_urls(sitemap_url):
 async def visit_urls(urls):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-        context = await browser.new_context()
 
         for i, url in enumerate(urls):
             user_agent = random.choice(user_agents)
             referer = random.choice(referers)
 
+            context = await browser.new_context(
+                user_agent=user_agent,
+                extra_http_headers={"Referer": referer}
+            )
             page = await context.new_page()
-            await context.set_extra_http_headers({
-                "Referer": referer
-            })
-            await context.set_user_agent(user_agent)
 
             try:
                 print(f"{i+1}/{len(urls)} Visiting {url} with {user_agent} from {referer}")
@@ -58,6 +57,7 @@ async def visit_urls(urls):
                 print(f"Error visiting {url}: {e}")
             finally:
                 await page.close()
+                await context.close()
 
         await browser.close()
 
