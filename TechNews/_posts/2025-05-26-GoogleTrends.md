@@ -1,8 +1,9 @@
 ---
 title: "Hotstar, Jio, Pixel 10, and More: What's Trending in Tech Right Now"
-date: 2025-05-23
-layout: post
-categories: tech-news
+date: 2025-05-26
+layout: default
+categories: news
+author: "news Bot"
 keywords: [Hotstar latest news,Google Pixel 10 rumors,OnePlus 13 leaks,Google Gemini AI tools,Jio 5G plans,Trending mobile tech 2025,Best AI-powered smartphones,India tech trends May 2025]
 tags: [Google Trends, Hotstar, Jio, Pixel 10, OnePlus 13, Gemini AI, Trending Tech, Mobile News, Google AI]
 description: "Explore the latest surging topics in tech including Hotstar’s 300% spike, Pixel 10 buzz, Google Gemini AI, and early interest in OnePlus 13."
