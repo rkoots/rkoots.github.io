@@ -38,30 +38,46 @@ def fetch_sitemap_urls(sitemap_url):
 async def visit_urls(urls):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-
         for i, url in enumerate(urls):
             user_agent = random.choice(user_agents)
             referer = random.choice(referers)
-
             context = await browser.new_context(
                 user_agent=user_agent,
                 extra_http_headers={"Referer": referer}
             )
             page = await context.new_page()
-
             try:
                 print(f"{i+1}/{len(urls)} Visiting {url} with {user_agent} from {referer}")
-                await page.goto(url, timeout=15000)
+                await page.goto(url, timeout=5000)
                 await asyncio.sleep(random.uniform(*NUM_SECONDS_BETWEEN_REQUESTS))
             except Exception as e:
                 print(f"Error visiting {url}: {e}")
             finally:
                 await page.close()
                 await context.close()
+        await browser.close()
 
+async def visit_rkoots(url='https://www.google.com/search?q=rajkumar+venkataraman'):
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        user_agent = random.choice(user_agents)
+        context = await browser.new_context(
+            user_agent=user_agent
+            )
+        page = await context.new_page()
+        try:
+            print(f"{i+1}/{len(urls)} Visiting {url} with {user_agent} ")
+            await page.goto(url, timeout=3000)
+        except Exception as e:
+            print(f"Error visiting {url}: {e}")
+        finally:
+            await page.close()
+            await context.close()
         await browser.close()
 
 if __name__ == "__main__":
+    for i in range(1000):
+        visit_rkoots()
     urls = fetch_sitemap_urls(SITEMAP_URL)
     if urls:
         asyncio.run(visit_urls(urls))
