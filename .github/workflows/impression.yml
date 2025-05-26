@@ -15,8 +15,9 @@ jobs:
           python-version: '3.12'
       - name: Install Python dependencies
         run: |
-          pip install requests
-      - name: Run Impression Script
+          pip install requests playwright
+          python -m playwright install
+      - name: Run Playwright Sitemap Impression Crawler
         run: |
           cd ./scripts  
           python impression.py

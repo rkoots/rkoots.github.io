@@ -1,13 +1,13 @@
-import requests
 import xml.etree.ElementTree as ET
+import asyncio
 import random
 import time
+import requests
+from playwright.async_api import async_playwright
 
-# CONFIG
 SITEMAP_URL = "https://rkoots.github.io/sitemap.xml"
-NUM_SECONDS_BETWEEN_REQUESTS = (1.0, 2.5)  # min and max delay between requests
+NUM_SECONDS_BETWEEN_REQUESTS = (0.1, 0.2)
 
-# Sample User-Agents
 user_agents = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/121.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_2_1) AppleWebKit/605.1.15 Safari/605.1.15",
@@ -16,7 +16,6 @@ user_agents = [
     "Mozilla/5.0 (Windows NT 10.0; rv:108.0) Gecko/20100101 Firefox/108.0"
 ]
 
-# Sample Referers
 referers = [
     "https://www.google.com/",
     "https://www.bing.com/",
@@ -31,29 +30,40 @@ def fetch_sitemap_urls(sitemap_url):
         response = requests.get(sitemap_url)
         response.raise_for_status()
         root = ET.fromstring(response.content)
-        urls = [elem.text for elem in root.iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
-        return urls
+        return [elem.text for elem in root.iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
     except Exception as e:
-        print(f"Error fetching/parsing sitemap: {e}")
+        print(f"Error fetching sitemap: {e}")
         return []
 
-def test_urls(urls):
-    for i, url in enumerate(urls):
-        headers = {
-            "User-Agent": random.choice(user_agents),
-            "Referer": random.choice(referers)
-        }
-        try:
-            r = requests.get(url, headers=headers, timeout=10)
-            print(f"{i+1}/{len(urls)} [{r.status_code}] {url} via {headers['Referer']}")
-        except requests.RequestException as e:
-            print(f"{i+1}/{len(urls)} [ERROR] {url}: {e}")
-        time.sleep(random.uniform(*NUM_SECONDS_BETWEEN_REQUESTS))
+async def visit_urls(urls):
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        context = await browser.new_context()
+
+        for i, url in enumerate(urls):
+            user_agent = random.choice(user_agents)
+            referer = random.choice(referers)
+
+            page = await context.new_page()
+            await context.set_extra_http_headers({
+                "Referer": referer
+            })
+            await context.set_user_agent(user_agent)
+
+            try:
+                print(f"{i+1}/{len(urls)} Visiting {url} with {user_agent} from {referer}")
+                await page.goto(url, timeout=15000)
+                await asyncio.sleep(random.uniform(*NUM_SECONDS_BETWEEN_REQUESTS))
+            except Exception as e:
+                print(f"Error visiting {url}: {e}")
+            finally:
+                await page.close()
+
+        await browser.close()
 
 if __name__ == "__main__":
     urls = fetch_sitemap_urls(SITEMAP_URL)
     if urls:
-        print(f"Found {len(urls)} URLs in sitemap.")
-        test_urls(urls)
+        asyncio.run(visit_urls(urls))
     else:
-        print("No URLs to test.")
+        print("No URLs found.")
