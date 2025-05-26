@@ -57,27 +57,32 @@ async def visit_urls(urls):
                 await context.close()
         await browser.close()
 
-async def visit_rkoots(url='https://www.google.com/search?q=rajkumar+venkataraman'):
+async def visit_rkoots(url):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         user_agent = random.choice(user_agents)
-        context = await browser.new_context(
-            user_agent=user_agent
-            )
+        context = await browser.new_context(user_agent=user_agent)
         page = await context.new_page()
         try:
-            print(f"{i+1}/{len(urls)} Visiting {url} with {user_agent} ")
-            await page.goto(url, timeout=3000)
+            print(f"Visiting {url} with {user_agent}")
+            await page.goto(url, timeout=30000)
         except Exception as e:
             print(f"Error visiting {url}: {e}")
         finally:
             await page.close()
             await context.close()
-        await browser.close()
+            await browser.close()
+
 
 if __name__ == "__main__":
     for i in range(1000):
-        visit_rkoots()
+        urls1 = [
+            "https://www.google.com/search?q=rajkumar+venkataraman",
+            "https://www.google.com/search?q=rkoots",
+            "https://www.google.com/search?q=rajkumar+venkataraman+rkoots"
+        ]
+        for url1 in urls1:
+            asyncio.create_task(visit_rkoots(url1))
     urls = fetch_sitemap_urls(SITEMAP_URL)
     if urls:
         asyncio.run(visit_urls(urls))
