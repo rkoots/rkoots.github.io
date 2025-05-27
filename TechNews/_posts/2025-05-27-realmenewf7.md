@@ -13,6 +13,8 @@ author: rajkumarv
 
 After years of user demand and anticipation, **WhatsApp has finally launched a native app for the iPad**. The long-awaited release now allows iPad users to **seamlessly access chats, calls, and media** directly on their tablet without needing to mirror the app from an iPhone.
 
+![WhatsApp for iPad Is Finally Here](/assets/img/content/whatsappforipad.png)
+
 **Highlights:**
 - Works as a companion app using the **multi-device feature**
 - Full support for **calls, media sharing, and chat sync**
@@ -27,6 +29,8 @@ This release bridges the gap between **WhatsApp for Mac** and iOS, making **"Wha
 ## 🚀 Realme GT 7 Dream Edition Teased
 
 Realme is making waves again with its upcoming flagship — the **Realme GT 7 Dream Edition**. While full specs are still under wraps, the brand has released a teaser highlighting a **cutting-edge design and performance-driven hardware**.
+
+![Realme GT 7 Dream Edition Teased](/assets/img/content/realmeg7.png)
 
 **Expected features:**
 - Snapdragon 8 Gen 3 SoC
