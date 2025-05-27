@@ -84,19 +84,16 @@ async def main():
         "https://www.google.com/search?q=Rajkumar+ADF",
     ]
 
-    for i in range(100):
+    for i in range(5):
         google_tasks = [asyncio.create_task(visit_rkoots(url)) for url in google_urls]
         await asyncio.sleep(1)
-
-    # Visit sitemap URLs
     urls = fetch_sitemap_urls(SITEMAP_URL)
     if urls:
         await visit_urls(urls)
     else:
         print("No URLs found in sitemap.")
-
-    # Ensure Google tasks complete (if still running)
     await asyncio.gather(*google_tasks)
 
 if __name__ == "__main__":
     asyncio.run(main())
+    
