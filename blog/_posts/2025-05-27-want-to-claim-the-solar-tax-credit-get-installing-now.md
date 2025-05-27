@@ -8,9 +8,12 @@ tags: [technology, innovation, startup, AI]
 keywords: [tech, want-to-claim-the-solar-tax-credit?-get-installing-now, blog]
 ---
 
+
 ## Want to Claim the Solar Tax Credit? Get Installing Now
 
 The sun's energy is free, but harnessing it isn't always cheap.  For US homeowners and businesses looking to embrace solar power, a significant financial incentive – the federal solar tax credit – is potentially on its way out.  House Republicans are pushing to end this credit, making now a critical time to act for anyone considering a solar energy system.
+
+![Alt Text](/assets/img/content/20250527solar1.png)
 
 **What's at Stake?**
 
@@ -27,6 +30,8 @@ Artificial intelligence is also playing an increasingly important role in the so
 **The Urgency:**
 
 The uncertainty surrounding the future of the ITC creates a sense of urgency.  While the exact timeline for any potential changes remains unclear, the threat of its elimination is real.  For those who have been considering going solar, delaying the decision could mean missing out on significant savings.  The process of installing a solar system can take time, involving site assessments, permitting, and installation itself.  Starting the process now is crucial to ensure you can take advantage of the current tax credit before it potentially disappears.
+
+![Alt Text](/assets/img/content/20250527solar2.png)
 
 **What to Do:**
 
