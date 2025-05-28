@@ -328,12 +328,10 @@ description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an int
 </script>
 
 
-# Comprehensive Income Tax Toolkit
+
+<br/><br/>
+## Comprehensive Income Tax Toolkit
 *For FY 2025-26 (AY 2026-27) | Updated with Union Budget 2025 Tax Changes*
-
----
-
-## Introduction
 
 Individuals in India can file income tax returns under either the **Old Tax Regime** or the **New Tax Regime**, each offering different slab rates, deductions, and benefits.
 
@@ -506,9 +504,344 @@ Sum up Basic Salary, HRA, Special Allowances, Transport Allowance, and other all
 <summary><strong>How can I reduce my tax liability?</strong></summary>
 Invest in tax-saving instruments under Section 80C (PPF, ELSS), 80D (medical insurance), 80E (education loan interest), and claim all eligible deductions and exemptions to reduce taxable income.
 </details>
+---
+
+Section 80C of the Income Tax Act provides exemptions or deductions on specific expenditures and investments from income tax. By investing in options like PPF, NSC, ELSS, SSY, etc., you can claim deductions of up to Rs. 1.5 lakh each year under Section 80C, helping you save on income tax. Let us understand these deductions in detail:
+
+## Section 80C - Deductions and Exemptions on Investments
+
+Section 80C is one of the most popular and favorite sections amongst taxpayers as it allows them to reduce taxable income by making tax-saving investments or incurring eligible expenses.
+
+- Section 80C deduction can be claimed only by **Individuals and HUFs**.
+- Companies, partnership firms, and LLPs **cannot** avail this deduction.
+- Up to **₹1.5 lakh** can be claimed as a deduction every year from the Gross total income.
+
+### Section 80C Deductions List
+
+| Investment / Payment                    | Details                                                                                     |
+|---------------------------------------|---------------------------------------------------------------------------------------------|
+| Employee Provident Fund (EPF)          | Contributions by employees to EPF are eligible for deduction.                               |
+| Public Provident Fund (PPF)            | Deposits to a PPF account (maximum limit ₹1.5 lakh per year).                               |
+| Life Insurance Premium                 | Premium paid for life insurance policies for self, spouse, or children.                    |
+| Equity-Linked Savings Scheme (ELSS)   | Investments in specified mutual funds with a 3-year lock-in period.                         |
+| National Savings Certificate (NSC)    | Investment in NSC qualifies for deduction. Accrued interest (except last year) eligible.   |
+| 5-Year Fixed Deposit with Banks        | Fixed deposits of 5 years or more with scheduled banks.                                    |
+| Sukanya Samriddhi Yojana (SSY)         | Deposits made for the benefit of a girl child.                                             |
+| Principal Repayment of Home Loan       | Principal portion of EMI paid for a home loan.                                             |
+| Stamp Duty and Registration Charges   | Paid for residential property (allowed in the year of purchase).                           |
+| Tuition Fees                          | Paid for full-time education of up to two children in India.                              |
+| Senior Citizens Savings Scheme (SCSS) | Investment made by senior citizens in SCSS.                                               |
+| Unit Linked Insurance Plan (ULIP)     | Premium paid towards ULIP for self, spouse, and children.                                  |
+| Post Office Time Deposit (5 years)     | Investment in 5-year time deposits at post offices.                                        |
+| Superannuation fund                   | Employee's contribution to an approved superannuation fund.                               |
+| Pension Plans                        | Contribution to specific pension plans like LIC's Jeevan Suraksha, etc.                    |
+
+*Example:* An individual investing ₹50,000 in PPF, ₹40,000 in ELSS, paying ₹30,000 as life insurance premium, and having an EPF contribution of ₹30,000 utilizes the full ₹1.5 lakh 80C deduction limit.
 
 ---
 
-## Final Word
+## Deduction Limits under Sections 80C, 80CCC, 80CCD(1), 80CCE & 80CCD(1B)
 
-Understanding the nuances of both tax regimes empowers you to plan better financially and minimize your tax burden legally. Use our updated Income Tax Calculator to make data-driven decisions for FY 2025-26 and beyond.
+Sections 80CCC and 80CCD provide deductions for investments in pension schemes.
+
+| Section       | Eligible Investments                                       | Maximum Deduction            |
+|---------------|------------------------------------------------------------|-----------------------------|
+| **80C**       | ELSS, PPF/SPF/RPF, Life Insurance Premiums, Home Loan principal, SSY, NSC, SCSS, etc. | ₹1,50,000                   |
+| **80CCC**     | Payment towards pension funds                              | ₹1,50,000                   |
+| **80CCD(1)**  | Payments to Atal Pension Yojana or other notified pension schemes | Employed: 10% of basic salary + DA<br>Self-employed: 20% of gross total income |
+| **80CCE**     | Total deduction under 80C, 80CCC & 80CCD(1)                | ₹1,50,000                   |
+| **80CCD(1B)** | Additional investments in NPS (outside ₹1.5 lakh limit)    | ₹50,000                     |
+| **80CCD(2)**  | Employer’s contribution towards NPS (outside ₹1.5 lakh limit) | Govt: 14% of basic salary + DA<br>Others: 10% of basic salary + DA |
+
+*Maximum combined deduction limit:*  
+₹2,00,000 under Section 80C + 80CCC + 80CCD(1) + 80CCD(1B).
+
+---
+
+## Other Important Sections for Deductions
+
+### Section 80TTA – Interest on Savings Accounts
+- Deduction up to ₹10,000 for interest earned on savings accounts (individual or HUF).
+
+### Section 80TTB – Interest on Deposits for Senior Citizens
+- Deduction up to ₹50,000 for interest earned on deposits by senior citizens (60+ years).
+
+### Section 80GG – House Rent Paid
+- Deduction for taxpayers not receiving HRA but paying rent for accommodation.
+
+### Section 80E – Interest on Education Loan
+- Deduction on interest paid for education loans for self, spouse, children, or legal ward.
+
+### Section 80EEA – Interest on Home Loan for First-Time Home Owners
+- Extra deduction up to ₹1.5 lakh on interest paid for affordable house loans.
+
+### Section 80EEB – Interest on Electric Vehicle Loan
+- Deduction up to ₹1.5 lakh on interest paid for loans on electric vehicles.
+
+### Section 80D – Medical Insurance Premiums
+| Policy For                    | Deduction for Self & Family | Deduction for Parents | Preventive Health Check-up | Maximum Deduction  |
+|------------------------------|-----------------------------|----------------------|----------------------------|--------------------|
+| Self & Family (below 60 yrs) | ₹25,000                     | -                    | ₹5,000                     | ₹25,000            |
+| Self & Family + Parents (all below 60 yrs) | ₹25,000          | ₹25,000              | ₹5,000                     | ₹50,000            |
+| Self & Family (below 60) + Parents (above 60) | ₹25,000          | ₹50,000              | ₹5,000                     | ₹75,000            |
+| Self & Family + Parents (above 60) | ₹50,000                | ₹50,000              | ₹5,000                     | ₹1,00,000          |
+
+### Section 80DD – Medical Treatment of Disabled Dependent
+- Deduction for expenses on medical treatment, training, and rehabilitation of specially-abled dependents.
+
+### Section 80DDB – Medical Treatment
+- Deduction for expenses on medical treatment of self or dependents.
+
+### Section 80U – Deduction for Disabled Individuals
+- ₹75,000 for disability, ₹1.2 lakh for severe disability.
+
+### Section 80G – Donations for Social Causes
+- Deductions on donations (50% or 100% depending on cause), cash donations above ₹2,000 not allowed.
+
+### Section 80GGB & 80GGC – Donations to Political Parties
+- Deduction on donations (non-cash mode) by companies and individuals respectively.
+
+### Section 80RRB – Royalty Income from Patents
+- Deduction up to ₹3 lakh for royalty income from patents for individual residents.
+
+### Section 80QQB – Royalty Income for Authors
+- Deduction up to ₹3 lakh for authors on royalty income, limited to actual income.
+
+---
+
+*Stop guessing your capital gains tax!*  
+**Book a Tax Expert for precision | Use code ADV70 to get 70% OFF!**
+
+---
+
+## Income Tax - Latest Updates, Basics, Tax Slabs, Rules, Income Tax Guide FY 2024-25
+
+Income tax is a mandatory levy imposed by the government on the income earned by individuals and entities. It plays a vital role in funding public services, infrastructure, and national development. In India, income tax is governed by the Income Tax Act, 1961, and administered by the Income Tax Department under the Central Board of Direct Taxes (CBDT). It is a progressive tax based on income, age, residential status, and type of income.
+
+**ITR Due Date Extension:** The due date for ITR filing has been extended to **15th September 2025** from the original due date of 31st July 2025.
+
+---
+
+## Browse By Topics
+
+- Income Tax Law in India
+- Income Tax Department
+- Types of Taxpayers
+- Residential Status
+- Types of Income – What are the 5 Heads of Income?
+- Deductions under the Income Tax Act
+- Popular Deductions
+- Computation Of Income
+- Calculation of Tax
+- Tax Slabs
+- Old Income Tax Regime
+- New Tax Regime
+- Special Tax Rates
+- Rebate u/s 87A and Cess
+- Income Tax Payment
+- Tax Deducted at Source (TDS)
+- Advance Tax
+- Self-Assessment Tax
+- E-Payment of Taxes
+- Refund
+- Important terms
+- Financial Year
+- Assessment Year
+- PAN
+- TAN
+- Filing Your ITR
+- Meaning of ITR
+- Documents Required for ITR Filing
+- Persons Not Required to File ITR
+- Consequences of Not Filing ITR
+- E-Filing
+- What is ITR–V?
+- Important Income Tax Dates 2025
+- Frequently Asked Questions
+
+---
+
+## Income Tax Law in India
+
+The Constitution of India mandates that tax can only be imposed under the provisions of a law. Income tax rules are governed by the Income Tax Act, 1961, which is under the Union List, empowering the Central Government to levy and collect income tax. Amendments to the Act are introduced via the Finance Bill during the Budget session and brought into force through the Finance Act.
+
+Additional components like income tax rules, circulars, notifications, and case laws aid in the implementation of the tax laws.
+
+---
+
+## Income Tax Department
+
+The Income Tax Department collects direct taxes for the Government of India. The Ministry of Finance administers revenue functions through the Central Board of Direct Taxes (CBDT), which oversees the implementation of direct tax laws.
+
+---
+
+## Types of Taxpayers
+
+- Individuals
+- Hindu Undivided Family (HUF)
+- Firms
+- Companies
+- Association of Persons (AOP)
+- Body of Individuals (BOI)
+- Local Authority
+- Artificial Judicial Person
+
+Certain assessees must file ITR based on conditions specified under the Income Tax Act.
+
+---
+
+## Residential Status
+
+Assessees are classified based on residential status into:
+- Resident and Ordinarily Resident (ROR)
+- Resident but Not Ordinarily Resident (RNOR)
+- Non-Resident (NR)
+
+| Income Type | ROR | RNOR | NR |
+|-------------|-----|------|----|
+| Income received in India | Taxable | Taxable | Taxable |
+| Accrued income in India | Taxable | Taxable | Taxable |
+| Income from business/profession in India but accrued outside India | Taxable | Taxable | Non-taxable |
+| Income accrued outside India | Taxable | Non-taxable | Non-taxable |
+| Untaxed past foreign income brought into India | Non-taxable | Non-taxable | Non-taxable |
+
+---
+
+## Types of Income – What are the 5 Heads of Income?
+
+| Head of Income               | Nature of Income Covered                             |
+|-----------------------------|----------------------------------------------------|
+| Income from Salary           | Salary and pension income                           |
+| Income from House Property   | Rental income from property                         |
+| Income from Business & Profession | Profits from self-employment, business, or freelancing |
+| Income from Capital Gains    | Income from sale of capital assets like shares, property, etc. |
+| Income from Other Sources    | Interest, lottery winnings, etc.                   |
+
+---
+
+## Deductions under the Income Tax Act
+
+Deductions reduce taxable income based on investments, expenses, or specific income types. Popular deductions can significantly reduce tax liability.
+
+---
+
+## Popular Deductions
+
+### Section 80C Deductions
+
+Allows up to ₹1.5 lakh per financial year for investments like ELSS, NSC, etc.
+
+### New Tax Regime Deductions
+
+- Transport allowance for specially-abled persons
+- Conveyance allowance for employment-related travel
+- Daily allowances for absence from place of duty
+
+Other key features:
+- Highest surcharge reduced to 25% for income > ₹5 crore
+- Standard deduction: ₹75,000 (new regime), ₹50,000 (old regime)
+- Employer's pension contribution deduction: 14% (new), 10% (old)
+- Family pension deduction limit: ₹25,000 (new), ₹15,000 (old)
+- Long Term Capital Gains exemption limit increased to ₹1.25 lakh per year
+
+---
+
+## Special Tax Rates
+
+- Long-Term Capital Gains: 12.5%
+- Short-Term Capital Gains: 20% flat for listed shares and equity funds
+- Casual incomes (lottery, betting): 30%
+- Virtual Digital Assets: 30%
+
+| Asset Type | Short-term | Long-term |
+|------------|------------|-----------|
+| Listed securities & equity-oriented units | ≤12 months | >12 months |
+| Other assets | ≤24 months | >24 months |
+
+---
+
+## Rebate u/s 87A and Cess
+
+| Regime      | Income Limit for Rebate | Maximum Rebate | Remarks |
+|-------------|------------------------|----------------|---------|
+| Old Tax Regime | ₹5 lakh                | ₹12,500        | Tax payable < rebate, no tax |
+| New Tax Regime | ₹7 lakh (₹12 lakh from FY 2025-26) | ₹25,000 (₹60,000 from FY 2025-26) | Tax payable < rebate, no tax |
+
+Health and Education Cess is 4% of income tax after rebate.
+
+---
+
+## Income Tax Payment
+
+### Tax Deducted at Source (TDS)
+
+Tax deducted by payer and credited to government on behalf of taxpayer.
+
+### Advance Tax
+
+Payable if estimated tax liability exceeds ₹10,000. Due dates apply.
+
+### Self-Assessment Tax
+
+Balance tax paid after adjusting advance tax and TDS.
+
+### E-Payment of Taxes
+
+Online payment facility available.
+
+### Refund
+
+Excess tax paid is refunded to taxpayer’s bank account.
+
+---
+
+## Important Terms
+
+- **Financial Year (FY):** April 1 to March 31 (e.g., FY 2024-25)
+- **Assessment Year (AY):** Year following FY when tax is assessed (e.g., AY 2025-26)
+- **PAN:** Permanent Account Number, unique ID for tax transactions
+- **TAN:** Tax Deduction and Collection Account Number, required for TDS/TCS transactions
+
+---
+
+## Filing Your ITR
+
+ITR must be filed online via prescribed forms. Various forms apply depending on the taxpayer’s income sources and entity type.
+
+| ITR Form | Applicable To                                               |
+|----------|-------------------------------------------------------------|
+| ITR-1    | Individuals (residents) with salary, one house property, other sources, agri income < ₹5,000, total income ≤ ₹50 lakh |
+| ITR-2    | Individuals/HUFs with no business income, multiple house properties |
+| ITR-3    | Individuals/HUFs with proprietary business or profession income |
+| ITR-4    | Individuals/HUFs with presumptive income from business/profession |
+| ITR-5    | Partnership firms or LLPs                                   |
+| ITR-6    | Companies                                                  |
+| ITR-7    | Trusts                                                    |
+
+---
+
+## Documents Required for ITR Filing
+
+Be prepared with:
+- PAN card
+- Aadhaar card
+- Bank statements
+- Form 16 (salary)
+- Form 26AS (tax credit)
+- Investment proofs for deductions
+- Other relevant documents
+
+---
+
+<!-- Add more sections as needed -->
+
+---
+
+*For detailed queries or expert assistance, consider booking a top tax expert using code ADV70 for 70% OFF.*
+
+---
+
+**Home > Income Tax > Income Tax - Latest Updates, Basics, Tax Slabs, Rules, Income Tax Guide FY 2024-25**
+
+---
+
