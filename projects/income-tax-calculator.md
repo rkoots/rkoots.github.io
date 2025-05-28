@@ -232,14 +232,15 @@ description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an int
     const otherIncome = +document.getElementById('otherIncome').value || 0;
 
     // Deductions (apply max limits)
-    const deduct80C = Math.min(+document.getElementById('deduct80C').value || 0, 150000);
-    const deduct80TTB = +document.getElementById('deduct80TTB').value || 0;
-    const deduct80D = +document.getElementById('deduct80D').value || 0;
-    const deduct80G = +document.getElementById('deduct80G').value || 0;
-    const deduct80E = +document.getElementById('deduct80E').value || 0;
-    const deduct80EEA = +document.getElementById('deduct80EEA').value || 0;
-    const deduct80CCD = Math.min(+document.getElementById('deduct80CCD').value || 0, 50000);
-    const deduct80CCD2 = Math.min(+document.getElementById('deduct80CCD2').value || 0, 50000);
+    const deduct80C = Math.min(+document.getElementById('deduct80C').value || 0, 150000);  // Max ₹1.5 lakh
+    const deduct80TTB = Math.min(+document.getElementById('deduct80TTB').value || 0, 10000); // Max ₹10,000 (example max)
+    const deduct80D = Math.min(+document.getElementById('deduct80D').value || 0, 75000);   // Max ₹75,000 (health insurance + medical exp.)
+    const deduct80G = Math.min(+document.getElementById('deduct80G').value || 0, 1000000);  // No fixed max, example ₹10 lakh max
+    const deduct80E = +document.getElementById('deduct80E').value || 0;                    // No max limit, full amount allowed (interest on education loan)
+    const deduct80EEA = Math.min(+document.getElementById('deduct80EEA').value || 0, 150000); // Max ₹1.5 lakh (interest on housing loan for first-time buyers)
+    const deduct80CCD = Math.min(+document.getElementById('deduct80CCD').value || 0, 50000);   // Max ₹50,000 (NPS contribution by employee)
+    const deduct80CCD2 = Math.min(+document.getElementById('deduct80CCD2').value || 0, 50000); // Max ₹50,000 (NPS contribution by employer)
+
 
     // Total income calculation (simplified)
     let grossIncome = salary + interestIncome + rental + digitalAssets + otherIncome;
