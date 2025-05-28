@@ -96,99 +96,77 @@ description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an int
 <section>
   <h1>Income Tax Calculator</h1>
   <p><em>See how the latest budget impacts your tax calculation. Updated as per latest budget on 2025.</em></p>
-
-  <!-- Card 1: Select Financial Year -->
-  <div id="card-fy" class="card active">
-    <label for="financialYear">Which Financial Year do you want to calculate taxes for?</label>
-    <select id="financialYear">
+    <select id="financialYear" hidden>
       <option value="2025">FY 2025-2026 (Return: 1st Apr 2026 - 31st Mar 2027)</option>
-      <option value="2024">FY 2024-2025 (Return: 1st Apr 2025 - 31st Mar 2026)</option>
     </select>
-    <button onclick="nextCard('card-age')">Next →</button>
-  </div>
 
-  <!-- Card 2: Select Age -->
-  <div id="card-age" class="card">
-    <label for="ageGroup">Your age</label>
-    <select id="ageGroup">
-      <option value="below60">0 to 60</option>
-      <option value="below80">60 to 80</option>
-      <option value="above80">80 & above</option>
-    </select>
-    <div>
-      <button onclick="prevCard('card-fy')">← Back</button>
-      <button onclick="nextCard('card-income')">Next →</button>
-    </div>
-  </div>
-
-  <!-- Card 3: Income Inputs -->
-  <div id="card-income" class="card">
+  <!-- Card 1 -->
+  <div id="card-income" class="card ">
     <h3>Income Details</h3>
     <label>Income from Salary</label>
     <input type="number" id="incomeSalary" min="0" value="0" />
-
     <label>Exempt Allowances</label>
     <input type="number" id="exemptAllowances" min="0" value="0" />
-
     <label>Income from Interest</label>
     <input type="number" id="incomeInterest" min="0" value="0" />
-
-    <label>Interest on Home Loan - Self Occupied</label>
-    <input type="number" id="intHomeLoanSelf" min="0" value="0" />
-
-    <label>Rental Income Received</label>
-    <input type="number" id="rentalIncome" min="0" value="0" />
-
-    <label>Interest on Home Loan - Let Out</label>
-    <input type="number" id="intHomeLoanLetOut" min="0" value="0" />
-
     <label>Income from Digital Assets</label>
     <input type="number" id="incomeDigitalAssets" min="0" value="0" />
+    <div>
+      <button onclick="nextCard('card-income2')">Next →</button>
+    </div>
+  </div>
 
+  <!-- Card 2 -->
+  <div id="card-income2" class="card ">
+    <h3>Any Other Income?</h3>
+    <label>Interest on Home Loan - Self Occupied</label>
+    <input type="number" id="intHomeLoanSelf" min="0" value="0" />
+    <label>Rental Income Received</label>
+    <input type="number" id="rentalIncome" min="0" value="0" />
+    <label>Interest on Home Loan - Let Out</label>
+    <input type="number" id="intHomeLoanLetOut" min="0" value="0" />
     <label>Other Income</label>
     <input type="number" id="otherIncome" min="0" value="0" />
-
     <div>
-      <button onclick="prevCard('card-age')">← Back</button>
+      <button onclick="prevCard('card-income')">← Back</button>
       <button onclick="nextCard('card-deductions')">Next →</button>
     </div>
   </div>
 
-  <!-- Card 4: Deductions -->
+  <!-- Card 3: Deductions -->
   <div id="card-deductions" class="card">
-    <h3>Deductions & Limits</h3>
-
+    <h3>Key Deductions</h3>
     <label>Basic Deductions - 80C (Max ₹1,50,000)</label>
     <input type="number" id="deduct80C" min="0" max="150000" value="0" />
-
-    <label>Interest from Deposits - 80TTB (Max ₹50,000 for senior citizens)</label>
-    <input type="number" id="deduct80TTB" min="0" value="0" />
-
     <label>Medical Insurance - 80D (Max ₹50,000 for senior citizens, ₹25,000 others)</label>
     <input type="number" id="deduct80D" min="0" value="0" />
-
-    <label>Donations to Charity - 80G</label>
-    <input type="number" id="deduct80G" min="0" value="0" />
-
-    <label>Interest on Educational Loan - 80E</label>
-    <input type="number" id="deduct80E" min="0" value="0" />
-
-    <label>Interest on Housing Loan - 80EEA</label>
-    <input type="number" id="deduct80EEA" min="0" value="0" />
-
     <label>Employee's contribution to NPS - 80CCD (Max ₹50,000)</label>
     <input type="number" id="deduct80CCD" min="0" max="50000" value="0" />
-
     <label>Employer's contribution to NPS - 80CCD(2) (Max ₹50,000)</label>
     <input type="number" id="deduct80CCD2" min="0" max="50000" value="0" />
-
+    <label>Donations to Charity - 80G</label>
+    <input type="number" id="deduct80G" min="0" value="0" />
     <div>
-      <button onclick="prevCard('card-income')">← Back</button>
+      <button onclick="prevCard('card-income2')">← Back</button>
       <button onclick="calculateTax()">💡 Calculate Tax</button>
     </div>
   </div>
 
-  <!-- Result card -->
+  <div id="card-deductions2" class="card">
+    <h3>Deductions on Interest Earned</h3>
+    <label>Interest from Deposits - 80TTB (Max ₹50,000 for senior citizens)</label>
+    <input type="number" id="deduct80TTB" min="0" value="0" />
+    <label>Interest on Educational Loan - 80E</label>
+    <input type="number" id="deduct80E" min="0" value="0" />
+    <label>Interest on Housing Loan - 80EEA</label>
+    <input type="number" id="deduct80EEA" min="0" value="0" />
+    <div>
+      <button onclick="prevCard('card-deductions')">← Back</button>
+      <button onclick="calculateTax()">💡 Calculate Tax</button>
+    </div>
+  </div>
+
+<!-- Result card -->
   <div id="card-result" class="card">
     <h2>Tax Calculation Result</h2>
     <div class="result" id="resultText"></div>
