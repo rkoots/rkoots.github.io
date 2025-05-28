@@ -2,270 +2,327 @@
 layout: default
 title: Income Tax Calculator
 permalink: /income-tax-calculator/
-description: Calculate your income tax for FY 2025-26 or FY 2024-25 using the latest budget rules as of July 23, 2025.
+description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an interactive calculator and get tax planning insights.
 ---
 
-<h1>🧾 Income Tax Calculator (India)</h1>
-<p><strong>See how the latest budget impacts your taxes. Updated as per budget announced on <u>July 23, 2025</u>.</strong></p>
-
-<div id="flashcards-container">
-
-  <div class="flashcard active" id="card-fy">
-    <h2>1️⃣ Select Financial Year</h2>
-    <label><input type="radio" name="fy" value="2025" checked> FY 2025–2026</label><br>
-    <label><input type="radio" name="fy" value="2024"> FY 2024–2025</label><br><br>
-    <button onclick="nextCard('card-age')">Next →</button>
-  </div>
-
-  <div class="flashcard" id="card-age">
-    <h2>2️⃣ Select Age Group</h2>
-    <label><input type="radio" name="age" value="normal" checked> Below 60</label><br>
-    <label><input type="radio" name="age" value="senior"> 60 to 80</label><br>
-    <label><input type="radio" name="age" value="super"> 80 & above</label><br><br>
-    <button onclick="prevCard('card-fy')">← Back</button>
-    <button onclick="nextCard('card-income')">Next →</button>
-  </div>
-
-  <div class="flashcard" id="card-income">
-    <h2>3️⃣ Income Sources (₹)</h2>
-    <label>Salary: <input type="number" id="salary" value="0" min="0"></label><br>
-    <label>Exempt Allowances: <input type="number" id="exemptAllowances" value="0" min="0"></label><br>
-    <label>Interest Income: <input type="number" id="interestIncome" value="0" min="0"></label><br>
-    <label>Rental Income: <input type="number" id="rentalIncome" value="0" min="0"></label><br>
-    <label>Home Loan Interest (Self-Occupied): <input type="number" id="homeLoanSelf" value="0" min="0"></label><br>
-    <label>Home Loan Interest (Let-Out): <input type="number" id="homeLoanLetOut" value="0" min="0"></label><br>
-    <label>Income from Digital Assets: <input type="number" id="digitalIncome" value="0" min="0"></label><br>
-    <label>Other Income: <input type="number" id="otherIncome" value="0" min="0"></label><br><br>
-    <button onclick="prevCard('card-age')">← Back</button>
-    <button onclick="nextCard('card-deductions')">Next →</button>
-  </div>
-
-  <div class="flashcard" id="card-deductions">
-    <h2>4️⃣ Deductions (Max Limits)</h2>
-    <label>80C (Investments, max ₹1,50,000): <input type="number" id="ded80C" value="0" min="0" max="150000" oninput="validateMax(this)"></label><br>
-    <label>80TTB (Senior Citizen Interest, max ₹50,000): <input type="number" id="ded80TTB" value="0" min="0" max="50000" oninput="validateMax(this)"></label><br>
-    <label>80D (Health Insurance, max ₹75,000): <input type="number" id="ded80D" value="0" min="0" max="75000" oninput="validateMax(this)"></label><br>
-    <label>80G (Donations, no limit): <input type="number" id="ded80G" value="0" min="0"></label><br>
-    <label>80E (Education Loan Interest, no limit): <input type="number" id="ded80E" value="0" min="0"></label><br>
-    <label>80EEA (Home Loan Interest, max ₹1,50,000): <input type="number" id="ded80EEA" value="0" min="0" max="150000" oninput="validateMax(this)"></label><br>
-    <label>80CCD (NPS Employee, max ₹50,000): <input type="number" id="ded80CCD" value="0" min="0" max="50000" oninput="validateMax(this)"></label><br>
-    <label>80CCD(2) (NPS Employer, max ₹1,50,000): <input type="number" id="ded80CCD2" value="0" min="0" max="150000" oninput="validateMax(this)"></label><br><br>
-    <button onclick="prevCard('card-income')">← Back</button>
-    <button onclick="calculateTax()">💡 Calculate Tax</button>
-  </div>
-
-</div>
-
-<hr>
-
-<div id="result" style="display:none;">
-  <h2>💼 Tax Summary</h2>
-  <div id="summary"></div>
-  <h3>📊 Tax Planning Insights</h3>
-  <ul id="tips"></ul>
-  <button onclick="resetCalculator()">↻ Start Over</button>
-</div>
-
 <style>
-  #flashcards-container {
+  /* Container and card styles */
+  .card {
     max-width: 600px;
-    margin: auto;
-  }
-  .flashcard {
+    margin: 2rem auto;
+    padding: 1.8rem 2rem;
+    border-radius: 12px;
+    background: #f9faff;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     display: none;
-    padding: 1.5rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 1px 1px 5px #ccc;
-    margin-bottom: 1rem;
+    flex-direction: column;
+    gap: 1rem;
   }
-  .flashcard.active {
-    display: block;
+  .card.active {
+    display: flex;
   }
+
   label {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
     display: block;
-    margin-bottom: 8px;
   }
-  input[type="number"] {
-    width: 180px;
-    margin-left: 8px;
-  }
-  button {
-    margin-top: 1rem;
-    padding: 8px 16px;
-    cursor: pointer;
+  input[type=number], select {
+    width: 100%;
+    padding: 0.6rem 1rem;
     font-size: 1rem;
+    border-radius: 6px;
+    border: 1.5px solid #ccc;
+    transition: border-color 0.3s ease;
   }
-  #result {
-    max-width: 600px;
-    margin: auto;
-    padding: 1rem;
-    border: 1px solid #007acc;
+  input[type=number]:focus, select:focus {
+    border-color: #4a90e2;
+    outline: none;
+  }
+
+  /* Modern button styling */
+  button {
+    background: linear-gradient(135deg, #4a90e2, #357ABD);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(53, 122, 189, 0.4);
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    user-select: none;
+    align-self: flex-start;
+    margin-top: 1rem;
+  }
+  button:hover {
+    background: linear-gradient(135deg, #357ABD, #4a90e2);
+    box-shadow: 0 8px 20px rgba(53, 122, 189, 0.6);
+    transform: translateY(-3px);
+  }
+  button:active {
+    background: linear-gradient(135deg, #2a5e9e, #2461a1);
+    box-shadow: 0 4px 8px rgba(36, 97, 161, 0.7);
+    transform: translateY(1px);
+  }
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(53, 122, 189, 0.5);
+  }
+
+  /* Result styling */
+  .result {
+    background: #e6f0ff;
+    border: 1px solid #4a90e2;
+    padding: 1.2rem 1.6rem;
     border-radius: 8px;
-    background: #f0faff;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    color: #2c3e50;
   }
-  #tips li {
-    margin-bottom: 0.5rem;
+
+  .insights {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #34495e;
+    background: #dff0d8;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    border: 1px solid #3c763d;
   }
 </style>
 
+<section>
+  <h1>Income Tax Calculator</h1>
+  <p><em>See how the latest budget impacts your tax calculation. Updated as per latest budget on 23 July, 2025.</em></p>
+
+  <!-- Card 1: Select Financial Year -->
+  <div id="card-fy" class="card active">
+    <label for="financialYear">Which Financial Year do you want to calculate taxes for?</label>
+    <select id="financialYear">
+      <option value="2025">FY 2025-2026 (Return: 1st Apr 2026 - 31st Mar 2027)</option>
+      <option value="2024">FY 2024-2025 (Return: 1st Apr 2025 - 31st Mar 2026)</option>
+    </select>
+    <button onclick="nextCard('card-age')">Next →</button>
+  </div>
+
+  <!-- Card 2: Select Age -->
+  <div id="card-age" class="card">
+    <label for="ageGroup">Your age</label>
+    <select id="ageGroup">
+      <option value="below60">0 to 60</option>
+      <option value="below80">60 to 80</option>
+      <option value="above80">80 & above</option>
+    </select>
+    <div>
+      <button onclick="prevCard('card-fy')">← Back</button>
+      <button onclick="nextCard('card-income')">Next →</button>
+    </div>
+  </div>
+
+  <!-- Card 3: Income Inputs -->
+  <div id="card-income" class="card">
+    <h3>Income Details</h3>
+    <label>Income from Salary</label>
+    <input type="number" id="incomeSalary" min="0" value="0" />
+
+    <label>Exempt Allowances</label>
+    <input type="number" id="exemptAllowances" min="0" value="0" />
+
+    <label>Income from Interest</label>
+    <input type="number" id="incomeInterest" min="0" value="0" />
+
+    <label>Interest on Home Loan - Self Occupied</label>
+    <input type="number" id="intHomeLoanSelf" min="0" value="0" />
+
+    <label>Rental Income Received</label>
+    <input type="number" id="rentalIncome" min="0" value="0" />
+
+    <label>Interest on Home Loan - Let Out</label>
+    <input type="number" id="intHomeLoanLetOut" min="0" value="0" />
+
+    <label>Income from Digital Assets</label>
+    <input type="number" id="incomeDigitalAssets" min="0" value="0" />
+
+    <label>Other Income</label>
+    <input type="number" id="otherIncome" min="0" value="0" />
+
+    <div>
+      <button onclick="prevCard('card-age')">← Back</button>
+      <button onclick="nextCard('card-deductions')">Next →</button>
+    </div>
+  </div>
+
+  <!-- Card 4: Deductions -->
+  <div id="card-deductions" class="card">
+    <h3>Deductions & Limits</h3>
+
+    <label>Basic Deductions - 80C (Max ₹1,50,000)</label>
+    <input type="number" id="deduct80C" min="0" max="150000" value="0" />
+
+    <label>Interest from Deposits - 80TTB (Max ₹50,000 for senior citizens)</label>
+    <input type="number" id="deduct80TTB" min="0" value="0" />
+
+    <label>Medical Insurance - 80D (Max ₹50,000 for senior citizens, ₹25,000 others)</label>
+    <input type="number" id="deduct80D" min="0" value="0" />
+
+    <label>Donations to Charity - 80G</label>
+    <input type="number" id="deduct80G" min="0" value="0" />
+
+    <label>Interest on Educational Loan - 80E</label>
+    <input type="number" id="deduct80E" min="0" value="0" />
+
+    <label>Interest on Housing Loan - 80EEA</label>
+    <input type="number" id="deduct80EEA" min="0" value="0" />
+
+    <label>Employee's contribution to NPS - 80CCD (Max ₹50,000)</label>
+    <input type="number" id="deduct80CCD" min="0" max="50000" value="0" />
+
+    <label>Employer's contribution to NPS - 80CCD(2) (Max ₹50,000)</label>
+    <input type="number" id="deduct80CCD2" min="0" max="50000" value="0" />
+
+    <div>
+      <button onclick="prevCard('card-income')">← Back</button>
+      <button onclick="calculateTax()">💡 Calculate Tax</button>
+    </div>
+  </div>
+
+  <!-- Result card -->
+  <div id="card-result" class="card">
+    <h2>Tax Calculation Result</h2>
+    <div class="result" id="resultText"></div>
+    <div class="insights" id="taxInsights"></div>
+    <button onclick="resetCalculator()">↻ Start Over</button>
+  </div>
+</section>
+
 <script>
-function nextCard(nextId) {
-  const current = document.querySelector('.flashcard.active');
-  current.classList.remove('active');
-  document.getElementById(nextId).classList.add('active');
-}
-
-function prevCard(prevId) {
-  const current = document.querySelector('.flashcard.active');
-  current.classList.remove('active');
-  document.getElementById(prevId).classList.add('active');
-}
-
-function validateMax(input) {
-  const max = parseInt(input.max);
-  const val = parseInt(input.value);
-  if (val > max) {
-    input.value = max;
-    alert(`Maximum allowed deduction for this field is ₹${max.toLocaleString()}`);
-  } else if (val < 0) {
-    input.value = 0;
+  // Card navigation
+  function showCard(id) {
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
   }
-}
+  function nextCard(id) { showCard(id); }
+  function prevCard(id) { showCard(id); }
 
-function calculateTax() {
-  // Fetch inputs
-  const fy = document.querySelector('input[name="fy"]:checked').value;
-  const age = document.querySelector('input[name="age"]:checked').value;
+  function resetCalculator() {
+    // Reset all inputs
+    document.querySelectorAll('input[type=number]').forEach(i => i.value = 0);
+    document.getElementById('financialYear').value = '2025';
+    document.getElementById('ageGroup').value = 'below60';
+    showCard('card-fy');
+    document.getElementById('resultText').innerHTML = '';
+    document.getElementById('taxInsights').innerHTML = '';
+  }
 
-  const income = Number(document.getElementById('salary').value)
-               + Number(document.getElementById('interestIncome').value)
-               + Number(document.getElementById('rentalIncome').value)
-               + Number(document.getElementById('digitalIncome').value)
-               + Number(document.getElementById('otherIncome').value);
+  // Simple tax calculation logic (example)
+  function calculateTax() {
+    const fy = document.getElementById('financialYear').value;
+    const age = document.getElementById('ageGroup').value;
 
-  const exempt = Number(document.getElementById('exemptAllowances').value);
+    // Income inputs
+    const salary = +document.getElementById('incomeSalary').value || 0;
+    const exempt = +document.getElementById('exemptAllowances').value || 0;
+    const interestIncome = +document.getElementById('incomeInterest').value || 0;
+    const homeLoanSelf = +document.getElementById('intHomeLoanSelf').value || 0;
+    const rental = +document.getElementById('rentalIncome').value || 0;
+    const homeLoanLetOut = +document.getElementById('intHomeLoanLetOut').value || 0;
+    const digitalAssets = +document.getElementById('incomeDigitalAssets').value || 0;
+    const otherIncome = +document.getElementById('otherIncome').value || 0;
 
-  const deductions = Number(document.getElementById('ded80C').value)
-                   + Number(document.getElementById('ded80TTB').value)
-                   + Number(document.getElementById('ded80D').value)
-                   + Number(document.getElementById('ded80G').value)
-                   + Number(document.getElementById('ded80E').value)
-                   + Number(document.getElementById('ded80EEA').value)
-                   + Number(document.getElementById('ded80CCD').value)
-                   + Number(document.getElementById('ded80CCD2').value);
+    // Deductions (apply max limits)
+    const deduct80C = Math.min(+document.getElementById('deduct80C').value || 0, 150000);
+    const deduct80TTB = +document.getElementById('deduct80TTB').value || 0;
+    const deduct80D = +document.getElementById('deduct80D').value || 0;
+    const deduct80G = +document.getElementById('deduct80G').value || 0;
+    const deduct80E = +document.getElementById('deduct80E').value || 0;
+    const deduct80EEA = +document.getElementById('deduct80EEA').value || 0;
+    const deduct80CCD = Math.min(+document.getElementById('deduct80CCD').value || 0, 50000);
+    const deduct80CCD2 = Math.min(+document.getElementById('deduct80CCD2').value || 0, 50000);
 
-  const loanDeduct = Number(document.getElementById('homeLoanSelf').value) + Number(document.getElementById('homeLoanLetOut').value);
+    // Total income calculation (simplified)
+    let grossIncome = salary + interestIncome + rental + digitalAssets + otherIncome;
+    grossIncome -= exempt;
 
-  const totalIncome = Math.max(0, income - exempt - loanDeduct);
+    // Apply home loan interest deductions
+    if (homeLoanSelf) grossIncome -= homeLoanSelf; // self occupied interest is deduction if applicable
+    if (homeLoanLetOut) grossIncome -= homeLoanLetOut; // let out interest can be deducted
 
-  const taxableOld = Math.max(0, totalIncome - deductions);
-  const taxableNew = Math.max(0, totalIncome - deductions); // For demo, same deduction rules. Can be adjusted.
+    // Total deductions sum
+    const totalDeductions = deduct80C + deduct80TTB + deduct80D + deduct80G + deduct80E + deduct80EEA + deduct80CCD + deduct80CCD2;
 
-  // Tax slabs example (simplified):
-  // For FY 25-26 and age groups, slabs can differ. We'll use basic slabs here:
+    let taxableIncome = grossIncome - totalDeductions;
+    taxableIncome = taxableIncome < 0 ? 0 : taxableIncome;
 
-  // Old Regime slabs by age (FY 25-26) - simplified example:
-  const slabsOld = {
-    normal: [
-      { upTo: 300000, rate: 0 },
-      { upTo: 500000, rate: 0.05 },
-      { upTo: 1000000, rate: 0.2 },
-      { upTo: Infinity, rate: 0.3 }
-    ],
-    senior: [
-      { upTo: 300000, rate: 0 },
-      { upTo: 500000, rate: 0.05 },
-      { upTo: 1000000, rate: 0.2 },
-      { upTo: Infinity, rate: 0.3 }
-    ],
-    super: [
-      { upTo: 500000, rate: 0 },
-      { upTo: 1000000, rate: 0.2 },
-      { upTo: Infinity, rate: 0.3 }
-    ]
-  };
+    // Tax slabs (simplified and illustrative, FY 2025-26 new regime slabs)
+    // Real slabs will vary by FY and age, here is an example for new regime FY 2025-26
+    const slabsNew = [
+      {limit: 300000, rate: 0},
+      {limit: 300000, rate: 0.05},
+      {limit: 400000, rate: 0.1},
+      {limit: 300000, rate: 0.15},
+      {limit: 500000, rate: 0.2},
+      {limit: Infinity, rate: 0.3},
+    ];
 
-  // New Regime slabs (simplified, same for all ages):
-  const slabsNew = [
-    { upTo: 300000, rate: 0 },
-    { upTo: 600000, rate: 0.05 },
-    { upTo: 900000, rate: 0.1 },
-    { upTo: 1200000, rate: 0.15 },
-    { upTo: 1500000, rate: 0.2 },
-    { upTo: 1800000, rate: 0.25 },
-    { upTo: Infinity, rate: 0.3 }
-  ];
+    // Old regime slabs for <60 years (simplified)
+    const slabsOld = [
+      {limit: 250000, rate: 0},
+      {limit: 250000, rate: 0.05},
+      {limit: 500000, rate: 0.2},
+      {limit: Infinity, rate: 0.3},
+    ];
 
-  function calcTax(income, slabs) {
-    let tax = 0, lowerLimit = 0;
-    for (const slab of slabs) {
-      if (income <= lowerLimit) break;
-      let taxableAtThisRate = Math.min(income, slab.upTo) - lowerLimit;
-      if (taxableAtThisRate > 0) {
-        tax += taxableAtThisRate * slab.rate;
+    // Calculate tax using slabs
+    function computeTax(income, slabs) {
+      let tax = 0;
+      let remaining = income;
+      for (let slab of slabs) {
+        let slabAmount = Math.min(remaining, slab.limit);
+        tax += slabAmount * slab.rate;
+        remaining -= slabAmount;
+        if (remaining <= 0) break;
       }
-      lowerLimit = slab.upTo;
-      if (income <= slab.upTo) break;
+      return tax;
     }
-    return tax;
+
+    // Pick slabs based on FY and age (for demo, only FY 2025-26 uses new regime slabs)
+    let taxOld = computeTax(taxableIncome, slabsOld);
+    let taxNew = computeTax(taxableIncome, slabsNew);
+
+    // Rebate for taxable income <= 5L (simplified)
+    if (taxOld < 12500) taxOld = 0;
+    if (taxNew < 12500) taxNew = 0;
+
+    // Add cess (4%)
+    taxOld = taxOld * 1.04;
+    taxNew = taxNew * 1.04;
+
+    // Round off
+    taxOld = Math.round(taxOld);
+    taxNew = Math.round(taxNew);
+
+    let resultHtml = `<strong>Taxable Income:</strong> ₹${taxableIncome.toLocaleString()}<br>`;
+    resultHtml += `<strong>Estimated Tax under Old Regime:</strong> ₹${taxOld.toLocaleString()}<br>`;
+    resultHtml += `<strong>Estimated Tax under New Regime:</strong> ₹${taxNew.toLocaleString()}<br>`;
+
+    // Provide a simple insight
+    let insights = '';
+    if (taxOld < taxNew) {
+      insights = 'You save more tax under the <strong>Old Regime</strong>. Consider maximizing deductions.';
+    } else if (taxNew < taxOld) {
+      insights = 'You save more tax under the <strong>New Regime</strong>. This is better if you prefer fewer deductions.';
+    } else {
+      insights = 'Both regimes result in similar tax liability.';
+    }
+    if (taxableIncome < 250000) {
+      insights += '<br><em>Note: Your income is below the basic exemption limit, no tax is payable.</em>';
+    }
+
+    document.getElementById('resultText').innerHTML = resultHtml;
+    document.getElementById('taxInsights').innerHTML = insights;
+
+    showCard('card-result');
   }
-
-  const taxOld = calcTax(taxableOld, slabsOld[age]);
-  const taxNew = calcTax(taxableNew, slabsNew);
-
-  // Add cess 4%
-  const cessOld = taxOld * 0.04;
-  const cessNew = taxNew * 0.04;
-
-  // Final tax
-  const finalOld = taxOld + cessOld;
-  const finalNew = taxNew + cessNew;
-
-  // Show result
-  document.getElementById('flashcards-container').style.display = 'none';
-  document.getElementById('result').style.display = 'block';
-
-  let summaryHTML = `
-    <p><strong>Financial Year:</strong> FY ${fy}</p>
-    <p><strong>Age Group:</strong> ${age === 'normal' ? 'Below 60' : age === 'senior' ? '60 to 80' : '80 & above'}</p>
-    <p><strong>Total Income (After Exemptions & Home Loan Interest):</strong> ₹${totalIncome.toLocaleString()}</p>
-    <p><strong>Total Deductions:</strong> ₹${deductions.toLocaleString()}</p>
-    <hr>
-    <p><strong>Tax Payable (Old Regime):</strong> ₹${finalOld.toFixed(2)}</p>
-    <p><strong>Tax Payable (New Regime):</strong> ₹${finalNew.toFixed(2)}</p>
-  `;
-
-  document.getElementById('summary').innerHTML = summaryHTML;
-
-  let tipsHTML = '';
-
-  if (finalOld < finalNew) {
-    tipsHTML += `<li>Old regime offers lower tax. Consider continuing with deductions under 80C, 80D, etc.</li>`;
-  } else if (finalNew < finalOld) {
-    tipsHTML += `<li>New regime offers lower tax. Consider the simplified tax slabs with fewer deductions.</li>`;
-  } else {
-    tipsHTML += `<li>Both regimes result in similar tax. Choose the regime based on your comfort with filing and deductions.</li>`;
-  }
-
-  tipsHTML += `<li>Maximize your 80C investments (up to ₹1,50,000) for better tax savings.</li>`;
-  tipsHTML += `<li>Claim health insurance deduction under 80D (up to ₹75,000 if applicable).</li>`;
-  tipsHTML += `<li>Review home loan interest benefits carefully under different sections.</li>`;
-
-  document.getElementById('tips').innerHTML = tipsHTML;
-}
-
-function resetCalculator() {
-  document.getElementById('result').style.display = 'none';
-  document.getElementById('flashcards-container').style.display = 'block';
-
-  // Reset all inputs and go to first card
-  document.querySelectorAll('input[type=number]').forEach(input => input.value = 0);
-  document.querySelector('input[name="fy"][value="2025"]').checked = true;
-  document.querySelector('input[name="age"][value="normal"]').checked = true;
-
-  const cards = document.querySelectorAll('.flashcard');
-  cards.forEach(card => card.classList.remove('active'));
-  document.getElementById('card-fy').classList.add('active');
-}
 </script>
