@@ -4,3 +4,18 @@ collections:
   technews:
     output: true
     permalink: /guide/:title/
+
+plugins:
+  - jekyll-paginate-v2
+
+pagination:
+  enabled: true
+  collection: technews
+  per_page: 5
+  permalink: /guide/page/:num/
+  title: "Guides - page :num"
+  sort_field: "date"
+  sort_reverse: true
+  trail:
+    before: 2
+    after: 2
