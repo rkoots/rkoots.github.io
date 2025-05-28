@@ -95,7 +95,7 @@ description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an int
 
 <section>
   <h1>Income Tax Calculator</h1>
-  <p><em>See how the latest budget impacts your tax calculation. Updated as per latest budget on 23 July, 2025.</em></p>
+  <p><em>See how the latest budget impacts your tax calculation. Updated as per latest budget on 2025.</em></p>
 
   <!-- Card 1: Select Financial Year -->
   <div id="card-fy" class="card active">
@@ -326,3 +326,189 @@ description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an int
     showCard('card-result');
   }
 </script>
+
+
+# Comprehensive Income Tax Toolkit
+*For FY 2025-26 (AY 2026-27) | Updated with Union Budget 2025 Tax Changes*
+
+---
+
+## Introduction
+
+Individuals in India can file income tax returns under either the **Old Tax Regime** or the **New Tax Regime**, each offering different slab rates, deductions, and benefits.
+
+Our **Income Tax Calculator** is a simple, cost-effective online tool that helps you:
+
+- Calculate your tax liability accurately.
+- Compare old vs new tax regimes side-by-side.
+- Make informed decisions to optimize your tax savings.
+
+This guide explains the tax slabs, deductions, exemptions, and how to use the calculator effectively for smarter tax planning.
+
+---
+
+## Budget 2025 Updates at a Glance
+
+- **No tax for income up to ₹12 Lakhs** under the new regime due to a rebate of ₹60,000.
+- Modified slab rates introduced for FY 2025-26 (AY 2026-27) under the new regime.
+
+| Income Slab (₹)          | Tax Rate (New Regime) |
+|-------------------------|---------------------|
+| Up to 4,00,000          | NIL                 |
+| 4,00,001 – 8,00,000     | 5%                  |
+| 8,00,001 – 12,00,000    | 10%                 |
+| 12,00,001 – 16,00,000   | 15%                 |
+| 16,00,001 – 20,00,000   | 20%                 |
+| 20,00,001 – 24,00,000   | 25%                 |
+| Above 24,00,000         | 30%                 |
+
+---
+
+## What is the Income Tax Calculator?
+
+The **Income Tax Calculator** is an easy-to-use online tool that:
+
+- Calculates your total tax liability based on income, deductions, and exemptions.
+- Shows a comparison between old and new tax regimes.
+- Helps you plan your investments and deductions efficiently.
+- Is updated according to the latest tax rules from the Union Budget 2025.
+
+---
+
+## How to Use the Income Tax Calculator
+
+Follow these steps:
+
+1. **Select Financial Year:** Choose FY 2024-25 or FY 2025-26.
+2. **Select Age Group:** Different slabs for age groups in old regime.
+3. **Enter Salary Details:** Include gross salary, exempt allowances (like HRA, LTA).
+4. **Add Other Incomes:** Interest income, rental income, capital gains, digital assets, etc.
+5. **Provide Investment Details:** Enter investments eligible under Sections 80C, 80D, 80G, 80E, and 80TTA.
+6. **Calculate:** View tax liability under both regimes and plan accordingly.
+
+---
+
+## How to Calculate Income Tax on Salary: A Simplified Example
+
+Consider Neha:
+
+| Component           | Amount (₹) | Exemption (₹) | Taxable Income Old Regime (₹) | Taxable Income New Regime (₹) |
+|---------------------|------------|---------------|-------------------------------|-------------------------------|
+| Basic Salary        | 12,00,000  | -             | 12,00,000                     | 12,00,000                     |
+| HRA                 | 6,00,000   | 3,60,000      | 2,40,000                      | 6,00,000                      |
+| Special Allowance   | 2,52,000   | -             | 2,52,000                      | 2,52,000                      |
+| LTA                 | 20,000     | 12,000        | 8,000                        | 20,000                       |
+| **Standard Deduction** | -          | 50,000        | 50,000                       | 75,000                       |
+| **Gross Salary Income** | -          | -             | 16,50,000                    | 19,97,000                    |
+
+Additional income and deductions:
+
+| Deduction Section | Maximum Allowed (₹) | Neha's Claimed Amount (₹)             |
+|-------------------|---------------------|--------------------------------------|
+| 80C               | 1,50,000            | PPF 50,000 + ELSS 20,000 + LIC 8,000 + EPF contribution 72,000 (considered) |
+| 80D               | 25,000              | Medical Insurance 12,000              |
+| 80TTA             | 10,000              | Savings Account Interest 8,000        |
+
+---
+
+## Tax Calculation Summary for Neha
+
+| Description          | Old Regime (₹) | New Regime (₹) |
+|----------------------|----------------|----------------|
+| Gross Income         | 16,70,000      | 19,42,000      |
+| Deductions           | 1,70,000       | 0              |
+| **Taxable Income**   | 15,00,000      | 19,42,000      |
+| **Tax Liability**    | 2,73,000       | 2,83,504       |
+
+---
+
+## Tax Slabs Comparison: Old Regime vs New Regime
+
+### Old Regime (Age-based slabs)
+
+| Income Slab (₹)      | <60 yrs | 60-80 yrs | 80+ yrs  |
+|----------------------|---------|-----------|----------|
+| Up to 2,50,000       | NIL     | NIL       | NIL      |
+| 2,50,001 – 3,00,000  | 5%      | NIL       | NIL      |
+| 3,00,001 – 5,00,000  | 5%      | 5%        | NIL      |
+| 5,00,001 – 10,00,000 | 20%     | 20%       | 20%      |
+| Above 10,00,000      | 30%     | 30%       | 30%      |
+
+### New Regime (Same slabs for all ages)
+
+| Income Slab (₹)      | Tax Rate |
+|----------------------|----------|
+| Up to 3,00,000       | NIL      |
+| 3,00,001 – 7,00,000  | 5%       |
+| 7,00,001 – 10,00,000 | 10%      |
+| 10,00,001 – 12,00,000| 15%      |
+| 12,00,001 – 15,00,000| 20%      |
+| Above 15,00,000      | 30%      |
+
+---
+
+## Surcharge and Education Cess
+
+- Surcharge applies on income tax if total income exceeds certain thresholds.
+
+| Income Range (₹)              | Surcharge Rate  |
+|------------------------------|-----------------|
+| ₹50 lakh - ₹1 crore           | 10%             |
+| ₹1 crore - ₹2 crore           | 15%             |
+| ₹2 crore - ₹5 crore           | 25%             |
+| Above ₹5 crore                | 37% (Old Regime) / 25% (New Regime) |
+
+- Health and Education Cess: **4%** of total tax liability.
+
+---
+
+## When to Choose Old Regime vs New Regime?
+
+<details>
+<summary><strong>Click to expand</strong></summary>
+
+- **Old Regime** is beneficial if you have significant deductions/investments under sections 80C, 80D, 80E, etc.
+- **New Regime** suits taxpayers preferring lower tax rates with fewer/no deductions.
+- If your total deductions exceed the tax savings from slab benefits in the new regime, old regime may be better.
+- If you do not have many investments or deductions, new regime generally leads to lower tax.
+
+---
+
+**Note:** You can use the Income Tax Calculator to input your exact details and instantly compare which regime benefits you more.
+
+</details>
+
+---
+
+## Frequently Asked Questions (FAQ)
+
+<details>
+<summary><strong>What is Rebate u/s 87A?</strong></summary>
+You get a rebate of up to ₹12,500 (old regime) or ₹60,000 (new regime) on tax payable if your total income is below ₹5,00,000 or ₹12,00,000 respectively, effectively reducing your tax liability to zero.
+</details>
+
+<details>
+<summary><strong>What is Marginal Relief on Rebate?</strong></summary>
+Marginal relief ensures taxpayers just above the rebate income limit do not pay disproportionately higher tax by providing a gradual phase-out of rebate.
+</details>
+
+<details>
+<summary><strong>What deductions are not available under New Regime?</strong></summary>
+Deductions such as standard deduction, house rent allowance (HRA), leave travel allowance (LTA), and various other exemptions under sections 80C, 80D, etc., are not available in the new tax regime.
+</details>
+
+<details>
+<summary><strong>How do I calculate income from salary?</strong></summary>
+Sum up Basic Salary, HRA, Special Allowances, Transport Allowance, and other allowances. Subtract exemptions such as HRA exemption (if applicable) and standard deduction to arrive at taxable salary.
+</details>
+
+<details>
+<summary><strong>How can I reduce my tax liability?</strong></summary>
+Invest in tax-saving instruments under Section 80C (PPF, ELSS), 80D (medical insurance), 80E (education loan interest), and claim all eligible deductions and exemptions to reduce taxable income.
+</details>
+
+---
+
+## Final Word
+
+Understanding the nuances of both tax regimes empowers you to plan better financially and minimize your tax burden legally. Use our updated Income Tax Calculator to make data-driven decisions for FY 2025-26 and beyond.
