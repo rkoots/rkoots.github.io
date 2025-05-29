@@ -8,7 +8,7 @@ description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an int
 <style>
   /* Container and card styles */
   .card {
-    max-width: 600px;
+    max-width: 480px;
     margin: 2rem auto;
     padding: 1.8rem 2rem;
     border-radius: 12px;
@@ -16,7 +16,7 @@ description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an int
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     display: none;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.15rem;
   }
   .card.active {
     display: flex;
