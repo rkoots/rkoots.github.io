@@ -1,6 +1,6 @@
-permalink: /:categories/:year/:month/:day/:title/
+permalink: /:title/
 
 collections:
-  technews:
+  projects:
     output: true
     permalink: /projects/
