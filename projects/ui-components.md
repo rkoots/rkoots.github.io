@@ -15,8 +15,4 @@ components:
 
 <h1>Free Open-Source UI Library with Live Previews — Buttons, Cards, Modals & More</h1>
 
-<div class="components-grid">
-  {% for component in page.components %}
-    {% include component-card.html component=component %}
-  {% endfor %}
 </div>
