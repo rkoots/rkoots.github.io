@@ -1,0 +1,7 @@
+- name: Button
+  description: A simple button component
+  preview: /assets/img/button-preview.png
+
+- name: Card
+  description: A card layout component
+  preview: /assets/img/card-preview.png

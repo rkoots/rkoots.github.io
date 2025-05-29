@@ -1,8 +1,5 @@
-<div class="component-card" data-tags="{{ component.tags | join: ' ' }}">
+<div class="tool-card">
+    <img src="{{ component.preview }}" alt="{{ component.name }}">
     <h3>{{ component.name }}</h3>
-    <div class="preview">
-        {% include_relative _components/{{ component.file }} %}
-    </div>
-    <pre><code>{% raw %}{% include_relative _components/{{ component.file }} %}{% endraw %}</code></pre>
-    <button onclick="copyToClipboard(this)">📋 Copy</button>
+    <p>{{ component.description }}</p>
 </div>
