@@ -3,4 +3,4 @@ permalink: /:categories/:year/:month/:day/:title/
 collections:
   technews:
     output: true
-    permalink: /income-tax-calculator/
+    permalink: /projects/
