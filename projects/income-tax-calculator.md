@@ -149,7 +149,7 @@ description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an int
     <input type="number" id="deduct80G" min="0" value="0" />
     <div>
       <button onclick="prevCard('card-income2')">← Back</button>
-      <button onclick="calculateTax()">💡 Calculate Tax</button>
+      <button onclick="nextCard('card-deductions2')">💡 Calculate Tax</button>
     </div>
   </div>
 
