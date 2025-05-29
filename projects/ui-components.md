@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Free UI Components
-permalink: /income-tax-calculator/
+permalink: /free-ui-components/
 description: FREE
 ---
 
