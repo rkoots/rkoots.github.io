@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Income Tax Calculator
+title: FREE Income Tax Calculator
 permalink: /income-tax-calculator/
-description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an interactive calculator and get tax planning insights.
+description: FREE Calculate your income tax for FY 2025-26 and FY 2024-25 with an interactive calculator and get tax planning insights.
 ---
 
 <style>
