@@ -101,7 +101,7 @@ description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an int
     </select>
 
   <!-- Card 1 -->
-  <div id="card-income" class="card ">
+  <div id="card-income" class="card active">
     <h3>Income Details</h3>
     <label>Income from Salary</label>
     <input type="number" id="incomeSalary" min="0" value="0" />
