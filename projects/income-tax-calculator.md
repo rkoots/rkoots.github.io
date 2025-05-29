@@ -96,6 +96,12 @@ description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an int
 <section>
   <h1>Income Tax Calculator</h1>
   <p><em>See how the latest budget impacts your tax calculation. Updated as per latest budget on 2025.</em></p>
+    <select id=""  type="hidden">
+      <option value="">FY 2025-2026 (Return: 1st Apr 2026 - 31st Mar 2027)</option>
+    </select>
+<input type="hidden" id="ageGroup" value="below60" />
+<input type="hidden" id="financialYear"  value="2025" />
+
 
   <!-- Card 1 -->
   <div id="card-income" class="card active">
