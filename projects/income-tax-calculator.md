@@ -190,7 +190,7 @@ description: Calculate your income tax for FY 2025-26 and FY 2024-25 with an int
     document.querySelectorAll('input[type=number]').forEach(i => i.value = 0);
     document.getElementById('financialYear').value = '2025';
     document.getElementById('ageGroup').value = 'below60';
-    showCard('card-fy');
+    showCard('card-income');
     document.getElementById('resultText').innerHTML = '';
     document.getElementById('taxInsights').innerHTML = '';
   }
