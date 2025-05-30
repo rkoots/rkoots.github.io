@@ -12,7 +12,7 @@ keywords: free ui components, html css js ui kits, open source components, front
 Explore a visually rich collection of **HTML & CSS-based UI components**. Perfect for modern web apps, portfolios, and creative experiments. No dependencies, just clean, animated visuals.
 
 
-<section class="load-container 3d">
+<section class="load-container threed">
 <article><div id="l1"></div>
 <style>#l1 {
   --s: 25px;
