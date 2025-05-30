@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: iconlayout
 title: Free UI Components Library – CSS, HTML & JS
 permalink: /free-ui-components/
 description: A curated collection of free UI components built with HTML, CSS, and JavaScript. Instantly usable, customizable, and perfect for modern web design and development.
@@ -34,6 +34,32 @@ keywords: free ui components, html css js ui kits, open source components, front
     });
   });
 </script>
+<style>
+<!-- HTML -->
+<div class="loader"></div>
+
+/* CSS */
+.loader {
+--s: 25px;
+
+--_d: calc(0.353*var(--s));
+width: calc(var(--s) + var(--_d));
+aspect-ratio: 1;
+display: grid;
+filter: drop-shadow(0 0 0 #fff);
+animation: l2 0.8s infinite;
+}
+.loader:before {
+content: "";
+clip-path: polygon(var(--_d) 0,100% 0,100% calc(100% - var(--_d)),calc(100% - var(--_d)) 100%,0 100%,0 var(--_d));
+background:
+conic-gradient(from -90deg at var(--s) var(--_d),
+#fff 135deg,#666 0 270deg,#aaa 0);
+}
+@keyframes l2{
+50% {filter:drop-shadow(0 0 5px #fff)}
+}
+</style>
 
 # 🎨 Free UI Components Gallery
 
