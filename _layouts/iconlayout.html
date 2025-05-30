@@ -144,35 +144,6 @@
           padding: 20px;
           flex-grow: 1;
         }
-    </style>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
-          var clipboard = new ClipboardJS('article button', {
-            text: function (trigger) {
-              const article = trigger.closest("article");
-              const div = article.querySelector("div");
-              const style = article.querySelector("style");
-
-              if (div && style) {
-                const loaderId = div.id;
-                const html = `<div class="loader"></div>`;
-                const css = style.innerHTML.replaceAll('#' + loaderId, '.loader');
-                return `<!-- HTML -->\n${html}\n\n/* CSS */\n${css}`;
-              }
-              return '';
-            }
-          });
-
-          clipboard.on('success', function (e) {
-            e.trigger.textContent = "Copied!";
-            setTimeout(() => {
-              e.trigger.textContent = "Copy the CSS";
-            }, 1800);
-            e.clearSelection();
-          });
-        });
 
 nav {
     justify-content: space-between;
@@ -214,6 +185,36 @@ nav ul li a.active {
     background-color: var(--pico-text-selection-color);
     --pico-color: var(--pico-primary-hover);
 }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+          var clipboard = new ClipboardJS('article button', {
+            text: function (trigger) {
+              const article = trigger.closest("article");
+              const div = article.querySelector("div");
+              const style = article.querySelector("style");
+
+              if (div && style) {
+                const loaderId = div.id;
+                const html = `<div class="loader"></div>`;
+                const css = style.innerHTML.replaceAll('#' + loaderId, '.loader');
+                return `<!-- HTML -->\n${html}\n\n/* CSS */\n${css}`;
+              }
+              return '';
+            }
+          });
+
+          clipboard.on('success', function (e) {
+            e.trigger.textContent = "Copied!";
+            setTimeout(() => {
+              e.trigger.textContent = "Copy the CSS";
+            }, 1800);
+            e.clearSelection();
+          });
+        });
+
     </script>
 
     <style>
