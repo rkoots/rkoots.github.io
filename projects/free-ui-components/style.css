@@ -61,85 +61,10 @@
       linear-gradient(currentColor 0 0) 50% / 2px 60% no-repeat;
     rotate: 45deg;
 }
-body {
-    padding-left: var(--nav-size);
-    min-height: 100vh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-}
-body header h1 + p {
-    text-indent: 125px;
-    margin-top: -22px;
-    font-size: 15px;
-}
-body>header, body>main {
-    padding: 0 .5rem;
-}
-body>footer {
-    border-top: 1px solid var(--pico-muted-border-color);
-    padding: 0 0 var(--pico-block-spacing-vertical);
-    margin-top: 2rem;
-}
-footer p {
-    margin: 0;
-}
-footer p:first-child {
-    margin-top: var(--pico-block-spacing-vertical);
-}
-footer a {
-    display: inline-block;
-}
-body header,
-body footer {
-    text-align: center;
-}
-body header > * {
-    margin: 5px;
-}
 iframe {
     overflow: hidden!important;
     display: block;
     margin: auto;
-}
-nav {
-    justify-content: space-between;
-    position: fixed;
-    z-index: 13;
-    inset: 0 calc(100% - var(--nav-size)) 0 0;
-    overflow: auto;
-    box-shadow: var(--pico-card-box-shadow);
-    border-right: 1px solid var(--pico-muted-border-color);
-    background: var(--pico-background-color);
-}
-nav ul {
-    flex-direction: column;
-    width: 100%;
-    margin: 0!important;
-}
-nav ul li {
-    width: 100%;    
-    border-bottom: 1px solid var(--pico-muted-border-color);
-    padding: 0;
-}
-nav ul li a {
-    padding: calc(var(--pico-spacing) * .65) calc(var(--pico-spacing) * .5);
-    margin: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    text-transform: capitalize;
-    border-radius: 0;
-    --pico-color: var(--pico-h4-color);
-}
-nav ul li a small {
-    font-weight: bold;
-    float: right;
-    --pico-font-size: .75em;
-}
-nav ul li a:hover,
-nav ul li a.active {
-    background-color: var(--pico-text-selection-color);
-    --pico-color: var(--pico-primary-hover);
 }
 main {
     text-align: center;
