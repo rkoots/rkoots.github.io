@@ -6,10 +6,6 @@ description: A curated collection of free UI components built with HTML, CSS, an
 keywords: free ui components, html css js ui kits, open source components, frontend design blocks, web design elements, reusable components
 ---
 
-
-# 🎨 Free UI Components Gallery
-
-Explore a visually rich collection of **HTML & CSS-based UI components**. Perfect for modern web apps, portfolios, and creative experiments. No dependencies, just clean, animated visuals.
 <section class="load-container">
 <article><div id="l1"></div>
 <style>#l1 {
