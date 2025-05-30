@@ -10,7 +10,6 @@ keywords: free ui components, html css js ui kits, open source components, front
 
 Explore a visually rich collection of **HTML & CSS-based UI components**. Perfect for modern web apps, portfolios, and creative experiments. No dependencies, just clean, animated visuals.
 
-<div style="height:235px;margin:auto .5rem;overflow:hidden;contain:strict;content-visibility:auto;"><script async type="text/javascript" src="https://cdn.carbonads.com/carbon.js?serve=CW7DV27N&placement=css-loaderscom&format=cover" id="_carbonads_js"></script></div>
 <section class="load-container">
 <article><div id="l1"></div>
 <style>#l1 {
@@ -375,10 +374,6 @@ animation: l12 steps(3) 1.5s infinite;
 <button>Copy the CSS</button>
 </article>
 </section>
-</main>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-
 
 
 <script>
