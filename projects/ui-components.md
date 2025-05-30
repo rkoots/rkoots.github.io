@@ -6,6 +6,35 @@ description: A curated collection of free UI components built with HTML, CSS, an
 keywords: free ui components, html css js ui kits, open source components, frontend design blocks, web design elements, reusable components
 ---
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    var clipboard = new ClipboardJS('article button', {
+      text: function (trigger) {
+        const article = trigger.closest("article");
+        const div = article.querySelector("div");
+        const style = article.querySelector("style");
+
+        if (div && style) {
+          const loaderId = div.id;
+          const html = `<div class="loader"></div>`;
+          const css = style.innerHTML.replaceAll('#' + loaderId, '.loader');
+          return `<!-- HTML -->\n${html}\n\n/* CSS */\n${css}`;
+        }
+        return '';
+      }
+    });
+
+    clipboard.on('success', function (e) {
+      e.trigger.textContent = "Copied!";
+      setTimeout(() => {
+        e.trigger.textContent = "Copy the CSS";
+      }, 1800);
+      e.clearSelection();
+    });
+  });
+</script>
+
 # 🎨 Free UI Components Gallery
 
 Explore a visually rich collection of **HTML & CSS-based UI components**. Perfect for modern web apps, portfolios, and creative experiments. No dependencies, just clean, animated visuals.
@@ -374,22 +403,3 @@ animation: l12 steps(3) 1.5s infinite;
 <button>Copy the CSS</button>
 </article>
 </section>
-<script type="text/javascript">
-      var clipboard = new ClipboardJS('article button', {
-          text: function(trigger) {
-            return `/* HTML: <div class="loader"></div> */
-`+trigger.previousElementSibling.innerHTML.replaceAll('#'+trigger.previousElementSibling.previousElementSibling.id,'.loader');
-          }
-      });
-      clipboard.on('success', function(e) {
-        e.trigger.innerHTML = "Copied!"
-        setTimeout(function() {
-            e.trigger.innerHTML = "Copy the CSS"
-        }, 1800);
-        e.clearSelection();
-      });
-let ad = document.createElement("div");
-ad.id="responsive_css-loaderscom";
-ad.innerHTML="<style>#responsive_css-loaderscom:not(:has(div)){display:none}#responsive_css-loaderscom{grid-column:1/-1;grid-row:3}</style>";
-document.querySelector(".load-container article:nth-child(8)").after(ad);
-</script>
