@@ -1,5 +1,5 @@
 ---
-layout: iconlayout
+layout: default
 title: Free UI Components Library – CSS, HTML & JS
 permalink: /free-ui-components/
 description: A curated collection of free UI components built with HTML, CSS, and JavaScript. Instantly usable, customizable, and perfect for modern web design and development.
