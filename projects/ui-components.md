@@ -374,12 +374,22 @@ animation: l12 steps(3) 1.5s infinite;
 <button>Copy the CSS</button>
 </article>
 </section>
-
-
-<script>
-    (function(){
-      if(typeof _bsa !== 'undefined' && _bsa) {
-        _bsa.init('responsive', 'CW7D6K7U', 'placement:css-loaderscom', { target: "#responsive_css-loaderscom" });
-      }
-    })();
+<script type="text/javascript">
+      var clipboard = new ClipboardJS('article button', {
+          text: function(trigger) {
+            return `/* HTML: <div class="loader"></div> */
+`+trigger.previousElementSibling.innerHTML.replaceAll('#'+trigger.previousElementSibling.previousElementSibling.id,'.loader');
+          }
+      });
+      clipboard.on('success', function(e) {
+        e.trigger.innerHTML = "Copied!"
+        setTimeout(function() {
+            e.trigger.innerHTML = "Copy the CSS"
+        }, 1800);
+        e.clearSelection();
+      });
+let ad = document.createElement("div");
+ad.id="responsive_css-loaderscom";
+ad.innerHTML="<style>#responsive_css-loaderscom:not(:has(div)){display:none}#responsive_css-loaderscom{grid-column:1/-1;grid-row:3}</style>";
+document.querySelector(".load-container article:nth-child(8)").after(ad);
 </script>
