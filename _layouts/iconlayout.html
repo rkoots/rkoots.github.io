@@ -173,6 +173,47 @@
             e.clearSelection();
           });
         });
+
+nav {
+    justify-content: space-between;
+    position: fixed;
+    z-index: 13;
+    inset: 0 calc(100% - var(--nav-size)) 0 0;
+    overflow: auto;
+    box-shadow: var(--pico-card-box-shadow);
+    border-right: 1px solid var(--pico-muted-border-color);
+    background: var(--pico-background-color);
+}
+nav ul {
+    flex-direction: column;
+    width: 100%;
+    margin: 0!important;
+}
+nav ul li {
+    width: 100%;
+    border-bottom: 1px solid var(--pico-muted-border-color);
+    padding: 0;
+}
+nav ul li a {
+    padding: calc(var(--pico-spacing) * .65) calc(var(--pico-spacing) * .5);
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    text-transform: capitalize;
+    border-radius: 0;
+    --pico-color: var(--pico-h4-color);
+}
+nav ul li a small {
+    font-weight: bold;
+    float: right;
+    --pico-font-size: .75em;
+}
+nav ul li a:hover,
+nav ul li a.active {
+    background-color: var(--pico-text-selection-color);
+    --pico-color: var(--pico-primary-hover);
+}
     </script>
 
     <style>
@@ -200,6 +241,63 @@
         @keyframes l2{
         50% {filter:drop-shadow(0 0 5px #fff)}
         }
+
+.load-container article:before {
+    content: "#" counter(num);
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    color: var(--pico-primary);
+    font-weight: bold;
+    padding: 5px 10px;
+    border-bottom-right-radius: inherit;
+    border: inherit;
+}
+.load-container article > * {
+    grid-area: 1/1;
+}
+.load-container article > div {
+    color: #000;
+}
+.load-container article button {
+    opacity: 0;
+    border-radius: 5px;
+    box-shadow: 0 0.125rem 1rem rgb(27 40 50 / 4%), 0 0.125rem 2rem rgb(27 40 50 / 8%), 0 0 0 0.0625rem rgb(27 40 50 / 2%);
+    z-index: 9;
+    margin: 1em;
+    border: none;
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: fit-content;
+    cursor: pointer;
+    transition: .3s;
+}
+.load-container article button:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+.load-container article:hover button {
+    opacity: 1;
+}
+main .load-container + a[role="button"] {
+    display: none;
+}
+body:has(:target) main .load-container + a[role="button"] {
+    display: inline-block;
+}
+body:has(:target) article:not(:has(:target)),
+body:has(:target) main h2,
+body:has(:target) main h2 + p,
+body:has(:target) article:before {
+    display: none;
+}
+body:has(:target) main .load-container{
+    margin-inline: max(calc(3*var(--pico-spacing)),50% - 540px/2);
+}
+.load-container article:has(:target) {
+    grid-column: 1/-1;
+}
     </style>
 
 </head>
@@ -279,9 +377,7 @@
                 <li><a href="../factory/index.html">The factory <small>8</small></a></li>
             </ul>
         </nav>
-
     </div>
-
 
     {{ content }}
 </main>
@@ -309,9 +405,7 @@
     });
 </script>
 
-
 <div class="page__footer text-center">
-
     <footer>
         <nav class="footer-nav">
             <a href="/about/">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;
