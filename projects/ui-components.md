@@ -6,7 +6,7 @@ description: A curated collection of free UI components built with HTML, CSS, an
 keywords: free ui components, html css js ui kits, open source components, frontend design blocks, web design elements, reusable components
 ---
 
-<section class="load-container threed">
+<section class="threed load-container ">
 <article><div id="l1"></div>
 <style>#l1 {
   --s: 25px;
@@ -372,7 +372,7 @@ animation: l12 steps(3) 1.5s infinite;
 </section>
 
 
-<section class="load-container arcade">
+<section class="arcade load-container">
         <article>
           <div id="l1"></div>
           <style>#l1 {
@@ -753,7 +753,7 @@ animation: l12 steps(3) 1.5s infinite;
       </section>
 
 
-<section class="load-container arrow">
+<section class="arrow load-container">
         <article>
           <div id="l1"></div>
           <style>#l1 {
