@@ -28,4 +28,4 @@ jobs:
       - name: Run Playwright crawler
         run: |
           cd scripts
-          node scripts/crawler.js
+          node crawler.js
