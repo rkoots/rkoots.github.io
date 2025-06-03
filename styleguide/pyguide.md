@@ -4,7 +4,7 @@ Prefer only GitHub-flavored Markdown in external text.
 See README.md for details.
 -->
 
-# Google Python Style Guide
+# Python Style Guide
 
 <!-- markdown="1" is required for GitHub Pages to render the TOC properly. -->
 
@@ -93,12 +93,12 @@ See README.md for details.
 <a id="background"></a>
 ## 1 Background 
 
-Python is the main dynamic language used at Google. This style guide is a list
+Python is the main dynamic language used at rkoots. This style guide is a list
 of *dos and don'ts* for Python programs.
 
-To help you format code correctly, we've created a [settings file for Vim](google_python_style.vim). For Emacs, the default settings should be fine.
+To help you format code correctly, we've created a [settings file for Vim](rkoots_python_style.vim). For Emacs, the default settings should be fine.
 
-Many teams use the [Black](https://github.com/psf/black) or [Pyink](https://github.com/google/pyink)
+Many teams use the [Black](https://github.com/psf/black) or [Pyink](https://github.com/rkoots/pyink)
 auto-formatter to avoid arguing over formatting.
 
 
@@ -114,7 +114,7 @@ auto-formatter to avoid arguing over formatting.
 <a id="lint"></a>
 ### 2.1 Lint 
 
-Run `pylint` over your code using this [pylintrc](https://google.github.io/styleguide/pylintrc).
+Run `pylint` over your code using this [pylintrc](https://rkoots.github.io/styleguide/pylintrc).
 
 <a id="s2.1.1-definition"></a>
 <a id="211-definition"></a>
@@ -168,7 +168,7 @@ def do_PUT(self):  # WSGI name, so pylint: disable=invalid-name
 
 `pylint`
 warnings are each identified by symbolic name (`empty-docstring`)
-Google-specific warnings start with `g-`.
+rkoots-specific warnings start with `g-`.
 
 If the reason for the suppression is not clear from the symbolic name, add an
 explanation.
@@ -1470,7 +1470,7 @@ Use other `from __future__` import statements as you see fit.
 
 You can annotate Python code with
 [type hints](https://docs.python.org/3/library/typing.html). Type-check the code
-at build time with a type checking tool like [pytype](https://github.com/google/pytype).
+at build time with a type checking tool like [pytype](https://github.com/rkoots/pytype).
 In most cases, when feasible, type annotations are in source files. For
 third-party or extension modules, annotations can be in
 [stub `.pyi` files](https://peps.python.org/pep-0484/#stub-files).
@@ -1514,7 +1514,7 @@ your ability to use [Power Features](#power-features).
 You will have to keep the type declarations up to date.
 You might see type errors that you think are
 valid code. Use of a
-[type checker](https://github.com/google/pytype)
+[type checker](https://github.com/rkoots/pytype)
 may reduce your ability to use [Power Features](#power-features).
 
 <a id="s2.21.4-decision"></a>
@@ -1668,7 +1668,7 @@ above; see the [indentation](#s3.4-indentation) section for explanation.
 limit.
 
 In all other cases where a line exceeds 80 characters, and the
-[Black](https://github.com/psf/black) or [Pyink](https://github.com/google/pyink)
+[Black](https://github.com/psf/black) or [Pyink](https://github.com/rkoots/pyink)
 auto-formatter does not help bring the line below the limit, the line is allowed
 to exceed this maximum. Authors are encouraged to manually break the line up per
 the notes above when it is sensible.
@@ -1801,7 +1801,7 @@ Trailing commas in sequences of items are recommended only when the closing
 container token `]`, `)`, or `}` does not appear on the same line as the final
 element, as well as for tuples with a single element. The presence of a trailing
 comma is also used as a hint to our Python code auto-formatter
-[Black](https://github.com/psf/black) or [Pyink](https://github.com/google/pyink)
+[Black](https://github.com/psf/black) or [Pyink](https://github.com/rkoots/pyink)
 to direct it to auto-format the container of items to one item per line when the
 `,` after the final element is present.
 
@@ -2032,7 +2032,7 @@ an unusual setup pattern, dependency on the external environment, and so on.
 """This blaze test uses golden files.
 
 You can update those files by running
-`blaze run //foo/bar:foo_test -- --update_golden_files` from the `google3`
+`blaze run //foo/bar:foo_test -- --update_golden_files` from the `rkoots3`
 directory.
 """
 ```
@@ -2756,7 +2756,7 @@ grouped from most generic to least generic:
     from myproject.backend.hgwells import time_machine
     ```
 
-    You may find older Google Python Style code doing this, but it is no longer
+    You may find older rkoots Python Style code doing this, but it is no longer
     required. **New code is encouraged not to bother with this.** Simply treat
     application-specific sub-package imports the same as other sub-package
     imports.
