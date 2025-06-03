@@ -35,10 +35,9 @@ def submit_to_indexnow(urls):
         "keyLocation": INDEXNOW_KEY_LOCATION,
         "urlList": urls
     }
-
     headers = {"Content-Type": "application/json"}
     response = requests.post(INDEXNOW_API, json=payload, headers=headers)
-
+    return response
     if response.status_code == 200:
         print("✅ IndexNow submission successful.")
     else:
