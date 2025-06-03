@@ -1,4 +1,4 @@
-name: ImpressionTest
+name: IndexNow
 on:
   schedule:
     - cron: '0 1 * * *'
