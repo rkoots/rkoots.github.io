@@ -8,7 +8,7 @@ INDEXNOW_API = "https://api.indexnow.org/indexnow"
 
 # 🔑 Replace with your own IndexNow key and hosted key location if needed
 INDEXNOW_KEY = "f6291a0f9c8b4cf0a57c427c366a346e"
-INDEXNOW_KEY_LOCATION = "f"{SITE_URL}/{INDEXNOW_KEY}.txt""
+INDEXNOW_KEY_LOCATION = "f{SITE_URL}/{INDEXNOW_KEY}.txt"
 
 def extract_urls_from_sitemap(sitemap_url):
     try:
