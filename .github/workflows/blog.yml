@@ -36,6 +36,7 @@ jobs:
         run: |
           cd ./blog  
           python generate_blog_post_gemini.py
+          
 
       # Commit and push changes to the repository (if needed)
       - name: Commit and push changes
