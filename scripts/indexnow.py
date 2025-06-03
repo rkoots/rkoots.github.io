@@ -1,6 +1,6 @@
 import requests
 import xml.etree.ElementTree as ET
-
+import json
 # === CONFIGURATION ===
 SITE_URL = "https://rkoots.github.io"
 SITEMAP_URL = f"{SITE_URL}/sitemap.xml"
@@ -29,24 +29,24 @@ def extract_urls_from_sitemap(sitemap_url):
     return urls
 
 def submit_to_indexnow(urls):
-    payload = {
-        "host": SITE_URL.replace("https://", "").replace("http://", ""),
-        "key": INDEXNOW_KEY,
-        "keyLocation": INDEXNOW_KEY_LOCATION,
-        "urlList": urls
+    url = "https://api.indexnow.org/IndexNow"
+    payload = {"host": "rkoots.github.io",
+            "key": "f7fb35260cf341e7bb05ede25bf211f3",
+            "keyLocation": "https://rkoots.github.io/f7fb35260cf341e7bb05ede25bf211f3.txt",
+            "urlList": urls}
+    headers = {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Host': 'api.indexnow.org'
     }
-    headers = {"Content-Type": "application/json"}
-    response = requests.post(INDEXNOW_API, json=payload, headers=headers)
-    return response
-    if response.status_code == 200:
-        print("✅ IndexNow submission successful.")
-    else:
-        print(f"❌ IndexNow submission failed with status {response.status_code}: {response.text}")
+    print(payload)
+    response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
+    print(response.text)
+
 
 def main():
     print("🔍 Fetching URLs from sitemap...")
     url_list = extract_urls_from_sitemap(SITEMAP_URL)
-
+    print(url_list)
     if not url_list:
         print("⚠️ No URLs found.")
         return
