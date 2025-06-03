@@ -22,8 +22,10 @@ jobs:
         run: |
           cd scripts
           npm install
+          npx playwright install
+
 
       - name: Run Playwright crawler
         run: |
           cd scripts
-          npm start
+          node scripts/crawler.js
