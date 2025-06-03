@@ -5,7 +5,7 @@ on:
   #   branches:
   #     - main
   schedule:
-    - cron: '0 13 */2 * *'  # Every 2 days at 13:00 UTC
+    - cron: '0 13 */3 * *'  # Every 2 days at 13:00 UTC
   workflow_dispatch:  # Optional: allows manual trigger from GitHub UI
 
 jobs:
