@@ -1,11 +1,12 @@
 ---
-layout: post
+layout: default
 title: "Understanding AI Agents: The Future of Autonomous Digital Workforces"
 date: 2025-06-03
 author: Rajkumar V
-categories: [AI, Automation, Future of Work]
+categories: blog
 tags: [AI Agents, Autonomous Systems, Digital Workforce, GPT, Auto-GPT, RPA, Future of Work]
 description: "Explore how AI agents are shaping the next wave of digital automation by combining LLMs with autonomous task execution and adaptive workflows."
+keywords: [SEO, AEO, GEO, Answer Engine Optimization, Generative Engine Optimization]
 ---
 
 > *“AI agents represent the next frontier in automation—capable not just of completing tasks, but of figuring out what tasks to do next.”*
