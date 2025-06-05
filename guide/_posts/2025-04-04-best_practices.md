@@ -13,6 +13,7 @@ tags: ["documentation", "best-practices", "technical-writing", "code-docs", "agi
 
 "Say what you mean, simply and directly." -
 
+![Documentation Best Practices](https://media.licdn.com/dms/image/v2/D4D12AQETsocBZuXQpA/article-cover_image-shrink_720_1280/B4DZc_kwnkGUAM-/0/1749118291035?e=1754524800&v=beta&t=dWzfe37km_CeAvSWS61Oxfv8lwMmB_XvUWdLE5NxZ0A)
 
 Contents:
 
@@ -22,6 +23,7 @@ Contents:
 1.  [Prefer the Good Over the Perfect](#prefer-the-good-over-the-perfect)
 1.  [Documentation is the Story of Your Code](#documentation-is-the-story-of-your-code)
 1.  [Duplication is Evil](#duplication-is-evil)
+
 
 ## Minimum Viable Documentation
 
@@ -63,6 +65,8 @@ docs are in bad shape:
 *   Default to delete or leave behind if migrating. Stragglers can always be
     recovered.
 *   Iterate.
+
+![Say what you mean, simply and directly](https://media.licdn.com/dms/image/v2/D4D12AQGB1Nziam_SGQ/article-inline_image-shrink_1000_1488/B4DZc_lcsDHAAU-/0/1749118471968?e=1754524800&v=beta&t=zySoWbFsTUosiZJvaQktHTDTO5zMLH8kg0-gqUjCxFY)
 
 ## Prefer the Good Over the Perfect
 
@@ -143,6 +147,8 @@ to detailed prose:
     project directory (for example, by adding an obvious link to the location
     from your project's `README.md`).
 
+![Documentation is the Story of Your Code](https://media.licdn.com/dms/image/v2/D4D12AQHsKItXeTPMqg/article-inline_image-shrink_1000_1488/B4DZc_lP58H4AQ-/0/1749118419380?e=1754524800&v=beta&t=biVDkkNoezVsOClpQTMFnA1-mLVasuWgRbtFydV6wpE)
+
 ## Duplication is Evil
 
 Do not write your own guide to a common Google technology or process. Link to it
@@ -150,3 +156,6 @@ instead. If the guide doesn't exist or it's badly out of date, submit your
 updates to the appropriate directory or create a package-level
 README.md. **Take ownership and don't be shy**: Other teams will usually welcome
 your contributions.
+
+![Do not write your own guide to a common Google technology or process. Link to it
+instead.](https://media.licdn.com/dms/image/v2/D4D12AQEqMMOR0Ll0_A/article-inline_image-shrink_1000_1488/B4DZc_lS46HwAQ-/0/1749118431879?e=1754524800&v=beta&t=XPtHfUbcCUpu10WPwxULc7A8602XKq76HaSAugLRpGs)
