@@ -82,11 +82,8 @@ async def main():
         "https://www.bing.com/search?q=rajkumar%20venkataraman&qs=n&form=QBRE&sp=-1&ghc=1&lq=0&pq=rajkumar%20venkataraman",
         "https://www.bing.com/search?q=rajkumar%20venkataraman%20rkoots&qs=n&form=QBRE&sp=-1&ghc=1&lq=0&pq=rajkumar%20venkataraman%20rkoots",
         "https://www.google.com/search?q=Rajkumar+ADF",
-        "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6982545983951781888",
-        "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6982545983951781888",
-        "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6982545983951781888",
-        "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6982545983951781888",
-        "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6982545983951781888",
+        "https://www.linkedin.com/embed/feed/update/urn:li:share:7336710535452815360",
+        "https://www.linkedin.com/embed/feed/update/urn:li:share:7336710535452815360",
     ]
 
     for i in range(5):
