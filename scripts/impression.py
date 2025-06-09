@@ -3,6 +3,8 @@ import asyncio
 import random
 import requests
 from playwright.async_api import async_playwright
+import time
+import random
 
 SITEMAP_URL = "https://rkoots.github.io/sitemap.xml"
 NUM_SECONDS_BETWEEN_REQUESTS = (0.1, 0.2)
@@ -63,6 +65,8 @@ async def visit_rkoots(url):
         context = await browser.new_context(user_agent=user_agent)
         page = await context.new_page()
         try:
+            sleep_duration = random.uniform(0.5, 3.0)
+            time.sleep(sleep_duration)
             print(f"Visiting {url} with {user_agent}")
             await page.goto(url, timeout=30000)
         except Exception as e:
