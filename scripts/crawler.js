@@ -1,35 +1,36 @@
-// crawler.js (simplified example)
-const { chromium } = require('playwright');
+const puppeteer = require('puppeteer');
+
+const urls = [
+  "https://rkoots.github.io/",
+  "https://rkoots.github.io/technews/",
+  "https://rkoots.github.io/tools/",
+  "https://rkoots.github.io/insights/",
+  "https://rkoots.github.io/blog/",
+  "https://rkoots.github.io/guide/",
+  "https://rkoots.github.io/styleguide/",
+  "https://rkoots.github.io/quickref/",
+  "https://rkoots.github.io/cv/"
+];
 
 (async () => {
-  const browser = await chromium.launch();
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
-  const visited = new Set();
-  const toVisit = ['https://rkoots.github.io/'];
+  for (const url of urls) {
+    try {
+      console.log(`Visiting: ${url}`);
+      await page.goto(url, { waitUntil: 'networkidle0' });  // Ensure page is fully loaded
 
-  while (toVisit.length > 0) {
-    const url = toVisit.shift();
-    if (visited.has(url)) continue;
+      // Just a dummy eval to trigger analytics or simulate interaction
+      await page.evaluate(() => {
+        return document.title;  // Replace with actual logic if needed
+      });
 
-    console.log('Visiting:', url);
-    await page.goto(url);
-
-    // Collect all same-domain links
-    const links = await page.$$eval('a[href]', anchors =>
-      anchors
-        .map(a => a.href)
-        .filter(href => href.startsWith('https://rkoots.github.io/'))
-    );
-
-    // Add new links to visit
-    for (const link of links) {
-      if (!visited.has(link) && !toVisit.includes(link)) {
-        toVisit.push(link);
-      }
+      // Optional: wait for a bit to simulate real user
+      await page.waitForTimeout(500 + Math.random() * 2500);  // 500ms to 3s
+    } catch (err) {
+      console.error(`Error visiting ${url}:`, err);
     }
-
-    visited.add(url);
   }
 
   await browser.close();
