@@ -8,7 +8,7 @@ tags: [technology, innovation, startup, AI]
 keywords: [tech, barry-diller-invented-prestige-tv.-then-he-conquered-the-internet, blog]
 ---
 
-## Barry Diller Invented Prestige TV. Then He Conquered the Internet
+# Barry Diller Invented Prestige TV. Then He Conquered the Internet
 
 Barry Diller. The name itself evokes an image of shrewd business acumen and unparalleled foresight in the ever-shifting landscape of media and technology.  Wired's recent interview provides a fascinating glimpse into the mind of this mogul, revealing the strategic brilliance behind his successes in television, the internet, and beyond.  Diller's impact isn't just about building empires; it's about fundamentally reshaping how we consume entertainment and information.
 

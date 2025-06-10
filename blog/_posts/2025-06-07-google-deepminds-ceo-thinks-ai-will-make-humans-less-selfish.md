@@ -8,7 +8,7 @@ tags: [technology, innovation, startup, AI]
 keywords: [tech, google-deepmind’s-ceo-thinks-ai-will-make-humans-less-selfish, blog]
 ---
 
-## Google DeepMind’s CEO Thinks AI Will Make Humans Less Selfish
+# Google DeepMind’s CEO Thinks AI Will Make Humans Less Selfish
 
 Demis Hassabis, CEO of Google DeepMind, a leading AI research company, recently made a bold prediction: artificial intelligence will fundamentally alter human behavior, potentially making us less selfish.  This statement, while seemingly paradoxical, warrants closer examination, particularly within the context of rapidly advancing AI capabilities and their societal impact.
 

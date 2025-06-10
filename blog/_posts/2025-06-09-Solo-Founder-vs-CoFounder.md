@@ -41,7 +41,7 @@ Still, solo doesn’t mean smooth. It can be lonely. Burnout lurks closer. Inves
 
 ---
 
-## 🤝 Co-Founding: Shared Vision, Shared Load, Shared Risks
+# 🤝 Co-Founding: Shared Vision, Shared Load, Shared Risks
 
 With a great co-founder, you gain more than just an extra set of hands—you gain a second brain, a sounding board, and someone who *gets it* when the days are long and uncertain.
 

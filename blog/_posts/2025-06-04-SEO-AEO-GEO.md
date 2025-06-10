@@ -9,7 +9,7 @@ summary: Traditional SEO is evolving. Learn the key differences between SEO, AEO
 keywords: [SEO, AEO, GEO, Answer Engine Optimization, Generative Engine Optimization]
 ---
 
-## SEO Is No Longer Enough: The Rise of AEO and GEO
+# SEO Is No Longer Enough: The Rise of AEO and GEO
 
 > **"If you're not optimizing for how AI finds and displays your content — you're already falling behind."**
 

@@ -19,7 +19,7 @@ These agents are often powered by **Large Language Models (LLMs)** like GPT-4, a
 
 ---
 
-## The Rise of Autonomous Digital Workforces
+# The Rise of Autonomous Digital Workforces
 
 AI agents are transforming what we consider a "digital workforce." Instead of requiring human oversight at each step, these agents can:
 

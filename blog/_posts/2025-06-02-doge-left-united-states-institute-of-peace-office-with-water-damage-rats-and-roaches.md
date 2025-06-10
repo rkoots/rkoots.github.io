@@ -8,7 +8,7 @@ tags: [technology, innovation, startup, AI, cryptocurrency, Elon Musk, USIP]
 keywords: [tech, doge-left-united-states-institute-of-peace-office-with-water-damage,-rats,-and-roaches, blog, Elon Musk, Dogecoin, USIP,  cryptocurrency controversy]
 ---
 
-## DOGE left United States Institute of Peace office with water damage, rats, and roaches: A Tech Scandal?
+# DOGE left United States Institute of Peace office with water damage, rats, and roaches: A Tech Scandal?
 
 The seemingly innocuous meme cryptocurrency Dogecoin (DOGE) has found itself at the center of an unusual controversy.  According to a recent report by TechCrunch, the United States Institute of Peace (USIP), a non-profit organization dedicated to conflict resolution, is alleging significant damage to its Washington, D.C. headquarters following a…let's call it an *unconventional* event involving DOGE.
 
