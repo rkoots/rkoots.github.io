@@ -3,6 +3,8 @@ layout: default
 title: FREE Income Tax Calculator
 permalink: /income-tax-calculator/
 description: FREE Calculate your income tax for FY 2025-26 and FY 2024-25 with an interactive calculator and get tax planning insights.
+keywords: [itr, filing momentum 2024Breakout, itr form for ay 2025 26Breakout, itr forms ay 2025 26Breakout, is itr filing startedBreakout, itr income tax return processed noticeBreakout, is itr filing startedBreakout, itr filing ay 2025-26 onlineBreakout, income tax return filing ay 2025 26Breakout, itr filing details ,2025Breakout ,income tax filing start date 2025Breakout ,itr filing 2025Breakout ,incometax efillingBreakout ,incometax return filingBreakout ,itr filing start date for ay 2025-26Breakout]
+
 ---
 
 <style>
