@@ -1,21 +1,6 @@
-permalink: /finance/:title/
+permalink: /:finance/:title/
 
 collections:
-  technews:
+  finance:
     output: true
     permalink: /finance/:title/
-
-plugins:
-  - jekyll-paginate-v2
-
-pagination:
-  enabled: true
-  collection: finance
-  per_page: 5
-  permalink: /finance/page/:num/
-  title: "Guides - page :num"
-  sort_field: "date"
-  sort_reverse: true
-  trail:
-    before: 2
-    after: 2

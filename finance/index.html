@@ -13,7 +13,7 @@ keywords: ["developer guides", "engineering tutorials", "backend implementation"
     Experience the future of finance with our secure, efficient, and user-friendly financial services.
   </p>
 
-  {% assign blog_posts = site.posts | where_exp: "post", "post.url contains '/guide/'" %}
+  {% assign blog_posts = site.posts | where_exp: "post", "post.url contains '/finance/'" %}
   {% if blog_posts.size > 0 %}
   <div class="posts-grid">
     {% for post in blog_posts %}
