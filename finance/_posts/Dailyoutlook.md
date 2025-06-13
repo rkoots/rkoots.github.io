@@ -2,6 +2,7 @@
 layout: default
 title: "Daily Market Outlook with financial news and trends"
 categories: finance
+permalink: /finance/market
 author: "Rajkumar V"
 summary: "Daily Market Outlook with financial news, trends, and video analyses."
 keywords: [Daily Market Outlook, Stock Market News, Nifty and Sensex Update, BSE and NSE Analysis, Indian Stock Market Trends, Financial Blog, Market Forecast, Investor Insights, Trading Ideas, Smallcap and Midcap Stocks, Sector-wise Market Performance, Mumbai Stock Exchange, Finance News India, Equities Market Update, Stock Market Volatility]
