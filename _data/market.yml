@@ -1,36 +1,74 @@
-date: "2025-06-13"
 nifty:
-  current: 23500
-  change: +0.5%
-  resistance: 23600
-  support: 23400
-banknifty:
-  current: 49000
-  change: +0.7%
-  resistance: 49250
-  support: 48800
-vix: 16.5
-fii_flow: +500
-dii_flow: -250
+  value: 23500
+  change: +0.75%
 
-gainers:
-  - name: RELIANCE
+bank_nifty:
+  value: 50100
+  change: +0.60%
+
+market_sentiment:
+  value: +0.75%
+
+volatility:
+  value: -1.20%
+
+market_news:
+  - RBI policy decisions, repo rate, reverse repo, liquidity measures
+  - Macroeconomic data (CPI, IIP, employment)
+  - Sector-specific policy announcements
+  - Company-specific major announcements (results, guidance, M&A)
+
+top_gainers:
+  - ticker: ABC
+    company: ABC Corporation
     change: +5%
-    sector: Energy
-  - name: INFY
+    sector: Finance
+  - ticker: DEF
+    company: DEF Ltd.
     change: +4%
-    sector: IT
+    sector: Finance
+  - ticker: GHI
+    company: GHI Ltd.
+    change: +3%
+    sector: Tech
 
-losers:
-  - name: ADANIENT
+top_losers:
+  - ticker: XYZ
+    company: XYZ Corporation
+    change: -5%
+    sector: Finance
+  - ticker: QRS
+    company: QRS Ltd.
     change: -4%
-    sector: Energy
-  - name: TATASTEEL
-    change: -3%
-    sector: Metal
+    sector: Finance
 
 momentum_stocks:
-  - name: ICICIBANK
-    momentum: strong
-  - name: AXISBANK
-    momentum: strong
+  - momentum: strong upward
+    stocks:
+      - ABC
+      - GHI
+  - momentum: strong downward
+    stocks:
+      - XYZ
+      - QRS
+
+technical_indicators:
+  - Nifty Support: 23400
+  - Nifty Resistance: 23800
+  - RSI: 55
+  - MACD: Positive
+  - Volume: Rising
+
+derivative_data:
+  - Put-Call Ratio: 0.9
+  - Max Pain: 23500
+  - Support: 23400
+  - Resistance: 23800
+
+institutional_activity:
+  - FII flows: +500 crores
+  - DII flows: +300 crores
+
+additional_notes:
+  - Investor’s view: cautious
+  - Sector rotation toward financials
