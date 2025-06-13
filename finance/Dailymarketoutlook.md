@@ -49,7 +49,7 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
       <div class="w3-container w3-green w3-padding-16">
         <div class="w3-left"><i class="fa fa-arrow-up w3-xxxlarge w3-text-black-50"></i></div>
         <div class="w3-right">
-          <h3>{{ site.data.market.nifty.current }}</h3><!-- Nifty 50 Index -->
+          <h3>{{ site.data.market.nifty.value }}</h3><!-- Nifty 50 Index -->
         </div>
         <div class="w3-clear"></div>
         <h4>Nifty 50</h4>
@@ -60,7 +60,7 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
       <div class="w3-container w3-blue w3-padding-16">
         <div class="w3-left"><i class="fa fa-arrow-up w3-xxxlarge w3-text-black-50"></i></div>
         <div class="w3-right">
-          <h3>{{ site.data.market.banknifty.current }}</h3><!-- Bank Nifty Index -->
+          <h3>{{ site.data.market.banknifty.value }}</h3><!-- Bank Nifty Index -->
         </div>
         <div class="w3-clear"></div>
         <h4>Bank Nifty</h4>
@@ -182,30 +182,6 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="w3-container w3-dark-grey w3-padding-32">
-    <div class="w3-row">
-      <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-green">Demographic</h5>
-        <p>Language</p>
-        <p>Country</p>
-        <p>City</p>
-      </div>
-      <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-red">System</h5>
-        <p>Browser</p>
-        <p>OS</p>
-        <p>More</p>
-      </div>
-      <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-orange">Target</h5>
-        <p>Users</p>
-        <p>Active</p>
-        <p>Geo</p>
-        <p>Interests</p>
-      </div>
-    </div>
-  </div>
 
 </div><!-- End main -->
 
