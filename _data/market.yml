@@ -1,8 +1,36 @@
-static_keywords:
-  - rkoots
-  - developer productivity
-  - Rajkumar V
-  - Rajkumar Venkataraman
-  - Raj
-  - best AI websites
-  - interview preparation tools
+date: "2025-06-13"
+nifty:
+  current: 23500
+  change: +0.5%
+  resistance: 23600
+  support: 23400
+banknifty:
+  current: 49000
+  change: +0.7%
+  resistance: 49250
+  support: 48800
+vix: 16.5
+fii_flow: +500
+dii_flow: -250
+
+gainers:
+  - name: RELIANCE
+    change: +5%
+    sector: Energy
+  - name: INFY
+    change: +4%
+    sector: IT
+
+losers:
+  - name: ADANIENT
+    change: -4%
+    sector: Energy
+  - name: TATASTEEL
+    change: -3%
+    sector: Metal
+
+momentum_stocks:
+  - name: ICICIBANK
+    momentum: strong
+  - name: AXISBANK
+    momentum: strong
