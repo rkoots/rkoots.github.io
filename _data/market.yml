@@ -1,74 +1,37 @@
 nifty:
-  value: 23500
-  change: +0.75%
+  current: 23500
 
-bank_nifty:
-  value: 50100
-  change: +0.60%
+banknifty:
+  current: 50100
 
-market_sentiment:
-  value: +0.75%
+vix: 17.5
+pcr: 0.9
 
-volatility:
-  value: -1.20%
+fii_flow: +500 crores
+dii_flow: +300 crores
 
-market_news:
-  - RBI policy decisions, repo rate, reverse repo, liquidity measures
+news:
+  - RBI policy decisions today
   - Macroeconomic data (CPI, IIP, employment)
   - Sector-specific policy announcements
-  - Company-specific major announcements (results, guidance, M&A)
+  - Company-specific major announcements (results, guidance)
 
-top_gainers:
-  - ticker: ABC
-    company: ABC Corporation
-    change: +5%
-    sector: Finance
-  - ticker: DEF
-    company: DEF Ltd.
-    change: +4%
-    sector: Finance
-  - ticker: GHI
-    company: GHI Ltd.
-    change: +3%
-    sector: Tech
+gainers:
+  - symbol: ABC
+    name: ABC Corporation
+    change: +5
+    percent: +5%
+  - symbol: DEF
+    name: DEF Ltd.
+    change: +4
+    percent: +4%
 
-top_losers:
-  - ticker: XYZ
-    company: XYZ Corporation
-    change: -5%
-    sector: Finance
-  - ticker: QRS
-    company: QRS Ltd.
-    change: -4%
-    sector: Finance
-
-momentum_stocks:
-  - momentum: strong upward
-    stocks:
-      - ABC
-      - GHI
-  - momentum: strong downward
-    stocks:
-      - XYZ
-      - QRS
-
-technical_indicators:
-  - Nifty Support: 23400
-  - Nifty Resistance: 23800
-  - RSI: 55
-  - MACD: Positive
-  - Volume: Rising
-
-derivative_data:
-  - Put-Call Ratio: 0.9
-  - Max Pain: 23500
-  - Support: 23400
-  - Resistance: 23800
-
-institutional_activity:
-  - FII flows: +500 crores
-  - DII flows: +300 crores
-
-additional_notes:
-  - Investor’s view: cautious
-  - Sector rotation toward financials
+losers:
+  - symbol: XYZ
+    name: XYZ Corporation
+    change: -5
+    percent: -5%
+  - symbol: QRS
+    name: QRS Ltd.
+    change: -4
+    percent: -4%
