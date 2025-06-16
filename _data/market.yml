@@ -8,7 +8,8 @@ banknifty:
 
 vix: 17.5
 pcr: 0.9
-
+obv: 0
+Fibonacci_Retracement: 0
 fii_flow: +500 crores
 dii_flow: +300 crores
 
@@ -17,6 +18,8 @@ news:
   - Macroeconomic data (CPI, IIP, employment)
   - Sector-specific policy announcements
   - Company-specific major announcements (results, guidance)
+
+ai_outlook: <Detailed AI market overview for today. 4-5 para>
 
 gainers:
   - symbol: ABC
@@ -27,6 +30,22 @@ gainers:
     name: DEF Ltd.
     change: +4
     percent: +4%
+  - symbol: XYZ
+    name: XYZ Corporation
+    change: -5
+    percent: -5%
+  - symbol: QRS
+    name: QRS Ltd.
+    change: -4
+    percent: -4%
+  - symbol: XYZ
+    name: XYZ Corporation
+    change: -5
+    percent: -5%
+  - symbol: QRS
+    name: QRS Ltd.
+    change: -4
+    percent: -4%
 
 losers:
   - symbol: XYZ
@@ -37,3 +56,21 @@ losers:
     name: QRS Ltd.
     change: -4
     percent: -4%
+  - symbol: XYZ
+    name: XYZ Corporation
+    change: -5
+    percent: -5%
+  - symbol: QRS
+    name: QRS Ltd.
+    change: -4
+    percent: -4%
+  - symbol: XYZ
+    name: XYZ Corporation
+    change: -5
+    percent: -5%
+  - symbol: QRS
+    name: QRS Ltd.
+    change: -4
+    percent: -4%
+
+

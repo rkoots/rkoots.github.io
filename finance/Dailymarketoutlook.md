@@ -78,7 +78,7 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
     </div>
 
     <div class="w3-quarter">
-      <div class="w3-container {% if site.data.market.pcr > 0 %}w3-green{% else %}w3-red{% endif %} w3-padding-16">
+      <div class="w3-container {% if site.data.market.pcr > 1 %}w3-green{% else %}w3-red{% endif %} w3-padding-16">
         <div class="w3-left"><i class="fa {% if site.data.market.pcr > 0 %}fa-arrow-up{% else %}fa-arrow-down{% endif %} w3-xxxlarge w3-text-black-50"></i></div>
         <div class="w3-right">
           <h3>{{ site.data.market.pcr }}</h3><!-- Put Call Ratio -->
@@ -98,6 +98,12 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
       {% endfor %}
     </ul>
   </div>
+
+  <div class="w3-panel">
+    <h5>AI Outlook</h5>
+    <p>{{ site.data.market.ai_outlook }}</p>
+  </div>
+
 
   <!-- Top Gainers and Losers Section -->
   <div class="w3-row-padding">
@@ -157,13 +163,13 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
       <div class="w3-quarter">
         <div class="w3-gray-light w3-padding-16">
           <h4>VIX</h4>
-          <p>{{ site.data.market.vix }}</p>
+          <p>{{ site.data.market.obv }}</p>
         </div>
       </div>
       <div class="w3-quarter">
         <div class="w3-gray-light w3-padding-16">
           <h4>PCR</h4>
-          <p>{{ site.data.market.pcr }}</p><!-- Put Call Ratio -->
+          <p>{{ site.data.market.Fibonacci_Retracement }}</p><!-- Put Call Ratio -->
         </div>
       </div>
       <div class="w3-quarter">
