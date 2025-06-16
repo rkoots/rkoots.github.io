@@ -1,8 +1,10 @@
 nifty:
   value: 23500
+  change: 0
 
 banknifty:
   value: 50100
+  change: 0
 
 vix: 17.5
 pcr: 0.9

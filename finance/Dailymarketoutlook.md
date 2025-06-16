@@ -23,7 +23,7 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
   </div>
   <hr>
   <div class="w3-container">
-    <h5>Market Dashboard</h5>
+    <h5>AI Market Outlook</h5>
   </div>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-arrow-up fa-fw w3-text-green"></i> Nifty</a>
@@ -41,13 +41,12 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
  <!-- Main Content -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px">
   <header class="w3-container" style="padding-top:22px">
-    <h5><b><i class="fa fa-dashboard fa-fw w3-text-blue-gray"></i> Market Dashboard</b></h5>
+    <h5><b><i class="fa fa-dashboard fa-fw w3-text-blue-gray"></i>AI Market Outlook - {{site.data.market.date}}</b></h5>
   </header>
-
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
-      <div class="w3-container w3-green w3-padding-16">
-        <div class="w3-left"><i class="fa fa-arrow-up w3-xxxlarge w3-text-black-50"></i></div>
+      <div class="w3-container {% if site.data.market.nifty.change > 0 %}w3-green{% else %}w3-red{% endif %} w3-padding-16">
+        <div class="w3-left"><i class="fa {% if site.data.market.nifty.change > 0 %}fa-arrow-up{% else %}fa-arrow-down{% endif %} w3-xxxlarge w3-text-black-50"></i></div>
         <div class="w3-right">
           <h3>{{ site.data.market.nifty.value }}</h3><!-- Nifty 50 Index -->
         </div>
@@ -57,8 +56,8 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
     </div>
 
     <div class="w3-quarter">
-      <div class="w3-container w3-blue w3-padding-16">
-        <div class="w3-left"><i class="fa fa-arrow-up w3-xxxlarge w3-text-black-50"></i></div>
+      <div class="w3-container {% if site.data.market.banknifty.change > 0 %}w3-green{% else %}w3-red{% endif %} w3-padding-16">
+        <div class="w3-left"><i class="fa {% if site.data.market.banknifty.change > 0 %}fa-arrow-up{% else %}fa-arrow-down{% endif %} w3-xxxlarge w3-text-black-50"></i></div>
         <div class="w3-right">
           <h3>{{ site.data.market.banknifty.value }}</h3><!-- Bank Nifty Index -->
         </div>
@@ -79,8 +78,8 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
     </div>
 
     <div class="w3-quarter">
-      <div class="w3-container w3-red w3-padding-16">
-        <div class="w3-left"><i class="fa fa-arrow-down w3-xxxlarge w3-text-black-50"></i></div>
+      <div class="w3-container {% if site.data.market.pcr > 0 %}w3-green{% else %}w3-red{% endif %} w3-padding-16">
+        <div class="w3-left"><i class="fa {% if site.data.market.pcr > 0 %}fa-arrow-up{% else %}fa-arrow-down{% endif %} w3-xxxlarge w3-text-black-50"></i></div>
         <div class="w3-right">
           <h3>{{ site.data.market.pcr }}</h3><!-- Put Call Ratio -->
         </div>
