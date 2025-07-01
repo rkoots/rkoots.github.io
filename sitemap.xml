@@ -179,6 +179,21 @@ permalink: /sitemap.xml
         <priority>0.30</priority>
     </url>
 
+    <url>
+        <loc>https://rkoots.github.io/income-tax-calculator</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/finance</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://rkoots.github.io/finance/market/</loc>
+        <lastmod>2025-05-12</lastmod>
+        <priority>0.30</priority>
+    </url>
 
     {% assign all_posts = site.posts | sort: "date" | reverse %}
     {% for post in all_posts %}
@@ -188,7 +203,6 @@ permalink: /sitemap.xml
             <priority>0.60</priority>
         </url>
     {% endfor %}
-
 
 
     <url>
