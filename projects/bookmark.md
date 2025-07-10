@@ -8,6 +8,9 @@ permalink: /bookmarks/
 
 Organized list of internet, social, AI, developer, finance, and learning resources — excluding work/internal tools.
 
+## 🧠 Productivity
+- [Napkin AI - Notes & Graphic ](https://app.napkin.ai/)
+
 ## 🧠 AI, Tools & Learning Resources
 
 - [Poe - ChatGPT](https://poe.com/chatgpt)
