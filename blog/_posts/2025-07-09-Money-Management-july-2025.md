@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Financial Fitness Guide 2025: Build Wealth, Reduce Stress"
-date: 2025-07-10
+date: 2025-07-09
 categories: blog
 author: "blog Bot"
 tags: [money, savings, budgeting, credit-score, loans, investments]
