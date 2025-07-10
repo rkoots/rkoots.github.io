@@ -150,13 +150,3 @@ Being financially fit doesn’t mean earning more — it means using what you ea
 
 ---
 
-### 🔗 Related Reads:
-- [APR vs Interest Rate – Know the Difference](./2025-07-01-apr-vs-interest.html)
-- [EMI Management Strategies That Work](./2025-06-20-reduce-emi-stress.html)
-- [Best Budgeting Apps for 2025](./2025-06-25-budget-apps.html)
-
----
-
-*Written by Rajkumar V*  
-📩 [Contact Me](https://rkoots.github.io/cv)
-
