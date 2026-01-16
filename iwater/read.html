@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Sump Distance</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #f4f6f8;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 40px;
+        }
+        h2 {
+          margin-bottom: 20px;
+        }
+        label {
+          display: block;
+          margin-bottom: 6px;
+          font-weight: 600;
+        }
+        input[type="number"] {
+          padding: 10px;
+          font-size: 16px;
+          width: 140px;
+          margin-bottom: 12px;
+        }
+        button {
+          padding: 10px 15px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+        #status {
+          margin-top: 20px;
+          font-weight: 600;
+          color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Submit Sump Distance</h2>
+
+<div id="manualInput" style="display:none;">
+    <label for="tileInput">Water level in tiles</label>
+    <input type="number" step="0.1" id="tileInput" placeholder="e.g. 1.5" oninput="calculateDistance()">
+
+    <label for="distanceInput">Distance in cms</label>
+    <input type="number" id="distanceInput" placeholder="Distance cm">
+
+    <button onclick="submitDistance()">Submit</button>
+</div>
+
+<div id="status"></div>
+
+<script>
+    const FIREBASE_URL = "https://iwatercloud-default-rtdb.asia-southeast1.firebasedatabase.app/api/sensor.json";
+    const SECRET = "MY_SHARED_SECRET";
+
+    const MAX_DISTANCE = 160;
+    const TILE_HEIGHT = 30;
+
+    function getUTMParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+
+    function calculateDistance() {
+      const tiles = parseFloat(document.getElementById("tileInput").value);
+      if (isNaN(tiles)) return;
+
+      const distance = MAX_DISTANCE - (tiles * TILE_HEIGHT);
+      document.getElementById("distanceInput").value = distance.toFixed(1);
+    }
+
+    async function putDistance(distance) {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify({
+        "distance_cm": Number(distance),
+        "last_updated": { ".sv": "timestamp" },
+        "secret": SECRET
+      });
+
+      const requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
+
+      try {
+        await fetch(FIREBASE_URL, requestOptions);
+        document.getElementById("status").textContent =
+          "Submitted: " + distance + " cm";
+      } catch (error) {
+        console.error(error);
+        document.getElementById("status").textContent =
+          "Error submitting distance!";
+      }
+    }
+
+    function submitDistance() {
+      const input = document.getElementById("distanceInput").value;
+      if (!input) {
+        alert("Enter a distance in cm");
+        return;
+      }
+      putDistance(input);
+    }
+
+    // Check for UTM parameter
+    const utmDistance = getUTMParam("distance_cm");
+    if (utmDistance) {
+      putDistance(utmDistance);
+    } else {
+      document.getElementById("manualInput").style.display = "block";
+    }
+</script>
+
+<br>
+<a href="./iwater">Home</a>
+
+</body>
+</html>

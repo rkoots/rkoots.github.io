@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sump Water Level</title>
+
+    <style>
+        body {
+          margin: 0;
+          padding: 20px;
+          font-family: Arial, sans-serif;
+          background: #f4f6f8;
+          display: flex;
+          justify-content: center;
+        }
+
+        .container {
+          width: 100%;
+          max-width: 420px;
+          text-align: center;
+        }
+
+        h2 {
+          margin-bottom: 15px;
+        }
+
+        /* Main Tank Container */
+        .tank {
+          position: relative;
+          width: 100%;
+          height: 320px;
+          border: 4px solid #333;
+          border-radius: 8px;
+          background: #ddd; /* Interior wall color */
+          overflow: hidden; /* Ensures water and pump don't spill out */
+          margin-top: 20px;
+          box-shadow: inset 0 0 20px rgba(0,0,0,0.1); /* Slight interior shadow */
+        }
+
+        /* The Submersible Pump Structure */
+        .internal-pump {
+            position: absolute;
+            top: 0; /* Starts at tank ceiling */
+            left: 50%;
+            transform: translateX(-50%); /* Centers horizontally */
+            width: 50px; /* Width of the pump body */
+            /* Height calculation: The 20% mark is located at 80% from the top.
+               So, to reach the 20% mark, the height must be 80%.
+            */
+            height: 20%;
+            background: linear-gradient(to right, #666, #888, #666); /* Metallic look */
+            border: 3px solid #444;
+            border-top: none; /* Connected to top */
+            border-bottom-left-radius: 15px; /* Rounded intake bottom */
+            border-bottom-right-radius: 15px;
+            z-index: 15; /* Above water (1), below markers (20) */
+
+            /* Styling the text inside pump */
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* Text near the bottom intake */
+            padding-bottom: 15px;
+            color: rgba(255,255,255,0.8);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: inset 0 -10px 15px rgba(0,0,0,0.3); /* Depth at intake */
+        }
+
+        /* Pump intake grill lines (visual detail) */
+        .internal-pump::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 10%;
+            width: 80%;
+            height: 10px;
+            border-top: 2px solid #333;
+            border-bottom: 2px solid #333;
+        }
+
+        /* Water Animation */
+        .water {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          height: 0%;
+          background: linear-gradient(
+            180deg,
+            #b3e5fc,
+            #4fc3f7,
+            #29b6f6
+          );
+          transition: height 0.8s ease;
+          overflow: hidden;
+          z-index: 1; /* Behind everything else */
+          opacity: 0.9; /* Slightly see-through so we can see the pump submerged */
+        }
+
+        .water::before {
+          content: "";
+          position: absolute;
+          top: -12px;
+          left: 0;
+          width: 200%;
+          height: 24px;
+          background: rgba(255, 255, 255, 0.5);
+          border-radius: 50%;
+          animation: wave 4s linear infinite;
+        }
+
+        @keyframes wave {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+
+        /* --- 20% Level Markers --- */
+        .marker-line {
+          position: absolute;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background-color: rgba(0, 0, 0, 0.5); /* Thin, semi-transparent line */
+          z-index: 20; /* On top of water and pump */
+          border-bottom: 1px dashed rgba(255,255,255,0.2); /* Adds a dash effect for better visibility */
+        }
+
+        .marker-text {
+            position: absolute;
+            right: 8px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #333;
+            transform: translateY(-50%);
+            z-index: 21;
+            background: rgba(255,255,255,0.7); /* Tiny background for readability */
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        /* Position the lines based on distance from TOP */
+        .line-80 { top: 20%; }
+        .line-60 { top: 40%; }
+        .line-40 { top: 60%; }
+        /* This is the 20% level mark, located 80% down from the top */
+        .line-20 { top: 80%; }
+
+
+        .stats {
+          margin-top: 20px;
+          font-weight: 700;
+          color: #111;
+        }
+
+        .stats div {
+          font-size: 26px;
+          margin-top: 10px;
+        }
+
+        #updated {
+          font-size: 14px;
+          font-weight: 500;
+          color: #555;
+        }
+
+        @media (max-width: 480px) {
+          .stats div {
+            font-size: 30px;
+          }
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NVXR25DWJP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NVXR25DWJP');
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <h2>Sump Water Level</h2>
+
+    <div class="tank">
+        <div class="internal-pump">INTAKE PUMP</div>
+
+        <div id="water" class="water"></div>
+
+        <div class="marker-line line-80"></div><div class="marker-text line-80">80%</div>
+        <div class="marker-line line-60"></div><div class="marker-text line-60">60%</div>
+        <div class="marker-line line-40"></div><div class="marker-text line-40">40%</div>
+        <div class="marker-line line-20"></div><div class="marker-text line-20">20%</div>
+    </div>
+
+    <div class="stats">
+        <div id="percent">-- %</div>
+        <div id="liters">-- liters</div>
+        <div id="updated">Last updated: --</div>
+        <br/><br/><a href="./iwater/read.html">Manual Input</a>
+    </div>
+</div>
+
+<script>
+    const DISTANCE_API =
+      "https://iwatercloud-default-rtdb.asia-southeast1.firebasedatabase.app/api/sensor/distance_cm.json";
+
+    const UPDATED_API =
+      "https://iwatercloud-default-rtdb.asia-southeast1.firebasedatabase.app/api/sensor/last_updated.json";
+
+    // Tank configuration (converted to cm)
+    const TANK_DEPTH_CM = 63 * 2.54;
+    const TANK_LENGTH_CM = 8 * 30.48;
+    const TANK_WIDTH_CM = 4 * 30.48;
+
+    async function updateWaterLevel() {
+      try {
+        const [distanceRes, updatedRes] = await Promise.all([
+          fetch(DISTANCE_API),
+          fetch(UPDATED_API)
+        ]);
+
+        const distanceCm = Number(await distanceRes.json());
+        const lastUpdated = Number(await updatedRes.json());
+
+        if (isNaN(distanceCm)) return;
+
+        const waterHeight =
+          Math.max(0, Math.min(TANK_DEPTH_CM, TANK_DEPTH_CM - distanceCm));
+
+        const percentage =
+          (waterHeight / TANK_DEPTH_CM) * 100;
+
+        const liters =
+          (TANK_LENGTH_CM * TANK_WIDTH_CM * waterHeight) / 1000;
+
+        document.getElementById("water").style.height =
+          percentage + "%";
+
+        document.getElementById("percent").textContent =
+          percentage.toFixed(1) + " %";
+
+        document.getElementById("liters").textContent =
+          liters.toFixed(0) + " liters";
+
+        const date = new Date(lastUpdated);
+        const formatted = date.toLocaleString();
+        document.getElementById("updated").textContent =  "Last updated: " + formatted;
+      } catch (e) {
+        console.error("Failed to fetch water level", e);
+      }
+    }
+
+    updateWaterLevel();
+    setInterval(updateWaterLevel, 25000);
+</script>
+
+
+
+
+</body>
+</html>
