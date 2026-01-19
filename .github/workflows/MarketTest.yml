@@ -2,7 +2,7 @@ name: Market Run
 
 on:
   schedule:
-    - cron: '0 17 * * 1-5'
+    - cron: '0 5,6,7,9,12 * * 1-5'
   workflow_dispatch:
 
 jobs:

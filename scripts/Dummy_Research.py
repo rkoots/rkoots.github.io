@@ -181,8 +181,8 @@ def place_order(symbol, price, token, etf = 0):
     off_mkt_flag = True
     now = datetime.now()
     print("ORDER -> NOW Time Is : ", now)
-    trading_start = now.replace(hour=9, minute=15, second=0, microsecond=0)
-    trading_end = now.replace(hour=15, minute=30, second=0, microsecond=0)
+    trading_start = now.replace(hour=3, minute=45, second=0, microsecond=0) ## UTC 9:15
+    trading_end = now.replace(hour=10, minute=0, second=0, microsecond=0)  ## UTC 3:30
     if trading_start <= now <= trading_end:
         off_mkt_flag = False
     if not etf:
