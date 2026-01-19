@@ -1,5 +1,3 @@
-#            "client_id": "1080466166834-21r2m0abual5fan2km24bind0751pcgn.apps.googleusercontent.com",
-#           "client_secret": "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",
 
 import os
 import json
@@ -12,10 +10,10 @@ from googleapiclient.discovery import build
 SCOPES = ['https://www.googleapis.com/auth/blogger']
 TOKEN_FILE = 'token.json'  # Stores access/refresh tokens
 
-BLOG_ID = '2163081248672776143'  # Replace this with your actual Blogger blog ID
+BLOG_ID = os.getenv("BLOG_ID") # Replace this with your actual Blogger blog ID
 
-CLIENT_ID = "1080466166834-21r2m0abual5fan2km24bind0751pcgn.apps.googleusercontent.com"
-CLIENT_SECRET = "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"
+CLIENT_ID =  os.getenv("CLIENT_ID")
+CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 
 def authenticate_direct():
     creds = None

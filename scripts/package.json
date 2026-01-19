@@ -1,9 +1,8 @@
 {
   "name": "rkoots-crawler",
   "version": "1.0.0",
-  "main": "crawler.js",
   "scripts": {
-    "start": "node crawler.js"
+    "start": "node scripts/crawler.js"
   },
   "dependencies": {
     "playwright": "^1.40.0"

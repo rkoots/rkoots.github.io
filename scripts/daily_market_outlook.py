@@ -2,8 +2,7 @@ import os
 import yaml
 import google.generativeai as genai
 
-#api_key = os.getenv("GOOGLE_API_KEY")
-api_key = 'AIzaSyC9mAnpuo-6vb3mNQtNDii4X_j7KaCzYGU'
+api_key = os.getenv("GOOGLE_API_KEY")
 if not api_key:
     raise ValueError("API key is not set in environment variables")
 
