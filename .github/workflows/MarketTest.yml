@@ -1,25 +1,44 @@
 name: Market Run
 
 on:
-    schedule:
-        - cron: '0 17 * * 1-5'
-    workflow_dispatch:
+  schedule:
+    - cron: '0 17 * * 1-5'
+  workflow_dispatch:
+
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        environment: market-run
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
-            - name: Set up Python 3.12
-              uses: actions/setup-python@v4
-              with:
-                  python-version: '3.12'
-            - name: Install dependencies
-              run: |
-                cd ./scripts 
-                pip install -r requirements.txt
-            - name: Run Script
-              run: |
-                  cd ./scripts  
-                  python Dummy_Research.py
+  build:
+    runs-on: ubuntu-latest
+    environment: market-run
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          cd scripts
+          pip install -r requirements.txt
+
+      - name: Debug secrets
+        env:
+          FIREBASE_URL: ${{ secrets.FIREBASE_URL }}
+          PAYTM_ORDER_URL: ${{ secrets.PAYTM_ORDER_URL }}
+          TRADINGVIEW_URL: ${{ secrets.TRADINGVIEW_URL }}
+        run: |
+          echo "FIREBASE_URL=${FIREBASE_URL:+SET}"
+          echo "PAYTM_ORDER_URL=${PAYTM_ORDER_URL:+SET}"
+          echo "TRADINGVIEW_URL=${TRADINGVIEW_URL:+SET}"
+
+      - name: Run Script
+        env:
+          FIREBASE_URL: ${{ secrets.FIREBASE_URL }}
+          PAYTM_ORDER_URL: ${{ secrets.PAYTM_ORDER_URL }}
+          TRADINGVIEW_URL: ${{ secrets.TRADINGVIEW_URL }}
+        run: |
+          cd scripts
+          python Dummy_Research.py
