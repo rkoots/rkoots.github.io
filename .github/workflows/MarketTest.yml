@@ -29,10 +29,6 @@ jobs:
           FIREBASE_URL: ${{ secrets.FIREBASE_URL }}
           PAYTM_ORDER_URL: ${{ secrets.PAYTM_ORDER_URL }}
           TRADINGVIEW_URL: ${{ secrets.TRADINGVIEW_URL }}
-        run: |
-          echo "FIREBASE_URL=${FIREBASE_URL:+SET}"
-          echo "PAYTM_ORDER_URL=${PAYTM_ORDER_URL:+SET}"
-          echo "TRADINGVIEW_URL=${TRADINGVIEW_URL:+SET}"
 
       - name: Run Script
         env:
