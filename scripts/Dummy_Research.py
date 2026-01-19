@@ -65,6 +65,7 @@ ETF_DICT = {
 FIREBASE_URL = os.getenv("FIREBASE_URL")
 PAYTM_ORDER_URL = os.getenv("PAYTM_ORDER_URL")
 TRADINGVIEW_URL = os.getenv("TRADINGVIEW_URL")
+print(TRADINGVIEW_URL)
 
 # =========================
 # FIREBASE
@@ -129,8 +130,6 @@ def fetch_stock_data(DataDict):
         stocks[row["s"]] = dict(zip(columns, row["d"]))
     print("Market Data -> Stock List -> ", str(stocks))
     return stocks
-
-
 
 # =========================
 # STRATEGY
