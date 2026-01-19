@@ -1,4 +1,4 @@
-name: News Post - Generate
+name: Market Run
 
 on:
     schedule:
