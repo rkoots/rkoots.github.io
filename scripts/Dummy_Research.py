@@ -219,6 +219,7 @@ def place_order(symbol, price, token, etf = 0):
 # MAIN
 # =========================
 def main():
+    print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     token = get_access_token()
     firebase_data = fetch_firebase()
     stocks = fetch_stock_data(INVEST_STOCKS)
