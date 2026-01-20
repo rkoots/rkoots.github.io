@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Valentine’s Day Photo Prompts for Romantic AI Image Generation"
-date: 2026-01-20
+date: 2026-01-14
 categories: tech-news
 author: "Raj"
 tags:
