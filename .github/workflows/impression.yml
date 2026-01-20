@@ -1,7 +1,7 @@
 name: ImpressionTest
 on:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 2 1 * *'
   workflow_dispatch:  # Optional: allows manual trigger from GitHub UI
 jobs:
   build:
