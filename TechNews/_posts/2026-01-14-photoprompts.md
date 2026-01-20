@@ -73,13 +73,13 @@ Add more relevant pins under each category:
 - **No focus on subject**: The model wanders off.
 
 ## Final Prompt Examples
-![prompts Example gemini](https://in.pinterest.com/pin/419538521560667388/)
-![prompts Example gemini](https://in.pinterest.com/pin/419538521560667376/)
-![prompts Example gemini](https://in.pinterest.com/pin/419538521560667359/)
-![prompts Example gemini](https://in.pinterest.com/pin/419538521560667340/)
-![prompts Example gemini](https://in.pinterest.com/pin/419538521560667319/)
-![prompts Example gemini](https://in.pinterest.com/pin/419538521560667321/)
-![prompts Example gemini](https://in.pinterest.com/pin/419538521560667301/)
-![prompts Example gemini](https://in.pinterest.com/pin/419538521560656914/)
-![prompts Example gemini](https://in.pinterest.com/pin/419538521560656892/)
+![prompts Example gemini](https://i.pinimg.com/736x/f4/02/3f/f4023ff08869b9b60a013db0e43e0ab0.jpg)
+![prompts Example gemini](https://i.pinimg.com/736x/78/94/b5/7894b5ee13b8d3a4672ca16595849ebf.jpg)
+![prompts Example gemini](https://i.pinimg.com/736x/42/8a/1b/428a1b95e1c4f75b2f52c320f988e605.jpg)
+![prompts Example gemini](https://i.pinimg.com/736x/38/1f/7a/381f7a6de210c0a9dbce2f075941e92f.jpg)
+![prompts Example gemini](https://i.pinimg.com/736x/0e/79/9a/0e799ac2cd798a139728df267b763edd.jpg)
+![prompts Example gemini](https://i.pinimg.com/736x/5a/5f/d6/5a5fd6509ec848398df26ba5bb61feac.jpg)
+![prompts Example gemini](https://i.pinimg.com/736x/cb/e2/5f/cbe25f0e6e4b6ed26451dfd06da8dc77.jpg)
+![prompts Example gemini](https://i.pinimg.com/736x/89/1d/ad/891dad7fc5b1179b91825926bfb65371.jpg)
+![prompts Example gemini](https://i.pinimg.com/736x/26/b1/b2/26b1b29740734f0c49d2463f701947a7.jpg)
 
