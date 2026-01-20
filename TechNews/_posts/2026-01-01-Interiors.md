@@ -2,7 +2,7 @@
 layout: default
 title: "High-Quality Home Interior Photo Prompts for AI Image Generation"
 date: 2026-01-01
-categories: creativity interior-design
+categories: tech-news
 author: "Raj"
 tags:
   - home interior

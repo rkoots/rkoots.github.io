@@ -1,7 +1,8 @@
+---
 layout: default
 title: "The Ultimate Guide to Photo Prompts for AI Image Generation"
 date: 2026-01-14
-categories: creativity prompts
+categories: tech-news
 author: "Raj"
 tags: [photo prompts, AI art, prompt engineering, Pinterest examples, generative AI]
 keywords: [photo prompts, AI image prompts, Pinterest, prompt templates, generative art]
