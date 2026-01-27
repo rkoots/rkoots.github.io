@@ -1,11 +1,11 @@
-name: Tools Post - Generate
+name: MarketRun
 
 on:
   # push:
   #   branches:
   #     - main
   schedule:
-    - cron: '0 13 */3 * *'  # Every 2 days at 13:00 UTC
+    - cron: '0 */3 * * *'
   workflow_dispatch:  # Optional: allows manual trigger from GitHub UI
 
 jobs:
@@ -26,23 +26,15 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: |
-          cd ./tools 
+          cd ./scripts 
           pip install -r requirements.txt
 
       # Run the Python script with environment variables
-      - name: Run tech post generator
+      - name: Run Script
         env:
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          FIREBASE_URL: ${{ secrets.FIREBASE_URL }}
+          PAYTM_ORDER_URL: ${{ secrets.PAYTM_ORDER_URL }}
+          TRADINGVIEW_URL: ${{ secrets.TRADINGVIEW_URL }}
         run: |
-          cd ./tools  
-          python generate_tools_post_gemini.py
-
-      # Commit and push changes to the repository (if needed)
-      - name: Commit and push changes
-        run: |
-          cd ./tools  
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git add _posts/
-          git commit -m "Add tool post" || echo "No changes to commit"
-          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/rkoots/rkoots.github.io.git HEAD:main
+          cd ./scripts  
+          python daily_market_outlook.py
