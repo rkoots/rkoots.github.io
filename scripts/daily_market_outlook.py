@@ -1,6 +1,6 @@
 from typing import Dict
-import requests, time, webbrowser, json
-from datetime import datetime, date
+import requests, json, os
+from datetime import datetime
 from zoneinfo import ZoneInfo
 
 # =========================
@@ -146,9 +146,10 @@ ETF_DICT = {
 # =========================
 # SECRET
 # =========================
-FIREBASE_URL = "https://studio-2616610665-59648-default-rtdb.asia-southeast1.firebasedatabase.app/"
-PAYTM_ORDER_URL =  'https://developer.paytmmoney.com/orders/v1/place/regular'
-TRADINGVIEW_URL = "https://scanner.tradingview.com/india/scan"
+
+FIREBASE_URL = os.environ["FIREBASE_URL"]
+PAYTM_ORDER_URL = os.environ["PAYTM_ORDER_URL"]
+TRADINGVIEW_URL = os.environ["TRADINGVIEW_URL"]
 
 def get_token():
     current_time = datetime.now().strftime('%Y-%m-%d')
