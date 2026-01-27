@@ -1,40 +1,30 @@
 name: MarketRun
 
 on:
-  # push:
-  #   branches:
-  #     - main
   schedule:
     - cron: '0 */3 * * *'
-  workflow_dispatch:  # Optional: allows manual trigger from GitHub UI
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the code
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      # Set up Python
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      # Install dependencies
       - name: Install dependencies
-        run: |
-          cd ./scripts 
-          pip install -r requirements.txt
+        working-directory: scripts
+        run: pip install -r requirements.txt
 
-      # Run the Python script with environment variables
       - name: Run Script
+        working-directory: scripts
         env:
           FIREBASE_URL: ${{ secrets.FIREBASE_URL }}
           PAYTM_ORDER_URL: ${{ secrets.PAYTM_ORDER_URL }}
           TRADINGVIEW_URL: ${{ secrets.TRADINGVIEW_URL }}
-        run: |
-          cd ./scripts  
-          python daily_market_outlook.py
+        run: python daily_market_outlook.py
