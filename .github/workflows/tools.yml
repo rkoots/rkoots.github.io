@@ -21,9 +21,5 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run Script
-        working-directory: scripts
-        env:
-          FIREBASE_URL: ${{ secrets.FIREBASE_URL }}
-          PAYTM_ORDER_URL: ${{ secrets.PAYTM_ORDER_URL }}
-          TRADINGVIEW_URL: ${{ secrets.TRADINGVIEW_URL }}
-        run: python daily_market_outlook.py
+        working-directory: scripts/market
+        run: python model_v1.py
