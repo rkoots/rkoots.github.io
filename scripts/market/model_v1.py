@@ -218,7 +218,7 @@ if 1:
             Counter +=1
             up_prob,log_auc,xgb_auc = main(i,date_str_main)
             regime = ''
-            new = pd.read_sql(f""" SELECT date, Open, High, Low, close FROM {TABLE}_test where Ticker='{i}' and Date>='{date_str}' ORDER BY date ASC LIMIT 2 """,conn)
+            new = pd.read_sql(f""" SELECT date, Open, High, Low, close FROM {TABLE} where Ticker='{i}' and Date>='{date_str}' ORDER BY date ASC LIMIT 2 """,conn)
             new['Prev_Close'] = new['Close'].shift(0)  # current row Close
             new['Next_Open'] = new['Open'].shift(-1)  # next row Open
             trend_df = new[:-1].copy()
