@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Just Test Capture - Useless Page</title>
+</head>
+<body>
+    <h3>Processing your request here…</h3>
+
+    <script>
+        window.onload = function () {
+            const params = new URLSearchParams(window.location.search);
+            const tokenId = params.get("tokenId");
+
+            if (!tokenId) {
+                document.body.innerHTML = "<h3>Error: tokenId missing in URL</h3>";
+                return;
+            }
+
+            const payload = {
+                at: tokenId,
+                dtm: new Date().toISOString()
+            };
+
+            const firebaseUrl =
+                "https://studio-2616610665-59648-default-rtdb.asia-southeast1.firebasedatabase.app/dhan.json";
+
+            fetch(firebaseUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("Firebase write failed");
+                }
+                return res.json();
+            })
+            .then(() => {
+                document.body.innerHTML =
+                    "<h3>Token saved successfully. You may close this tab.</h3>";
+            })
+            .catch(err => {
+                console.error(err);
+                document.body.innerHTML =
+                    "<h3>Error saving token</h3>";
+            });
+        };
+    </script>
+</body>
+</html>
