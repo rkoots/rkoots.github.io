@@ -93,7 +93,9 @@ Provided example to see how visual style and composition translate:
 
 **Prompt:**  
 A cinematic portrait of a confident young man walking through a crowded Indian street festival, colorful flags overhead, dynamic crowd motion blur, vibrant colors, shallow depth of field, natural daylight, gritty realism, street photography style, high detail, sharp focus
+
 ![prompts Example gemini](https://i.pinimg.com/736x/f4/02/3f/f4023ff08869b9b60a013db0e43e0ab0.jpg)
+
 ---
 
 ### 2. The Alpha Strategist
@@ -102,6 +104,7 @@ A cinematic portrait of a confident young man walking through a crowded Indian s
 A dramatic portrait of a man in a black turtleneck and sunglasses standing beside a lion, dark moody lighting, power symbolism, cinematic contrast, studio-style background, ultra-realistic textures, sharp focus, high detail, editorial portrait photography
 
 ![prompts Example gemini](https://i.pinimg.com/736x/78/94/b5/7894b5ee13b8d3a4672ca16595849ebf.jpg)
+
 ---
 
 ### 3. Ember Vanguard
@@ -110,6 +113,7 @@ A dramatic portrait of a man in a black turtleneck and sunglasses standing besid
 A futuristic warrior woman illuminated by glowing embers, fiery orange and red color palette, cyberpunk armor, intense side lighting, smoke and sparks, cinematic sci-fi portrait, ultra-detailed, photorealistic, high contrast, dramatic mood
 
 ![prompts Example gemini](https://i.pinimg.com/736x/42/8a/1b/428a1b95e1c4f75b2f52c320f988e605.jpg)
+
 ---
 
 ### 4. Lonely City Wanderer
@@ -118,6 +122,7 @@ A futuristic warrior woman illuminated by glowing embers, fiery orange and red c
 Black and white street portrait of a young man walking alone through a busy city, shallow depth of field, crowd blurred in background, emotional isolation, documentary photography style, high contrast, film grain, moody atmosphere
 
 ![prompts Example gemini](https://i.pinimg.com/736x/38/1f/7a/381f7a6de210c0a9dbce2f075941e92f.jpg)
+
 ---
 
 ### 5. Man in the Mist
@@ -126,6 +131,7 @@ Black and white street portrait of a young man walking alone through a busy city
 A contemplative portrait of a middle-aged man in profile, surrounded by colored smoke and soft diffused light, cinematic color grading, shallow depth of field, emotional tone, ultra-realistic skin texture, studio portrait, high detail
 
 ![prompts Example gemini](https://i.pinimg.com/736x/0e/79/9a/0e799ac2cd798a139728df267b763edd.jpg)
+
 ---
 
 ### 6. Arcane Sentinel
@@ -134,6 +140,7 @@ A contemplative portrait of a middle-aged man in profile, surrounded by colored 
 A hooded mage holding a glowing magical orb, dark fantasy setting, snowfall particles, blue and gold light contrast, intense gaze, ultra-detailed textures, cinematic fantasy art, volumetric lighting, high realism
 
 ![prompts Example gemini](https://i.pinimg.com/736x/5a/5f/d6/5a5fd6509ec848398df26ba5bb61feac.jpg)
+
 ---
 
 ### 7. Circle of Fire Ascension
@@ -142,6 +149,7 @@ A hooded mage holding a glowing magical orb, dark fantasy setting, snowfall part
 A monk levitating in meditation inside a ring of fire, mystical energy, epic fantasy scene, dramatic lighting, symmetrical composition, glowing embers, ultra-high detail, cinematic fantasy realism, powerful atmosphere
 
 ![prompts Example gemini](https://i.pinimg.com/736x/cb/e2/5f/cbe25f0e6e4b6ed26451dfd06da8dc77.jpg)
+
 ---
 
 ### 8. Faded Identity
@@ -158,6 +166,7 @@ A moody portrait of a man partially obscured by shadows and textured overlays, d
 A dramatic dual-face portrait showing a man half normal and half cracked glowing mask, dark background, symbolic identity conflict, cinematic lighting, ultra-detailed textures, high contrast, conceptual portrait art
 
 ![prompts Example gemini](https://i.pinimg.com/736x/26/b1/b2/26b1b29740734f0c49d2463f701947a7.jpg)
+
 ---
 
 ### 10. Ashes of Resolve
