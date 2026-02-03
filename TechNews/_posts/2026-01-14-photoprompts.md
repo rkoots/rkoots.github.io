@@ -92,7 +92,7 @@ Provided example to see how visual style and composition translate:
 ### 1. Street Chaos Protagonist
 
 **Prompt:**  
-A cinematic portrait of a confident young man walking through a crowded Indian street festival, colorful flags overhead, dynamic crowd motion blur, vibrant colors, shallow depth of field, natural daylight, gritty realism, street photography style, high detail, sharp focus
+A cinematic street portrait of a confident young man walking through a crowded Indian street festival, colorful fabric banners and lights hanging overhead, bustling crowd around him with subtle motion blur, vibrant warm color palette, natural daylight mixed with ambient street lights, shallow depth of field, subject in sharp focus, candid street photography style, gritty realism, high dynamic range, ultra-detailed textures, cinematic color grading, 35mm lens look, high resolution
 
 ![prompts Example gemini](https://i.pinimg.com/736x/f4/02/3f/f4023ff08869b9b60a013db0e43e0ab0.jpg)
 
@@ -101,7 +101,7 @@ A cinematic portrait of a confident young man walking through a crowded Indian s
 ### 2. The Alpha Strategist
 
 **Prompt:**  
-A dramatic portrait of a man in a black turtleneck and sunglasses standing beside a lion, dark moody lighting, power symbolism, cinematic contrast, studio-style background, ultra-realistic textures, sharp focus, high detail, editorial portrait photography
+A powerful cinematic portrait of a man wearing a black turtleneck and dark sunglasses, standing calmly beside a majestic lion, symbolizing dominance and control, dark moody studio lighting with strong contrast, deep shadows, dramatic highlights on face and lion’s mane, minimalist background, editorial fashion photography style, ultra-realistic skin and fur textures, sharp focus, high detail, cinematic poster composition
 
 ![prompts Example gemini](https://i.pinimg.com/736x/78/94/b5/7894b5ee13b8d3a4672ca16595849ebf.jpg)
 
@@ -110,7 +110,7 @@ A dramatic portrait of a man in a black turtleneck and sunglasses standing besid
 ### 3. Ember Vanguard
 
 **Prompt:**  
-A futuristic warrior woman illuminated by glowing embers, fiery orange and red color palette, cyberpunk armor, intense side lighting, smoke and sparks, cinematic sci-fi portrait, ultra-detailed, photorealistic, high contrast, dramatic mood
+A futuristic warrior woman surrounded by glowing embers and sparks, wearing advanced cyberpunk armor with subtle wear and texture, fiery orange and red lighting reflecting off metallic surfaces, intense side lighting, dark smoky background, dramatic atmosphere, cinematic sci-fi portrait style, ultra-detailed armor and skin textures, photorealistic rendering, high contrast, sharp focus, epic futuristic mood
 
 ![prompts Example gemini](https://i.pinimg.com/736x/42/8a/1b/428a1b95e1c4f75b2f52c320f988e605.jpg)
 
@@ -119,7 +119,7 @@ A futuristic warrior woman illuminated by glowing embers, fiery orange and red c
 ### 4. Lonely City Wanderer
 
 **Prompt:**  
-Black and white street portrait of a young man walking alone through a busy city, shallow depth of field, crowd blurred in background, emotional isolation, documentary photography style, high contrast, film grain, moody atmosphere
+A black and white cinematic street portrait of a young man walking alone through a busy city street at night, crowd blurred into abstract motion behind him, strong sense of isolation, shallow depth of field, high contrast lighting, film grain texture, documentary photography style, moody and introspective atmosphere, sharp focus on subject, classic 35mm film aesthetic, high detail
 
 ![prompts Example gemini](https://i.pinimg.com/736x/38/1f/7a/381f7a6de210c0a9dbce2f075941e92f.jpg)
 
@@ -128,7 +128,7 @@ Black and white street portrait of a young man walking alone through a busy city
 ### 5. Man in the Mist
 
 **Prompt:**  
-A contemplative portrait of a middle-aged man in profile, surrounded by colored smoke and soft diffused light, cinematic color grading, shallow depth of field, emotional tone, ultra-realistic skin texture, studio portrait, high detail
+A contemplative cinematic portrait of a middle-aged man shown in side profile, surrounded by soft swirling colored smoke, subtle gradients of blue and warm tones, diffused studio lighting, emotional and reflective mood, shallow depth of field, ultra-realistic skin textures, fine facial details, smooth background separation, professional studio portrait photography style, high resolution, cinematic color grading
 
 ![prompts Example gemini](https://i.pinimg.com/736x/0e/79/9a/0e799ac2cd798a139728df267b763edd.jpg)
 
@@ -137,7 +137,7 @@ A contemplative portrait of a middle-aged man in profile, surrounded by colored 
 ### 6. Arcane Sentinel
 
 **Prompt:**  
-A hooded mage holding a glowing magical orb, dark fantasy setting, snowfall particles, blue and gold light contrast, intense gaze, ultra-detailed textures, cinematic fantasy art, volumetric lighting, high realism
+A dark fantasy portrait of a hooded mage holding a glowing magical orb between his hands, arcane symbols faintly visible within the light, snowfall particles drifting through the air, cool blue and warm golden light contrast, intense focused gaze, dramatic low-key lighting, volumetric light rays, ultra-detailed robes and textures, cinematic fantasy realism, high resolution, epic atmosphere
 
 ![prompts Example gemini](https://i.pinimg.com/736x/5a/5f/d6/5a5fd6509ec848398df26ba5bb61feac.jpg)
 
@@ -146,7 +146,7 @@ A hooded mage holding a glowing magical orb, dark fantasy setting, snowfall part
 ### 7. Circle of Fire Ascension
 
 **Prompt:**  
-A monk levitating in meditation inside a ring of fire, mystical energy, epic fantasy scene, dramatic lighting, symmetrical composition, glowing embers, ultra-high detail, cinematic fantasy realism, powerful atmosphere
+An epic fantasy scene of a monk levitating in deep meditation at the center of a glowing ring of fire, mystical energy radiating outward, symmetrical composition, dramatic lighting from flames and ambient light, floating embers and sparks, ancient spiritual aesthetic, ultra-high detail, cinematic fantasy realism, powerful and transcendent atmosphere, sharp focus, high resolution
 
 ![prompts Example gemini](https://i.pinimg.com/736x/cb/e2/5f/cbe25f0e6e4b6ed26451dfd06da8dc77.jpg)
 
@@ -155,7 +155,7 @@ A monk levitating in meditation inside a ring of fire, mystical energy, epic fan
 ### 8. Faded Identity
 
 **Prompt:**  
-A moody portrait of a man partially obscured by shadows and textured overlays, desaturated color palette, grunge aesthetic, psychological drama tone, soft focus edges, cinematic poster style, high contrast lighting
+A moody cinematic portrait of a man partially hidden by shadows and layered textures, subtle overlays creating a fragmented identity effect, desaturated and muted color palette, grunge aesthetic, psychological drama tone, soft vignette around edges, directional lighting emphasizing facial contours, cinematic poster style, high contrast, ultra-detailed textures, intense emotional mood
 
 ![prompts Example gemini](https://i.pinimg.com/736x/89/1d/ad/891dad7fc5b1179b91825926bfb65371.jpg)
 ---
@@ -163,7 +163,7 @@ A moody portrait of a man partially obscured by shadows and textured overlays, d
 ### 9. Split Persona
 
 **Prompt:**  
-A dramatic dual-face portrait showing a man half normal and half cracked glowing mask, dark background, symbolic identity conflict, cinematic lighting, ultra-detailed textures, high contrast, conceptual portrait art
+A conceptual cinematic portrait of a man with a split face composition, one side natural and realistic, the other side cracked and glowing like a fractured mask, symbolic representation of inner conflict and dual identity, dark minimal background, dramatic high-contrast lighting, glowing fissures emitting light, ultra-detailed skin and texture work, sharp focus, cinematic concept art style
 
 ![prompts Example gemini](https://i.pinimg.com/736x/26/b1/b2/26b1b29740734f0c49d2463f701947a7.jpg)
 
@@ -172,7 +172,7 @@ A dramatic dual-face portrait showing a man half normal and half cracked glowing
 ### 10. Ashes of Resolve
 
 **Prompt:**  
-A low-key cinematic portrait of a man emerging from darkness with embers and smoke, intense expression, fire-lit highlights, dark shadows, gritty realism, poster-style composition, ultra-sharp detail
+A low-key cinematic portrait of a man emerging from darkness, surrounded by drifting smoke and glowing embers, fire-lit highlights defining facial structure, deep shadows creating intensity, gritty and dramatic mood, poster-style composition, ultra-sharp details, realistic skin textures, cinematic color grading, high contrast lighting, powerful and resolute expression
 
 Add more relevant pins under each category:
 
