@@ -1,10 +1,9 @@
 {
-  "name": "rkoots-crawler",
+  "name": "crawler",
   "version": "1.0.0",
-  "scripts": {
-    "start": "node scripts/crawler.js"
-  },
+  "private": true,
+  "type": "commonjs",
   "dependencies": {
-    "playwright": "^1.40.0"
+    "puppeteer": "^22.0.0"
   }
 }
