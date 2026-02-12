@@ -7,9 +7,6 @@ const urls = [
   "https://rkoots.github.io/insights/",
   "https://rkoots.github.io/blog/",
   "https://rkoots.github.io/guide/",
-  "https://rkoots.github.io/styleguide/",
-  "https://rkoots.github.io/quickref/",
-  "https://rkoots.github.io/cv/"
 ];
 
 (async () => {
