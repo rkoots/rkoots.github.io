@@ -798,7 +798,7 @@
             }
 
             // Update summary cards in lakhs
-            document.getElementById('total-wealth').textContent = `₹${toLakhs(totalWealth)}L`;
+            document.getElementById('total-wealth').textContent = `₹${toLakhs(totalWealth)}K`;
             document.getElementById('mom-change').textContent = momChange;
 
             // Update wealth by type chart (convert to lakhs)
@@ -827,7 +827,7 @@
                                 label: function(context) {
                                     const value = context.raw;
                                     const label = context.label || '';
-                                    return `${label}: ₹${toLakhs(value)}L`;
+                                    return `${label}: ₹${toLakhs(value)}K`;
                                 }
                             }
                         }
@@ -861,7 +861,7 @@
                                 label: function(context) {
                                     const value = context.raw;
                                     const label = context.label || '';
-                                    return `${label}: ₹${toLakhs(value)}L`;
+                                    return `${label}: ₹${toLakhs(value)}K`;
                                 }
                             }
                         }
@@ -967,7 +967,7 @@
                             beginAtZero: false,
                             ticks: {
                                 callback: function(value) {
-                                    return '₹' + toLakhs(value) + 'L';
+                                    return '₹' + toLakhs(value) + 'K';
                                 }
                             }
                         }
@@ -976,7 +976,7 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return 'Total Wealth: ₹' + toLakhs(context.raw) + 'L';
+                                    return 'Total Wealth: ₹' + toLakhs(context.raw) + 'K';
                                 }
                             }
                         }
@@ -1024,7 +1024,7 @@
                             beginAtZero: false,
                             ticks: {
                                 callback: function(value) {
-                                    return '₹' + toLakhs(value) + 'L';
+                                    return '₹' + toLakhs(value) + 'K';
                                 }
                             }
                         }
@@ -1033,7 +1033,7 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return context.dataset.label + ': ₹' + toLakhs(context.raw) + 'L';
+                                    return context.dataset.label + ': ₹' + toLakhs(context.raw) + 'K';
                                 }
                             }
                         }
