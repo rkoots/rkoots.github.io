@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Data Entry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            margin-bottom: 20px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .subsection {
+            background: #ffffff;
+            margin-bottom: 15px;
+            padding: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="number"], input[type="date"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+        }
+        .subsection {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .person-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 4px;
+        }
+        .person-header {
+            font-weight: bold;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Portfolio Data Entry</h1>
+        <form id="portfolioForm">
+            <div class="section">
+                <h2>Date</h2>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Bank Accounts</h2>
+                
+                <div class="subsection">
+                    <h3>SBI</h3>
+                    <div class="person-row">
+                        <div class="person-header">Person</div>
+                        <div class="person-header">SB</div>
+                        <div class="person-header">FD</div>
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <input type="number" id="sbi_rk_sb" name="sbi_rk_sb" value="0" step="0.01">
+                        <input type="number" id="sbi_rk_fd" name="sbi_rk_fd" value="0" step="0.01">
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">PD</div>
+                        <input type="number" id="sbi_pd_sb" name="sbi_pd_sb" value="0" step="0.01">
+                        <input type="number" id="sbi_pd_fd" name="sbi_pd_fd" value="0" step="0.01">
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">SS</div>
+                        <input type="number" id="sbi_ss_sb" name="sbi_ss_sb" value="0" step="0.01">
+                        <input type="number" id="sbi_ss_fd" name="sbi_ss_fd" value="0" step="0.01">
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">VK</div>
+                        <input type="number" id="sbi_vk_sb" name="sbi_vk_sb" value="0" step="0.01">
+                        <input type="number" id="sbi_vk_fd" name="sbi_vk_fd" value="0" step="0.01">
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">AR</div>
+                        <input type="number" id="sbi_ar_sb" name="sbi_ar_sb" value="0" step="0.01">
+                        <input type="number" id="sbi_ar_fd" name="sbi_ar_fd" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Kotak</h3>
+                    <div class="person-row">
+                        <div class="person-header">Person</div>
+                        <div class="person-header">SB</div>
+                        <div class="person-header">FD</div>
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <input type="number" id="kotak_rk_sb" name="kotak_rk_sb" value="0" step="0.01">
+                        <input type="number" id="kotak_rk_fd" name="kotak_rk_fd" value="0" step="0.01">
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">PD</div>
+                        <input type="number" id="kotak_pd_sb" name="kotak_pd_sb" value="0" step="0.01">
+                        <input type="number" id="kotak_pd_fd" name="kotak_pd_fd" value="0" step="0.01">
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">SS</div>
+                        <input type="number" id="kotak_ss_sb" name="kotak_ss_sb" value="0" step="0.01">
+                        <input type="number" id="kotak_ss_fd" name="kotak_ss_fd" value="0" step="0.01">
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">VK</div>
+                        <input type="number" id="kotak_vk_sb" name="kotak_vk_sb" value="0" step="0.01">
+                        <input type="number" id="kotak_vk_fd" name="kotak_vk_fd" value="0" step="0.01">
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">AR</div>
+                        <input type="number" id="kotak_ar_sb" name="kotak_ar_sb" value="0" step="0.01">
+                        <input type="number" id="kotak_ar_fd" name="kotak_ar_fd" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>IDFC</h3>
+                    <div class="person-row">
+                        <div class="person-header">Person</div>
+                        <div class="person-header">SB</div>
+                        <div class="person-header">FD</div>
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <input type="number" id="idfc_rk_sb" name="idfc_rk_sb" value="0" step="0.01">
+                        <input type="number" id="idfc_rk_fd" name="idfc_rk_fd" value="0" step="0.01">
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">PD</div>
+                        <input type="number" id="idfc_pd_sb" name="idfc_pd_sb" value="0" step="0.01">
+                        <input type="number" id="idfc_pd_fd" name="idfc_pd_fd" value="0" step="0.01">
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">SS</div>
+                        <input type="number" id="idfc_ss_sb" name="idfc_ss_sb" value="0" step="0.01">
+                        <input type="number" id="idfc_ss_fd" name="idfc_ss_fd" value="0" step="0.01">
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">VK</div>
+                        <input type="number" id="idfc_vk_sb" name="idfc_vk_sb" value="0" step="0.01">
+                        <input type="number" id="idfc_vk_fd" name="idfc_vk_fd" value="0" step="0.01">
+                    </div>
+                    <div class="person-row">
+                        <div class="person-header">AR</div>
+                        <input type="number" id="idfc_ar_sb" name="idfc_ar_sb" value="0" step="0.01">
+                        <input type="number" id="idfc_ar_fd" name="idfc_ar_fd" value="0" step="0.01">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Mutual Funds</h2>
+                
+                <div class="subsection">
+                    <h3>Grow</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="mf_grow_rk" name="mf_grow_rk" value="0" step="0.01">
+                        <input type="number" id="mf_grow_vk" name="mf_grow_vk" value="0" step="0.01">
+                        <input type="number" id="mf_grow_ss" name="mf_grow_ss" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>UPX</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="mf_upx_rk" name="mf_upx_rk" value="0" step="0.01">
+                        <input type="number" id="mf_upx_vk" name="mf_upx_vk" value="0" step="0.01">
+                        <input type="number" id="mf_upx_ss" name="mf_upx_ss" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>PTM</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="mf_ptm_rk" name="mf_ptm_rk" value="0" step="0.01">
+                        <input type="number" id="mf_ptm_vk" name="mf_ptm_vk" value="0" step="0.01">
+                        <input type="number" id="mf_ptm_ss" name="mf_ptm_ss" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>SBI</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="mf_sbi_rk" name="mf_sbi_rk" value="0" step="0.01">
+                        <input type="number" id="mf_sbi_vk" name="mf_sbi_vk" value="0" step="0.01">
+                        <input type="number" id="mf_sbi_ss" name="mf_sbi_ss" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Kotak</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="mf_kotak_rk" name="mf_kotak_rk" value="0" step="0.01">
+                        <input type="number" id="mf_kotak_vk" name="mf_kotak_vk" value="0" step="0.01">
+                        <input type="number" id="mf_kotak_ss" name="mf_kotak_ss" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>IDFC</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="mf_idfc_rk" name="mf_idfc_rk" value="0" step="0.01">
+                        <input type="number" id="mf_idfc_vk" name="mf_idfc_vk" value="0" step="0.01">
+                        <input type="number" id="mf_idfc_ss" name="mf_idfc_ss" value="0" step="0.01">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Equity</h2>
+                
+                <div class="subsection">
+                    <h3>Grow</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="equity_grow_rk" name="equity_grow_rk" value="0" step="0.01">
+                        <input type="number" id="equity_grow_vk" name="equity_grow_vk" value="0" step="0.01">
+                        <input type="number" id="equity_grow_ss" name="equity_grow_ss" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Zero</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="equity_zero_rk" name="equity_zero_rk" value="0" step="0.01">
+                        <input type="number" id="equity_zero_vk" name="equity_zero_vk" value="0" step="0.01">
+                        <input type="number" id="equity_zero_ss" name="equity_zero_ss" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>PTM</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="equity_ptm_rk" name="equity_ptm_rk" value="0" step="0.01">
+                        <input type="number" id="equity_ptm_vk" name="equity_ptm_vk" value="0" step="0.01">
+                        <input type="number" id="equity_ptm_ss" name="equity_ptm_ss" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Dhan</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="equity_dhan_rk" name="equity_dhan_rk" value="0" step="0.01">
+                        <input type="number" id="equity_dhan_vk" name="equity_dhan_vk" value="0" step="0.01">
+                        <input type="number" id="equity_dhan_ss" name="equity_dhan_ss" value="0" step="0.01">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Equity Cash</h2>
+                
+                <div class="subsection">
+                    <h3>Grow</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="cash_grow_rk" name="cash_grow_rk" value="0" step="0.01">
+                        <input type="number" id="cash_grow_vk" name="cash_grow_vk" value="0" step="0.01">
+                        <input type="number" id="cash_grow_ss" name="cash_grow_ss" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Zero</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="cash_zero_rk" name="cash_zero_rk" value="0" step="0.01">
+                        <input type="number" id="cash_zero_vk" name="cash_zero_vk" value="0" step="0.01">
+                        <input type="number" id="cash_zero_ss" name="cash_zero_ss" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>PTM</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="cash_ptm_rk" name="cash_ptm_rk" value="0" step="0.01">
+                        <input type="number" id="cash_ptm_vk" name="cash_ptm_vk" value="0" step="0.01">
+                        <input type="number" id="cash_ptm_ss" name="cash_ptm_ss" value="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Dhan</h3>
+                    <div class="person-row">
+                        <div class="person-header">RK</div>
+                        <div class="person-header">VK</div>
+                        <div class="person-header">SS</div>
+                    </div>
+                    <div class="person-row">
+                        <input type="number" id="cash_dhan_rk" name="cash_dhan_rk" value="0" step="0.01">
+                        <input type="number" id="cash_dhan_vk" name="cash_dhan_vk" value="0" step="0.01">
+                        <input type="number" id="cash_dhan_ss" name="cash_dhan_ss" value="0" step="0.01">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Lending</h2>
+                <div id="lendingContainer">
+                    <div class="subsection">
+                        <div class="person-row">
+                            <div class="person-header">Platform</div>
+                            <div class="person-header">Amount</div>
+                        </div>
+                        <div class="person-row">
+                            <input type="text" id="lending_a_name" name="lending_a_name" placeholder="Platform A">
+                            <input type="number" id="lending_a_amount" name="lending_a_amount" value="0" step="0.01">
+                        </div>
+                        <div class="person-row">
+                            <input type="text" id="lending_b_name" name="lending_b_name" placeholder="Platform B">
+                            <input type="number" id="lending_b_amount" name="lending_b_amount" value="0" step="0.01">
+                        </div>
+                        <div class="person-row">
+                            <input type="text" id="lending_c_name" name="lending_c_name" placeholder="Platform C">
+                            <input type="number" id="lending_c_amount" name="lending_c_amount" value="0" step="0.01">
+                        </div>
+                        <div class="person-row">
+                            <input type="text" id="lending_d_name" name="lending_d_name" placeholder="Platform D">
+                            <input type="number" id="lending_d_amount" name="lending_d_amount" value="0" step="0.01">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Submit to Firebase</button>
+            <button type="button" onclick="clearForm()">Clear Form</button>
+        </form>
+
+        <div id="status" class="status"></div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
+    <script>
+        // TODO: Replace with your Firebase config
+        const firebaseConfig = {
+        apiKey: "AIzaSyBgkEhRTvyZXbaWKOltF9pQHzEZT48ArKw",
+        authDomain: "studio-2616610665-59648.firebaseapp.com",
+        databaseURL: "https://studio-2616610665-59648-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "studio-2616610665-59648",
+        storageBucket: "studio-2616610665-59648.firebasestorage.app",
+        messagingSenderId: "1017452121676",
+        appId: "1:1017452121676:web:c7bda758c59dbb58142ee9"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Set today's date as default
+        document.getElementById('date').valueAsDate = new Date();
+
+        // Form submission
+        document.getElementById('portfolioForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                const formData = new FormData(e.target);
+                const date = formData.get('date');
+                
+                // Get next index for portfolio
+                const portfolioRef = database.ref('portfolio');
+                const snapshot = await portfolioRef.once('value');
+                const portfolioData = snapshot.val() || {};
+                const nextIndex = Object.keys(portfolioData).length;
+                
+                // Construct the data object
+                const portfolioEntry = {
+                    date: date,
+                    bankAccounts: {
+                        SBI: {
+                            RK: {
+                                SB: parseFloat(formData.get('sbi_rk_sb')) || 0,
+                                FD: parseFloat(formData.get('sbi_rk_fd')) || 0
+                            },
+                            PD: {
+                                SB: parseFloat(formData.get('sbi_pd_sb')) || 0,
+                                FD: parseFloat(formData.get('sbi_pd_fd')) || 0
+                            },
+                            SS: {
+                                SB: parseFloat(formData.get('sbi_ss_sb')) || 0,
+                                FD: parseFloat(formData.get('sbi_ss_fd')) || 0
+                            },
+                            VK: {
+                                SB: parseFloat(formData.get('sbi_vk_sb')) || 0,
+                                FD: parseFloat(formData.get('sbi_vk_fd')) || 0
+                            },
+                            AR: {
+                                SB: parseFloat(formData.get('sbi_ar_sb')) || 0,
+                                FD: parseFloat(formData.get('sbi_ar_fd')) || 0
+                            }
+                        },
+                        Kotak: {
+                            RK: {
+                                SB: parseFloat(formData.get('kotak_rk_sb')) || 0,
+                                FD: parseFloat(formData.get('kotak_rk_fd')) || 0
+                            },
+                            PD: {
+                                SB: parseFloat(formData.get('kotak_pd_sb')) || 0,
+                                FD: parseFloat(formData.get('kotak_pd_fd')) || 0
+                            },
+                            SS: {
+                                SB: parseFloat(formData.get('kotak_ss_sb')) || 0,
+                                FD: parseFloat(formData.get('kotak_ss_fd')) || 0
+                            },
+                            VK: {
+                                SB: parseFloat(formData.get('kotak_vk_sb')) || 0,
+                                FD: parseFloat(formData.get('kotak_vk_fd')) || 0
+                            },
+                            AR: {
+                                SB: parseFloat(formData.get('kotak_ar_sb')) || 0,
+                                FD: parseFloat(formData.get('kotak_ar_fd')) || 0
+                            }
+                        },
+                        IDFC: {
+                            RK: {
+                                SB: parseFloat(formData.get('idfc_rk_sb')) || 0,
+                                FD: parseFloat(formData.get('idfc_rk_fd')) || 0
+                            },
+                            PD: {
+                                SB: parseFloat(formData.get('idfc_pd_sb')) || 0,
+                                FD: parseFloat(formData.get('idfc_pd_fd')) || 0
+                            },
+                            SS: {
+                                SB: parseFloat(formData.get('idfc_ss_sb')) || 0,
+                                FD: parseFloat(formData.get('idfc_ss_fd')) || 0
+                            },
+                            VK: {
+                                SB: parseFloat(formData.get('idfc_vk_sb')) || 0,
+                                FD: parseFloat(formData.get('idfc_vk_fd')) || 0
+                            },
+                            AR: {
+                                SB: parseFloat(formData.get('idfc_ar_sb')) || 0,
+                                FD: parseFloat(formData.get('idfc_ar_fd')) || 0
+                            }
+                        }
+                    },
+                    mutualFunds: {
+                        Grow: {
+                            RK: parseFloat(formData.get('mf_grow_rk')) || 0,
+                            VK: parseFloat(formData.get('mf_grow_vk')) || 0,
+                            SS: parseFloat(formData.get('mf_grow_ss')) || 0
+                        },
+                        UPX: {
+                            RK: parseFloat(formData.get('mf_upx_rk')) || 0,
+                            VK: parseFloat(formData.get('mf_upx_vk')) || 0,
+                            SS: parseFloat(formData.get('mf_upx_ss')) || 0
+                        },
+                        PTM: {
+                            RK: parseFloat(formData.get('mf_ptm_rk')) || 0,
+                            VK: parseFloat(formData.get('mf_ptm_vk')) || 0,
+                            SS: parseFloat(formData.get('mf_ptm_ss')) || 0
+                        },
+                        SBI: {
+                            RK: parseFloat(formData.get('mf_sbi_rk')) || 0,
+                            VK: parseFloat(formData.get('mf_sbi_vk')) || 0,
+                            SS: parseFloat(formData.get('mf_sbi_ss')) || 0
+                        },
+                        Kotak: {
+                            RK: parseFloat(formData.get('mf_kotak_rk')) || 0,
+                            VK: parseFloat(formData.get('mf_kotak_vk')) || 0,
+                            SS: parseFloat(formData.get('mf_kotak_ss')) || 0
+                        },
+                        IDFC: {
+                            RK: parseFloat(formData.get('mf_idfc_rk')) || 0,
+                            VK: parseFloat(formData.get('mf_idfc_vk')) || 0,
+                            SS: parseFloat(formData.get('mf_idfc_ss')) || 0
+                        }
+                    },
+                    equity: {
+                        Grow: {
+                            RK: parseFloat(formData.get('equity_grow_rk')) || 0,
+                            VK: parseFloat(formData.get('equity_grow_vk')) || 0,
+                            SS: parseFloat(formData.get('equity_grow_ss')) || 0
+                        },
+                        Zero: {
+                            RK: parseFloat(formData.get('equity_zero_rk')) || 0,
+                            VK: parseFloat(formData.get('equity_zero_vk')) || 0,
+                            SS: parseFloat(formData.get('equity_zero_ss')) || 0
+                        },
+                        PTM: {
+                            RK: parseFloat(formData.get('equity_ptm_rk')) || 0,
+                            VK: parseFloat(formData.get('equity_ptm_vk')) || 0,
+                            SS: parseFloat(formData.get('equity_ptm_ss')) || 0
+                        },
+                        Dhan: {
+                            RK: parseFloat(formData.get('equity_dhan_rk')) || 0,
+                            VK: parseFloat(formData.get('equity_dhan_vk')) || 0,
+                            SS: parseFloat(formData.get('equity_dhan_ss')) || 0
+                        }
+                    },
+                    equityCash: {
+                        Grow: {
+                            RK: parseFloat(formData.get('cash_grow_rk')) || 0,
+                            VK: parseFloat(formData.get('cash_grow_vk')) || 0,
+                            SS: parseFloat(formData.get('cash_grow_ss')) || 0
+                        },
+                        Zero: {
+                            RK: parseFloat(formData.get('cash_zero_rk')) || 0,
+                            VK: parseFloat(formData.get('cash_zero_vk')) || 0,
+                            SS: parseFloat(formData.get('cash_zero_ss')) || 0
+                        },
+                        PTM: {
+                            RK: parseFloat(formData.get('cash_ptm_rk')) || 0,
+                            VK: parseFloat(formData.get('cash_ptm_vk')) || 0,
+                            SS: parseFloat(formData.get('cash_ptm_ss')) || 0
+                        },
+                        Dhan: {
+                            RK: parseFloat(formData.get('cash_dhan_rk')) || 0,
+                            VK: parseFloat(formData.get('cash_dhan_vk')) || 0,
+                            SS: parseFloat(formData.get('cash_dhan_ss')) || 0
+                        }
+                    },
+                    lending: {}
+                };
+
+                // Add lending data
+                const lendingPlatforms = ['a', 'b', 'c', 'd', 'e'];
+                lendingPlatforms.forEach(platform => {
+                    const name = formData.get(`lending_${platform}_name`);
+                    const amount = parseFloat(formData.get(`lending_${platform}_amount`)) || 0;
+                    if (name && amount > 0) {
+                        portfolioEntry.lending[name] = amount;
+                    }
+                });
+
+                // Save to Firebase
+                await database.ref(`portfolio/${nextIndex}`).set(portfolioEntry);
+                
+                showStatus('Data successfully submitted to Firebase!', 'success');
+                
+            } catch (error) {
+                console.error('Error submitting data:', error);
+                showStatus('Error submitting data: ' + error.message, 'error');
+            }
+        });
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+            statusDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function clearForm() {
+            if (confirm('Are you sure you want to clear all form data?')) {
+                document.getElementById('portfolioForm').reset();
+                document.getElementById('date').valueAsDate = new Date();
+                showStatus('Form cleared', 'success');
+            }
+        }
+    </script>
+</body>
+</html>
