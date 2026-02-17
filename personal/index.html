@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Wealth Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .summary-cards {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+            text-align: center;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .card p {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            margin: 10px 0;
+        }
+        .charts-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .chart-box {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+        .chart-box canvas {
+            max-height: 300px;
+        }
+        @media (max-width: 768px) {
+            .chart-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Personal Wealth Dashboard</h1>
+            <p>Real-time overview of your financial portfolio</p>
+        </div>
+        
+        <div class="summary-cards">
+            <div class="card">
+                <h3>Total Wealth</h3>
+                <p id="total-wealth">Loading...</p>
+            </div>
+            <div class="card">
+                <h3>Month-over-Month Change</h3>
+                <p id="mom-change">Loading...</p>
+            </div>
+        </div>
+        
+        <div class="charts-container">
+            <div class="chart-box">
+                <h2>Wealth Distribution by Type</h2>
+                <canvas id="wealth-by-type-chart"></canvas>
+            </div>
+            
+            <div class="chart-box">
+                <h2>Wealth Distribution by Person</h2>
+                <canvas id="wealth-by-person-chart"></canvas>
+            </div>
+            
+            <div class="chart-box">
+                <h2>Historical Wealth Trend</h2>
+                <canvas id="wealth-trend-chart"></canvas>
+            </div>
+            
+            <div class="chart-box">
+                <h2>Asset Type Trend</h2>
+                <canvas id="asset-trend-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            databaseURL: "YOUR_DATABASE_URL",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        const database = firebase.database();
+        const portfolioRef = database.ref('portfolio');
+
+        // Data structure to hold portfolio information
+        let portfolioData = {
+            bankAccounts: {
+                SBI: { RK: { SB: 0, FD: 0 }, PD: { SB: 0, FD: 0 }, SS: { SB: 0, FD: 0 }, VK: { SB: 0, FD: 0 }, AR: { SB: 0, FD: 0 } },
+                Kotak: { RK: { SB: 0, FD: 0 }, PD: { SB: 0, FD: 0 }, SS: { SB: 0, FD: 0 }, VK: { SB: 0, FD: 0 }, AR: { SB: 0, FD: 0 } },
+                IDFC: { RK: { SB: 0, FD: 0 }, PD: { SB: 0, FD: 0 }, SS: { SB: 0, FD: 0 }, VK: { SB: 0, FD: 0 }, AR: { SB: 0, FD: 0 } }
+            },
+            mutualFunds: {
+                Grow: { RK: 0, VK: 0, SS: 0 },
+                UPX: { RK: 0, VK: 0, SS: 0 },
+                PTM: { RK: 0, VK: 0, SS: 0 },
+                SBI: { RK: 0, VK: 0, SS: 0 },
+                Kotak: { RK: 0, VK: 0, SS: 0 },
+                IDFC: { RK: 0, VK: 0, SS: 0 }
+            },
+            equity: {
+                Grow: { RK: 0, VK: 0, SS: 0 },
+                Zero: { RK: 0, VK: 0, SS: 0 },
+                PTM: { RK: 0, VK: 0, SS: 0 },
+                Dhan: { RK: 0, VK: 0, SS: 0 }
+            },
+            equityCash: {
+                Grow: { RK: 0, VK: 0, SS: 0 },
+                Zero: { RK: 0, VK: 0, SS: 0 },
+                PTM: { RK: 0, VK: 0, SS: 0 },
+                Dhan: { RK: 0, VK: 0, SS: 0 }
+            },
+            lending: {} // A, B, C... N
+        };
+
+        // Fetch the latest portfolio data from Firebase
+        function fetchLatestPortfolioData() {
+            portfolioRef.orderByKey().limitToLast(1).once('value')
+                .then(snapshot => {
+                    if (snapshot.exists()) {
+                        const latestData = snapshot.val();
+                        const latestIndex = Object.keys(latestData)[0];
+                        updatePortfolioData(latestData[latestIndex]);
+                        updateDashboard();
+                    } else {
+                        console.log("No data available");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching portfolio data:", error);
+                });
+        }
+
+        // Update local portfolio data structure with data from Firebase
+        function updatePortfolioData(data) {
+            // Update bank accounts
+            if (data.bankAccounts) {
+                for (const bank in data.bankAccounts) {
+                    if (portfolioData.bankAccounts[bank]) {
+                        for (const person in data.bankAccounts[bank]) {
+                            if (portfolioData.bankAccounts[bank][person]) {
+                                portfolioData.bankAccounts[bank][person].SB = data.bankAccounts[bank][person].SB || 0;
+                                portfolioData.bankAccounts[bank][person].FD = data.bankAccounts[bank][person].FD || 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Update mutual funds
+            if (data.mutualFunds) {
+                for (const platform in data.mutualFunds) {
+                    if (portfolioData.mutualFunds[platform]) {
+                        for (const person in data.mutualFunds[platform]) {
+                            portfolioData.mutualFunds[platform][person] = data.mutualFunds[platform][person] || 0;
+                        }
+                    }
+                }
+            }
+
+            // Update equity
+            if (data.equity) {
+                for (const platform in data.equity) {
+                    if (portfolioData.equity[platform]) {
+                        for (const person in data.equity[platform]) {
+                            portfolioData.equity[platform][person] = data.equity[platform][person] || 0;
+                        }
+                    }
+                }
+            }
+
+            // Update equity cash
+            if (data.equityCash) {
+                for (const platform in data.equityCash) {
+                    if (portfolioData.equityCash[platform]) {
+                        for (const person in data.equityCash[platform]) {
+                            portfolioData.equityCash[platform][person] = data.equityCash[platform][person] || 0;
+                        }
+                    }
+                }
+            }
+
+            // Update lending
+            if (data.lending) {
+                portfolioData.lending = data.lending;
+            }
+        }
+
+        // Calculate total wealth by asset type
+        function calculateWealthByType() {
+            let sbTotal = 0, fdTotal = 0, mfTotal = 0, eqTotal = 0, lendingTotal = 0;
+
+            // Calculate SB and FD totals
+            for (const bank in portfolioData.bankAccounts) {
+                for (const person in portfolioData.bankAccounts[bank]) {
+                    sbTotal += portfolioData.bankAccounts[bank][person].SB;
+                    fdTotal += portfolioData.bankAccounts[bank][person].FD;
+                }
+            }
+
+            // Calculate MF total
+            for (const platform in portfolioData.mutualFunds) {
+                for (const person in portfolioData.mutualFunds[platform]) {
+                    mfTotal += portfolioData.mutualFunds[platform][person];
+                }
+            }
+
+            // Calculate Equity total
+            for (const platform in portfolioData.equity) {
+                for (const person in portfolioData.equity[platform]) {
+                    eqTotal += portfolioData.equity[platform][person];
+                }
+            }
+
+            // Calculate Equity Cash total
+            for (const platform in portfolioData.equityCash) {
+                for (const person in portfolioData.equityCash[platform]) {
+                    eqTotal += portfolioData.equityCash[platform][person];
+                }
+            }
+
+            // Calculate Lending total
+            for (const platform in portfolioData.lending) {
+                for (const person in portfolioData.lending[platform]) {
+                    lendingTotal += portfolioData.lending[platform][person];
+                }
+            }
+
+            return {
+                SB: sbTotal,
+                FD: fdTotal,
+                MF: mfTotal,
+                EQ: eqTotal,
+                Lending: lendingTotal
+            };
+        }
+
+        // Calculate total wealth by person
+        function calculateWealthByPerson() {
+            let wealthByPerson = {
+                RK: 0, PD: 0, SS: 0, VK: 0, AR: 0
+            };
+
+            // Calculate bank account wealth by person
+            for (const bank in portfolioData.bankAccounts) {
+                for (const person in portfolioData.bankAccounts[bank]) {
+                    if (wealthByPerson[person] !== undefined) {
+                        wealthByPerson[person] += portfolioData.bankAccounts[bank][person].SB;
+                        wealthByPerson[person] += portfolioData.bankAccounts[bank][person].FD;
+                    }
+                }
+            }
+
+            // Calculate mutual funds wealth by person
+            for (const platform in portfolioData.mutualFunds) {
+                for (const person in portfolioData.mutualFunds[platform]) {
+                    if (wealthByPerson[person] !== undefined) {
+                        wealthByPerson[person] += portfolioData.mutualFunds[platform][person];
+                    }
+                }
+            }
+
+            // Calculate equity wealth by person
+            for (const platform in portfolioData.equity) {
+                for (const person in portfolioData.equity[platform]) {
+                    if (wealthByPerson[person] !== undefined) {
+                        wealthByPerson[person] += portfolioData.equity[platform][person];
+                    }
+                }
+            }
+
+            // Calculate equity cash wealth by person
+            for (const platform in portfolioData.equityCash) {
+                for (const person in portfolioData.equityCash[platform]) {
+                    if (wealthByPerson[person] !== undefined) {
+                        wealthByPerson[person] += portfolioData.equityCash[platform][person];
+                    }
+                }
+            }
+
+            // Calculate lending wealth by person
+            for (const platform in portfolioData.lending) {
+                for (const person in portfolioData.lending[platform]) {
+                    if (wealthByPerson[person] !== undefined) {
+                        wealthByPerson[person] += portfolioData.lending[platform][person];
+                    }
+                }
+            }
+
+            return wealthByPerson;
+        }
+
+        // Calculate month-over-month change
+        function calculateMoMChange() {
+            // This would require historical data
+            // For now, we'll return a placeholder
+            return "+5.2%";
+        }
+
+        // Update dashboard with calculated data
+        function updateDashboard() {
+            const wealthByType = calculateWealthByType();
+            const wealthByPerson = calculateWealthByPerson();
+            const momChange = calculateMoMChange();
+
+            // Calculate total wealth
+            let totalWealth = 0;
+            for (const type in wealthByType) {
+                totalWealth += wealthByType[type];
+            }
+
+            // Update summary cards
+            document.getElementById('total-wealth').textContent = `₹${totalWealth.toLocaleString('en-IN')}`;
+            document.getElementById('mom-change').textContent = momChange;
+
+            // Update wealth by type chart
+            const wealthByTypeCtx = document.getElementById('wealth-by-type-chart').getContext('2d');
+            new Chart(wealthByTypeCtx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(wealthByType),
+                    datasets: [{
+                        data: Object.values(wealthByType),
+                        backgroundColor: [
+                            '#FF6384',
+                            '#36A2EB',
+                            '#FFCE56',
+                            '#4BC0C0',
+                            '#9966FF'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Update wealth by person chart
+            const wealthByPersonCtx = document.getElementById('wealth-by-person-chart').getContext('2d');
+            new Chart(wealthByPersonCtx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(wealthByPerson),
+                    datasets: [{
+                        data: Object.values(wealthByPerson),
+                        backgroundColor: [
+                            '#FF6384',
+                            '#36A2EB',
+                            '#FFCE56',
+                            '#4BC0C0',
+                            '#9966FF'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Fetch historical data for trend charts
+            fetchHistoricalDataForTrends();
+        }
+
+        // Fetch historical data for trend charts
+        function fetchHistoricalDataForTrends() {
+            portfolioRef.orderByKey().limitToLast(12).once('value')
+                .then(snapshot => {
+                    if (snapshot.exists()) {
+                        const historicalData = snapshot.val();
+                        const months = Object.keys(historicalData).sort();
+                        const totalWealthData = [];
+                        const sbData = [];
+                        const fdData = [];
+                        const mfData = [];
+                        const eqData = [];
+
+                        months.forEach(month => {
+                            const monthData = historicalData[month];
+                            let total = 0, sb = 0, fd = 0, mf = 0, eq = 0;
+
+                            // Calculate totals for this month
+                            if (monthData.bankAccounts) {
+                                for (const bank in monthData.bankAccounts) {
+                                    for (const person in monthData.bankAccounts[bank]) {
+                                        sb += monthData.bankAccounts[bank][person].SB || 0;
+                                        fd += monthData.bankAccounts[bank][person].FD || 0;
+                                    }
+                                }
+                            }
+
+                            if (monthData.mutualFunds) {
+                                for (const platform in monthData.mutualFunds) {
+                                    for (const person in monthData.mutualFunds[platform]) {
+                                        mf += monthData.mutualFunds[platform][person] || 0;
+                                    }
+                                }
+                            }
+
+                            if (monthData.equity) {
+                                for (const platform in monthData.equity) {
+                                    for (const person in monthData.equity[platform]) {
+                                        eq += monthData.equity[platform][person] || 0;
+                                    }
+                                }
+                            }
+
+                            if (monthData.equityCash) {
+                                for (const platform in monthData.equityCash) {
+                                    for (const person in monthData.equityCash[platform]) {
+                                        eq += monthData.equityCash[platform][person] || 0;
+                                    }
+                                }
+                            }
+
+                            if (monthData.lending) {
+                                for (const platform in monthData.lending) {
+                                    for (const person in monthData.lending[platform]) {
+                                        total += monthData.lending[platform][person] || 0;
+                                    }
+                                }
+                            }
+
+                            total = sb + fd + mf + eq + total;
+
+                            totalWealthData.push(total);
+                            sbData.push(sb);
+                            fdData.push(fd);
+                            mfData.push(mf);
+                            eqData.push(eq);
+                        });
+
+                        // Format month labels for display
+                        const formattedMonths = months.map(month => {
+                            const date = new Date(month);
+                            return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+                        });
+
+                        // Update wealth trend chart
+                        const wealthTrendCtx = document.getElementById('wealth-trend-chart').getContext('2d');
+                        new Chart(wealthTrendCtx, {
+                            type: 'line',
+                            data: {
+                                labels: formattedMonths,
+                                datasets: [{
+                                    label: 'Total Wealth',
+                                    data: totalWealthData,
+                                    borderColor: '#36A2EB',
+                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                    fill: true
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: false,
+                                        ticks: {
+                                            callback: function(value) {
+                                                return '₹' + value.toLocaleString('en-IN');
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+                        // Update asset trend chart
+                        const assetTrendCtx = document.getElementById('asset-trend-chart').getContext('2d');
+                        new Chart(assetTrendCtx, {
+                            type: 'line',
+                                labels: formattedMonths,
+                                datasets: [{
+                                    label: 'Savings (SB)',
+                                    data: sbData,
+                                    borderColor: '#FF6384',
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    fill: false
+                                }, {
+                                    label: 'Fixed Deposits (FD)',
+                                    data: fdData,
+                                    borderColor: '#FFCE56',
+                                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                                    fill: false
+                                }, {
+                                    label: 'Mutual Funds (MF)',
+                                    data: mfData,
+                                    borderColor: '#4BC0C0',
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    fill: false
+                                }, {
+                                    label: 'Equity (EQ)',
+                                    data: eqData,
+                                    borderColor: '#9966FF',
+                                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                                    fill: false
+                                }]
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
