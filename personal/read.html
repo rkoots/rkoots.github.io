@@ -455,20 +455,24 @@
                             <div class="person-header">Amount</div>
                         </div>
                         <div class="person-row">
-                            <input type="text" id="lending_a_name" name="lending_a_name" placeholder="Platform A">
-                            <input type="number" id="lending_a_amount" name="lending_a_amount" value="0" step="0.01">
+                            <input type="text" id="lending_a_name" name="lending_a_name" placeholder="SH">
+                            <input type="number" id="lending_a_amount" name="lending_a_amount" value="15000" step="0.01">
                         </div>
                         <div class="person-row">
-                            <input type="text" id="lending_b_name" name="lending_b_name" placeholder="Platform B">
-                            <input type="number" id="lending_b_amount" name="lending_b_amount" value="0" step="0.01">
+                            <input type="text" id="lending_b_name" name="lending_b_name" placeholder="Ven.R">
+                            <input type="number" id="lending_b_amount" name="lending_b_amount" value="45000" step="0.01">
                         </div>
                         <div class="person-row">
-                            <input type="text" id="lending_c_name" name="lending_c_name" placeholder="Platform C">
-                            <input type="number" id="lending_c_amount" name="lending_c_amount" value="0" step="0.01">
+                            <input type="text" id="lending_c_name" name="lending_c_name" placeholder="Anbu">
+                            <input type="number" id="lending_c_amount" name="lending_c_amount" value="18000" step="0.01">
                         </div>
                         <div class="person-row">
-                            <input type="text" id="lending_d_name" name="lending_d_name" placeholder="Platform D">
-                            <input type="number" id="lending_d_amount" name="lending_d_amount" value="0" step="0.01">
+                            <input type="text" id="lending_d_name" name="lending_d_name" placeholder="Mdy.T">
+                            <input type="number" id="lending_d_amount" name="lending_d_amount" value="100000" step="0.01">
+                        </div>
+                        <div class="person-row">
+                            <input type="text" id="lending_e_name" name="lending_e_name" placeholder="Myd.BBj">
+                            <input type="number" id="lending_e_amount" name="lending_e_amount" value="400000" step="0.01">
                         </div>
                     </div>
                 </div>
@@ -476,6 +480,7 @@
 
             <button type="submit">Submit to Firebase</button>
             <button type="button" onclick="clearForm()">Clear Form</button>
+            <button type="button" onclick="fetchAndPopulateMutualFunds()" style="background-color: #28a745;">Refresh Mutual Funds</button>
         </form>
 
         <div id="status" class="status"></div>
@@ -503,6 +508,302 @@
 
         // Set today's date as default
         document.getElementById('date').valueAsDate = new Date();
+
+        // App name mapping for mutual funds
+        const appNameMapping = {
+            'Paytm': 'PTM',
+            'Cherry': 'Kotak',
+            'GROW': 'Grow',
+            'UPX': 'UPX',
+            'SBI': 'SBI',
+            'IDFC': 'IDFC'
+        };
+
+        // Fetch and populate mutual funds data from Firebase
+        async function fetchAndPopulateMutualFunds() {
+            try {
+                console.log("=== Starting Mutual Funds Data Fetch ===");
+                console.log("Firebase config:", firebaseConfig);
+                console.log("Database URL:", firebaseConfig.databaseURL);
+                
+                // Fetch from MF node (mutual funds data)
+                const mfRef = database.ref('MF');
+                console.log("Firebase reference created:", mfRef.toString());
+                
+                const snapshot = await mfRef.once('value');
+                console.log("Snapshot received:", snapshot);
+                console.log("Snapshot exists:", snapshot.exists());
+                
+                if (snapshot.exists()) {
+                    const mfData = snapshot.val();
+                    console.log("Raw mutual funds data:", mfData);
+                    console.log("Data type:", typeof mfData);
+                    console.log("Is array:", Array.isArray(mfData));
+                    console.log("Keys:", Object.keys(mfData || {}));
+                    
+                    if (mfData) {
+                        const sampleKeys = Object.keys(mfData).slice(0, 3);
+                        console.log("Sample data entries:");
+                        sampleKeys.forEach(key => {
+                            console.log(`  [${key}]:`, mfData[key]);
+                        });
+                    }
+                    
+                    // Process the data and populate form
+                    processMutualFundsData(mfData);
+                } else {
+                    console.log("No mutual funds data found in Firebase");
+                    console.log("Available paths in database:");
+                    
+                    // Try to list available paths
+                    try {
+                        const rootRef = database.ref('/');
+                        const rootSnapshot = await rootRef.once('value');
+                        const rootData = rootSnapshot.val();
+                        console.log("Root data keys:", Object.keys(rootData || {}));
+                    } catch (err) {
+                        console.log("Could not fetch root data:", err);
+                    }
+                    
+                    showStatus('No mutual funds data found in Firebase', 'error');
+                }
+            } catch (error) {
+                console.error("=== ERROR in fetchAndPopulateMutualFunds ===");
+                console.error("Error details:", error);
+                console.error("Error message:", error.message);
+                console.error("Error stack:", error.stack);
+                showStatus('Error fetching mutual funds data: ' + error.message, 'error');
+            }
+        }
+
+        // Process mutual funds data and populate form fields
+        function processMutualFundsData(mfData) {
+            console.log("=== Processing Mutual Funds Data ===");
+            console.log("Raw data:", mfData);
+            
+            // Step 1: Group data by app and pan_user
+            const groupedData = {};
+            
+            // Initialize grouped structure
+            Object.values(appNameMapping).forEach(platform => {
+                groupedData[platform] = { RK: 0, VK: 0, SS: 0 };
+            });
+            
+            // Process each fund and group by app + pan_user
+            const funds = Array.isArray(mfData) ? mfData : Object.values(mfData);
+            console.log("Total funds to process:", funds.length);
+            
+            let processedCount = 0;
+            let skippedCount = 0;
+            
+            funds.forEach((fund, index) => {
+                console.log(`\n--- Processing Fund ${index + 1} ---`);
+                console.log("Fund data:", fund);
+                
+                if (fund && fund.fund_name && fund.current_value && fund.app && fund.pan_user) {
+                    const appName = fund.app;
+                    const panUser = fund.pan_user.toLowerCase();
+                    const currentValue = parseFloat(fund.current_value) || 0;
+                    
+                    console.log(`App: "${appName}"`);
+                    console.log(`PAN_USER: "${fund.pan_user}"`);
+                    console.log(`Current value: ₹${currentValue.toLocaleString('en-IN')}`);
+                    
+                    // Map app name to platform using appNameMapping
+                    let platform = null;
+                    console.log("Checking app name mappings...");
+                    
+                    for (const [appKey, platformName] of Object.entries(appNameMapping)) {
+                        console.log(`  Checking if "${appName}" matches "${appKey}"...`);
+                        if (appName === appKey) {
+                            platform = platformName;
+                            console.log(`  ✓ MATCHED: ${appName} -> ${platformName}`);
+                            break;
+                        }
+                    }
+                    
+                    if (platform) {
+                        // Map pan_user to form user (RK, VK, SS)
+                        let userKey = null;
+                        if (panUser.includes('rk') || panUser.includes('ravi')) {
+                            userKey = 'RK';
+                            console.log(`  ✓ User mapped: ${fund.pan_user} -> RK`);
+                        } else if (panUser.includes('vk') || panUser.includes('venkat')) {
+                            userKey = 'VK';
+                            console.log(`  ✓ User mapped: ${fund.pan_user} -> VK`);
+                        } else if (panUser.includes('ss') || panUser.includes('sasi')) {
+                            userKey = 'SS';
+                            console.log(`  ✓ User mapped: ${fund.pan_user} -> SS`);
+                        } else {
+                            console.log(`  ✗ PAN_USER "${fund.pan_user}" doesn't match known users`);
+                            skippedCount++;
+                            return;
+                        }
+                        
+                        // Add to grouped data
+                        const prevValue = groupedData[platform][userKey];
+                        groupedData[platform][userKey] += currentValue;
+                        
+                        console.log(`  Added to grouped data: ${platform}.${userKey} ${prevValue} + ${currentValue} = ${groupedData[platform][userKey]}`);
+                        processedCount++;
+                        
+                    } else {
+                        console.log(`  ✗ App "${appName}" not found in mapping`);
+                        skippedCount++;
+                    }
+                    
+                } else {
+                    console.log(`  ✗ INVALID fund data - missing required fields (fund_name, current_value, app, pan_user)`);
+                    skippedCount++;
+                }
+            });
+            
+            console.log(`\n=== Processing Summary ===`);
+            console.log(`Total funds: ${funds.length}`);
+            console.log(`Processed: ${processedCount}`);
+            console.log(`Skipped: ${skippedCount}`);
+            
+            // Show grouped data
+            console.log("\n=== Grouped Data (by app + pan_user) ===");
+            Object.entries(groupedData).forEach(([platform, users]) => {
+                console.log(`${platform}:`, users);
+            });
+            
+            // Populate form fields with grouped data
+            populateMutualFundsForm(groupedData);
+            
+            showStatus(`Processed ${processedCount} funds successfully`, 'success');
+        }
+
+        // Get distribution for a specific fund based on PAN_USER
+        function getDistributionForFund(currentValue, fund) {
+            let distribution = { RK: 0, VK: 0, SS: 0 };
+            
+            console.log(`🔍 DISTRIBUTION ANALYSIS for "${fund.fund_name}":`);
+            console.log(`  Current value: ₹${currentValue.toLocaleString('en-IN')}`);
+            console.log(`  PAN_USER: ${fund.pan_user || 'N/A'}`);
+            console.log(`  PAN: ${fund.pan || 'N/A'}`);
+            
+            // Use PAN_USER field to determine ownership
+            if (fund.pan_user) {
+                const panUser = fund.pan_user.toLowerCase();
+                console.log(`  PAN_USER (lowercase): "${panUser}"`);
+                
+                if (panUser.includes('rk') || panUser.includes('ravi')) {
+                    distribution.RK = currentValue;
+                    console.log(`  ✅ ASSIGNED TO RK: PAN_USER contains 'rk' or 'ravi'`);
+                } else if (panUser.includes('vk') || panUser.includes('venkat')) {
+                    distribution.VK = currentValue;
+                    console.log(`  ✅ ASSIGNED TO VK: PAN_USER contains 'vk' or 'venkat'`);
+                } else if (panUser.includes('ss') || panUser.includes('sasi')) {
+                    distribution.SS = currentValue;
+                    console.log(`  ✅ ASSIGNED TO SS: PAN_USER contains 'ss' or 'sasi'`);
+                } else {
+                    console.log(`  ❌ PAN_USER "${panUser}" doesn't match known users, checking fallback...`);
+                    
+                    // Fallback to PAN if PAN_USER doesn't match
+                    if (fund.pan) {
+                        const panLower = fund.pan.toLowerCase();
+                        if (panLower.includes('rk') || panLower.includes('ravi')) {
+                            distribution.RK = currentValue;
+                            console.log(`  ✅ ASSIGNED TO RK (fallback): PAN contains 'rk' or 'ravi'`);
+                        } else if (panLower.includes('vk') || panLower.includes('venkat')) {
+                            distribution.VK = currentValue;
+                            console.log(`  ✅ ASSIGNED TO VK (fallback): PAN contains 'vk' or 'venkat'`);
+                        } else if (panLower.includes('ss') || panLower.includes('sasi')) {
+                            distribution.SS = currentValue;
+                            console.log(`  ✅ ASSIGNED TO SS (fallback): PAN contains 'ss' or 'sasi'`);
+                        } else {
+                            console.log(`  ❌ No PAN match either, using equal distribution`);
+                            distribution.RK = currentValue / 3;
+                            distribution.VK = currentValue / 3;
+                            distribution.SS = currentValue / 3;
+                        }
+                    } else {
+                        console.log(`  ❌ No PAN available, using equal distribution`);
+                        distribution.RK = currentValue / 3;
+                        distribution.VK = currentValue / 3;
+                        distribution.SS = currentValue / 3;
+                    }
+                }
+            } else {
+                console.log(`  ❌ No PAN_USER field, checking PAN...`);
+                
+                // Fallback to PAN if no PAN_USER
+                if (fund.pan) {
+                    const panLower = fund.pan.toLowerCase();
+                    if (panLower.includes('rk') || panLower.includes('ravi')) {
+                        distribution.RK = currentValue;
+                        console.log(`  ✅ ASSIGNED TO RK: PAN contains 'rk' or 'ravi'`);
+                    } else if (panLower.includes('vk') || panLower.includes('venkat')) {
+                        distribution.VK = currentValue;
+                        console.log(`  ✅ ASSIGNED TO VK: PAN contains 'vk' or 'venkat'`);
+                    } else if (panLower.includes('ss') || panLower.includes('sasi')) {
+                        distribution.SS = currentValue;
+                        console.log(`  ✅ ASSIGNED TO SS: PAN contains 'ss' or 'sasi'`);
+                    } else {
+                        console.log(`  ❌ No PAN match, using equal distribution`);
+                        distribution.RK = currentValue / 3;
+                        distribution.VK = currentValue / 3;
+                        distribution.SS = currentValue / 3;
+                    }
+                } else {
+                    console.log(`  ❌ No PAN available, using equal distribution`);
+                    distribution.RK = currentValue / 3;
+                    distribution.VK = currentValue / 3;
+                    distribution.SS = currentValue / 3;
+                }
+            }
+            
+            console.log(`  📊 FINAL DISTRIBUTION:`, distribution);
+            return distribution;
+        }
+
+        // Alternative approach: populate form directly from processed data
+        function populateMutualFundsForm(platformTotals) {
+            console.log("=== Populating Form Fields ===");
+            console.log("Platform totals to populate:", platformTotals);
+            
+            Object.entries(platformTotals).forEach(([platform, persons]) => {
+                const platformLower = platform.toLowerCase();
+                const rkField = document.getElementById(`mf_${platformLower}_rk`);
+                const vkField = document.getElementById(`mf_${platformLower}_vk`);
+                const ssField = document.getElementById(`mf_${platformLower}_ss`);
+                
+                console.log(`\nPopulating ${platform} (${platformLower}):`);
+                console.log(`  RK field:`, rkField, `Value: ${persons.RK.toFixed(2)}`);
+                console.log(`  VK field:`, vkField, `Value: ${persons.VK.toFixed(2)}`);
+                console.log(`  SS field:`, ssField, `Value: ${persons.SS.toFixed(2)}`);
+                
+                if (rkField) {
+                    rkField.value = persons.RK.toFixed(2);
+                    console.log(`  ✓ RK field set to: ${rkField.value}`);
+                } else {
+                    console.log(`  ✗ RK field not found: mf_${platformLower}_rk`);
+                }
+                
+                if (vkField) {
+                    vkField.value = persons.VK.toFixed(2);
+                    console.log(`  ✓ VK field set to: ${vkField.value}`);
+                } else {
+                    console.log(`  ✗ VK field not found: mf_${platformLower}_vk`);
+                }
+                
+                if (ssField) {
+                    ssField.value = persons.SS.toFixed(2);
+                    console.log(`  ✓ SS field set to: ${ssField.value}`);
+                } else {
+                    console.log(`  ✗ SS field not found: mf_${platformLower}_ss`);
+                }
+            });
+            
+            console.log("=== Form Population Complete ===");
+        }
+
+        // Fetch data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchAndPopulateMutualFunds();
+        });
 
         // Form submission
         document.getElementById('portfolioForm').addEventListener('submit', async function(e) {
@@ -699,7 +1000,6 @@
                 statusDiv.style.display = 'none';
             }, 5000);
         }
-
         function clearForm() {
             if (confirm('Are you sure you want to clear all form data?')) {
                 document.getElementById('portfolioForm').reset();
