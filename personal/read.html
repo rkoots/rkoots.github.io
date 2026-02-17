@@ -455,23 +455,23 @@
                             <div class="person-header">Amount</div>
                         </div>
                         <div class="person-row">
-                            <input type="text" id="lending_a_name" name="lending_a_name" placeholder="SH">
+                            <input type="text" id="lending_a_name" name="lending_a_name" value="SH">
                             <input type="number" id="lending_a_amount" name="lending_a_amount" value="15000" step="0.01">
                         </div>
                         <div class="person-row">
-                            <input type="text" id="lending_b_name" name="lending_b_name" placeholder="Ven.R">
+                            <input type="text" id="lending_b_name" name="lending_b_name" value="Ven.R">
                             <input type="number" id="lending_b_amount" name="lending_b_amount" value="45000" step="0.01">
                         </div>
                         <div class="person-row">
-                            <input type="text" id="lending_c_name" name="lending_c_name" placeholder="Anbu">
+                            <input type="text" id="lending_c_name" name="lending_c_name" value="Anbu">
                             <input type="number" id="lending_c_amount" name="lending_c_amount" value="18000" step="0.01">
                         </div>
                         <div class="person-row">
-                            <input type="text" id="lending_d_name" name="lending_d_name" placeholder="Mdy.T">
+                            <input type="text" id="lending_d_name" name="lending_d_name" value="Mdy.T">
                             <input type="number" id="lending_d_amount" name="lending_d_amount" value="100000" step="0.01">
                         </div>
                         <div class="person-row">
-                            <input type="text" id="lending_e_name" name="lending_e_name" placeholder="Myd.BBj">
+                            <input type="text" id="lending_e_name" name="lending_e_name" value="Myd.BBj">
                             <input type="number" id="lending_e_amount" name="lending_e_amount" value="400000" step="0.01">
                         </div>
                     </div>
@@ -479,7 +479,6 @@
             </div>
 
             <button type="submit">Submit to Firebase</button>
-            <button type="button" onclick="clearForm()">Clear Form</button>
             <button type="button" onclick="fetchAndPopulateMutualFunds()" style="background-color: #28a745;">Refresh Mutual Funds</button>
         </form>
 
@@ -1008,5 +1007,9 @@
             }
         }
     </script>
+
+    <div style="text-align: center; margin-top: 20px; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+        <a href="https://rkoots.github.io/personal/" style="color: #007bff; text-decoration: none; font-weight: bold;">View Dashboard</a>
+    </div>
 </body>
 </html>
