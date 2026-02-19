@@ -459,7 +459,7 @@
                             <input type="number" id="lending_a_amount" name="lending_a_amount" value="15000" step="0.01">
                         </div>
                         <div class="person-row">
-                            <input type="text" id="lending_b_name" name="lending_b_name" value="Ven.R">
+                            <input type="text" id="lending_b_name" name="lending_b_name" value="Ven R">
                             <input type="number" id="lending_b_amount" name="lending_b_amount" value="45000" step="0.01">
                         </div>
                         <div class="person-row">
@@ -467,11 +467,11 @@
                             <input type="number" id="lending_c_amount" name="lending_c_amount" value="18000" step="0.01">
                         </div>
                         <div class="person-row">
-                            <input type="text" id="lending_d_name" name="lending_d_name" value="Mdy.T">
+                            <input type="text" id="lending_d_name" name="lending_d_name" value="Mdy T">
                             <input type="number" id="lending_d_amount" name="lending_d_amount" value="100000" step="0.01">
                         </div>
                         <div class="person-row">
-                            <input type="text" id="lending_e_name" name="lending_e_name" value="Myd.BBj">
+                            <input type="text" id="lending_e_name" name="lending_e_name" value="Myd BBj">
                             <input type="number" id="lending_e_amount" name="lending_e_amount" value="400000" step="0.01">
                         </div>
                     </div>
@@ -952,14 +952,9 @@
         document.getElementById('portfolioForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Validate password first (multi-layer obfuscation for basic security)
+            // Validate password first
             const password = document.getElementById('password').value;
-            const encoded = 'NkN=bnxz';
-            const decoded = encoded.split('').map(char => String.fromCharCode(char.charCodeAt(0) - 2)).join('');
-            const reversed = decoded.split('').reverse().join('');
-            const correctPassword = atob(reversed);
-            
-            if (password !== correctPassword) {
+            if (password !== 'rk123') {
                 showStatus('❌ Incorrect password. Submission denied.', 'error');
                 return;
             }
@@ -972,7 +967,10 @@
                 const portfolioRef = database.ref('portfolio');
                 const snapshot = await portfolioRef.once('value');
                 const portfolioData = snapshot.val() || {};
-                const nextIndex = Object.keys(portfolioData).length;
+                
+                // Find the actual next available index
+                const existingKeys = Object.keys(portfolioData).map(key => parseInt(key)).filter(key => !isNaN(key));
+                const nextIndex = existingKeys.length > 0 ? Math.max(...existingKeys) + 1 : 0;
                 
                 // Construct the data object
                 const portfolioEntry = {
