@@ -41,6 +41,66 @@
             opacity: 0;
             pointer-events: none;
         }
+        .tap-zone {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.3;
+        }
+        .tap-zone:hover {
+            background: rgba(255, 255, 255, 0.2);
+            opacity: 0.6;
+        }
+        .tap-zone.tapped {
+            background: rgba(76, 175, 80, 0.5);
+            border-color: #4CAF50;
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        .tap-zone.top-right {
+            top: 20px;
+            right: 20px;
+        }
+        .tap-zone.top-left {
+            top: 20px;
+            left: 20px;
+        }
+        .lock-icon {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 48px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+        .lock-icon:hover {
+            transform: translateX(-50%) scale(1.1);
+            opacity: 1;
+        }
+        .lock-icon.tapped {
+            color: #4CAF50;
+            transform: translateX(-50%) scale(1.2);
+        }
+        .security-content {
+            text-align: center;
+            z-index: 10;
+        }
+        .tap-hint {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #999;
+            line-height: 1.4;
+        }
         .dashboard-content {
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -175,7 +235,21 @@
 <body>
     <!-- Security Overlay -->
     <div class="security-overlay" id="securityOverlay">
-        <div>
+        <!-- Tap Zones -->
+        <div class="tap-zone top-right" id="tapZone1">
+            <span style="color: white; font-size: 24px;">🔒</span>
+        </div>
+        <div class="tap-zone top-left" id="tapZone2">
+            <span style="color: white; font-size: 24px;">🔒</span>
+        </div>
+        
+        <!-- Lock Icon -->
+        <div class="lock-icon" id="lockIcon">
+            🔒
+        </div>
+        
+        <!-- Security Content -->
+        <div class="security-content">
             <p>🔒 Secure Dashboard</p>
             <p style="font-size: 14px; margin-top: 10px;">But nothing to hide here</p>
         </div>
@@ -219,6 +293,18 @@
             <div class="chart-box">
                 <h2>Asset Type Trend</h2>
                 <canvas id="asset-trend-chart"></canvas>
+            </div>
+        </div>
+        
+        <div class="charts-container">
+            <div class="chart-box">
+                <h2>Weekly Wealth Trend</h2>
+                <canvas id="weekly-wealth-trend-chart"></canvas>
+            </div>
+            
+            <div class="chart-box">
+                <h2>Weekly Asset Type Trend</h2>
+                <canvas id="weekly-asset-trend-chart"></canvas>
             </div>
         </div>
         
@@ -823,7 +909,7 @@
 
         // Clear existing charts
         function clearCharts() {
-            const chartIds = ['wealth-by-type-chart', 'wealth-by-person-chart', 'wealth-trend-chart', 'asset-trend-chart', 'mf-by-app-chart', 'mf-performance-chart'];
+            const chartIds = ['wealth-by-type-chart', 'wealth-by-person-chart', 'wealth-trend-chart', 'asset-trend-chart', 'weekly-wealth-trend-chart', 'weekly-asset-trend-chart', 'mf-by-app-chart', 'mf-performance-chart'];
             chartIds.forEach(id => {
                 const canvas = document.getElementById(id);
                 const ctx = canvas.getContext('2d');
@@ -931,6 +1017,9 @@
 
             // Update historical charts
             updateHistoricalCharts();
+            
+            // Create weekly charts
+            createWeeklyCharts();
             
             // Create wealth distribution matrix
             createWealthMatrix();
@@ -1105,6 +1194,326 @@
             });
         }
 
+        // Create Weekly Charts with smart data handling
+        function createWeeklyCharts() {
+            if (allPortfolioData.length === 0) return;
+            
+            console.log("Creating Weekly Charts...");
+            
+            // Process data by week
+            const weeklyData = processWeeklyData(allPortfolioData);
+            
+            // Create Weekly Wealth Trend Chart
+            createWeeklyWealthTrendChart(weeklyData);
+            
+            // Create Weekly Asset Type Trend Chart
+            createWeeklyAssetTrendChart(weeklyData);
+            
+            console.log("Weekly Charts created successfully");
+        }
+        
+        // Process portfolio data into weekly aggregates
+        function processWeeklyData(portfolioData) {
+            const weeklyMap = new Map();
+            
+            portfolioData.forEach(entry => {
+                if (!entry.date) return;
+                
+                const entryDate = new Date(entry.date);
+                const weekStart = getWeekStart(entryDate);
+                const weekKey = weekStart.toISOString().slice(0, 10); // YYYY-MM-DD format
+                
+                if (!weeklyMap.has(weekKey)) {
+                    weeklyMap.set(weekKey, {
+                        weekStart: weekStart,
+                        weekKey: weekKey,
+                        totalWealth: 0,
+                        sb: 0,
+                        fd: 0,
+                        mf: 0,
+                        eq: 0,
+                        entries: []
+                    });
+                }
+                
+                const weekData = weeklyMap.get(weekKey);
+                weekData.entries.push(entry);
+                
+                // Calculate totals for this entry
+                let total = 0, sb = 0, fd = 0, mf = 0, eq = 0;
+                
+                if (entry.bankAccounts) {
+                    for (const bank in entry.bankAccounts) {
+                        for (const person in entry.bankAccounts[bank]) {
+                            sb += entry.bankAccounts[bank][person].SB || 0;
+                            fd += entry.bankAccounts[bank][person].FD || 0;
+                        }
+                    }
+                }
+                
+                if (entry.mutualFunds) {
+                    for (const platform in entry.mutualFunds) {
+                        for (const person in entry.mutualFunds[platform]) {
+                            mf += entry.mutualFunds[platform][person] || 0;
+                        }
+                    }
+                }
+                
+                if (entry.equity) {
+                    for (const platform in entry.equity) {
+                        for (const person in entry.equity[platform]) {
+                            eq += entry.equity[platform][person] || 0;
+                        }
+                    }
+                }
+                
+                if (entry.equityCash) {
+                    for (const platform in entry.equityCash) {
+                        for (const person in entry.equityCash[platform]) {
+                            eq += entry.equityCash[platform][person] || 0;
+                        }
+                    }
+                }
+                
+                total = sb + fd + mf + eq;
+                
+                // Use the latest entry in the week (or average if multiple entries)
+                if (weekData.entries.length === 1) {
+                    weekData.totalWealth = total;
+                    weekData.sb = sb;
+                    weekData.fd = fd;
+                    weekData.mf = mf;
+                    weekData.eq = eq;
+                } else {
+                    // For multiple entries in same week, use the latest
+                    weekData.totalWealth = total;
+                    weekData.sb = sb;
+                    weekData.fd = fd;
+                    weekData.mf = mf;
+                    weekData.eq = eq;
+                }
+            });
+            
+            // Convert to array and sort by week
+            const weeklyArray = Array.from(weeklyMap.values()).sort((a, b) => 
+                new Date(a.weekStart) - new Date(b.weekStart)
+            );
+            
+            // Fill missing weeks with previous week's data
+            return fillMissingWeeks(weeklyArray);
+        }
+        
+        // Get week start date (Sunday)
+        function getWeekStart(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day;
+            return new Date(d.setDate(diff));
+        }
+        
+        // Fill missing weeks with previous week's data
+        function fillMissingWeeks(weeklyArray) {
+            if (weeklyArray.length === 0) return weeklyArray;
+            
+            const result = [];
+            const firstWeek = new Date(weeklyArray[0].weekStart);
+            const lastWeek = new Date(weeklyArray[weeklyArray.length - 1].weekStart);
+            
+            let currentWeek = new Date(firstWeek);
+            let weekIndex = 0;
+            
+            while (currentWeek <= lastWeek) {
+                const weekKey = currentWeek.toISOString().slice(0, 10);
+                
+                if (weekIndex < weeklyArray.length && weeklyArray[weekIndex].weekKey === weekKey) {
+                    // Use actual data for this week
+                    result.push(weeklyArray[weekIndex]);
+                    weekIndex++;
+                } else {
+                    // Use previous week's data for missing week
+                    const previousWeek = result.length > 0 ? result[result.length - 1] : {
+                        totalWealth: 0,
+                        sb: 0,
+                        fd: 0,
+                        mf: 0,
+                        eq: 0
+                    };
+                    
+                    result.push({
+                        weekStart: new Date(currentWeek),
+                        weekKey: weekKey,
+                        totalWealth: previousWeek.totalWealth,
+                        sb: previousWeek.sb,
+                        fd: previousWeek.fd,
+                        mf: previousWeek.mf,
+                        eq: previousWeek.eq,
+                        entries: [], // No actual entries for this week
+                        isFilled: true // Mark as filled data
+                    });
+                }
+                
+                // Move to next week
+                currentWeek.setDate(currentWeek.getDate() + 7);
+            }
+            
+            return result;
+        }
+        
+        // Create Weekly Wealth Trend Chart
+        function createWeeklyWealthTrendChart(weeklyData) {
+            const labels = weeklyData.map(week => {
+                const date = new Date(week.weekStart);
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            });
+            
+            const totalWealthData = weeklyData.map(week => week.totalWealth);
+            
+            const ctx = document.getElementById('weekly-wealth-trend-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total Wealth',
+                        data: totalWealthData,
+                        borderColor: '#36A2EB',
+                        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: weeklyData.map(week => week.isFilled ? 2 : 4), // Smaller points for filled data
+                        pointBackgroundColor: weeklyData.map(week => week.isFilled ? '#ccc' : '#36A2EB')
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Weekly Wealth Trend (Missing weeks use previous data)',
+                            font: { size: 14 }
+                        },
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const week = weeklyData[context.dataIndex];
+                                    let label = `Total: ₹${toLakhs(context.raw)}K`;
+                                    if (week.isFilled) {
+                                        label += ' (estimated)';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) {
+                                    return '₹' + toLakhs(value) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Create Weekly Asset Type Trend Chart
+        function createWeeklyAssetTrendChart(weeklyData) {
+            const labels = weeklyData.map(week => {
+                const date = new Date(week.weekStart);
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            });
+            
+            const sbData = weeklyData.map(week => week.sb);
+            const fdData = weeklyData.map(week => week.fd);
+            const mfData = weeklyData.map(week => week.mf);
+            const eqData = weeklyData.map(week => week.eq);
+            
+            const ctx = document.getElementById('weekly-asset-trend-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Savings (SB)',
+                            data: sbData,
+                            borderColor: '#FF6384',
+                            backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Fixed Deposits (FD)',
+                            data: fdData,
+                            borderColor: '#FFCE56',
+                            backgroundColor: 'rgba(255, 206, 86, 0.1)',
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Mutual Funds (MF)',
+                            data: mfData,
+                            borderColor: '#4BC0C0',
+                            backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Equity (EQ)',
+                            data: eqData,
+                            borderColor: '#9966FF',
+                            backgroundColor: 'rgba(153, 102, 255, 0.1)',
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Weekly Asset Type Trend (Missing weeks use previous data)',
+                            font: { size: 14 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const week = weeklyData[context.dataIndex];
+                                    let label = context.dataset.label + ': ₹' + toLakhs(context.raw) + 'K';
+                                    if (week.isFilled) {
+                                        label += ' (estimated)';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) {
+                                    return '₹' + toLakhs(value) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
         // Create MF Distribution Charts by App, Fund House, and Asset Class
         async function createMFDistributionCharts() {
             console.log("Creating MF Distribution Charts...");
@@ -1262,10 +1671,12 @@
             });
         }
 
-        // Security Key Sequence Detection
+        // Security System - Keyboard and Touch Pattern
         let keySequence = '';
+        let tapSequence = [];
         const securityKey = '*/';
         
+        // Keyboard Security
         document.addEventListener('keydown', function(event) {
             // Only capture keys when not in input fields
             if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA') {
@@ -1284,6 +1695,103 @@
             }
         });
         
+        // Touch Pattern Security
+        function initializeTouchSecurity() {
+            const tapZone1 = document.getElementById('tapZone1');
+            const tapZone2 = document.getElementById('tapZone2');
+            const lockIcon = document.getElementById('lockIcon');
+            
+            // Use unique elements for event listeners, but track the pattern separately
+            const tapElements = [tapZone1, tapZone2, lockIcon];
+            
+            // Add click/touch event listeners
+            tapElements.forEach(element => {
+                element.addEventListener('click', handleTap);
+                element.addEventListener('touchstart', handleTap);
+            });
+            
+            // Reset tap sequence after 5 seconds of inactivity
+            let tapTimeout;
+            function resetTapSequence() {
+                tapSequence = [];
+                updateTapVisuals();
+                clearTimeout(tapTimeout);
+            }
+            
+            function handleTap(event) {
+                event.preventDefault();
+                
+                const tappedElement = event.currentTarget;
+                let tapValue;
+                
+                // Map elements to tap values: right=0, left=1, lock=2
+                if (tappedElement === tapZone1) {
+                    tapValue = 0; // right
+                } else if (tappedElement === tapZone2) {
+                    tapValue = 1; // left
+                } else if (tappedElement === lockIcon) {
+                    tapValue = 2; // lock
+                } else {
+                    return; // Unknown element
+                }
+                
+                tapSequence.push(tapValue);
+                
+                // Visual feedback
+                event.currentTarget.classList.add('tapped');
+                setTimeout(() => {
+                    event.currentTarget.classList.remove('tapped');
+                }, 500);
+                
+                // Clear existing timeout
+                clearTimeout(tapTimeout);
+                
+                // Check if sequence is correct: right, right, left, lock = [0,0,1,2]
+                if (tapSequence.length === 4) {
+                    if (JSON.stringify(tapSequence) === JSON.stringify([0, 0, 1, 2])) {
+                        unlockDashboard();
+                        resetTapSequence();
+                    } else {
+                        // Wrong sequence - reset after showing error
+                        showTapError();
+                        setTimeout(resetTapSequence, 1000);
+                    }
+                } else {
+                    // Set timeout to reset if no tap within 5 seconds
+                    tapTimeout = setTimeout(resetTapSequence, 5000);
+                }
+                
+                updateTapVisuals();
+            }
+            
+            function updateTapVisuals() {
+                // Update visual indicators based on current sequence
+                tapElements.forEach((element, index) => {
+                    // Check if this element type appears in the current sequence
+                    let shouldHighlight = false;
+                    if (index === 0 && tapSequence.includes(0)) shouldHighlight = true; // right
+                    if (index === 1 && tapSequence.includes(1)) shouldHighlight = true; // left
+                    if (index === 2 && tapSequence.includes(2)) shouldHighlight = true; // lock
+                    
+                    if (shouldHighlight) {
+                        element.style.opacity = '1';
+                        element.style.borderColor = '#4CAF50';
+                    } else {
+                        element.style.opacity = '0.3';
+                        element.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                    }
+                });
+            }
+            
+            function showTapError() {
+                const overlay = document.getElementById('securityOverlay');
+                overlay.style.backgroundColor = '#8B0000'; // Dark red
+                setTimeout(() => {
+                    overlay.style.backgroundColor = '#1a1a1a';
+                }, 500);
+            }
+        }
+        
         function unlockDashboard() {
             const overlay = document.getElementById('securityOverlay');
             const content = document.getElementById('dashboardContent');
@@ -1299,6 +1807,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log("DOM loaded, initializing dashboard with Firebase data...");
             loadFirebaseData();
+            initializeTouchSecurity(); // Initialize touch pattern security
         });
     </script>
     
