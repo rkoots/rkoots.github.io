@@ -478,6 +478,14 @@
                 </div>
             </div>
 
+            <div class="section">
+                <h2>Security</h2>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter password to submit">
+                </div>
+            </div>
+
             <button type="submit">Submit to Firebase</button>
             <button type="button" onclick="fetchAndPopulateMutualFunds()" style="background-color: #28a745;">Refresh Mutual Funds</button>
         </form>
@@ -943,6 +951,18 @@
         // Form submission
         document.getElementById('portfolioForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            
+            // Validate password first (multi-layer obfuscation for basic security)
+            const password = document.getElementById('password').value;
+            const encoded = 'NkN=bnxz';
+            const decoded = encoded.split('').map(char => String.fromCharCode(char.charCodeAt(0) - 2)).join('');
+            const reversed = decoded.split('').reverse().join('');
+            const correctPassword = atob(reversed);
+            
+            if (password !== correctPassword) {
+                showStatus('❌ Incorrect password. Submission denied.', 'error');
+                return;
+            }
             
             try {
                 const formData = new FormData(e.target);

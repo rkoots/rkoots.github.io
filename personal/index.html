@@ -22,6 +22,32 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+        .security-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a1a;
+            color: #666;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+        .security-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .dashboard-content {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .dashboard-content.visible {
+            opacity: 1;
+        }
         .dashboard-header {
             text-align: center;
             margin-bottom: 30px;
@@ -147,7 +173,17 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Security Overlay -->
+    <div class="security-overlay" id="securityOverlay">
+        <div>
+            <p>🔒 Secure Dashboard</p>
+            <p style="font-size: 14px; margin-top: 10px;">But nothing to hide here</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content" id="dashboardContent">
+        <div class="container">
         <div class="dashboard-header">
             <h1>Personal Assets Dashboard</h1>
             <p>Static overview of your financial portfolio</p>
@@ -1226,6 +1262,39 @@
             });
         }
 
+        // Security Key Sequence Detection
+        let keySequence = '';
+        const securityKey = '*/';
+        
+        document.addEventListener('keydown', function(event) {
+            // Only capture keys when not in input fields
+            if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA') {
+                keySequence += event.key;
+                
+                // Keep only the last 2 characters
+                if (keySequence.length > 2) {
+                    keySequence = keySequence.slice(-2);
+                }
+                
+                // Check if the security sequence is matched
+                if (keySequence === securityKey) {
+                    unlockDashboard();
+                    keySequence = ''; // Reset sequence
+                }
+            }
+        });
+        
+        function unlockDashboard() {
+            const overlay = document.getElementById('securityOverlay');
+            const content = document.getElementById('dashboardContent');
+            
+            // Hide overlay and show content
+            overlay.classList.add('hidden');
+            content.classList.add('visible');
+            
+            console.log('Dashboard unlocked');
+        }
+        
         // Initialize dashboard on page load - automatically load Firebase data
         document.addEventListener('DOMContentLoaded', function() {
             console.log("DOM loaded, initializing dashboard with Firebase data...");
@@ -1235,6 +1304,7 @@
     
     <div style="text-align: center; margin-top: 20px; padding: 10px; background: #f8f9fa; border-radius: 5px;">
         <a href="https://rkoots.github.io/personal/read.html" style="color: #007bff; text-decoration: none; font-weight: bold;">View Read Page</a>
+    </div>
     </div>
 </body>
 </html>
