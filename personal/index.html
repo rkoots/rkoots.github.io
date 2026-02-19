@@ -61,6 +61,16 @@
             width: 48%;
             margin-bottom: 20px;
         }
+        .charts-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+        .charts-row .chart-box {
+            width: 48%;
+            margin-bottom: 0;
+        }
         .chart-box canvas {
             max-height: 300px;
         }
@@ -180,6 +190,20 @@
             <h2>Assets Distribution Matrix (in K's)</h2>
             <div id="matrix-table-container">
                 <p style="text-align: center; color: #666;">Click "Load Sample Data" or "Load Firebase Data" to view matrix</p>
+            </div>
+        </div>
+        
+        <div class="charts-row">
+            <div class="chart-box">
+                <h2>MF Distribution by App</h2>
+                <canvas id="mf-by-app-chart"></canvas>
+            </div>
+        </div>
+        
+        <div class="charts-row">
+            <div class="chart-box">
+                <h2>MF Performance Summary</h2>
+                <canvas id="mf-performance-chart"></canvas>
             </div>
         </div>
     </div>
@@ -763,7 +787,7 @@
 
         // Clear existing charts
         function clearCharts() {
-            const chartIds = ['wealth-by-type-chart', 'wealth-by-person-chart', 'wealth-trend-chart', 'asset-trend-chart'];
+            const chartIds = ['wealth-by-type-chart', 'wealth-by-person-chart', 'wealth-trend-chart', 'asset-trend-chart', 'mf-by-app-chart', 'mf-performance-chart'];
             chartIds.forEach(id => {
                 const canvas = document.getElementById(id);
                 const ctx = canvas.getContext('2d');
@@ -874,6 +898,9 @@
             
             // Create wealth distribution matrix
             createWealthMatrix();
+            
+            // Create MF distribution charts
+            createMFDistributionCharts();
         }
 
         // Update historical charts with allPortfolioData
@@ -1034,6 +1061,163 @@
                             callbacks: {
                                 label: function(context) {
                                     return context.dataset.label + ': ₹' + toLakhs(context.raw) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Create MF Distribution Charts by App, Fund House, and Asset Class
+        async function createMFDistributionCharts() {
+            console.log("Creating MF Distribution Charts...");
+            
+            try {
+                // Fetch MF data from Firebase
+                const mfRef = database.ref('MF');
+                const mfSnapshot = await mfRef.once('value');
+                const mfData = mfSnapshot.val();
+                
+                if (!mfData) {
+                    console.log("No MF data found for distribution charts");
+                    return;
+                }
+                
+                console.log("MF data for charts:", mfData);
+                
+                // Process MF data
+                const funds = Array.isArray(mfData) ? mfData : Object.values(mfData);
+                const processedFunds = [];
+                
+                funds.forEach(fund => {
+                    if (fund && fund.current_value && fund.fund_name) {
+                        processedFunds.push({
+                            name: fund.fund_name,
+                            value: parseFloat(fund.current_value) || 0,
+                            app: fund.app || 'Unknown',
+                            fundHouse: fund.fund_house || 'Unknown',
+                            assetClass: fund.asset_class || 'Unknown',
+                            panUser: fund.pan_user || 'Unknown'
+                        });
+                    }
+                });
+                
+                console.log("Processed funds for charts:", processedFunds);
+                
+                if (processedFunds.length === 0) {
+                    console.log("No valid fund data found for charts");
+                    return;
+                }
+                
+                // Create charts
+                createMFByAppChart(processedFunds);
+                createMFPerformanceChart(processedFunds);
+                
+                console.log("MF Distribution Charts created successfully");
+                
+            } catch (error) {
+                console.error("Error creating MF Distribution Charts:", error);
+            }
+        }
+        
+        // Create MF by App Chart
+        function createMFByAppChart(funds) {
+            const appData = {};
+            funds.forEach(fund => {
+                if (!appData[fund.app]) {
+                    appData[fund.app] = 0;
+                }
+                appData[fund.app] += fund.value;
+            });
+            
+            const ctx = document.getElementById('mf-by-app-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(appData),
+                    datasets: [{
+                        data: Object.values(appData),
+                        backgroundColor: [
+                            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', 
+                            '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    const valueInLakhs = (value / 100000).toFixed(2);
+                                    return `${label}: ₹${valueInLakhs}L (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Create MF Performance Summary Chart
+        function createMFPerformanceChart(funds) {
+            // Group by user and show their MF holdings
+            const userData = { RK: 0, VK: 0, SS: 0, Others: 0 };
+            
+            funds.forEach(fund => {
+                const user = fund.panUser.toLowerCase();
+                if (user.includes('rk') || user.includes('ravi')) {
+                    userData.RK += fund.value;
+                } else if (user.includes('vk') || user.includes('venkat')) {
+                    userData.VK += fund.value;
+                } else if (user.includes('ss') || user.includes('sasi')) {
+                    userData.SS += fund.value;
+                } else {
+                    userData.Others += fund.value;
+                }
+            });
+            
+            const ctx = document.getElementById('mf-performance-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(userData),
+                    datasets: [{
+                        label: 'MF Holdings',
+                        data: Object.values(userData),
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                        borderColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '₹' + toLakhs(value) + 'K';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((context.raw / total) * 100).toFixed(1);
+                                    return `Holdings: ₹${toLakhs(context.raw)}K (${percentage}%)`;
                                 }
                             }
                         }

@@ -799,9 +799,145 @@
             console.log("=== Form Population Complete ===");
         }
 
+        // Fetch and populate the last portfolio data for all sections
+        async function fetchAndPopulateLastPortfolioData() {
+            try {
+                console.log("=== Fetching Last Portfolio Data ===");
+                
+                // Fetch from portfolio node
+                const portfolioRef = database.ref('portfolio');
+                const snapshot = await portfolioRef.once('value');
+                
+                if (snapshot.exists()) {
+                    const portfolioData = snapshot.val();
+                    console.log("Portfolio data fetched:", portfolioData);
+                    
+                    // Get the latest entry (assuming it's an array or object with numeric keys)
+                    let latestEntry = null;
+                    
+                    if (Array.isArray(portfolioData)) {
+                        // If it's an array, get the last item
+                        latestEntry = portfolioData[portfolioData.length - 1];
+                    } else if (typeof portfolioData === 'object') {
+                        // If it's an object, find the entry with the highest key (latest)
+                        const keys = Object.keys(portfolioData).map(key => parseInt(key)).filter(key => !isNaN(key));
+                        if (keys.length > 0) {
+                            const maxKey = Math.max(...keys);
+                            latestEntry = portfolioData[maxKey];
+                        }
+                    }
+                    
+                    if (latestEntry) {
+                        console.log("Latest portfolio entry:", latestEntry);
+                        populateFormWithLastData(latestEntry);
+                    } else {
+                        console.log("No portfolio entries found");
+                        showStatus('No previous portfolio data found', 'info');
+                    }
+                } else {
+                    console.log("No portfolio data found in Firebase");
+                    showStatus('No previous portfolio data found', 'info');
+                }
+            } catch (error) {
+                console.error("=== ERROR in fetchAndPopulateLastPortfolioData ===");
+                console.error("Error details:", error);
+                console.error("Error message:", error.message);
+                showStatus('Error fetching portfolio data: ' + error.message, 'error');
+            }
+        }
+
+        // Populate form fields with the last portfolio data
+        function populateFormWithLastData(data) {
+            console.log("=== Populating Form with Last Data ===");
+            
+            try {
+                // Populate Bank Accounts
+                if (data.bankAccounts) {
+                    console.log("Populating bank accounts...");
+                    Object.entries(data.bankAccounts).forEach(([bank, persons]) => {
+                        Object.entries(persons).forEach(([person, accounts]) => {
+                            // Savings Account - field format: {bank}_{person}_sb
+                            const sbField = document.getElementById(`${bank.toLowerCase()}_${person.toLowerCase()}_sb`);
+                            if (sbField && accounts.SB !== undefined) {
+                                sbField.value = accounts.SB;
+                                console.log(`Set ${bank.toLowerCase()}_${person.toLowerCase()}_sb = ${accounts.SB}`);
+                            } else {
+                                console.log(`SB field not found: ${bank.toLowerCase()}_${person.toLowerCase()}_sb`);
+                            }
+                            
+                            // Fixed Deposit - field format: {bank}_{person}_fd
+                            const fdField = document.getElementById(`${bank.toLowerCase()}_${person.toLowerCase()}_fd`);
+                            if (fdField && accounts.FD !== undefined) {
+                                fdField.value = accounts.FD;
+                                console.log(`Set ${bank.toLowerCase()}_${person.toLowerCase()}_fd = ${accounts.FD}`);
+                            } else {
+                                console.log(`FD field not found: ${bank.toLowerCase()}_${person.toLowerCase()}_fd`);
+                            }
+                        });
+                    });
+                }
+                
+                // Populate Equity
+                if (data.equity) {
+                    console.log("Populating equity...");
+                    Object.entries(data.equity).forEach(([platform, persons]) => {
+                        Object.entries(persons).forEach(([person, value]) => {
+                            const field = document.getElementById(`equity_${platform.toLowerCase()}_${person.toLowerCase()}`);
+                            if (field && value !== undefined) {
+                                field.value = value;
+                                console.log(`Set equity_${platform.toLowerCase()}_${person.toLowerCase()} = ${value}`);
+                            }
+                        });
+                    });
+                }
+                
+                // Populate Equity Cash
+                if (data.equityCash) {
+                    console.log("Populating equity cash...");
+                    Object.entries(data.equityCash).forEach(([platform, persons]) => {
+                        Object.entries(persons).forEach(([person, value]) => {
+                            const field = document.getElementById(`equity_cash_${platform.toLowerCase()}_${person.toLowerCase()}`);
+                            if (field && value !== undefined) {
+                                field.value = value;
+                                console.log(`Set equity_cash_${platform.toLowerCase()}_${person.toLowerCase()} = ${value}`);
+                            }
+                        });
+                    });
+                }
+                
+                // Populate Lending
+                if (data.lending) {
+                    console.log("Populating lending...");
+                    Object.entries(data.lending).forEach(([platform, value]) => {
+                        // Handle both single values and object with amounts
+                        if (typeof value === 'object' && value.amount !== undefined) {
+                            const field = document.getElementById(`lending_${platform.toLowerCase()}_amount`);
+                            if (field) {
+                                field.value = value.amount;
+                                console.log(`Set lending_${platform.toLowerCase()}_amount = ${value.amount}`);
+                            }
+                        } else if (typeof value === 'number') {
+                            const field = document.getElementById(`lending_${platform.toLowerCase()}_amount`);
+                            if (field) {
+                                field.value = value;
+                                console.log(`Set lending_${platform.toLowerCase()}_amount = ${value}`);
+                            }
+                        }
+                    });
+                }
+                
+                showStatus('Form populated with last portfolio data', 'success');
+                
+            } catch (error) {
+                console.error("Error populating form with last data:", error);
+                showStatus('Error populating form: ' + error.message, 'error');
+            }
+        }
+
         // Fetch data when page loads
         document.addEventListener('DOMContentLoaded', function() {
             fetchAndPopulateMutualFunds();
+            fetchAndPopulateLastPortfolioData();
         });
 
         // Form submission
