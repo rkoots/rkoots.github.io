@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSE Gap-Up Setup Scanner</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f0d;
+    --surface: #111812;
+    --border: #1e2e22;
+    --accent: #00ff88;
+    --accent2: #ffcc00;
+    --accent3: #ff4d6d;
+    --text: #e8f5ec;
+    --muted: #5a7a62;
+    --card: #131e16;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(0,255,136,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(255,204,0,0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 3px 10px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -1px;
+  }
+
+  h1 span { color: var(--accent); }
+
+  .subtitle {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 15px;
+    font-family: 'Space Mono', monospace;
+    max-width: 550px;
+  }
+
+  /* SCORE CHECKLIST */
+  .section-title {
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .score-board {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .score-board::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+
+  .score-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .score-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    transition: all 0.3s;
+  }
+
+  .score-label {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .rating-badge {
+    padding: 8px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: 1px solid;
+    transition: all 0.3s;
+  }
+
+  .rating-high { color: var(--accent); border-color: var(--accent); background: rgba(0,255,136,0.08); }
+  .rating-medium { color: var(--accent2); border-color: var(--accent2); background: rgba(255,204,0,0.08); }
+  .rating-low { color: var(--muted); border-color: var(--muted); background: transparent; }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  /* CRITERIA CARDS */
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .criterion {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    user-select: none;
+  }
+
+  .criterion:hover { border-color: var(--accent); background: #151f17; }
+  .criterion.checked { border-color: var(--accent); background: rgba(0,255,136,0.05); }
+
+  .criterion-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid var(--muted);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .criterion.checked .checkbox {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .checkmark {
+    display: none;
+    color: #000;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .criterion.checked .checkmark { display: block; }
+
+  .criterion-name {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    flex: 1;
+  }
+
+  .weight-pill {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    background: rgba(0,255,136,0.1);
+    color: var(--accent);
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  .criterion-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-left: 34px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* TOOL TABLE */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+
+  .tool-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.2s;
+  }
+
+  .tool-card:hover { border-color: var(--accent2); background: rgba(255,204,0,0.04); }
+
+  .tool-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .tool-name {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .tool-use {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    margin-top: 2px;
+  }
+
+  /* WORKFLOW */
+  .workflow {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0;
+    margin-bottom: 40px;
+    border: 1px solid var(--border);
+  }
+
+  .step {
+    padding: 20px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .step:last-child { border-right: none; }
+
+  .step-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .step-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+
+  .step-desc {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    line-height: 1.6;
+  }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    border: 1px solid rgba(255,77,109,0.3);
+    padding: 16px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 32px;
+  }
+
+  .disclaimer strong { color: var(--accent3); }
+
+  .reset-btn {
+    margin-top: 16px;
+    background: transparent;
+    border: 1px solid var(--muted);
+    color: var(--muted);
+    padding: 8px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover { border-color: var(--accent3); color: var(--accent3); }
+
+  @media (max-width: 600px) {
+    .workflow { grid-template-columns: 1fr 1fr; }
+    .step { border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="tag">NSE · Gap-Up Framework</div>
+    <h1>High-Probability<br><span>Setup Scanner</span></h1>
+    <p class="subtitle">// tick all criteria that apply to a stock before adding it to your pre-market watchlist</p>
+  </header>
+
+  <!-- LIVE SCORE -->
+  <div class="section-title">Setup Score</div>
+  <div class="score-board">
+    <div class="score-display">
+      <div>
+        <div class="score-number" id="scoreNum">0</div>
+        <div class="score-label">/ 10 points</div>
+      </div>
+      <div id="ratingBadge" class="rating-badge rating-low">WEAK SETUP</div>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+  <button class="reset-btn" onclick="resetAll()">RESET ALL ↺</button>
+
+  <br><br>
+
+  <!-- CRITERIA CHECKLIST -->
+  <div class="section-title">Criteria Checklist</div>
+  <div class="criteria-grid" id="criteriaGrid">
+
+    <div class="criterion" data-weight="2" onclick="toggle(this)">
+      <div class="criterion-header">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="criterion-name">Strong Pre-Session Catalyst</div>
+        <div class="weight-pill">+2</div>
+      </div>
+      <div class="criterion-desc">Earnings beat, regulatory approval, major contract win, or M&A news announced after market close or before open.</div>
+    </div>
+
+    <div class="criterion" data-weight="2" onclick="toggle(this)">
+      <div class="criterion-header">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="criterion-name">Price Near 52-Week High</div>
+        <div class="weight-pill">+2</div>
+      </div>
+      <div class="criterion-desc">Stock trading within 5% of its 52-week high — shows strong underlying demand and institutional accumulation.</div>
+    </div>
+
+    <div class="criterion" data-weight="1" onclick="toggle(this)">
+      <div class="criterion-header">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="criterion-name">RSI Between 55–70</div>
+        <div class="weight-pill">+1</div>
+      </div>
+      <div class="criterion-desc">RSI in momentum zone — strong but not overbought. Avoid RSI > 80 which signals exhaustion risk.</div>
+    </div>
+
+    <div class="criterion" data-weight="1" onclick="toggle(this)">
+      <div class="criterion-header">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="criterion-name">Above 50-Day & 200-Day MA</div>
+        <div class="weight-pill">+1</div>
+      </div>
+      <div class="criterion-desc">Price above both moving averages signals a healthy uptrend. Ideal when 50-DMA is also above 200-DMA (golden cross).</div>
+    </div>
+
+    <div class="criterion" data-weight="1" onclick="toggle(this)">
+      <div class="criterion-header">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="criterion-name">Volume Surge (2x Average)</div>
+        <div class="weight-pill">+1</div>
+      </div>
+      <div class="criterion-desc">Recent session volume at least 2× the 20-day average. High volume confirms conviction behind any price move.</div>
+    </div>
+
+    <div class="criterion" data-weight="1" onclick="toggle(this)">
+      <div class="criterion-header">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="criterion-name">Breakout Above Resistance</div>
+        <div class="weight-pill">+1</div>
+      </div>
+      <div class="criterion-desc">Stock broke above a key resistance or Pivot R1 level in the last 1–3 sessions with meaningful volume.</div>
+    </div>
+
+    <div class="criterion" data-weight="1" onclick="toggle(this)">
+      <div class="criterion-header">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="criterion-name">Positive FII / DII Activity</div>
+        <div class="weight-pill">+1</div>
+      </div>
+      <div class="criterion-desc">Foreign or domestic institutional investors net buying in the sector or the specific stock in recent sessions.</div>
+    </div>
+
+    <div class="criterion" data-weight="1" onclick="toggle(this)">
+      <div class="criterion-header">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="criterion-name">Sector Tailwind Active</div>
+        <div class="weight-pill">+1</div>
+      </div>
+      <div class="criterion-desc">Sector index (e.g. Nifty IT, Nifty Bank) showing strong momentum. Rising tides lift individual stocks.</div>
+    </div>
+
+    <div class="criterion" data-weight="1" onclick="toggle(this)">
+      <div class="criterion-header">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div class="criterion-name">Positive Global Cues</div>
+        <div class="weight-pill">+1</div>
+      </div>
+      <div class="criterion-desc">US markets (S&P 500, Nasdaq), SGX Nifty, and Asian markets trending up before NSE open.</div>
+    </div>
+
+    <div class="criterion" data-weight="-1" onclick="toggle(this)" style="border-color: rgba(255,77,109,0.2);">
+      <div class="criterion-header">
+        <div class="checkbox"><span class="checkmark">✗</span></div>
+        <div class="criterion-name" style="color: var(--accent3);">Recent Heavy Selling / Promoter Exit</div>
+        <div class="weight-pill" style="background: rgba(255,77,109,0.1); color: var(--accent3);">−1 ⚠</div>
+      </div>
+      <div class="criterion-desc">Promoters offloading stake or heavy institutional selling in last 2 weeks — gap-ups in these are often traps.</div>
+    </div>
+
+  </div>
+
+  <!-- PRE-MARKET WORKFLOW -->
+  <div class="section-title">Pre-Market Workflow</div>
+  <div class="workflow">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Check Global Cues</div>
+      <div class="step-desc">SGX Nifty, Dow Futures, Nasdaq. Takes 5 min every morning.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Scan Announcements</div>
+      <div class="step-desc">NSEIndia.com → Corporate Announcements from last 24 hours.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Run Screener</div>
+      <div class="step-desc">Apply momentum + volume + RSI filters on Screener.in or Trendlyne.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Score Each Stock</div>
+      <div class="step-desc">Use this checklist. Only trade setups scoring 6+ points.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-title">Set Levels</div>
+      <div class="step-desc">Mark entry, stop-loss, and target before the session opens. Never chase.</div>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="section-title">Free Tools to Use</div>
+  <div class="tool-grid">
+    <a class="tool-card" href="https://www.screener.in" target="_blank">
+      <div class="tool-icon">🔍</div>
+      <div>
+        <div class="tool-name">Screener.in</div>
+        <div class="tool-use">Custom stock filters & fundamentals</div>
+      </div>
+    </a>
+    <a class="tool-card" href="https://trendlyne.com" target="_blank">
+      <div class="tool-icon">📈</div>
+      <div>
+        <div class="tool-name">Trendlyne</div>
+        <div class="tool-use">Momentum scores, event calendar</div>
+      </div>
+    </a>
+    <a class="tool-card" href="https://www.nseindia.com/market-data/most-active-equities" target="_blank">
+      <div class="tool-icon">🏛</div>
+      <div>
+        <div class="tool-name">NSEIndia.com</div>
+        <div class="tool-use">Corporate actions, FII/DII data</div>
+      </div>
+    </a>
+    <a class="tool-card" href="https://dhan.co/stocks/market/gap-up-stocks/" target="_blank">
+      <div class="tool-icon">⬆</div>
+      <div>
+        <div class="tool-name">Dhan Gap-Up Tracker</div>
+        <div class="tool-use">Live gap-up & breakout list</div>
+      </div>
+    </a>
+    <a class="tool-card" href="https://www.tickertape.in" target="_blank">
+      <div class="tool-icon">🎯</div>
+      <div>
+        <div class="tool-name">Tickertape</div>
+        <div class="tool-use">Stock screener & momentum</div>
+      </div>
+    </a>
+    <a class="tool-card" href="https://www.stockezee.com/intraday-booster" target="_blank">
+      <div class="tool-icon">⚡</div>
+      <div>
+        <div class="tool-name">StockeZee ORB Scanner</div>
+        <div class="tool-use">Live FNO breakout signals</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="disclaimer">
+    <strong>⚠ IMPORTANT:</strong> This framework helps identify setups — it does <em>not</em> guarantee gap-ups. All stock market investments carry risk. This tool is for educational and research purposes only and is not SEBI-registered financial advice. Always do your own due diligence and trade with defined risk management.
+  </div>
+
+</div>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle('checked');
+    updateScore();
+  }
+
+  function updateScore() {
+    let score = 0;
+    document.querySelectorAll('.criterion.checked').forEach(el => {
+      score += parseInt(el.dataset.weight);
+    });
+    score = Math.max(0, score);
+    
+    const max = 9;
+    const pct = Math.min(100, (score / max) * 100);
+
+    document.getElementById('scoreNum').textContent = score;
+    document.getElementById('progressFill').style.width = pct + '%';
+
+    const badge = document.getElementById('ratingBadge');
+    const fill = document.getElementById('progressFill');
+
+    if (score >= 7) {
+      badge.textContent = 'STRONG SETUP 🚀';
+      badge.className = 'rating-badge rating-high';
+      fill.style.background = 'var(--accent)';
+    } else if (score >= 5) {
+      badge.textContent = 'MODERATE SETUP';
+      badge.className = 'rating-badge rating-medium';
+      fill.style.background = 'var(--accent2)';
+    } else {
+      badge.textContent = 'WEAK SETUP';
+      badge.className = 'rating-badge rating-low';
+      fill.style.background = 'var(--muted)';
+    }
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.criterion').forEach(el => el.classList.remove('checked'));
+    updateScore();
+  }
+</script>
+</body>
+</html>
