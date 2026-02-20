@@ -308,6 +308,13 @@
             </div>
         </div>
         
+        <div class="charts-container">
+            <div class="chart-box">
+                <h2>Historical Wealth Trend (Exact Dates)</h2>
+                <canvas id="wealth-trend-exact-dates-chart"></canvas>
+            </div>
+        </div>
+        
         <div class="matrix-section">
             <h2>Assets Distribution Matrix (in K's)</h2>
             <div id="matrix-table-container">
@@ -317,8 +324,23 @@
         
         <div class="charts-row">
             <div class="chart-box">
+                <h2>Asset Distribution Matrix (Bar)</h2>
+                <canvas id="asset-distribution-bar-chart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h2>Asset Distribution (Radar)</h2>
+                <canvas id="asset-distribution-radar-chart"></canvas>
+            </div>
+        </div>
+        
+        <div class="charts-row">
+            <div class="chart-box">
                 <h2>MF Distribution by App</h2>
                 <canvas id="mf-by-app-chart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h2>MF Distribution by App (%)</h2>
+                <canvas id="mf-by-app-bar-chart"></canvas>
             </div>
         </div>
         
@@ -476,11 +498,27 @@
                     const data = snapshot.val();
                     console.log("Portfolio data from Firebase:", data);
                     
-                    // Convert object to array
-                    allPortfolioData = Object.values(data);
+                    // Convert object to array and filter out null values
+                    const rawData = Object.values(data).filter(entry => entry !== null && entry !== undefined);
+                    console.log("Filtered raw data:", rawData);
                     
-                    // Sort by date
-                    allPortfolioData.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    // Group by date and keep the latest entry for each date
+                    const dateMap = new Map();
+                    rawData.forEach(entry => {
+                        if (entry && entry.date) {
+                            const existingEntry = dateMap.get(entry.date);
+                            // If no existing entry or this entry has a later timestamp, use this one
+                            if (!existingEntry || (entry.timestamp && existingEntry.timestamp && entry.timestamp > existingEntry.timestamp)) {
+                                dateMap.set(entry.date, entry);
+                            } else if (!existingEntry) {
+                                // If no timestamp comparison possible, use the newer one (appears later in array)
+                                dateMap.set(entry.date, entry);
+                            }
+                        }
+                    });
+                    
+                    // Convert back to array and sort by date
+                    allPortfolioData = Array.from(dateMap.values()).sort((a, b) => new Date(a.date) - new Date(b.date));
                     
                     console.log("Processed portfolio data:", allPortfolioData);
                     
@@ -907,9 +945,200 @@
             document.getElementById('matrix-table-container').innerHTML = tableHTML;
         }
 
+        // Create Asset Distribution Charts (Bar and Radar)
+        function createAssetDistributionCharts() {
+            if (allPortfolioData.length === 0) return;
+            
+            const latestData = allPortfolioData[allPortfolioData.length - 1];
+            
+            // Calculate asset totals for bar chart
+            const assetTotals = calculateWealthByType();
+            
+            // Create Bar Chart for Asset Distribution
+            createAssetDistributionBarChart(assetTotals);
+            
+            // Create Radar Chart for Asset Distribution (sum of values per asset type)
+            createAssetDistributionRadarChart(assetTotals);
+        }
+        
+        // Create Asset Distribution Bar Chart
+        function createAssetDistributionBarChart(assetTotals) {
+            const labels = Object.keys(assetTotals);
+            const data = Object.values(assetTotals);
+            
+            const ctx = document.getElementById('asset-distribution-bar-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Asset Value',
+                        data: data,
+                        backgroundColor: [
+                            '#FF6384',
+                            '#36A2EB', 
+                            '#FFCE56',
+                            '#4BC0C0',
+                            '#9966FF'
+                        ],
+                        borderColor: [
+                            '#FF6384',
+                            '#36A2EB',
+                            '#FFCE56', 
+                            '#4BC0C0',
+                            '#9966FF'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ₹' + toLakhs(context.raw) + 'K';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '₹' + toLakhs(value) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Calculate User-wise Asset Distribution
+        function calculateUserAssetDistribution(data) {
+            const persons = ['RK', 'VK', 'PD', 'SS', 'AR'];
+            const assetTypes = ['SB', 'FD', 'MF', 'EQ'];
+            
+            const userAssetMatrix = {};
+            
+            persons.forEach(person => {
+                userAssetMatrix[person] = {
+                    SB: 0,
+                    FD: 0, 
+                    MF: 0,
+                    EQ: 0
+                };
+            });
+            
+            // Calculate SB and FD
+            if (data.bankAccounts) {
+                Object.values(data.bankAccounts).forEach(bank => {
+                    Object.entries(bank).forEach(([person, accounts]) => {
+                        if (userAssetMatrix[person]) {
+                            userAssetMatrix[person].SB += accounts.SB || 0;
+                            userAssetMatrix[person].FD += accounts.FD || 0;
+                        }
+                    });
+                });
+            }
+            
+            // Calculate MF
+            if (data.mutualFunds) {
+                Object.values(data.mutualFunds).forEach(platform => {
+                    Object.entries(platform).forEach(([person, amount]) => {
+                        if (userAssetMatrix[person]) {
+                            userAssetMatrix[person].MF += amount || 0;
+                        }
+                    });
+                });
+            }
+            
+            // Calculate EQ
+            if (data.equity) {
+                Object.values(data.equity).forEach(platform => {
+                    Object.entries(platform).forEach(([person, amount]) => {
+                        if (userAssetMatrix[person]) {
+                            userAssetMatrix[person].EQ += amount || 0;
+                        }
+                    });
+                });
+            }
+            
+            if (data.equityCash) {
+                Object.values(data.equityCash).forEach(platform => {
+                    Object.entries(platform).forEach(([person, amount]) => {
+                        if (userAssetMatrix[person]) {
+                            userAssetMatrix[person].EQ += amount || 0;
+                        }
+                    });
+                });
+            }
+            
+            return userAssetMatrix;
+        }
+        
+        // Create Asset Distribution Radar Chart (sum of values per asset type)
+        function createAssetDistributionRadarChart(assetTotals) {
+            const assetTypes = Object.keys(assetTotals);
+            const values = Object.values(assetTotals);
+            
+            const ctx = document.getElementById('asset-distribution-radar-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: assetTypes,
+                    datasets: [{
+                        label: 'Total Asset Value',
+                        data: values,
+                        borderColor: '#36A2EB',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#36A2EB',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#36A2EB',
+                        pointRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ₹' + toLakhs(context.raw) + 'K';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '₹' + toLakhs(value) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
         // Clear existing charts
         function clearCharts() {
-            const chartIds = ['wealth-by-type-chart', 'wealth-by-person-chart', 'wealth-trend-chart', 'asset-trend-chart', 'weekly-wealth-trend-chart', 'weekly-asset-trend-chart', 'mf-by-app-chart', 'mf-performance-chart'];
+            const chartIds = ['wealth-by-type-chart', 'wealth-by-person-chart', 'wealth-trend-chart', 'asset-trend-chart', 'weekly-wealth-trend-chart', 'weekly-asset-trend-chart', 'wealth-trend-exact-dates-chart', 'mf-by-app-chart', 'mf-by-app-bar-chart', 'mf-performance-chart', 'asset-distribution-bar-chart', 'asset-distribution-radar-chart'];
             chartIds.forEach(id => {
                 const canvas = document.getElementById(id);
                 const ctx = canvas.getContext('2d');
@@ -1024,6 +1253,9 @@
             // Create wealth distribution matrix
             createWealthMatrix();
             
+            // Create asset distribution charts
+            createAssetDistributionCharts();
+            
             // Create MF distribution charts
             createMFDistributionCharts();
         }
@@ -1032,17 +1264,49 @@
         function updateHistoricalCharts() {
             if (allPortfolioData.length === 0) return;
             
-            const months = allPortfolioData.map(entry => entry.date);
-            const totalWealthData = [];
-            const sbData = [];
-            const fdData = [];
-            const mfData = [];
-            const eqData = [];
-
-            allPortfolioData.forEach(entry => {
-                let total = 0, sb = 0, fd = 0, mf = 0, eq = 0;
-
+            // Process data for different time periods
+            const monthlyData = processMonthlyData(allPortfolioData);
+            const weeklyData = processWeeklyData(allPortfolioData);
+            
+            // Create combined wealth trend chart with monthly and weekly lines
+            createCombinedWealthTrendChart(monthlyData, weeklyData);
+            
+            // Create wealth trend chart with exact dates
+            createWealthTrendExactDatesChart(allPortfolioData);
+            
+            // Create combined asset trend chart with monthly and weekly lines
+            createCombinedAssetTrendChart(monthlyData, weeklyData);
+        }
+        
+        // Process data by month
+        function processMonthlyData(portfolioData) {
+            const monthlyMap = new Map();
+            
+            portfolioData.forEach(entry => {
+                if (!entry.date) return;
+                
+                const entryDate = new Date(entry.date);
+                const monthKey = entryDate.toISOString().slice(0, 7); // YYYY-MM format
+                
+                if (!monthlyMap.has(monthKey)) {
+                    monthlyMap.set(monthKey, {
+                        date: entryDate,
+                        monthKey: monthKey,
+                        totalWealth: 0,
+                        sb: 0,
+                        fd: 0,
+                        mf: 0,
+                        eq: 0,
+                        entries: []
+                    });
+                }
+                
+                const monthData = monthlyMap.get(monthKey);
+                monthData.entries.push(entry);
+                
                 // Calculate totals for this entry
+                let total = 0, sb = 0, fd = 0, mf = 0, eq = 0;
+                
                 if (entry.bankAccounts) {
                     for (const bank in entry.bankAccounts) {
                         for (const person in entry.bankAccounts[bank]) {
@@ -1051,7 +1315,7 @@
                         }
                     }
                 }
-
+                
                 if (entry.mutualFunds) {
                     for (const platform in entry.mutualFunds) {
                         for (const person in entry.mutualFunds[platform]) {
@@ -1059,7 +1323,7 @@
                         }
                     }
                 }
-
+                
                 if (entry.equity) {
                     for (const platform in entry.equity) {
                         for (const person in entry.equity[platform]) {
@@ -1067,7 +1331,7 @@
                         }
                     }
                 }
-
+                
                 if (entry.equityCash) {
                     for (const platform in entry.equityCash) {
                         for (const person in entry.equityCash[platform]) {
@@ -1075,117 +1339,188 @@
                         }
                     }
                 }
-
-                if (entry.lending) {
-                    for (const platform in entry.lending) {
-                        total += entry.lending[platform] || 0;
-                    }
-                }
-
-                total = sb + fd + mf + eq + total;
-
-                totalWealthData.push(total);
-                sbData.push(sb);
-                fdData.push(fd);
-                mfData.push(mf);
-                eqData.push(eq);
+                
+                total = sb + fd + mf + eq;
+                
+                // Use the latest entry in the month
+                monthData.totalWealth = total;
+                monthData.sb = sb;
+                monthData.fd = fd;
+                monthData.mf = mf;
+                monthData.eq = eq;
             });
-
-            // Format month labels for display
-            const formattedMonths = months.map(month => {
-                const date = new Date(month);
+            
+            // Convert to array and sort by month
+            return Array.from(monthlyMap.values()).sort((a, b) => 
+                new Date(a.date) - new Date(b.date)
+            );
+        }
+        
+        // Create combined wealth trend chart (Monthly only)
+        function createCombinedWealthTrendChart(monthlyData, weeklyData) {
+            // Only use monthly data for Historical Wealth Trend
+            const monthlyLabels = monthlyData.map(month => {
+                const date = new Date(month.date);
                 return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
             });
-
-            // Update wealth trend chart
-            const wealthTrendCtx = document.getElementById('wealth-trend-chart').getContext('2d');
-            new Chart(wealthTrendCtx, {
+            const monthlyWealth = monthlyData.map(month => month.totalWealth);
+            
+            const ctx = document.getElementById('wealth-trend-chart').getContext('2d');
+            new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: formattedMonths,
-                    datasets: [{
-                        label: 'Total Wealth',
-                        data: totalWealthData,
-                        borderColor: '#36A2EB',
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        fill: true
-                    }]
+                    labels: monthlyLabels,
+                    datasets: [
+                        {
+                            label: 'Monthly Wealth Trend',
+                            data: monthlyWealth,
+                            borderColor: '#36A2EB',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointBackgroundColor: '#36A2EB',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Historical Wealth Trend (Monthly)',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Wealth: ₹' + toLakhs(context.raw) + 'K';
+                                }
+                            }
+                        }
+                    },
                     scales: {
                         y: {
                             beginAtZero: false,
                             ticks: {
                                 callback: function(value) {
                                     return '₹' + toLakhs(value) + 'K';
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return 'Total Wealth: ₹' + toLakhs(context.raw) + 'K';
                                 }
                             }
                         }
                     }
                 }
             });
-
-            // Update asset trend chart
-            const assetTrendCtx = document.getElementById('asset-trend-chart').getContext('2d');
-            new Chart(assetTrendCtx, {
+        }
+        
+        // Create combined asset trend chart (Monthly only with cumulative line)
+        function createCombinedAssetTrendChart(monthlyData, weeklyData) {
+            // Only use monthly data for Asset Type Trend
+            const monthlyLabels = monthlyData.map(month => {
+                const date = new Date(month.date);
+                return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            });
+            
+            // Calculate monthly totals (sum of all assets per month)
+            const monthlyTotals = monthlyData.map(month => month.sb + month.fd + month.mf + month.eq);
+            
+            const datasets = [
+                // Monthly asset data
+                {
+                    label: 'Savings (SB)',
+                    data: monthlyData.map(month => month.sb),
+                    borderColor: '#FF6384',
+                    backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                    borderWidth: 3,
+                    fill: false,
+                    tension: 0.4
+                },
+                {
+                    label: 'Fixed Deposits (FD)',
+                    data: monthlyData.map(month => month.fd),
+                    borderColor: '#FFCE56',
+                    backgroundColor: 'rgba(255, 206, 86, 0.1)',
+                    borderWidth: 3,
+                    fill: false,
+                    tension: 0.4
+                },
+                {
+                    label: 'Mutual Funds (MF)',
+                    data: monthlyData.map(month => month.mf),
+                    borderColor: '#4BC0C0',
+                    backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                    borderWidth: 3,
+                    fill: false,
+                    tension: 0.4
+                },
+                {
+                    label: 'Equity (EQ)',
+                    data: monthlyData.map(month => month.eq),
+                    borderColor: '#9966FF',
+                    backgroundColor: 'rgba(153, 102, 255, 0.1)',
+                    borderWidth: 3,
+                    fill: false,
+                    tension: 0.4
+                },
+                // Monthly total line (sum of all assets for each month)
+                {
+                    label: 'Monthly Total',
+                    data: monthlyTotals,
+                    borderColor: '#000000',
+                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                    borderWidth: 4,
+                    fill: false,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#000000',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    borderDash: [], // Solid line for monthly total
+                }
+            ];
+            
+            const ctx = document.getElementById('asset-trend-chart').getContext('2d');
+            new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: formattedMonths,
-                    datasets: [{
-                        label: 'Savings (SB)',
-                        data: sbData,
-                        borderColor: '#FF6384',
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        fill: false
-                    }, {
-                        label: 'Fixed Deposits (FD)',
-                        data: fdData,
-                        borderColor: '#FFCE56',
-                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                        fill: false
-                    }, {
-                        label: 'Mutual Funds (MF)',
-                        data: mfData,
-                        borderColor: '#4BC0C0',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        fill: false
-                    }, {
-                        label: 'Equity (EQ)',
-                        data: eqData,
-                        borderColor: '#9966FF',
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        fill: false
-                    }]
+                    labels: monthlyLabels,
+                    datasets: datasets
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Asset Type Trend - Monthly + Monthly Total',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label + ': ₹' + toLakhs(context.raw) + 'K';
+                                    if (context.datasetIndex === 4) { // Monthly total line
+                                        label += ' (Sum of all assets)';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
                     scales: {
                         y: {
                             beginAtZero: false,
                             ticks: {
                                 callback: function(value) {
                                     return '₹' + toLakhs(value) + 'K';
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ₹' + toLakhs(context.raw) + 'K';
                                 }
                             }
                         }
@@ -1422,6 +1757,83 @@
             });
         }
         
+        // Create Wealth Trend Chart with Exact Dates
+        function createWealthTrendExactDatesChart(portfolioData) {
+            if (portfolioData.length === 0) return;
+            
+            // Sort data by date
+            const sortedData = portfolioData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            // Create labels with exact dates
+            const exactDateLabels = sortedData.map(entry => {
+                const date = new Date(entry.date);
+                return date.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+            });
+            
+            // Calculate total wealth for each entry
+            const wealthData = sortedData.map(entry => calculateTotalWealth(entry));
+            
+            const ctx = document.getElementById('wealth-trend-exact-dates-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: exactDateLabels,
+                    datasets: [{
+                        label: 'Total Wealth',
+                        data: wealthData,
+                        borderColor: '#FF6384',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#FF6384',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Historical Wealth Trend (Exact Dates)',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Wealth: ₹' + toLakhs(context.raw) + 'K';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) {
+                                    return '₹' + toLakhs(value) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
         // Create Weekly Asset Type Trend Chart
         function createWeeklyAssetTrendChart(weeklyData) {
             const labels = weeklyData.map(week => {
@@ -1557,6 +1969,7 @@
                 
                 // Create charts
                 createMFByAppChart(processedFunds);
+                createMFByAppBarChart(processedFunds);
                 createMFPerformanceChart(processedFunds);
                 
                 console.log("MF Distribution Charts created successfully");
@@ -1603,6 +2016,73 @@
                                     const percentage = ((value / total) * 100).toFixed(1);
                                     const valueInLakhs = (value / 100000).toFixed(2);
                                     return `${label}: ₹${valueInLakhs}L (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Create MF by App Bar Chart with Percentages
+        function createMFByAppBarChart(funds) {
+            const appData = {};
+            funds.forEach(fund => {
+                if (!appData[fund.app]) {
+                    appData[fund.app] = 0;
+                }
+                appData[fund.app] += fund.value;
+            });
+            
+            const labels = Object.keys(appData);
+            const values = Object.values(appData);
+            const total = values.reduce((sum, val) => sum + val, 0);
+            const percentages = values.map(val => ((val / total) * 100).toFixed(1));
+            
+            const ctx = document.getElementById('mf-by-app-bar-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'MF Value (%)',
+                        data: percentages,
+                        backgroundColor: [
+                            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', 
+                            '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF'
+                        ],
+                        borderColor: [
+                            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                            '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const index = context.dataIndex;
+                                    const value = values[index];
+                                    const percentage = percentages[index];
+                                    const valueInLakhs = (value / 100000).toFixed(2);
+                                    return `${context.label}: ₹${valueInLakhs}L (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
                                 }
                             }
                         }
