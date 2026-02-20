@@ -313,6 +313,11 @@
                 <h2>Historical Wealth Trend (Exact Dates)</h2>
                 <canvas id="wealth-trend-exact-dates-chart"></canvas>
             </div>
+            
+            <div class="chart-box">
+                <h2>Asset Type Trend (Exact Dates)</h2>
+                <canvas id="asset-trend-exact-dates-chart"></canvas>
+            </div>
         </div>
         
         <div class="matrix-section">
@@ -1138,7 +1143,7 @@
 
         // Clear existing charts
         function clearCharts() {
-            const chartIds = ['wealth-by-type-chart', 'wealth-by-person-chart', 'wealth-trend-chart', 'asset-trend-chart', 'weekly-wealth-trend-chart', 'weekly-asset-trend-chart', 'wealth-trend-exact-dates-chart', 'mf-by-app-chart', 'mf-by-app-bar-chart', 'mf-performance-chart', 'asset-distribution-bar-chart', 'asset-distribution-radar-chart'];
+            const chartIds = ['wealth-by-type-chart', 'wealth-by-person-chart', 'wealth-trend-chart', 'asset-trend-chart', 'weekly-wealth-trend-chart', 'weekly-asset-trend-chart', 'wealth-trend-exact-dates-chart', 'asset-trend-exact-dates-chart', 'mf-by-app-chart', 'mf-by-app-bar-chart', 'mf-performance-chart', 'asset-distribution-bar-chart', 'asset-distribution-radar-chart'];
             chartIds.forEach(id => {
                 const canvas = document.getElementById(id);
                 const ctx = canvas.getContext('2d');
@@ -1273,6 +1278,9 @@
             
             // Create wealth trend chart with exact dates
             createWealthTrendExactDatesChart(allPortfolioData);
+            
+            // Create asset trend chart with exact dates
+            createAssetTrendExactDatesChart(allPortfolioData);
             
             // Create combined asset trend chart with monthly and weekly lines
             createCombinedAssetTrendChart(monthlyData, weeklyData);
@@ -1809,6 +1817,154 @@
                             callbacks: {
                                 label: function(context) {
                                     return 'Wealth: ₹' + toLakhs(context.raw) + 'K';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) {
+                                    return '₹' + toLakhs(value) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Create Asset Type Trend Chart with Exact Dates
+        function createAssetTrendExactDatesChart(portfolioData) {
+            if (portfolioData.length === 0) return;
+            
+            // Sort data by date
+            const sortedData = portfolioData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            // Create labels with exact dates
+            const exactDateLabels = sortedData.map(entry => {
+                const date = new Date(entry.date);
+                return date.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+            });
+            
+            // Calculate per-type breakdowns for each entry
+            const sbData = [], fdData = [], mfData = [], eqData = [], totalData = [];
+            sortedData.forEach(entry => {
+                let sb = 0, fd = 0, mf = 0, eq = 0;
+                if (entry.bankAccounts) {
+                    for (const bank in entry.bankAccounts) {
+                        for (const person in entry.bankAccounts[bank]) {
+                            sb += entry.bankAccounts[bank][person].SB || 0;
+                            fd += entry.bankAccounts[bank][person].FD || 0;
+                        }
+                    }
+                }
+                if (entry.mutualFunds) {
+                    for (const platform in entry.mutualFunds) {
+                        for (const person in entry.mutualFunds[platform]) {
+                            mf += entry.mutualFunds[platform][person] || 0;
+                        }
+                    }
+                }
+                if (entry.equity) {
+                    for (const platform in entry.equity) {
+                        for (const person in entry.equity[platform]) {
+                            eq += entry.equity[platform][person] || 0;
+                        }
+                    }
+                }
+                if (entry.equityCash) {
+                    for (const platform in entry.equityCash) {
+                        for (const person in entry.equityCash[platform]) {
+                            eq += entry.equityCash[platform][person] || 0;
+                        }
+                    }
+                }
+                sbData.push(sb);
+                fdData.push(fd);
+                mfData.push(mf);
+                eqData.push(eq);
+                totalData.push(sb + fd + mf + eq);
+            });
+            
+            const ctx = document.getElementById('asset-trend-exact-dates-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: exactDateLabels,
+                    datasets: [
+                        {
+                            label: 'Savings (SB)',
+                            data: sbData,
+                            borderColor: '#FF6384',
+                            backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Fixed Deposits (FD)',
+                            data: fdData,
+                            borderColor: '#FFCE56',
+                            backgroundColor: 'rgba(255, 206, 86, 0.1)',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Mutual Funds (MF)',
+                            data: mfData,
+                            borderColor: '#4BC0C0',
+                            backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Equity (EQ)',
+                            data: eqData,
+                            borderColor: '#9966FF',
+                            backgroundColor: 'rgba(153, 102, 255, 0.1)',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Total',
+                            data: totalData,
+                            borderColor: '#000000',
+                            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                            borderWidth: 4,
+                            fill: false,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#000000',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Asset Type Trend (Exact Dates)',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ₹' + toLakhs(context.raw) + 'K';
                                 }
                             }
                         }
