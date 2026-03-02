@@ -1,62 +1,187 @@
 ---
-layout: default
-title: "Page Not Found - 404"
-permalink: /404.html
-description: "Oops! The page you're looking for doesn’t exist. Explore other pages on rkoots.github.io – a blog and portfolio by Rajkumar Venkataraman."
-keywords: ["404 page", "page not found", "rkoots 404","technical blog error", "broken link", "not found", "engineering blog"]
+layout: page
+title: "Page Not Found"
+subtitle: "Oops! That page doesn't exist."
+description: "The page you're looking for might have been removed, renamed, or is temporarily unavailable."
 ---
 
-<style>
-  .not-found-container {
-    text-align: center;
-    padding: 5rem 1rem;
-  }
-  .not-found-svg {
-    max-width: 300px;
-    margin: 0 auto 2rem;
-  }
-  .not-found-svg path {
-    animation: blink 1.5s infinite;
-    transform-origin: center;
-  }
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-  .not-found-links a {
-    display: inline-block;
-    margin: 1rem;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    background: #007acc;
-    color: white;
-    border-radius: 4px;
-    transition: background 0.3s ease;
-  }
-  .not-found-links a:hover {
-    background: #005fa3;
-  }
-</style>
-
-<div class="not-found-container">
-  <div class="not-found-svg">
-    <!-- Simple Animated Inline SVG -->
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="100" cy="100" r="80" fill="#f2f2f2"/>
-      <path d="M70 80 Q100 50 130 80" stroke="#ff6f61" stroke-width="4" fill="none"/>
-      <circle cx="80" cy="110" r="5" fill="#333"/>
-      <circle cx="120" cy="110" r="5" fill="#333"/>
-      <path d="M80 140 Q100 160 120 140" stroke="#333" stroke-width="4" fill="none"/>
-    </svg>
+<div class="error-content">
+  <div class="error-visual">
+    <div class="error-code">404</div>
+    <div class="error-message">Page Not Found</div>
   </div>
-
-  <h1>Oops! Page Not Found (404)</h1>
-  <p>The page you're looking for doesn't exist or may have moved.</p>
-  <p>If you believe this is an error, <a href="mailto:rajkumarv88@outlook.com">drop me a note</a>.</p>
-
-  <div class="not-found-links">
-    <a href="/">Go Home</a>
-    <a href="/blog/">Visit Blog</a>
-    <a href="/projects/">See Projects</a>
+  
+  <div class="error-details">
+    <p>The page you're looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+    
+    <div class="error-actions">
+      <h3>What can you do?</h3>
+      <ul>
+        <li>Check the URL for typos</li>
+        <li>Go back to the <a href="/">homepage</a></li>
+        <li>Use the search function to find what you're looking for</li>
+        <li>Browse our <a href="/technews/">tech news</a>, <a href="/blog/">blog</a>, or <a href="/tools/">tools</a></li>
+      </ul>
+    </div>
+    
+    <div class="quick-links">
+      <h3>Popular Pages</h3>
+      <div class="links-grid">
+        <a href="/" class="quick-link">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
+        <a href="/technews/" class="quick-link">
+          <i class="fas fa-newspaper"></i>
+          <span>Tech News</span>
+        </a>
+        <a href="/blog/" class="quick-link">
+          <i class="fas fa-blog"></i>
+          <span>Blog</span>
+        </a>
+        <a href="/tools/" class="quick-link">
+          <i class="fas fa-tools"></i>
+          <span>Tools</span>
+        </a>
+        <a href="/guide/" class="quick-link">
+          <i class="fas fa-book"></i>
+          <span>Guides</span>
+        </a>
+        <a href="/insights/" class="quick-link">
+          <i class="fas fa-lightbulb"></i>
+          <span>Insights</span>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
+
+<style>
+.error-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.error-visual {
+  margin-bottom: 50px;
+}
+
+.error-code {
+  font-size: 8rem;
+  font-weight: 700;
+  color: #667eea;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  font-size: 1.5rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.error-details p {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.error-actions {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.error-actions h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.error-actions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.error-actions li {
+  padding: 8px 0;
+  color: #6c757d;
+  position: relative;
+  padding-left: 25px;
+}
+
+.error-actions li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.error-actions a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.error-actions a:hover {
+  text-decoration: underline;
+}
+
+.quick-links h3 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.quick-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  text-decoration: none;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+}
+
+.quick-link:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  color: #667eea;
+}
+
+.quick-link i {
+  font-size: 2rem;
+  color: #667eea;
+}
+
+.quick-link span {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .error-code {
+    font-size: 5rem;
+  }
+  
+  .error-message {
+    font-size: 1.2rem;
+  }
+  
+  .links-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>

@@ -6,19 +6,41 @@ document.addEventListener('DOMContentLoaded', function() {
   const mobileNav = document.getElementById('mobile-nav');
   const mobileNavClose = document.getElementById('mobile-nav-close');
   
-  if (mobileMenuToggle && mobileNav) {
-    mobileMenuToggle.addEventListener('click', function() {
-      mobileNav.classList.add('is-open');
-      document.body.style.overflow = 'hidden';
-    });
+  // Create overlay for mobile menu
+  const overlay = document.createElement('div');
+  overlay.className = 'mobile-nav-overlay';
+  document.body.appendChild(overlay);
+  
+  function openMobileMenu() {
+    mobileNav.classList.add('is-open');
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
   }
   
-  if (mobileNavClose && mobileNav) {
-    mobileNavClose.addEventListener('click', function() {
-      mobileNav.classList.remove('is-open');
-      document.body.style.overflow = '';
-    });
+  function closeMobileMenu() {
+    mobileNav.classList.remove('is-open');
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
   }
+  
+  if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', openMobileMenu);
+  }
+  
+  if (mobileNavClose) {
+    mobileNavClose.addEventListener('click', closeMobileMenu);
+  }
+  
+  if (overlay) {
+    overlay.addEventListener('click', closeMobileMenu);
+  }
+  
+  // Close mobile menu on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && mobileNav.classList.contains('is-open')) {
+      closeMobileMenu();
+    }
+  });
   
   // Search Modal
   const searchToggle = document.getElementById('search-toggle');
@@ -26,27 +48,59 @@ document.addEventListener('DOMContentLoaded', function() {
   const searchModalClose = document.getElementById('search-modal-close');
   const searchInput = document.getElementById('search-input');
   
+  function openSearchModal() {
+    searchModal.classList.add('is-open');
+    if (searchInput) {
+      setTimeout(() => searchInput.focus(), 300);
+    }
+  }
+  
+  function closeSearchModal() {
+    searchModal.classList.remove('is-open');
+    if (searchInput) {
+      searchInput.value = '';
+    }
+  }
+  
   if (searchToggle && searchModal) {
-    searchToggle.addEventListener('click', function() {
-      searchModal.classList.add('is-open');
-      if (searchInput) {
-        searchInput.focus();
-      }
-    });
+    searchToggle.addEventListener('click', openSearchModal);
   }
   
   if (searchModalClose && searchModal) {
-    searchModalClose.addEventListener('click', function() {
-      searchModal.classList.remove('is-open');
-    });
+    searchModalClose.addEventListener('click', closeSearchModal);
   }
   
   // Close search modal on escape key
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && searchModal && searchModal.classList.contains('is-open')) {
-      searchModal.classList.remove('is-open');
+      closeSearchModal();
     }
   });
+  
+  // Close search modal on backdrop click
+  searchModal.addEventListener('click', function(e) {
+    if (e.target === searchModal) {
+      closeSearchModal();
+    }
+  });
+  
+  // Header scroll effect
+  const header = document.getElementById('site-header');
+  let lastScrollY = window.scrollY;
+  
+  function handleScroll() {
+    const currentScrollY = window.scrollY;
+    
+    if (currentScrollY > 100) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+    
+    lastScrollY = currentScrollY;
+  }
+  
+  window.addEventListener('scroll', handleScroll, { passive: true });
   
   // Smooth scroll for anchor links
   const anchorLinks = document.querySelectorAll('a[href^="#"]');
@@ -57,9 +111,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const target = document.querySelector(href);
         if (target) {
           e.preventDefault();
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+          const headerHeight = header.offsetHeight;
+          const targetPosition = target.offsetTop - headerHeight - 20;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
           });
         }
       }
@@ -84,11 +141,11 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       const email = this.querySelector('input[type="email"]').value;
       
-      // Show success message (in a real implementation, this would submit to a service)
+      // Show success message
       const successMessage = document.createElement('div');
       successMessage.className = 'newsletter-success';
       successMessage.innerHTML = `
-        <div style="background: #28a745; color: white; padding: 15px; border-radius: 8px; margin-top: 10px;">
+        <div style="background: #28a745; color: white; padding: 15px; border-radius: 8px; margin-top: 10px; animation: slideIn 0.3s ease-out;">
           <i class="fas fa-check-circle"></i> Thank you for subscribing! Check your email for confirmation.
         </div>
       `;
@@ -98,7 +155,8 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Remove message after 5 seconds
       setTimeout(() => {
-        successMessage.remove();
+        successMessage.style.animation = 'slideOut 0.3s ease-out forwards';
+        setTimeout(() => successMessage.remove(), 300);
       }, 5000);
     });
   });
@@ -166,9 +224,21 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+  
+  // Add hover effect to cards
+  const cards = document.querySelectorAll('.featured-card, .category-card');
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-8px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+    });
+  });
 });
 
-// Add CSS for copy button and tooltips
+// Add CSS animations
 const style = document.createElement('style');
 style.textContent = `
   .copy-code-btn {
@@ -183,7 +253,7 @@ style.textContent = `
     cursor: pointer;
     font-size: 12px;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
   
   pre:hover .copy-code-btn {
@@ -192,6 +262,7 @@ style.textContent = `
   
   .copy-code-btn:hover {
     background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
   }
   
   .tooltip {
@@ -204,6 +275,7 @@ style.textContent = `
     white-space: nowrap;
     z-index: 1000;
     pointer-events: none;
+    animation: tooltipFadeIn 0.2s ease-out;
   }
   
   .nav-link.active,
@@ -219,6 +291,57 @@ style.textContent = `
   
   .lazy.loaded {
     opacity: 1;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOut {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes tooltipFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+  
+  .featured-card,
+  .category-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .btn:hover {
+    animation: pulse 0.6s ease-in-out;
   }
 `;
 

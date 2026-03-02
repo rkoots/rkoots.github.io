@@ -16,7 +16,7 @@
         <li class="nav-item">
           <a href="/technews/" class="nav-link">
             <i class="fas fa-newspaper"></i>
-            Tech News
+            <span class="nav-text">Tech News</span>
           </a>
         </li>
 
@@ -24,7 +24,7 @@
         <li class="nav-item">
           <a href="/tools/" class="nav-link">
             <i class="fas fa-tools"></i>
-            Tools
+            <span class="nav-text">Tools</span>
           </a>
         </li>
 
@@ -32,7 +32,7 @@
         <li class="nav-item">
           <a href="/blog/" class="nav-link">
             <i class="fas fa-blog"></i>
-            Blog
+            <span class="nav-text">Blog</span>
           </a>
         </li>
 
@@ -40,7 +40,7 @@
         <li class="nav-item">
           <a href="/guide/" class="nav-link">
             <i class="fas fa-book"></i>
-            Guide
+            <span class="nav-text">Guide</span>
           </a>
         </li>
 
@@ -48,7 +48,7 @@
         <li class="nav-item">
           <a href="/insights/" class="nav-link">
             <i class="fas fa-lightbulb"></i>
-            Insights
+            <span class="nav-text">Insights</span>
           </a>
         </li>
 
@@ -56,7 +56,7 @@
         <li class="nav-item">
           <a href="/styleguide/" class="nav-link">
             <i class="fas fa-palette"></i>
-            Style Guide
+            <span class="nav-text">Style Guide</span>
           </a>
         </li>
       </ul>
@@ -67,17 +67,20 @@
       <!-- Search -->
       <button class="search-toggle" id="search-toggle" aria-label="Search">
         <i class="fas fa-search"></i>
+        <span class="action-text">Search</span>
       </button>
 
       <!-- Newsletter -->
       <a href="https://rkoots.substack.com/subscribe" class="btn btn-outline btn-sm" target="_blank" rel="noopener">
         <i class="fas fa-envelope"></i>
-        Newsletter
+        <span class="btn-text">Newsletter</span>
       </a>
 
       <!-- Mobile Menu Toggle -->
       <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle mobile menu">
-        <i class="fas fa-bars"></i>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
       </button>
     </div>
   </div>
@@ -101,43 +104,43 @@
         <li class="mobile-nav-item">
           <a href="/technews/" class="mobile-nav-link">
             <i class="fas fa-newspaper"></i>
-            Tech News
+            <span>Tech News</span>
           </a>
         </li>
         <li class="mobile-nav-item">
           <a href="/tools/" class="mobile-nav-link">
             <i class="fas fa-tools"></i>
-            Tools
+            <span>Tools</span>
           </a>
         </li>
         <li class="mobile-nav-item">
           <a href="/blog/" class="mobile-nav-link">
             <i class="fas fa-blog"></i>
-            Blog
+            <span>Blog</span>
           </a>
         </li>
         <li class="mobile-nav-item">
           <a href="/guide/" class="mobile-nav-link">
             <i class="fas fa-book"></i>
-            Guide
+            <span>Guide</span>
           </a>
         </li>
         <li class="mobile-nav-item">
           <a href="/insights/" class="mobile-nav-link">
             <i class="fas fa-lightbulb"></i>
-            Insights
+            <span>Insights</span>
           </a>
         </li>
         <li class="mobile-nav-item">
           <a href="/styleguide/" class="mobile-nav-link">
             <i class="fas fa-palette"></i>
-            Style Guide
+            <span>Style Guide</span>
           </a>
         </li>
         <li class="mobile-nav-item">
           <a href="https://rkoots.substack.com/subscribe" class="mobile-nav-link" target="_blank" rel="noopener">
             <i class="fas fa-envelope"></i>
-            Newsletter
+            <span>Newsletter</span>
           </a>
         </li>
       </ul>
@@ -178,6 +181,11 @@
   top: 0;
   z-index: 1000;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.site-header.scrolled {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .site-header .container {
@@ -186,28 +194,44 @@
   justify-content: space-between;
   padding: 0 20px;
   height: 70px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* Brand */
 .header-brand .brand-link {
   display: flex;
   align-items: center;
   text-decoration: none;
   font-weight: 700;
   font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.header-brand .brand-link:hover {
+  transform: scale(1.05);
 }
 
 .brand-accent {
   color: #667eea;
+  transition: color 0.3s ease;
 }
 
 .brand-main {
   color: #2c3e50;
+  transition: color 0.3s ease;
 }
 
+.header-brand .brand-link:hover .brand-accent {
+  color: #5a6fd8;
+}
+
+/* Main Navigation */
 .main-nav {
   flex: 1;
   display: flex;
   justify-content: center;
+  padding: 0 20px;
 }
 
 .nav-list {
@@ -215,7 +239,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 10px;
+  gap: 4px;
 }
 
 .nav-item {
@@ -225,50 +249,152 @@
 .nav-link {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
+  gap: 6px;
+  padding: 10px 14px;
   color: #2c3e50;
   text-decoration: none;
   font-weight: 500;
   border-radius: 8px;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.nav-link:hover::before {
+  width: 100%;
 }
 
 .nav-link:hover {
-  background: #f8f9fa;
-  color: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
+.nav-link i {
+  font-size: 0.9rem;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover i {
+  transform: scale(1.2);
+}
+
+.nav-text {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* Header Actions */
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
 }
 
 .search-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   background: none;
-  border: none;
+  border: 2px solid #e9ecef;
   color: #6c757d;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  padding: 8px;
+  padding: 8px 12px;
   border-radius: 8px;
   transition: all 0.3s ease;
 }
 
 .search-toggle:hover {
-  background: #f8f9fa;
+  border-color: #667eea;
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+}
+
+.search-toggle i {
+  transition: transform 0.3s ease;
+}
+
+.search-toggle:hover i {
+  transform: scale(1.1);
+}
+
+.action-text {
+  font-size: 0.85rem;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
   color: #667eea;
 }
 
+.btn:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  text-decoration: none;
+}
+
+.btn-text {
+  font-size: 0.85rem;
+}
+
+/* Mobile Menu Toggle */
 .mobile-menu-toggle {
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
   background: none;
-  border: none;
-  color: #2c3e50;
-  font-size: 1.2rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
   cursor: pointer;
-  padding: 8px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.hamburger-line {
+  width: 20px;
+  height: 2px;
+  background: #2c3e50;
+  margin: 2px 0;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle:hover .hamburger-line {
+  background: #667eea;
 }
 
 /* Mobile Navigation */
@@ -279,8 +405,8 @@
   width: 300px;
   height: 100vh;
   background: white;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-  transition: left 0.3s ease;
+  box-shadow: 2px 0 20px rgba(0,0,0,0.15);
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1002;
 }
 
@@ -303,6 +429,13 @@
   font-size: 1.2rem;
   cursor: pointer;
   padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-close:hover {
+  background: #f8f9fa;
+  color: #667eea;
 }
 
 .mobile-nav-content {
@@ -316,24 +449,43 @@
 }
 
 .mobile-nav-item {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .mobile-nav-link {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
+  padding: 14px 16px;
   color: #2c3e50;
   text-decoration: none;
   font-weight: 500;
   border-radius: 8px;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-nav-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: #667eea;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
 }
 
 .mobile-nav-link:hover {
   background: #f8f9fa;
   color: #667eea;
+  transform: translateX(5px);
+}
+
+.mobile-nav-link:hover::before {
+  transform: translateX(0);
 }
 
 /* Search Modal */
@@ -367,6 +519,12 @@
   max-height: 80vh;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.search-modal.is-open .search-modal-content {
+  transform: scale(1);
 }
 
 .search-modal-header {
@@ -384,6 +542,13 @@
   font-size: 1.2rem;
   cursor: pointer;
   padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.search-modal-close:hover {
+  background: #f8f9fa;
+  color: #667eea;
 }
 
 .search-form {
@@ -397,11 +562,12 @@
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .search-form input:focus {
   border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .search-results {
@@ -410,14 +576,56 @@
   overflow-y: auto;
 }
 
+/* Overlay */
+.mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.mobile-nav-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .nav-text {
+    display: none;
+  }
+  
+  .nav-link {
+    padding: 10px 12px;
+  }
+  
+  .action-text,
+  .btn-text {
+    display: none;
+  }
+  
+  .search-toggle {
+    padding: 8px 10px;
+  }
+  
+  .btn {
+    padding: 8px 12px;
+  }
+}
+
 @media (max-width: 992px) {
   .main-nav {
     display: none;
   }
   
   .mobile-menu-toggle {
-    display: block;
+    display: flex;
   }
   
   .header-actions .btn {
@@ -428,6 +636,11 @@
 @media (max-width: 768px) {
   .site-header .container {
     padding: 0 15px;
+    height: 60px;
+  }
+  
+  .header-brand .brand-link {
+    font-size: 1.3rem;
   }
   
   .mobile-nav {
@@ -439,5 +652,50 @@
     width: 95%;
     margin: 0 10px;
   }
+  
+  .search-modal {
+    padding-top: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-actions {
+    gap: 8px;
+  }
+  
+  .search-toggle {
+    padding: 6px 8px;
+  }
+  
+  .search-toggle i {
+    font-size: 0.9rem;
+  }
+}
+
+/* Active states */
+.nav-link.active,
+.mobile-nav-link.active {
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.nav-link.active::before {
+  width: 100%;
+}
+
+/* Loading animation */
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.site-header {
+  animation: slideIn 0.5s ease-out;
 }
 </style>

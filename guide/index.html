@@ -1,98 +1,386 @@
 ---
-layout: default
-title: Guides
-permalink: /guide/
-description: "Step-by-step engineering guides, system architecture walkthroughs, and backend implementation best practices written for developers."
-keywords: ["developer guides", "engineering tutorials", "backend implementation", "API design", "Spring Boot", "Kubernetes setup", "Jekyll tips", "cloud deployments", "DevOps guide"]
+layout: page
+title: "Technical Guides"
+subtitle: "Step-by-Step Tutorials & Implementation Guides"
+description: "Comprehensive step-by-step tutorials and implementation guides for complex technical solutions, from setup to deployment."
+keywords: ["technical guides", "tutorials", "implementation guides", "step-by-step", "how-to guides", "technical documentation"]
 ---
 
-
-<section class="blog-listing">
-  <h1 class="page-title">📘 Step-by-Step Tech Guides & Tutorials </h1>
-  <p class="page-subtitle" style="text-align: center; font-style: italic; margin-top: -10px;">
-    Clear, actionable walkthroughs and how-tos designed to help you master tools, platforms, and technical concepts.
-  </p>
-
-  {% assign blog_posts = site.posts | where_exp: "post", "post.url contains '/guide/'" %}
-  {% if blog_posts.size > 0 %}
-  <div class="posts-grid">
-    {% for post in blog_posts %}
-    <article class="post-card">
-      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-      <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
-      {% if post.excerpt %}
-      <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
-      {% endif %}
-      <a class="read-more" href="{{ post.url | relative_url }}">Read more →</a>
-    </article>
-    {% endfor %}
+<div class="guides-content">
+  <div class="guides-intro">
+    <p>Practical tutorials and walkthroughs for implementing complex technical solutions, from initial setup to production deployment.</p>
   </div>
+
+  {% assign guide_posts = site.posts | where_exp: "post", "post.url contains '/guide/'" %}
+  {% if guide_posts.size > 0 %}
+    <div class="guides-grid">
+      {% for post in guide_posts %}
+        <article class="guide-card">
+          <div class="guide-header">
+            <div class="guide-difficulty">
+              {% if post.difficulty %}
+                <span class="difficulty difficulty-{{ post.difficulty }}">{{ post.difficulty }}</span>
+              {% endif %}
+            </div>
+            <div class="guide-meta">
+              {% if post.reading_time %}
+                <span class="reading-time">
+                  <i class="fas fa-clock"></i>
+                  {{ post.reading_time }} min read
+                </span>
+              {% endif %}
+              <span class="guide-date">
+                <i class="fas fa-calendar"></i>
+                {{ post.date | date: "%B %d, %Y" }}
+              </span>
+            </div>
+          </div>
+          
+          <h3 class="guide-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h3>
+          
+          {% if post.excerpt %}
+            <div class="guide-excerpt">
+              {{ post.excerpt | strip_html | truncate: 180 }}
+            </div>
+          {% endif %}
+          
+          {% if post.prerequisites %}
+            <div class="guide-prerequisites">
+              <h4>Prerequisites</h4>
+              <ul>
+                {% for prereq in post.prerequisites limit:3 %}
+                  <li>{{ prereq }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+          
+          {% if post.tags %}
+            <div class="guide-tags">
+              {% for tag in post.tags limit:4 %}
+                <span class="tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+          
+          <div class="guide-footer">
+            <a href="{{ post.url | relative_url }}" class="guide-link">
+              Start Tutorial <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
   {% else %}
-  <p>No blog posts found in the "blog" category.</p>
+    <div class="empty-state">
+      <i class="fas fa-book"></i>
+      <h3>No guides available yet</h3>
+      <p>Check back soon for new technical tutorials and implementation guides!</p>
+    </div>
   {% endif %}
-</section>
+  
+  <div class="guide-categories">
+    <h2>Guide Categories</h2>
+    <div class="category-list">
+      <div class="category-item">
+        <i class="fas fa-rocket"></i>
+        <div>
+          <h3>Getting Started</h3>
+          <p>Beginner-friendly guides for setting up development environments and basic concepts</p>
+        </div>
+      </div>
+      <div class="category-item">
+        <i class="fas fa-cogs"></i>
+        <div>
+          <h3>Implementation</h3>
+          <p>Step-by-step implementation guides for real-world projects and solutions</p>
+        </div>
+      </div>
+      <div class="category-item">
+        <i class="fas fa-shield-alt"></i>
+        <div>
+          <h3>Security & Best Practices</h3>
+          <p>Security implementation guides and coding best practices</p>
+        </div>
+      </div>
+      <div class="category-item">
+        <i class="fas fa-chart-line"></i>
+        <div>
+          <h3>Performance & Optimization</h3>
+          <p>Guides for optimizing application performance and scalability</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <style>
-  .blog-listing {
-    padding: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
-  }
+.guides-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
 
-  .page-title {
-    font-size: 2.2rem;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
+.guides-intro {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-bottom: 50px;
+  padding: 0 20px;
+}
 
-  .posts-grid {
-    display: flex;
+.guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.guide-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.guide-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.difficulty {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.difficulty-beginner {
+  background: #e8f5e8;
+  color: #388e3c;
+}
+
+.difficulty-intermediate {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.difficulty-advanced {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.guide-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.reading-time,
+.guide-date {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.guide-meta i {
+  color: #667eea;
+}
+
+.guide-title {
+  margin: 0 0 15px 0;
+  line-height: 1.3;
+}
+
+.guide-title a {
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.guide-title a:hover {
+  color: #667eea;
+}
+
+.guide-excerpt {
+  color: #6c757d;
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 20px;
+}
+
+.guide-prerequisites {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.guide-prerequisites h4 {
+  font-size: 0.9rem;
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+}
+
+.guide-prerequisites ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.guide-prerequisites li {
+  margin-bottom: 5px;
+}
+
+.guide-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tag {
+  background: #f8f9fa;
+  color: #667eea;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.guide-footer {
+  margin-top: auto;
+}
+
+.guide-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.guide-link:hover {
+  color: #5a6fd8;
+  transform: translateX(5px);
+}
+
+.guide-categories {
+  margin-top: 80px;
+}
+
+.guide-categories h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 40px;
+}
+
+.category-list {
+  display: grid;
+  gap: 20px;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.category-item:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transform: translateX(10px);
+}
+
+.category-item i {
+  font-size: 2rem;
+  color: #667eea;
+  flex-shrink: 0;
+}
+
+.category-item h3 {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin: 0 0 5px 0;
+}
+
+.category-item p {
+  color: #6c757d;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  color: #e9ecef;
+  margin-bottom: 20px;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+@media (max-width: 768px) {
+  .guides-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .guide-card {
+    padding: 20px;
+  }
+  
+  .guide-title a {
+    font-size: 1.1rem;
+  }
+  
+  .guide-header {
     flex-direction: column;
-    gap: 2rem;
+    gap: 10px;
   }
-
-  .post-card {
-    border: 1px solid #eee;
-    padding: 1.2rem;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    transition: box-shadow 0.3s ease;
+  
+  .guide-meta {
+    align-items: flex-start;
   }
-
-  .post-card:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  
+  .category-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
   }
-
-  .post-card h2 {
-    margin: 0 0 0.3rem;
-    font-size: 1.5rem;
-    color: #333;
-  }
-
-  .post-card h2 a {
-    text-decoration: none;
-    color: #0056b3;
-  }
-
-  .post-meta {
-    font-size: 1rem;
-    color: rgba(0, 0, 0, 0.7);
-  }
-
-  .post-excerpt {
-    font-size: 1rem;
-    color: #444;
-    margin: 0.7rem 0;
-  }
-
-  .read-more {
-    font-weight: bold;
-    text-decoration: none;
-    color: #007acc;
-  }
-
-  .read-more:hover {
-    text-decoration: underline;
-  }
+}
 </style>

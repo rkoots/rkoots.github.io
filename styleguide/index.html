@@ -1,49 +1,499 @@
 ---
-layout: default
-title: Tech Style Guide
-permalink: /styleguide/
-description: "Find a complete index of all pages, blog posts, and resources on rkoots.github.io to help you navigate the site."
-keywords: ["site index", "sitemap", "navigation", "site structure", "rkoots.github.io pages", "all content", "browse site"]
+layout: page
+title: "Style Guide"
+subtitle: "Coding Standards & Best Practices"
+description: "Coding standards, design patterns, and best practices for consistent technical documentation and development."
+keywords: ["style guide", "coding standards", "best practices", "design patterns", "documentation standards", "development guidelines"]
 ---
 
-<section>
-        <p>
-            Every large and well-maintained codebase follows a style guide—a shared set of conventions that make the code easier to read, maintain, and extend over time. Even if the rules seem arbitrary at first, they help teams write code in a consistent and predictable way.
+<div class="styleguide-content">
+  <div class="styleguide-intro">
+    <p>Comprehensive coding standards, design patterns, and best practices for maintaining consistency and quality across technical documentation and development projects.</p>
+  </div>
 
-        </p>
-        <p>This project, rkoots/styleguide, brings together style rules and guidelines we follow across our codebases. Whether you're working on frontend templates, backend logic, or shared libraries, consistent style helps new contributors ramp up quickly and prevents accidental tech debt.</p>
-
-
-</section>
-<section>
-        <h2>Style Guides</h2>
-        <ol>
-            <li><a href="./angularjs-style">AngularJS Style Guide</a></li>
-            <li><a href="./cppguide">C++ Style Guide</a></li>
-            <li><a href="./csharp-style">C# Style Guide</a></li>
-            <li><a href="./Rguide">R Style Guide</a></li>
-            <li><a href="./htmlcssguide">HTML/CSS Style Guide</a></li>
-            <li><a href="./javaguide">Java Style Guide</a></li>
-            <li><a href="./jsguide">JavaScript Style Guide</a></li>
-            <li><a href="./tsguide">TypeScript Style Guide</a></li>
-            <li><a href="./xmlstyle">Vim script Style Guide</a></li>
-            <li><a href="./jsoncstyleguide.html">JSON Style Guide</a></li>
-            <li><a href="./objcguide">Objective-C Style Guide</a></li>
-            <li><a href="./pyguide">Python Style Guide</a></li>
-            <li><a href="./shellguide">Shell Style Guide</a></li>
-
-        </ol>
-</section>
-
-    <section>
-        <p class="note">These documents cover everything from naming conventions and file structure, to broader principles like “avoid globals” or “prefer composition over inheritance.” If you're working on or contributing to a project that originated from rkoots, you may be directed here to follow applicable coding standards.</p>
-
-        <p>Note: These style guides are offered under a Creative Commons license and are meant to serve as a practical reference for building clean, scalable software.</p>
-
-        <p>Where applicable, we also include links to trusted tools or community forks that extend these standards — especially when certain linters or formatters have matured into their own open-source ecosystems.</p>
-
-        <h2>Additional Style Guides</h2>
-        <ul>
-            <li><a href="https://dart.dev/guides/language/effective-dart" target="_blank" rel="noopener noreferrer">Effective Dart</a></li>
-        </ul>
+  <div class="styleguide-sections">
+    <section class="style-section">
+      <h2><i class="fas fa-code"></i> Code Style & Formatting</h2>
+      <div class="style-grid">
+        <div class="style-item">
+          <h3>Indentation & Spacing</h3>
+          <ul>
+            <li>Use 2 spaces for indentation</li>
+            <li>No tabs, only spaces</li>
+            <li>Maximum line length: 100 characters</li>
+            <li>Use empty lines to separate logical blocks</li>
+          </ul>
+        </div>
+        
+        <div class="style-item">
+          <h3>Naming Conventions</h3>
+          <ul>
+            <li>Variables: camelCase (e.g., userName)</li>
+            <li>Functions: camelCase (e.g., getUserData())</li>
+            <li>Classes: PascalCase (e.g., UserService)</li>
+            <li>Constants: UPPER_SNAKE_CASE (e.g., MAX_RETRY_COUNT)</li>
+          </ul>
+        </div>
+        
+        <div class="style-item">
+          <h3>Comment Standards</h3>
+          <ul>
+            <li>Comment complex logic</li>
+            <li>Use JSDoc for functions</li>
+            <li>Avoid obvious comments</li>
+            <li>Keep comments up-to-date with code</li>
+          </ul>
+        </div>
+        
+        <div class="style-item">
+          <h3>Error Handling</h3>
+          <ul>
+            <li>Always handle exceptions</li>
+            <li>Use descriptive error messages</li>
+            <li>Log errors appropriately</li>
+            <li>Fail fast, fail loudly</li>
+          </ul>
+        </div>
+      </div>
     </section>
+
+    <section class="style-section">
+      <h2><i class="fas fa-file-alt"></i> Documentation Standards</h2>
+      <div class="doc-standards">
+        <div class="standard-card">
+          <h3>API Documentation</h3>
+          <div class="code-example">
+            <pre><code>/**
+ * Retrieves user data by ID
+ * @param {string} userId - The user's unique identifier
+ * @param {Object} options - Additional options
+ * @param {boolean} options.includeProfile - Include user profile data
+ * @returns {Promise&lt;Object&gt;} User data object
+ * @throws {Error} When user is not found
+ */
+async function getUser(userId, options = {}) {
+  // Implementation
+}</code></pre>
+          </div>
+        </div>
+        
+        <div class="standard-card">
+          <h3>README Structure</h3>
+          <ul>
+            <li>Project description</li>
+            <li>Installation instructions</li>
+            <li>Usage examples</li>
+            <li>API documentation</li>
+            <li>Contributing guidelines</li>
+            <li>License information</li>
+          </ul>
+        </div>
+        
+        <div class="standard-card">
+          <h3>Commit Messages</h3>
+          <div class="commit-examples">
+            <div class="commit-example good">
+              <span class="type">feat:</span> Add user authentication module
+            </div>
+            <div class="commit-example good">
+              <span class="type">fix:</span> Resolve memory leak in data processing
+            </div>
+            <div class="commit-example bad">
+              Fixed stuff
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="style-section">
+      <h2><i class="fas fa-project-diagram"></i> Design Patterns</h2>
+      <div class="patterns-grid">
+        <div class="pattern-card">
+          <h3>Singleton Pattern</h3>
+          <p>Ensure a class has only one instance and provide global access to it.</p>
+          <div class="pattern-use">
+            <strong>Use cases:</strong> Database connections, logging, configuration managers
+          </div>
+        </div>
+        
+        <div class="pattern-card">
+          <h3>Factory Pattern</h3>
+          <p>Create objects without specifying the exact class of object that will be created.</p>
+          <div class="pattern-use">
+            <strong>Use cases:</strong> Object creation with complex logic, plugin systems
+          </div>
+        </div>
+        
+        <div class="pattern-card">
+          <h3>Observer Pattern</h3>
+          <p>Define a one-to-many dependency between objects so that when one changes state, all dependents are notified.</p>
+          <div class="pattern-use">
+            <strong>Use cases:</strong> Event systems, UI updates, notification systems
+          </div>
+        </div>
+        
+        <div class="pattern-card">
+          <h3>Repository Pattern</h3>
+          <p>Mediate between the domain and data mapping layers using a collection-like interface for accessing domain objects.</p>
+          <div class="pattern-use">
+            <strong>Use cases:</strong> Data access layers, ORM implementations
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="style-section">
+      <h2><i class="fas fa-check-circle"></i> Code Review Checklist</h2>
+      <div class="checklist">
+        <div class="checklist-column">
+          <h3>Functionality</h3>
+          <ul>
+            <li><label><input type="checkbox"> Code meets requirements</label></li>
+            <li><label><input type="checkbox"> Edge cases handled</label></li>
+            <li><label><input type="checkbox"> Error handling implemented</label></li>
+            <li><label><input type="checkbox"> Tests cover critical paths</label></li>
+          </ul>
+        </div>
+        
+        <div class="checklist-column">
+          <h3>Code Quality</h3>
+          <ul>
+            <li><label><input type="checkbox"> Follows style guide</label></li>
+            <li><label><input type="checkbox"> No code duplication</label></li>
+            <li><label><input type="checkbox"> Proper naming conventions</label></li>
+            <li><label><input type="checkbox"> Adequate comments</label></li>
+          </ul>
+        </div>
+        
+        <div class="checklist-column">
+          <h3>Performance</h3>
+          <ul>
+            <li><label><input type="checkbox"> No obvious performance issues</label></li>
+            <li><label><input type="checkbox"> Efficient algorithms used</label></li>
+            <li><label><input type="checkbox"> Memory usage optimized</label></li>
+            <li><label><input type="checkbox"> Database queries optimized</label></li>
+          </ul>
+        </div>
+        
+        <div class="checklist-column">
+          <h3>Security</h3>
+          <ul>
+            <li><label><input type="checkbox"> Input validation present</label></li>
+            <li><label><input type="checkbox"> No hardcoded secrets</label></li>
+            <li><label><input type="checkbox"> Proper authentication</label></li>
+            <li><label><input type="checkbox"> SQL injection prevented</label></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="style-section">
+      <h2><i class="fas fa-tools"></i> Development Tools & Configuration</h2>
+      <div class="tools-grid">
+        <div class="tool-item">
+          <h3>Linting</h3>
+          <p>ESLint, Prettier, and SonarQube for code quality and consistency.</p>
+          <div class="tool-config">
+            <code>.eslintrc.json</code> configured with team standards
+          </div>
+        </div>
+        
+        <div class="tool-item">
+          <h3>Testing</h3>
+          <p>Jest, Mocha, and Cypress for unit, integration, and E2E testing.</p>
+          <div class="tool-config">
+            Minimum 80% code coverage required
+          </div>
+        </div>
+        
+        <div class="tool-item">
+          <h3>Git Hooks</h3>
+          <p>Husky and lint-staged for pre-commit validation.</p>
+          <div class="tool-config">
+            Automated formatting and linting on commit
+          </div>
+        </div>
+        
+        <div class="tool-item">
+          <h3>CI/CD</h3>
+          <p>GitHub Actions for automated testing and deployment.</p>
+          <div class="tool-config">
+            Multi-stage pipeline with quality gates
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<style>
+.styleguide-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.styleguide-intro {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-bottom: 50px;
+  padding: 0 20px;
+}
+
+.style-section {
+  margin-bottom: 60px;
+}
+
+.style-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.style-section h2 i {
+  color: #667eea;
+}
+
+/* Code Style Grid */
+.style-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.style-item {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border-left: 4px solid #667eea;
+}
+
+.style-item h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.style-item ul {
+  list-style: none;
+  padding: 0;
+}
+
+.style-item li {
+  padding: 8px 0;
+  color: #6c757d;
+  position: relative;
+  padding-left: 20px;
+}
+
+.style-item li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Documentation Standards */
+.doc-standards {
+  display: grid;
+  gap: 30px;
+}
+
+.standard-card {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.standard-card h3 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.code-example {
+  background: #1e1e1e;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 15px 0;
+}
+
+.code-example code {
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.commit-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.commit-example {
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.commit-example.good {
+  background: #e8f5e8;
+  color: #2e7d32;
+}
+
+.commit-example.bad {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.type {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+/* Patterns Grid */
+.patterns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.pattern-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.pattern-card:hover {
+  transform: translateY(-5px);
+}
+
+.pattern-card h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.pattern-card p {
+  color: #6c757d;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.pattern-use {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.pattern-use strong {
+  color: #667eea;
+}
+
+/* Checklist */
+.checklist {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.checklist-column h3 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.checklist-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.checklist-column li {
+  margin-bottom: 12px;
+}
+
+.checklist-column label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.checklist-column input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
+}
+
+/* Tools Grid */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.tool-item {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border-top: 4px solid #667eea;
+}
+
+.tool-item h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.tool-item p {
+  color: #6c757d;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.tool-config {
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #2c3e50;
+}
+
+@media (max-width: 768px) {
+  .style-grid,
+  .patterns-grid,
+  .checklist,
+  .tools-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .style-section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .style-item,
+  .standard-card,
+  .pattern-card,
+  .tool-item {
+    padding: 20px;
+  }
+}
+</style>

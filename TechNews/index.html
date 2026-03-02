@@ -1,257 +1,500 @@
 ---
-layout: default
-title: Tech News
-permalink: /technews/
-description: "Curated technical news, industry trends, and major updates in the world of software development, AI, cloud, and fintech."
-keywords: ["tech news", "latest in engineering", "software trends", "fintech updates", "cloud news", "AI news", "GCP", "AWS", "DevOps tools", "backend development"]
+layout: page
+title: "Tech News"
+subtitle: "Latest Technology News & Analysis"
+description: "Stay updated with the latest developments in AI, cloud computing, DevOps, and emerging technologies. Curated news with technical analysis and insights."
+keywords: ["tech news", "technology updates", "AI news", "cloud computing", "DevOps news", "emerging technologies", "tech analysis"]
 ---
 
+<div class="technews-content">
+  <div class="technews-intro">
+    <p>Curated technology news and analysis with technical insights for engineering leaders and senior developers. Stay informed about the latest developments shaping our industry.</p>
+  </div>
 
-<section class="blog-listing">
-    <h1 class="page-title scroll-animate fade-in-up">📚 What's New around the World</h1>
-    <p class="page-subtitle scroll-animate fade-in-up" style="text-align: center; font-style: italic; margin-top: -10px;">
-        Stay Updated with the Latest in Tech - Curated news, breakthroughs, and updates from across the tech industry to keep you informed and ahead of the curve.
-    </p>
-
-    {% assign blog_posts = site.posts | where_exp: "post", "post.url contains '/technews/'" %}
-
-    {% if blog_posts.size > 0 %}
-    <div class="posts-grid">
-        {% for post in blog_posts %}
-        <article class="post-card scroll-animate scale-in">
-            <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-            <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
-            {% if post.excerpt %}
-            <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+  {% assign technews_posts = site.posts | where_exp: "post", "post.url contains '/technews/' or post.url contains '/TechNews/'" %}
+  {% if technews_posts.size > 0 %}
+    <div class="news-grid">
+      {% for post in technews_posts %}
+        <article class="news-card">
+          <div class="news-header">
+            <div class="news-category">
+              {% if post.category %}
+                <span class="category-badge">{{ post.category }}</span>
+              {% endif %}
+            </div>
+            <div class="news-meta">
+              <span class="news-date">
+                <i class="fas fa-calendar"></i>
+                {{ post.date | date: "%B %d, %Y" }}
+              </span>
+              {% if post.author %}
+                <span class="news-author">
+                  <i class="fas fa-user"></i>
+                  {{ post.author }}
+                </span>
+              {% endif %}
+            </div>
+          </div>
+          
+          <h3 class="news-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h3>
+          
+          {% if post.excerpt %}
+            <div class="news-excerpt">
+              {{ post.excerpt | strip_html | truncate: 200 }}
+            </div>
+          {% endif %}
+          
+          {% if post.summary %}
+            <div class="news-summary">
+              <strong>Key Points:</strong>
+              <p>{{ post.summary }}</p>
+            </div>
+          {% endif %}
+          
+          {% if post.tags %}
+            <div class="news-tags">
+              {% for tag in post.tags limit:4 %}
+                <span class="tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+          
+          <div class="news-footer">
+            <a href="{{ post.url | relative_url }}" class="read-more">
+              Read Full Story <i class="fas fa-arrow-right"></i>
+            </a>
+            {% if post.external_url %}
+              <a href="{{ post.external_url }}" class="external-link" target="_blank" rel="noopener">
+                <i class="fas fa-external-link-alt"></i>
+                Source
+              </a>
             {% endif %}
-            <a class="read-more magnetic-btn" href="{{ post.url | relative_url }}">Read more →</a>
+          </div>
         </article>
-        {% endfor %}
+      {% endfor %}
     </div>
-    {% else %}
-    <p>No blog posts found in the "blog" category.</p>
-    {% endif %}
-
-</section>
+  {% else %}
+    <div class="empty-state">
+      <i class="fas fa-newspaper"></i>
+      <h3>No tech news available</h3>
+      <p>Check back soon for the latest technology updates and analysis!</p>
+    </div>
+  {% endif %}
+  
+  <div class="news-categories">
+    <h2>News Categories</h2>
+    <div class="category-grid">
+      <div class="category-card featured">
+        <i class="fas fa-brain"></i>
+        <h3>Artificial Intelligence</h3>
+        <p>Latest AI developments, machine learning breakthroughs, and LLM updates</p>
+        <div class="category-stats">
+          <span>Daily Updates</span>
+          <span>Expert Analysis</span>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <i class="fas fa-cloud"></i>
+        <h3>Cloud Computing</h3>
+        <p>Cloud platform updates, infrastructure innovations, and DevOps trends</p>
+        <div class="category-stats">
+          <span>Industry News</span>
+          <span>Technical Insights</span>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Cybersecurity</h3>
+        <p>Security threats, vulnerabilities, and protection strategies</p>
+        <div class="category-stats">
+          <span>Breaking News</span>
+          <span>Risk Analysis</span>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>Mobile & Web</h3>
+        <p>Browser updates, mobile tech, and web development news</p>
+        <div class="category-stats">
+          <span>Release Notes</span>
+          <span>Developer Focus</span>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <i class="fas fa-chart-line"></i>
+        <h3>Industry Analysis</h3>
+        <p>Market trends, company updates, and strategic insights</p>
+        <div class="category-stats">
+          <span>Weekly Reports</span>
+          <span>Data-driven</span>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <i class="fas fa-rocket"></i>
+        <h3>Startups & Innovation</h3>
+        <p>Startup funding, product launches, and innovation highlights</p>
+        <div class="category-stats">
+          <span>Funding News</span>
+          <span>Product Launches</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="newsletter-cta">
+    <div class="cta-content">
+      <h3>Stay Ahead of Tech Trends</h3>
+      <p>Get curated tech news and analysis delivered to your inbox every week.</p>
+      <a href="https://rkoots.substack.com/subscribe" class="btn btn-primary" target="_blank" rel="noopener">
+        <i class="fas fa-envelope"></i>
+        Subscribe to Tech Newsletter
+      </a>
+    </div>
+  </div>
+</div>
 
 <style>
-    .blog-listing {
-      padding: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+.technews-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-    .page-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-align: center;
-      margin-bottom: 0.5rem;
-      animation: fadeInDown 0.8s ease-out;
-    }
+.technews-intro {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-bottom: 50px;
+  padding: 0 20px;
+}
 
-    .page-subtitle {
-      text-align: center;
-      font-style: italic;
-      color: #666;
-      margin-bottom: 3rem;
-      font-size: 1.1rem;
-      animation: fadeInUp 0.8s ease-out 0.2s both;
-    }
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
 
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 2.5rem;
-      perspective: 1000px;
-    }
+.news-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
 
-    .post-card {
-      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-      border: none;
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-      animation: slideInUp 0.6s ease-out;
-      animation-fill-mode: both;
-    }
+.news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
 
-    .post-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
-      background-size: 200% 100%;
-      animation: gradientShift 3s ease-in-out infinite;
-    }
+.news-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
 
-    .post-card:nth-child(1) { animation-delay: 0.1s; }
-    .post-card:nth-child(2) { animation-delay: 0.2s; }
-    .post-card:nth-child(3) { animation-delay: 0.3s; }
-    .post-card:nth-child(4) { animation-delay: 0.4s; }
-    .post-card:nth-child(5) { animation-delay: 0.5s; }
-    .post-card:nth-child(6) { animation-delay: 0.6s; }
+.category-badge {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
 
-    .post-card:hover {
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
+.news-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
 
-    .post-card:hover::after {
-      opacity: 0.1;
-    }
+.news-date,
+.news-author {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 
-    .post-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at center, #667eea, #764ba2);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
+.news-meta i {
+  color: #667eea;
+}
 
-    .post-card h2 {
-      margin: 0 0 0.5rem;
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: #2d3748;
-      line-height: 1.3;
-    }
+.news-title {
+  margin: 0 0 15px 0;
+  line-height: 1.3;
+}
 
-    .post-card h2 a {
-      text-decoration: none;
-      color: inherit;
-      transition: color 0.3s ease;
-      position: relative;
-    }
+.news-title a {
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
 
-    .post-card h2 a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      transition: width 0.3s ease;
-    }
+.news-title a:hover {
+  color: #667eea;
+}
 
-    .post-card:hover h2 a::after {
-      width: 100%;
-    }
+.news-excerpt {
+  color: #6c757d;
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 20px;
+}
 
-    .post-meta {
-      font-size: 0.9rem;
-      color: #718096;
-      margin-bottom: 1rem;
-      font-weight: 500;
-    }
+.news-summary {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
 
-    .post-excerpt {
-      font-size: 1rem;
-      color: #4a5568;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
+.news-summary strong {
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
 
-    .read-more {
-      font-weight: 600;
-      text-decoration: none;
-      color: #667eea;
-      display: inline-flex;
-      align-items: center;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
+.news-summary p {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin: 5px 0 0 0;
+}
 
-    .read-more::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      transition: width 0.3s ease;
-    }
+.news-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
 
-    .read-more:hover::before {
-      width: 100%;
-    }
+.tag {
+  background: #f8f9fa;
+  color: #667eea;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
 
-    .read-more:hover {
-      color: #764ba2;
-      transform: translateX(4px);
-    }
+.news-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
 
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+.read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+.read-more:hover {
+  color: #5a6fd8;
+  transform: translateX(5px);
+}
 
-    @keyframes slideInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+.external-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #6c757d;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
 
-    @keyframes gradientShift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
+.external-link:hover {
+  color: #667eea;
+}
 
-    @media (max-width: 768px) {
-      .blog-listing {
-        padding: 1rem;
-      }
-      
-      .page-title {
-        font-size: 2rem;
-      }
-      
-      .posts-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-      
-      .post-card {
-        padding: 1.5rem;
-      }
-    }
+/* News Categories */
+.news-categories {
+  margin: 80px 0;
+}
+
+.news-categories h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 40px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.category-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.category-card.featured {
+  border-color: #667eea;
+  transform: scale(1.05);
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.category-card.featured:hover {
+  transform: scale(1.05) translateY(-5px);
+}
+
+.category-card i {
+  font-size: 2.5rem;
+  color: #667eea;
+  margin-bottom: 20px;
+}
+
+.category-card h3 {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.category-card p {
+  color: #6c757d;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.category-stats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+/* Newsletter CTA */
+.newsletter-cta {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 60px 30px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.cta-content h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.cta-content p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffd700;
+  color: #2c3e50;
+  padding: 15px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #ffed4e;
+  transform: translateY(-2px);
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  color: #e9ecef;
+  margin-bottom: 20px;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+@media (max-width: 768px) {
+  .news-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .news-card {
+    padding: 20px;
+  }
+  
+  .news-title a {
+    font-size: 1.1rem;
+  }
+  
+  .news-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .news-meta {
+    align-items: flex-start;
+  }
+  
+  .news-footer {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .category-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  .category-card.featured {
+    transform: none;
+  }
+  
+  .newsletter-cta {
+    padding: 40px 20px;
+  }
+}
 </style>
