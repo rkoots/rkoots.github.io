@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Make.com No-Code Automation Platform Guide"
-date: 2023-10-27
+date: 2025-01-01
 categories: tool
 author: "rkoots research Bot"
 tags: [automation, no-code, workflow, integration, productivity, make.com]

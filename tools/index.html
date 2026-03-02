@@ -71,26 +71,51 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
   <div class="tools-categories">
     <h2>Tool Categories</h2>
     <div class="category-grid">
-      <div class="category-card">
+      <div class="category-card ai-tools">
+        <i class="fas fa-robot"></i>
+        <h3>AI Tools</h3>
+        <p>AI-powered assistants and development tools</p>
+        <div class="category-count">8 tools</div>
+      </div>
+      <div class="category-card dev-tools">
         <i class="fas fa-code"></i>
-        <h3>Development Tools</h3>
-        <p>IDEs, editors, and development environments</p>
+        <h3>Development</h3>
+        <p>IDEs, terminals, and coding utilities</p>
+        <div class="category-count">4 tools</div>
       </div>
-      <div class="category-card">
-        <i class="fas fa-bug"></i>
-        <h3>Debugging Utilities</h3>
-        <p>Testing and debugging tools for developers</p>
-      </div>
-      <div class="category-card">
+      <div class="category-card productivity-tools">
         <i class="fas fa-rocket"></i>
-        <h3>Productivity Boosters</h3>
-        <p>Tools to enhance workflow and efficiency</p>
+        <h3>Productivity</h3>
+        <p>Browsers, note-taking, and workflow tools</p>
+        <div class="category-count">6 tools</div>
       </div>
-      <div class="category-card">
+      <div class="category-card automation-tools">
         <i class="fas fa-cogs"></i>
-        <h3>Automation Scripts</h3>
-        <p>Scripts and utilities for task automation</p>
+        <h3>Automation</h3>
+        <p>No-code platforms and workflow automation</p>
+        <div class="category-count">2 tools</div>
       </div>
+    </div>
+  </div>
+
+  <div class="featured-section">
+    <h2>🔥 Featured AI Tools</h2>
+    <div class="featured-grid">
+      {% assign ai_tools = tool_posts | where_exp: "post", "post.tags contains 'AI' or post.tags contains 'Cursor' or post.tags contains 'Copilot'" %}
+      {% for post in ai_tools limit:6 %}
+        <div class="featured-card">
+          <div class="featured-icon">
+            {% if post.icon %}
+              <i class="{{ post.icon }}"></i>
+            {% else %}
+              <i class="fas fa-robot"></i>
+            {% endif %}
+          </div>
+          <h4>{{ post.title }}</h4>
+          <p>{{ post.excerpt | strip_html | truncate: 80 }}</p>
+          <a href="{{ post.url | relative_url }}" class="featured-link">Explore →</a>
+        </div>
+      {% endfor %}
     </div>
   </div>
 </div>
@@ -263,29 +288,142 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
   border-radius: 12px;
   text-align: center;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card.ai-tools {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.category-card.dev-tools {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  color: white;
+}
+
+.category-card.productivity-tools {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: white;
+}
+
+.category-card.automation-tools {
+  background: linear-gradient(135deg, #43e97b, #38f9d7);
+  color: white;
 }
 
 .category-card:hover {
-  background: white;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  transform: translateY(-3px);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
 }
 
 .category-card i {
   font-size: 2.5rem;
-  color: #667eea;
   margin-bottom: 20px;
+  opacity: 0.9;
 }
 
 .category-card h3 {
   font-size: 1.2rem;
-  color: #2c3e50;
+  color: inherit;
   margin-bottom: 10px;
 }
 
 .category-card p {
+  color: inherit;
+  opacity: 0.9;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.category-count {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.featured-section {
+  margin-top: 80px;
+  padding: 60px 0;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 20px;
+  margin-bottom: 40px;
+}
+
+.featured-section h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 40px;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.featured-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.featured-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.featured-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  margin: 0 auto 20px;
+}
+
+.featured-card h4 {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.featured-card p {
   color: #6c757d;
   line-height: 1.5;
+  margin-bottom: 20px;
+  min-height: 60px;
+}
+
+.featured-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.featured-link:hover {
+  color: #5a6fd8;
+  transform: translateX(5px);
 }
 
 .empty-state {
