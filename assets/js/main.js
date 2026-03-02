@@ -1,1 +1,275 @@
-function scrollHeader(){let e=document.getElementById("header");this.scrollY>=50?e.classList.add("scroll-header"):e.classList.remove("scroll-header")}window.addEventListener("scroll",scrollHeader);const modalViews=document.querySelectorAll(".services__modal"),modalBtns=document.querySelectorAll(".services__button"),modalClose=document.querySelectorAll(".services__modal-close");let modal=function(e){modalViews[e].classList.add("active-modal")};modalBtns.forEach((e,t)=>{e.addEventListener("click",()=>{modal(t)})}),modalClose.forEach(e=>{e.addEventListener("click",()=>{modalViews.forEach(e=>{e.classList.remove("active-modal")})})});let mixer=mixitup(".work__container",{selectors:{target:".work__card"},animation:{duration:300}});const workLinks=document.querySelectorAll(".work__item");function activeWork(e){workLinks.forEach(e=>{e.classList.remove("active-work")}),e.classList.add("active-work")}workLinks.forEach(e=>{e.addEventListener("click",()=>{activeWork(e)})});let swiperTestimonial=new Swiper(".testimonial__container",{spaceBetween:24,loop:!0,grabCursor:!0,pagination:{el:".swiper-pagination",clickable:!0},breakpoints:{576:{slidesPerView:2},768:{slidesPerView:2,spaceBetween:48}}});const sections=document.querySelectorAll("section[id]");function scrollActive(){let e=window.pageYOffset;sections.forEach(t=>{let o=t.offsetHeight,s=t.offsetTop-58,a=t.getAttribute("id");e>s&&e<=s+o?document.querySelector(".nav__menu a[href*="+a+"]").classList.add("active-link"):document.querySelector(".nav__menu a[href*="+a+"]").classList.remove("active-link")})}window.addEventListener("scroll",scrollActive);const themeButton=document.getElementById("theme-button"),lightTheme="light-theme",iconTheme="bx-sun",selectedTheme=localStorage.getItem("selected-theme"),selectedIcon=localStorage.getItem("selected-icon"),getCurrentTheme=()=>document.body.classList.contains(lightTheme)?"dark":"light",getCurrentIcon=()=>themeButton.classList.contains(iconTheme)?"bx bx-moon":"bx bx-sun";selectedTheme&&(document.body.classList["dark"===selectedTheme?"add":"remove"](lightTheme),themeButton.classList["bx bx-moon"===selectedIcon?"add":"remove"](iconTheme)),themeButton.addEventListener("click",()=>{document.body.classList.toggle(lightTheme),themeButton.classList.toggle(iconTheme),localStorage.setItem("selected-theme",getCurrentTheme()),localStorage.setItem("selected-icon",getCurrentIcon())});const sr=ScrollReveal({origin:"top",distance:"60px",duration:2500,delay:400,reset:!0});sr.reveal(".nav__menu",{delay:100,scale:.1,origin:"bottom",distance:"300px"}),sr.reveal(".home__data"),sr.reveal(".home__handle",{delay:100}),sr.reveal(".home__social, .home__scroll",{delay:100,origin:"bottom"}),sr.reveal(".about__img",{delay:100,origin:"left",scale:.9,distance:"30px"}),sr.reveal(".about__data, .about__description, .about__button-contact",{delay:100,scale:.9,origin:"right",distance:"30px"}),sr.reveal(".skills__content",{delay:100,scale:.9,origin:"bottom",distance:"30px"}),sr.reveal(".services__title, services__button",{delay:100,scale:.9,origin:"top",distance:"30px"}),sr.reveal(".work__card",{delay:100,scale:.9,origin:"bottom",distance:"30px"}),sr.reveal(".testimonial__container",{delay:100,scale:.9,origin:"bottom",distance:"30px"}),sr.reveal(".contact__info, .contact__title-info",{delay:100,scale:.9,origin:"left",distance:"30px"}),sr.reveal(".contact__form, .contact__title-form",{delay:100,scale:.9,origin:"right",distance:"30px"}),sr.reveal(".footer, footer__container",{delay:100,scale:.9,origin:"bottom",distance:"30px"});
+// RKoots Technical Knowledge Hub - Main JavaScript
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Mobile Menu Toggle
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  const mobileNavClose = document.getElementById('mobile-nav-close');
+  
+  if (mobileMenuToggle && mobileNav) {
+    mobileMenuToggle.addEventListener('click', function() {
+      mobileNav.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+  
+  if (mobileNavClose && mobileNav) {
+    mobileNavClose.addEventListener('click', function() {
+      mobileNav.classList.remove('is-open');
+      document.body.style.overflow = '';
+    });
+  }
+  
+  // Search Modal
+  const searchToggle = document.getElementById('search-toggle');
+  const searchModal = document.getElementById('search-modal');
+  const searchModalClose = document.getElementById('search-modal-close');
+  const searchInput = document.getElementById('search-input');
+  
+  if (searchToggle && searchModal) {
+    searchToggle.addEventListener('click', function() {
+      searchModal.classList.add('is-open');
+      if (searchInput) {
+        searchInput.focus();
+      }
+    });
+  }
+  
+  if (searchModalClose && searchModal) {
+    searchModalClose.addEventListener('click', function() {
+      searchModal.classList.remove('is-open');
+    });
+  }
+  
+  // Close search modal on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && searchModal && searchModal.classList.contains('is-open')) {
+      searchModal.classList.remove('is-open');
+    }
+  });
+  
+  // Dark Mode Toggle
+  const darkModeToggle = document.getElementById('dark-mode-toggle');
+  const body = document.body;
+  
+  // Check for saved dark mode preference or default to light mode
+  const currentTheme = localStorage.getItem('theme') || 'light';
+  
+  if (currentTheme === 'dark') {
+    body.classList.add('dark-mode');
+    if (darkModeToggle) {
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+  }
+  
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', function() {
+      body.classList.toggle('dark-mode');
+      const isDarkMode = body.classList.contains('dark-mode');
+      
+      // Update icon
+      darkModeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+      
+      // Save preference
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    });
+  }
+  
+  // Smooth scroll for anchor links
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  anchorLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href !== '#') {
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }
+    });
+  });
+  
+  // Add active class to navigation based on current page
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+  
+  navLinks.forEach(link => {
+    const linkPath = new URL(link.href).pathname;
+    if (linkPath === currentPath || (currentPath === '/' && linkPath === '/')) {
+      link.classList.add('active');
+    }
+  });
+  
+  // Newsletter form submission
+  const newsletterForms = document.querySelectorAll('.newsletter-form');
+  newsletterForms.forEach(form => {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = this.querySelector('input[type="email"]').value;
+      
+      // Show success message (in a real implementation, this would submit to a service)
+      const successMessage = document.createElement('div');
+      successMessage.className = 'newsletter-success';
+      successMessage.innerHTML = `
+        <div style="background: #28a745; color: white; padding: 15px; border-radius: 8px; margin-top: 10px;">
+          <i class="fas fa-check-circle"></i> Thank you for subscribing! Check your email for confirmation.
+        </div>
+      `;
+      
+      this.appendChild(successMessage);
+      this.reset();
+      
+      // Remove message after 5 seconds
+      setTimeout(() => {
+        successMessage.remove();
+      }, 5000);
+    });
+  });
+  
+  // Copy code functionality
+  const codeBlocks = document.querySelectorAll('pre code');
+  codeBlocks.forEach(block => {
+    const button = document.createElement('button');
+    button.className = 'copy-code-btn';
+    button.innerHTML = '<i class="fas fa-copy"></i>';
+    button.title = 'Copy code';
+    
+    const pre = block.parentElement;
+    pre.style.position = 'relative';
+    pre.appendChild(button);
+    
+    button.addEventListener('click', function() {
+      navigator.clipboard.writeText(block.textContent).then(() => {
+        button.innerHTML = '<i class="fas fa-check"></i>';
+        button.title = 'Copied!';
+        
+        setTimeout(() => {
+          button.innerHTML = '<i class="fas fa-copy"></i>';
+          button.title = 'Copy code';
+        }, 2000);
+      });
+    });
+  });
+  
+  // Performance optimization: Lazy load images
+  const images = document.querySelectorAll('img[data-src]');
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;
+        img.classList.remove('lazy');
+        imageObserver.unobserve(img);
+      }
+    });
+  });
+  
+  images.forEach(img => imageObserver.observe(img));
+  
+  // Initialize tooltips if needed
+  const tooltipElements = document.querySelectorAll('[data-tooltip]');
+  tooltipElements.forEach(element => {
+    element.addEventListener('mouseenter', function() {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'tooltip';
+      tooltip.textContent = this.dataset.tooltip;
+      document.body.appendChild(tooltip);
+      
+      const rect = this.getBoundingClientRect();
+      tooltip.style.left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + 'px';
+      tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
+      
+      this.tooltipElement = tooltip;
+    });
+    
+    element.addEventListener('mouseleave', function() {
+      if (this.tooltipElement) {
+        this.tooltipElement.remove();
+        this.tooltipElement = null;
+      }
+    });
+  });
+});
+
+// Add CSS for copy button and tooltips
+const style = document.createElement('style');
+style.textContent = `
+  .copy-code-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  pre:hover .copy-code-btn {
+    opacity: 1;
+  }
+  
+  .copy-code-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+  }
+  
+  .tooltip {
+    position: absolute;
+    background: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+  }
+  
+  .nav-link.active,
+  .mobile-nav-link.active {
+    color: #667eea !important;
+    font-weight: 600;
+  }
+  
+  .dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+  
+  .dark-mode .site-header {
+    background: #2d2d2d;
+    border-bottom-color: #444;
+  }
+  
+  .dark-mode .nav-link {
+    color: #ffffff;
+  }
+  
+  .dark-mode .nav-dropdown {
+    background: #2d2d2d;
+    border-color: #444;
+  }
+  
+  .dark-mode .newsletter-section {
+    background: linear-gradient(135deg, #4a5fc1 0%, #6a4c90 100%);
+  }
+  
+  .lazy {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .lazy.loaded {
+    opacity: 1;
+  }
+`;
+
+document.head.appendChild(style);

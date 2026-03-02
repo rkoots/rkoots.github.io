@@ -1,4 +1,4 @@
-# RKoots Technical Knowledge Hub - Enhanced SEO Configuration
+# RKoots Technical Knowledge Hub - GitHub Pages Compatible Configuration
 
 title: "RKoots - Technical Architecture & Engineering Leadership"
 description: "Deep technical guides on system architecture, engineering leadership, cloud infrastructure, and scalable systems. Built for senior engineers and tech leaders."
@@ -18,56 +18,55 @@ seo:
   default_image: "/assets/images/rkoots-technical-guide-social.jpg"
   twitter_card: "summary_large_image"
   twitter_username: "rkoots"
-  facebook_app_id: ""
-  google_site_verification: ""
-  bing_site_verification: ""
 
 # Site Configuration
 lang: en
 timezone: Asia/Kolkata
 encoding: utf-8
 
-# Build Settings
+# Build Settings - GitHub Pages Compatible
 markdown: kramdown
 highlighter: rouge
 kramdown:
   input: GFM
   syntax_highlighter: rouge
 
-# Plugins
+# GitHub Pages Compatible Plugins
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-minifier
+  - jekyll-paginate
+  - jekyll-github-metadata
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
 
-# Collections
+# Pagination (for blog posts)
+paginate: 10
+paginate_path: "/insights/page:num/"
+
+# Collections - GitHub Pages Compatible
 collections:
   architecture:
     output: true
     permalink: /:collection/:name/
-    description: "System architecture guides and patterns"
   leadership:
     output: true
     permalink: /:collection/:name/
-    description: "Engineering leadership insights and frameworks"
   cloud:
     output: true
     permalink: /:collection/:name/
-    description: "Cloud architecture and DevOps best practices"
   tools:
     output: true
     permalink: /:collection/:name/
-    description: "Developer tools and productivity guides"
   programming:
     output: true
     permalink: /:collection/:name/
-    description: "Programming deep dives and optimization"
   ai_ml:
     output: true
     permalink: /:collection/:name/
-    description: "AI/ML in production and MLOps"
 
 # Defaults
 defaults:
@@ -75,7 +74,7 @@ defaults:
       path: ""
       type: "posts"
     values:
-      layout: "post"
+      layout: "default"
       author: "Rajkumar Venkataraman"
       show_toc: true
       related_posts: true
@@ -83,7 +82,7 @@ defaults:
       path: ""
       type: "architecture"
     values:
-      layout: "technical-guide"
+      layout: "default"
       category: "architecture"
       show_toc: true
       related_posts: true
@@ -91,7 +90,7 @@ defaults:
       path: ""
       type: "leadership"
     values:
-      layout: "technical-guide"
+      layout: "default"
       category: "leadership"
       show_toc: true
       related_posts: true
@@ -99,7 +98,7 @@ defaults:
       path: ""
       type: "cloud"
     values:
-      layout: "technical-guide"
+      layout: "default"
       category: "cloud"
       show_toc: true
       related_posts: true
@@ -107,7 +106,7 @@ defaults:
       path: ""
       type: "tools"
     values:
-      layout: "tool-review"
+      layout: "default"
       category: "tools"
       show_toc: true
       related_posts: true
@@ -115,7 +114,7 @@ defaults:
       path: ""
       type: "programming"
     values:
-      layout: "technical-guide"
+      layout: "default"
       category: "programming"
       show_toc: true
       related_posts: true
@@ -123,7 +122,7 @@ defaults:
       path: ""
       type: "ai_ml"
     values:
-      layout: "technical-guide"
+      layout: "default"
       category: "ai-ml"
       show_toc: true
       related_posts: true
@@ -184,18 +183,11 @@ exclude:
   - LICENSE
   - CONTENT_STRATEGY.md
   - SEO_IMPLEMENTATION.md
+  - IMPLEMENTATION_GUIDE.md
 
 # Include
 include:
   - _pages
-
-# Pagination (for blog posts)
-paginate: 10
-paginate_path: "/insights/page:num/"
-
-# Analytics (placeholder - add your actual tracking codes)
-google_analytics: ""
-gtag: ""
 
 # Social Media
 social:
@@ -206,41 +198,29 @@ social:
     - https://github.com/rkoots
     - https://dev.to/rkoots
 
-# Technical SEO
-technical_seo:
-  # Performance
-  enable_image_optimization: true
-  enable_lazy_loading: true
-  enable_minification: true
-  
-  # Schema.org
-  enable_organization_schema: true
-  enable_person_schema: true
-  enable_article_schema: true
-  enable_techarticle_schema: true
-  enable_breadcrumb_schema: true
-  
-  # Open Graph
-  enable_open_graph: true
-  enable_twitter_cards: true
-  
-  # Sitemap
-  enable_sitemap: true
-  sitemap_change_frequency: "weekly"
-  sitemap_priority: "0.8"
+# Optional Front Matter
+optional_front_matter:
+  remove_originals: true
 
-# Content Organization
-content_organization:
-  featured_posts_count: 4
-  related_posts_count: 3
-  latest_posts_count: 6
-  popular_tags_count: 10
-  
-# Search Configuration
-search:
-  enable: true
-  provider: "lunr" # or "algolia"
-  algolia:
-    application_id: ""
-    index_name: ""
-    search_only_api_key: ""
+# Readme Index
+readme_index:
+  remove_originals: true
+  with_frontmatter: true
+
+# Titles from Headings
+titles_from_headings:
+  enabled: true
+  strip_title: true
+  collections: false
+
+# GitHub Metadata
+github: [metadata]
+
+# Analytics (placeholder - add your actual tracking codes)
+google_analytics: ""
+
+# Liquid Settings
+liquid:
+  error_mode: warn
+  strict_filters: false
+  strict_variables: false

@@ -1,0 +1,141 @@
+<!-- Newsletter Signup Section -->
+<section class="newsletter-section" aria-labelledby="newsletter-title">
+  <div class="container">
+    <div class="newsletter-content">
+      <div class="newsletter-text">
+        <h3 id="newsletter-title">Technical Insights Newsletter</h3>
+        <p>Get weekly architecture patterns, leadership strategies, and development insights delivered to your inbox. No fluff, just actionable technical content.</p>
+        <div class="newsletter-stats">
+          <span><strong>2,500+</strong> senior engineers subscribed</span>
+          <span><strong>95%</strong> open rate</span>
+        </div>
+      </div>
+      <form class="newsletter-form" action="https://your-newsletter-service.com/subscribe" method="post" target="_blank">
+        <div class="form-group">
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="your@email.com" 
+            required 
+            aria-label="Email address"
+            class="form-control"
+          >
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-envelope"></i>
+            Subscribe
+          </button>
+        </div>
+        <p class="newsletter-privacy">
+          <i class="fas fa-lock"></i>
+          Unsubscribe anytime. No spam, ever.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+.newsletter-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 60px 0;
+  margin: 60px 0;
+}
+
+.newsletter-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.newsletter-text h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.newsletter-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.newsletter-stats {
+  display: flex;
+  gap: 30px;
+  font-size: 0.9rem;
+}
+
+.newsletter-form {
+  background: rgba(255,255,255,0.1);
+  padding: 30px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-control {
+  padding: 15px 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  outline: none;
+}
+
+.form-control::placeholder {
+  color: rgba(255,255,255,0.7);
+}
+
+.form-control:focus {
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.15);
+}
+
+.btn-primary {
+  background: #ffd700;
+  color: #2c3e50;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #ffed4e;
+  transform: translateY(-2px);
+}
+
+.newsletter-privacy {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  text-align: center;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .newsletter-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .newsletter-text h3 {
+    font-size: 1.5rem;
+  }
+  
+  .newsletter-stats {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+</style>

@@ -1,0 +1,83 @@
+<!-- Breadcrumb Navigation -->
+{% if page.show_breadcrumbs and page.url != '/' %}
+<nav class="breadcrumb-nav" aria-label="Breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb-list">
+      <li class="breadcrumb-item">
+        <a href="{{ '/' | relative_url }}" class="breadcrumb-link">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
+      </li>
+      
+      {% if page.category %}
+        <li class="breadcrumb-item">
+          <a href="/{{ page.category }}/" class="breadcrumb-link">
+            <span>{{ page.category | capitalize }}</span>
+          </a>
+        </li>
+      {% endif %}
+      
+      {% if page.url != '/' %}
+        <li class="breadcrumb-item active" aria-current="page">
+          <span>{{ page.title }}</span>
+        </li>
+      {% endif %}
+    </ol>
+  </div>
+</nav>
+{% endif %}
+
+<style>
+.breadcrumb-nav {
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 15px 0;
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-item:not(:last-child)::after {
+  content: '/';
+  margin: 0 10px;
+  color: #6c757d;
+}
+
+.breadcrumb-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6c757d;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #667eea;
+}
+
+.breadcrumb-item.active span {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .breadcrumb-list {
+    font-size: 0.8rem;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+</style>
