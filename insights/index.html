@@ -11,7 +11,7 @@ keywords: ["technical insights", "industry analysis", "tech trends", "engineerin
     <p>Deep analysis of industry trends, technical innovations, and strategic insights for engineering leaders and senior developers navigating the evolving tech landscape.</p>
   </div>
 
-  {% assign insight_posts = site.posts | where_exp: "post", "post.url contains '/insights/'" %}
+  {% assign insight_posts = site.posts | where: "categories", "insights" %}
   {% if insight_posts.size > 0 %}
     <div class="insights-grid">
       {% for post in insight_posts %}

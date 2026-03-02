@@ -11,7 +11,7 @@ keywords: ["Tech blog", "rkoots blog", "engineering blog", "backend tutorials", 
     <p class="page-subtitle" style="text-align: center; font-style: italic; margin-top: -10px;">
         ✍️ Tools for Reference.
     </p>
-    {% assign blog_posts = site.posts | where_exp: "post", "post.url contains '/quickref/'" %}
+    {% assign blog_posts = site.posts | where: "categories", "quickref" %}
     {% if blog_posts.size > 0 %}
     <div class="posts-grid">
         {% for post in blog_posts %}

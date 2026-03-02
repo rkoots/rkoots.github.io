@@ -123,7 +123,7 @@ keywords: ["technical guides", "style guide", "coding standards", "crystal anima
       Featured Guides
     </h2>
     <div class="guides-grid">
-      {% assign featured_posts = site.posts | where_exp: "post", "post.url contains '/guide/'" | limit: 6 %}
+      {% assign featured_posts = site.posts | where: "categories", "guide" | limit: 6 %}
       {% for post in featured_posts %}
         <article class="guide-card crystal-card">
           <div class="card-header">

@@ -101,8 +101,14 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
   <div class="featured-section">
     <h2>🔥 Featured AI Tools</h2>
     <div class="featured-grid">
-      {% assign ai_tools = tool_posts | where_exp: "post", "post.tags contains 'AI' or post.tags contains 'Cursor' or post.tags contains 'Copilot'" %}
-      {% for post in ai_tools limit:6 %}
+      {% for post in tool_posts limit:6 %}
+        {% assign is_ai_tool = false %}
+        {% for tag in post.tags %}
+          {% if tag == "AI" or tag == "Cursor" or tag == "Copilot" %}
+            {% assign is_ai_tool = true %}
+          {% endif %}
+        {% endfor %}
+        {% if is_ai_tool %}
         <div class="featured-card">
           <div class="featured-icon">
             {% if post.icon %}
@@ -115,6 +121,7 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
           <p>{{ post.excerpt | strip_html | truncate: 80 }}</p>
           <a href="{{ post.url | relative_url }}" class="featured-link">Explore →</a>
         </div>
+        {% endif %}
       {% endfor %}
     </div>
   </div>

@@ -12,7 +12,7 @@
         <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
         <language>en-us</language>
 
-        {% assign blog_posts = site.posts | where_exp: "post", "post.path contains '/blog/_posts/'" | sort: "date" | reverse %}
+        {% assign blog_posts = site.posts | where: "categories", "blog" | sort: "date" | reverse %}
         {% for post in blog_posts %}
         <item>
             <title>{{ post.title | xml_escape }}</title>
