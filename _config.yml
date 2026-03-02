@@ -1,8 +1,246 @@
-title: rkoots TechGuide
-url: "https://rkoots.github.io"
+# RKoots Technical Knowledge Hub - Enhanced SEO Configuration
 
+title: "RKoots - Technical Architecture & Engineering Leadership"
+description: "Deep technical guides on system architecture, engineering leadership, cloud infrastructure, and scalable systems. Built for senior engineers and tech leaders."
+url: "https://rkoots.github.io"
+baseurl: ""
+
+# Author Information
+author:
+  name: "Rajkumar Venkataraman"
+  email: "contact@rkoots.com"
+  twitter: "rkoots"
+  github: "rkoots"
+  linkedin: "rkoots"
+
+# SEO Configuration
+seo:
+  default_image: "/assets/images/rkoots-technical-guide-social.jpg"
+  twitter_card: "summary_large_image"
+  twitter_username: "rkoots"
+  facebook_app_id: ""
+  google_site_verification: ""
+  bing_site_verification: ""
+
+# Site Configuration
+lang: en
+timezone: Asia/Kolkata
+encoding: utf-8
+
+# Build Settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Plugins
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-minifier
 
+# Collections
+collections:
+  architecture:
+    output: true
+    permalink: /:collection/:name/
+    description: "System architecture guides and patterns"
+  leadership:
+    output: true
+    permalink: /:collection/:name/
+    description: "Engineering leadership insights and frameworks"
+  cloud:
+    output: true
+    permalink: /:collection/:name/
+    description: "Cloud architecture and DevOps best practices"
+  tools:
+    output: true
+    permalink: /:collection/:name/
+    description: "Developer tools and productivity guides"
+  programming:
+    output: true
+    permalink: /:collection/:name/
+    description: "Programming deep dives and optimization"
+  ai_ml:
+    output: true
+    permalink: /:collection/:name/
+    description: "AI/ML in production and MLOps"
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Rajkumar Venkataraman"
+      show_toc: true
+      related_posts: true
+  - scope:
+      path: ""
+      type: "architecture"
+    values:
+      layout: "technical-guide"
+      category: "architecture"
+      show_toc: true
+      related_posts: true
+  - scope:
+      path: ""
+      type: "leadership"
+    values:
+      layout: "technical-guide"
+      category: "leadership"
+      show_toc: true
+      related_posts: true
+  - scope:
+      path: ""
+      type: "cloud"
+    values:
+      layout: "technical-guide"
+      category: "cloud"
+      show_toc: true
+      related_posts: true
+  - scope:
+      path: ""
+      type: "tools"
+    values:
+      layout: "tool-review"
+      category: "tools"
+      show_toc: true
+      related_posts: true
+  - scope:
+      path: ""
+      type: "programming"
+    values:
+      layout: "technical-guide"
+      category: "programming"
+      show_toc: true
+      related_posts: true
+  - scope:
+      path: ""
+      type: "ai_ml"
+    values:
+      layout: "technical-guide"
+      category: "ai-ml"
+      show_toc: true
+      related_posts: true
+
+# Category Configuration
+categories:
+  architecture:
+    name: "System Architecture"
+    description: "Microservices, distributed systems, scalability patterns, and architectural decision records"
+    color: "#1976d2"
+    icon: "fas fa-project-diagram"
+  leadership:
+    name: "Engineering Leadership"
+    description: "Team scaling, engineering culture, technical strategy, and code quality practices"
+    color: "#7b1fa2"
+    icon: "fas fa-users-cog"
+  cloud:
+    name: "Cloud & DevOps"
+    description: "Cloud architecture, Kubernetes, CI/CD pipelines, and infrastructure automation"
+    color: "#388e3c"
+    icon: "fas fa-cloud"
+  tools:
+    name: "Developer Tools"
+    description: "Development environments, productivity tools, automation scripts, and workflows"
+    color: "#f57c00"
+    icon: "fas fa-tools"
+  programming:
+    name: "Programming Deep Dives"
+    description: "Advanced Python, Java performance, Go programming, and optimization techniques"
+    color: "#d32f2f"
+    icon: "fas fa-code"
+  ai_ml:
+    name: "AI/ML in Production"
+    description: "MLOps, LLM integration, production ML systems, and AI architecture patterns"
+    color: "#7b1fa2"
+    icon: "fas fa-brain"
+
+# Feed Configuration
 feed:
   path: feed.xml
+  posts_limit: 20
+
+# Sass Configuration
+sass:
+  style: compressed
+  sass_dir: _sass
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+  - LICENSE
+  - CONTENT_STRATEGY.md
+  - SEO_IMPLEMENTATION.md
+
+# Include
+include:
+  - _pages
+
+# Pagination (for blog posts)
+paginate: 10
+paginate_path: "/insights/page:num/"
+
+# Analytics (placeholder - add your actual tracking codes)
+google_analytics: ""
+gtag: ""
+
+# Social Media
+social:
+  name: "Rajkumar Venkataraman"
+  links:
+    - https://twitter.com/rkoots
+    - https://www.linkedin.com/in/rkoots/
+    - https://github.com/rkoots
+    - https://dev.to/rkoots
+
+# Technical SEO
+technical_seo:
+  # Performance
+  enable_image_optimization: true
+  enable_lazy_loading: true
+  enable_minification: true
+  
+  # Schema.org
+  enable_organization_schema: true
+  enable_person_schema: true
+  enable_article_schema: true
+  enable_techarticle_schema: true
+  enable_breadcrumb_schema: true
+  
+  # Open Graph
+  enable_open_graph: true
+  enable_twitter_cards: true
+  
+  # Sitemap
+  enable_sitemap: true
+  sitemap_change_frequency: "weekly"
+  sitemap_priority: "0.8"
+
+# Content Organization
+content_organization:
+  featured_posts_count: 4
+  related_posts_count: 3
+  latest_posts_count: 6
+  popular_tags_count: 10
+  
+# Search Configuration
+search:
+  enable: true
+  provider: "lunr" # or "algolia"
+  algolia:
+    application_id: ""
+    index_name: ""
+    search_only_api_key: ""

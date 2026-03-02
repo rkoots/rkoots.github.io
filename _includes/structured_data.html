@@ -1,0 +1,214 @@
+<!-- Structured Data for SEO -->
+{% if page.layout == 'post' or page.layout == 'technical-guide' %}
+  <!-- TechArticle Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": {{ page.title | jsonify }},
+    "description": {{ page.description | jsonify }},
+    "image": [
+      {{ page.image | default: site.seo.default_image | absolute_url | jsonify }}
+    ],
+    "datePublished": "{{ page.date | date: "%Y-%m-%d" }}",
+    "dateModified": "{{ page.last_modified_at | default: page.date | date: "%Y-%m-%d" }}",
+    "author": {
+      "@type": "Person",
+      "name": {{ page.author | default: site.author.name | jsonify }},
+      "url": "{{ site.url }}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ site.title | jsonify }},
+      "url": {{ site.url | jsonify }},
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ site.seo.default_image | absolute_url | jsonify }}
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ page.url | absolute_url | jsonify }}
+    }
+    {% if page.programming_language %},
+    "programmingLanguage": {{ page.programming_language | jsonify }}
+    {% endif %}
+    {% if page.dependencies %},
+    "dependencies": {{ page.dependencies | jsonify }}
+    {% endif %}
+    {% if page.difficulty %},
+    "proficiencyLevel": "{{ page.difficulty | capitalize }}"
+    {% endif %}
+  }
+  </script>
+{% elsif page.layout == 'tool-review' %}
+  <!-- SoftwareApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": {{ page.title | jsonify }},
+    "description": {{ page.description | jsonify }},
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "offers": {
+      "@type": "Offer",
+      "price": "{{ page.price | default: '0' }}",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": {{ page.author | default: site.author.name | jsonify }}
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ site.title | jsonify }},
+      "url": {{ site.url | jsonify }}
+    },
+    "datePublished": "{{ page.date | date: "%Y-%m-%d" }}",
+    "dateModified": "{{ page.last_modified_at | default: page.date | date: "%Y-%m-%d" }}"
+  }
+  </script>
+{% endif %}
+
+<!-- Organization Schema (for homepage) -->
+{% if page.url == '/' %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "url": {{ site.url | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ site.seo.default_image | absolute_url | jsonify }},
+      "width": 1200,
+      "height": 630
+    },
+    "description": {{ site.description | jsonify }},
+    "founder": {
+      "@type": "Person",
+      "name": "Rajkumar Venkataraman",
+      "jobTitle": "VP of Engineering",
+      "sameAs": [
+        "https://www.linkedin.com/in/rkoots/",
+        "https://github.com/rkoots",
+        "https://twitter.com/rkoots"
+      ]
+    },
+    "sameAs": [
+      "https://github.com/rkoots",
+      "https://www.linkedin.com/in/rkoots/",
+      "https://twitter.com/rkoots",
+      "https://dev.to/rkoots"
+    ],
+    "knowsAbout": [
+      "System Architecture",
+      "Microservices",
+      "Cloud Computing",
+      "DevOps",
+      "Engineering Leadership",
+      "Software Development",
+      "Scalable Systems",
+      "Kubernetes",
+      "Python Programming",
+      "Java Development"
+    ]
+  }
+  </script>
+{% endif %}
+
+<!-- Person Schema (for author pages) -->
+{% if page.layout == 'author' or page.url == '/about/' %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Rajkumar Venkataraman",
+    "jobTitle": "VP of Engineering",
+    "description": "Technology leader with 15+ years building scalable fintech platforms and leading high-performance engineering teams.",
+    "url": {{ site.url | jsonify }},
+    "sameAs": [
+      "https://www.linkedin.com/in/rkoots/",
+      "https://github.com/rkoots",
+      "https://twitter.com/rkoots",
+      "https://dev.to/rkoots"
+    ],
+    "knowsAbout": [
+      "System Architecture",
+      "Microservices",
+      "Cloud Computing", 
+      "DevOps",
+      "Engineering Leadership",
+      "Software Development",
+      "Scalable Systems",
+      "Kubernetes",
+      "Python Programming",
+      "Java Development"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "FinTech Leadership"
+    }
+  }
+  </script>
+{% endif %}
+
+<!-- BreadcrumbList Schema -->
+{% if page.show_breadcrumbs %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": {{ site.url | jsonify }}
+      }
+      {% if page.category %}
+      ,
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ page.category | capitalize | jsonify }},
+        "item": {{ site.url | append: '/' | append: page.category | jsonify }}
+      }
+      {% endif %}
+      {% if page.url != '/' %}
+      ,
+      {
+        "@type": "ListItem", 
+        "position": {% if page.category %}3{% else %}2{% endif %},
+        "name": {{ page.title | jsonify }},
+        "item": {{ page.url | absolute_url | jsonify }}
+      }
+      {% endif %}
+    ]
+  }
+  </script>
+{% endif %}
+
+<!-- Website Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ site.title | jsonify }},
+  "url": {{ site.url | jsonify }},
+  "description": {{ site.description | jsonify }},
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }}
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "{{ site.url }}/search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
