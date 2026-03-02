@@ -1,11 +1,37 @@
 ---
 layout: default
-title: FREE Income Tax Calculator
+title: FREE Income Tax Calculator India 2025-26 | Old vs New Regime Comparison
 permalink: /income-tax-calculator/
-description: FREE Calculate your income tax for FY 2025-26 and FY 2024-25 with an interactive calculator and get tax planning insights.
-keywords: [itr, filing momentum 2024Breakout, itr form for ay 2025 26Breakout, itr forms ay 2025 26Breakout, is itr filing startedBreakout, itr income tax return processed noticeBreakout, is itr filing startedBreakout, itr filing ay 2025-26 onlineBreakout, income tax return filing ay 2025 26Breakout, itr filing details ,2025Breakout ,income tax filing start date 2025Breakout ,itr filing 2025Breakout ,incometax efillingBreakout ,incometax return filingBreakout ,itr filing start date for ay 2025-26Breakout]
-
+description: Calculate your income tax instantly for FY 2025-26 & 2024-25. Compare old vs new tax regime, maximize deductions under 80C, 80D, and get accurate estimates with cess and surcharge.
+keywords: [income tax calculator, tax calculator India, FY 2025-26, AY 2026-27, old vs new tax regime, section 80C calculator, 80D deduction, income tax slabs, tax saving, ITR calculation, rebate 87A, surcharge calculator, cess calculator, VDA tax, digital assets tax]
+author: Rajkumar Koota
+robots: index, follow
+image: /assets/images/income-tax-calculator-og.jpg
 ---
+
+<!-- Schema.org structured data for rich snippets -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Income Tax Calculator India",
+  "description": "Free online income tax calculator for FY 2025-26 with old vs new regime comparison, deductions under 80C, 80D, and accurate tax estimates",
+  "url": "https://rkoots.github.io/income-tax-calculator/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "creator": {
+    "@type": "Person",
+    "name": "Rajkumar Koota"
+  },
+  "datePublished": "2025-01-01",
+  "dateModified": "2025-03-02"
+}
+</script>
 
 <style>
   /* Container and card styles */
@@ -95,17 +121,46 @@ keywords: [itr, filing momentum 2024Breakout, itr form for ay 2025 26Breakout, i
   }
 </style>
 
-<section>
-  <h1>Income Tax Calculator</h1>
-  <p><em>See how the latest budget impacts your tax calculation. Updated as per latest budget on 2025.</em></p>
+<nav aria-label="Breadcrumb" style="margin-bottom: 1.5rem; font-size: 0.9rem;">
+  <span><a href="/" style="color: #4a90e2;">Home</a></span>
+  <span> › </span>
+  <span><a href="/projects/" style="color: #4a90e2;">Projects</a></span>
+  <span> › </span>
+  <span style="color: #666;">Income Tax Calculator</span>
+</nav>
 
-<input type="hidden" id="ageGroup" value="below60" />
-<input type="hidden" id="financialYear"  value="2025" />
+<section itemscope itemtype="https://schema.org/WebApplication">
+  <header>
+    <h1 itemprop="name">Income Tax Calculator India 2025-26</h1>
+    <p itemprop="description"><strong>🇮🇳 Free Income Tax Calculator for FY 2025-26 (AY 2026-27)</strong> - Compare old vs new tax regime, calculate deductions under 80C, 80D, and get instant tax estimates with surcharge & cess. Updated with Budget 2025 changes.</p>
+    <meta itemprop="dateModified" content="2025-03-02">
+  </header>
 
+  <nav aria-label="Table of Contents" style="background: #f0f8ff; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+    <h2 style="margin: 0 0 0.5rem 0; font-size: 1.1rem;">📋 Quick Navigation</h2>
+    <ul style="margin: 0; padding-left: 1.2rem; list-style-type: none;">
+      <li><a href="#calculator" style="color: #4a90e2;">🧮 Tax Calculator</a></li>
+      <li><a href="#budget-2025-updates" style="color: #4a90e2;">📢 Budget 2025 Updates</a></li>
+      <li><a href="#tax-slabs-comparison" style="color: #4a90e2;">📊 Tax Slabs: Old vs New</a></li>
+      <li><a href="#deductions-guide" style="color: #4a90e2;">💰 Deductions Guide (80C, 80D, etc.)</a></li>
+      <li><a href="#faq" style="color: #4a90e2;">❓ Frequently Asked Questions</a></li>
+    </ul>
+  </nav>
 
   <!-- Card 1 -->
-  <div id="card-income" class="card active">
+  <div id="calculator" class="card active">
     <h3>Income Details</h3>
+    <label>Financial Year</label>
+    <select id="financialYear">
+      <option value="2025">FY 2025-26 (AY 2026-27)</option>
+      <option value="2024">FY 2024-25 (AY 2025-26)</option>
+    </select>
+    <label>Age Group (for Old Regime)</label>
+    <select id="ageGroup">
+      <option value="below60">Below 60 years</option>
+      <option value="60to80">60 to 80 years (Senior Citizen)</option>
+      <option value="above80">80 years and above (Super Senior)</option>
+    </select>
     <label>Income from Salary</label>
     <input type="number" id="incomeSalary" min="0" value="0" />
     <label>Exempt Allowances</label>
@@ -197,7 +252,105 @@ keywords: [itr, filing momentum 2024Breakout, itr form for ay 2025 26Breakout, i
     document.getElementById('taxInsights').innerHTML = '';
   }
 
-  // Simple tax calculation logic (example)
+  function formatINR(amount) {
+    return `₹${Math.round(amount).toLocaleString('en-IN')}`;
+  }
+
+  function computeTaxBySlabs(income, slabs) {
+    let remaining = Math.max(0, income);
+    let tax = 0;
+    for (const slab of slabs) {
+      if (remaining <= 0) break;
+      const slabIncome = Math.min(remaining, slab.limit);
+      tax += slabIncome * slab.rate;
+      remaining -= slabIncome;
+    }
+    return tax;
+  }
+
+  function getOldRegimeSlabs(ageGroup) {
+    if (ageGroup === '60to80') {
+      return [
+        { limit: 300000, rate: 0 },
+        { limit: 200000, rate: 0.05 },
+        { limit: 500000, rate: 0.2 },
+        { limit: Infinity, rate: 0.3 }
+      ];
+    }
+    if (ageGroup === 'above80') {
+      return [
+        { limit: 500000, rate: 0 },
+        { limit: 500000, rate: 0.2 },
+        { limit: Infinity, rate: 0.3 }
+      ];
+    }
+    return [
+      { limit: 250000, rate: 0 },
+      { limit: 250000, rate: 0.05 },
+      { limit: 500000, rate: 0.2 },
+      { limit: Infinity, rate: 0.3 }
+    ];
+  }
+
+  function getNewRegimeConfig(fy) {
+    if (fy === '2025') {
+      return {
+        slabs: [
+          { limit: 400000, rate: 0 },
+          { limit: 400000, rate: 0.05 },
+          { limit: 400000, rate: 0.1 },
+          { limit: 400000, rate: 0.15 },
+          { limit: 400000, rate: 0.2 },
+          { limit: 400000, rate: 0.25 },
+          { limit: Infinity, rate: 0.3 }
+        ],
+        rebateIncomeLimit: 1200000,
+        rebateMax: 60000,
+        standardDeduction: 75000
+      };
+    }
+
+    return {
+      slabs: [
+        { limit: 300000, rate: 0 },
+        { limit: 400000, rate: 0.05 },
+        { limit: 300000, rate: 0.1 },
+        { limit: 200000, rate: 0.15 },
+        { limit: 300000, rate: 0.2 },
+        { limit: Infinity, rate: 0.3 }
+      ],
+      rebateIncomeLimit: 700000,
+      rebateMax: 25000,
+      standardDeduction: 50000
+    };
+  }
+
+  function applyRebateWithMarginalRelief(taxBeforeRebate, taxableIncome, rebateIncomeLimit, rebateMax) {
+    let taxAfterRebate = taxBeforeRebate;
+
+    if (taxableIncome <= rebateIncomeLimit) {
+      taxAfterRebate = Math.max(0, taxBeforeRebate - rebateMax);
+    }
+
+    if (taxableIncome > rebateIncomeLimit) {
+      const excessIncome = taxableIncome - rebateIncomeLimit;
+      taxAfterRebate = Math.min(taxAfterRebate, excessIncome);
+    }
+
+    return Math.max(0, taxAfterRebate);
+  }
+
+  function getSurchargeRate(totalIncome, regime) {
+    if (totalIncome > 50000000) {
+      return regime === 'old' ? 0.37 : 0.25;
+    }
+    if (totalIncome > 20000000) return 0.25;
+    if (totalIncome > 10000000) return 0.15;
+    if (totalIncome > 5000000) return 0.1;
+    return 0;
+  }
+
+  // Enhanced tax calculation logic
   function calculateTax() {
     const fy = document.getElementById('financialYear').value;
     const age = document.getElementById('ageGroup').value;
@@ -212,95 +365,95 @@ keywords: [itr, filing momentum 2024Breakout, itr form for ay 2025 26Breakout, i
     const digitalAssets = +document.getElementById('incomeDigitalAssets').value || 0;
     const otherIncome = +document.getElementById('otherIncome').value || 0;
 
-    // Deductions (apply max limits)
-    const deduct80C = Math.min(+document.getElementById('deduct80C').value || 0, 150000);  // Max ₹1.5 lakh
-    const deduct80TTB = Math.min(+document.getElementById('deduct80TTB').value || 0, 10000); // Max ₹10,000 (example max)
-    const deduct80D = Math.min(+document.getElementById('deduct80D').value || 0, 75000);   // Max ₹75,000 (health insurance + medical exp.)
-    const deduct80G = Math.min(+document.getElementById('deduct80G').value || 0, 1000000);  // No fixed max, example ₹10 lakh max
-    const deduct80E = +document.getElementById('deduct80E').value || 0;                    // No max limit, full amount allowed (interest on education loan)
-    const deduct80EEA = Math.min(+document.getElementById('deduct80EEA').value || 0, 150000); // Max ₹1.5 lakh (interest on housing loan for first-time buyers)
-    const deduct80CCD = Math.min(+document.getElementById('deduct80CCD').value || 0, 50000);   // Max ₹50,000 (NPS contribution by employee)
-    const deduct80CCD2 = Math.min(+document.getElementById('deduct80CCD2').value || 0, 50000); // Max ₹50,000 (NPS contribution by employer)
+    // Deductions (old regime caps)
+    const deduct80C = Math.min(+document.getElementById('deduct80C').value || 0, 150000);
+    const deduct80D = Math.min(+document.getElementById('deduct80D').value || 0, age === 'below60' ? 25000 : 50000);
+    const deduct80CCD = Math.min(+document.getElementById('deduct80CCD').value || 0, 50000); // 80CCD(1B)
+    const deduct80CCD2 = +document.getElementById('deduct80CCD2').value || 0; // Employer NPS, depends on salary structure
+    const deduct80G = +document.getElementById('deduct80G').value || 0;
+    const deduct80E = +document.getElementById('deduct80E').value || 0;
+    const deduct80EEA = Math.min(+document.getElementById('deduct80EEA').value || 0, 150000);
+    const deduct80TTBInput = +document.getElementById('deduct80TTB').value || 0;
+    const deduct80TTx = Math.min(deduct80TTBInput, age === 'below60' ? 10000 : 50000);
 
+    const newRegime = getNewRegimeConfig(fy);
+    const oldRegimeSlabs = getOldRegimeSlabs(age);
 
-    // Total income calculation (simplified)
-    let grossIncome = salary + interestIncome + rental + digitalAssets + otherIncome;
-    grossIncome -= exempt;
+    // Salary taxable under each regime
+    const oldStandardDeduction = 50000;
+    const salaryTaxableOld = Math.max(0, salary - exempt - oldStandardDeduction);
+    const salaryTaxableNew = Math.max(0, salary - newRegime.standardDeduction);
 
-    // Apply home loan interest deductions
-    if (homeLoanSelf) grossIncome -= homeLoanSelf; // self occupied interest is deduction if applicable
-    if (homeLoanLetOut) grossIncome -= homeLoanLetOut; // let out interest can be deducted
+    // House property treatment
+    const selfOccupiedLossOld = Math.min(homeLoanSelf, 200000);
+    const letOutNetOld = rental - (rental * 0.3) - homeLoanLetOut;
+    const housePropertyIncomeOld = Math.max(-200000, letOutNetOld - selfOccupiedLossOld);
 
-    // Total deductions sum
-    const totalDeductions = deduct80C + deduct80TTB + deduct80D + deduct80G + deduct80E + deduct80EEA + deduct80CCD + deduct80CCD2;
+    const letOutNetNew = rental - (rental * 0.3);
+    const housePropertyIncomeNew = Math.max(0, letOutNetNew); // set-off of house loss ignored in simplified new-regime model
 
-    let taxableIncome = grossIncome - totalDeductions;
-    taxableIncome = taxableIncome < 0 ? 0 : taxableIncome;
+    // Incomes taxed at slab rates (exclude VDA)
+    const normalIncomeOldPreDed = salaryTaxableOld + interestIncome + otherIncome + housePropertyIncomeOld;
+    const normalIncomeNewPreDed = salaryTaxableNew + interestIncome + otherIncome + housePropertyIncomeNew;
 
-    // Tax slabs (simplified and illustrative, FY 2025-26 new regime slabs)
-    // Real slabs will vary by FY and age, here is an example for new regime FY 2025-26
-    const slabsNew = [
-      {limit: 300000, rate: 0},
-      {limit: 300000, rate: 0.05},
-      {limit: 400000, rate: 0.1},
-      {limit: 300000, rate: 0.15},
-      {limit: 500000, rate: 0.2},
-      {limit: Infinity, rate: 0.3},
-    ];
+    // Deductions
+    const oldRegimeDeductions = deduct80C + deduct80D + deduct80CCD + deduct80CCD2 + deduct80G + deduct80E + deduct80EEA + deduct80TTx;
+    const newRegimeDeductions = deduct80CCD2; // broadly allowed in new regime
 
-    // Old regime slabs for <60 years (simplified)
-    const slabsOld = [
-      {limit: 250000, rate: 0},
-      {limit: 250000, rate: 0.05},
-      {limit: 500000, rate: 0.2},
-      {limit: Infinity, rate: 0.3},
-    ];
+    const taxableNormalOld = Math.max(0, normalIncomeOldPreDed - oldRegimeDeductions);
+    const taxableNormalNew = Math.max(0, normalIncomeNewPreDed - newRegimeDeductions);
 
-    // Calculate tax using slabs
-    function computeTax(income, slabs) {
-      let tax = 0;
-      let remaining = income;
-      for (let slab of slabs) {
-        let slabAmount = Math.min(remaining, slab.limit);
-        tax += slabAmount * slab.rate;
-        remaining -= slabAmount;
-        if (remaining <= 0) break;
-      }
-      return tax;
-    }
+    // Special-rate tax for Virtual Digital Assets (u/s 115BBH) - no deductions/set-off
+    const vdaTax = Math.max(0, digitalAssets) * 0.30;
 
-    // Pick slabs based on FY and age (for demo, only FY 2025-26 uses new regime slabs)
-    let taxOld = computeTax(taxableIncome, slabsOld);
-    let taxNew = computeTax(taxableIncome, slabsNew);
+    // Slab tax before rebate
+    let slabTaxOld = computeTaxBySlabs(taxableNormalOld, oldRegimeSlabs);
+    let slabTaxNew = computeTaxBySlabs(taxableNormalNew, newRegime.slabs);
 
-    // Rebate for taxable income <= 5L (simplified)
-    if (taxOld < 12500) taxOld = 0;
-    if (taxNew < 12500) taxNew = 0;
+    // Rebate u/s 87A + marginal relief
+    slabTaxOld = applyRebateWithMarginalRelief(slabTaxOld, taxableNormalOld, 500000, 12500);
+    slabTaxNew = applyRebateWithMarginalRelief(slabTaxNew, taxableNormalNew, newRegime.rebateIncomeLimit, newRegime.rebateMax);
 
-    // Add cess (4%)
-    taxOld = taxOld * 1.04;
-    taxNew = taxNew * 1.04;
+    // Total income for surcharge calculation
+    const totalIncomeOld = taxableNormalOld + Math.max(0, digitalAssets);
+    const totalIncomeNew = taxableNormalNew + Math.max(0, digitalAssets);
 
-    // Round off
-    taxOld = Math.round(taxOld);
-    taxNew = Math.round(taxNew);
+    const oldSurchargeRate = getSurchargeRate(totalIncomeOld, 'old');
+    const newSurchargeRate = getSurchargeRate(totalIncomeNew, 'new');
 
-    let resultHtml = `<strong>Taxable Income:</strong> ₹${taxableIncome.toLocaleString()}<br>`;
-    resultHtml += `<strong>Estimated Tax under Old Regime:</strong> ₹${taxOld.toLocaleString()}<br>`;
-    resultHtml += `<strong>Estimated Tax under New Regime:</strong> ₹${taxNew.toLocaleString()}<br>`;
+    let taxBeforeCessOld = (slabTaxOld + vdaTax) * (1 + oldSurchargeRate);
+    let taxBeforeCessNew = (slabTaxNew + vdaTax) * (1 + newSurchargeRate);
 
-    // Provide a simple insight
+    const cessOld = taxBeforeCessOld * 0.04;
+    const cessNew = taxBeforeCessNew * 0.04;
+
+    const taxOld = Math.round(taxBeforeCessOld + cessOld);
+    const taxNew = Math.round(taxBeforeCessNew + cessNew);
+
+    let resultHtml = '';
+    resultHtml += `<strong>Taxable Income (Old Regime):</strong> ${formatINR(taxableNormalOld)}<br>`;
+    resultHtml += `<strong>Taxable Income (New Regime):</strong> ${formatINR(taxableNormalNew)}<br>`;
+    resultHtml += `<strong>VDA Taxable Income (30% flat):</strong> ${formatINR(digitalAssets)}<br><hr>`;
+    resultHtml += `<strong>Estimated Tax under Old Regime (incl. surcharge + 4% cess):</strong> ${formatINR(taxOld)}<br>`;
+    resultHtml += `<strong>Estimated Tax under New Regime (incl. surcharge + 4% cess):</strong> ${formatINR(taxNew)}<br>`;
+
     let insights = '';
+    const savings = Math.abs(taxOld - taxNew);
     if (taxOld < taxNew) {
-      insights = 'You save more tax under the <strong>Old Regime</strong>. Consider maximizing deductions.';
+      insights = `Best fit appears to be <strong>Old Regime</strong> with an estimated tax saving of <strong>${formatINR(savings)}</strong>.`;
     } else if (taxNew < taxOld) {
-      insights = 'You save more tax under the <strong>New Regime</strong>. This is better if you prefer fewer deductions.';
+      insights = `Best fit appears to be <strong>New Regime</strong> with an estimated tax saving of <strong>${formatINR(savings)}</strong>.`;
     } else {
-      insights = 'Both regimes result in similar tax liability.';
+      insights = 'Both regimes result in a similar tax liability.';
     }
-    if (taxableIncome < 250000) {
-      insights += '<br><em>Note: Your income is below the basic exemption limit, no tax is payable.</em>';
+
+    if (taxableNormalNew <= newRegime.rebateIncomeLimit) {
+      insights += `<br>New regime rebate considered up to ${formatINR(newRegime.rebateMax)} for FY ${fy === '2025' ? '2025-26' : '2024-25'}.`;
     }
+    if (taxableNormalOld <= 500000) {
+      insights += '<br>Old regime rebate u/s 87A up to ₹12,500 has been considered.';
+    }
+    insights += '<br><em>Note: This is an estimator for resident individuals. Capital gains, AMT, and detailed 80G validation are simplified.</em>';
 
     document.getElementById('resultText').innerHTML = resultHtml;
     document.getElementById('taxInsights').innerHTML = insights;
@@ -327,7 +480,9 @@ This guide explains the tax slabs, deductions, exemptions, and how to use the ca
 
 ---
 
-## Budget 2025 Updates at a Glance
+---
+
+## Budget 2025 Updates at a Glance {#budget-2025-updates}
 
 - **No tax for income up to ₹12 Lakhs** under the new regime due to a rebate of ₹60,000.
 - Modified slab rates introduced for FY 2025-26 (AY 2026-27) under the new regime.
@@ -402,7 +557,7 @@ Additional income and deductions:
 
 ---
 
-## Tax Slabs Comparison: Old Regime vs New Regime
+## Tax Slabs Comparison: Old Regime vs New Regime {#tax-slabs-comparison}
 
 ### Old Regime (Age-based slabs)
 
@@ -460,7 +615,56 @@ Additional income and deductions:
 
 ---
 
-## Frequently Asked Questions (FAQ)
+## Frequently Asked Questions (FAQ) {#faq}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between old and new tax regime in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The old tax regime allows various deductions under sections 80C, 80D, 80E, etc., but has higher tax rates. The new regime offers lower tax rates but with fewer deductions. For FY 2025-26, the new regime has no tax up to ₹4 lakh income and a rebate up to ₹12 lakh."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is income tax calculated in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Income tax is calculated on your taxable income after deductions. The tax is computed based on slab rates, then rebate under 87A is applied if eligible, followed by surcharge (if applicable) and 4% health & education cess."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which tax regime should I choose for FY 2025-26?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choose the old regime if you have significant deductions (80C, 80D, HRA, home loan). Choose the new regime if you prefer lower tax rates with minimal deductions. Use our calculator to compare both regimes and choose the one with lower tax liability."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the tax rebate under section 87A?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For FY 2025-26, under the new regime, taxpayers with income up to ₹12 lakh get a rebate of ₹60,000. Under the old regime, taxpayers with income up to ₹5 lakh get a rebate of ₹12,500."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much tax is on digital assets (VDA) in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Income from virtual digital assets (VDA) is taxed at a flat 30% rate plus surcharge and 4% cess. No deductions are allowed against VDA income except the cost of acquisition."
+      }
+    }
+  ]
+}
+</script>
 
 <details>
 <summary><strong>What is Rebate u/s 87A?</strong></summary>
@@ -486,11 +690,40 @@ Sum up Basic Salary, HRA, Special Allowances, Transport Allowance, and other all
 <summary><strong>How can I reduce my tax liability?</strong></summary>
 Invest in tax-saving instruments under Section 80C (PPF, ELSS), 80D (medical insurance), 80E (education loan interest), and claim all eligible deductions and exemptions to reduce taxable income.
 </details>
+
+---
+
+## Related Keywords & Search Terms
+
+**Primary Keywords:** income tax calculator, tax calculator India, FY 2025-26, AY 2026-27, old vs new tax regime
+
+**Secondary Keywords:** section 80C calculator, 80D deduction, income tax slabs, tax saving, ITR calculation, rebate 87A, surcharge calculator, cess calculator
+
+**Long-tail Keywords:** 
+- how to calculate income tax on salary in India
+- which tax regime is better for me
+- income tax calculation with deductions
+- tax calculator for senior citizens
+- digital assets tax calculation India
+- how to save income tax in India
+- income tax slab rates FY 2025-26
+- section 80C investment options
+- HRA exemption calculator
+- home loan tax benefit calculator
+
+**Geographic Keywords:** India tax calculator, Indian income tax, tax rules India 2025
+
+**Action Keywords:** calculate tax, save tax, file ITR, tax planning, compare tax regimes
+
+---
+
+**🔍 Looking for more tax tools?** Check out our [comprehensive tax planning guide](/blog/) for detailed strategies and expert tips.
+
 ---
 
 Section 80C of the Income Tax Act provides exemptions or deductions on specific expenditures and investments from income tax. By investing in options like PPF, NSC, ELSS, SSY, etc., you can claim deductions of up to Rs. 1.5 lakh each year under Section 80C, helping you save on income tax. Let us understand these deductions in detail:
 
-## Section 80C - Deductions and Exemptions on Investments
+## Section 80C - Deductions and Exemptions on Investments {#deductions-guide}
 
 Section 80C is one of the most popular and favorite sections amongst taxpayers as it allows them to reduce taxable income by making tax-saving investments or incurring eligible expenses.
 
