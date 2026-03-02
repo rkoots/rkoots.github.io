@@ -4,82 +4,931 @@ title: Finance Planning App
 permalink: /finance-pannner/
 description: Plan your investments, control spending, and visualize your financial future.
 ---
-<section>
-  <h1>Finance Planning App</h1>
-  <p><em>Plan your investments, control spending, and visualize your financial future.</em></p>
 
-  <form id="financeForm">
-    <h3>Income Details</h3>
-    <label>Monthly Salary:</label>
-    <input type="number" id="incomeSalary" required><br>
-    <label>Other Income:</label>
-    <input type="number" id="otherIncome"><br>
-    <h3>Expenses</h3>
-    <label>Rent/Mortgage:</label>
-    <input type="number" id="rent"><br>
-    <label>Utilities & Bills:</label>
-    <input type="number" id="bills"><br>
-    <label>Groceries & Essentials:</label>
-    <input type="number" id="groceries"><br>
-    <label>Other Expenses:</label>
-    <input type="number" id="otherExpenses"><br>
-    <button type="submit">💡 Generate Plan</button>
-  </form>
+<style>
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --bg-dark: #1e293b;
+  --bg-card: #334155;
+  --text-light: #f1f5f9;
+  --shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
 
-  <div id="results" style="margin-top:30px;">
-    <h2>Suggested Financial Package</h2>
-    <p id="summaryText"></p>
-    <canvas id="wealthChart" width="400" height="200"></canvas>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.finance-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.header h1 {
+  font-size: 2.8em;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.header p {
+  font-size: 1.2em;
+  opacity: 0.95;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.card h2 {
+  color: var(--primary);
+  margin-bottom: 20px;
+  font-size: 1.6em;
+  border-bottom: 3px solid var(--primary);
+  padding-bottom: 10px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #334155;
+  font-size: 0.95em;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-wrapper input[type="number"] {
+  flex: 1;
+  padding: 12px 15px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: all 0.3s;
+}
+
+.input-wrapper input[type="number"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.currency-symbol {
+  font-weight: bold;
+  color: var(--primary);
+  font-size: 1.1em;
+}
+
+.slider-group {
+  margin-top: 25px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 2px dashed #cbd5e1;
+}
+
+.slider-group h3 {
+  color: var(--primary-dark);
+  margin-bottom: 15px;
+  font-size: 1.2em;
+}
+
+.slider-item {
+  margin-bottom: 20px;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.slider-header label {
+  font-weight: 600;
+  color: #475569;
+}
+
+.slider-value {
+  font-weight: bold;
+  color: var(--primary);
+  font-size: 1.1em;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: #e2e8f0;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.4);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: var(--primary-dark);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  animation: scaleIn 0.4s ease-out;
+}
+
+.stat-card h3 {
+  font-size: 0.9em;
+  opacity: 0.9;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-card .value {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.stat-card .subtext {
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
+.recommendations {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  margin-bottom: 25px;
+}
+
+.recommendations h2 {
+  color: var(--primary);
+  margin-bottom: 20px;
+  font-size: 1.6em;
+}
+
+.recommendation-item {
+  padding: 15px;
+  margin-bottom: 15px;
+  border-left: 4px solid var(--primary);
+  background: #f8fafc;
+  border-radius: 8px;
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.recommendation-item h4 {
+  color: var(--primary-dark);
+  margin-bottom: 8px;
+  font-size: 1.1em;
+}
+
+.recommendation-item p {
+  color: #475569;
+  line-height: 1.6;
+}
+
+.chart-container {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  margin-bottom: 25px;
+  min-height: 500px;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.alert {
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  animation: slideInRight 0.5s ease-out;
+}
+
+.alert-warning {
+  background: #fef3c7;
+  color: #92400e;
+  border-left: 4px solid var(--warning);
+}
+
+.alert-success {
+  background: #d1fae5;
+  color: #065f46;
+  border-left: 4px solid var(--success);
+}
+
+.alert-danger {
+  background: #fee2e2;
+  color: #991b1b;
+  border-left: 4px solid var(--danger);
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 1024px) {
+  .main-grid, .chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .header h1 { font-size: 2em; }
+  .header p { font-size: 1em; }
+  .stats-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="finance-container">
+  <div class="header">
+    <h1>💰 Advanced Finance Planner</h1>
+    <p>Plan your investments, control spending, and visualize your financial future with interactive 3D analytics</p>
   </div>
-</section>
 
-<!-- Include Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <div class="main-grid">
+    <div class="card">
+      <h2>📊 Income Details</h2>
+      <div class="input-group">
+        <label for="monthlySalary">Monthly Salary</label>
+        <div class="input-wrapper">
+          <span class="currency-symbol">₹</span>
+          <input type="number" id="monthlySalary" placeholder="50000" min="0" step="1000">
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="otherIncome">Other Income (Freelance, Rent, etc.)</label>
+        <div class="input-wrapper">
+          <span class="currency-symbol">₹</span>
+          <input type="number" id="otherIncome" placeholder="10000" min="0" step="1000">
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="age">Your Age</label>
+        <div class="input-wrapper">
+          <input type="number" id="age" placeholder="30" min="18" max="100">
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="riskProfile">Risk Profile</label>
+        <select id="riskProfile" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em;">
+          <option value="conservative">Conservative (Low Risk)</option>
+          <option value="moderate" selected>Moderate (Balanced)</option>
+          <option value="aggressive">Aggressive (High Risk)</option>
+        </select>
+      </div>
+      <button class="btn-primary" onclick="generatePlan()">🚀 Generate Financial Plan</button>
+    </div>
+
+    <div class="card">
+      <h2>💳 Monthly Expenses</h2>
+      <div class="input-group">
+        <label for="rent">Rent/Mortgage</label>
+        <div class="input-wrapper">
+          <span class="currency-symbol">₹</span>
+          <input type="number" id="rent" placeholder="15000" min="0" step="500">
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="utilities">Utilities & Bills</label>
+        <div class="input-wrapper">
+          <span class="currency-symbol">₹</span>
+          <input type="number" id="utilities" placeholder="3000" min="0" step="500">
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="groceries">Groceries & Food</label>
+        <div class="input-wrapper">
+          <span class="currency-symbol">₹</span>
+          <input type="number" id="groceries" placeholder="8000" min="0" step="500">
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="transport">Transportation</label>
+        <div class="input-wrapper">
+          <span class="currency-symbol">₹</span>
+          <input type="number" id="transport" placeholder="3000" min="0" step="500">
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="entertainment">Entertainment & Lifestyle</label>
+        <div class="input-wrapper">
+          <span class="currency-symbol">₹</span>
+          <input type="number" id="entertainment" placeholder="5000" min="0" step="500">
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="otherExpenses">Other Expenses</label>
+        <div class="input-wrapper">
+          <span class="currency-symbol">₹</span>
+          <input type="number" id="otherExpenses" placeholder="2000" min="0" step="500">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="resultsSection" class="hidden">
+    <div id="alertContainer"></div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Income</h3>
+        <div class="value" id="totalIncome">₹0</div>
+        <div class="subtext">Per Month</div>
+      </div>
+      <div class="stat-card">
+        <h3>Total Expenses</h3>
+        <div class="value" id="totalExpenses">₹0</div>
+        <div class="subtext">Per Month</div>
+      </div>
+      <div class="stat-card">
+        <h3>Monthly Savings</h3>
+        <div class="value" id="monthlySavings">₹0</div>
+        <div class="subtext" id="savingsRate">0% of Income</div>
+      </div>
+      <div class="stat-card">
+        <h3>Yearly Savings</h3>
+        <div class="value" id="yearlySavings">₹0</div>
+        <div class="subtext">Potential Growth</div>
+      </div>
+    </div>
+
+    <div class="card slider-group">
+      <h3>🎚️ Adjust Your Expenses in Real-Time</h3>
+      <div class="slider-item">
+        <div class="slider-header">
+          <label>Rent/Mortgage</label>
+          <span class="slider-value" id="rentSliderValue">₹0</span>
+        </div>
+        <input type="range" id="rentSlider" min="0" max="50000" step="500" oninput="updateExpenseSlider('rent')">
+      </div>
+      <div class="slider-item">
+        <div class="slider-header">
+          <label>Utilities & Bills</label>
+          <span class="slider-value" id="utilitiesSliderValue">₹0</span>
+        </div>
+        <input type="range" id="utilitiesSlider" min="0" max="10000" step="200" oninput="updateExpenseSlider('utilities')">
+      </div>
+      <div class="slider-item">
+        <div class="slider-header">
+          <label>Groceries & Food</label>
+          <span class="slider-value" id="groceriesSliderValue">₹0</span>
+        </div>
+        <input type="range" id="groceriesSlider" min="0" max="20000" step="500" oninput="updateExpenseSlider('groceries')">
+      </div>
+      <div class="slider-item">
+        <div class="slider-header">
+          <label>Transportation</label>
+          <span class="slider-value" id="transportSliderValue">₹0</span>
+        </div>
+        <input type="range" id="transportSlider" min="0" max="15000" step="500" oninput="updateExpenseSlider('transport')">
+      </div>
+      <div class="slider-item">
+        <div class="slider-header">
+          <label>Entertainment & Lifestyle</label>
+          <span class="slider-value" id="entertainmentSliderValue">₹0</span>
+        </div>
+        <input type="range" id="entertainmentSlider" min="0" max="20000" step="500" oninput="updateExpenseSlider('entertainment')">
+      </div>
+      <div class="slider-item">
+        <div class="slider-header">
+          <label>Other Expenses</label>
+          <span class="slider-value" id="otherExpensesSliderValue">₹0</span>
+        </div>
+        <input type="range" id="otherExpensesSlider" min="0" max="10000" step="500" oninput="updateExpenseSlider('otherExpenses')">
+      </div>
+    </div>
+
+    <div class="recommendations">
+      <h2>💡 Personalized Recommendations</h2>
+      <div id="recommendationsContent"></div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-container">
+        <h2 style="color: var(--primary); margin-bottom: 20px;">📈 Investment Allocation (3D)</h2>
+        <div id="investmentChart"></div>
+      </div>
+      <div class="chart-container">
+        <h2 style="color: var(--primary); margin-bottom: 20px;">💰 Expense Breakdown (3D)</h2>
+        <div id="expenseChart"></div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <h2 style="color: var(--primary); margin-bottom: 20px;">🚀 Wealth Projection (10 Years)</h2>
+      <div id="wealthProjectionChart"></div>
+    </div>
+
+    <div class="chart-container">
+      <h2 style="color: var(--primary); margin-bottom: 20px;">🎯 Financial Goals Timeline</h2>
+      <div id="goalsChart"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 
 <script>
-document.getElementById("financeForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+let financialData = {
+  income: 0,
+  expenses: {},
+  totalExpenses: 0,
+  savings: 0,
+  age: 30,
+  riskProfile: 'moderate'
+};
 
-  const income = parseFloat(document.getElementById("incomeSalary").value) + 
-                 parseFloat(document.getElementById("otherIncome").value || 0);
+function generatePlan() {
+  const monthlySalary = parseFloat(document.getElementById('monthlySalary').value) || 0;
+  const otherIncome = parseFloat(document.getElementById('otherIncome').value) || 0;
+  const age = parseInt(document.getElementById('age').value) || 30;
+  const riskProfile = document.getElementById('riskProfile').value;
 
-  const expenses = ['rent', 'bills', 'groceries', 'otherExpenses']
-    .map(id => parseFloat(document.getElementById(id).value || 0))
-    .reduce((a, b) => a + b, 0);
+  financialData.income = monthlySalary + otherIncome;
+  financialData.age = age;
+  financialData.riskProfile = riskProfile;
 
-  const savings = income - expenses;
-  const emergencyFund = Math.min(savings * 0.2, 50000);
-  const investments = savings - emergencyFund;
+  const expenseFields = ['rent', 'utilities', 'groceries', 'transport', 'entertainment', 'otherExpenses'];
+  financialData.expenses = {};
+  financialData.totalExpenses = 0;
 
-  const equity = investments * 0.6;
-  const debt = investments * 0.3;
-  const gold = investments * 0.1;
-
-  document.getElementById("summaryText").innerHTML = `
-    Your monthly savings: ₹${savings.toFixed(2)} <br>
-    Recommended Emergency Fund: ₹${emergencyFund.toFixed(2)} <br>
-    Suggested Investment: ₹${investments.toFixed(2)}<br>
-    <strong>Allocation:</strong> Equity: ₹${equity.toFixed(2)}, Debt: ₹${debt.toFixed(2)}, Gold: ₹${gold.toFixed(2)}
-  `;
-
-  const ctx = document.getElementById("wealthChart").getContext("2d");
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Equity', 'Debt', 'Gold'],
-      datasets: [{
-        label: 'Investment Split',
-        data: [equity, debt, gold],
-        backgroundColor: ['#36a2eb', '#ffcd56', '#ff6384']
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: 'bottom' },
-        title: { display: true, text: 'Wealth Diversification' }
-      }
-    }
+  expenseFields.forEach(field => {
+    const value = parseFloat(document.getElementById(field).value) || 0;
+    financialData.expenses[field] = value;
+    financialData.totalExpenses += value;
+    
+    document.getElementById(field + 'Slider').value = value;
+    document.getElementById(field + 'SliderValue').textContent = '₹' + value.toLocaleString('en-IN');
   });
-});
+
+  financialData.savings = financialData.income - financialData.totalExpenses;
+
+  updateDashboard();
+  document.getElementById('resultsSection').classList.remove('hidden');
+  document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function updateExpenseSlider(field) {
+  const slider = document.getElementById(field + 'Slider');
+  const value = parseFloat(slider.value);
+  
+  financialData.expenses[field] = value;
+  document.getElementById(field + 'SliderValue').textContent = '₹' + value.toLocaleString('en-IN');
+  
+  financialData.totalExpenses = Object.values(financialData.expenses).reduce((a, b) => a + b, 0);
+  financialData.savings = financialData.income - financialData.totalExpenses;
+  
+  updateDashboard();
+}
+
+function updateDashboard() {
+  document.getElementById('totalIncome').textContent = '₹' + financialData.income.toLocaleString('en-IN');
+  document.getElementById('totalExpenses').textContent = '₹' + financialData.totalExpenses.toLocaleString('en-IN');
+  document.getElementById('monthlySavings').textContent = '₹' + financialData.savings.toLocaleString('en-IN');
+  
+  const savingsRate = financialData.income > 0 ? ((financialData.savings / financialData.income) * 100).toFixed(1) : 0;
+  document.getElementById('savingsRate').textContent = savingsRate + '% of Income';
+  document.getElementById('yearlySavings').textContent = '₹' + (financialData.savings * 12).toLocaleString('en-IN');
+
+  showAlerts();
+  generateRecommendations();
+  renderCharts();
+}
+
+function showAlerts() {
+  const alertContainer = document.getElementById('alertContainer');
+  alertContainer.innerHTML = '';
+
+  const savingsRate = (financialData.savings / financialData.income) * 100;
+
+  if (financialData.savings < 0) {
+    alertContainer.innerHTML += `<div class="alert alert-danger">⚠️ <strong>Critical:</strong> Your expenses exceed your income by ₹${Math.abs(financialData.savings).toLocaleString('en-IN')}. Immediate action required!</div>`;
+  } else if (savingsRate < 10) {
+    alertContainer.innerHTML += `<div class="alert alert-warning">⚠️ <strong>Warning:</strong> Your savings rate is only ${savingsRate.toFixed(1)}%. Aim for at least 20% for financial security.</div>`;
+  } else if (savingsRate >= 30) {
+    alertContainer.innerHTML += `<div class="alert alert-success">✅ <strong>Excellent:</strong> You're saving ${savingsRate.toFixed(1)}% of your income! Keep up the great work!</div>`;
+  }
+}
+
+function generateRecommendations() {
+  const container = document.getElementById('recommendationsContent');
+  const savingsRate = (financialData.savings / financialData.income) * 100;
+  const age = financialData.age;
+  const yearsToRetirement = 60 - age;
+  
+  let recommendations = [];
+
+  const allocation = calculateAllocation();
+
+  recommendations.push({
+    title: '🎯 Investment Allocation Strategy',
+    text: `Based on your ${financialData.riskProfile} risk profile and age ${age}, we recommend: <strong>${allocation.equity}% Equity</strong>, <strong>${allocation.debt}% Debt</strong>, <strong>${allocation.gold}% Gold</strong>, and <strong>${allocation.liquid}% Liquid/Emergency Fund</strong>.`
+  });
+
+  if (financialData.savings > 0) {
+    const emergencyFund = Math.min(financialData.totalExpenses * 6, financialData.savings * 0.25);
+    recommendations.push({
+      title: '🛡️ Emergency Fund',
+      text: `Build an emergency fund of ₹${emergencyFund.toLocaleString('en-IN')} (6 months of expenses). Keep this in liquid instruments like savings accounts or liquid funds.`
+    });
+
+    const monthlyInvestment = financialData.savings - (emergencyFund / 6);
+    const projectedWealth = calculateFutureValue(monthlyInvestment, 12, yearsToRetirement);
+    
+    recommendations.push({
+      title: '💎 Retirement Planning',
+      text: `Investing ₹${monthlyInvestment.toLocaleString('en-IN')}/month at 12% annual return could grow to approximately <strong>₹${(projectedWealth / 10000000).toFixed(2)} Crores</strong> by retirement (age 60).`
+    });
+  }
+
+  const highestExpense = Object.entries(financialData.expenses).reduce((a, b) => a[1] > b[1] ? a : b);
+  const expenseLabels = {
+    rent: 'Rent/Mortgage',
+    utilities: 'Utilities',
+    groceries: 'Groceries',
+    transport: 'Transportation',
+    entertainment: 'Entertainment',
+    otherExpenses: 'Other Expenses'
+  };
+  
+  if (highestExpense[1] > financialData.income * 0.35) {
+    recommendations.push({
+      title: '💡 Expense Optimization',
+      text: `Your ${expenseLabels[highestExpense[0]]} (₹${highestExpense[1].toLocaleString('en-IN')}) is ${((highestExpense[1] / financialData.income) * 100).toFixed(1)}% of your income. Consider optimizing this category to increase savings.`
+    });
+  }
+
+  if (savingsRate >= 20) {
+    recommendations.push({
+      title: '🚀 Tax Saving Opportunities',
+      text: `Maximize tax benefits under Section 80C (₹1.5L), 80D (₹25K-₹50K for health insurance), and NPS (additional ₹50K under 80CCD(1B)). This could save you ₹${(46000).toLocaleString('en-IN')}+ in taxes annually.`
+    });
+  }
+
+  recommendations.push({
+    title: '📊 Diversification Strategy',
+    text: `Diversify across asset classes: Large-cap equity funds (40%), Mid/Small-cap funds (${allocation.equity - 40}%), Debt funds (${allocation.debt}%), Gold ETFs (${allocation.gold}%), and maintain ${allocation.liquid}% in liquid assets.`
+  });
+
+  container.innerHTML = recommendations.map(rec => `
+    <div class="recommendation-item">
+      <h4>${rec.title}</h4>
+      <p>${rec.text}</p>
+    </div>
+  `).join('');
+}
+
+function calculateAllocation() {
+  const age = financialData.age;
+  const risk = financialData.riskProfile;
+  
+  let equity, debt, gold, liquid;
+  
+  if (risk === 'aggressive') {
+    equity = Math.max(100 - age, 60);
+    debt = Math.min(age - 10, 25);
+    gold = 5;
+    liquid = 10;
+  } else if (risk === 'conservative') {
+    equity = Math.max(100 - age - 20, 30);
+    debt = Math.min(age + 10, 50);
+    gold = 10;
+    liquid = 10;
+  } else {
+    equity = Math.max(100 - age, 50);
+    debt = Math.min(age, 35);
+    gold = 10;
+    liquid = 5;
+  }
+  
+  const total = equity + debt + gold + liquid;
+  return {
+    equity: Math.round((equity / total) * 100),
+    debt: Math.round((debt / total) * 100),
+    gold: Math.round((gold / total) * 100),
+    liquid: Math.round((liquid / total) * 100)
+  };
+}
+
+function calculateFutureValue(monthlyInvestment, annualReturn, years) {
+  const monthlyRate = annualReturn / 100 / 12;
+  const months = years * 12;
+  return monthlyInvestment * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+}
+
+function renderCharts() {
+  renderInvestmentChart();
+  renderExpenseChart();
+  renderWealthProjection();
+  renderGoalsChart();
+}
+
+function renderInvestmentChart() {
+  if (financialData.savings <= 0) return;
+
+  const allocation = calculateAllocation();
+  const investmentAmount = financialData.savings * 0.75;
+
+  const data = [{
+    type: 'pie',
+    values: [
+      (allocation.equity / 100) * investmentAmount,
+      (allocation.debt / 100) * investmentAmount,
+      (allocation.gold / 100) * investmentAmount,
+      (allocation.liquid / 100) * investmentAmount
+    ],
+    labels: ['Equity', 'Debt', 'Gold', 'Liquid/Emergency'],
+    marker: {
+      colors: ['#6366f1', '#10b981', '#f59e0b', '#3b82f6'],
+      line: { color: 'white', width: 2 }
+    },
+    textinfo: 'label+percent',
+    textposition: 'outside',
+    hole: 0.4,
+    pull: [0.05, 0, 0, 0],
+    rotation: 45
+  }];
+
+  const layout = {
+    height: 450,
+    showlegend: true,
+    legend: { orientation: 'h', y: -0.1 },
+    margin: { t: 20, b: 60, l: 20, r: 20 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: 'Segoe UI', size: 12 }
+  };
+
+  Plotly.newPlot('investmentChart', data, layout, { responsive: true, displayModeBar: false });
+}
+
+function renderExpenseChart() {
+  const expenseLabels = {
+    rent: 'Rent/Mortgage',
+    utilities: 'Utilities',
+    groceries: 'Groceries',
+    transport: 'Transportation',
+    entertainment: 'Entertainment',
+    otherExpenses: 'Other'
+  };
+
+  const labels = Object.keys(financialData.expenses).map(k => expenseLabels[k]);
+  const values = Object.values(financialData.expenses);
+  const colors = ['#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
+
+  const data = [{
+    type: 'pie',
+    values: values,
+    labels: labels,
+    marker: {
+      colors: colors,
+      line: { color: 'white', width: 2 }
+    },
+    textinfo: 'label+percent',
+    textposition: 'auto',
+    hole: 0.4
+  }];
+
+  const layout = {
+    height: 450,
+    showlegend: true,
+    legend: { orientation: 'h', y: -0.1 },
+    margin: { t: 20, b: 60, l: 20, r: 20 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: 'Segoe UI', size: 12 }
+  };
+
+  Plotly.newPlot('expenseChart', data, layout, { responsive: true, displayModeBar: false });
+}
+
+function renderWealthProjection() {
+  const years = [];
+  const conservativeWealth = [];
+  const moderateWealth = [];
+  const aggressiveWealth = [];
+  
+  const monthlyInvestment = Math.max(financialData.savings * 0.75, 0);
+  
+  for (let year = 0; year <= 10; year++) {
+    years.push(year);
+    conservativeWealth.push(calculateFutureValue(monthlyInvestment, 8, year) / 100000);
+    moderateWealth.push(calculateFutureValue(monthlyInvestment, 12, year) / 100000);
+    aggressiveWealth.push(calculateFutureValue(monthlyInvestment, 15, year) / 100000);
+  }
+
+  const trace1 = {
+    x: years,
+    y: conservativeWealth,
+    z: conservativeWealth.map((v, i) => i * 2),
+    mode: 'lines+markers',
+    type: 'scatter3d',
+    name: 'Conservative (8%)',
+    line: { color: '#10b981', width: 4 },
+    marker: { size: 5, color: '#10b981' }
+  };
+
+  const trace2 = {
+    x: years,
+    y: moderateWealth,
+    z: moderateWealth.map((v, i) => i * 2 + 5),
+    mode: 'lines+markers',
+    type: 'scatter3d',
+    name: 'Moderate (12%)',
+    line: { color: '#6366f1', width: 4 },
+    marker: { size: 5, color: '#6366f1' }
+  };
+
+  const trace3 = {
+    x: years,
+    y: aggressiveWealth,
+    z: aggressiveWealth.map((v, i) => i * 2 + 10),
+    mode: 'lines+markers',
+    type: 'scatter3d',
+    name: 'Aggressive (15%)',
+    line: { color: '#ef4444', width: 4 },
+    marker: { size: 5, color: '#ef4444' }
+  };
+
+  const layout = {
+    height: 500,
+    scene: {
+      xaxis: { title: 'Years' },
+      yaxis: { title: 'Wealth (Lakhs ₹)' },
+      zaxis: { title: 'Growth Trajectory' },
+      camera: {
+        eye: { x: 1.5, y: 1.5, z: 1.3 }
+      }
+    },
+    margin: { t: 20, b: 20, l: 20, r: 20 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: 'Segoe UI', size: 11 }
+  };
+
+  Plotly.newPlot('wealthProjectionChart', [trace1, trace2, trace3], layout, { responsive: true, displayModeBar: false });
+}
+
+function renderGoalsChart() {
+  const goals = [
+    { name: 'Emergency Fund', target: financialData.totalExpenses * 6, years: 1, color: '#10b981' },
+    { name: 'Vacation Fund', target: 200000, years: 2, color: '#3b82f6' },
+    { name: 'Car Purchase', target: 800000, years: 4, color: '#f59e0b' },
+    { name: 'Home Down Payment', target: 2000000, years: 7, color: '#8b5cf6' },
+    { name: 'Retirement Corpus', target: 10000000, years: 60 - financialData.age, color: '#ef4444' }
+  ];
+
+  const monthlyInvestment = Math.max(financialData.savings * 0.75, 0);
+
+  const x = goals.map(g => g.name);
+  const y = goals.map(g => g.years);
+  const z = goals.map(g => {
+    const achieved = calculateFutureValue(monthlyInvestment, 12, g.years);
+    return (achieved / g.target) * 100;
+  });
+  const colors = goals.map(g => g.color);
+
+  const data = [{
+    x: x,
+    y: y,
+    z: z,
+    type: 'bar',
+    marker: {
+      color: colors,
+      line: { color: 'white', width: 2 }
+    },
+    text: z.map(v => v.toFixed(1) + '%'),
+    textposition: 'outside',
+    hovertemplate: '<b>%{x}</b><br>Years: %{y}<br>Achievement: %{z:.1f}%<extra></extra>'
+  }];
+
+  const layout = {
+    height: 400,
+    xaxis: { title: 'Financial Goals' },
+    yaxis: { title: 'Time Horizon (Years)' },
+    margin: { t: 40, b: 100, l: 60, r: 40 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: 'Segoe UI', size: 11 }
+  };
+
+  Plotly.newPlot('goalsChart', data, layout, { responsive: true, displayModeBar: false });
+}
 </script>
