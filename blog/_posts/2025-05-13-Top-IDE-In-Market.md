@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: "Top 10 IDEs for Web Development in 2025: The Ultimate Showdown 💥"
 date: 2025-05-13
 categories: [blog, webdev, programming, tools]

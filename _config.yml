@@ -38,7 +38,13 @@ plugins:
   - jekyll-seo-tag
 
 # Permalink structure
-permalink: /:categories/:year/:title/
+permalink: /:categories/:year/:month/:day/:title/
+
+# Collections
+collections:
+  tools:
+    output: true
+    permalink: /tools/:year/:title/
 
 # Defaults
 defaults:
@@ -50,6 +56,12 @@ defaults:
       author: "Rajkumar Venkataraman"
       show_toc: true
       related_posts: true
+  - scope:
+      path: ""
+      type: "tools"
+    values:
+      layout: "default"
+      author: "Rajkumar Venkataraman"
   - scope:
       path: ""
     values:
