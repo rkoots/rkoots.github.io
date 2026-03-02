@@ -48,33 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  // Dark Mode Toggle
-  const darkModeToggle = document.getElementById('dark-mode-toggle');
-  const body = document.body;
-  
-  // Check for saved dark mode preference or default to light mode
-  const currentTheme = localStorage.getItem('theme') || 'light';
-  
-  if (currentTheme === 'dark') {
-    body.classList.add('dark-mode');
-    if (darkModeToggle) {
-      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-    }
-  }
-  
-  if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', function() {
-      body.classList.toggle('dark-mode');
-      const isDarkMode = body.classList.contains('dark-mode');
-      
-      // Update icon
-      darkModeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-      
-      // Save preference
-      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-    });
-  }
-  
   // Smooth scroll for anchor links
   const anchorLinks = document.querySelectorAll('a[href^="#"]');
   anchorLinks.forEach(link => {
@@ -237,29 +210,6 @@ style.textContent = `
   .mobile-nav-link.active {
     color: #667eea !important;
     font-weight: 600;
-  }
-  
-  .dark-mode {
-    background-color: #1a1a1a;
-    color: #ffffff;
-  }
-  
-  .dark-mode .site-header {
-    background: #2d2d2d;
-    border-bottom-color: #444;
-  }
-  
-  .dark-mode .nav-link {
-    color: #ffffff;
-  }
-  
-  .dark-mode .nav-dropdown {
-    background: #2d2d2d;
-    border-color: #444;
-  }
-  
-  .dark-mode .newsletter-section {
-    background: linear-gradient(135deg, #4a5fc1 0%, #6a4c90 100%);
   }
   
   .lazy {

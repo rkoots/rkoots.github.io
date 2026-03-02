@@ -245,29 +245,3 @@ th {
     justify-content: center;
   }
 }
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #1a1a1a;
-    color: #ffffff;
-  }
-  
-  .form-control {
-    background: #2d2d2d;
-    border-color: #444;
-    color: #ffffff;
-  }
-  
-  .form-control:focus {
-    border-color: #667eea;
-  }
-  
-  table th {
-    background: #2d2d2d;
-  }
-  
-  th, td {
-    border-bottom-color: #444;
-  }
-}
