@@ -1,15 +1,18 @@
 <!doctype html>
 <html lang="en" class="no-js">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="theme-color" content="#fafbfc">
+
     <!-- Google Ads -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7927442030711768" crossorigin="anonymous"></script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
 
-<script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-</script>
-    
-    
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CLY6CQ5DNK"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -18,6 +21,7 @@
         gtag('config', 'G-CLY6CQ5DNK');
     </script>
 
+    <!-- Structured Data: Person -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -25,9 +29,7 @@
             "name": "Rajkumar Venkataraman",
             "alternateName": "Rajkumar V",
             "url": "https://rkoots.github.io/",
-            "sameAs": [
-                "https://github.com/rkoots"
-            ],
+            "sameAs": ["https://github.com/rkoots"],
             "jobTitle": "Developer / Technologist",
             "worksFor": {
                 "@type": "Organization",
@@ -36,20 +38,17 @@
         }
     </script>
 
-     <meta name="author" content="Rajkumar V (rkoots)">
+    <meta name="author" content="Rajkumar V (rkoots)">
 
     {% seo %}
 
-    <!-- Keywords Imports -->
-
     {% assign static_keywords = site.data.keywords.static_keywords %}
     {% assign combined_keywords = page.keywords | concat: static_keywords %}
-
     {% if combined_keywords %}
     <meta name="keywords" content="{{ combined_keywords | join: ', ' }}">
     {% endif %}
 
-    <!-- SEO & Structured Data -->
+    <!-- Structured Data: WebSite -->
     <link rel="alternate" type="application/atom+xml" title="rkoots Feed" href="/feed.xml">
     <script type="application/ld+json">
         {
@@ -65,36 +64,34 @@
         }
     </script>
 
-    <!-- Styles & Theme -->
+    <!-- Fonts: Inter (system fallback if unavailable) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/layout.css">
     <link rel="stylesheet" href="/assets/css/academicons.css">
-    <link rel="icon" type="image/svg+xml" href="/blog/images/favicon.png">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="{{ 'blog/images/favicon.png' | relative_url }}">
     <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-180x180.png">
     <link rel="icon" type="image/png" href="/blog/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="/blog/images/favicon-192x192.png" sizes="192x192">
-    <link rel="manifest" href="/blog/images/manifest.json">
-    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="{{ 'blog/images/manifest.json' | relative_url }}">
+
+    <!-- Feeds -->
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ 'feed.xml' | relative_url }}">
 
     <!-- Chatbot -->
     <script src="https://app.livechatai.com/embed.js" data-id="cmab1hc9r0003ky0crgu3deor" async defer></script>
 
-    <!-- MathJax Support -->
+    <!-- MathJax -->
     <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    <!-- Misc -->
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta http-equiv="cleartype" content="on">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="{{ 'blog/images/favicon.png' | relative_url }}">
-    <link rel="manifest" href="{{ 'blog/images/manifest.json' | relative_url }}">
-
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ 'feed.xml' | relative_url }}">
-
-    <!-- Clarity tracking code for https://rkoots.github.io/ -->
+    <!-- Clarity -->
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -102,111 +99,178 @@
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", "rkbswm8a4o");
     </script>
+
+    <!-- Umami -->
     <script defer src="https://cloud.umami.is/script.js" data-website-id="8f8893aa-17a2-400c-911b-fc72ca79c2c5"></script>
+
+    <!-- Domain Verification -->
     <meta name="p:domain_verify" content="bf5dcde4f6892f5ce03eac22d1a3084f"/>
 </head>
 
 <body>
-    <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-7927442030711768">
-</amp-auto-ads>
-<!-- Header -->
-<div class="masthead">
-    <div class="masthead__inner-wrap">
-        <div class="masthead__menu">
-            <nav id="site-nav" class="greedy-nav">
-                <button><div class="navicon"></div></button>
-                <ul class="visible-links">
-                    <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="{{ '/' | relative_url }}">Your Gateway to Tech Mastery</a></li>
-                    <li class="masthead__menu-item"><a href="{{ '/technews/' | relative_url }}">Tech News</a></li>
-                    <li class="masthead__menu-item"><a href="{{ '/tools/' | relative_url }}">Tools & Resources</a></li>
-                    <li class="masthead__menu-item"><a href="{{ '/insights/' | relative_url }}">Insights</a></li>
-                    <li class="masthead__menu-item"><a href="{{ '/blog/' | relative_url }}">Tech Blog</a></li>
-                    <li class="masthead__menu-item"><a href="{{ '/guide/' | relative_url }}">Tech Guide</a></li>
-                    <li class="masthead__menu-item"><a href="{{ '/styleguide/' | relative_url }}">Style Guide</a></li>
-                    <li class="masthead__menu-item"><a href="{{ '/quickref/' | relative_url }}">AI Cheat</a></li>
-                    <li id="theme-toggle" class="masthead__menu-item persist tail">
-                        <a><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
-                    </li>
-                </ul>
-                <ul class="hidden-links hidden"></ul>
-            </nav>
-        </div>
-    </div>
-</div>
+    <amp-auto-ads type="adsense" data-ad-client="ca-pub-7927442030711768"></amp-auto-ads>
 
-<!-- Main content -->
-<main id="main" role="main">
-    {{ content }}
-</main>
+    <div class="site-container">
+        <!-- Gradient accent bar -->
+        <div class="accent-bar" aria-hidden="true"></div>
 
-<!-- Footer -->
+        <!-- ===== HEADER ===== -->
+        <header class="site-header" id="site-header">
+            <div class="container">
+                <a href="{{ '/' | relative_url }}" class="nav__brand">
+                    <span class="nav__brand-accent">rkoots</span> TechGuide
+                </a>
 
-<section class="page__share text-center">
-    <h4 class="page__share-title">Share on</h4>
-    <a id="linkedin-share" class="btn btn--linkedin" title="Share on LinkedIn">
-        <i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span>
-    </a>
-    <a id="twitter-share" class="btn btn--x" title="Share on X">
-        <i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span>
-    </a>
-    <a id="facebook-share" class="btn btn--facebook" title="Share on Facebook">
-        <i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span>
-    </a>
-</section>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const pageUrl = encodeURIComponent(window.location.href);
-      document.getElementById("linkedin-share").href = `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}`;
-      document.getElementById("twitter-share").href = `https://x.com/intent/post?text=${pageUrl}`;
-      document.getElementById("facebook-share").href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
-    });
-</script>
+                <nav id="site-nav" aria-label="Primary navigation">
+                    <ul class="nav__links">
+                        <li class="nav__item"><a href="{{ '/technews/' | relative_url }}" class="nav__link">Tech News</a></li>
+                        <li class="nav__item"><a href="{{ '/tools/' | relative_url }}" class="nav__link">Tools</a></li>
+                        <li class="nav__item"><a href="{{ '/insights/' | relative_url }}" class="nav__link">Insights</a></li>
+                        <li class="nav__item"><a href="{{ '/blog/' | relative_url }}" class="nav__link">Blog</a></li>
+                        <li class="nav__item"><a href="{{ '/guide/' | relative_url }}" class="nav__link">Guide</a></li>
+                        <li class="nav__item"><a href="{{ '/styleguide/' | relative_url }}" class="nav__link">Style Guide</a></li>
+                        <li class="nav__item"><a href="{{ '/quickref/' | relative_url }}" class="nav__link">AI Cheat</a></li>
+                    </ul>
+                </nav>
 
+                <div class="nav__actions">
+                    <button id="theme-toggle" class="nav__theme-toggle" aria-label="Toggle theme">
+                        <i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true"></i>
+                    </button>
+                    <button class="nav__mobile-toggle" id="nav-mobile-toggle" aria-label="Open menu" aria-expanded="false">
+                        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
 
-<div class="page__footer text-center">
-
-    <footer>
-        <nav class="footer-nav">
-            <a href="/about/">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;
-            <a href="https://vrajkumar-tech.github.io/cv/#contact">Contact</a>&nbsp;&nbsp;&nbsp;|&nbsp;
-            <a href="/sitemap/">Sitemap</a>&nbsp;&nbsp;&nbsp;|&nbsp;
-            <a href="/projects/">Projects</a>&nbsp;&nbsp;&nbsp;|&nbsp;
-            <a href="https://vrajkumar-tech.github.io/cv/">Portfolio</a>&nbsp;&nbsp;&nbsp;|&nbsp;
-            <a href="/terms/">Terms & Privacy Policy</a>&nbsp;&nbsp;&nbsp;|&nbsp;
-            <a href="https://vrajkumar-tech.github.io/cv/#">About Me</a>
-        </nav>
-        <div class="page__footer-follow">
-            <ul class="social-icons">
-                <li><strong>Follow:</strong></li>
-                <li><a href="http://github.com/rkoots"><i class="fab fa-github"></i> GitHub</a></li>
-                <li><a href="https://www.linkedin.com/in/rkoots/"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-                <li><a href="{{ '/feed.xml' | relative_url }}"><i class="fa fa-fw fa-rss-square"></i> Feed</a></li>
-                <li><a href="https://x.com/rkoots"><i class="fa fa-fw fa-twitter"></i> X.com</a></li>
-                <li><a href="https://dev.to/rkoots"><i class="fa fa-fw fa-dev"></i> Dev.to</a></li>
-                <li><a href="http://rajkumarv.125mb.com"><i class="fa fa-fw fa-globe"></i> Web</a></li>
-                <li><a href="http://rajkumar.is-a.dev"><i class="fa fa-fw fa-pagelines"></i> is-a.dev</a></li>
-
+            <!-- Mobile drawer -->
+            <ul class="nav__mobile-menu" id="nav-mobile-menu">
+                <li class="nav__item"><a href="{{ '/technews/' | relative_url }}" class="nav__link">Tech News</a></li>
+                <li class="nav__item"><a href="{{ '/tools/' | relative_url }}" class="nav__link">Tools & Resources</a></li>
+                <li class="nav__item"><a href="{{ '/insights/' | relative_url }}" class="nav__link">Insights</a></li>
+                <li class="nav__item"><a href="{{ '/blog/' | relative_url }}" class="nav__link">Tech Blog</a></li>
+                <li class="nav__item"><a href="{{ '/guide/' | relative_url }}" class="nav__link">Tech Guide</a></li>
+                <li class="nav__item"><a href="{{ '/styleguide/' | relative_url }}" class="nav__link">Style Guide</a></li>
+                <li class="nav__item"><a href="{{ '/quickref/' | relative_url }}" class="nav__link">AI Cheat</a></li>
             </ul>
-        </div>
-        <div class="page__footer-copyright">
-            &copy; <span id="current-year"></span> Rajkumar Venkataraman, Powered by
-            <a href="https://vrajkumar-tech.github.io/cv" rel="nofollow">rkoots</a> (aka)
-            <a href="https://github.com/rkoots/">RK</a>.<br />
-            Site last updated <span id="last-updated"></span>
-        </div>
-    </footer>
-</div>
+        </header>
 
-<!-- Scripts -->
-<script src="/assets/js/main.min.js"></script>
-<script>
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-    const lastUpdatedDate = new Date('2025-05-07');
-    const today = new Date();
-    const diffTime = Math.abs(today - lastUpdatedDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    document.getElementById('last-updated').textContent = ` yesterday`;
-</script>
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="site-main" id="main" role="main">
+            <div class="container">
+                {{ content }}
+            </div>
+        </main>
+
+        <!-- ===== SHARE ===== -->
+        <section class="share" aria-label="Share this page">
+            <div class="container">
+                <h4 class="share__title">Share on</h4>
+                <div class="share__buttons">
+                    <a id="linkedin-share" class="btn btn--linkedin btn--sm" title="Share on LinkedIn">
+                        <i class="fab fa-linkedin" aria-hidden="true"></i><span>LinkedIn</span>
+                    </a>
+                    <a id="twitter-share" class="btn btn--x btn--sm" title="Share on X">
+                        <i class="fab fa-x-twitter" aria-hidden="true"></i><span>X</span>
+                    </a>
+                    <a id="facebook-share" class="btn btn--facebook btn--sm" title="Share on Facebook">
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="site-footer">
+            <div class="container">
+                <nav aria-label="Footer navigation">
+                    <ul class="footer__nav">
+                        <li><a href="/about/" class="footer__nav-link">About</a></li>
+                        <li><a href="https://vrajkumar-tech.github.io/cv/#contact" class="footer__nav-link">Contact</a></li>
+                        <li><a href="/sitemap/" class="footer__nav-link">Sitemap</a></li>
+                        <li><a href="/projects/" class="footer__nav-link">Projects</a></li>
+                        <li><a href="https://vrajkumar-tech.github.io/cv/" class="footer__nav-link">Portfolio</a></li>
+                        <li><a href="/terms/" class="footer__nav-link">Terms & Privacy</a></li>
+                        <li><a href="https://vrajkumar-tech.github.io/cv/#" class="footer__nav-link">About Me</a></li>
+                    </ul>
+                </nav>
+
+                <div class="footer__divider" aria-hidden="true"></div>
+
+                <ul class="footer__social" aria-label="Social links">
+                    <li><a href="https://github.com/rkoots" class="footer__social-link"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/rkoots/" class="footer__social-link"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+                    <li><a href="{{ '/feed.xml' | relative_url }}" class="footer__social-link"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+                    <li><a href="https://x.com/rkoots" class="footer__social-link"><i class="fab fa-x-twitter" aria-hidden="true"></i> X</a></li>
+                    <li><a href="https://dev.to/rkoots" class="footer__social-link"><i class="fab fa-dev" aria-hidden="true"></i> Dev.to</a></li>
+                    <li><a href="http://rajkumarv.125mb.com" class="footer__social-link"><i class="fa fa-fw fa-globe" aria-hidden="true"></i> Web</a></li>
+                    <li><a href="http://rajkumar.is-a.dev" class="footer__social-link"><i class="fa fa-fw fa-pagelines" aria-hidden="true"></i> is-a.dev</a></li>
+                </ul>
+
+                <div class="footer__divider" aria-hidden="true"></div>
+
+                <p class="footer__copy">
+                    &copy; <span id="current-year"></span> Rajkumar Venkataraman &middot; Powered by
+                    <a href="https://vrajkumar-tech.github.io/cv" rel="nofollow">rkoots</a>
+                    <span class="text-muted">(aka</span> <a href="https://github.com/rkoots/">RK</a><span class="text-muted">)</span><br>
+                    Site last updated <span id="last-updated"></span>
+                </p>
+            </div>
+        </footer>
+    </div><!-- /.site-container -->
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="/assets/js/main.min.js"></script>
+    <script>
+        (function () {
+            /* Year & last-updated */
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            var updated = new Date('2025-05-07');
+            var diff = Math.ceil(Math.abs(new Date() - updated) / 864e5);
+            document.getElementById('last-updated').textContent =
+                diff <= 1 ? 'yesterday' : diff + ' days ago';
+
+            /* Share URLs */
+            var pageUrl = encodeURIComponent(window.location.href);
+            document.getElementById('linkedin-share').href =
+                'https://www.linkedin.com/shareArticle?mini=true&url=' + pageUrl;
+            document.getElementById('twitter-share').href =
+                'https://x.com/intent/post?text=' + pageUrl;
+            document.getElementById('facebook-share').href =
+                'https://www.facebook.com/sharer/sharer.php?u=' + pageUrl;
+
+            /* Sticky header shadow on scroll */
+            var header = document.getElementById('site-header');
+            window.addEventListener('scroll', function () {
+                header.classList.toggle('is-scrolled', window.scrollY > 8);
+            }, { passive: true });
+
+            /* Mobile nav toggle */
+            var toggle = document.getElementById('nav-mobile-toggle');
+            var menu = document.getElementById('nav-mobile-menu');
+            if (toggle && menu) {
+                toggle.addEventListener('click', function () {
+                    var open = menu.classList.toggle('is-open');
+                    toggle.setAttribute('aria-expanded', open);
+                    toggle.querySelector('i').className =
+                        open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+                });
+            }
+
+            /* Back to top */
+            var btn = document.getElementById('back-to-top');
+            window.addEventListener('scroll', function () {
+                btn.classList.toggle('is-visible', window.scrollY > 400);
+            }, { passive: true });
+            btn.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+    </script>
 </body>
 </html>
