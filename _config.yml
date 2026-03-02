@@ -37,6 +37,9 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
+# Permalink structure
+permalink: /:categories/:year/:title/
+
 # Defaults
 defaults:
   - scope:
