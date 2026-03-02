@@ -31,21 +31,11 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
 
-# GitHub Pages Compatible Plugins
+# Basic Jekyll Plugins (for local development)
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
-  - jekyll-paginate
-  - jekyll-github-metadata
-  - jekyll-optional-front-matter
-  - jekyll-readme-index
-  - jekyll-default-layout
-  - jekyll-titles-from-headings
-
-# Pagination (for blog posts)
-paginate: 10
-paginate_path: "/blog/page:num/"
 
 # Defaults
 defaults:
@@ -102,10 +92,10 @@ feed:
   path: feed.xml
   posts_limit: 20
 
-# Sass Configuration
-sass:
-  style: compressed
-  sass_dir: _sass
+# Sass Configuration - Temporarily disabled
+# sass:
+#   style: compressed
+#   sass_dir: _sass
 
 # Exclude from processing
 exclude:

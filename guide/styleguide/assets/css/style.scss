@@ -3,9 +3,7 @@
 # See https://jekyllrb.com/docs/frontmatter for more information.
 ---
 
-@import "{{ site.theme }}";
-
-// Hide “This site is open source. Improve this page.”
+// Hide "This site is open source. Improve this page."
 .footer {
   display: none;
 }
