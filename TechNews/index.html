@@ -8,8 +8,8 @@ keywords: ["tech news", "latest in engineering", "software trends", "fintech upd
 
 
 <section class="blog-listing">
-    <h1 class="page-title">📚 What’s New around the World </h1>
-    <p class="page-subtitle" style="text-align: center; font-style: italic; margin-top: -10px;">
+    <h1 class="page-title scroll-animate fade-in-up">📚 What's New around the World</h1>
+    <p class="page-subtitle scroll-animate fade-in-up" style="text-align: center; font-style: italic; margin-top: -10px;">
         Stay Updated with the Latest in Tech - Curated news, breakthroughs, and updates from across the tech industry to keep you informed and ahead of the curve.
     </p>
 
@@ -18,13 +18,13 @@ keywords: ["tech news", "latest in engineering", "software trends", "fintech upd
     {% if blog_posts.size > 0 %}
     <div class="posts-grid">
         {% for post in blog_posts %}
-        <article class="post-card">
+        <article class="post-card scroll-animate scale-in">
             <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
             <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
             {% if post.excerpt %}
             <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
             {% endif %}
-            <a class="read-more" href="{{ post.url | relative_url }}">Read more →</a>
+            <a class="read-more magnetic-btn" href="{{ post.url | relative_url }}">Read more →</a>
         </article>
         {% endfor %}
     </div>
@@ -37,64 +37,221 @@ keywords: ["tech news", "latest in engineering", "software trends", "fintech upd
 <style>
     .blog-listing {
       padding: 2rem;
-      max-width: 800px;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
     .page-title {
-      font-size: 2.2rem;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    .page-subtitle {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
     }
 
     .posts-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2.5rem;
+      perspective: 1000px;
     }
 
     .post-card {
-      border: 1px solid #eee;
-      padding: 1.2rem;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      transition: box-shadow 0.3s ease;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      border: none;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      animation: slideInUp 0.6s ease-out;
+      animation-fill-mode: both;
     }
 
+    .post-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+      background-size: 200% 100%;
+      animation: gradientShift 3s ease-in-out infinite;
+    }
+
+    .post-card:nth-child(1) { animation-delay: 0.1s; }
+    .post-card:nth-child(2) { animation-delay: 0.2s; }
+    .post-card:nth-child(3) { animation-delay: 0.3s; }
+    .post-card:nth-child(4) { animation-delay: 0.4s; }
+    .post-card:nth-child(5) { animation-delay: 0.5s; }
+    .post-card:nth-child(6) { animation-delay: 0.6s; }
+
     .post-card:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .post-card:hover::after {
+      opacity: 0.1;
+    }
+
+    .post-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, #667eea, #764ba2);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
     }
 
     .post-card h2 {
-      margin: 0 0 0.3rem;
-      font-size: 1.5rem;
-      color: #333;
+      margin: 0 0 0.5rem;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #2d3748;
+      line-height: 1.3;
     }
 
     .post-card h2 a {
       text-decoration: none;
-      color: #0056b3;
+      color: inherit;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .post-card h2 a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      transition: width 0.3s ease;
+    }
+
+    .post-card:hover h2 a::after {
+      width: 100%;
     }
 
     .post-meta {
       font-size: 0.9rem;
-      color: #777;
+      color: #718096;
+      margin-bottom: 1rem;
+      font-weight: 500;
     }
 
     .post-excerpt {
       font-size: 1rem;
-      color: #444;
-      margin: 0.7rem 0;
+      color: #4a5568;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
     }
 
     .read-more {
-      font-weight: bold;
+      font-weight: 600;
       text-decoration: none;
-      color: #007acc;
+      color: #667eea;
+      display: inline-flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .read-more::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      transition: width 0.3s ease;
+    }
+
+    .read-more:hover::before {
+      width: 100%;
     }
 
     .read-more:hover {
-      text-decoration: underline;
+      color: #764ba2;
+      transform: translateX(4px);
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @media (max-width: 768px) {
+      .blog-listing {
+        padding: 1rem;
+      }
+      
+      .page-title {
+        font-size: 2rem;
+      }
+      
+      .posts-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .post-card {
+        padding: 1.5rem;
+      }
     }
 </style>
