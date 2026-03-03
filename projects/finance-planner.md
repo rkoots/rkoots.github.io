@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Finance Planning App
+title: Finance Planning App - Investment Calculator & Budget Planner
 permalink: /finance-pannner/
-description: Plan your investments, control spending, and visualize your financial future.
+description: Plan your investments, control spending, and visualize your financial future with our advanced finance planning calculator. Get personalized investment strategies, budget analysis, and wealth projection tools.
+keywords: finance planner, investment calculator, budget planner, financial planning, investment strategy, wealth management, retirement planning, tax saving, mutual funds, SIP calculator, emergency fund, financial goals, expense tracker, savings calculator, investment portfolio, financial advisor, personal finance, money management, investment analysis, risk assessment, financial freedom, wealth building, investment returns, compound interest calculator, retirement corpus, tax planning, financial literacy, investment tips, budget management, expense optimization, financial security, investment planning, wealth projection, financial dashboard
 ---
 
 <style>
@@ -360,6 +361,7 @@ input[type="range"]::-moz-range-thumb {
   <div class="header">
     <h1>💰 Advanced Finance Planner</h1>
     <p>Plan your investments, control spending, and visualize your financial future with interactive 3D analytics</p>
+    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 10px;">✅ Free Financial Planning Tool | 📊 Real-time Investment Analysis | 🎯 Personalized Wealth Strategies | 📈 3D Visualization Charts</p>
   </div>
 
   <div class="main-grid">
@@ -539,6 +541,88 @@ input[type="range"]::-moz-range-thumb {
     <div class="chart-container">
       <h2 style="color: var(--primary); margin-bottom: 20px;">🎯 Financial Goals Timeline</h2>
       <div id="goalsChart"></div>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="recommendations" style="margin-top: 40px;">
+    <h2>❓ Frequently Asked Questions (FAQ)</h2>
+    
+    <div class="recommendation-item">
+      <h4>🎯 How much should I save monthly for financial security?</h4>
+      <p>Financial experts recommend saving at least 20% of your monthly income. This includes emergency fund contributions, retirement savings, and other investments. Our finance planner helps you track your savings rate and provides personalized recommendations based on your income and expenses.</p>
+    </div>
+
+    <div class="recommendation-item">
+      <h4>💎 What is the ideal investment allocation for my age?</h4>
+      <p>The ideal investment allocation depends on your age, risk tolerance, and financial goals. A common rule is (100 - your age) in equity investments. Our advanced finance planner automatically calculates optimal allocation across equity, debt, gold, and liquid assets based on your risk profile and age.</p>
+    </div>
+
+    <div class="recommendation-item">
+      <h4>🛡️ How big should my emergency fund be?</h4>
+      <p>Your emergency fund should cover 6-12 months of essential expenses. This fund should be kept in liquid instruments like savings accounts, fixed deposits, or liquid mutual funds. Our calculator automatically determines your ideal emergency fund amount based on your monthly expenses.</p>
+    </div>
+
+    <div class="recommendation-item">
+      <h4>📊 How can I optimize my monthly budget?</h4>
+      <p>Start by tracking all expenses, categorize them, and identify areas where you can cut costs. The 50/30/20 rule suggests 50% for needs, 30% for wants, and 20% for savings. Our budget planner provides real-time expense tracking with interactive sliders to help you optimize your spending.</p>
+    </div>
+
+    <div class="recommendation-item">
+      <h4>🚀 What are the best tax-saving investment options in India?</h4>
+      <p>Popular tax-saving options under Section 80C include ELSS mutual funds, PPF, NSC, and tax-saving fixed deposits (up to ₹1.5 lakh). Additional deductions are available under Section 80D for health insurance and Section 80CCD(1B) for NPS investments. Our planner helps maximize your tax savings while building wealth.</p>
+    </div>
+
+    <div class="recommendation-item">
+      <h4>📈 How much wealth can I build through SIP investments?</h4>
+      <p>Systematic Investment Plans (SIPs) can build substantial wealth through compounding. For example, investing ₹10,000 monthly at 12% annual return for 20 years can create over ₹1 crore. Our wealth projection calculator shows your potential growth across different return scenarios.</p>
+    </div>
+
+    <div class="recommendation-item">
+      <h4>🎓 When should I start retirement planning?</h4>
+      <p>The best time to start retirement planning is in your 20s or early 30s. Starting early allows compound interest to work in your favor. Even small monthly investments can grow into substantial retirement corpus. Our calculator helps you plan for retirement based on your current age and desired retirement age.</p>
+    </div>
+
+    <div class="recommendation-item">
+      <h4>⚖️ How do I choose between conservative, moderate, and aggressive investment strategies?</h4>
+      <p>Conservative strategies focus on capital preservation with lower returns (6-8%), suitable for retirees or risk-averse investors. Moderate strategies balance risk and returns (10-12%), ideal for most investors. Aggressive strategies aim for higher returns (14%+) with higher risk, suitable for young investors with long time horizons.</p>
+    </div>
+  </div>
+
+  <!-- Additional Content Section -->
+  <div class="recommendations" style="margin-top: 30px;">
+    <h2>📚 Financial Planning Resources & Tips</h2>
+    
+    <div class="recommendation-item">
+      <h4>💡 Key Financial Planning Principles</h4>
+      <p><strong>1. Pay Yourself First:</strong> Automate your savings and investments before spending on anything else.<br>
+      <strong>2. Diversify Your Portfolio:</strong> Spread investments across different asset classes to minimize risk.<br>
+      <strong>3. Review Regularly:</strong> Review your financial plan quarterly and adjust as needed.<br>
+      <strong>4. Stay Informed:</strong> Keep learning about personal finance and investment options.</p>
+    </div>
+
+    <div class="recommendation-item">
+      <h4>🎯 Common Financial Goals and Timelines</h4>
+      <p><strong>Emergency Fund:</strong> 1-2 years | <strong>Vacation:</strong> 1-3 years | <strong>Car Purchase:</strong> 3-5 years<br>
+      <strong>Home Down Payment:</strong> 5-7 years | <strong>Children's Education:</strong> 10-15 years | <strong>Retirement:</strong> 20-30 years</p>
+    </div>
+
+    <div class="recommendation-item">
+      <h4>📊 Investment Options for Different Risk Profiles</h4>
+      <p><strong>Conservative:</strong> Fixed deposits, PPF, debt mutual funds, government bonds<br>
+      <strong>Moderate:</strong> Balanced mutual funds, index funds, corporate FDs, gold ETFs<br>
+      <strong>Aggressive:</strong> Equity mutual funds, direct stocks, sectoral funds, international funds</p>
+    </div>
+
+    <div class="recommendation-item">
+      <h4>🔍 Why Use Our Finance Planner?</h4>
+      <p>✅ <strong>Comprehensive Analysis:</strong> Complete financial health assessment in minutes<br>
+      ✅ <strong>Personalized Recommendations:</strong> Tailored advice based on your unique situation<br>
+      ✅ <strong>Real-time Calculations:</strong> Instant updates as you adjust your numbers<br>
+      ✅ <strong>3D Visualizations:</strong> Interactive charts for better understanding<br>
+      ✅ <strong>Goal Tracking:</strong> Plan and track multiple financial goals<br>
+      ✅ <strong>Tax Optimization:</strong> Maximize your tax-saving opportunities<br>
+      ✅ <strong>Retirement Planning:</strong> Secure your financial future with proper planning</p>
     </div>
   </div>
 </div>
@@ -767,7 +851,7 @@ function renderInvestmentChart() {
   }];
 
   const layout = {
-    height: 450,
+    height: 350,
     showlegend: true,
     legend: { orientation: 'h', y: -0.1 },
     margin: { t: 20, b: 60, l: 20, r: 20 },
@@ -807,7 +891,7 @@ function renderExpenseChart() {
   }];
 
   const layout = {
-    height: 450,
+    height: 350,
     showlegend: true,
     legend: { orientation: 'h', y: -0.1 },
     margin: { t: 20, b: 60, l: 20, r: 20 },
