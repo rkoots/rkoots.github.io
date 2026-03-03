@@ -1,60 +1,66 @@
 ---
 layout: default
-title: finance
+title: Finance
 permalink: /finance/
-description: "Step-by-step engineering guides, system architecture walkthroughs, and backend implementation best practices written for developers."
-keywords: ["developer guides", "engineering tutorials", "backend implementation", "API design", "Spring Boot", "Kubernetes setup", "Jekyll tips", "cloud deployments", "DevOps guide"]
+description: "Finance tools and calculators including market outlook, tax calculator, and planning utilities."
+keywords: ["finance tools", "income tax calculator", "market outlook", "financial planning", "investment planner"]
 ---
 
+<section class="finance-listing">
+  <h1 class="page-title">Finance Tools</h1>
+  <p class="page-subtitle">Organized finance pages: market outlook, calculators, and planning tools.</p>
 
-<section class="blog-listing">
-  <h1 class="page-title">📘 Secure, Efficient, and User-Friendly Financial Services </h1>
-  <p class="page-subtitle" style="text-align: center; font-style: italic; margin-top: -10px;">
-    Experience the future of finance with our secure, efficient, and user-friendly financial services.
-  </p>
+  {% assign finance_pages = site.pages | where_exp: "p", "p.url contains '/finance/' and p.url != '/finance/'" | sort: "title" %}
 
-  {% assign blog_posts = site.posts | where: "categories", "finance" %}
-  {% if blog_posts.size > 0 %}
-  <div class="posts-grid">
-    {% for post in blog_posts %}
-    <article class="post-card">
-      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-      <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
-      {% if post.excerpt %}
-      <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
-      {% endif %}
-      <a class="read-more" href="{{ post.url | relative_url }}">Read more →</a>
-    </article>
-    {% endfor %}
-  </div>
+  {% if finance_pages.size > 0 %}
+    <div class="posts-grid">
+      {% for page in finance_pages %}
+        <article class="post-card">
+          <h2><a href="{{ page.url | relative_url }}">{{ page.title }}</a></h2>
+          {% if page.excerpt %}
+            <p class="post-excerpt">{{ page.excerpt | strip_html | truncate: 180 }}</p>
+          {% elsif page.summary %}
+            <p class="post-excerpt">{{ page.summary | strip_html | truncate: 180 }}</p>
+          {% elsif page.description %}
+            <p class="post-excerpt">{{ page.description | strip_html | truncate: 180 }}</p>
+          {% endif %}
+          <a class="read-more" href="{{ page.url | relative_url }}">Open tool →</a>
+        </article>
+      {% endfor %}
+    </div>
   {% else %}
-  <p>No blog posts found in the "blog" category.</p>
+    <p class="empty-state">No finance pages found yet.</p>
   {% endif %}
 </section>
 
 <style>
-  .blog-listing {
+  .finance-listing {
     padding: 2rem;
-    max-width: 800px;
+    max-width: 980px;
     margin: 0 auto;
   }
 
   .page-title {
-    font-size: 2.2rem;
+    font-size: 2.1rem;
     border-bottom: 2px solid #ddd;
     padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-subtitle {
     margin-bottom: 1.5rem;
+    color: #475569;
   }
 
   .posts-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
   }
 
   .post-card {
     border: 1px solid #eee;
-    padding: 1.2rem;
+    padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     transition: box-shadow 0.3s ease;
@@ -75,15 +81,15 @@ keywords: ["developer guides", "engineering tutorials", "backend implementation"
     color: #0056b3;
   }
 
-  .post-meta {
-    font-size: 1rem;
-    color: rgba(0, 0, 0, 0.7);
-  }
-
   .post-excerpt {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: #444;
     margin: 0.7rem 0;
+  }
+
+  .empty-state {
+    margin-top: 1rem;
+    color: #64748b;
   }
 
   .read-more {

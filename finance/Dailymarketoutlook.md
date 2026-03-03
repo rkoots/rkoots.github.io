@@ -12,479 +12,424 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
 
-<section class="market-shell">
-  <div class="market-bg-glow market-bg-glow-a"></div>
-  <div class="market-bg-glow market-bg-glow-b"></div>
+<section class="outlook-shell">
+  <div class="hero-grid">
+    <header class="outlook-hero reveal">
+      <p class="chip">LIVE • TRADING</p>
+      <h1>Daily Market Outlook</h1>
+      <p>
+        Browser-side realtime pulse for your core stock universe + ETFs. Includes breadth,
+        momentum, risk-bucket heat, and top movers from TradingView India scanner.
+      </p>
+      <div class="hero-meta">
+        <span id="lastRefresh">Last refresh: --</span>
+        <span id="fetchStatus">Status: Waiting for first fetch</span>
+        <button id="retryBtn" type="button" class="retry-btn">Refresh now</button>
+      </div>
+    </header>
 
-  <header class="market-hero">
-    <p class="eyebrow">TOOLS • MARKET INTELLIGENCE</p>
-    <h1>Daily Market Outlook</h1>
-    <p class="hero-subtitle">
-      Multi-factor market read for India equities with sentiment, flows, breadth, momentum, and live macro/crypto pulse.
-    </p>
-    <div class="hero-meta">
-      <span>Updated: {{ site.data.market.date | default: "Today" }}</span>
-      <span>Data mode: Local + Public APIs</span>
-    </div>
-  </header>
+    <section class="indices-grid reveal delay-1">
+      <article class="index-card">
+        <p>NIFTY 50</p>
+        <h3 id="niftyCard">--</h3>
+        <small id="niftyChange">--</small>
+      </article>
+      <article class="index-card">
+        <p>BANK NIFTY</p>
+        <h3 id="bankniftyCard">--</h3>
+        <small id="bankniftyChange">--</small>
+      </article>
+      <article class="index-card">
+        <p>SENSEX</p>
+        <h3 id="sensexCard">--</h3>
+        <small id="sensexChange">--</small>
+      </article>
+      <article class="index-card">
+        <p>Advancers / Decliners</p>
+        <h3 id="breadthCard">-- / --</h3>
+        <small>Based on intraday % change</small>
+      </article>
+    </section>
+  </div>
 
-  <section class="pulse-grid" id="pulse">
-    <article class="metric-card {% if site.data.market.nifty.change > 0 %}is-up{% else %}is-down{% endif %}">
-      <p>Nifty 50</p>
-      <h2>{{ site.data.market.nifty.value }}</h2>
-      <strong>{% if site.data.market.nifty.change > 0 %}▲{% else %}▼{% endif %} {{ site.data.market.nifty.change }}</strong>
+  <section class="summary-grid reveal delay-2">
+    <article class="stat-card">
+      <p>Universe Coverage</p>
+      <h3 id="coverageCard">-- / --</h3>
+      <small>Fetched symbols vs configured watchlist</small>
     </article>
-
-    <article class="metric-card {% if site.data.market.banknifty.change > 0 %}is-up{% else %}is-down{% endif %}">
-      <p>Bank Nifty</p>
-      <h2>{{ site.data.market.banknifty.value }}</h2>
-      <strong>{% if site.data.market.banknifty.change > 0 %}▲{% else %}▼{% endif %} {{ site.data.market.banknifty.change }}</strong>
+    <article class="stat-card">
+      <p>Average Return</p>
+      <h3 id="avgChangeCard">--</h3>
+      <small>Equal-weight watchlist move</small>
     </article>
-
-    <article class="metric-card {% if site.data.market.vix < 16 %}is-up{% else %}is-neutral{% endif %}">
-      <p>India VIX</p>
-      <h2>{{ site.data.market.vix }}</h2>
-      <strong>{% if site.data.market.vix < 16 %}Risk-on volatility{% else %}Heightened volatility{% endif %}</strong>
-    </article>
-
-    <article class="metric-card {% if site.data.market.pcr > 1 %}is-up{% else %}is-down{% endif %}">
-      <p>Put/Call Ratio</p>
-      <h2>{{ site.data.market.pcr }}</h2>
-      <strong>{% if site.data.market.pcr > 1 %}Bullish options skew{% else %}Cautious options skew{% endif %}</strong>
+    <article class="stat-card">
+      <p>Risk-Adjusted Pulse</p>
+      <h3 id="riskPulseCard">--</h3>
+      <small>Higher-risk names weighted down</small>
     </article>
   </section>
 
-  <section class="insight-grid">
-    <article class="panel panel-wide fade-in">
-      <h3>AI Market Narrative</h3>
-      <p>{{ site.data.market.ai_outlook }}</p>
-      <div class="tag-row">
-        <span class="tag">Momentum</span>
-        <span class="tag">Breadth</span>
-        <span class="tag">Flows</span>
-        <span class="tag">Volatility</span>
+  <section class="cards-3col reveal delay-3">
+    <article class="panel">
+      <h2>Top 8 Gainers</h2>
+      <div id="gainersList" class="list-stack"></div>
+    </article>
+    <article class="panel">
+      <h2>Top 8 Losers</h2>
+      <div id="losersList" class="list-stack"></div>
+    </article>
+    <article class="panel">
+      <h2>Signal Snapshot</h2>
+      <ul class="clean-list">
+        <li><span>ADX Trend Leaders</span><strong id="adxLeaders">--</strong></li>
+        <li><span>Above SMA50</span><strong id="sma50Breadth">--</strong></li>
+        <li><span>Above SMA100</span><strong id="sma100Breadth">--</strong></li>
+        <li><span>Median RSI(1D)</span><strong id="medianRsi">--</strong></li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="panel reveal delay-3">
+    <h2>Risk Bucket Performance</h2>
+    <div id="riskBuckets" class="risk-grid"></div>
+  </section>
+
+  <section class="table-grid reveal delay-3">
+    <article class="panel">
+      <h2>Stocks Monitor</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Close</th>
+              <th>Chg%</th>
+              <th>ADR%</th>
+              <th>RSI</th>
+              <th>ADX</th>
+              <th>SMA50 Gap%</th>
+              <th>Risk</th>
+            </tr>
+          </thead>
+          <tbody id="stocksTableBody"></tbody>
+        </table>
       </div>
     </article>
 
-    <article class="panel fade-in delay-1">
-      <h3>Institutional Flows</h3>
-      <ul class="clean-list">
-        <li><span>FII Net</span> <strong>{{ site.data.market.fii_flow }}</strong></li>
-        <li><span>DII Net</span> <strong>{{ site.data.market.dii_flow }}</strong></li>
-        <li><span>OBV Trend</span> <strong>{{ site.data.market.obv }}</strong></li>
-        <li><span>Fib Zone</span> <strong>{{ site.data.market.Fibonacci_Retracement }}</strong></li>
-      </ul>
-    </article>
-
-    <article class="panel fade-in delay-2">
-      <h3>Action Radar</h3>
-      <ul class="clean-list compact">
-        <li>
-          <span>Trend Bias</span>
-          <strong>{% if site.data.market.nifty.change > 0 and site.data.market.banknifty.change > 0 %}Risk-On{% else %}Mixed{% endif %}</strong>
-        </li>
-        <li>
-          <span>Volatility Regime</span>
-          <strong>{% if site.data.market.vix < 16 %}Low{% elsif site.data.market.vix < 20 %}Moderate{% else %}High{% endif %}</strong>
-        </li>
-        <li>
-          <span>Options Sentiment</span>
-          <strong>{% if site.data.market.pcr > 1 %}Positive{% else %}Defensive{% endif %}</strong>
-        </li>
-      </ul>
-    </article>
-  </section>
-
-  <section class="tables-grid">
     <article class="panel">
-      <h3>Top Gainers</h3>
-      <table>
-        <thead>
-          <tr><th>Ticker</th><th>Company</th><th>Change</th><th>%</th></tr>
-        </thead>
-        <tbody>
-          {% for gainer in site.data.market.gainers %}
-          <tr>
-            <td>{{ gainer.symbol }}</td>
-            <td>{{ gainer.name }}</td>
-            <td>{{ gainer.change }}</td>
-            <td>{{ gainer.percent }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </article>
-
-    <article class="panel">
-      <h3>Top Losers</h3>
-      <table>
-        <thead>
-          <tr><th>Ticker</th><th>Company</th><th>Change</th><th>%</th></tr>
-        </thead>
-        <tbody>
-          {% for loser in site.data.market.losers %}
-          <tr>
-            <td>{{ loser.symbol }}</td>
-            <td>{{ loser.name }}</td>
-            <td>{{ loser.change }}</td>
-            <td>{{ loser.percent }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <h2>ETF Monitor</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ETF</th>
+              <th>Close</th>
+              <th>Chg%</th>
+              <th>1W ROC%</th>
+              <th>1M ROC%</th>
+              <th>RSI</th>
+            </tr>
+          </thead>
+          <tbody id="etfTableBody"></tbody>
+        </table>
+      </div>
     </article>
   </section>
 
-  <section class="panel live-panel">
-    <div class="live-header">
-      <h3>Live Macro & Risk Dashboard</h3>
-      <p>Public API widgets with fallback values. Auto-refresh every 5 minutes.</p>
-    </div>
-
-    <div class="live-grid" id="liveGrid">
-      <article class="live-card">
-        <p>BTC (USD)</p>
-        <h4 id="btcUsd">Loading...</h4>
-        <span id="btcChange">-</span>
-      </article>
-
-      <article class="live-card">
-        <p>ETH (USD)</p>
-        <h4 id="ethUsd">Loading...</h4>
-        <span id="ethChange">-</span>
-      </article>
-
-      <article class="live-card">
-        <p>USD/INR</p>
-        <h4 id="usdInr">Loading...</h4>
-        <span>Frankfurter FX feed</span>
-      </article>
-
-      <article class="live-card">
-        <p>EUR/INR</p>
-        <h4 id="eurInr">Loading...</h4>
-        <span>Frankfurter FX feed</span>
-      </article>
-    </div>
-  </section>
-
-  <section class="panel news-panel">
-    <h3>Key Market News</h3>
-    <ul class="news-list">
-      {% for news in site.data.market.news %}
-      <li>{{ news }}</li>
-      {% endfor %}
-    </ul>
-  </section>
-
-  <section class="api-notes">
+  <section class="panel api-note reveal delay-3">
     <p>
-      APIs used: <strong>CoinGecko</strong> (crypto risk proxy) and <strong>Frankfurter</strong> (FX macro pulse).
-      You can extend this with Alpha Vantage, Finnhub, Twelve Data, Polygon, or FMP by adding your API key in a secure backend proxy.
+      Source: <strong>https://rkoots.github.io/</strong>.
+      Refresh interval: 60 seconds. If your browser/network blocks this endpoint due to CORS,
+      use a backend proxy for guaranteed reliability.
     </p>
   </section>
 </section>
 
 <style>
   :root {
-    --mk-bg: #0c1418;
-    --mk-panel: #121f25;
-    --mk-panel-soft: #17272f;
-    --mk-text: #edf5f7;
-    --mk-muted: #9ab0b7;
-    --mk-line: rgba(255, 255, 255, 0.08);
-    --mk-green: #2fd79c;
-    --mk-red: #ff6e5b;
-    --mk-amber: #f7bd4c;
+    --bg-1: #091218;
+    --bg-2: #12202a;
+    --panel: rgba(9, 20, 28, 0.78);
+    --line: rgba(158, 196, 214, 0.22);
+    --text: #e8f4f6;
+    --muted: #93adb7;
+    --up: #56f0a0;
+    --down: #ff7d76;
+    --accent: #66c0ff;
+    --warn: #ffca6b;
   }
 
-  .market-shell {
-    position: relative;
-    overflow: hidden;
-    color: var(--mk-text);
-    background: radial-gradient(circle at 0% 0%, #1a2f3a 0%, transparent 36%),
-      radial-gradient(circle at 100% 8%, #222429 0%, transparent 38%),
-      linear-gradient(160deg, #081116 0%, #0b161b 55%, #0f1f26 100%);
-    border-radius: 24px;
-    padding: clamp(1.2rem, 2.4vw, 2.2rem);
+  .outlook-shell {
+    font-family: "Sora", sans-serif;
+    color: var(--text);
+    max-width: 1180px;
     margin: 1rem auto 2rem;
-    max-width: 1120px;
-    font-family: "IBM Plex Sans", sans-serif;
+    border-radius: 26px;
+    padding: clamp(1rem, 2.3vw, 2rem);
+    border: 1px solid var(--line);
+    background:
+      radial-gradient(130% 95% at 0% -8%, rgba(48, 93, 131, 0.45) 0%, transparent 52%),
+      radial-gradient(80% 80% at 100% 0%, rgba(18, 92, 99, 0.35) 0%, transparent 40%),
+      linear-gradient(145deg, var(--bg-1) 0%, var(--bg-2) 58%, #0a1419 100%);
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
   }
 
-  .market-bg-glow {
-    position: absolute;
-    border-radius: 999px;
-    filter: blur(34px);
-    opacity: 0.18;
-    pointer-events: none;
-  }
-
-  .market-bg-glow-a {
-    width: 260px;
-    height: 260px;
-    top: -60px;
-    right: 8%;
-    background: #2fd79c;
-  }
-
-  .market-bg-glow-b {
-    width: 220px;
-    height: 220px;
-    bottom: -80px;
-    left: 5%;
-    background: #2ea6ff;
-  }
-
-  .market-hero h1,
-  .panel h3,
-  .metric-card h2 {
-    font-family: "Space Grotesk", sans-serif;
-    letter-spacing: 0.02em;
-  }
-
-  .market-hero {
-    margin-bottom: 1.1rem;
-    animation: rise 500ms ease;
-  }
-
-  .eyebrow {
-    color: var(--mk-amber);
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
-    margin-bottom: 0.45rem;
-  }
-
-  .hero-subtitle {
-    max-width: 78ch;
-    color: var(--mk-muted);
-  }
-
-  .hero-meta {
-    margin-top: 0.7rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-  }
-
-  .hero-meta span {
-    font-size: 0.85rem;
-    border: 1px solid var(--mk-line);
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 999px;
-    padding: 0.3rem 0.7rem;
-    color: #d7e7ec;
-  }
-
-  .pulse-grid,
-  .insight-grid,
-  .tables-grid,
-  .live-grid {
+  .hero-grid,
+  .indices-grid,
+  .summary-grid,
+  .cards-3col,
+  .table-grid,
+  .risk-grid {
     display: grid;
     gap: 0.9rem;
   }
 
-  .pulse-grid {
+  .chip {
+    display: inline-block;
+    font-size: 0.76rem;
+    letter-spacing: 0.12em;
+    color: #c4e7ff;
+    border: 1px solid rgba(102, 192, 255, 0.4);
+    background: rgba(102, 192, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.26rem 0.64rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .outlook-hero h1,
+  .panel h2,
+  .stat-card h3 {
+    font-family: "Outfit", sans-serif;
+    margin: 0;
+    letter-spacing: 0.015em;
+  }
+
+  .outlook-hero p {
+    color: var(--muted);
+    max-width: 80ch;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 0.75rem;
+  }
+
+  .hero-meta span {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.32rem 0.7rem;
+    font-size: 0.78rem;
+    color: #c6dde4;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .retry-btn {
+    border: 1px solid rgba(102, 192, 255, 0.5);
+    background: rgba(102, 192, 255, 0.14);
+    color: #d7ecff;
+    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.76rem;
+    cursor: pointer;
+  }
+
+  .retry-btn:hover {
+    background: rgba(102, 192, 255, 0.24);
+  }
+
+  .indices-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .metric-card {
-    background: linear-gradient(150deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
-    border: 1px solid var(--mk-line);
+  .summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stat-card,
+  .index-card,
+  .panel {
+    border: 1px solid var(--line);
     border-radius: 16px;
-    padding: 0.95rem;
+    background: var(--panel);
     backdrop-filter: blur(4px);
   }
 
-  .metric-card p {
+  .stat-card,
+  .index-card {
+    padding: 0.85rem;
+  }
+
+  .stat-card p,
+  .index-card p {
     margin: 0;
-    color: var(--mk-muted);
-    font-size: 0.86rem;
+    color: var(--muted);
+    font-size: 0.78rem;
   }
 
-  .metric-card h2 {
-    margin: 0.3rem 0;
-    font-size: 1.5rem;
+  .stat-card h3,
+  .index-card h3 {
+    margin-top: 0.34rem;
+    font-size: 1.34rem;
   }
 
-  .metric-card strong {
-    font-size: 0.83rem;
+  .stat-card small,
+  .index-card small {
+    color: #9eb9c2;
+    font-size: 0.72rem;
   }
 
-  .is-up strong {
-    color: var(--mk-green);
+  .cards-3col,
+  .table-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 0.9rem;
   }
 
-  .is-down strong {
-    color: var(--mk-red);
-  }
-
-  .is-neutral strong {
-    color: var(--mk-amber);
-  }
-
-  .insight-grid {
-    grid-template-columns: 1.5fr 1fr 1fr;
-    margin-top: 1rem;
+  .table-grid {
+    grid-template-columns: 2fr 1fr;
   }
 
   .panel {
-    background: var(--mk-panel);
-    border: 1px solid var(--mk-line);
-    border-radius: 16px;
-    padding: 1rem;
+    padding: 0.95rem;
   }
 
-  .panel-wide {
-    background: linear-gradient(145deg, #15252d, #101a1f 70%);
+  .panel h2 {
+    margin-bottom: 0.75rem;
+    font-size: 1.08rem;
   }
 
-  .panel h3 {
-    margin-top: 0;
-    margin-bottom: 0.8rem;
-    font-size: 1.1rem;
+  .list-stack {
+    display: grid;
+    gap: 0.48rem;
   }
 
-  .tag-row {
-    margin-top: 0.8rem;
+  .list-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 0.45rem 0.55rem;
+    font-size: 0.84rem;
   }
 
-  .tag {
-    background: rgba(47, 215, 156, 0.12);
-    color: #88efca;
-    border: 1px solid rgba(47, 215, 156, 0.35);
-    border-radius: 999px;
-    font-size: 0.75rem;
-    padding: 0.24rem 0.62rem;
+  .list-row strong {
+    font-family: "Outfit", sans-serif;
+  }
+
+  .up {
+    color: var(--up);
+  }
+
+  .down {
+    color: var(--down);
   }
 
   .clean-list {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
     display: grid;
-    gap: 0.55rem;
+    gap: 0.58rem;
   }
 
   .clean-list li {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 0.7rem;
-    border-bottom: 1px dashed var(--mk-line);
-    padding-bottom: 0.48rem;
-    color: #d8e8ec;
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 0.42rem;
+    font-size: 0.86rem;
   }
 
-  .clean-list.compact li {
-    font-size: 0.92rem;
+  .clean-list span {
+    color: #a7c2cb;
   }
 
-  .tables-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-top: 1rem;
+  .risk-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .risk-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.65rem;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .risk-card p {
+    margin: 0;
+    color: #bdd3da;
+    font-size: 0.77rem;
+  }
+
+  .risk-card h4 {
+    margin: 0.36rem 0 0.2rem;
+    font-size: 1.1rem;
+    font-family: "Outfit", sans-serif;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
-    overflow: hidden;
-    border-radius: 12px;
+    min-width: 520px;
   }
 
   th,
   td {
     text-align: left;
-    padding: 0.62rem 0.5rem;
-    border-bottom: 1px solid var(--mk-line);
-    font-size: 0.9rem;
+    padding: 0.56rem 0.42rem;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.83rem;
+    white-space: nowrap;
   }
 
   th {
-    font-size: 0.76rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #94adb5;
-    letter-spacing: 0.06em;
+    color: #98b5bf;
   }
 
-  .live-panel {
-    margin-top: 1rem;
-    background: linear-gradient(140deg, #14212a, #101b22 60%);
-  }
-
-  .live-header p {
-    margin-top: -0.2rem;
-    color: var(--mk-muted);
-    font-size: 0.92rem;
-  }
-
-  .live-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    margin-top: 0.85rem;
-  }
-
-  .live-card {
-    background: var(--mk-panel-soft);
-    border: 1px solid var(--mk-line);
-    border-radius: 12px;
-    padding: 0.8rem;
-  }
-
-  .live-card p {
-    margin: 0;
-    color: var(--mk-muted);
-    font-size: 0.8rem;
-  }
-
-  .live-card h4 {
-    margin: 0.38rem 0;
-    font-size: 1.1rem;
-    font-family: "Space Grotesk", sans-serif;
-  }
-
-  .live-card span {
-    color: #b9ccd1;
-    font-size: 0.78rem;
-  }
-
-  .news-panel {
-    margin-top: 1rem;
-  }
-
-  .news-list {
-    margin: 0;
-    padding-left: 1rem;
-    color: #dcebee;
-    display: grid;
-    gap: 0.5rem;
-  }
-
-  .api-notes {
+  .api-note {
     margin-top: 0.9rem;
-    color: #99afb6;
-    font-size: 0.86rem;
+    background: linear-gradient(135deg, rgba(13, 34, 49, 0.75), rgba(8, 22, 30, 0.75));
   }
 
-  .fade-in {
-    animation: rise 500ms ease;
+  .api-note p {
+    margin: 0;
+    color: #b8d0d8;
+    font-size: 0.84rem;
+  }
+
+  .reveal {
+    animation: rise 520ms ease both;
   }
 
   .delay-1 {
-    animation-delay: 80ms;
+    animation-delay: 70ms;
   }
 
   .delay-2 {
-    animation-delay: 150ms;
+    animation-delay: 120ms;
+  }
+
+  .delay-3 {
+    animation-delay: 170ms;
   }
 
   @keyframes rise {
     from {
-      transform: translateY(10px);
+      transform: translateY(9px);
       opacity: 0;
     }
     to {
@@ -493,119 +438,410 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
     }
   }
 
-  @media (max-width: 980px) {
-    .pulse-grid,
-    .live-grid {
+  @media (max-width: 1040px) {
+    .indices-grid,
+    .summary-grid,
+    .risk-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .insight-grid,
-    .tables-grid {
+    .cards-3col,
+    .table-grid {
       grid-template-columns: 1fr;
     }
   }
 
-  @media (max-width: 560px) {
-    .market-shell {
+  @media (max-width: 620px) {
+    .outlook-shell {
       border-radius: 16px;
-      padding: 1rem;
+      padding: 0.85rem;
     }
 
-    .pulse-grid,
-    .live-grid {
+    .indices-grid,
+    .summary-grid,
+    .risk-grid {
       grid-template-columns: 1fr;
-    }
-
-    .market-hero h1 {
-      font-size: 1.55rem;
     }
   }
 </style>
 
 <script>
   (function () {
-    const ids = {
-      btcUsd: document.getElementById("btcUsd"),
-      ethUsd: document.getElementById("ethUsd"),
-      btcChange: document.getElementById("btcChange"),
-      ethChange: document.getElementById("ethChange"),
-      usdInr: document.getElementById("usdInr"),
-      eurInr: document.getElementById("eurInr")
+    const TRADINGVIEW_URL = "https://scanner.tradingview.com/india/scan";
+    const REFRESH_MS = 60000;
+    const FETCH_TIMEOUT_MS = 12000;
+    const CHUNK_SIZE = 24;
+    const TV_ENDPOINTS = [
+      TRADINGVIEW_URL,
+      `https://corsproxy.io/?${encodeURIComponent(TRADINGVIEW_URL)}`,
+      `https://cors.isomorphic-git.org/${TRADINGVIEW_URL}`
+    ];
+
+    const INVEST_STOCKS = {
+      HDFCBANK: 1333, TCS: 11536, RELIANCE: 2885, INFY: 1594, ICICIBANK: 4963, NESTLEIND: 17963,
+      BHARTIARTL: 10604, ASIANPAINT: 236, ITC: 1660, SUNPHARMA: 3351, HCLTECH: 7229,
+      "BAJAJ-AUTO": 16669, APOLLOHOSP: 157, DMART: 19913, SBIN: 3045, AXISBANK: 5900,
+      NTPC: 11630, POWERGRID: 14977, COALINDIA: 20374, CIPLA: 694, ADANIPORTS: 15083,
+      TRENT: 1964, VBL: 18921, BEL: 383, IRCTC: 13611, CAMS: 342, CDSL: 21174,
+      CHOLAFIN: 685, LTF: 24948, ICICIPRULI: 18652, IDFCFIRSTB: 11184, ABCAPITAL: 21614,
+      TATAMOTORS: 3456, TATASTEEL: 3499, TATAPOWER: 3426, DLF: 14732, GODREJPROP: 17875,
+      ACC: 22, AMBUJACEM: 1270, APLAPOLLO: 25780, JIOFIN: 18143, BDL: 2144, IOC: 1624,
+      NHPC: 17400, GMRINFRA: 13528, ASHOKLEY: 212, IDEA: 14366
     };
 
-    function fmtCurrency(value) {
-      if (value === null || value === undefined || Number.isNaN(value)) {
-        return "N/A";
-      }
-      return Number(value).toLocaleString("en-IN", { maximumFractionDigits: 2 });
+    const INVEST_STOCKS_RISK = {
+      HDFCBANK: 1, TCS: 1, RELIANCE: 1, INFY: 1, ICICIBANK: 1, NESTLEIND: 1,
+      BHARTIARTL: 2, ASIANPAINT: 2, ITC: 2, SUNPHARMA: 2, HCLTECH: 2, "BAJAJ-AUTO": 2,
+      APOLLOHOSP: 2, DMART: 2, SBIN: 3, AXISBANK: 3, NTPC: 3, POWERGRID: 2, COALINDIA: 3,
+      MARUTI: 3, CIPLA: 2, ADANIPORTS: 4, TRENT: 4, VBL: 3, BEL: 3, IRCTC: 3, CAMS: 2,
+      CDSL: 3, COLPAL: 2, DIXON: 4, CHOLAFIN: 3, LTF: 4, ICICIPRULI: 3, FEDERALBNK: 3,
+      IDFCFIRSTB: 4, ABCAPITAL: 4, TATAMOTORS: 4, TATASTEEL: 5, TATAPOWER: 4, DLF: 4,
+      GODREJPROP: 4, ACC: 3, AMBUJACEM: 3, APLAPOLLO: 4, JIOFIN: 4, BDL: 3, IOC: 4,
+      NHPC: 3, GMRINFRA: 5, INDUSTOWER: 4, ASHOKLEY: 4, NYKAA: 5, AUROPHARMA: 4,
+      IDEA: 5, SUZLON: 5
+    };
+
+    const INDICES_DICT = {
+      NIFTY: 260, BANKNIFTY: 260105, SENSEX: 265
+    };
+
+    const ETF_DICT = {
+      ALPHA: 7412, EVINDIA: 24461, ITBEES: 19084, SML100CASE: 758955, MID150CASE: 24077,
+      MODEFENCE: 24944, MOM30IETF: 10585, GOLDBEES: 14428, OILIETF: 24533, TOP20: 760415
+    };
+
+    const COLUMNS = [
+      "name", "close", "change", "change_abs", "high", "low", "ADR", "ADRP", "ADX-DI",
+      "ROC|1W", "ROC|1M", "SMA50", "SMA100", "High.3M", "High.6M", "Low.3M",
+      "price_target_1y", "price_target_median", "RSI|1", "RSI|5", "BB.lower",
+      "recommendation_buy", "recommendation_sell", "recommendation_total"
+    ];
+
+    const dom = {
+      niftyCard: document.getElementById("niftyCard"),
+      niftyChange: document.getElementById("niftyChange"),
+      bankniftyCard: document.getElementById("bankniftyCard"),
+      bankniftyChange: document.getElementById("bankniftyChange"),
+      sensexCard: document.getElementById("sensexCard"),
+      sensexChange: document.getElementById("sensexChange"),
+      coverageCard: document.getElementById("coverageCard"),
+      breadthCard: document.getElementById("breadthCard"),
+      avgChangeCard: document.getElementById("avgChangeCard"),
+      riskPulseCard: document.getElementById("riskPulseCard"),
+      gainersList: document.getElementById("gainersList"),
+      losersList: document.getElementById("losersList"),
+      adxLeaders: document.getElementById("adxLeaders"),
+      sma50Breadth: document.getElementById("sma50Breadth"),
+      sma100Breadth: document.getElementById("sma100Breadth"),
+      medianRsi: document.getElementById("medianRsi"),
+      riskBuckets: document.getElementById("riskBuckets"),
+      stocksTableBody: document.getElementById("stocksTableBody"),
+      etfTableBody: document.getElementById("etfTableBody"),
+      lastRefresh: document.getElementById("lastRefresh"),
+      fetchStatus: document.getElementById("fetchStatus"),
+      retryBtn: document.getElementById("retryBtn")
+    };
+
+    let activeEndpoint = TV_ENDPOINTS[0];
+    let refreshTimer = null;
+
+    function num(value, fallback) {
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : (fallback || 0);
     }
 
-    function fmtPct(value) {
-      if (value === null || value === undefined || Number.isNaN(value)) {
-        return "N/A";
+    function fmt(value, digits) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) {
+        return "--";
       }
-      const num = Number(value);
-      const sign = num >= 0 ? "+" : "";
-      return sign + num.toFixed(2) + "% (24h)";
+      return Number(value).toLocaleString("en-IN", {
+        minimumFractionDigits: digits || 0,
+        maximumFractionDigits: digits || 0
+      });
     }
 
-    async function loadCoinGecko() {
-      const endpoint =
-        "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true";
-
-      const response = await fetch(endpoint, { cache: "no-store" });
-      if (!response.ok) {
-        throw new Error("CoinGecko unavailable");
+    function pct(value) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) {
+        return "--";
       }
-
-      const data = await response.json();
-      const btc = data.bitcoin || {};
-      const eth = data.ethereum || {};
-
-      ids.btcUsd.textContent = "$" + fmtCurrency(btc.usd);
-      ids.ethUsd.textContent = "$" + fmtCurrency(eth.usd);
-      ids.btcChange.textContent = fmtPct(btc.usd_24h_change);
-      ids.ethChange.textContent = fmtPct(eth.usd_24h_change);
-      ids.btcChange.style.color = Number(btc.usd_24h_change) >= 0 ? "#2fd79c" : "#ff6e5b";
-      ids.ethChange.style.color = Number(eth.usd_24h_change) >= 0 ? "#2fd79c" : "#ff6e5b";
+      const n = Number(value);
+      return `${n >= 0 ? "+" : ""}${n.toFixed(2)}%`;
     }
 
-    async function loadFrankfurter() {
-      const response = await fetch("https://api.frankfurter.app/latest?from=USD&to=INR,EUR", { cache: "no-store" });
-      if (!response.ok) {
-        throw new Error("Frankfurter unavailable");
+    function parseRows(rawData) {
+      const parsed = [];
+      for (const row of rawData || []) {
+        const values = row.d || [];
+        const obj = { symbol: String(row.s || "").replace("NSE:", "") };
+        COLUMNS.forEach((key, index) => {
+          obj[key] = values[index];
+        });
+        parsed.push(obj);
       }
-
-      const data = await response.json();
-      const usdInr = data.rates && data.rates.INR ? data.rates.INR : null;
-      const usdEur = data.rates && data.rates.EUR ? data.rates.EUR : null;
-      const eurInr = usdInr && usdEur ? usdInr / usdEur : null;
-
-      ids.usdInr.textContent = usdInr ? fmtCurrency(usdInr) : "N/A";
-      ids.eurInr.textContent = eurInr ? fmtCurrency(eurInr) : "N/A";
+      return parsed;
     }
 
-    function setFallback() {
-      if (ids.btcUsd.textContent === "Loading...") {
-        ids.btcUsd.textContent = "API delayed";
+    function splitIntoChunks(list, size) {
+      const chunks = [];
+      for (let i = 0; i < list.length; i += size) {
+        chunks.push(list.slice(i, i + size));
       }
-      if (ids.ethUsd.textContent === "Loading...") {
-        ids.ethUsd.textContent = "API delayed";
-      }
-      if (ids.usdInr.textContent === "Loading...") {
-        ids.usdInr.textContent = "API delayed";
-      }
-      if (ids.eurInr.textContent === "Loading...") {
-        ids.eurInr.textContent = "API delayed";
+      return chunks;
+    }
+
+    async function postScanner(endpoint, payload) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          cache: "no-store",
+          signal: controller.signal
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        return await response.json();
+      } finally {
+        clearTimeout(timeout);
       }
     }
 
-    async function refreshLiveWidgets() {
-      await Promise.allSettled([loadCoinGecko(), loadFrankfurter()]);
-      setFallback();
+    async function fetchMarketRows(symbols) {
+      const payload = {
+        symbols: {
+          tickers: [],
+          query: { types: [] }
+        },
+        columns: COLUMNS
+      };
+
+      const allRows = [];
+      const chunks = splitIntoChunks(symbols, CHUNK_SIZE);
+      let lastError = "Unknown error";
+
+      for (const chunk of chunks) {
+        payload.symbols.tickers = chunk.map((s) => `NSE:${s}`);
+        let chunkLoaded = false;
+
+        for (const endpoint of TV_ENDPOINTS) {
+          try {
+            const json = await postScanner(endpoint, payload);
+            const parsed = parseRows(json.data);
+            if (parsed.length) {
+              activeEndpoint = endpoint;
+              allRows.push(...parsed);
+              chunkLoaded = true;
+              break;
+            }
+            lastError = "Empty payload from scanner";
+          } catch (error) {
+            lastError = error && error.message ? error.message : String(error);
+          }
+        }
+
+        if (!chunkLoaded) {
+          throw new Error(`Scanner unavailable (${lastError})`);
+        }
+      }
+
+      const dedupMap = new Map();
+      allRows.forEach((row) => dedupMap.set(row.symbol, row));
+      return [...dedupMap.values()];
     }
 
-    refreshLiveWidgets();
-    setInterval(refreshLiveWidgets, 300000);
+    function renderTopList(container, rows) {
+      container.innerHTML = rows.map((item) => {
+        const cls = num(item.change) >= 0 ? "up" : "down";
+        return `
+          <div class="list-row">
+            <span>${item.symbol}</span>
+            <strong class="${cls}">${pct(item.change)}</strong>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderRiskBuckets(rows) {
+      const groups = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+      rows.forEach((row) => {
+        const level = INVEST_STOCKS_RISK[row.symbol] || 3;
+        if (!groups[level]) groups[level] = [];
+        groups[level].push(row);
+      });
+
+      dom.riskBuckets.innerHTML = Object.keys(groups).map((key) => {
+        const list = groups[key];
+        const avg = list.length
+          ? list.reduce((acc, r) => acc + num(r.change), 0) / list.length
+          : 0;
+        const cls = avg >= 0 ? "up" : "down";
+        return `
+          <article class="risk-card">
+            <p>Risk ${key}</p>
+            <h4 class="${cls}">${pct(avg)}</h4>
+            <p>${list.length} symbols tracked</p>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderStockTable(rows) {
+      const sorted = [...rows].sort((a, b) => num(b.change) - num(a.change));
+      dom.stocksTableBody.innerHTML = sorted.map((r) => {
+        const chgClass = num(r.change) >= 0 ? "up" : "down";
+        const sma50Gap = r.SMA50 ? ((num(r.close) - num(r.SMA50)) / num(r.SMA50)) * 100 : null;
+        return `
+          <tr>
+            <td>${r.symbol}</td>
+            <td>${fmt(r.close, 2)}</td>
+            <td class="${chgClass}">${pct(r.change)}</td>
+            <td>${pct(r.ADRP)}</td>
+            <td>${fmt(r["RSI|1"], 1)}</td>
+            <td>${fmt(r["ADX-DI"], 1)}</td>
+            <td class="${sma50Gap >= 0 ? "up" : "down"}">${pct(sma50Gap)}</td>
+            <td>${INVEST_STOCKS_RISK[r.symbol] || 3}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderEtfTable(rows) {
+      const sorted = [...rows].sort((a, b) => num(b["ROC|1W"]) - num(a["ROC|1W"]));
+      dom.etfTableBody.innerHTML = sorted.map((r) => {
+        return `
+          <tr>
+            <td>${r.symbol}</td>
+            <td>${fmt(r.close, 2)}</td>
+            <td class="${num(r.change) >= 0 ? "up" : "down"}">${pct(r.change)}</td>
+            <td class="${num(r["ROC|1W"]) >= 0 ? "up" : "down"}">${pct(r["ROC|1W"])}</td>
+            <td class="${num(r["ROC|1M"]) >= 0 ? "up" : "down"}">${pct(r["ROC|1M"])}</td>
+            <td>${fmt(r["RSI|1"], 1)}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderIndices(indexRows) {
+      indexRows.forEach(index => {
+        const change = num(index.change);
+        const changeClass = change >= 0 ? "up" : "down";
+        const changeText = pct(index.change);
+        
+        switch(index.symbol) {
+          case 'NIFTY':
+            dom.niftyCard.textContent = fmt(index.close, 2);
+            dom.niftyCard.className = changeClass;
+            dom.niftyChange.textContent = changeText;
+            dom.niftyChange.className = changeClass;
+            break;
+          case 'BANKNIFTY':
+            dom.bankniftyCard.textContent = fmt(index.close, 2);
+            dom.bankniftyCard.className = changeClass;
+            dom.bankniftyChange.textContent = changeText;
+            dom.bankniftyChange.className = changeClass;
+            break;
+          case 'SENSEX':
+            dom.sensexCard.textContent = fmt(index.close, 2);
+            dom.sensexCard.className = changeClass;
+            dom.sensexChange.textContent = changeText;
+            dom.sensexChange.className = changeClass;
+            break;
+        }
+      });
+    }
+
+    function renderSummary(stockRows) {
+      const total = Object.keys(INVEST_STOCKS).length;
+      const got = stockRows.length;
+      const adv = stockRows.filter((r) => num(r.change) > 0).length;
+      const dec = stockRows.filter((r) => num(r.change) < 0).length;
+      const avg = got ? stockRows.reduce((acc, r) => acc + num(r.change), 0) / got : 0;
+
+      const riskAdjusted = got
+        ? stockRows.reduce((acc, r) => {
+            const risk = INVEST_STOCKS_RISK[r.symbol] || 3;
+            return acc + (num(r.change) / risk);
+          }, 0) / got
+        : 0;
+
+      dom.coverageCard.textContent = `${got} / ${total}`;
+      dom.breadthCard.textContent = `${adv} / ${dec}`;
+      dom.avgChangeCard.textContent = pct(avg);
+      dom.avgChangeCard.className = avg >= 0 ? "up" : "down";
+      dom.riskPulseCard.textContent = pct(riskAdjusted);
+      dom.riskPulseCard.className = riskAdjusted >= 0 ? "up" : "down";
+
+      const adxLeaders = [...stockRows]
+        .sort((a, b) => num(b["ADX-DI"]) - num(a["ADX-DI"]))
+        .slice(0, 3)
+        .map((r) => r.symbol)
+        .join(", ");
+
+      const above50 = stockRows.filter((r) => num(r.close) > num(r.SMA50)).length;
+      const above100 = stockRows.filter((r) => num(r.close) > num(r.SMA100)).length;
+
+      const rsiSorted = stockRows
+        .map((r) => num(r["RSI|1"], NaN))
+        .filter((x) => Number.isFinite(x))
+        .sort((a, b) => a - b);
+      const median = rsiSorted.length
+        ? (rsiSorted[Math.floor((rsiSorted.length - 1) / 2)] + rsiSorted[Math.ceil((rsiSorted.length - 1) / 2)]) / 2
+        : null;
+
+      dom.adxLeaders.textContent = adxLeaders || "--";
+      dom.sma50Breadth.textContent = `${above50}/${got}`;
+      dom.sma100Breadth.textContent = `${above100}/${got}`;
+      dom.medianRsi.textContent = median !== null ? fmt(median, 1) : "--";
+    }
+
+    async function refreshAll() {
+      dom.fetchStatus.textContent = "Status: Fetching live market scan...";
+      try {
+        const [indexRows, stockRows, etfRows] = await Promise.all([
+          fetchMarketRows(Object.keys(INDICES_DICT)),
+          fetchMarketRows(Object.keys(INVEST_STOCKS)),
+          fetchMarketRows(Object.keys(ETF_DICT))
+        ]);
+
+        if (!stockRows.length && !etfRows.length && !indexRows.length) {
+          throw new Error("No rows received from TradingView");
+        }
+
+        // Render indices first
+        renderIndices(indexRows);
+
+        const gainers = [...stockRows].sort((a, b) => num(b.change) - num(a.change)).slice(0, 8);
+        const losers = [...stockRows].sort((a, b) => num(a.change) - num(b.change)).slice(0, 8);
+
+        renderSummary(stockRows);
+        renderTopList(dom.gainersList, gainers);
+        renderTopList(dom.losersList, losers);
+        renderRiskBuckets(stockRows);
+        renderStockTable(stockRows);
+        renderEtfTable(etfRows);
+
+        const now = new Date();
+        dom.lastRefresh.textContent = `Last refresh: ${now.toLocaleString("en-IN")}`;
+        const endpointLabel = activeEndpoint === TRADINGVIEW_URL ? "direct" : "proxy";
+        dom.fetchStatus.textContent = `Status: Live data streaming (${endpointLabel})`;
+      } catch (error) {
+        dom.fetchStatus.textContent = `Status: ${error.message}`;
+      }
+    }
+
+    dom.retryBtn.addEventListener("click", refreshAll);
+    
+    // Auto-invoke refresh on page load
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", refreshAll);
+    } else {
+      // DOM is already ready, invoke immediately
+      setTimeout(refreshAll, 100);
+    }
+    
+    refreshTimer = setInterval(refreshAll, REFRESH_MS);
   })();
 </script>

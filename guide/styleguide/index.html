@@ -2,225 +2,296 @@
 layout: page
 title: "Style Guide"
 subtitle: "Coding Standards & Best Practices"
-description: "Coding standards, design patterns, and best practices for consistent technical documentation and development."
+description: "Comprehensive collection of coding standards, design patterns, and best practices for various programming languages and frameworks."
 keywords: ["style guide", "coding standards", "best practices", "design patterns", "documentation standards", "development guidelines"]
 ---
 
 <div class="styleguide-content">
   <div class="styleguide-intro">
-    <p>Comprehensive coding standards, design patterns, and best practices for maintaining consistency and quality across technical documentation and development projects.</p>
+    <p>Comprehensive collection of coding standards, design patterns, and best practices for various programming languages, frameworks, and development methodologies.</p>
   </div>
 
-  <div class="styleguide-sections">
-    <section class="style-section">
-      <h2><i class="fas fa-code"></i> Code Style & Formatting</h2>
-      <div class="style-grid">
-        <div class="style-item">
-          <h3>Indentation & Spacing</h3>
-          <ul>
-            <li>Use 2 spaces for indentation</li>
-            <li>No tabs, only spaces</li>
-            <li>Maximum line length: 100 characters</li>
-            <li>Use empty lines to separate logical blocks</li>
-          </ul>
-        </div>
-        
-        <div class="style-item">
-          <h3>Naming Conventions</h3>
-          <ul>
-            <li>Variables: camelCase (e.g., userName)</li>
-            <li>Functions: camelCase (e.g., getUserData())</li>
-            <li>Classes: PascalCase (e.g., UserService)</li>
-            <li>Constants: UPPER_SNAKE_CASE (e.g., MAX_RETRY_COUNT)</li>
-          </ul>
-        </div>
-        
-        <div class="style-item">
-          <h3>Comment Standards</h3>
-          <ul>
-            <li>Comment complex logic</li>
-            <li>Use JSDoc for functions</li>
-            <li>Avoid obvious comments</li>
-            <li>Keep comments up-to-date with code</li>
-          </ul>
-        </div>
-        
-        <div class="style-item">
-          <h3>Error Handling</h3>
-          <ul>
-            <li>Always handle exceptions</li>
-            <li>Use descriptive error messages</li>
-            <li>Log errors appropriately</li>
-            <li>Fail fast, fail loudly</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="style-section">
-      <h2><i class="fas fa-file-alt"></i> Documentation Standards</h2>
-      <div class="doc-standards">
-        <div class="standard-card">
-          <h3>API Documentation</h3>
-          <div class="code-example">
-            <pre><code>/**
- * Retrieves user data by ID
- * @param {string} userId - The user's unique identifier
- * @param {Object} options - Additional options
- * @param {boolean} options.includeProfile - Include user profile data
- * @returns {Promise&lt;Object&gt;} User data object
- * @throws {Error} When user is not found
- */
-async function getUser(userId, options = {}) {
-  // Implementation
-}</code></pre>
+  <div class="language-guides">
+    <section class="guide-category">
+      <h2><i class="fas fa-code"></i> Programming Languages</h2>
+      <div class="guides-grid">
+        <div class="guide-card">
+          <h3>JavaScript</h3>
+          <p>JavaScript coding standards and best practices</p>
+          <div class="guide-links">
+            <a href="jsguide.html" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
+            <a href="javascriptguide.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> XML Config
+            </a>
           </div>
         </div>
         
-        <div class="standard-card">
-          <h3>README Structure</h3>
-          <ul>
-            <li>Project description</li>
-            <li>Installation instructions</li>
-            <li>Usage examples</li>
-            <li>API documentation</li>
-            <li>Contributing guidelines</li>
-            <li>License information</li>
-          </ul>
-        </div>
-        
-        <div class="standard-card">
-          <h3>Commit Messages</h3>
-          <div class="commit-examples">
-            <div class="commit-example good">
-              <span class="type">feat:</span> Add user authentication module
-            </div>
-            <div class="commit-example good">
-              <span class="type">fix:</span> Resolve memory leak in data processing
-            </div>
-            <div class="commit-example bad">
-              Fixed stuff
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="style-section">
-      <h2><i class="fas fa-project-diagram"></i> Design Patterns</h2>
-      <div class="patterns-grid">
-        <div class="pattern-card">
-          <h3>Singleton Pattern</h3>
-          <p>Ensure a class has only one instance and provide global access to it.</p>
-          <div class="pattern-use">
-            <strong>Use cases:</strong> Database connections, logging, configuration managers
+        <div class="guide-card">
+          <h3>Python</h3>
+          <p>Python style guide and coding conventions</p>
+          <div class="guide-links">
+            <a href="pyguide.md" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
+            <a href="pylintrc" class="guide-link secondary">
+              <i class="fas fa-cog"></i> Pylint Config
+            </a>
           </div>
         </div>
         
-        <div class="pattern-card">
-          <h3>Factory Pattern</h3>
-          <p>Create objects without specifying the exact class of object that will be created.</p>
-          <div class="pattern-use">
-            <strong>Use cases:</strong> Object creation with complex logic, plugin systems
+        <div class="guide-card">
+          <h3>Java</h3>
+          <p>Java coding standards and conventions</p>
+          <div class="guide-links">
+            <a href="javaguide.html" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
+            <a href="intellij-java-google-style.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> IntelliJ Config
+            </a>
           </div>
         </div>
         
-        <div class="pattern-card">
-          <h3>Observer Pattern</h3>
-          <p>Define a one-to-many dependency between objects so that when one changes state, all dependents are notified.</p>
-          <div class="pattern-use">
-            <strong>Use cases:</strong> Event systems, UI updates, notification systems
+        <div class="guide-card">
+          <h3>C++</h3>
+          <p>C++ coding standards and best practices</p>
+          <div class="guide-links">
+            <a href="cppguide.html" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
+            <a href="eclipse-cpp-google-style.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> Eclipse Config
+            </a>
           </div>
         </div>
         
-        <div class="pattern-card">
-          <h3>Repository Pattern</h3>
-          <p>Mediate between the domain and data mapping layers using a collection-like interface for accessing domain objects.</p>
-          <div class="pattern-use">
-            <strong>Use cases:</strong> Data access layers, ORM implementations
+        <div class="guide-card">
+          <h3>C#</h3>
+          <p>C# coding standards and conventions</p>
+          <div class="guide-links">
+            <a href="csharp-style.md" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
+          </div>
+        </div>
+        
+        <div class="guide-card">
+          <h3>Go</h3>
+          <p>Go programming style guide</p>
+          <div class="guide-links">
+            <a href="go/" class="guide-link primary">
+              <i class="fas fa-folder"></i> Go Guides
+            </a>
+          </div>
+        </div>
+        
+        <div class="guide-card">
+          <h3>R</h3>
+          <p>R programming style guide</p>
+          <div class="guide-links">
+            <a href="Rguide.md" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
+            <a href="r-style.html" class="guide-link secondary">
+              <i class="fas fa-code"></i> HTML Version
+            </a>
+          </div>
+        </div>
+        
+        <div class="guide-card">
+          <h3>Objective-C</h3>
+          <p>Objective-C coding conventions</p>
+          <div class="guide-links">
+            <a href="objcguide.md" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
+            <a href="objcguide.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> XML Config
+            </a>
+          </div>
+        </div>
+        
+        <div class="guide-card">
+          <h3>Shell Script</h3>
+          <p>Shell scripting best practices</p>
+          <div class="guide-links">
+            <a href="shellguide.md" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
+            <a href="shell.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> XML Config
+            </a>
+          </div>
+        </div>
+        
+        <div class="guide-card">
+          <h3>TypeScript</h3>
+          <p>TypeScript coding standards</p>
+          <div class="guide-links">
+            <a href="tsguide.html" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="style-section">
-      <h2><i class="fas fa-check-circle"></i> Code Review Checklist</h2>
-      <div class="checklist">
-        <div class="checklist-column">
-          <h3>Functionality</h3>
-          <ul>
-            <li><label><input type="checkbox"> Code meets requirements</label></li>
-            <li><label><input type="checkbox"> Edge cases handled</label></li>
-            <li><label><input type="checkbox"> Error handling implemented</label></li>
-            <li><label><input type="checkbox"> Tests cover critical paths</label></li>
-          </ul>
+    <section class="guide-category">
+      <h2><i class="fas fa-globe"></i> Web Technologies</h2>
+      <div class="guides-grid">
+        <div class="guide-card">
+          <h3>HTML & CSS</h3>
+          <p>HTML and CSS coding standards</p>
+          <div class="guide-links">
+            <a href="htmlcssguide.html" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
+            <a href="htmlcssguide.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> XML Config
+            </a>
+          </div>
         </div>
         
-        <div class="checklist-column">
-          <h3>Code Quality</h3>
-          <ul>
-            <li><label><input type="checkbox"> Follows style guide</label></li>
-            <li><label><input type="checkbox"> No code duplication</label></li>
-            <li><label><input type="checkbox"> Proper naming conventions</label></li>
-            <li><label><input type="checkbox"> Adequate comments</label></li>
-          </ul>
+        <div class="guide-card">
+          <h3>AngularJS</h3>
+          <p>AngularJS style guide and conventions</p>
+          <div class="guide-links">
+            <a href="angularjs-style.html" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
+          </div>
         </div>
         
-        <div class="checklist-column">
-          <h3>Performance</h3>
-          <ul>
-            <li><label><input type="checkbox"> No obvious performance issues</label></li>
-            <li><label><input type="checkbox"> Efficient algorithms used</label></li>
-            <li><label><input type="checkbox"> Memory usage optimized</label></li>
-            <li><label><input type="checkbox"> Database queries optimized</label></li>
-          </ul>
+        <div class="guide-card">
+          <h3>JSON</h3>
+          <p>JSON style guide and conventions</p>
+          <div class="guide-links">
+            <a href="jsoncstyleguide.html" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
+            <a href="jsoncstyleguide.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> XML Config
+            </a>
+          </div>
         </div>
         
-        <div class="checklist-column">
-          <h3>Security</h3>
-          <ul>
-            <li><label><input type="checkbox"> Input validation present</label></li>
-            <li><label><input type="checkbox"> No hardcoded secrets</label></li>
-            <li><label><input type="checkbox"> Proper authentication</label></li>
-            <li><label><input type="checkbox"> SQL injection prevented</label></li>
-          </ul>
+        <div class="guide-card">
+          <h3>XML</h3>
+          <p>XML style guide and best practices</p>
+          <div class="guide-links">
+            <a href="xmlstyle.html" class="guide-link primary">
+              <i class="fas fa-book"></i> Complete Guide
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="style-section">
-      <h2><i class="fas fa-tools"></i> Development Tools & Configuration</h2>
-      <div class="tools-grid">
-        <div class="tool-item">
-          <h3>Linting</h3>
-          <p>ESLint, Prettier, and SonarQube for code quality and consistency.</p>
-          <div class="tool-config">
-            <code>.eslintrc.json</code> configured with team standards
+    <section class="guide-category">
+      <h2><i class="fas fa-tools"></i> Editor Configurations</h2>
+      <div class="guides-grid">
+        <div class="guide-card">
+          <h3>Vim</h3>
+          <p>Vim configuration files</p>
+          <div class="guide-links">
+            <a href="google_python_style.vim" class="guide-link secondary">
+              <i class="fas fa-download"></i> Python Style
+            </a>
+            <a href="vimscriptguide.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> VimScript Guide
+            </a>
+            <a href="vimscriptfull.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> Full Config
+            </a>
           </div>
         </div>
         
-        <div class="tool-item">
-          <h3>Testing</h3>
-          <p>Jest, Mocha, and Cypress for unit, integration, and E2E testing.</p>
-          <div class="tool-config">
-            Minimum 80% code coverage required
+        <div class="guide-card">
+          <h3>Emacs</h3>
+          <p>Emacs configuration files</p>
+          <div class="guide-links">
+            <a href="google-c-style.el" class="guide-link secondary">
+              <i class="fas fa-download"></i> C Style
+            </a>
           </div>
         </div>
         
-        <div class="tool-item">
-          <h3>Git Hooks</h3>
-          <p>Husky and lint-staged for pre-commit validation.</p>
-          <div class="tool-config">
-            Automated formatting and linting on commit
+        <div class="guide-card">
+          <h3>Eclipse</h3>
+          <p>Eclipse IDE configurations</p>
+          <div class="guide-links">
+            <a href="eclipse-cpp-google-style.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> C++ Style
+            </a>
+            <a href="eclipse-java-google-style.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> Java Style
+            </a>
           </div>
         </div>
         
-        <div class="tool-item">
-          <h3>CI/CD</h3>
-          <p>GitHub Actions for automated testing and deployment.</p>
-          <div class="tool-config">
-            Multi-stage pipeline with quality gates
+        <div class="guide-card">
+          <h3>IntelliJ IDEA</h3>
+          <p>IntelliJ IDEA configurations</p>
+          <div class="guide-links">
+            <a href="intellij-java-google-style.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> Java Style
+            </a>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-category">
+      <h2><i class="fas fa-code-branch"></i> Specialized Guides</h2>
+      <div class="guides-grid">
+        <div class="guide-card">
+          <h3>Lisp</h3>
+          <p>Lisp programming style guide</p>
+          <div class="guide-links">
+            <a href="lispguide.xml" class="guide-link secondary">
+              <i class="fas fa-download"></i> XML Config
+            </a>
+          </div>
+        </div>
+        
+        <div class="guide-card">
+          <h3>Transformations</h3>
+          <p>XSLT transformation files</p>
+          <div class="guide-links">
+            <a href="styleguide.xsl" class="guide-link secondary">
+              <i class="fas fa-download"></i> Main XSLT
+            </a>
+            <a href="shell.xsl" class="guide-link secondary">
+              <i class="fas fa-download"></i> Shell XSLT
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-category">
+      <h2><i class="fas fa-info-circle"></i> About These Guides</h2>
+      <div class="info-section">
+        <div class="info-card">
+          <h3>Standards Based</h3>
+          <p>These guides are based on industry standards and best practices from major tech companies and open source projects.</p>
+        </div>
+        
+        <div class="info-card">
+          <h3>Multi-Format Support</h3>
+          <p>Available in multiple formats including HTML, Markdown, XML, and editor-specific configuration files.</p>
+        </div>
+        
+        <div class="info-card">
+          <h3>Regular Updates</h3>
+          <p>Continuously updated to reflect current best practices and evolving language standards.</p>
+        </div>
+        
+        <div class="info-card">
+          <h3>Tool Integration</h3>
+          <p>Direct integration with popular IDEs, editors, and development tools for seamless adoption.</p>
         </div>
       </div>
     </section>
@@ -241,11 +312,11 @@ async function getUser(userId, options = {}) {
   padding: 0 20px;
 }
 
-.style-section {
+.guide-category {
   margin-bottom: 60px;
 }
 
-.style-section h2 {
+.guide-category h2 {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -256,244 +327,141 @@ async function getUser(userId, options = {}) {
   border-bottom: 2px solid #e9ecef;
 }
 
-.style-section h2 i {
+.guide-category h2 i {
   color: #667eea;
 }
 
-/* Code Style Grid */
-.style-grid {
+/* Guides Grid */
+.guides-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 30px;
 }
 
-.style-item {
+.guide-card {
   background: white;
-  padding: 25px;
+  padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   border-left: 4px solid #667eea;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.style-item h3 {
-  color: #2c3e50;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-}
-
-.style-item ul {
-  list-style: none;
-  padding: 0;
-}
-
-.style-item li {
-  padding: 8px 0;
-  color: #6c757d;
-  position: relative;
-  padding-left: 20px;
-}
-
-.style-item li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: #28a745;
-  font-weight: bold;
-}
-
-/* Documentation Standards */
-.doc-standards {
-  display: grid;
-  gap: 30px;
-}
-
-.standard-card {
-  background: #f8f9fa;
-  padding: 30px;
-  border-radius: 12px;
-}
-
-.standard-card h3 {
-  color: #2c3e50;
-  margin-bottom: 20px;
-  font-size: 1.2rem;
-}
-
-.code-example {
-  background: #1e1e1e;
-  color: #f8f8f2;
-  padding: 20px;
-  border-radius: 8px;
-  overflow-x: auto;
-  margin: 15px 0;
-}
-
-.code-example code {
-  font-family: 'Monaco', 'Menlo', monospace;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.commit-examples {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.commit-example {
-  padding: 10px 15px;
-  border-radius: 6px;
-  font-family: monospace;
-  font-size: 0.9rem;
-}
-
-.commit-example.good {
-  background: #e8f5e8;
-  color: #2e7d32;
-}
-
-.commit-example.bad {
-  background: #ffebee;
-  color: #c62828;
-}
-
-.type {
-  font-weight: bold;
-  margin-right: 8px;
-}
-
-/* Patterns Grid */
-.patterns-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-}
-
-.pattern-card {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease;
-}
-
-.pattern-card:hover {
+.guide-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
 }
 
-.pattern-card h3 {
+.guide-card h3 {
   color: #2c3e50;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 
-.pattern-card p {
+.guide-card p {
   color: #6c757d;
   line-height: 1.6;
-  margin-bottom: 15px;
-}
-
-.pattern-use {
-  background: #f8f9fa;
-  padding: 15px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-}
-
-.pattern-use strong {
-  color: #667eea;
-}
-
-/* Checklist */
-.checklist {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-}
-
-.checklist-column h3 {
-  color: #2c3e50;
   margin-bottom: 20px;
-  font-size: 1.2rem;
 }
 
-.checklist-column ul {
-  list-style: none;
-  padding: 0;
-}
-
-.checklist-column li {
-  margin-bottom: 12px;
-}
-
-.checklist-column label {
+.guide-links {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
-  cursor: pointer;
+}
+
+.guide-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.guide-link.primary {
+  background: #667eea;
+  color: white;
+}
+
+.guide-link.primary:hover {
+  background: #5a6fd8;
+  color: white;
+  text-decoration: none;
+}
+
+.guide-link.secondary {
+  background: #f8f9fa;
   color: #6c757d;
+  border: 1px solid #dee2e6;
 }
 
-.checklist-column input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: #667eea;
+.guide-link.secondary:hover {
+  background: #e9ecef;
+  color: #495057;
+  text-decoration: none;
 }
 
-/* Tools Grid */
-.tools-grid {
+.guide-link i {
+  font-size: 0.85rem;
+}
+
+/* Info Section */
+.info-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
 }
 
-.tool-item {
-  background: white;
-  padding: 30px;
+.info-card {
+  background: #f8f9fa;
+  padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   border-top: 4px solid #667eea;
 }
 
-.tool-item h3 {
+.info-card h3 {
   color: #2c3e50;
   margin-bottom: 15px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
-.tool-item p {
+.info-card p {
   color: #6c757d;
   line-height: 1.6;
-  margin-bottom: 15px;
-}
-
-.tool-config {
-  background: #f8f9fa;
-  padding: 12px;
-  border-radius: 6px;
-  font-family: monospace;
-  font-size: 0.9rem;
-  color: #2c3e50;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
-  .style-grid,
-  .patterns-grid,
-  .checklist,
-  .tools-grid {
+  .guides-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
   
-  .style-section h2 {
+  .guide-category h2 {
     font-size: 1.5rem;
   }
   
-  .style-item,
-  .standard-card,
-  .pattern-card,
-  .tool-item {
+  .guide-card {
     padding: 20px;
+  }
+  
+  .guide-links {
+    flex-direction: column;
+  }
+  
+  .guide-link {
+    justify-content: center;
+  }
+  
+  .info-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 }
 </style>
