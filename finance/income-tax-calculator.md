@@ -3,8 +3,8 @@ layout: default
 excerpt: A powerful developer tool for enhanced productivity and workflow optimization
 date: 2026-01-05
 title: FREE Income Tax Calculator India 2025-26 | Old vs New Regime Comparison
-categories: tools
-permalink: /tools/income-tax-calculator/
+categories: finance
+permalink: /finance/income-tax-calculator/
 
 description: Calculate your income tax instantly for FY 2025-26 & 2024-25. Compare old vs new tax regime, maximize deductions under 80C, 80D, and get accurate estimates with cess and surcharge.
 keywords: [income tax calculator, tax calculator India, FY 2025-26, AY 2026-27, old vs new tax regime, section 80C calculator, 80D deduction, income tax slabs, tax saving, ITR calculation, rebate 87A, surcharge calculator, cess calculator, VDA tax, digital assets tax]
