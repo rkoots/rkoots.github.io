@@ -12,7 +12,7 @@ POSTS_DIR = ROOT_DIR / "blog" / "_posts"
 HISTORY_FILE = BASE_DIR / "blog_history.json"
 
 # Gemini API configuration
-GEMINI_API_KEY = os.getenv("KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 FORCE_RUN = os.getenv("FORCE_RUN", "false").lower() == "true"
 
 
