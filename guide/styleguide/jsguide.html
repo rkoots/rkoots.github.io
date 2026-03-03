@@ -1,152 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7927442030711768" crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CLY6CQ5DNK"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-CLY6CQ5DNK');
-    </script>
+---
+layout: default
+title: "JavaScript Style Guide"
+description: "Complete JavaScript style guide covering core concepts, ES6+, DOM manipulation, asynchronous programming, and best practices for modern web development."
+categories: [styleguide, javascript]
+tags: [javascript, style guide, es6, dom, async, best practices]
+permalink: /guide/styleguide/jsguide/
+author: "Rajkumar V"
+---
 
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Rajkumar Venkataraman",
-            "alternateName": "Rajkumar V",
-            "url": "https://rkoots.github.io/",
-            "sameAs": [
-                "https://github.com/rkoots"
-            ],
-            "jobTitle": "Developer / Technologist",
-            "worksFor": {
-                "@type": "Organization",
-                "name": "rkoots"
-            }
-        }
-    </script>
+<link rel="stylesheet" href="{{ '/guide/styleguide/styleguide-custom.css' | relative_url }}">
 
-    <meta name="description" content="Rajkumar V (rkoots) shares expert insights, hands-on tutorials, and real-world projects in software development, Python, web technologies, and AI. Follow for practical coding guides and dev tips.">
-    <meta name="author" content="Rajkumar V (rkoots)">
+<div class="styleguide-content">
+  <div class="guide-header">
+    <h1>JavaScript Style Guide</h1>
+    <p class="guide-subtitle">Complete coding standards for JavaScript development</p>
+    <div class="notice-banner">
+      <p><strong>Please note:</strong> This guide is no longer being updated. rkoots recommends migrating to TypeScript, and following the <a href="{{ '/guide/styleguide/tsguide.html' | relative_url }}">TypeScript guide</a>.</p>
+    </div>
+  </div>
 
-    <!-- Hardcoded SEO Meta Tags for JavaScript Guide -->
-    <title>Complete JavaScript Guide | rkoots</title>
+  <div class="guide-body">
+    <h2 id="introduction">1 Introduction</h2>
 
-    <meta name="description" content="Comprehensive JavaScript guide by rkoots covering core concepts, ES6+, DOM manipulation, asynchronous programming, and best practices for modern web development." />
+    <p>This document serves as the <strong>complete</strong> definition of rkoots's coding standards
+    for source code in the JavaScript programming language. A JavaScript source file
+    is described as being <em>in rkoots Style</em> if and only if it adheres to the rules
+    herein.</p>
 
-    <meta name="keywords" content="JavaScript guide, JS tutorial, learn JavaScript, ES6, JavaScript programming, rkoots JavaScript, web development, asynchronous JavaScript, DOM manipulation" />
+    <p>Like other programming style guides, the issues covered span not only aesthetic
+    issues of formatting, but other types of conventions or coding standards as
+    well. However, this document focuses primarily on the hard-and-fast rules that
+    we follow universally, and avoids giving advice that isn't clearly enforceable
+    (whether by human or tool).</p>
 
-    <meta name="author" content="Rajkumar V" />
+    <h3 id="terminology-notes">1.1 Terminology notes</h3>
 
-    <meta property="og:title" content="Complete JavaScript Guide | rkoots" />
-    <meta property="og:description" content="Comprehensive JavaScript guide by rkoots covering core concepts, ES6+, DOM manipulation, asynchronous programming, and best practices for modern web development." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://rkoots.github.io/styleguide/javascript-guide" />
-    <meta property="og:image" content="https://rkoots.github.io/assets/images/javascript-guide-cover.png" />
+    <p>In this document, unless otherwise clarified:</p>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Complete JavaScript Guide | rkoots" />
-    <meta name="twitter:description" content="Comprehensive JavaScript guide by rkoots covering core concepts, ES6+, DOM manipulation, asynchronous programming, and best practices for modern web development." />
-    <meta name="twitter:image" content="https://rkoots.github.io/assets/images/javascript-guide-cover.png" />
+    <ol>
+    <li><p>The term <em>comment</em> always refers to <em>implementation</em> comments. We do not use
+    the phrase <q>documentation comments</q>, instead using the common term "JSDoc"
+    for both human-readable text and machine-readable annotations within <code>/** …
+    */</code>.</p></li>
+    <li><p>This Style Guide uses <a href="http://tools.ietf.org/html/rfc2119">RFC 2119</a> terminology when using the phrases <em>must</em>,
+    <em>must not</em>, <em>should</em>, <em>should not</em>, and <em>may</em>. The terms <em>prefer</em> and
+    <em>avoid</em> correspond to <em>should</em> and <em>should not</em>, respectively. Imperative
+    and declarative statements are prescriptive and correspond to <em>must</em>.</p></li>
+    </ol>
 
+    <p>Other <q>terminology notes</q> will appear occasionally throughout the document.</p>
 
-    <!-- SEO & Structured Data -->
-    <link rel="alternate" type="application/atom+xml" title="rkoots Feed" href="/feed.xml">
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "rkoots",
-            "url": "/",
-            "potentialAction": {
-                "@type": "SearchAction",
-                "target": "/search?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-            }
-        }
-    </script>
+    <h3 id="guide-notes">1.2 Guide notes</h3>
 
-    <!-- Styles & Theme -->
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/academicons.css">
-    <link rel="icon" type="image/svg+xml" href="/blog/images/favicon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="/blog/images/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/blog/images/favicon-192x192.png" sizes="192x192">
-    <link rel="manifest" href="/blog/images/manifest.json">
-    <meta name="theme-color" content="#ffffff">
-
-    <!-- Chatbot -->
-    <script src="https://app.livechatai.com/embed.js" data-id="cmab1hc9r0003ky0crgu3deor" async defer></script>
-
-    <!-- MathJax Support -->
-    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    <!-- Misc -->
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta http-equiv="cleartype" content="on">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="{{ 'blog/images/favicon.png' | relative_url }}">
-    <link rel="manifest" href="{{ 'blog/images/manifest.json' | relative_url }}">
-
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ 'feed.xml' | relative_url }}">
-
-    <meta charset="utf-8">
-<title>rkoots JavaScript Style Guide</title>
-<link rel="stylesheet" href="javaguide.css">
-<script src="include/styleguide.js"></script>
-<link rel="shortcut icon" href="/styleguide/favicon.ico">
-<script src="include/jsguide.js"></script>
-</head>
-<body onload="initStyleGuide();">
-<div id="content">
-<h1>rkoots JavaScript Style Guide</h1>
-
-<p style="position: fixed; left: 0; top: 0; padding: 0.5em; margin: 0; background-color: #fef6e0; text-align: center; width: 100%; font-weight: bold; z-index: 1;">
-Please note: This guide is no longer being updated. rkoots recommends migrating
-to TypeScript, and following the <a href="tsguide.html">TypeScript guide</a>.
-</p>
-
-<h2 id="introduction">1 Introduction</h2>
-
-<p>This document serves as the <strong>complete</strong> definition of rkoots’s coding standards
-for source code in the JavaScript programming language. A JavaScript source file
-is described as being <em>in rkoots Style</em> if and only if it adheres to the rules
-herein.</p>
-
-<p>Like other programming style guides, the issues covered span not only aesthetic
-issues of formatting, but other types of conventions or coding standards as
-well. However, this document focuses primarily on the hard-and-fast rules that
-we follow universally, and avoids giving advice that isn't clearly enforceable
-(whether by human or tool).</p>
-
-<h3 id="terminology-notes">1.1 Terminology notes</h3>
-
-<p>In this document, unless otherwise clarified:</p>
-
-<ol>
-<li><p>The term <em>comment</em> always refers to <em>implementation</em> comments. We do not use
-the phrase <q>documentation comments</q>, instead using the common term “JSDoc”
-for both human-readable text and machine-readable annotations within <code>/** …
-*/</code>.</p></li>
-<li><p>This Style Guide uses <a href="http://tools.ietf.org/html/rfc2119">RFC 2119</a> terminology when using the phrases <em>must</em>,
-<em>must not</em>, <em>should</em>, <em>should not</em>, and <em>may</em>. The terms <em>prefer</em> and
-<em>avoid</em> correspond to <em>should</em> and <em>should not</em>, respectively. Imperative
-and declarative statements are prescriptive and correspond to <em>must</em>.</p></li>
-</ol>
-
-<p>Other <q>terminology notes</q> will appear occasionally throughout the document.</p>
-
-<h3 id="guide-notes">1.2 Guide notes</h3>
-
-<p>Example code in this document is <strong>non-normative</strong>. That is, while the examples
-are in rkoots Style, they may not illustrate the <em>only</em> stylish way to represent
+    <p>Example code in this document is <strong>non-normative</strong>. That is, while the examples
+    are in rkoots Style, they may not illustrate the <em>only</em> stylish way to represent
 the code. Optional formatting choices made in examples must not be enforced as
 rules.</p>
 

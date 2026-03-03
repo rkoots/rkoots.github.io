@@ -1,0 +1,199 @@
+/* Style Guide Custom CSS */
+.styleguide-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.guide-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.guide-header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.guide-subtitle {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+}
+
+.notice-banner {
+  background: linear-gradient(135deg, #fff3cd, #ffeeba);
+  border: 1px solid #ffeeba;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  color: #856404;
+}
+
+.notice-banner p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.notice-banner a {
+  color: #856404;
+  text-decoration: underline;
+}
+
+.notice-banner a:hover {
+  text-decoration: none;
+}
+
+.guide-body {
+  line-height: 1.7;
+}
+
+.guide-body h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin: 2.5rem 0 1.5rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.guide-body h3 {
+  font-size: 1.4rem;
+  color: #34495e;
+  margin: 2rem 0 1rem 0;
+}
+
+.guide-body h4 {
+  font-size: 1.2rem;
+  color: #495057;
+  margin: 1.5rem 0 0.8rem 0;
+}
+
+.guide-body p {
+  margin-bottom: 1.2rem;
+  color: #495057;
+}
+
+.guide-body ul, .guide-body ol {
+  margin-bottom: 1.2rem;
+  padding-left: 2rem;
+}
+
+.guide-body li {
+  margin-bottom: 0.5rem;
+  color: #495057;
+}
+
+.guide-body code {
+  background: #f8f9fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', 'Monaco', 'Menlo', monospace;
+  font-size: 0.9rem;
+  color: #e83e8c;
+}
+
+.guide-body pre {
+  background: #282c34;
+  color: #abb2bf;
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.guide-body pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.guide-body blockquote {
+  border-left: 4px solid #667eea;
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.guide-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.guide-body th, .guide-body td {
+  border: 1px solid #dee2e6;
+  padding: 0.8rem;
+  text-align: left;
+}
+
+.guide-body th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+}
+
+.guide-footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #dee2e6;
+  text-align: center;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .styleguide-content {
+    padding: 1rem 0;
+  }
+  
+  .guide-header h1 {
+    font-size: 2rem;
+  }
+  
+  .guide-subtitle {
+    font-size: 1rem;
+  }
+  
+  .guide-body h2 {
+    font-size: 1.5rem;
+  }
+  
+  .guide-body h3 {
+    font-size: 1.2rem;
+  }
+  
+  .notice-banner {
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* Code Highlighting for Prettify */
+.prettyprint {
+  background: #282c34;
+  border: none;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+.prettyprint .com { color: #5c6370; font-style: italic; }
+.prettyprint .str { color: #98c379; }
+.prettyprint .kwd { color: #c678dd; }
+.prettyprint .typ { color: #e5c07b; }
+.prettyprint .lit { color: #d19a66; }
+.prettyprint .pun { color: #abb2bf; }
+.prettyprint .pln { color: #abb2bf; }
+.prettyprint .tag { color: #e06c75; }
+.prettyprint .atn { color: #d19a66; }
+.prettyprint .atv { color: #98c379; }
+.prettyprint .dec { color: #d19a66; }
+.prettyprint .var { color: #e06c75; }
+.prettyprint .fun { color: #61afef; }

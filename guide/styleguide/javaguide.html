@@ -1,110 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7927442030711768" crossorigin="anonymous"></script>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CLY6CQ5DNK"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-CLY6CQ5DNK');
-  </script>
+---
+layout: default
+title: "Java Style Guide"
+description: "Complete Java programming guide and coding standards."
+permalink: /guide/styleguide/javaguide/
+---
 
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Rajkumar Venkataraman",
-      "alternateName": "Rajkumar V",
-      "url": "https://rkoots.github.io/",
-      "sameAs": [
-        "https://github.com/rkoots"
-      ],
-      "jobTitle": "Developer / Technologist",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "rkoots"
-      }
-    }
-  </script>
-
-  <meta name="description" content="Rajkumar V (rkoots) shares expert insights, hands-on tutorials, and real-world projects in software development, Python, web technologies, and AI. Follow for practical coding guides and dev tips.">
-  <meta name="author" content="Rajkumar V (rkoots)">
-
-  <!-- Hardcoded SEO Meta Tags for Java Guide -->
-  <title>Complete Java Programming Guide | rkoots</title>
-
-  <meta name="description" content="A comprehensive Java programming guide by rkoots covering Java fundamentals, OOP concepts, best practices, and modern Java development techniques for all skill levels." />
-
-  <meta name="keywords" content="Java guide, Java programming, Java tutorial, object-oriented programming, Java best practices, rkoots Java guide, learn Java, Java development" />
-
-  <meta name="author" content="Rajkumar V" />
-
-  <meta property="og:title" content="Complete Java Programming Guide | rkoots" />
-  <meta property="og:description" content="A comprehensive Java programming guide by rkoots covering Java fundamentals, OOP concepts, best practices, and modern Java development techniques for all skill levels." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://rkoots.github.io/styleguide/java-guide" />
-  <meta property="og:image" content="https://rkoots.github.io/assets/images/java-guide-cover.png" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Complete Java Programming Guide | rkoots" />
-  <meta name="twitter:description" content="A comprehensive Java programming guide by rkoots covering Java fundamentals, OOP concepts, best practices, and modern Java development techniques for all skill levels." />
-  <meta name="twitter:image" content="https://rkoots.github.io/assets/images/java-guide-cover.png" />
-
-
-  <!-- SEO & Structured Data -->
-  <link rel="alternate" type="application/atom+xml" title="rkoots Feed" href="/feed.xml">
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "rkoots",
-      "url": "/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-  </script>
-
-  <!-- Styles & Theme -->
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <link rel="stylesheet" href="/assets/css/academicons.css">
-  <link rel="icon" type="image/svg+xml" href="/blog/images/favicon.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-180x180.png">
-  <link rel="icon" type="image/png" href="/blog/images/favicon-32x32.png" sizes="32x32">
-  <link rel="icon" type="image/png" href="/blog/images/favicon-192x192.png" sizes="192x192">
-  <link rel="manifest" href="/blog/images/manifest.json">
-  <meta name="theme-color" content="#ffffff">
-
-  <!-- Chatbot -->
-  <script src="https://app.livechatai.com/embed.js" data-id="cmab1hc9r0003ky0crgu3deor" async defer></script>
-
-  <!-- MathJax Support -->
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Misc -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta http-equiv="cleartype" content="on">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="{{ 'blog/images/favicon.png' | relative_url }}">
-  <link rel="manifest" href="{{ 'blog/images/manifest.json' | relative_url }}">
-
-  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ 'feed.xml' | relative_url }}">
-
-  <meta charset="utf-8">
-<title>rkoots Java Style Guide</title>
-<link rel="stylesheet" href="javaguide.css">
-<script src="include/styleguide.js"></script>
-<link rel="shortcut icon" href="/styleguide/favicon.ico">
+<link rel="stylesheet" href="{{ '/guide/styleguide/styleguide-custom.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/guide/styleguide/javaguide.css' | relative_url }}">
+<script src="{{ '/guide/styleguide/include/styleguide.js' | relative_url }}"></script>
 <script src="https://cdn.jsdelivr.net/gh/rkoots/code-prettify@master/loader/run_prettify.js"></script>
-</head>
-<body onload="initStyleGuide();">
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof initStyleGuide === 'function') initStyleGuide();
+  });
+</script>
+
 <div id="content">
 <h1>rkoots Java Style Guide</h1>
 <div id="tocDiv" class="vertical_toc"></div>
@@ -1463,5 +1373,3 @@ class or member, that comment is written as Javadoc instead (using <code>/**</co
 
 </div>
 </div>
-</body>
-</html>

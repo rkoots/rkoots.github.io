@@ -1,152 +1,60 @@
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "https://www.w3.org/TR/REC-html40/strict.dtd">
-<html>
-<head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7927442030711768" crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CLY6CQ5DNK"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-CLY6CQ5DNK');
-    </script>
+---
+layout: default
+title: "AngularJS Style Guide for Closure Users"
+description: "Comprehensive AngularJS style guide tailored for Closure users. Learn best practices and coding standards for AngularJS development."
+categories: [styleguide, javascript, angularjs]
+tags: [angularjs, style guide, closure, javascript, best practices]
+permalink: /guide/styleguide/angularjs-style/
+author: "Rajkumar V"
+---
 
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Rajkumar Venkataraman",
-            "alternateName": "Rajkumar V",
-            "url": "https://rkoots.github.io/",
-            "sameAs": [
-                "https://github.com/rkoots"
-            ],
-            "jobTitle": "Developer / Technologist",
-            "worksFor": {
-                "@type": "Organization",
-                "name": "rkoots"
-            }
-        }
-    </script>
+<link rel="stylesheet" href="{{ '/guide/styleguide/styleguide-custom.css' | relative_url }}">
 
-    <meta name="description" content="Rajkumar V (rkoots) shares expert insights, hands-on tutorials, and real-world projects in software development, Python, web technologies, and AI. Follow for practical coding guides and dev tips.">
-    <meta name="author" content="Rajkumar V (rkoots)">
-    <!-- Hardcoded SEO Meta Tags -->
-    <title>An AngularJS Style Guide for Closure Users | rkoots</title>
+<div class="styleguide-content">
+  <div class="guide-header">
+    <h1>An AngularJS Style Guide for Closure Users</h1>
+    <p class="guide-subtitle">Best practices and coding standards for AngularJS development with Closure</p>
+  </div>
 
-    <meta name="description" content="Comprehensive AngularJS style guide tailored for Closure users by rkoots. Learn best practices and coding standards for AngularJS development." />
+  <div class="guide-body">
+    <h2 id="Background" class="ignoreLink">Background</h2>
 
-    <meta name="keywords" content="AngularJS style guide, Closure compiler, AngularJS best practices, rkoots AngularJS guide, JavaScript style guide, AngularJS coding standards,ipo gmp, coal india share price,jayant narlikar" />
+    <p class="external">This is the external version of a document that was primarily written for rkoots
+        engineers. It describes a recommended style for AngularJS apps that use Closure, as used
+        internally at rkoots. Members of the broader AngularJS community should feel free to apply
+        (or not apply) these recommendations, as relevant to their own use cases.</p>
 
-    <meta name="author" content="Rajkumar V" />
+    <p class="external">This document describes style for AngularJS apps in rkoots3. This guide
+        supplements and extends the <a href="{{ '/guide/styleguide/jsguide.html' | relative_url }}">
+            rkoots JavaScript Style Guide</a>.
+    </p>
 
-    <meta property="og:title" content="An AngularJS Style Guide for Closure Users | rkoots" />
-    <meta property="og:description" content="Comprehensive AngularJS style guide tailored for Closure users by rkoots. Learn best practices and coding standards for AngularJS development." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://rkoots.github.io/styleguide/angularjs-style" />
-    <meta property="og:image" content="https://rkoots.github.io/assets/images/angularjs-style-guide.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="An AngularJS Style Guide for Closure Users | rkoots" />
-    <meta name="twitter:description" content="Comprehensive AngularJS style guide tailored for Closure users by rkoots. Learn best practices and coding standards for AngularJS development." />
-    <meta name="twitter:image" content="https://rkoots.github.io/assets/images/angularjs-style-guide.png" />
-
-    <!-- SEO & Structured Data -->
-    <link rel="alternate" type="application/atom+xml" title="rkoots Feed" href="/feed.xml">
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "rkoots",
-            "url": "/",
-            "potentialAction": {
-                "@type": "SearchAction",
-                "target": "/search?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-            }
-        }
-    </script>
-
-    <!-- Styles & Theme -->
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/academicons.css">
-    <link rel="icon" type="image/svg+xml" href="/blog/images/favicon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="/blog/images/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/blog/images/favicon-192x192.png" sizes="192x192">
-    <link rel="manifest" href="/blog/images/manifest.json">
-    <meta name="theme-color" content="#ffffff">
-
-    <!-- Chatbot -->
-    <script src="https://app.livechatai.com/embed.js" data-id="cmab1hc9r0003ky0crgu3deor" async defer></script>
-
-    <!-- MathJax Support -->
-    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    <!-- Misc -->
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta http-equiv="cleartype" content="on">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="{{ 'blog/images/favicon.png' | relative_url }}">
-    <link rel="manifest" href="{{ 'blog/images/manifest.json' | relative_url }}">
-
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ 'feed.xml' | relative_url }}">
-
-    <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-    <script src="include/styleguide.js"></script>
-    <link href="/styleguide/favicon.ico" type="image/x-icon" rel="shortcut icon">
-    <script src="include/jsguide.js"></script>
-    <link rel="stylesheet" type="text/css" href="styleguide.css">
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <title>rkoots's AngularJS Style Guide</title>
-    <style type="text/css"><!--
-    th { background-color: #ddd; }
-    //--></style>
-</head>
-<body onload="initStyleGuide();">
-<h1 class="external">An AngularJS Style Guide for Closure Users at rkoots</h1>
-
-<h2 id="Background" class="ignoreLink">Background</h2>
-
-<p class="external">This is the external version of a document that was primarily written for rkoots
-    engineers. It describes a recommended style for AngularJS apps that use Closure, as used
-    internally at rkoots. Members of the broader AngularJS community should feel free to apply
-    (or not apply) these recommendations, as relevant to their own use cases.</p>
-
-<p class="external">This document describes style for AngularJS apps in rkoots3. This guide
-    supplements and extends the <a href="https://rkoots.github.io/styleguide/jsguide.html">
-        rkoots JavaScript Style Guide</a>.
-</p>
-
-<p><b>Style Note</b>: Examples on the AngularJS external webpage, and many external apps, are
-    written in a style that freely uses closures, favors functional inheritance, and does not often use
+    <p><b>Style Note</b>: Examples on the AngularJS external webpage, and many external apps, are
+        written in a style that freely uses closures, favors functional inheritance, and does not often use
 
         JavaScript types. Google follows a more rigorous Javascript style to support JSCompiler
-    optimizations and large code bases - see the javascript-style mailing list.
-    This is not an Angular-specific issue, and is not discussed further in this style guide.
-    (But if you want further reading:
-    <a  href="http://martinfowler.com/bliki/Lambda.html">Martin Fowler on closures</a>,
-    <a href="http://jibbering.com/faq/notes/closures/">much longer description</a>, appendix A of the
-    <a href="https://books.google.com/books/about/Closure_The_Definitive_Guide.html?id=p7uyWPcVGZsC">
-        closure book</a> has a good description of inheritance patterns and why it prefers
-    pseudoclassical,
-    <a href="https://books.google.com/books/about/JavaScript.html?id=PXa2bby0oQ0C">
-        Javascript, the Good Parts</a> as a counter.)</p>
+        optimizations and large code bases - see the javascript-style mailing list.
+        This is not an Angular-specific issue, and is not discussed further in this style guide.
+        (But if you want further reading:
+        <a  href="http://martinfowler.com/bliki/Lambda.html">Martin Fowler on closures</a>,
+        <a href="http://jibbering.com/faq/notes/closures/">much longer description</a>, appendix A of the
+        <a href="https://books.google.com/books/about/Closure_The_Definitive_Guide.html?id=p7uyWPcVGZsC">
+            closure book</a> has a good description of inheritance patterns and why it prefers
+        pseudoclassical,
+        <a href="https://books.google.com/books/about/JavaScript.html?id=PXa2bby0oQ0C">
+            Javascript, the Good Parts</a> as a counter.)</p>
 
-<h2>1 Angular Language Rules</h2>
+    <h2>1 Angular Language Rules</h2>
 
-<h3 id="googprovide">Manage dependencies with Closure's goog.require and goog.provide</h3>
-<p>Choose a namespace for your project, and use goog.provide and goog.require.</p>
-<pre class="prettyprint lang-js">
+    <h3 id="googprovide">Manage dependencies with Closure's goog.require and goog.provide</h3>
+    <p>Choose a namespace for your project, and use goog.provide and goog.require.</p>
+    <pre class="prettyprint lang-js">
 goog.provide('hello.about.AboutCtrl');
 goog.provide('hello.versions.Versions');
 </pre>
 
-<p><b>Why?</b>
+    <p><b>Why?</b>
     Google BUILD rules integrate nicely with closure provide/require.</p>
 
 <h3 id="modules">Modules</h3>
@@ -217,63 +125,17 @@ goog.provide('hello.versions.Versions');
 "--export_local_property_definitions",
 </pre>
 
-<h3 id="controllers">Controllers and Scopes</h3>
-<p>Controllers are classes. Methods should be defined on MyCtrl.prototype.</p>
+<h3 id="controllers">Controllers</h3>
 
-<p>Google Angular applications should use the <b>'controller as'</b> style to export the controller
-    onto the scope. This is fully implemented in Angular 1.2 and can be mimicked in pre-Angular 1.2
-    builds.
-</p>
+<p>Controllers are classes. Use the 'controller as' syntax and put methods and properties on the controller instance.</p>
 
-<p>Pre Angular 1.2, this looks like:</p>
-<pre class="prettyprint lang-js">
-/**
- * Home controller.
- *
- * @param {!angular.Scope} $scope
- * @constructor
- * @ngInject
- * @export
- */
-hello.mainpage.HomeCtrl = function($scope) {
-  /** @export */
-  $scope.homeCtrl = this; // This is a bridge until Angular 1.2 controller-as
-
-  /**
-   * @type {string}
-   * @export
-   */
-  this.myColor = 'blue';
-};
-
-
-/**
- * @param {number} a
- * @param {number} b
- * @export
- */
-hello.mainpage.HomeCtrl.prototype.add = function(a, b) {
-  return a + b;
-};
-</pre>
-
-<p>And the template:</p>
-
-<pre>
-&lt;div ng-controller="hello.mainpage.HomeCtrl"/&gt;
-  &lt;span ng-class="homeCtrl.myColor"&gt;I'm in a color!&lt;/span&gt;
-  &lt;span&gt;{{homeCtrl.add(5, 6)}}&lt;/span&gt;
-&lt;/div&gt;
-</pre>
-
-<p>After Angular 1.2, this looks like:</p>
+<p>Before Angular 1.2:</p>
 
 <pre class="prettyprint lang-js">
 /**
  * Home controller.
  *
  * @constructor
- * @ngInject
  * @export
  */
 hello.mainpage.HomeCtrl = function() {
@@ -282,16 +144,32 @@ hello.mainpage.HomeCtrl = function() {
    * @export
    */
   this.myColor = 'blue';
-};
+</pre>
 
+<p>And the template:</p>
 
+<pre>
+&lt;div ng-controller="hello.mainpage.HomeCtrl as homeCtrl"/&gt;
+  &lt;span ng-class="homeCtrl.myColor"&gt;I'm in a color!&lt;/span&gt;
+  &lt;span&gt;{{homeCtrl.add(5, 6)}}&lt;/span&gt;
+&lt;/div&gt;
+</pre>
+
+<p>After Angular 1.2:</p>
+
+<pre class="prettyprint lang-js">
 /**
- * @param {number} a
- * @param {number} b
+ * Home controller.
+ *
+ * @constructor
  * @export
  */
-hello.mainpage.HomeCtrl.prototype.add = function(a, b) {
-  return a + b;
+hello.mainpage.HomeCtrl = function() {
+  /**
+   * @type {string}
+   * @export
+   */
+  this.myColor = 'blue';
 };
 </pre>
 
@@ -453,8 +331,12 @@ my.app.MyCtrl = function($http, myService) {
     <li><a href="https://www.youtube.com/watch?v=ZhfUv0spHCY">
         Meetup video</a> (not Google specific)</li>
 </ul>
-<address>
+<div class="guide-footer">
+  <address>
     Last modified Feb 07 2013
-</address>
-</body>
-<html>
+  </address>
+</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
