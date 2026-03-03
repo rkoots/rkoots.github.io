@@ -16,8 +16,9 @@ keywords: ["developer tools", "rkoots utilities", "engineering tools", "open-sou
   </header>
 
   {% assign project_pages = site.pages
-    | where_exp: "p", "p.dir == '/projects/'"
+    | where_exp: "p", "p.path contains 'projects/'"
     | where_exp: "p", "p.path contains '.md'"
+    | where_exp: "p", "p.name != 'index.html'"
     | sort: "title" %}
 
   <div class="tool-grid">
