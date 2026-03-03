@@ -634,6 +634,7 @@ input[type="range"]::-moz-range-thumb {
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 
 <script>
+{% raw %}
 let financialData = {
   income: 0,
   expenses: {},
@@ -1019,6 +1020,7 @@ function renderGoalsChart() {
 
   Plotly.newPlot('goalsChart', data, layout, { responsive: true, displayModeBar: false });
 }
+{% endraw %}
 </script>
 
 

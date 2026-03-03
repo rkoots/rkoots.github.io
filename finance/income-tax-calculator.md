@@ -238,6 +238,7 @@ image: /assets/images/income-tax-calculator-og.jpg
 </section>
 
 <script>
+{% raw %}
   // Card navigation
   function showCard(id) {
     document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
@@ -464,6 +465,7 @@ image: /assets/images/income-tax-calculator-og.jpg
 
     showCard('card-result');
   }
+{% endraw %}
 </script>
 
 ![ITR Forms](https://media.licdn.com/dms/image/v2/D5612AQG0eijXvOEZ8Q/article-inline_image-shrink_1500_2232/B56ZdYvwTjHUAU-/0/1749540605080?e=1755129600&v=beta&t=Va6CBcemOCHNZhmD_nVZA7yPVkwxuhHtsjJXAs2CTVQ)

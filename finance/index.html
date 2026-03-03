@@ -10,7 +10,13 @@ keywords: ["finance tools", "income tax calculator", "market outlook", "financia
   <h1 class="page-title">Finance Tools</h1>
   <p class="page-subtitle">Organized finance pages: market outlook, calculators, and planning tools.</p>
 
-  {% assign finance_pages = site.pages | where: "category", "finance" | sort: "title" %}
+  {% assign finance_pages = "" | split: "" %}
+{% for page in site.pages %}
+  {% if page.url contains '/finance/' and page.url != '/finance/' %}
+    {% assign finance_pages = finance_pages | push: page %}
+  {% endif %}
+{% endfor %}
+{% assign finance_pages = finance_pages | sort: "title" %}
 
   {% if finance_pages.size > 0 %}
     <div class="posts-grid">

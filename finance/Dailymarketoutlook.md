@@ -466,6 +466,7 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
 </style>
 
 <script>
+{% raw %}
   (function () {
     const TRADINGVIEW_URL = "https://scanner.tradingview.com/india/scan";
     const REFRESH_MS = 60000;
@@ -844,4 +845,5 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
     
     refreshTimer = setInterval(refreshAll, REFRESH_MS);
   })();
+{% endraw %}
 </script>
