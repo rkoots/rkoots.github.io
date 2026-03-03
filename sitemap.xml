@@ -82,19 +82,14 @@ permalink: /sitemap.xml
         <priority>0.70</priority>
     </url>
 
-    <!-- Tech News Page -->
-    <url>
-        <loc>https://rkoots.github.io/technews/</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.75</priority>
-    </url>
-
     <!-- Blog Page -->
     <url>
         <loc>https://rkoots.github.io/blog/</loc>
         <lastmod>2025-05-12</lastmod>
-        <priority>0.70</priority>
+        <priority>0.75</priority>
     </url>
+
+    <!-- Tools Page -->
     <!-- guide  Page -->
     <url>
         <loc>https://rkoots.github.io/styleguide/</loc>

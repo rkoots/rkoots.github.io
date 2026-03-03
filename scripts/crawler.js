@@ -2,10 +2,9 @@ const puppeteer = require('puppeteer');
 
 const urls = [
   "https://rkoots.github.io/",
-  "https://rkoots.github.io/technews/",
+  "https://rkoots.github.io/blog/",
   "https://rkoots.github.io/tools/",
   "https://rkoots.github.io/insights/",
-  "https://rkoots.github.io/blog/",
   "https://rkoots.github.io/guide/",
 ];
 

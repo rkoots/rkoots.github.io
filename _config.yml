@@ -45,9 +45,6 @@ collections:
   tools:
     output: true
     permalink: /tools/:year/:title/
-  technews:
-    output: true
-    permalink: /technews/:year/:month/:day/:title/
 
 # Defaults
 defaults:
@@ -74,20 +71,16 @@ defaults:
 
 # Category Configuration for Existing Content
 categories:
-  technews:
-    name: "Tech News"
-    description: "Latest technology news, AI developments, cloud computing updates, and industry analysis"
-    color: "#1976d2"
-    icon: "fas fa-newspaper"
+  blog:
+    name: "Technical Blog"
+    description: "Engineering insights, architecture patterns, performance optimization, and technical deep-dives"
+    color: "#7b1fa2"
+    icon: "fas fa-blog"
   tools:
     name: "Developer Tools"
     description: "Development environments, productivity tools, automation scripts, and software reviews"
     color: "#f57c00"
     icon: "fas fa-tools"
-  blog:
-    name: "Technical Blog"
-    description: "Engineering insights, architecture patterns, performance optimization, and technical deep-dives"
-    color: "#7b1fa2"
     icon: "fas fa-blog"
   guide:
     name: "Technical Guides"

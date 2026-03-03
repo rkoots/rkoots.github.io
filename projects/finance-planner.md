@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Finance Planning App - Investment Calculator & Budget Planner
-permalink: /finance-pannner/
+permalink: /finance-planner/
 description: Plan your investments, control spending, and visualize your financial future with our advanced finance planning calculator. Get personalized investment strategies, budget analysis, and wealth projection tools.
 keywords: finance planner, investment calculator, budget planner, financial planning, investment strategy, wealth management, retirement planning, tax saving, mutual funds, SIP calculator, emergency fund, financial goals, expense tracker, savings calculator, investment portfolio, financial advisor, personal finance, money management, investment analysis, risk assessment, financial freedom, wealth building, investment returns, compound interest calculator, retirement corpus, tax planning, financial literacy, investment tips, budget management, expense optimization, financial security, investment planning, wealth projection, financial dashboard
 ---
