@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Regex Generator & Tester - Online Regular Expression Tool
-permalink: /regex-generator-tester/
+permalink: /regex-generator/
 description: Free online regex generator and tester tool. Build, test, and validate regular expressions with real-time matching, syntax highlighting, and common patterns library.
 keywords: regex generator online, regex tester tool, regular expression builder, test regex pattern, regex validator, online regex, regular expression tester, regex pattern builder, regex debug tool, regex cheat sheet, email regex, phone regex, URL regex, password validation regex, javascript regex, python regex, regex syntax, regex matching tool, regex playground, regex editor, regex analyzer, regex optimizer
 tags: regex, regular expression, developer tools, online tool, validator, generator, tester, pattern matching
@@ -9,7 +9,7 @@ author: Regex Tool
 og:title: Regex Generator & Tester - Free Online Tool
 og:description: Build and test regular expressions instantly with our free online regex tool. Includes common patterns, real-time matching, and syntax highlighting.
 og:type: website
-og:url: https://rkoots.github.io/regex-generator-tester/
+og:url: https://rkoots.github.io/regex-generator/
 og:image: https://rkoots.github.io/assets/images/regex-tool.png
 twitter:card: summary_large_image
 twitter:title: Regex Generator & Tester - Free Online Tool
