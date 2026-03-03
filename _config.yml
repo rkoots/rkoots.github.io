@@ -45,6 +45,9 @@ collections:
   tools:
     output: true
     permalink: /tools/:year/:title/
+  technews:
+    output: true
+    permalink: /technews/:year/:month/:day/:title/
 
 # Defaults
 defaults:

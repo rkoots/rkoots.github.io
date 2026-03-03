@@ -11,7 +11,7 @@ keywords: ["tech news", "technology updates", "AI news", "cloud computing", "Dev
     <p>Curated technology news and analysis with technical insights for engineering leaders and senior developers. Stay informed about the latest developments shaping our industry.</p>
   </div>
 
-  {% assign technews_posts = site.posts | where: "categories", "technews" %}
+  {% assign technews_posts = site.technews %}
   {% if technews_posts.size > 0 %}
     <div class="news-grid">
       {% for post in technews_posts %}

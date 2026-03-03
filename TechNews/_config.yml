@@ -1,4 +1,4 @@
-permalink: /:categories/:year/:month/:day/:title/
+permalink: /technews/:year/:month/:day/:title/
 
 collections:
   technews:
