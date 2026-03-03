@@ -1560,7 +1560,7 @@
               <tr>
                 <td>Record Type</td>
                 <td>
-                  <code>{{myNum: number, myObject}}</code>
+                  <code>{% raw %}{{{% endraw %}myNum: number, myObject}}</code>
                   <br/>An anonymous type with the given type members.
                 </td>
                 <td>

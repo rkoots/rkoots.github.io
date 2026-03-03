@@ -1421,7 +1421,7 @@ the compiler cannot rename/obfuscate the string literal.</p>
 
 <p>Disallowed:</p>
 
-<pre><code class="language-js prettyprint bad">/** @type {{width: number, maxWidth: (number|undefined)}} */
+<pre><code class="language-js prettyprint bad">/** @type {% raw %}{{{% endraw %}width: number, maxWidth: (number|undefined)}} */
 const o = {width: 42};
 if (o.hasOwnProperty('maxWidth')) {
   ...
@@ -1430,7 +1430,7 @@ if (o.hasOwnProperty('maxWidth')) {
 
 <p>This is best implemented as:</p>
 
-<pre><code class="language-js prettyprint good">/** @type {{width: number, maxWidth: (number|undefined)}} */
+<pre><code class="language-js prettyprint good">/** @type {% raw %}{{{% endraw %}width: number, maxWidth: (number|undefined)}} */
 const o = {width: 42};
 if (o.maxWidth != null) {
   ...
@@ -1514,7 +1514,7 @@ required by the compiler).</p>
 
 <pre><code class="language-js prettyprint good">/**
  * @param {string} ordinary
- * @param {{num: (number|undefined), str: (string|undefined)}=} param1
+ * @param {% raw %}{{{% endraw %}num: (number|undefined), str: (string|undefined)}=} param1
  *     num: The number of times to do something.
  *     str: A string to do stuff to.
  */
@@ -1523,13 +1523,13 @@ function destructured(ordinary, {num, str = 'some default'} = {}) {}
 
 <p>Disallowed:</p>
 
-<pre><code class="language-js prettyprint bad">/** @param {{x: {num: (number|undefined), str: (string|undefined)}}} param1 */
+<pre><code class="language-js prettyprint bad">/** @param {% raw %}{{{% endraw %}x: {num: (number|undefined), str: (string|undefined)}}} param1 */
 function nestedTooDeeply({x: {num, str}}) {};
-/** @param {{num: (number|undefined), str: (string|undefined)}=} param1 */
+/** @param {% raw %}{{{% endraw %}num: (number|undefined), str: (string|undefined)}=} param1 */
 function nonShorthandProperty({num: a, str: b} = {}) {};
-/** @param {{a: number, b: number}} param1 */
+/** @param {% raw %}{{{% endraw %}a: number, b: number}} param1 */
 function computedKey({a, b, [a + b]: c}) {};
-/** @param {{a: number, b: string}=} param1 */
+/** @param {% raw %}{{{% endraw %}a: number, b: string}=} param1 */
 function nontrivialDefault({a, b} = {a: 2, b: 4}) {};
 </code></pre>
 
@@ -1877,7 +1877,7 @@ Foo.Bar = class {...};
 /** @enum {number} */
 Foo.Baz = {...};
 
-/** @typedef {{value: number}} */
+/** @typedef {% raw %}{{{% endraw %}value: number}} */
 Foo.Qux;
 
 /** @interface */
@@ -1904,7 +1904,7 @@ class FooBar {...}
 /** @enum {string} */
 let FooBaz = {...};
 
-/** @typedef {{value: number}} */
+/** @typedef {% raw %}{{{% endraw %}value: number}} */
 let FooQux;
 
 /** @interface */
@@ -2995,7 +2995,7 @@ fall into two broad categories:</p>
 
 <ol>
 <li>Type annotations for primitives (<code>string</code>, <code>number</code>, <code>boolean</code>, <code>symbol</code>,
-<code>undefined</code>, <code>null</code>) and literals (<code>{function(...): ...}</code> and <code>{{foo:
+<code>undefined</code>, <code>null</code>) and literals (<code>{function(...): ...}</code> and <code>{% raw %}{{{% endraw %}foo:
 string...}}</code>) are always non-nullable by default. Use the <code>?</code> modifier to
 make it nullable, but omit the redundant <code>!</code>.</li>
 <li>Reference types (generally, anything in <code>UpperCamelCase</code>, including
@@ -3127,7 +3127,7 @@ annotations.</p>
 
 <pre><code class="language-js prettyprint good">/** @type {function(string): number} */
 
-/** @type {{foo: number, bar: number}} */
+/** @type {% raw %}{{{% endraw %}foo: number, bar: number}} */
 
 /** @type {number|string} */
 
@@ -3153,7 +3153,7 @@ annotations.</p>
 /** @type {function(string) : number} */
 
 // Put spaces after colons and commas
-/** @type {{foo:number,bar:number}} */
+/** @type {% raw %}{{{% endraw %}foo:number,bar:number}} */
 
 // No space in union types
 /** @type {number | string} */
