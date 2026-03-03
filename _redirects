@@ -1,0 +1,26 @@
+# GitHub Pages Redirect Configuration
+# This file handles redirects for GitHub Pages
+
+# Common 404 patterns to homepage
+/missing.html /
+/notfound.html /
+/page-not-found.html /
+/404 /
+
+# Old paths to new paths
+/about/ /blog/
+/about.html /blog/
+/resume-json /blog/cv-json/
+/resume /blog/cv/
+/md/ /blog/markdown/
+/markdown.html /blog/markdown/
+/nmp/ /blog/non-menu-page/
+/nmp.html /blog/non-menu-page/
+/wordpress/blog-posts/ /blog/
+
+# Additional common misspellings and old URLs
+/home /
+/index /
+/main /
+/welcome /
+/landing /

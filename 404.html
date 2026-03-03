@@ -6,13 +6,23 @@ description: "The page you're looking for might have been removed, renamed, or i
 ---
 
 <head>
-  <meta http-equiv="refresh" content="0; url=/">
+  <meta http-equiv="refresh" content="3; url=/">
+  <script>
+    // Instant redirect for GitHub Pages
+    (function() {
+      // Check if we're on GitHub Pages
+      if (window.location.hostname.includes('github.io')) {
+        // Redirect immediately
+        window.location.replace('/');
+      } else {
+        // Fallback redirect after 3 seconds
+        setTimeout(function() {
+          window.location.replace('/');
+        }, 3000);
+      }
+    })();
+  </script>
 </head>
-
-<script>
-  // Instant redirect for GitHub Pages
-  window.location.replace('/');
-</script>
 
 <div class="error-content">
   <div class="error-visual">
