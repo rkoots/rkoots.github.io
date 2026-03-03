@@ -24,8 +24,16 @@ jobs:
 
       - name: Install Python dependencies
         run: |
+          echo "🔧 Starting Python dependencies installation..."
           python -m pip install --upgrade pip
+          echo "✅ pip upgraded successfully"
+          
+          echo "📦 Installing Google API packages..."
           pip install google-api-python-client google-auth google-auth-oauthlib
+          echo "✅ Python dependencies installed successfully"
+          
+          echo "📋 Verifying installed packages..."
+          pip list | grep -E "(google|api)"
 
       - name: Generate post and optionally publish to Blogger
         env:
@@ -35,19 +43,72 @@ jobs:
           BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
           PUBLISH_TO_BLOGGER: ${{ secrets.PUBLISH_TO_BLOGGER }}
         run: |
+          echo "🚀 Starting Blogger post generation..."
+          echo "📅 Current date and time: $(date)"
+          echo "🔍 Checking if auto/blogger.py exists..."
+          if [ -f "auto/blogger.py" ]; then
+            echo "✅ blogger.py found"
+            echo "📄 File permissions: $(ls -la auto/blogger.py)"
+          else
+            echo "❌ ERROR: auto/blogger.py not found!"
+            exit 1
+          fi
+          
+          echo "🔑 Checking environment variables..."
+          echo "BLOG_ID: ${BLOG_ID:+✅ Set}${BLOG_ID:-❌ Not set}"
+          echo "CLIENT_ID: ${CLIENT_ID:+✅ Set}${CLIENT_ID:-❌ Not set}"
+          echo "CLIENT_SECRET: ${CLIENT_SECRET:+✅ Set}${CLIENT_SECRET:-❌ Not set}"
+          echo "BLOGGER_REFRESH_TOKEN: ${BLOGGER_REFRESH_TOKEN:+✅ Set}${BLOGGER_REFRESH_TOKEN:-❌ Not set}"
+          echo "PUBLISH_TO_BLOGGER: ${PUBLISH_TO_BLOGGER:+✅ Set}${PUBLISH_TO_BLOGGER:-❌ Not set}"
+          
+          echo "🐍 Running blogger.py..."
           python auto/blogger.py
+          echo "✅ Blogger script completed"
+          
+          echo "📁 Checking blog/_posts directory..."
+          if [ -d "blog/_posts" ]; then
+            echo "✅ blog/_posts directory exists"
+            echo "📝 Generated files:"
+            ls -la blog/_posts/*.md 2>/dev/null || echo "No .md files found"
+          else
+            echo "❌ blog/_posts directory not found!"
+          fi
 
       - name: Commit generated post to git
         run: |
+          echo "🔧 Starting git commit process..."
+          echo "📅 Current date and time: $(date)"
+          
+          echo "⚙️ Configuring git user..."
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
+          echo "✅ Git user configured"
+          
+          echo "📁 Current working directory: $(pwd)"
+          echo "📋 Repository status:"
+          git status
+          
+          echo "📝 Adding blog/_posts/*.md files..."
           git add blog/_posts/*.md
-
+          
+          echo "🔍 Checking staged changes..."
           if git diff --cached --quiet; then
-            echo "No generated post changes to commit."
+            echo "ℹ️ No generated post changes to commit."
+            echo "📋 Final repository status:"
+            git status
             exit 0
+          else
+            echo "✅ Changes staged for commit"
+            echo "📋 Staged files:"
+            git diff --cached --name-only
           fi
-
-          git commit -m "chore(blog): add scheduled Wed/Fri post"
+          
+          echo "💾 Committing changes..."
+          git commit -m "chore(blog): add scheduled Wed/Fri post - $(date +'%Y-%m-%d')"
+          echo "✅ Changes committed successfully"
+          
+          echo "📤 Pushing to repository..."
           git push
+          echo "✅ Changes pushed successfully"
+          
+          echo "🎉 Git commit process completed!"
