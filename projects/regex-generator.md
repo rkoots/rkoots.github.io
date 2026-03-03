@@ -399,15 +399,10 @@ Another valid email: john.doe+test@domain.co.uk</textarea>
     </div>
   </div>
 
-  <!-- CTA Section -->
-  <div class="patterns-section">
-    <h2>🎯 More Developer Tools</h2>
-    <p style="text-align: center; margin-bottom: 20px;">Explore our other free tools for developers and data professionals:</p>
-    <div style="text-align: center;">
-      <a href="/finance-pannner/" style="display: inline-block; padding: 12px 24px; background: #6366f1; color: white; text-decoration: none; border-radius: 8px; margin: 5px;">💰 Finance Planner</a>
-      <a href="/projects/" style="display: inline-block; padding: 12px 24px; background: #10b981; color: white; text-decoration: none; border-radius: 8px; margin: 5px;">🛠️ All Tools</a>
-    </div>
-  </div>
+  {% include related-tools.html
+    heading="More Interactive Tools"
+    subtitle="Explore our other free tools for developers and data professionals."
+  %}
 </div>
 
 <script>

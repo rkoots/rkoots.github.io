@@ -402,17 +402,10 @@ button:active { transform: translateY(0); }
     </article>
   </section>
 
-  <section class="cta">
-    <div class="card">
-      <h2>More Interactive Tools</h2>
-      <p>Explore more utilities for planning and automation.</p>
-      <div class="links">
-        <a href="/finance-pannner/">Finance Planner</a>
-        <a href="/regex-generator-tester/">Regex Generator & Tester</a>
-        <a href="/projects/">All Project Tools</a>
-      </div>
-    </div>
-  </section>
+  {% include related-tools.html
+    heading="More Interactive Tools"
+    subtitle="Explore more utilities for planning and automation."
+  %}
 </div>
 
 <script>

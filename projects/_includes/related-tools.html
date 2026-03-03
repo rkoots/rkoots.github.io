@@ -1,0 +1,68 @@
+<style>
+  .related-tools {
+    margin-top: 2.2rem;
+    padding: 1.2rem;
+    border: 1px solid #dbe4f0;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+  }
+
+  .related-tools h2 {
+    margin: 0 0 0.45rem;
+    color: #12365f;
+    font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  }
+
+  .related-tools p {
+    margin: 0 0 0.85rem;
+    color: #415a77;
+  }
+
+  .related-tool-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .related-tool-links a {
+    text-decoration: none;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid #b7cae3;
+    background: #ffffff;
+    color: #0f3057;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+  }
+
+  .related-tool-links a:hover {
+    transform: translateY(-1px);
+    border-color: #7ea6d8;
+    box-shadow: 0 8px 14px rgba(17, 68, 125, 0.15);
+  }
+
+  .related-tool-links .all-tools-link {
+    background: #1f6feb;
+    color: #ffffff;
+    border-color: #1f6feb;
+  }
+</style>
+
+<section class="related-tools" aria-labelledby="related-tools-heading">
+  <h2 id="related-tools-heading">{{ include.heading | default: "More Interactive Tools" }}</h2>
+  <p>{{ include.subtitle | default: "Discover more practical tools from this collection." }}</p>
+
+  {% assign related_tool_pages = site.pages
+    | where_exp: "p", "p.dir == '/projects/'"
+    | where_exp: "p", "p.path contains '.md'"
+    | where_exp: "p", "p.url != page.url"
+    | sort: "title" %}
+
+  <div class="related-tool-links">
+    {% for tool in related_tool_pages limit: 6 %}
+      <a href="{{ tool.url | relative_url }}">{{ tool.title | default: tool.name }}</a>
+    {% endfor %}
+    <a class="all-tools-link" href="{{ '/projects/' | relative_url }}">All Tools</a>
+  </div>
+</section>
