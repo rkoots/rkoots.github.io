@@ -2,7 +2,8 @@
 layout: default
 title: "HP Coupon Codes & Deals: Save up to 81% in May"
 date: 2025-05-15
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, hp-coupon-codes-&-deals:-save-up-to-81%-in-may, news]

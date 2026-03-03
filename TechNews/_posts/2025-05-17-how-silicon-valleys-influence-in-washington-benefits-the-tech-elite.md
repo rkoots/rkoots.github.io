@@ -2,7 +2,8 @@
 layout: default
 title: "How Silicon Valley’s influence in Washington benefits the tech elite"
 date: 2025-05-17
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, how-silicon-valley’s-influence-in-washington-benefits-the-tech-elite, news]

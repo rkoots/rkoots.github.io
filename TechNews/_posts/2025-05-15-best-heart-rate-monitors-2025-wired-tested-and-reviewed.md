@@ -2,7 +2,8 @@
 layout: default
 title: "Best Heart Rate Monitors (2025), WIRED Tested and Reviewed"
 date: 2025-05-15
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, best-heart-rate-monitors-(2025),-wired-tested-and-reviewed, news]

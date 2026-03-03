@@ -2,7 +2,8 @@
 layout: default
 title: "Sony’s DualSense Edge controller is receiving a rare $30 discount"
 date: 2025-06-01
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, gaming, peripherals, Sony, PlayStation, DualSense, discount]
 keywords: [tech, sony’s-dualsense-edge-controller, $30 discount, playstation 5, gaming controller]

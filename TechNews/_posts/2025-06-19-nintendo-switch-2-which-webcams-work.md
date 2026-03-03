@@ -2,7 +2,8 @@
 layout: default
 title: "Nintendo Switch 2: Which webcams work?"
 date: 2025-06-19
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, nintendo-switch-2:-which-webcams-work?, news]

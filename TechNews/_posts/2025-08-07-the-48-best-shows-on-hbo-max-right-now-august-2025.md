@@ -2,7 +2,8 @@
 layout: default
 title: "The 48 Best Shows on HBO Max Right Now (August 2025)"
 date: 2025-08-07
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, the-48-best-shows-on-hbo-max-right-now-(august-2025), news]

@@ -2,7 +2,8 @@
 layout: default
 title: "iPhone 17 Series Arriving in 3 Months: What to Expect in India"
 date: 2025-06-10
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [apple, iphone 17, iphone 17 pro max, technology, innovation, mobile, smartphones, launch, india launch, ios, ipados 26, camera, design, apple tv, ai, tech, sundar pichai, gadgets]
 keywords: [iphone 17 launch date, apple iphone 17 pro max, iphone 17 air, iphone 17 price india, iphone 17 specs, ipados 26, apple tv, oppo a5i smartphone specifications, vivo x200, pixel vips, sundar pichai, qualcomm share price, tahoe, apple news, trending smartphone 2025, new iphone release, tech news june 2025]
@@ -103,3 +104,4 @@ Thinking of upgrading? Drop what you value most — **battery life, camera, or p
 - [iOS 26 major features](https://indiatimes.com/technology/news/apple-to-unveil-ios-26-expected-to-come-with-ai-updates-battery-optimizations-and-more-660659.html)
 - [iOS 26 Liquid Glass UI](https://www.businessinsider.com/new-iphone-ios-26-features-liquid-glass-2025-6)
 - [iPhone 17 Air Display Rumors](https://indiatimes.com/technology/news/iphone-17-iphone-17-air-display-tipped-expected-to-come-with-120hz-promotion-displays-a18-chip-and-more-660288.html)
+

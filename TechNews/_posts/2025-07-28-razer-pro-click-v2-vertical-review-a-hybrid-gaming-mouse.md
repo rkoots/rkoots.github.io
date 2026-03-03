@@ -2,7 +2,8 @@
 layout: default
 title: "Razer Pro Click V2 Vertical Review: A Hybrid Gaming Mouse"
 date: 2025-07-28
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, razer-pro-click-v2-vertical-review:-a-hybrid-gaming-mouse, news]

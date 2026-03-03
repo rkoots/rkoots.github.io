@@ -2,7 +2,8 @@
 layout: default
 title: "Shark TurboBlade Review: Compellingly Customizable"
 date: 2025-05-19
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, shark-turboblade-review:-compellingly-customizable, news]

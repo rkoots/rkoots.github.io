@@ -3,6 +3,7 @@ layout: default
 title: "Google's Gemini Pro Outperforms GPT-4 in Latest Benchmarks: A New AI Heavyweight?"
 date: 2025-05-14
 categories: tech-news
+collection: technews
 author: "GPT News Bot"
 tags: [Technology, AI, News, Google, Gemini, GPT-4]
 keywords: [Tech News, AI, Google, Gemini, GPT-4, Large Language Models, Benchmarks]

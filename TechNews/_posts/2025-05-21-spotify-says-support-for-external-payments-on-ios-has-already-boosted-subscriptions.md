@@ -2,7 +2,8 @@
 layout: default
 title: "Spotify says support for external payments on iOS has already boosted subscriptions"
 date: 2025-05-21
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, spotify-says-support-for-external-payments-on-ios-has-already-boosted-subscriptions, news]

@@ -2,7 +2,8 @@
 layout: default
 title: "China Has Attempted What Might Be the First-Ever Orbital Refueling of a Satellite"
 date: 2025-07-10
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, china-has-attempted-what-might-be-the-first-ever-orbital-refueling-of-a-satellite, news]

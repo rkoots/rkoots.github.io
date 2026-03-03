@@ -2,7 +2,8 @@
 layout: default
 title: "Blue Apron Coupons: $80 Off + Free Shipping | June 2025"
 date: 2025-06-02
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, blue-apron-coupons:-$80-off-+-free-shipping-|-june-2025, news]

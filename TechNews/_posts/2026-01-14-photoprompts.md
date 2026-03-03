@@ -2,7 +2,8 @@
 layout: default
 title: "AI Photo Prompts: High-Converting Image Prompt Templates for Generative AI (2026)"
 date: 2026-01-14
-categories: news
+categories: tech-news
+collection: technews
 author: "Raj"
 tags:
   - AI photo prompts
@@ -250,5 +251,6 @@ Set expectations for realism and output fidelity.
 - high detail  
 - 4K or 8K resolution  
 - post-processing cues  
+
 
 

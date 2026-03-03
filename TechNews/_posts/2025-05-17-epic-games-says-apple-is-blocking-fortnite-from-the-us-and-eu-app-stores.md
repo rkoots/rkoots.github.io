@@ -2,7 +2,8 @@
 layout: default
 title: "Epic Games says Apple is blocking Fortnite from the US and EU App Stores"
 date: 2025-05-17
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, epic-games-says-apple-is-blocking-fortnite-from-the-us-and-eu-app-stores, news]

@@ -3,6 +3,7 @@ layout: default
 title: "Meta's New AI Model, Llama 2, Takes on OpenAI and Google"
 date: 2024-10-27
 categories: tech-news
+collection: technews
 author: "GPT News Bot"
 tags: [Technology, AI, News, OpenAI, Google, Meta]
 keywords: [Tech News, AI, Large Language Models, Llama 2, Open Source]

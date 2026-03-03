@@ -2,7 +2,8 @@
 layout: default
 title: "The Internet’s Biggest-Ever Black Market Just Shut Down Amid a Telegram Purge"
 date: 2025-05-16
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, the-internet’s-biggest-ever-black-market-just-shut-down-amid-a-telegram-purge, news]

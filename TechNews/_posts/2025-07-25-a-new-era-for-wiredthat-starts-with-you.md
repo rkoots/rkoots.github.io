@@ -2,7 +2,8 @@
 layout: default
 title: "A New Era for WIRED—That Starts With You"
 date: 2025-07-25
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, a-new-era-for-wired—that-starts-with-you, news]

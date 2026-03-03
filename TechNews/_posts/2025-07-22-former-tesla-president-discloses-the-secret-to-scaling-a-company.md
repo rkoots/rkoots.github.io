@@ -2,7 +2,8 @@
 layout: default
 title: "Former Tesla president discloses the secret to scaling a company"
 date: 2025-07-22
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, former-tesla-president-discloses-the-secret-to-scaling-a-company, news]

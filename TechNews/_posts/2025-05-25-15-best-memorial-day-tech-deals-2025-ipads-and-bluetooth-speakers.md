@@ -2,7 +2,8 @@
 layout: default
 title: "15 Best Memorial Day Tech Deals (2025): iPads and Bluetooth Speakers"
 date: 2025-05-25
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, 15-best-memorial-day-tech-deals-(2025):-ipads-and-bluetooth-speakers, news]

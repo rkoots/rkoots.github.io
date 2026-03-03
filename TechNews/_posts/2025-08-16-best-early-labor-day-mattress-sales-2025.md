@@ -2,7 +2,8 @@
 layout: default
 title: "Best Early Labor Day Mattress Sales (2025)"
 date: 2025-08-16
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, best-early-labor-day-mattress-sales-(2025), news]

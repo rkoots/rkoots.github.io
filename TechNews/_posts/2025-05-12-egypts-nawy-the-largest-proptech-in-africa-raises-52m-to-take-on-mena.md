@@ -3,6 +3,7 @@ layout: default
 title: "Egypt’s Nawy, the largest proptech in Africa, raises $52M to take on MENA"
 date: 2025-05-12
 categories: tech-news
+collection: technews
 author: "GPT News Bot"
 tags: [Technology, AI, News]
 keywords: [Tech News, AI, Startups, Innovation]

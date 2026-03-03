@@ -2,7 +2,8 @@
 layout: default
 title: "Square’s New Handheld Payment Scanner Looks Like a Phone"
 date: 2025-05-15
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, square’s-new-handheld-payment-scanner-looks-like-a-phone, news]

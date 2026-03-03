@@ -2,7 +2,8 @@
 layout: default
 title: "How the Signal Knockoff App TeleMessage Got Hacked in 20 Minutes"
 date: 2025-05-19
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, how-the-signal-knockoff-app-telemessage-got-hacked-in-20-minutes, news]

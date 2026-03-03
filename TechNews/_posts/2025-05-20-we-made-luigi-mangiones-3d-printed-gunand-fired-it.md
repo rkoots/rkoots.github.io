@@ -2,7 +2,8 @@
 layout: default
 title: "We Made Luigi Mangione’s 3D-Printed Gun—and Fired It"
 date: 2025-05-20
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, 3Dprinting, firearms, law, ethics, AI]
 keywords: [tech, we-made-luigi-mangione’s-3d-printed-gun—and-fired-it, news, 3d printed gun, ghost gun]

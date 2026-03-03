@@ -2,7 +2,8 @@
 layout: default
 title: "Tensions flare between the US and China over Huawei’s AI chips"
 date: 2025-05-22
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, tensions-flare-between-the-us-and-china-over-huawei’s-ai-chips, news]

@@ -2,7 +2,8 @@
 layout: default
 title: "TechCrunch Mobility: Applied Intuition’s eye-popping valuation, the new age of micromobility, and Waymo’s wild week"
 date: 2025-06-22
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI, autonomous vehicles, micromobility, Waymo, Applied Intuition]
 keywords: [tech, techcrunch-mobility:-applied-intuition’s-eye-popping-valuation,-the-new-age-of-micromobility,-and-waymo’s-wild-week, news, autonomous driving, robotaxi]

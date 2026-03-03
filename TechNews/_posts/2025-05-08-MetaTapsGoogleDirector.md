@@ -3,6 +3,7 @@ layout: default
 title: "Meta Taps Former Google DeepMind Director to Lead Its AI Research Lab"
 date: 2025-05-08
 categories: tech-news
+collection: technews
 author: "Zark"
 tags: [Meta, AI, Robert Fergus, Google DeepMind, FAIR, Research, Llama, GenAI]
 keywords: [Meta, AI Research, Robert Fergus, Google DeepMind, FAIR Lab, Llama 1, Llama 2, Llama 4]
@@ -29,3 +30,4 @@ With Robert Fergus now at the helm of FAIR, Meta hopes to revitalize the lab and
 ---
 
 This new leadership change at Meta signals a fresh chapter for the company's AI ambitions. We will have to wait and see how the direction of FAIR evolves under Fergus' guidance.
+

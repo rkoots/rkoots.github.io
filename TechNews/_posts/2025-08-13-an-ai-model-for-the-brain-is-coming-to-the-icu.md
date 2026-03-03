@@ -2,7 +2,8 @@
 layout: default
 title: "An AI Model for the Brain Is Coming to the ICU"
 date: 2025-08-13
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, an-ai-model-for-the-brain-is-coming-to-the-icu, news]

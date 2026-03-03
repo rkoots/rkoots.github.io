@@ -2,7 +2,8 @@
 layout: default
 title: "A decade in, bootstrapped Thinkst Canary reaches $20M in ARR without VC funding"
 date: 2025-05-30
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI, cybersecurity, bootstrapping]
 keywords: [tech, a-decade-in,-bootstrapped-thinkst-canary-reaches-$20m-in-arr-without-vc-funding, news, cybersecurity, honeypot, Thinkst Canary]

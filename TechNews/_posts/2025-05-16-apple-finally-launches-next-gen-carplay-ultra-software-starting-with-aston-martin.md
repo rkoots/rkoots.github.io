@@ -2,7 +2,8 @@
 layout: default
 title: "Apple finally launches next-gen ‘CarPlay Ultra’ software, starting with Aston Martin"
 date: 2025-05-16
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, apple-finally-launches-next-gen-‘carplay-ultra’-software,-starting-with-aston-martin, news]

@@ -5,6 +5,7 @@ date: 2026-01-14
 author: "Raj"
 categories: tech-news
 collection: technews
+collection: technews
 tags:
   - valentines day
   - romantic prompts
@@ -171,3 +172,4 @@ It’s here to keep people scrolling, saving, and acting.
 Bookmark it. Reuse it. Improve it.
 
 ---
+

@@ -2,7 +2,8 @@
 layout: default
 title: "We Bought a ‘Peeing’ Robot Attack Dog From Temu. It Was Even Weirder Than Expected"
 date: 2025-06-03
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, we-bought-a-‘peeing’-robot-attack-dog-from-temu.-it-was-even-weirder-than-expected, news]

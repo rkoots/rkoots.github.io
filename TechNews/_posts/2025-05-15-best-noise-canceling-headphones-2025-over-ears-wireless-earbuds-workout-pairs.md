@@ -2,7 +2,8 @@
 layout: default
 title: "Best Noise-Canceling Headphones (2025): Over-Ears, Wireless Earbuds, Workout Pairs"
 date: 2025-05-15
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, best-noise-canceling-headphones-(2025):-over-ears,-wireless-earbuds,-workout-pairs, news]

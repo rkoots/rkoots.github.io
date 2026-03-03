@@ -2,7 +2,8 @@
 layout: default
 title: "Protesting Tips: What to Bring, How to Act, How to Stay Safe"
 date: 2025-06-13
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, protesting-tips:-what-to-bring,-how-to-act,-how-to-stay-safe, news]

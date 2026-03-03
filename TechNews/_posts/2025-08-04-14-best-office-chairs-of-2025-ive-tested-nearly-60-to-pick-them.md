@@ -2,7 +2,8 @@
 layout: default
 title: "14 Best Office Chairs of 2025— I’ve Tested Nearly 60 to Pick Them"
 date: 2025-08-04
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, 14-best-office-chairs-of-2025—-i’ve-tested-nearly-60-to-pick-them, news]

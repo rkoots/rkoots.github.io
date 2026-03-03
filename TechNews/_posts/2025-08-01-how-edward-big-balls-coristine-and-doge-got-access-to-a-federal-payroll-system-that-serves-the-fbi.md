@@ -2,7 +2,8 @@
 layout: default
 title: "How Edward ‘Big Balls’ Coristine and DOGE Got Access to a Federal Payroll System That Serves the FBI"
 date: 2025-08-01
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, how-edward-‘big-balls’-coristine-and-doge-got-access-to-a-federal-payroll-system-that-serves-the-fbi, news]

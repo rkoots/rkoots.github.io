@@ -2,7 +2,8 @@
 layout: default
 title: "Kesha Wants to ‘Smash’ the Music Industry With a New LinkedIn-Style App"
 date: 2025-05-27
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, kesha-wants-to-‘smash’-the-music-industry-with-a-new-linkedin-style-app, news]

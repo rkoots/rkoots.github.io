@@ -2,7 +2,8 @@
 layout: default
 title: "Tim Sweeney is mocking Apple for letting Fortnite fakes into the App Store"
 date: 2025-05-16
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, tim-sweeney-is-mocking-apple-for-letting-fortnite-fakes-into-the-app-store, news]

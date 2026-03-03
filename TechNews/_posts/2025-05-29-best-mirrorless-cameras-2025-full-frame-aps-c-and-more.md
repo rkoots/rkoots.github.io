@@ -2,7 +2,8 @@
 layout: default
 title: "Best Mirrorless Cameras (2025): Full-Frame, APS-C, and More"
 date: 2025-05-29
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, best-mirrorless-cameras-(2025):-full-frame,-aps-c,-and-more, news]

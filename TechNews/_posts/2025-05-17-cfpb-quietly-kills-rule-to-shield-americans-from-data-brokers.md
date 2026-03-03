@@ -2,7 +2,8 @@
 layout: default
 title: "CFPB Quietly Kills Rule to Shield Americans From Data Brokers"
 date: 2025-05-17
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, cfpb-quietly-kills-rule-to-shield-americans-from-data-brokers, news]

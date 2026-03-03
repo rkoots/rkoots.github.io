@@ -2,7 +2,8 @@
 layout: default
 title: "The Methaphone Is a Phone (That’s Not a Phone) to Help You Stop Using Your Phone"
 date: 2025-06-25
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, the-methaphone-is-a-phone-(that’s-not-a-phone)-to-help-you-stop-using-your-phone, news]

@@ -2,7 +2,8 @@
 layout: default
 title: "The Promise and Peril of Digital Security in the Age of Dictatorship"
 date: 2025-07-07
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, the-promise-and-peril-of-digital-security-in-the-age-of-dictatorship, news]

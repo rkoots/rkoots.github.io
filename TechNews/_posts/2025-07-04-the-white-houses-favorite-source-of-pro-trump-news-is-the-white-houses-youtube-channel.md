@@ -2,7 +2,8 @@
 layout: default
 title: "The White House’s favorite source of pro-Trump news is … the White House’s YouTube channel"
 date: 2025-07-04
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, the-white-house’s-favorite-source-of-pro-trump-news-is-…-the-white-house’s-youtube-channel, news]

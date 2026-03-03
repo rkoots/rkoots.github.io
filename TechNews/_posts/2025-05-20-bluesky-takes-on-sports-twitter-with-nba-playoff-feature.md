@@ -2,7 +2,8 @@
 layout: default
 title: "Bluesky takes on ‘Sports Twitter’ with NBA playoff feature"
 date: 2025-05-20
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, bluesky-takes-on-‘sports-twitter’-with-nba-playoff-feature, news]

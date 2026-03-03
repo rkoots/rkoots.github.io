@@ -2,7 +2,8 @@
 layout: default
 title: "17 Best Electric Bikes (2025): Hauling, Commuting, Mountain Biking"
 date: 2025-05-16
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, 17-best-electric-bikes-(2025):-hauling,-commuting,-mountain-biking, news]

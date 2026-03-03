@@ -2,7 +2,8 @@
 layout: default
 title: "Landa promised real estate investing for $5. Now it’s gone dark."
 date: 2025-05-25
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI, PropTech, Fintech, Fractional Ownership]
 keywords: [tech, landa-promised-real-estate-investing-for-$5.-now-it’s-gone-dark., news, Landa, real estate, fractional ownership, investment, proptech, fintech]

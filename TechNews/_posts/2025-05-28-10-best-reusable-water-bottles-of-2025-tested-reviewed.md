@@ -2,7 +2,8 @@
 layout: default
 title: "10 Best Reusable Water Bottles of 2025, Tested & Reviewed"
 date: 2025-05-28
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, 10-best-reusable-water-bottles-of-2025,-tested-&-reviewed, news]

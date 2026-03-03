@@ -2,7 +2,8 @@
 layout: default
 title: "Elon Musk Says He'll Step Back From the Government. DOGE Isn't Going Anywhere"
 date: 2025-05-26
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, elon-musk-says-he'll-step-back-from-the-government.-doge-isn't-going-anywhere, news]

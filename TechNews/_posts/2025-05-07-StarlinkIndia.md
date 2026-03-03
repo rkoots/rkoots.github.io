@@ -3,6 +3,7 @@ layout: default
 title: "Starlink’s Launch in India Now a Matter of When, Not If"
 date: 2025-05-08
 categories: tech-news
+collection: technews
 author: "Jagmeet Singh"
 tags: [Starlink, India, SpaceX, Elon Musk, Satellite, Broadband, Telecom]
 keywords: [Starlink, India, Satellite Internet, SpaceX, Elon Musk, GMPCS, Internet Connectivity]
@@ -31,3 +32,4 @@ This latest move signals a welcoming gesture from the Indian government towards 
 ---
 
 Starlink’s expansion into India marks a significant milestone in the company’s global growth. With such a large untapped user base, the future of satellite internet in India looks very promising.
+

@@ -3,6 +3,7 @@ layout: default
 title: "Revolutionizing Retail: AI-Powered Personal Shopping Assistants Take Center Stage"
 date: 2024-10-27
 categories: tech-news
+collection: technews
 author: "GPT News Bot"
 tags: [Technology, AI, News, Retail, E-commerce]
 keywords: [Tech News, AI, Startups, Innovation, Retail Technology, Personal Shopping]

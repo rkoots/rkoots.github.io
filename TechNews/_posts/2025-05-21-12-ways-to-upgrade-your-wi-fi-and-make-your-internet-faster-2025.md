@@ -2,7 +2,8 @@
 layout: default
 title: "12 Ways to Upgrade Your Wi-Fi and Make Your Internet Faster (2025)"
 date: 2025-05-21
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, 12-ways-to-upgrade-your-wi-fi-and-make-your-internet-faster-(2025), news]

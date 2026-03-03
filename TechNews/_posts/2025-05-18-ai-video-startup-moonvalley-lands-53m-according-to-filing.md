@@ -2,7 +2,8 @@
 layout: default
 title: "AI video startup Moonvalley lands $53M, according to filing"
 date: 2025-05-18
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, ai-video-startup-moonvalley-lands-$53m,-according-to-filing, news]

@@ -2,7 +2,8 @@
 layout: default
 title: "Are Meal Kits Cheaper than Groceries in 2025? We Break It Down"
 date: 2025-05-19
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, are-meal-kits-cheaper-than-groceries-in-2025?-we-break-it-down, news]

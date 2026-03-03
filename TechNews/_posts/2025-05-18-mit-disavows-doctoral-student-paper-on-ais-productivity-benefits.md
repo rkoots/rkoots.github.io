@@ -2,7 +2,8 @@
 layout: default
 title: "MIT disavows doctoral student paper on AI’s productivity benefits"
 date: 2025-05-18
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, mit-disavows-doctoral-student-paper-on-ai’s-productivity-benefits, news]

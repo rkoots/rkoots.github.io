@@ -2,7 +2,8 @@
 layout: default
 title: "Perplexity now supports live earnings call transcripts for Indian stocks"
 date: 2025-08-19
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, perplexity-now-supports-live-earnings-call-transcripts-for-indian-stocks, news]

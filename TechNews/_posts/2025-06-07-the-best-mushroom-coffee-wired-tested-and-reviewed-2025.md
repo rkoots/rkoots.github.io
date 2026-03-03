@@ -2,7 +2,8 @@
 layout: default
 title: "The Best Mushroom Coffee, WIRED Tested and Reviewed (2025)"
 date: 2025-06-07
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, the-best-mushroom-coffee,-wired-tested-and-reviewed-(2025), news]

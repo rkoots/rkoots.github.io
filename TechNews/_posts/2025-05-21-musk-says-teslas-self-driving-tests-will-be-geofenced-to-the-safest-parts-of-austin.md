@@ -2,7 +2,8 @@
 layout: default
 title: "Musk says Tesla’s self-driving tests will be geofenced to ‘the safest’ parts of Austin"
 date: 2025-05-21
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, musk-says-tesla’s-self-driving-tests-will-be-geofenced-to-‘the-safest’-parts-of-austin, news]

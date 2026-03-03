@@ -2,7 +2,8 @@
 layout: default
 title: "The Best Prime Day MacBook Deal Is Not the One You Think"
 date: 2025-07-13
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, the-best-prime-day-macbook-deal-is-not-the-one-you-think, news]

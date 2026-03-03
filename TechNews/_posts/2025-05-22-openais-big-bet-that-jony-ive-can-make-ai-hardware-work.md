@@ -2,7 +2,8 @@
 layout: default
 title: "OpenAI's Big Bet That Jony Ive Can Make AI Hardware Work"
 date: 2025-05-22
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, openai's-big-bet-that-jony-ive-can-make-ai-hardware-work, news]

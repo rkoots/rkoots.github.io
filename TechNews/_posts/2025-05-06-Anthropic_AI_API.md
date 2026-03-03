@@ -3,6 +3,7 @@ layout: default
 title: "Anthropic Rolls Out an API for AI-Powered Web Search"
 date: 2025-05-07
 categories: tech-news
+collection: technews
 author: "Kyle Wiggers"
 tags: [Anthropic, Claude, AI, Web Search, API, Developers, Search]
 keywords: [Anthropic, Claude, AI Web Search, API, Search, Developers]
@@ -33,3 +34,4 @@ In related news, Anthropic is extending the web search feature to **Claude Code*
 ---
 
 Claude Code remains in beta as a research preview.
+

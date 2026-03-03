@@ -2,7 +2,8 @@
 layout: default
 title: "Adidas Promo Codes & Deals: 30% Off"
 date: 2025-05-20
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, adidas-promo-codes-&-deals:-30%-off, news]

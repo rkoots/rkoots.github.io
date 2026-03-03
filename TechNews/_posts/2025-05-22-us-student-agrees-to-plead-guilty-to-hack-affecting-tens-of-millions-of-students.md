@@ -2,7 +2,8 @@
 layout: default
 title: "US student agrees to plead guilty to hack affecting tens of millions of students"
 date: 2025-05-22
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, us-student-agrees-to-plead-guilty-to-hack-affecting-tens-of-millions-of-students, news, cybersecurity, data breach, PowerSchool]

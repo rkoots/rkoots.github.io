@@ -2,7 +2,8 @@
 layout: default
 title: "Bain bets on Indian domestic work startup Pronto even as rivals face criticism"
 date: 2025-05-15
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, bain-bets-on-indian-domestic-work-startup-pronto-even-as-rivals-face-criticism, news]

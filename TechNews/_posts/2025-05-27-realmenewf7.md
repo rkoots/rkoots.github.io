@@ -2,7 +2,8 @@
 layout: default
 title: "WhatsApp for iPad Officially Launches; Realme GT 7 Dream Edition Unveiled with Cutting-Edge Features"
 date: 2025-05-27
-categories: news
+categories: tech-news
+collection: technews
 tags: [whatsapp for ipad, whatsapp mac, realme gt 7, dream edition, whatsapp ipad, realme flagship, whatsapp desktop, tech updates]
 description: "WhatsApp debuts its long-awaited iPad app, enhancing multitasking capabilities. Simultaneously, Realme introduces the GT 7 Dream Edition, boasting advanced AI features and a Mars-inspired design."
 keywords: "whatsapp for ipad, whatsapp on ipad, whatsapp ipad, whatsapp mac, realme gt 7, realme gt 7 dream edition, whatsapp desktop app, new realme phone, realme flagship 2025"
@@ -73,3 +74,4 @@ For those searching for:
 
 📢 _For daily tech updates and reviews, follow [rkoots TechGuide](https://rkoots.github.io)._  
 ✍️ _Posted by Rajkumar V_
+

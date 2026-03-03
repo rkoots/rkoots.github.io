@@ -3,6 +3,7 @@ layout: default
 title: "High-Quality Home Interior Photo Prompts for AI Image Generation"
 date: 2026-01-01
 categories: tech-news
+collection: technews
 author: "Raj"
 tags:
   - home interior
@@ -47,3 +48,4 @@ Miss one, and the model improvises. Improvisation is how you get floating sofas.
 Use this order. Deviate only if you enjoy debugging images.
 https://amzn.to/49JvlzL
 ![](https://i.pinimg.com/736x/53/cd/b8/53cdb8030dabc8a4b55a713a553983d9.jpg)
+

@@ -2,7 +2,8 @@
 layout: default
 title: "Elon Musk departs DC with a black eye and a tattered reputation"
 date: 2025-05-31
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, elon-musk-departs-dc-with-a-black-eye-and-a-tattered-reputation, news]

@@ -2,7 +2,8 @@
 layout: default
 title: "Are Those Viral ‘Cooling Blankets’ for Real?"
 date: 2025-06-16
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, are-those-viral-‘cooling-blankets’-for-real?, news]

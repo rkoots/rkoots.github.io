@@ -2,7 +2,8 @@
 layout: default
 title: "5 Best Folding Phones (2026), Tested and Reviewed"
 date: 2025-12-21
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, 5-best-folding-phones-(2026),-tested-and-reviewed, news]
@@ -36,3 +37,4 @@ The success of foldable phones will depend on continued refinement of technology
 
 
 **Source:**  [https://www.wired.com/gallery/best-folding-phones/](https://www.wired.com/gallery/best-folding-phones/)
+

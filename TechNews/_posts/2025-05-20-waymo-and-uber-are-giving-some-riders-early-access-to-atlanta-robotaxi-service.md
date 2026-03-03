@@ -2,7 +2,8 @@
 layout: default
 title: "Waymo and Uber are giving some riders early access to Atlanta robotaxi service"
 date: 2025-05-20
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI, autonomous vehicles, robotaxi, Waymo, Uber]
 keywords: [tech, waymo-and-uber-are-giving-some-riders-early-access-to-atlanta-robotaxi-service, news, autonomous driving, Atlanta, robotaxi service]

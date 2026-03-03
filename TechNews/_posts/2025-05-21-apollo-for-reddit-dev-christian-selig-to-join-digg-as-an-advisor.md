@@ -2,7 +2,8 @@
 layout: default
 title: "Apollo for Reddit dev Christian Selig to join Digg as an advisor"
 date: 2025-05-21
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI, Reddit, Digg, Apollo, mobile development]
 keywords: [tech, apollo-for-reddit-dev-christian-selig-to-join-digg-as-an-advisor, news, Christian Selig, Digg, Reddit, Apollo app]

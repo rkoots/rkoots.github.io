@@ -3,6 +3,7 @@ layout: default
 title: "Apple Developing New Chips for Smart Glasses, Macs, and More"
 date: 2025-05-09
 categories: tech-news
+collection: technews
 author: "apple"
 tags: [Apple, Smart Glasses, Chips, Technology, AI]
 keywords: [Apple Chips, Smart Glasses, Meta, AI, Technology News]
@@ -29,3 +30,4 @@ Apple's move into this market is likely to further shape the future of smart wea
 ---
 
 Stay tuned for more updates as Apple’s ambitious plans in the tech space unfold!
+

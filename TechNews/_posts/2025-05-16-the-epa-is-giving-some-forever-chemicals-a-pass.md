@@ -2,7 +2,8 @@
 layout: default
 title: "The EPA Is Giving Some Forever Chemicals a Pass"
 date: 2025-05-16
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI, environment, regulation]
 keywords: [tech, the-epa-is-giving-some-forever-chemicals-a-pass, news, PFAS, environmental-regulation]

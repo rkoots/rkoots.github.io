@@ -2,7 +2,8 @@
 layout: default
 title: "Let's Talk About ChatGPT and Cheating in the Classroom"
 date: 2025-05-24
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, let's-talk-about-chatgpt-and-cheating-in-the-classroom, news]

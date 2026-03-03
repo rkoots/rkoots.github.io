@@ -2,7 +2,8 @@
 layout: default
 title: "Withings BPM Vision Review: At-Home Blood Pressure Monitoring"
 date: 2025-05-22
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, withings-bpm-vision-review:-at-home-blood-pressure-monitoring, news]

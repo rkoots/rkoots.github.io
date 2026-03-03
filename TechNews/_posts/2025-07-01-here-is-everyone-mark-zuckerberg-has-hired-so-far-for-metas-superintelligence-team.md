@@ -2,7 +2,8 @@
 layout: default
 title: "Here Is Everyone Mark Zuckerberg Has Hired So Far for Meta’s ‘Superintelligence’ Team"
 date: 2025-07-01
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, here-is-everyone-mark-zuckerberg-has-hired-so-far-for-meta’s-‘superintelligence’-team, news]

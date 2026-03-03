@@ -2,7 +2,8 @@
 layout: default
 title: "Apple is trying to get ‘LLM Siri’ back on track"
 date: 2025-05-19
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, apple-is-trying-to-get-‘llm-siri’-back-on-track, news]

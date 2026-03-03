@@ -2,7 +2,8 @@
 layout: default
 title: "We Hand-Picked the 37 Best Deals From the 2025 REI Anniversary Sale"
 date: 2025-05-20
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, we-hand-picked-the-37-best-deals-from-the-2025-rei-anniversary-sale, news]

@@ -2,7 +2,8 @@
 layout: default
 title: "Best Bird Feeders With Cameras, Tested and Reviewed (2025)"
 date: 2025-05-18
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, best-bird-feeders-with-cameras,-tested-and-reviewed-(2025), news]

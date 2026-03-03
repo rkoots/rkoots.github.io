@@ -2,7 +2,8 @@
 layout: default
 title: "30% Off Design Within Reach Promo Code | May 2025"
 date: 2025-05-19
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, 30%-off-design-within-reach-promo-code-|-may-2025, news]

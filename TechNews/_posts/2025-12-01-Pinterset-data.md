@@ -2,7 +2,8 @@
 layout: default
 title: "TechiePins"
 date: 2025-05-16
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI, environment, regulation]
 keywords: [tech, the-epa-is-giving-some-forever-chemicals-a-pass, news, PFAS, environmental-regulation]
@@ -260,3 +261,4 @@ keywords: [tech, the-epa-is-giving-some-forever-chemicals-a-pass, news, PFAS, en
 ![](https://i.pinimg.com/170x/ec/f4/7f/ecf47f3edf453856965f88e71656105a.jpg)
 ![](https://i.pinimg.com/170x/86/30/9b/86309b8b537370aff6a20768a40c4c3f.jpg)
 ![](https://i.pinimg.com/75x75_RS/cf/73/8e/cf738e6180e404f83cd07b241c6ee6ce.jpg)
+

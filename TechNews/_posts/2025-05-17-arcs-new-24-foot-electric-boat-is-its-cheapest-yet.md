@@ -2,7 +2,8 @@
 layout: default
 title: "Arc’s new 24-foot electric boat is its cheapest yet"
 date: 2025-05-17
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI, electric-vehicles, marine-technology]
 keywords: [tech, arc’s-new-24-foot-electric-boat, electric-boat, arc-coast, news, startup]

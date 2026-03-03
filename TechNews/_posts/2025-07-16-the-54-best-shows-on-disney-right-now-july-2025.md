@@ -2,7 +2,8 @@
 layout: default
 title: "The 54 Best Shows on Disney+ Right Now (July 2025)"
 date: 2025-07-16
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, the-54-best-shows-on-disney+-right-now-(july-2025), news]

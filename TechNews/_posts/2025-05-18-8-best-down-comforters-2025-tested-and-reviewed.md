@@ -2,7 +2,8 @@
 layout: default
 title: "8 Best Down Comforters (2025), Tested and Reviewed"
 date: 2025-05-18
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, 8-best-down-comforters-(2025),-tested-and-reviewed, news]

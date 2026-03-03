@@ -2,7 +2,8 @@
 layout: default
 title: "We tried on Google’s prototype AI smart glasses"
 date: 2025-05-21
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, we-tried-on-google’s-prototype-ai-smart-glasses, news]

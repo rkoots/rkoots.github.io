@@ -2,7 +2,8 @@
 layout: default
 title: "A United Arab Emirates Lab Announces Frontier AI Projects—and a New Outpost in Silicon Valley"
 date: 2025-05-24
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, a-united-arab-emirates-lab-announces-frontier-ai-projects—and-a-new-outpost-in-silicon-valley, news]

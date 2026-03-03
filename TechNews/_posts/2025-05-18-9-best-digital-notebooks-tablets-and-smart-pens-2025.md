@@ -2,7 +2,8 @@
 layout: default
 title: "9 Best Digital Notebooks, Tablets, and Smart Pens (2025)"
 date: 2025-05-18
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, 9-best-digital-notebooks,-tablets,-and-smart-pens-(2025), news]

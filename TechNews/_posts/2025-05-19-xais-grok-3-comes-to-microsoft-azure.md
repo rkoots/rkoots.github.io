@@ -2,7 +2,8 @@
 layout: default
 title: "xAI’s Grok 3 comes to Microsoft Azure"
 date: 2025-05-19
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, xai’s-grok-3-comes-to-microsoft-azure, news]

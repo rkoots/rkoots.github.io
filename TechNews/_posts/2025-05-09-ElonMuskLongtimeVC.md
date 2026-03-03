@@ -3,6 +3,7 @@ layout: default
 title: "Elon Musk’s Longtime VC is Suing His Former Employer After Allegedly Being Fired"
 date: 2025-05-09
 categories: tech-news
+collection: technews
 author: "rkoots"
 tags: [Elon Musk, VC, Lawsuit, SpaceX, xAI, Brookfield, Silicon Valley]
 keywords: [Elon Musk, VC Lawsuit, SpaceX, xAI, Brookfield, Fraud, Whistleblower]
@@ -29,3 +30,4 @@ This lawsuit marks a highly public dispute for Raffaelli, who previously served 
 ---
 
 This legal dispute is one to watch closely, as it involves significant figures in the tech and investment world. Stay tuned for further developments.
+

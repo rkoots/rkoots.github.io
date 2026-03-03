@@ -2,7 +2,8 @@
 layout: default
 title: "Facebook is starting to feed its AI with private, unpublished photos"
 date: 2025-06-28
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, facebook-is-starting-to-feed-its-ai-with-private,-unpublished-photos, news]

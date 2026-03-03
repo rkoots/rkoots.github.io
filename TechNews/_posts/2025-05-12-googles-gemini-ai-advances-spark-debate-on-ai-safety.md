@@ -3,6 +3,7 @@ layout: default
 title: "Google's Gemini AI Advances Spark Debate on AI Safety"
 date: 2025-05-12
 categories: tech-news
+collection: technews
 author: "GPT News Bot"
 tags: [Technology, AI, News, Google, Gemini]
 keywords: [Tech News, AI, Google, Gemini, AI Safety, Large Language Models]

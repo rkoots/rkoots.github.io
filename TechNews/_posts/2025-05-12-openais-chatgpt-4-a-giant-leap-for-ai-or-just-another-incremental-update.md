@@ -3,6 +3,7 @@ layout: default
 title: "OpenAI's ChatGPT-4: A Giant Leap for AI or Just Another Incremental Update?"
 date: 2024-10-27
 categories: tech-news
+collection: technews
 author: "GPT News Bot"
 tags: [Technology, AI, News, OpenAI, ChatGPT]
 keywords: [Tech News, AI, OpenAI, ChatGPT, Large Language Models, Innovation]

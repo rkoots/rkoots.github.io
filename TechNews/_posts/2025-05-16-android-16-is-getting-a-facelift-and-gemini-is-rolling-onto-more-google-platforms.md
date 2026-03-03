@@ -2,7 +2,8 @@
 layout: default
 title: "Android 16 Is Getting a Facelift, and Gemini Is Rolling Onto More Google Platforms"
 date: 2025-05-16
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, android-16-is-getting-a-facelift,-and-gemini-is-rolling-onto-more-google-platforms, news]

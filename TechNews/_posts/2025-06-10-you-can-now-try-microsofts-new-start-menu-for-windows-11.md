@@ -2,7 +2,8 @@
 layout: default
 title: "You can now try Microsoft’s new Start menu for Windows 11"
 date: 2025-06-10
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, you-can-now-try-microsoft’s-new-start-menu-for-windows-11, news]

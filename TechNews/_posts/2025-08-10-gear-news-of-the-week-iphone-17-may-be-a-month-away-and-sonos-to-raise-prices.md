@@ -2,7 +2,8 @@
 layout: default
 title: "Gear News of the Week: iPhone 17 May Be a Month Away, and Sonos to Raise Prices"
 date: 2025-08-10
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, gear-news-of-the-week:-iphone-17-may-be-a-month-away,-and-sonos-to-raise-prices, news]

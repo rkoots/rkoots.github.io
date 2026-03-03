@@ -2,7 +2,8 @@
 layout: default
 title: "Analysts Say Trump Trade Wars Would Harm the Entire US Energy Sector, From Oil to Solar"
 date: 2025-06-04
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, analysts-say-trump-trade-wars-would-harm-the-entire-us-energy-sector,-from-oil-to-solar, news]

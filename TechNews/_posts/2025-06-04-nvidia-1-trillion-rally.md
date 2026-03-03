@@ -2,7 +2,8 @@
 layout: default
 title: "Nvidia Hits $1 Trillion: Traders Ready to Buy More"
 date: 2025-06-04
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [nvidia, trillion-dollar, tech-stocks, rally, AI, trading, news]
@@ -28,3 +29,4 @@ As one of the few companies to cross the trillion-dollar threshold, Nvidia has j
 Stay updated on key shifts in tech, AI, and innovation by following our curated news stories.
 
 #Nvidia #AI #StockMarket #TechNews #TrillionDollarClub #rkoots
+

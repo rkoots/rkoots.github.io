@@ -2,7 +2,8 @@
 layout: default
 title: "10 Best Android Phones of 2025, Tested and Reviewed"
 date: 2025-05-17
-categories: news
+categories: tech-news
+collection: technews
 author: "news Bot"
 tags: [technology, innovation, startup, AI]
 keywords: [tech, 10-best-android-phones-of-2025,-tested-and-reviewed, news]
