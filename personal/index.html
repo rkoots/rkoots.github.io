@@ -1440,22 +1440,16 @@
             // Calculate monthly totals (sum of all assets per month)
             const monthlyTotals = monthlyData.map(month => month.sb + month.fd + month.mf + month.eq);
             
+            // Calculate combined savings (SB + FD)
+            const savingsData = monthlyData.map(month => month.sb + month.fd);
+            
             const datasets = [
                 // Monthly asset data
                 {
-                    label: 'Savings (SB)',
-                    data: monthlyData.map(month => month.sb),
+                    label: 'Savings (SB + FD)',
+                    data: savingsData,
                     borderColor: '#FF6384',
                     backgroundColor: 'rgba(255, 99, 132, 0.1)',
-                    borderWidth: 3,
-                    fill: false,
-                    tension: 0.4
-                },
-                {
-                    label: 'Fixed Deposits (FD)',
-                    data: monthlyData.map(month => month.fd),
-                    borderColor: '#FFCE56',
-                    backgroundColor: 'rgba(255, 206, 86, 0.1)',
                     borderWidth: 3,
                     fill: false,
                     tension: 0.4
@@ -1515,7 +1509,7 @@
                             callbacks: {
                                 label: function(context) {
                                     let label = context.dataset.label + ': ₹' + toLakhs(context.raw) + 'K';
-                                    if (context.datasetIndex === 4) { // Monthly total line
+                                    if (context.datasetIndex === 3) { // Monthly total line
                                         label += ' (Sum of all assets)';
                                     }
                                     return label;
@@ -1856,7 +1850,7 @@
             });
             
             // Calculate per-type breakdowns for each entry
-            const sbData = [], fdData = [], mfData = [], eqData = [], totalData = [];
+            const sbData = [], fdData = [], mfData = [], eqData = [], totalData = [], savingsData = [];
             sortedData.forEach(entry => {
                 let sb = 0, fd = 0, mf = 0, eq = 0;
                 if (entry.bankAccounts) {
@@ -1892,6 +1886,7 @@
                 fdData.push(fd);
                 mfData.push(mf);
                 eqData.push(eq);
+                savingsData.push(sb + fd);
                 totalData.push(sb + fd + mf + eq);
             });
             
@@ -1902,19 +1897,10 @@
                     labels: exactDateLabels,
                     datasets: [
                         {
-                            label: 'Savings (SB)',
-                            data: sbData,
+                            label: 'Savings (SB + FD)',
+                            data: savingsData,
                             borderColor: '#FF6384',
                             backgroundColor: 'rgba(255, 99, 132, 0.1)',
-                            borderWidth: 3,
-                            fill: false,
-                            tension: 0.4
-                        },
-                        {
-                            label: 'Fixed Deposits (FD)',
-                            data: fdData,
-                            borderColor: '#FFCE56',
-                            backgroundColor: 'rgba(255, 206, 86, 0.1)',
                             borderWidth: 3,
                             fill: false,
                             tension: 0.4
@@ -2002,6 +1988,9 @@
             const mfData = weeklyData.map(week => week.mf);
             const eqData = weeklyData.map(week => week.eq);
             
+            // Calculate combined savings (SB + FD)
+            const savingsData = weeklyData.map(week => week.sb + week.fd);
+            
             const ctx = document.getElementById('weekly-asset-trend-chart').getContext('2d');
             new Chart(ctx, {
                 type: 'line',
@@ -2009,19 +1998,10 @@
                     labels: labels,
                     datasets: [
                         {
-                            label: 'Savings (SB)',
-                            data: sbData,
+                            label: 'Savings (SB + FD)',
+                            data: savingsData,
                             borderColor: '#FF6384',
                             backgroundColor: 'rgba(255, 99, 132, 0.1)',
-                            borderWidth: 2,
-                            fill: false,
-                            tension: 0.4
-                        },
-                        {
-                            label: 'Fixed Deposits (FD)',
-                            data: fdData,
-                            borderColor: '#FFCE56',
-                            backgroundColor: 'rgba(255, 206, 86, 0.1)',
                             borderWidth: 2,
                             fill: false,
                             tension: 0.4
