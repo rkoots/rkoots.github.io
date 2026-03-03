@@ -1,0 +1,375 @@
+---
+layout: default
+title: "Search - RKoots TechGuide"
+description: "Search technical articles, guides, tools, and insights on RKoots TechGuide"
+permalink: /search/
+---
+
+<div class="page-header">
+  <div class="container">
+    <h1>Search</h1>
+    <p class="page-subtitle">Find technical articles, guides, tools, and insights</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="search-container">
+    <div class="search-section">
+      <h2>Search Content</h2>
+      <div class="search-form">
+        <input type="text" id="search-input" placeholder="Search for articles, guides, tools..." autocomplete="off">
+        <button id="search-btn" type="button">
+          <i class="fas fa-search"></i>
+          Search
+        </button>
+      </div>
+      
+      <div id="search-results" class="search-results">
+        <div class="search-placeholder">
+          <i class="fas fa-search"></i>
+          <p>Start typing to search through our technical content</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="search-sidebar">
+      <div class="quick-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/technews/"><i class="fas fa-newspaper"></i> Latest Tech News</a></li>
+          <li><a href="/tools/"><i class="fas fa-tools"></i> Developer Tools</a></li>
+          <li><a href="/blog/"><i class="fas fa-blog"></i> Technical Blog</a></li>
+          <li><a href="/guide/"><i class="fas fa-book"></i> Implementation Guides</a></li>
+          <li><a href="/insights/"><i class="fas fa-lightbulb"></i> Engineering Insights</a></li>
+        </ul>
+      </div>
+      
+      <div class="popular-topics">
+        <h3>Popular Topics</h3>
+        <div class="topic-tags">
+          <span class="topic-tag">Architecture</span>
+          <span class="topic-tag">Cloud Computing</span>
+          <span class="topic-tag">AI/ML</span>
+          <span class="topic-tag">DevOps</span>
+          <span class="topic-tag">Performance</span>
+          <span class="topic-tag">Security</span>
+          <span class="topic-tag">Leadership</span>
+          <span class="topic-tag">Microservices</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.search-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  margin-top: 40px;
+}
+
+.search-section h2 {
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.search-form {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.search-form input {
+  flex: 1;
+  padding: 15px 20px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-form input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-form button {
+  padding: 15px 30px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.search-form button:hover {
+  background: #5a6fd8;
+  transform: translateY(-2px);
+}
+
+.search-results {
+  min-height: 400px;
+}
+
+.search-placeholder {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+}
+
+.search-placeholder i {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.search-placeholder p {
+  font-size: 1.1rem;
+}
+
+.search-result-item {
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.search-result-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.search-result-title {
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.search-result-title:hover {
+  color: #667eea;
+}
+
+.search-result-excerpt {
+  color: #6c757d;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.search-result-meta {
+  display: flex;
+  gap: 20px;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.search-result-category {
+  color: #667eea;
+  font-weight: 500;
+}
+
+.search-sidebar {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.quick-links, .popular-topics {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.quick-links h3, .popular-topics h3 {
+  color: #2c3e50;
+  margin: 0 0 20px 0;
+  font-size: 1.2rem;
+}
+
+.quick-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.quick-links li {
+  margin-bottom: 12px;
+}
+
+.quick-links a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #2c3e50;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.quick-links a:hover {
+  color: #667eea;
+}
+
+.quick-links i {
+  width: 20px;
+  color: #667eea;
+}
+
+.topic-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.topic-tag {
+  background: #667eea;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.topic-tag:hover {
+  background: #5a6fd8;
+  transform: translateY(-2px);
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+}
+
+.no-results i {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+@media (max-width: 992px) {
+  .search-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .search-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-form {
+    flex-direction: column;
+  }
+  
+  .search-form button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .quick-links, .popular-topics {
+    padding: 20px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('search-input');
+  const searchBtn = document.getElementById('search-btn');
+  const searchResults = document.getElementById('search-results');
+  
+  // Sample search data - in a real implementation, this would come from a search index
+  const searchData = [
+    {
+      title: 'Microservices Architecture Patterns',
+      excerpt: 'Explore common patterns and best practices for building scalable microservices architectures...',
+      category: 'Architecture',
+      url: '/guide/microservices-patterns/',
+      date: '2024-01-15'
+    },
+    {
+      title: 'Cloud-Native Development with Kubernetes',
+      excerpt: 'Learn how to build and deploy cloud-native applications using Kubernetes and Docker...',
+      category: 'Cloud Computing',
+      url: '/guide/kubernetes-cloud-native/',
+      date: '2024-01-10'
+    },
+    {
+      title: 'AI Implementation Strategies',
+      excerpt: 'Practical approaches to implementing AI and machine learning in enterprise applications...',
+      category: 'AI/ML',
+      url: '/insights/ai-implementation/',
+      date: '2024-01-05'
+    }
+  ];
+  
+  function performSearch(query) {
+    if (!query) {
+      searchResults.innerHTML = `
+        <div class="search-placeholder">
+          <i class="fas fa-search"></i>
+          <p>Start typing to search through our technical content</p>
+        </div>
+      `;
+      return;
+    }
+    
+    const results = searchData.filter(item => 
+      item.title.toLowerCase().includes(query.toLowerCase()) ||
+      item.excerpt.toLowerCase().includes(query.toLowerCase()) ||
+      item.category.toLowerCase().includes(query.toLowerCase())
+    );
+    
+    if (results.length === 0) {
+      searchResults.innerHTML = `
+        <div class="no-results">
+          <i class="fas fa-search"></i>
+          <h3>No results found</h3>
+          <p>Try searching with different keywords</p>
+        </div>
+      `;
+      return;
+    }
+    
+    searchResults.innerHTML = results.map(item => `
+      <div class="search-result-item">
+        <a href="${item.url}" class="search-result-title">${item.title}</a>
+        <p class="search-result-excerpt">${item.excerpt}</p>
+        <div class="search-result-meta">
+          <span class="search-result-category">${item.category}</span>
+          <span>${item.date}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+  
+  searchInput.addEventListener('input', function() {
+    performSearch(this.value);
+  });
+  
+  searchBtn.addEventListener('click', function() {
+    performSearch(searchInput.value);
+  });
+  
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      performSearch(this.value);
+    }
+  });
+});
+</script>
