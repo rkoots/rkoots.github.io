@@ -1,4 +1,4 @@
-permalink: /:finance/:title/
+permalink: /finance/:title/
 
 collections:
   finance:
