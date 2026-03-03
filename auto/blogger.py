@@ -270,10 +270,6 @@ def main():
     now_utc = datetime.datetime.now(datetime.timezone.utc)
     
     print(f"🤖 AI Blog Generator started at {now_utc.strftime('%Y-%m-%d %H:%M:%S UTC')}")
-
-    if not FORCE_RUN and not is_publish_day(now_utc):
-        print("ℹ️ Not a Wednesday/Friday run. Skipping generation.")
-        return
     
     print("🚀 Starting blog post generation...")
     
