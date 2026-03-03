@@ -28,22 +28,24 @@ jobs:
           python -m pip install --upgrade pip
           echo "✅ pip upgraded successfully"
           
-          echo "📦 Installing required packages..."
-          pip install requests
-          echo "✅ Python dependencies installed successfully"
+          echo "📦 Installing from requirements.txt..."
+          if [ -f "requirements.txt" ]; then
+            pip install -r requirements.txt
+            echo "✅ Dependencies installed from requirements.txt"
+          else
+            echo "📦 Installing required packages manually..."
+            pip install requests
+            echo "✅ Python dependencies installed successfully"
+          fi
           
           echo "📋 Verifying installed packages..."
           pip list | grep -E "(requests)"
 
-      - name: Generate post and optionally publish to Blogger
+      - name: Generate AI blog post
         env:
-          BLOG_ID: ${{ secrets.BLOG_ID }}
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
-          PUBLISH_TO_BLOGGER: ${{ secrets.PUBLISH_TO_BLOGGER }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          echo "🚀 Starting Blogger post generation..."
+          echo "🚀 Starting AI blog post generation..."
           echo "📅 Current date and time: $(date)"
           echo "🔍 Checking if auto/blogger.py exists..."
           if [ -f "auto/blogger.py" ]; then
@@ -55,11 +57,7 @@ jobs:
           fi
           
           echo "🔑 Checking environment variables..."
-          echo "BLOG_ID: ${BLOG_ID:+✅ Set}${BLOG_ID:-❌ Not set}"
-          echo "CLIENT_ID: ${CLIENT_ID:+✅ Set}${CLIENT_ID:-❌ Not set}"
-          echo "CLIENT_SECRET: ${CLIENT_SECRET:+✅ Set}${CLIENT_SECRET:-❌ Not set}"
-          echo "BLOGGER_REFRESH_TOKEN: ${BLOGGER_REFRESH_TOKEN:+✅ Set}${BLOGGER_REFRESH_TOKEN:-❌ Not set}"
-          echo "PUBLISH_TO_BLOGGER: ${PUBLISH_TO_BLOGGER:+✅ Set}${PUBLISH_TO_BLOGGER:-❌ Not set}"
+          echo "GEMINI_API_KEY: ${GEMINI_API_KEY:+✅ Set}${GEMINI_API_KEY:-❌ Not set}"
           
           echo "🐍 Running blogger.py..."
           python auto/blogger.py
