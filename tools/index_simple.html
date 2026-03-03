@@ -1,0 +1,18 @@
+---
+layout: page
+title: "Tools & Utilities"
+---
+
+<div class="tools-content">
+  <h2>Available Tools</h2>
+  
+  {% for post in site.posts %}
+    {% if post.categories contains "tools" %}
+      <div style="margin: 20px 0; padding: 15px; border: 1px solid #ddd;">
+        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <p>{{ post.excerpt }}</p>
+        <small>Date: {{ post.date }}</small>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

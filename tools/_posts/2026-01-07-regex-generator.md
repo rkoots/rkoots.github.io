@@ -1,8 +1,9 @@
 ---
 layout: default
-date: 2026-01-01
+excerpt: A powerful developer tool for enhanced productivity and workflow optimization
+date: 2026-01-07
 title: Regex Generator & Tester - Online Regular Expression Tool
-collection: tools
+categories: tools
 permalink: /tools/regex-generator/
 
 description: Free online regex generator and tester tool. Build, test, and validate regular expressions with real-time matching, syntax highlighting, and common patterns library.
@@ -550,6 +551,12 @@ document.getElementById('regexPattern').addEventListener('input', function() {
   ]
 }
 </script>
+
+
+
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 ---
 layout: iconlayout
 title: Free UI Components Library – CSS, HTML & JS
-collection: tools
+categories: tools
 
 description: A curated collection of free UI components built with HTML, CSS, and JavaScript. Instantly usable, customizable, and perfect for modern web design and development.
 keywords: free ui components, html css js ui kits, open source components, frontend design blocks, web design elements, reusable components
@@ -424,7 +424,7 @@ animation: l12 steps(3) 1.5s infinite;
     linear-gradient(#00e622 0 0) 100% 100%/calc(2*100%/3) 50%;
   background-repeat: no-repeat;
   animation: inherit;
-  animation-name: l2-1;
+  animation-permalink: /tools/l/2-1;
 }
 #l2::after {
   inset:-100% 0 100%;
@@ -432,7 +432,7 @@ animation: l12 steps(3) 1.5s infinite;
     linear-gradient(#e50021 0 0) 0    0/100%         50%,
     linear-gradient(#e50021 0 0) 100% 0/calc(100%/3) 100%;
   background-repeat: no-repeat; 
-  animation-name: l2-2;
+  animation-permalink: /tools/l/2-2;
 }
 @keyframes l2-0{
   0%       {transform: translateY(-250%);clip-path: inset(100% 0 0 0)}
@@ -737,7 +737,7 @@ animation: l12 steps(3) 1.5s infinite;
   background-size: 34px 2px;
   background-repeat: no-repeat;
   animation: inherit;
-  animation-name: l10-1;
+  animation-permalink: /tools/l/10-1;
 }
 @keyframes l10-0{
   0%,30%   { background-position: 0 0px }
@@ -1010,6 +1010,11 @@ animation: l12 steps(3) 1.5s infinite;
           <button>Copy the CSS</button>
         </article>
       </section>
+
+
+
+
+
 
 
 

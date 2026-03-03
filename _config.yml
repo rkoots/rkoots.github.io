@@ -41,10 +41,7 @@ plugins:
 permalink: /:categories/:year/:month/:day/:title/
 
 # Collections
-collections:
-  tools:
-    output: true
-    permalink: /tools/:title/
+# tools collection removed - using categories instead
 
 # Defaults
 defaults:
