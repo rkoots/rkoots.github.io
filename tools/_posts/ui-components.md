@@ -1,7 +1,8 @@
 ---
 layout: iconlayout
 title: Free UI Components Library – CSS, HTML & JS
-permalink: /free-ui-components/
+collection: tools
+
 description: A curated collection of free UI components built with HTML, CSS, and JavaScript. Instantly usable, customizable, and perfect for modern web design and development.
 keywords: free ui components, html css js ui kits, open source components, frontend design blocks, web design elements, reusable components
 ---
@@ -1009,3 +1010,8 @@ animation: l12 steps(3) 1.5s infinite;
           <button>Copy the CSS</button>
         </article>
       </section>
+
+
+
+
+

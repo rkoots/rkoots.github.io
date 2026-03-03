@@ -1,7 +1,10 @@
 ---
 layout: default
+date: 2026-01-01
 title: Cron Expression Editor - Visual Cron Schedule Builder & Validator
-permalink: /cron-editor/
+collection: tools
+permalink: /tools/cron-editor/
+
 description: Visual cron expression generator and editor online. Build, test, and validate cron schedules with real-time human-readable output.
 keywords: cron expression generator, cron schedule builder, cron editor online, cron syntax tester, cron expression validator, how to write cron job, cron parser, cron translator, cron expression builder, schedule cron jobs, linux cron helper
 tags: cron, scheduler, devtools, automation, validator, generator, editor, productivity
@@ -778,3 +781,10 @@ button:active { transform: translateY(0); }
   ]
 }
 </script>
+
+
+
+
+
+
+

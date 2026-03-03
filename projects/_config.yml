@@ -1,6 +1,0 @@
-permalink: /:title/
-
-collections:
-  projects:
-    output: true
-    permalink: /projects/

@@ -1,7 +1,10 @@
 ---
 title: Curated Web Bookmarks
 layout: default
-permalink: /bookmarks/
+date: 2026-01-01
+collection: tools
+permalink: /tools/bookmark/
+
 ---
 
 # 🌐 Curated Web & Social Bookmarks
@@ -102,3 +105,10 @@ Organized list of internet, social, AI, developer, finance, and learning resourc
 - [Convergence.ai](https://convergence.ai/)
 
 ---
+
+
+
+
+
+
+

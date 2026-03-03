@@ -44,7 +44,7 @@ permalink: /:categories/:year/:month/:day/:title/
 collections:
   tools:
     output: true
-    permalink: /tools/:year/:title/
+    permalink: /tools/:title/
 
 # Defaults
 defaults:
@@ -92,11 +92,6 @@ categories:
     description: "Industry analysis, technical trends, engineering leadership insights, and strategic perspectives"
     color: "#7b1fa2"
     icon: "fas fa-lightbulb"
-  styleguide:
-    name: "Style Guide"
-    description: "Coding standards, design patterns, and best practices for technical documentation"
-    color: "#d32f2f"
-    icon: "fas fa-palette"
 
 # Feed Configuration
 feed:

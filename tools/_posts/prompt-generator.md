@@ -1,7 +1,10 @@
 ---
 layout: default
+date: 2026-01-01
 title: AI Prompt Generator - Create Optimized ChatGPT Prompts Instantly
-permalink: /prompt-generator/
+collection: tools
+permalink: /tools/prompt-generator/
+
 description: Build better ChatGPT prompts fast with our AI prompt generator. Create clear, structured prompts with templates and instant formatting.
 keywords: AI prompt generator, ChatGPT prompt builder, prompt creator online, generate better prompts, AI prompt templates, prompt engineering tool, prompt optimizer, ChatGPT prompt creator, prompt design assistant, AI writing prompts
 tags: ai, prompt-generator, chatgpt, productivity, writing, developer-tools
@@ -699,3 +702,9 @@ select:focus {
   ]
 }
 </script>
+
+
+
+
+
+
