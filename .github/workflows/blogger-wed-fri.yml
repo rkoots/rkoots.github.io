@@ -28,12 +28,12 @@ jobs:
           python -m pip install --upgrade pip
           echo "✅ pip upgraded successfully"
           
-          echo "📦 Installing Google API packages..."
-          pip install google-api-python-client google-auth google-auth-oauthlib
+          echo "📦 Installing required packages..."
+          pip install requests
           echo "✅ Python dependencies installed successfully"
           
           echo "📋 Verifying installed packages..."
-          pip list | grep -E "(google|api)"
+          pip list | grep -E "(requests)"
 
       - name: Generate post and optionally publish to Blogger
         env:
