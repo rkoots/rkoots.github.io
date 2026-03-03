@@ -24,3 +24,9 @@
 /main /
 /welcome /
 /landing /
+
+# Specific URL redirects as requested
+/technews/news/2026/01/14/photoprompts.html /blog/tech-news/2026/01/14/photoprompts/
+/technews/tech-news/2026/01/01/india.html /blog/tech-news/2026/01/01/india/
+/technews/news/2026/01/14/Valentines.html /blog/tech-news/2026/01/14/Valentines/
+/styleguide/ /guide/styleguide/
