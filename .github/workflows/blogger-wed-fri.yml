@@ -43,7 +43,7 @@ jobs:
 
       - name: Generate AI blog post
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.KEY }}
         run: |
           echo "🚀 Starting AI blog post generation..."
           echo "📅 Current date and time: $(date)"
