@@ -6,19 +6,19 @@ description: "The page you're looking for might have been removed, renamed, or i
 ---
 
 <head>
-  <meta http-equiv="refresh" content="3; url=/">
+  <meta http-equiv="refresh" content="1; url=/">
   <script>
-    // Instant redirect for GitHub Pages
+    // Redirect for both local development and GitHub Pages
     (function() {
-      // Check if we're on GitHub Pages
-      if (window.location.hostname.includes('github.io')) {
+      // Check if we're on GitHub Pages or local development
+      if (window.location.hostname.includes('github.io') || window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')) {
         // Redirect immediately
         window.location.replace('/');
       } else {
-        // Fallback redirect after 3 seconds
+        // Fallback redirect after 1 second
         setTimeout(function() {
           window.location.replace('/');
-        }, 3000);
+        }, 1000);
       }
     })();
   </script>
