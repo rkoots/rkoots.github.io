@@ -2,7 +2,7 @@
 layout: default
 excerpt: A powerful developer tool for enhanced productivity and workflow optimization
 date: 2026-01-05
-title: FREE Income Tax Calculator India 2025-26 | Old vs New Regime Comparison
+title: FREE Income Tax Calculator
 categories: finance
 permalink: /finance/income-tax-calculator/
 
