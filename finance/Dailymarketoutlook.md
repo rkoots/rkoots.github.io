@@ -842,8 +842,8 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
       // DOM is already ready, invoke immediately
       setTimeout(refreshAll, 100);
     }
-    
-    refreshTimer = setInterval(refreshAll, REFRESH_MS);
+    // Removed continuous refresh to prevent constant fetching
+    // refreshTimer = setInterval(refreshAll, REFRESH_MS);
   })();
 {% endraw %}
 </script>
