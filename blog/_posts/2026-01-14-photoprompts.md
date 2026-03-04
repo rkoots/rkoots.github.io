@@ -21,8 +21,24 @@ keywords:
   - DALL-E prompts
   - Midjourney image prompts
 meta_description: "Learn how to create high-performing AI photo prompts with proven templates and examples. Optimized for Gemini, DALL-E, Midjourney, and Stable Diffusion."
-canonical_url: "https://yourdomain.com/ai-photo-prompts-guide"
+canonical_url: "https://rkoots.github.io/tools/prompt-generator/"
 ---
+## 🎯 Try Our AI Prompt Generator Now
+
+**Ready to create stunning AI images without the guesswork?**
+
+🚀 **[Generate Perfect AI Prompts Instantly →](https://rkoots.github.io/tools/prompt-generator/)**
+
+✨ **Why use our generator?**
+- ⚡ **Lightning fast** - Get professional prompts in seconds
+- 🎨 **Expert-crafted templates** - Proven to work with Gemini, DALL-E, Midjourney
+- 📈 **Higher conversion** - Prompts designed for marketing and ecommerce success
+- 🔄 **Unlimited variations** - Never run out of creative ideas
+
+👆 **Click here to start creating amazing AI images today!**
+
+---
+
 ## What Are Photo Prompts and Why They Matter
 
 Photo prompts are structured text instructions used to guide AI image generation tools such as DALL-E, Midjourney, Leonardo, and Gemini. A well-written prompt reduces randomness and gives you control over subject, visual style, composition, lighting, and mood.
@@ -34,7 +50,7 @@ High-quality photo prompts matter because they:
 - Produce production-ready visuals for marketing and ecommerce
 
 Prompt quality directly impacts efficiency, cost, and output reliability.
-![prompt example ](https://i.pinimg.com/736x/de/80/c1/de80c148daa620532b9598de055b89e8.jpg)
+[![prompt example ](https://i.pinimg.com/736x/de/80/c1/de80c148daa620532b9598de055b89e8.jpg)](https://rkoots.github.io/tools/prompt-generator/)
 
 ---
 
@@ -85,7 +101,7 @@ Examples:
 
 Provided example to see how visual style and composition translate:
 
-🔗 [PIN  ](https://i.pinimg.com/736x/6f/f3/3c/6ff33c74d3c6950f1e83dea5ab044bdc.jpg)
+🔗 [![PIN  ](https://i.pinimg.com/736x/6f/f3/3c/6ff33c74d3c6950f1e83dea5ab044bdc.jpg)](https://rkoots.github.io/tools/prompt-generator/)
 *Use this board/post to analyze angles, framing, and lighting that you want to replicate in prompts.*
 
 ## Final Prompt Examples
@@ -95,7 +111,7 @@ Provided example to see how visual style and composition translate:
 **Prompt:**  
 A cinematic street portrait of a confident young man walking through a crowded Indian street festival, colorful fabric banners and lights hanging overhead, bustling crowd around him with subtle motion blur, vibrant warm color palette, natural daylight mixed with ambient street lights, shallow depth of field, subject in sharp focus, candid street photography style, gritty realism, high dynamic range, ultra-detailed textures, cinematic color grading, 35mm lens look, high resolution
 
-![prompts Example gemini](https://i.pinimg.com/736x/f4/02/3f/f4023ff08869b9b60a013db0e43e0ab0.jpg)
+[![prompts Example gemini](https://i.pinimg.com/736x/f4/02/3f/f4023ff08869b9b60a013db0e43e0ab0.jpg)](https://rkoots.github.io/tools/prompt-generator/)
 
 ---
 
@@ -104,7 +120,7 @@ A cinematic street portrait of a confident young man walking through a crowded I
 **Prompt:**  
 A powerful cinematic portrait of a man wearing a black turtleneck and dark sunglasses, standing calmly beside a majestic lion, symbolizing dominance and control, dark moody studio lighting with strong contrast, deep shadows, dramatic highlights on face and lion’s mane, minimalist background, editorial fashion photography style, ultra-realistic skin and fur textures, sharp focus, high detail, cinematic poster composition
 
-![prompts Example gemini](https://i.pinimg.com/736x/78/94/b5/7894b5ee13b8d3a4672ca16595849ebf.jpg)
+[![prompts Example gemini](https://i.pinimg.com/736x/78/94/b5/7894b5ee13b8d3a4672ca16595849ebf.jpg)](https://rkoots.github.io/tools/prompt-generator/)
 
 ---
 
@@ -113,7 +129,7 @@ A powerful cinematic portrait of a man wearing a black turtleneck and dark sungl
 **Prompt:**  
 A futuristic warrior woman surrounded by glowing embers and sparks, wearing advanced cyberpunk armor with subtle wear and texture, fiery orange and red lighting reflecting off metallic surfaces, intense side lighting, dark smoky background, dramatic atmosphere, cinematic sci-fi portrait style, ultra-detailed armor and skin textures, photorealistic rendering, high contrast, sharp focus, epic futuristic mood
 
-![prompts Example gemini](https://i.pinimg.com/736x/42/8a/1b/428a1b95e1c4f75b2f52c320f988e605.jpg)
+[![prompts Example gemini](https://i.pinimg.com/736x/42/8a/1b/428a1b95e1c4f75b2f52c320f988e605.jpg)](https://rkoots.github.io/tools/prompt-generator/)
 
 ---
 
@@ -122,7 +138,7 @@ A futuristic warrior woman surrounded by glowing embers and sparks, wearing adva
 **Prompt:**  
 A black and white cinematic street portrait of a young man walking alone through a busy city street at night, crowd blurred into abstract motion behind him, strong sense of isolation, shallow depth of field, high contrast lighting, film grain texture, documentary photography style, moody and introspective atmosphere, sharp focus on subject, classic 35mm film aesthetic, high detail
 
-![prompts Example gemini](https://i.pinimg.com/736x/38/1f/7a/381f7a6de210c0a9dbce2f075941e92f.jpg)
+[![prompts Example gemini](https://i.pinimg.com/736x/38/1f/7a/381f7a6de210c0a9dbce2f075941e92f.jpg)](https://rkoots.github.io/tools/prompt-generator/)
 
 ---
 
@@ -131,7 +147,7 @@ A black and white cinematic street portrait of a young man walking alone through
 **Prompt:**  
 A contemplative cinematic portrait of a middle-aged man shown in side profile, surrounded by soft swirling colored smoke, subtle gradients of blue and warm tones, diffused studio lighting, emotional and reflective mood, shallow depth of field, ultra-realistic skin textures, fine facial details, smooth background separation, professional studio portrait photography style, high resolution, cinematic color grading
 
-![prompts Example gemini](https://i.pinimg.com/736x/0e/79/9a/0e799ac2cd798a139728df267b763edd.jpg)
+[![prompts Example gemini](https://i.pinimg.com/736x/0e/79/9a/0e799ac2cd798a139728df267b763edd.jpg)](https://rkoots.github.io/tools/prompt-generator/)
 
 ---
 
@@ -140,7 +156,7 @@ A contemplative cinematic portrait of a middle-aged man shown in side profile, s
 **Prompt:**  
 A dark fantasy portrait of a hooded mage holding a glowing magical orb between his hands, arcane symbols faintly visible within the light, snowfall particles drifting through the air, cool blue and warm golden light contrast, intense focused gaze, dramatic low-key lighting, volumetric light rays, ultra-detailed robes and textures, cinematic fantasy realism, high resolution, epic atmosphere
 
-![prompts Example gemini](https://i.pinimg.com/736x/5a/5f/d6/5a5fd6509ec848398df26ba5bb61feac.jpg)
+[![prompts Example gemini](https://i.pinimg.com/736x/5a/5f/d6/5a5fd6509ec848398df26ba5bb61feac.jpg)](https://rkoots.github.io/tools/prompt-generator/)
 
 ---
 
@@ -149,7 +165,7 @@ A dark fantasy portrait of a hooded mage holding a glowing magical orb between h
 **Prompt:**  
 An epic fantasy scene of a monk levitating in deep meditation at the center of a glowing ring of fire, mystical energy radiating outward, symmetrical composition, dramatic lighting from flames and ambient light, floating embers and sparks, ancient spiritual aesthetic, ultra-high detail, cinematic fantasy realism, powerful and transcendent atmosphere, sharp focus, high resolution
 
-![prompts Example gemini](https://i.pinimg.com/736x/cb/e2/5f/cbe25f0e6e4b6ed26451dfd06da8dc77.jpg)
+[![prompts Example gemini](https://i.pinimg.com/736x/cb/e2/5f/cbe25f0e6e4b6ed26451dfd06da8dc77.jpg)](https://rkoots.github.io/tools/prompt-generator/)
 
 ---
 
@@ -158,7 +174,7 @@ An epic fantasy scene of a monk levitating in deep meditation at the center of a
 **Prompt:**  
 A moody cinematic portrait of a man partially hidden by shadows and layered textures, subtle overlays creating a fragmented identity effect, desaturated and muted color palette, grunge aesthetic, psychological drama tone, soft vignette around edges, directional lighting emphasizing facial contours, cinematic poster style, high contrast, ultra-detailed textures, intense emotional mood
 
-![prompts Example gemini](https://i.pinimg.com/736x/89/1d/ad/891dad7fc5b1179b91825926bfb65371.jpg)
+[![prompts Example gemini](https://i.pinimg.com/736x/89/1d/ad/891dad7fc5b1179b91825926bfb65371.jpg)](https://rkoots.github.io/tools/prompt-generator/)
 ---
 
 ### 9. Split Persona
@@ -166,7 +182,7 @@ A moody cinematic portrait of a man partially hidden by shadows and layered text
 **Prompt:**  
 A conceptual cinematic portrait of a man with a split face composition, one side natural and realistic, the other side cracked and glowing like a fractured mask, symbolic representation of inner conflict and dual identity, dark minimal background, dramatic high-contrast lighting, glowing fissures emitting light, ultra-detailed skin and texture work, sharp focus, cinematic concept art style
 
-![prompts Example gemini](https://i.pinimg.com/736x/26/b1/b2/26b1b29740734f0c49d2463f701947a7.jpg)
+[![prompts Example gemini](https://i.pinimg.com/736x/26/b1/b2/26b1b29740734f0c49d2463f701947a7.jpg)](https://rkoots.github.io/tools/prompt-generator/)
 
 ---
 
@@ -189,12 +205,40 @@ Add more relevant pins under each category:
 - [https://in.pinterest.com/pin/419538521560667412/](https://i.pinimg.com/736x/fb/89/fa/fb89fafb1cc526163a40cd6007221736.jpg)
 - [https://in.pinterest.com/pin/419538521560667395/](https://i.pinimg.com/736x/ea/ad/cf/eaadcfaa1483b8c70bff10504559a954.jpg)
 
+## 🎯 Start Creating Amazing AI Images Today!
+
+**Don't just learn about prompts - generate them instantly!**
+
+⚡ **[Try Our Free AI Prompt Generator Now →](https://rkoots.github.io/tools/prompt-generator/)**
+
+🌟 **What you'll get:**
+- 🎨 **Professional-grade prompts** for any style or subject
+- ⚡ **Instant results** - no more trial and error
+- 📈 **Higher quality images** that convert better
+- 🔄 **Unlimited creativity** at your fingertips
+
+👆 **Click here to transform your AI image generation!**
+
+---
+
 ## Prompt-Tuning Tips That Actually Work
 
 - **Start with a base template** then adjust: subject > style > environment > quality modifiers.
 - **Use camera/lens terms** if you want realism: `f/1.8`, `50mm`, `bokeh`, etc.
 - **Add emotion/mood** words if you care about atmosphere: `moody`, `serene`, `tense`, etc.
 - **Specify realism level**: `ultra-realistic`, `photorealistic`, `digital painting`, `cinematic still`.
+
+## 🚀 Ready to Master AI Image Generation?
+
+You've seen the power of great prompts - now it's your turn!
+
+🎯 **[Generate Your Perfect AI Prompt Now →](https://rkoots.github.io/tools/prompt-generator/)**
+
+✅ **No signup required** ✅ **Completely free** ✅ **Instant results**
+
+👆 **Start creating stunning AI images in seconds!**
+
+---
 
 ## Common Pitfalls
 
