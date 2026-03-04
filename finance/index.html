@@ -6,9 +6,11 @@ description: "Finance tools and calculators including market outlook, tax calcul
 keywords: ["finance tools", "income tax calculator", "market outlook", "financial planning", "investment planner"]
 ---
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <section class="finance-listing">
-  <h1 class="page-title">Finance Tools</h1>
-  <p class="page-subtitle">Organized finance pages: market outlook, calculators, and planning tools.</p>
+  <h1 class="page-title"><i class="fas fa-chart-line"></i> Finance Tools</h1>
+  <p class="page-subtitle">Professional finance tools: market analysis, tax planning, and investment calculators.</p>
 
   {% assign finance_pages = "" | split: "" %}
 {% for page in site.pages %}
@@ -21,16 +23,55 @@ keywords: ["finance tools", "income tax calculator", "market outlook", "financia
   {% if finance_pages.size > 0 %}
     <div class="posts-grid">
       {% for page in finance_pages %}
+        {% assign icon_class = "" %}
+        {% assign icon_color = "" %}
+        {% assign icon_bg = "" %}
+        
+        {% if page.title contains "Market" or page.title contains "Nifty" %}
+          {% assign icon_class = "fas fa-chart-candlestick" %}
+          {% assign icon_color = "#10b981" %}
+          {% assign icon_bg = "linear-gradient(135deg, #10b98120, #10b98110)" %}
+        {% elsif page.title contains "Tax" or page.title contains "tax" %}
+          {% assign icon_class = "fas fa-calculator" %}
+          {% assign icon_color = "#ef4444" %}
+          {% assign icon_bg = "linear-gradient(135deg, #ef444420, #ef444410)" %}
+        {% elsif page.title contains "Retirement" or page.title contains "retirement" %}
+          {% assign icon_class = "fas fa-piggy-bank" %}
+          {% assign icon_color = "#f59e0b" %}
+          {% assign icon_bg = "linear-gradient(135deg, #f59e0b20, #f59e0b10)" %}
+        {% elsif page.title contains "Investment" or page.title contains "Bazaar" %}
+          {% assign icon_class = "fas fa-coins" %}
+          {% assign icon_color = "#8b5cf6" %}
+          {% assign icon_bg = "linear-gradient(135deg, #8b5cf620, #8b5cf610)" %}
+        {% elsif page.title contains "Planner" or page.title contains "planner" %}
+          {% assign icon_class = "fas fa-clipboard-list" %}
+          {% assign icon_color = "#3b82f6" %}
+          {% assign icon_bg = "linear-gradient(135deg, #3b82f620, #3b82f610)" %}
+        {% else %}
+          {% assign icon_class = "fas fa-chart-pie" %}
+          {% assign icon_color = "#6366f1" %}
+          {% assign icon_bg = "linear-gradient(135deg, #6366f120, #6366f110)" %}
+        {% endif %}
+        
         <article class="post-card">
-          <h2><a href="{{ page.url | relative_url }}">{{ page.title }}</a></h2>
-          {% if page.excerpt %}
-            <p class="post-excerpt">{{ page.excerpt | strip_html | truncate: 180 }}</p>
-          {% elsif page.summary %}
-            <p class="post-excerpt">{{ page.summary | strip_html | truncate: 180 }}</p>
-          {% elsif page.description %}
-            <p class="post-excerpt">{{ page.description | strip_html | truncate: 180 }}</p>
-          {% endif %}
-          <a class="read-more" href="{{ page.url | relative_url }}">Open tool →</a>
+          <div class="card-icon-wrapper">
+            <div class="card-icon" style="color: {{ icon_color }}; background: {{ icon_bg }};">
+              <i class="{{ icon_class }}"></i>
+            </div>
+          </div>
+          <div class="card-content">
+            <h2><a href="{{ page.url | relative_url }}">{{ page.title }}</a></h2>
+            {% if page.excerpt %}
+              <p class="post-excerpt">{{ page.excerpt | strip_html | truncate: 180 }}</p>
+            {% elsif page.summary %}
+              <p class="post-excerpt">{{ page.summary | strip_html | truncate: 180 }}</p>
+            {% elsif page.description %}
+              <p class="post-excerpt">{{ page.description | strip_html | truncate: 180 }}</p>
+            {% endif %}
+            <a class="read-more" href="{{ page.url | relative_url }}">
+              <i class="fas fa-arrow-right"></i> Open Tool
+            </a>
+          </div>
         </article>
       {% endfor %}
     </div>
@@ -42,69 +83,202 @@ keywords: ["finance tools", "income tax calculator", "market outlook", "financia
 <style>
   .finance-listing {
     padding: 2rem;
-    max-width: 980px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
   .page-title {
-    font-size: 2.1rem;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.75rem;
+    font-size: 2.5rem;
+    border-bottom: 3px solid #3b82f6;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .page-title i {
+    -webkit-text-fill-color: #3b82f6;
   }
 
   .page-subtitle {
-    margin-bottom: 1.5rem;
-    color: #475569;
+    margin-bottom: 2rem;
+    color: #64748b;
+    font-size: 1.1rem;
   }
 
   .posts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
   }
 
   .post-card {
-    border: 1px solid #eee;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    transition: box-shadow 0.3s ease;
+    border: none;
+    padding: 0;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .post-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   .post-card:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .post-card:hover::before {
+    opacity: 1;
+  }
+
+  .post-card:hover .card-icon {
+    transform: scale(1.1) rotateY(10deg);
+    box-shadow: 0 10px 25px -5px currentColor;
+  }
+
+  .card-icon-wrapper {
+    padding: 2rem 2rem 1rem;
+    text-align: center;
+  }
+
+  .card-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .card-icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .post-card:hover .card-icon::after {
+    opacity: 1;
+  }
+
+  .card-content {
+    padding: 0 2rem 2rem;
+    text-align: center;
   }
 
   .post-card h2 {
-    margin: 0 0 0.3rem;
-    font-size: 1.5rem;
-    color: #333;
+    margin: 0 0 0.75rem;
+    font-size: 1.4rem;
+    color: #1e293b;
+    font-weight: 600;
   }
 
   .post-card h2 a {
     text-decoration: none;
-    color: #0056b3;
+    color: inherit;
+    transition: color 0.2s ease;
+  }
+
+  .post-card h2 a:hover {
+    color: #3b82f6;
   }
 
   .post-excerpt {
     font-size: 0.95rem;
-    color: #444;
-    margin: 0.7rem 0;
+    color: #64748b;
+    margin: 0.75rem 0 1.5rem;
+    line-height: 1.6;
   }
 
   .empty-state {
-    margin-top: 1rem;
+    margin-top: 2rem;
     color: #64748b;
+    text-align: center;
+    padding: 3rem;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 2px dashed #e2e8f0;
   }
 
   .read-more {
-    font-weight: bold;
+    font-weight: 600;
     text-decoration: none;
-    color: #007acc;
+    color: #3b82f6;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #3b82f610, #8b5cf610);
+    border: 1px solid #3b82f620;
+    transition: all 0.3s ease;
   }
 
   .read-more:hover {
-    text-decoration: underline;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+
+  .read-more i {
+    transition: transform 0.3s ease;
+  }
+
+  .read-more:hover i {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 768px) {
+    .finance-listing {
+      padding: 1rem;
+    }
+    
+    .page-title {
+      font-size: 2rem;
+    }
+    
+    .posts-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+    }
+    
+    .card-icon-wrapper,
+    .card-content {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
   }
 </style>

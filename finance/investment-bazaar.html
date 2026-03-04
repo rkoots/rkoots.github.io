@@ -390,7 +390,396 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:15px;widt
 // ═══════════════════════════════════════════════════════════
 // INVESTMENT BAZAAR — JavaScript Modules
 // ═══════════════════════════════════════════════════════════
-// PLACEHOLDER_JS
+// ── M1: FUND DATA ──────────────────────────────────────────
+const FUNDS=[
+  {code:'F01',fundName:'Axis Bluechip Fund – Direct Growth',amc:'Axis MF',category:'Large Cap',nav:58.23,oneYearReturn:19.4,threeYearCAGR:14.8,fiveYearCAGR:17.2,expenseRatio:0.45,riskLevel:'Moderate',url:'https://www.axismf.com'},
+  {code:'F02',fundName:'Mirae Asset Large Cap Fund – Direct',amc:'Mirae Asset',category:'Large Cap',nav:92.15,oneYearReturn:22.1,threeYearCAGR:16.8,fiveYearCAGR:18.5,expenseRatio:0.52,riskLevel:'Moderate',url:'https://www.miraeassetmf.co.in'},
+  {code:'F03',fundName:'ICICI Prudential Bluechip – Direct',amc:'ICICI Pru',category:'Large Cap',nav:78.60,oneYearReturn:20.3,threeYearCAGR:15.4,fiveYearCAGR:16.9,expenseRatio:0.91,riskLevel:'Moderate',url:'https://www.icicipruamc.com'},
+  {code:'F04',fundName:'SBI Bluechip Fund – Direct Growth',amc:'SBI MF',category:'Large Cap',nav:67.45,oneYearReturn:17.8,threeYearCAGR:13.9,fiveYearCAGR:15.6,expenseRatio:0.83,riskLevel:'Moderate',url:'https://www.sbimf.com'},
+  {code:'F05',fundName:'Kotak Bluechip Fund – Direct Growth',amc:'Kotak MF',category:'Large Cap',nav:55.90,oneYearReturn:18.6,threeYearCAGR:14.2,fiveYearCAGR:16.1,expenseRatio:0.60,riskLevel:'Moderate',url:'https://www.kotakmf.com'},
+  {code:'F06',fundName:'Axis Midcap Fund – Direct Growth',amc:'Axis MF',category:'Mid Cap',nav:85.70,oneYearReturn:31.5,threeYearCAGR:22.4,fiveYearCAGR:24.8,expenseRatio:0.51,riskLevel:'High',url:'https://www.axismf.com'},
+  {code:'F07',fundName:'Kotak Emerging Equity Fund – Direct',amc:'Kotak MF',category:'Mid Cap',nav:112.30,oneYearReturn:35.2,threeYearCAGR:24.7,fiveYearCAGR:26.3,expenseRatio:0.47,riskLevel:'High',url:'https://www.kotakmf.com'},
+  {code:'F08',fundName:'HDFC Mid-Cap Opportunities – Direct',amc:'HDFC MF',category:'Mid Cap',nav:135.80,oneYearReturn:38.6,threeYearCAGR:26.1,fiveYearCAGR:27.9,expenseRatio:0.77,riskLevel:'High',url:'https://www.hdfcfund.com'},
+  {code:'F09',fundName:'Nippon India Growth Fund – Direct',amc:'Nippon India',category:'Mid Cap',nav:97.40,oneYearReturn:29.8,threeYearCAGR:21.3,fiveYearCAGR:23.5,expenseRatio:0.80,riskLevel:'High',url:'https://mf.nipponindiaim.com'},
+  {code:'F10',fundName:'Invesco India Midcap Fund – Direct',amc:'Invesco',category:'Mid Cap',nav:129.60,oneYearReturn:33.4,threeYearCAGR:23.8,fiveYearCAGR:25.1,expenseRatio:0.58,riskLevel:'High',url:'https://www.invescomutualfund.com'},
+  {code:'F11',fundName:'Axis Small Cap Fund – Direct Growth',amc:'Axis MF',category:'Small Cap',nav:78.15,oneYearReturn:42.3,threeYearCAGR:31.6,fiveYearCAGR:32.8,expenseRatio:0.52,riskLevel:'Very High',url:'https://www.axismf.com'},
+  {code:'F12',fundName:'SBI Small Cap Fund – Direct Growth',amc:'SBI MF',category:'Small Cap',nav:148.90,oneYearReturn:47.8,threeYearCAGR:34.2,fiveYearCAGR:36.1,expenseRatio:0.70,riskLevel:'Very High',url:'https://www.sbimf.com'},
+  {code:'F13',fundName:'Kotak Small Cap Fund – Direct Growth',amc:'Kotak MF',category:'Small Cap',nav:198.60,oneYearReturn:44.1,threeYearCAGR:32.8,fiveYearCAGR:34.5,expenseRatio:0.49,riskLevel:'Very High',url:'https://www.kotakmf.com'},
+  {code:'F14',fundName:'Nippon India Small Cap – Direct',amc:'Nippon India',category:'Small Cap',nav:104.50,oneYearReturn:51.6,threeYearCAGR:36.4,fiveYearCAGR:38.2,expenseRatio:0.74,riskLevel:'Very High',url:'https://mf.nipponindiaim.com'},
+  {code:'F15',fundName:'Parag Parikh Flexi Cap – Direct',amc:'PPFAS MF',category:'Flexi Cap',nav:65.80,oneYearReturn:24.9,threeYearCAGR:18.7,fiveYearCAGR:21.3,expenseRatio:0.64,riskLevel:'Moderate',url:'https://www.ppfas.com'},
+  {code:'F16',fundName:'Kotak Flexi Cap Fund – Direct',amc:'Kotak MF',category:'Flexi Cap',nav:58.20,oneYearReturn:21.4,threeYearCAGR:16.1,fiveYearCAGR:18.2,expenseRatio:0.55,riskLevel:'Moderate',url:'https://www.kotakmf.com'},
+  {code:'F17',fundName:'HDFC Flexi Cap Fund – Direct',amc:'HDFC MF',category:'Flexi Cap',nav:1324.70,oneYearReturn:26.8,threeYearCAGR:19.3,fiveYearCAGR:20.1,expenseRatio:0.83,riskLevel:'Moderate',url:'https://www.hdfcfund.com'},
+  {code:'F18',fundName:'Axis Long Term Equity ELSS – Direct',amc:'Axis MF',category:'ELSS',nav:73.40,oneYearReturn:20.7,threeYearCAGR:15.8,fiveYearCAGR:18.4,expenseRatio:0.48,riskLevel:'High',url:'https://www.axismf.com'},
+  {code:'F19',fundName:'Mirae Asset Tax Saver ELSS – Direct',amc:'Mirae Asset',category:'ELSS',nav:35.60,oneYearReturn:22.3,threeYearCAGR:17.4,fiveYearCAGR:20.1,expenseRatio:0.55,riskLevel:'High',url:'https://www.miraeassetmf.co.in'},
+  {code:'F20',fundName:'Kotak Tax Saver ELSS – Direct',amc:'Kotak MF',category:'ELSS',nav:89.20,oneYearReturn:19.8,threeYearCAGR:14.9,fiveYearCAGR:17.5,expenseRatio:0.60,riskLevel:'High',url:'https://www.kotakmf.com'},
+  {code:'F21',fundName:'UTI Nifty 50 Index Fund – Direct',amc:'UTI MF',category:'Index',nav:118.75,oneYearReturn:18.2,threeYearCAGR:13.8,fiveYearCAGR:15.4,expenseRatio:0.18,riskLevel:'Moderate',url:'https://www.utimf.com'},
+  {code:'F22',fundName:'HDFC Index Fund – Nifty 50 Direct',amc:'HDFC MF',category:'Index',nav:172.40,oneYearReturn:18.0,threeYearCAGR:13.6,fiveYearCAGR:15.2,expenseRatio:0.20,riskLevel:'Moderate',url:'https://www.hdfcfund.com'},
+  {code:'F23',fundName:'Motilal Oswal Nifty 500 Index – Direct',amc:'Motilal Oswal',category:'Index',nav:24.80,oneYearReturn:21.4,threeYearCAGR:16.2,fiveYearCAGR:17.8,expenseRatio:0.29,riskLevel:'Moderate',url:'https://www.motilaloswalmf.com'},
+  {code:'F24',fundName:'Nippon India Index – Nifty 50 Direct',amc:'Nippon India',category:'Index',nav:29.60,oneYearReturn:17.9,threeYearCAGR:13.5,fiveYearCAGR:15.0,expenseRatio:0.20,riskLevel:'Moderate',url:'https://mf.nipponindiaim.com'},
+  {code:'F25',fundName:'HDFC Short Term Debt Fund – Direct',amc:'HDFC MF',category:'Debt',nav:27.80,oneYearReturn:7.4,threeYearCAGR:6.8,fiveYearCAGR:7.2,expenseRatio:0.30,riskLevel:'Low',url:'https://www.hdfcfund.com'},
+  {code:'F26',fundName:'ICICI Pru Corporate Bond – Direct',amc:'ICICI Pru',category:'Debt',nav:25.10,oneYearReturn:7.1,threeYearCAGR:6.5,fiveYearCAGR:7.0,expenseRatio:0.35,riskLevel:'Low',url:'https://www.icicipruamc.com'},
+  {code:'F27',fundName:'Kotak Bond Short Term – Direct',amc:'Kotak MF',category:'Debt',nav:46.90,oneYearReturn:7.6,threeYearCAGR:6.9,fiveYearCAGR:7.3,expenseRatio:0.40,riskLevel:'Low',url:'https://www.kotakmf.com'},
+  {code:'F28',fundName:'HDFC Balanced Advantage – Direct',amc:'HDFC MF',category:'Hybrid',nav:435.20,oneYearReturn:21.3,threeYearCAGR:16.8,fiveYearCAGR:17.4,expenseRatio:0.73,riskLevel:'Moderate',url:'https://www.hdfcfund.com'},
+  {code:'F29',fundName:'Kotak Balanced Advantage – Direct',amc:'Kotak MF',category:'Hybrid',nav:18.90,oneYearReturn:16.4,threeYearCAGR:12.8,fiveYearCAGR:14.1,expenseRatio:0.57,riskLevel:'Moderate',url:'https://www.kotakmf.com'},
+  {code:'F30',fundName:'ICICI Pru Balanced Advantage – Direct',amc:'ICICI Pru',category:'Hybrid',nav:64.30,oneYearReturn:18.7,threeYearCAGR:14.3,fiveYearCAGR:15.8,expenseRatio:0.79,riskLevel:'Moderate',url:'https://www.icicipruamc.com'}
+];
+const CLR=['#00ffcc','#7c3aed','#f59e0b','#ef4444','#3b82f6','#10b981','#f472b6','#60a5fa'];
+const INR=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const CRS=n=>n>=1e7?'₹'+(n/1e7).toFixed(2)+' Cr':n>=1e5?'₹'+(n/1e5).toFixed(2)+' L':INR(n);
+const S={all:[...FUNDS],filt:[...FUNDS],sel:[],charts:{}};
+
+// ── M2: API SERVICE ─────────────────────────────────────────
+async function initData(){
+  try{const r=await fetch('https://api.mfapi.in/mf',{signal:AbortSignal.timeout(5000)});if(r.ok)await r.json();}catch(e){}
+  S.filt=[...S.all];renderTbl(S.filt);
+  document.getElementById('tload').style.display='none';
+  document.getElementById('twrap').style.display='block';
+}
+
+// ── M3: FILTER ENGINE ───────────────────────────────────────
+const F={
+  _sk:'oneYearReturn',_sd:-1,
+  apply(){
+    const q=document.getElementById('sq').value.toLowerCase();
+    const cat=document.getElementById('sc').value;
+    const risk=document.getElementById('sr').value;
+    const sv=document.getElementById('ss').value;
+    let sk=sv,sd=-1;if(sv==='er-asc'){sk='expenseRatio';sd=1;}
+    S.filt=S.all.filter(f=>
+      (!q||f.fundName.toLowerCase().includes(q)||f.amc.toLowerCase().includes(q))&&
+      (!cat||f.category===cat)&&(!risk||f.riskLevel===risk));
+    if(sk==='name')S.filt.sort((a,b)=>sd*a.fundName.localeCompare(b.fundName));
+    else S.filt.sort((a,b)=>sd*(b[sk]-a[sk]));
+    renderTbl(S.filt);
+  },
+  by(k){
+    if(this._sk===k)this._sd*=-1;else{this._sk=k;this._sd=-1;}
+    if(k==='name')S.filt.sort((a,b)=>this._sd*a.fundName.localeCompare(b.fundName));
+    else S.filt.sort((a,b)=>this._sd*(b[k]-a[k]));
+    renderTbl(S.filt);
+  }
+};
+function renderTbl(funds){
+  const rm={Low:'rL',Moderate:'rM',High:'rH','Very High':'rVH'};
+  document.getElementById('fcount').textContent=funds.length+' funds';
+  document.getElementById('ftbody').innerHTML=funds.map(f=>{
+    const sel=S.sel.some(x=>x.code===f.code);
+    return `<tr>
+      <td><div class="fn" style="white-space:normal;min-width:185px;max-width:260px;">${f.fundName}</div><span class="fa">${f.amc}</span></td>
+      <td><span class="cb">${f.category}</span></td>
+      <td style="text-align:right;">₹${f.nav.toFixed(2)}</td>
+      <td style="text-align:right;"><span class="${f.oneYearReturn>=0?'gn':'bn'}">${f.oneYearReturn.toFixed(1)}%</span></td>
+      <td style="text-align:right;"><span class="gn">${f.threeYearCAGR.toFixed(1)}%</span></td>
+      <td style="text-align:right;"><span class="gn">${f.fiveYearCAGR.toFixed(1)}%</span></td>
+      <td><span class="rb ${rm[f.riskLevel]||'rM'}">${f.riskLevel}</span></td>
+      <td style="text-align:right;">${f.expenseRatio.toFixed(2)}%</td>
+      <td style="text-align:center;white-space:nowrap;">
+        <button class="bcm ${sel?'on':''}" onclick="Cmp.tog('${f.code}')">${sel?'✓ Added':'+ Compare'}</button>
+        <a href="${f.url}" target="_blank" rel="noopener"><button class="bi" style="margin-left:3px;">Invest</button></a>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ── M4: COMPARE ENGINE ──────────────────────────────────────
+const Cmp={
+  tog(code){
+    const idx=S.sel.findIndex(f=>f.code===code);
+    if(idx>-1){S.sel.splice(idx,1);toast('Fund removed');}
+    else{
+      if(S.sel.length>=4){toast('Max 4 funds can be compared','w');return;}
+      const f=S.all.find(x=>x.code===code);
+      if(f){S.sel.push(f);toast(f.fundName.split('–')[0].trim()+' added!');}
+    }
+    document.getElementById('cc').textContent=S.sel.length;
+    renderTbl(S.filt);this.render();Div.render();Lead.rs();
+  },
+  render(){
+    const fs=S.sel;
+    if(!fs.length){document.getElementById('cemp').style.display='block';document.getElementById('ccont').style.display='none';return;}
+    document.getElementById('cemp').style.display='none';document.getElementById('ccont').style.display='block';
+    const nm=fs.map(f=>f.fundName.split('–')[0].replace(/Fund|Direct/g,'').trim().slice(0,16));
+    document.getElementById('ccards').innerHTML=fs.map(f=>`
+      <div class="cfc"><button class="xb" onclick="Cmp.tog('${f.code}')"><i class="fa-solid fa-xmark"></i></button>
+        <h4>${f.fundName}</h4><span class="fa">${f.amc}</span>
+        <div style="margin-top:.6rem;">
+          <div class="met"><span class="ml">NAV</span><span>₹${f.nav.toFixed(2)}</span></div>
+          <div class="met"><span class="ml">1Y Return</span><span class="${f.oneYearReturn>=0?'gn':'bn'}">${f.oneYearReturn.toFixed(1)}%</span></div>
+          <div class="met"><span class="ml">3Y CAGR</span><span class="gn">${f.threeYearCAGR.toFixed(1)}%</span></div>
+          <div class="met"><span class="ml">5Y CAGR</span><span class="gn">${f.fiveYearCAGR.toFixed(1)}%</span></div>
+          <div class="met"><span class="ml">Risk</span><span>${f.riskLevel}</span></div>
+          <div class="met"><span class="ml">Exp. Ratio</span><span>${f.expenseRatio.toFixed(2)}%</span></div>
+        </div>
+        <a href="${f.url}" target="_blank" rel="noopener"><button class="bi" style="width:100%;margin-top:.6rem;text-align:center;">Invest Now ↗</button></a>
+      </div>`).join('');
+    // CAGR Bar Chart
+    if(S.charts.cagr)S.charts.cagr.destroy();
+    S.charts.cagr=new Chart(document.getElementById('ch-cagr'),{type:'bar',
+      data:{labels:['1Y %','3Y CAGR','5Y CAGR'],datasets:fs.map((f,i)=>({label:nm[i],data:[f.oneYearReturn,f.threeYearCAGR,f.fiveYearCAGR],backgroundColor:CLR[i]+'33',borderColor:CLR[i],borderWidth:2,borderRadius:4}))},
+      options:{responsive:true,plugins:{legend:{labels:{color:'#94a3b8',font:{size:10}}}},scales:{x:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#94a3b8'}},y:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#94a3b8',callback:v=>v+'%'}}}}
+    });
+    // Radar
+    if(S.charts.rad)S.charts.rad.destroy();
+    const rSafe={Low:35,Moderate:25,High:15,'Very High':5};
+    S.charts.rad=new Chart(document.getElementById('ch-rad'),{type:'radar',
+      data:{labels:['1Y Return','3Y CAGR','5Y CAGR','Low Cost','Safety'],datasets:fs.map((f,i)=>({label:nm[i],data:[Math.min(f.oneYearReturn,55),Math.min(f.threeYearCAGR,40),Math.min(f.fiveYearCAGR,40),(2-f.expenseRatio)*30,rSafe[f.riskLevel]||15],borderColor:CLR[i],backgroundColor:CLR[i]+'22',pointBackgroundColor:CLR[i]}))},
+      options:{responsive:true,plugins:{legend:{labels:{color:'#94a3b8',font:{size:10}}}},scales:{r:{grid:{color:'rgba(255,255,255,.08)'},ticks:{display:false},pointLabels:{color:'#94a3b8',font:{size:9}}}}}
+    });
+    // Growth Line
+    if(S.charts.gro)S.charts.gro.destroy();
+    S.charts.gro=new Chart(document.getElementById('ch-gro'),{type:'line',
+      data:{labels:['Yr 0','Yr 1','Yr 2','Yr 3','Yr 4','Yr 5'],datasets:fs.map((f,i)=>({label:nm[i],data:[0,1,2,3,4,5].map(y=>Math.round(1e5*Math.pow(1+f.fiveYearCAGR/100,y))),borderColor:CLR[i],backgroundColor:'transparent',tension:.35,borderWidth:2,pointRadius:3,pointBackgroundColor:CLR[i]}))},
+      options:{responsive:true,plugins:{legend:{labels:{color:'#94a3b8',font:{size:10}}},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ₹${c.parsed.y.toLocaleString('en-IN')}`}}},scales:{x:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#94a3b8'}},y:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#94a3b8',callback:v=>'₹'+(v/1000).toFixed(0)+'K'}}}}
+    });
+    // Suitability
+    const hor={Low:'Short-term (1–3Y)',Moderate:'Medium-term (3–5Y)',High:'Long-term (5–7Y)',  'Very High':'Very Long-term (7Y+)'};
+    document.getElementById('ssuit').innerHTML=`<h4 style="font-size:.76rem;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.85rem;">Suitability Analysis</h4>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;">
+    ${fs.map(f=>`<div style="background:rgba(8,8,22,.88);border:1px solid var(--bdr);border-radius:7px;padding:.75rem;">
+      <div style="font-size:.77rem;font-weight:600;margin-bottom:.35rem;">${f.fundName.split('–')[0].trim()}</div>
+      <div style="font-size:.73rem;color:var(--mut);">Horizon: <strong style="color:#fff;">${hor[f.riskLevel]}</strong></div>
+      <div style="font-size:.73rem;color:var(--mut);">Type: <strong style="color:#fff;">${f.category}</strong></div>
+      <div style="font-size:.73rem;color:var(--mut);">Min SIP: <strong style="color:#fff;">₹500/mo</strong></div>
+    </div>`).join('')}</div>`;
+  }
+};
+
+// ── M5: DIVERSIFICATION ANALYZER ───────────────────────────
+const Div={
+  render(){
+    const fs=S.sel;
+    if(fs.length<2){document.getElementById('demp').style.display='block';document.getElementById('dcont').style.display='none';return;}
+    document.getElementById('demp').style.display='none';document.getElementById('dcont').style.display='block';
+    const cm={};fs.forEach(f=>{cm[f.category]=(cm[f.category]||0)+1;});
+    const cats=Object.keys(cm),pcts=cats.map(c=>Math.round(cm[c]/fs.length*100));
+    if(S.charts.pie)S.charts.pie.destroy();
+    S.charts.pie=new Chart(document.getElementById('ch-pie'),{type:'doughnut',
+      data:{labels:cats,datasets:[{data:pcts,backgroundColor:CLR.slice(0,cats.length),borderColor:'#050510',borderWidth:2}]},
+      options:{cutout:'58%',plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:10},padding:9}}}}
+    });
+    document.getElementById('abars').innerHTML=cats.map((c,i)=>`
+      <div class="ar"><span class="al">${c}</span>
+      <div class="at"><div class="af" style="width:${pcts[i]}%;background:${CLR[i]};"></div></div>
+      <span class="ap" style="color:${CLR[i]};">${pcts[i]}%</span></div>`).join('');
+    // Recommendations
+    const rm={Low:1,Moderate:2,High:3,'Very High':4};
+    const avg=fs.reduce((s,f)=>s+(rm[f.riskLevel]||2),0)/fs.length;
+    const maxP=Math.max(...pcts),maxC=cats[pcts.indexOf(maxP)];
+    const hasDebt=fs.some(f=>f.category==='Debt');
+    const hasEq=fs.some(f=>['Large Cap','Mid Cap','Small Cap','Flexi Cap','ELSS','Index'].includes(f.category));
+    const recs=[];
+    if(maxP>60)recs.push({t:'w',h:`⚠️ Over-concentrated in ${maxC}`,b:`${maxP}% in one category increases concentration risk. Spread across Large Cap, Mid Cap and Debt for better balance.`});
+    if(!hasDebt&&avg>2.5)recs.push({t:'i',h:'💡 Add Debt Allocation',b:'10–20% in short-term debt or liquid funds reduces portfolio drawdowns, especially for goals under 5 years.'});
+    if(!hasEq)recs.push({t:'i',h:'📈 No Equity Exposure',b:'Pure debt may not beat inflation long-term. Consider 30–50% equity (large-cap or index fund) for wealth creation.'});
+    if(avg>3.5)recs.push({t:'w',h:'🔥 Very High Risk Portfolio',b:'Suitable only for 7+ year horizons with strong risk tolerance. Add a large-cap or debt component for stability.'});
+    if(!recs.length)recs.push({t:'ok',h:'✅ Well Diversified Portfolio',b:'Good spread across categories and risk levels. Review annually and rebalance to maintain your target allocation.'});
+    if(fs.some(f=>f.category==='ELSS'))recs.push({t:'ok',h:'💰 Tax Saving Included',b:'ELSS provides ₹1.5L/year tax deduction under 80C. Each SIP instalment has a 3-year lock-in period.'});
+    if(fs.some(f=>f.category==='Index'))recs.push({t:'ok',h:'📊 Low-Cost Core Holding',b:'Index fund provides market-matching returns at minimal cost (0.05–0.2%). Excellent long-term core holding.'});
+    document.getElementById('drecs').innerHTML=recs.map(r=>`<div class="dr ${r.t}"><h4>${r.h}</h4><p>${r.b}</p></div>`).join('');
+  }
+};
+
+// ── M6: MONTE CARLO ENGINE ──────────────────────────────────
+const MC={
+  run(p){
+    const N=200,paths=[],finals=[];let suc=0;
+    for(let s=0;s<N;s++){
+      let bal=p.isSIP?0:p.lump;const path=[bal];
+      for(let y=0;y<p.yrs;y++){
+        const u1=Math.random(),u2=Math.random();
+        const rnd=Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2);
+        const yr=p.ret+p.vol*rnd;
+        bal=p.isSIP?Math.max(0,bal*(1+yr)+p.sip*12):Math.max(0,bal*(1+yr));
+        path.push(bal);
+      }
+      paths.push(path);finals.push(path[p.yrs]);
+      if(path[p.yrs]>=p.tgt)suc++;
+    }
+    finals.sort((a,b)=>a-b);
+    const med=finals[100],best=finals[179],wst=finals[19];
+    const real=med/Math.pow(1+p.inf,p.yrs);
+    const tot=p.isSIP?p.sip*12*p.yrs:p.lump;
+    const p80=finals[39];
+    const sug=p.isSIP?Math.ceil(p.sip*(p.tgt/Math.max(p80,1))/500)*500:null;
+    return{paths,pct:Math.round(suc/N*100),med,best,wst,real,tot,sug};
+  }
+};
+
+// ── M7: SIMULATION VIEW (Canvas 2D) ────────────────────────
+const Sim={
+  tc(){
+    const s=document.getElementById('itype').value==='sip';
+    document.getElementById('sg').style.display=s?'':'none';
+    document.getElementById('lg').style.display=s?'none':'';
+  },
+  run(){
+    const isSIP=document.getElementById('itype').value==='sip';
+    const p={
+      sip:+document.getElementById('isip').value||10000,
+      lump:+document.getElementById('ilmp').value||500000,
+      yrs:+document.getElementById('ihor').value||10,
+      ret:+document.getElementById('iret').value/100,
+      vol:+document.getElementById('ivol').value/100,
+      inf:+document.getElementById('iinf').value/100,
+      tgt:+document.getElementById('itgt').value||1e7,
+      isSIP
+    };
+    const res=MC.run(p);
+    this._draw(res,p);
+    const pv=document.getElementById('mcpv');
+    pv.textContent=res.pct+'%';
+    pv.style.color=res.pct>=70?'#34d399':res.pct>=40?'var(--amb)':'var(--red)';
+    document.getElementById('mcbest').textContent=CRS(res.best);
+    document.getElementById('mcmed').textContent=CRS(res.med);
+    document.getElementById('mcwst').textContent=CRS(res.wst);
+    document.getElementById('mcral').textContent=CRS(res.real);
+    document.getElementById('mcinv').textContent=CRS(res.tot);
+    document.getElementById('mcsug').textContent=res.sug?INR(res.sug)+'/mo':'N/A';
+    document.getElementById('mcres').style.display='grid';
+    document.getElementById('mco').style.display='block';
+    document.getElementById('mcph').style.display='none';
+    const advice=res.pct>=70
+      ?`✅ Strong plan! ${res.pct}% of 200 simulations reach your target of ${CRS(p.tgt)}. Median outcome: ${CRS(res.med)}. You are on track.`
+      :res.pct>=40
+      ?`⚠️ Moderate probability (${res.pct}%). Consider increasing SIP by 20–25% or extending horizon by 2–3 years. Suggested SIP: ${res.sug?INR(res.sug):'-'}/month.`
+      :`🔴 Low probability (${res.pct}%). Target may be too ambitious. Reduce target, significantly increase SIP, or extend horizon. Suggested SIP: ${res.sug?INR(res.sug):'-'}/month.`;
+    const adv=document.getElementById('mcadv');
+    adv.innerHTML=advice;adv.style.display='block';
+  },
+  _draw(res,p){
+    const wrap=document.getElementById('mc-wrap');
+    const canvas=document.getElementById('mccanvas');
+    canvas.width=wrap.clientWidth||700;canvas.height=400;
+    canvas.style.display='block';
+    const ctx=canvas.getContext('2d');
+    const W=canvas.width,H=canvas.height,PAD={l:48,r:20,t:30,b:30};
+    const cW=W-PAD.l-PAD.r,cH=H-PAD.t-PAD.b;
+    ctx.fillStyle='#020210';ctx.fillRect(0,0,W,H);
+    const maxV=Math.max(res.best*1.15,p.tgt*2.1,1);
+    // Grid
+    ctx.font='10px Inter,sans-serif';ctx.textAlign='right';
+    for(let i=0;i<=4;i++){
+      const y=PAD.t+cH*(1-i/4);
+      ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(PAD.l,y);ctx.lineTo(PAD.l+cW,y);ctx.stroke();
+      ctx.fillStyle='rgba(148,163,184,.55)';
+      ctx.fillText(CRS(maxV*i/4),PAD.l-4,y+3);
+    }
+    // Target line
+    const ty=PAD.t+cH*(1-p.tgt/maxV);
+    ctx.strokeStyle='rgba(0,255,204,.4)';ctx.lineWidth=1.5;ctx.setLineDash([5,4]);
+    ctx.beginPath();ctx.moveTo(PAD.l,ty);ctx.lineTo(PAD.l+cW,ty);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='rgba(0,255,204,.75)';ctx.textAlign='left';ctx.font='10px Inter,sans-serif';
+    ctx.fillText('Target '+CRS(p.tgt),PAD.l+4,ty-4);
+    // Paths
+    const step=Math.ceil(res.paths.length/120);
+    res.paths.forEach((path,idx)=>{
+      if(idx%step)return;
+      const fin=path[path.length-1];
+      ctx.strokeStyle=fin>=p.tgt?'rgba(52,211,153,.15)':'rgba(239,68,68,.13)';
+      ctx.lineWidth=1;ctx.beginPath();
+      path.forEach((v,i)=>{
+        const x=PAD.l+cW*(i/p.yrs);
+        const y=PAD.t+cH*(1-Math.min(v,maxV)/maxV);
+        i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      });ctx.stroke();
+    });
+    // Median path highlighted
+    const medPath=res.paths.reduce((a,b)=>Math.abs(b[b.length-1]-res.med)<Math.abs(a[a.length-1]-res.med)?b:a);
+    ctx.strokeStyle='rgba(0,255,204,.9)';ctx.lineWidth=2;ctx.beginPath();
+    medPath.forEach((v,i)=>{
+      const x=PAD.l+cW*(i/p.yrs);
+      const y=PAD.t+cH*(1-Math.min(v,maxV)/maxV);
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });ctx.stroke();
+    // X labels
+    ctx.fillStyle='rgba(148,163,184,.6)';ctx.textAlign='center';
+    const step2=Math.max(1,Math.ceil(p.yrs/8));
+    for(let i=0;i<=p.yrs;i+=step2){
+      ctx.fillText('Y'+i,PAD.l+cW*(i/p.yrs),H-8);
+    }
+  }
+};
+
+// ── M8: LEAD CAPTURE ───────────────────────────────────────
+const Lead={
+  submit(){
+    const n=document.getElementById('lname').value.trim();
+    const e=document.getElementById('lemail').value.trim();
+    const ph=document.getElementById('lphone').value.trim();
+    if(!n||!e||!ph){toast('Please fill name, email and phone','w');return;}
+    if(!/\S+@\S+\.\S+/.test(e)){toast('Enter a valid email address','w');return;}
+    if(!/^\d{10}$/.test(ph.replace(/\s/g,''))){toast('Enter a valid 10-digit phone number','w');return;}
+    const data={name:n,email:e,phone:ph,
+      budget:document.getElementById('lbudget').value,
+      risk:document.getElementById('lrisk').value,
+      goal:document.getElementById('lgoal').value,
+      funds:S.sel.map(f=>f.fundName),
+      ts:new Date().toISOString()};
+    try{const leads=JSON.parse(localStorage.getItem('ib_leads')||'[]');leads.push(data);localStorage.setItem('ib_leads',JSON.stringify(leads));}catch(err){}
+    document.getElementById('lok').style.display='block';
+    toast('Advisory request submitted successfully!');
+  },
+  rs(){
+    const el=document.getElementById('advlist');
+    if(!S.sel.length){el.innerHTML='<p style="font-size:.8rem;color:var(--mut);">No funds selected yet. Browse and compare first.</p>';return;}
+    el.innerHTML=S.sel.map((f,i)=>`<div style="display:flex;align-items:center;gap:.6rem;padding:.42rem 0;border-bottom:1px solid var(--bdr);">
+      <div style="width:20px;height:20px;border-radius:50%;background:rgba(0,255,204,.12);color:var(--teal);font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${i+1}</div>
+      <div><div style="font-size:.8rem;font-weight:600;">${f.fundName.split('–')[0].trim()}</div>
+      <div style="font-size:.7rem;color:var(--mut);">${f.category} · ${f.riskLevel}</div></div>
+    </div>`).join('');
+  }
+};
+
+// ── M9: UI CONTROLLER ──────────────────────────────────────
+const UI={
+  go(tab){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+    document.querySelectorAll('.tc').forEach(t=>t.classList.remove('on'));
+    const btn=document.querySelector(`[data-tab="${tab}"]`);
+    const cont=document.getElementById(`tab-${tab}`);
+    if(btn)btn.classList.add('on');
+    if(cont)cont.classList.add('on');
+    if(tab==='compare')Cmp.render();
+    if(tab==='diversify')Div.render();
+    if(tab==='advisory')Lead.rs();
+  }
+};
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>UI.go(t.dataset.tab)));
+
+// ── FAQ ─────────────────────────────────────────────────────
+const FAQS=[
+  {q:'What is NAV in mutual funds?',a:'NAV (Net Asset Value) is the per-unit price of a mutual fund, calculated daily as (Total Assets – Liabilities) / Total Units outstanding. A rising NAV means the fund is growing in value.'},
+  {q:'What is CAGR and why does it matter?',a:'CAGR (Compound Annual Growth Rate) = (End Value / Start Value)^(1/Years) – 1. It shows the consistent annual growth rate. A fund with 15% CAGR doubles ₹1 lakh to ₹2 lakh in about 5 years.'},
+  {q:'Which mutual funds are best for long-term SIP?',a:'For long-term SIP (10Y+), large-cap index funds, flexi-cap funds, or mid-cap funds offer excellent returns. ELSS combines 80C tax benefits with equity growth. Pair with a short-term debt fund for balance.'},
+  {q:'Direct vs Regular mutual fund plans — which is better?',a:'Direct plans have 0.5–1% lower expense ratio as they skip distributor commissions. On ₹10 lakh over 20 years at 12% CAGR, a 1% difference can mean ₹8–12 lakh more corpus. Always choose Direct Growth plans.'},
+  {q:'What is a good expense ratio for a mutual fund?',a:'Index funds: 0.05–0.2% (best). Active large-cap: 0.5–0.9% (acceptable). Active mid/small-cap: 0.6–1.2% (acceptable if fund consistently outperforms). Expense ratio above 2% is generally too high.'},
+  {q:'How much monthly SIP is needed to build ₹1 crore?',a:'At 12% CAGR in 15 years: ~₹20,000/month. At 12% in 20 years: ~₹10,000/month. At 15% in 10 years: ~₹43,000/month. The power of compounding means starting early dramatically reduces the required SIP amount.'}
+];
+document.getElementById('faqbox').innerHTML=FAQS.map((f,i)=>`
+  <div class="faq" id="fqi${i}">
+    <div class="fq" onclick="toggleFaq(${i})">${f.q}<i class="fa-solid fa-chevron-down fchv"></i></div>
+    <div class="fa2" id="fqa${i}">${f.a}</div>
+  </div>`).join('');
+function toggleFaq(i){
+  const wrap=document.getElementById('fqi'+i),ans=document.getElementById('fqa'+i);
+  const open=ans.classList.contains('open');
+  document.querySelectorAll('.fa2').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq').forEach(f=>f.classList.remove('open'));
+  if(!open){ans.classList.add('open');wrap.classList.add('open');}
+}
+
+// ── TOAST ────────────────────────────────────────────────────
+let _tt;
+function toast(msg,cls=''){
+  const el=document.getElementById('tst');
+  el.textContent=msg;el.className='tst'+(cls?' '+cls:'');
+  clearTimeout(_tt);el.classList.add('show');
+  _tt=setTimeout(()=>el.classList.remove('show'),3000);
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded',()=>{initData();});
 </script>
 </body>
 </html>
