@@ -1,0 +1,597 @@
+---
+title: Cinematic Retirement Planner
+permalink: /finance/retirement-planner/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinematic Retirement Simulator</title>
+    
+    <!-- CDNs -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #050510; color: white; font-family: 'Inter', sans-serif; }
+        
+        /* Custom Range Slider */
+        input[type=range] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #00ffcc;
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 10px #00ffcc;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+        
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(15, 15, 25, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Text Glow */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.8);
+        }
+
+        #canvas-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
+        .pointer-events-auto { pointer-events: auto; }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <div id="ui-layer" class="flex flex-col items-center justify-center p-6">
+        
+        <!-- Header -->
+        <div class="absolute top-6 left-8 pointer-events-auto">
+            <h1 class="text-2xl font-light tracking-widest text-glow"><i class="fa-solid fa-infinity mr-2"></i> FUTURA</h1>
+            <p class="text-xs text-gray-400 tracking-wider mt-1 uppercase">Cinematic Wealth Simulation</p>
+        </div>
+
+        <!-- Wizard Input Panel -->
+        <div id="wizard" class="glass-panel p-8 rounded-3xl w-full max-w-2xl pointer-events-auto transition-opacity duration-1000 mt-16 relative overflow-hidden">
+            
+            <h2 class="text-3xl font-bold mb-6 text-center">Design Your Timeline</h2>
+            
+            <!-- Presets -->
+            <div class="grid grid-cols-4 gap-3 mb-8">
+                <button onclick="applyPreset('conservative')" class="py-2 rounded-lg bg-gray-800/50 hover:bg-blue-600/50 border border-gray-700 transition text-sm"><i class="fa-solid fa-shield-halved mb-1 block"></i> Conservative</button>
+                <button onclick="applyPreset('balanced')" class="py-2 rounded-lg bg-gray-800/50 hover:bg-green-600/50 border border-gray-700 transition text-sm ring-1 ring-green-500"><i class="fa-solid fa-scale-balanced mb-1 block"></i> Balanced</button>
+                <button onclick="applyPreset('aggressive')" class="py-2 rounded-lg bg-gray-800/50 hover:bg-orange-600/50 border border-gray-700 transition text-sm"><i class="fa-solid fa-bolt mb-1 block"></i> Aggressive</button>
+                <button onclick="applyPreset('fire')" class="py-2 rounded-lg bg-gray-800/50 hover:bg-red-600/50 border border-gray-700 transition text-sm"><i class="fa-solid fa-fire mb-1 block"></i> F.I.R.E</button>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Age Sliders -->
+                <div class="flex gap-6">
+                    <div class="flex-1">
+                        <label class="flex justify-between text-sm text-gray-300 mb-2"><span title="Your current age"><i class="fa-regular fa-user mr-1"></i> Current Age</span> <span id="val-age" class="font-bold text-white">30</span></label>
+                        <input type="range" id="inp-age" min="18" max="70" value="30" oninput="updateUI()">
+                    </div>
+                    <div class="flex-1">
+                        <label class="flex justify-between text-sm text-gray-300 mb-2"><span title="When you plan to retire"><i class="fa-solid fa-flag-checkered mr-1"></i> Target Retirement</span> <span id="val-retAge" class="font-bold text-white">60</span></label>
+                        <input type="range" id="inp-retAge" min="40" max="80" value="60" oninput="updateUI()">
+                    </div>
+                </div>
+
+                <!-- Financial Sliders -->
+                <div>
+                    <label class="flex justify-between text-sm text-gray-300 mb-2"><span><i class="fa-solid fa-coins mr-1"></i> Current Savings</span> <span id="val-savings" class="font-bold text-white">₹ 5,00,000</span></label>
+                    <input type="range" id="inp-savings" min="0" max="50000000" step="50000" value="500000" oninput="updateUI()">
+                </div>
+                
+                <div>
+                    <label class="flex justify-between text-sm text-gray-300 mb-2"><span><i class="fa-solid fa-arrow-trend-up mr-1"></i> Monthly Investment</span> <span id="val-monthly" class="font-bold text-white">₹ 25,000</span></label>
+                    <input type="range" id="inp-monthly" min="0" max="500000" step="1000" value="25000" oninput="updateUI()">
+                </div>
+
+                <div class="flex gap-6">
+                    <div class="flex-1">
+                        <label class="flex justify-between text-sm text-gray-300 mb-2"><span title="Expected annual return rate"><i class="fa-solid fa-chart-line mr-1"></i> Expected Return</span> <span id="val-return" class="font-bold text-white">10%</span></label>
+                        <input type="range" id="inp-return" min="4" max="25" step="1" value="10" oninput="updateUI()">
+                    </div>
+                    <div class="flex-1">
+                        <label class="flex justify-between text-sm text-gray-300 mb-2"><span title="Expected annual inflation rate"><i class="fa-solid fa-arrow-up-right-dots mr-1"></i> Inflation</span> <span id="val-inflation" class="font-bold text-white">5%</span></label>
+                        <input type="range" id="inp-inflation" min="2" max="12" step="1" value="5" oninput="updateUI()">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="flex justify-between text-sm text-gray-300 mb-2"><span title="How much you want to spend yearly in retirement"><i class="fa-solid fa-martini-glass-citrus mr-1"></i> Desired Retirement Lifestyle (Yearly)</span> <span id="val-expense" class="font-bold text-white">₹ 12,00,000</span></label>
+                    <input type="range" id="inp-expense" min="300000" max="10000000" step="100000" value="1200000" oninput="updateUI()">
+                </div>
+            </div>
+
+            <button onclick="startSimulation()" class="w-full mt-8 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-400 hover:to-blue-500 text-lg font-bold shadow-[0_0_20px_rgba(0,255,204,0.4)] transition-all transform hover:scale-[1.02]">
+                Initiate Simulation
+            </button>
+        </div>
+
+        <!-- Scenario Comparison Toggle (Hidden initially) -->
+        <div id="scenario-panel" class="absolute top-6 right-8 glass-panel px-6 py-4 rounded-xl opacity-0 pointer-events-auto transition-opacity duration-1000 flex flex-col items-center">
+            <span class="text-xs text-gray-400 uppercase tracking-widest mb-2">Scenario Morphing</span>
+            <div class="flex items-center gap-4">
+                <span class="text-sm">Current</span>
+                <input type="range" id="inp-morph" min="0" max="1" step="0.01" value="0" class="w-32" oninput="morphScenarios()">
+                <span class="text-sm text-orange-400">Aggressive</span>
+            </div>
+        </div>
+
+        <!-- Insights Panel (Hidden initially) -->
+        <div id="insights" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 glass-panel p-6 rounded-2xl w-full max-w-4xl opacity-0 pointer-events-auto transition-opacity duration-1000">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div>
+                    <i class="fa-solid fa-bullseye text-3xl text-teal-400 mb-3 drop-shadow-[0_0_10px_rgba(45,212,191,0.8)]"></i>
+                    <h3 class="text-gray-400 text-sm uppercase tracking-wider">Success Probability</h3>
+                    <p id="out-prob" class="text-4xl font-bold mt-1">--%</p>
+                </div>
+                <div class="border-l border-r border-gray-700 px-4">
+                    <i class="fa-solid fa-hourglass-end text-3xl text-orange-400 mb-3 drop-shadow-[0_0_10px_rgba(251,146,60,0.8)]"></i>
+                    <h3 class="text-gray-400 text-sm uppercase tracking-wider">Funds Last Until</h3>
+                    <p id="out-age" class="text-4xl font-bold mt-1">Age --</p>
+                </div>
+                <div>
+                    <i class="fa-solid fa-lightbulb text-3xl text-yellow-400 mb-3 drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]"></i>
+                    <h3 class="text-gray-400 text-sm uppercase tracking-wider">AI Insight</h3>
+                    <p id="out-insight" class="text-sm mt-2 text-gray-200">Analyzing your future...</p>
+                </div>
+            </div>
+            
+            <div class="mt-6 flex justify-center">
+                 <button onclick="resetSimulation()" class="px-6 py-2 rounded-full border border-gray-500 hover:bg-gray-800 transition text-sm">
+                    <i class="fa-solid fa-rotate-left mr-2"></i> Adjust Parameters
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // --- 1. CONFIG & STATE ---
+        const DEATH_AGE = 95;
+        let isSimulating = false;
+        let state = {
+            age: 30, retAge: 60, savings: 500000, monthly: 25000, expense: 1200000,
+            returnRate: 0.10, inflation: 0.05, vol: 0.12
+        };
+        let comparisonState = { ...state, returnRate: 0.14, monthly: 40000, vol: 0.18 }; // Aggressive alternate
+        
+        const formatCurrency = (num) => '₹' + parseInt(num).toLocaleString('en-IN');
+
+        // --- 2. THREE.JS SETUP ---
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x050510, 0.015);
+        
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(-10, 5, 20);
+        camera.lookAt(10, 0, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // Grid Environment
+        const grid = new THREE.GridHelper(200, 100, 0x112244, 0x0a1122);
+        grid.position.y = -0.5;
+        scene.add(grid);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0x00ffcc, 1, 50);
+        pointLight.position.set(0, 10, 0);
+        scene.add(pointLight);
+
+        // --- 3. 3D OBJECTS CREATION ---
+        
+        // Phase 1: Wealth Pillars
+        const pillars = [];
+        const pillarMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffcc, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
+        const pillarGeo = new THREE.CylinderGeometry(0.3, 0.3, 1, 8);
+        
+        for(let i=0; i<80; i++) {
+            const mesh = new THREE.Mesh(pillarGeo, pillarMaterial);
+            mesh.position.set(i * 2, 0, 0);
+            mesh.scale.y = 0.001; // Hidden initially
+            mesh.visible = false;
+            scene.add(mesh);
+            pillars.push(mesh);
+        }
+
+        // Phase 2: Retirement Energy Sphere
+        const sphereGroup = new THREE.Group();
+        scene.add(sphereGroup);
+
+        const coreGeo = new THREE.IcosahedronGeometry(1, 2);
+        const coreMat = new THREE.MeshBasicMaterial({ color: 0xffaa00, wireframe: true, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
+        const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+        sphereGroup.add(coreMesh);
+
+        // Phase 4: Funding Health Ring
+        const ringGeo = new THREE.TorusGeometry(1.5, 0.05, 16, 100);
+        const ringMat = new THREE.MeshBasicMaterial({ color: 0x00ffcc, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+        const healthRing = new THREE.Mesh(ringGeo, ringMat);
+        healthRing.rotation.x = Math.PI / 2;
+        sphereGroup.add(healthRing);
+        sphereGroup.visible = false; // Hide until retirement
+
+        // Phase 3: Monte Carlo Trajectories
+        const mcGroup = new THREE.Group();
+        scene.add(mcGroup);
+        const mcLines = [];
+        const mcMaterialSuccess = new THREE.LineBasicMaterial({ color: 0x00ff88, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending });
+        const mcMaterialFail = new THREE.LineBasicMaterial({ color: 0xff3333, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending });
+        
+        for(let i=0; i<100; i++) {
+            const geo = new THREE.BufferGeometry();
+            const positions = new Float32Array(50 * 3); // 50 years max retirement
+            geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            const line = new THREE.Line(geo, mcMaterialSuccess);
+            line.visible = false;
+            mcGroup.add(line);
+            mcLines.push(line);
+        }
+
+        // --- 4. FINANCIAL ENGINE ---
+
+        function generateDeterministicPath(simState) {
+            let path = [];
+            let bal = simState.savings;
+            for(let age = simState.age; age <= DEATH_AGE; age++) {
+                path.push({ age, balance: bal });
+                if(age < simState.retAge) {
+                    bal = bal * (1 + simState.returnRate) + (simState.monthly * 12);
+                } else {
+                    let adjustedExpense = simState.expense * Math.pow(1 + simState.inflation, age - simState.age);
+                    bal = bal * (1 + simState.returnRate) - adjustedExpense;
+                }
+                if(bal < 0) bal = 0;
+            }
+            return path;
+        }
+
+        function runMonteCarlo(simState) {
+            let paths = [];
+            let successCount = 0;
+            let depletionAges = [];
+
+            for(let i=0; i<100; i++) {
+                let path = [];
+                let bal = simState.savings;
+                let failedAt = null;
+
+                for(let age = simState.age; age <= DEATH_AGE; age++) {
+                    path.push({ age, balance: bal });
+                    
+                    // Box-Muller transform for normal distribution
+                    let u1 = Math.random(), u2 = Math.random();
+                    let randNorm = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+                    let yearlyReturn = simState.returnRate + simState.vol * randNorm;
+
+                    if(age < simState.retAge) {
+                        bal = bal * (1 + yearlyReturn) + (simState.monthly * 12);
+                    } else {
+                        let adjustedExpense = simState.expense * Math.pow(1 + simState.inflation, age - simState.age);
+                        bal = bal * (1 + yearlyReturn) - adjustedExpense;
+                    }
+                    if(bal <= 0) {
+                        bal = 0;
+                        if(!failedAt) failedAt = age;
+                    }
+                }
+                if(bal > 0) successCount++;
+                if(failedAt) depletionAges.push(failedAt);
+                paths.push(path);
+            }
+
+            let avgDepletion = depletionAges.length > 0 ? Math.round(depletionAges.reduce((a,b)=>a+b,0)/depletionAges.length) : DEATH_AGE + '+';
+            
+            return { paths, successRate: successCount, avgDepletion };
+        }
+
+        // --- 5. VISUALIZATION UPDATERS ---
+
+        let currentPath = [];
+        let comparisonPath = [];
+        let mcResults = null;
+
+        function update3DScene(morphRatio = 0) {
+            // Update state from UI
+            state.age = parseInt(document.getElementById('inp-age').value);
+            state.retAge = parseInt(document.getElementById('inp-retAge').value);
+            state.savings = parseInt(document.getElementById('inp-savings').value);
+            state.monthly = parseInt(document.getElementById('inp-monthly').value);
+            state.expense = parseInt(document.getElementById('inp-expense').value);
+            state.returnRate = parseInt(document.getElementById('inp-return').value) / 100;
+            state.inflation = parseInt(document.getElementById('inp-inflation').value) / 100;
+
+            // Sync alternate state base variables to keep comparison logical
+            comparisonState.age = state.age;
+            comparisonState.retAge = state.retAge;
+            comparisonState.savings = state.savings;
+            comparisonState.expense = state.expense;
+            comparisonState.inflation = state.inflation;
+
+            currentPath = generateDeterministicPath(state);
+            comparisonPath = generateDeterministicPath(comparisonState);
+
+            let maxBal = Math.max(...currentPath.map(p=>p.balance), ...comparisonPath.map(p=>p.balance), 1);
+            let scaleFactor = 10 / maxBal; // Normalize height to max 10 units
+
+            // Update Accumulation Pillars
+            for(let i=0; i<pillars.length; i++) {
+                let simAge = state.age + i;
+                
+                if(simAge < state.retAge && simAge <= DEATH_AGE) {
+                    let d1 = currentPath.find(p => p.age === simAge)?.balance || 0;
+                    let d2 = comparisonPath.find(p => p.age === simAge)?.balance || 0;
+                    
+                    let morphedBalance = d1 + (d2 - d1) * morphRatio;
+                    let h = Math.max(0.1, morphedBalance * scaleFactor);
+                    
+                    gsap.to(pillars[i].scale, { y: h, duration: 0.5, ease: "power1.out" });
+                    gsap.to(pillars[i].position, { y: h / 2, duration: 0.5, ease: "power1.out" });
+                    pillars[i].visible = true;
+                    
+                    // Color morph (cyan to orange)
+                    let r = 0 + morphRatio;
+                    let g = 1 - (morphRatio * 0.5);
+                    let b = 0.8 - (morphRatio * 0.8);
+                    pillars[i].material.color.setRGB(r, g, b);
+
+                } else {
+                    gsap.to(pillars[i].scale, { y: 0.001, duration: 0.5 });
+                    pillars[i].visible = false;
+                }
+            }
+        }
+
+        function morphScenarios() {
+            let ratio = parseFloat(document.getElementById('inp-morph').value);
+            update3DScene(ratio);
+        }
+
+        // --- 6. UI & INTERACTION ---
+
+        function updateUI() {
+            document.getElementById('val-age').innerText = document.getElementById('inp-age').value;
+            document.getElementById('val-retAge').innerText = document.getElementById('inp-retAge').value;
+            document.getElementById('val-savings').innerText = formatCurrency(document.getElementById('inp-savings').value);
+            document.getElementById('val-monthly').innerText = formatCurrency(document.getElementById('inp-monthly').value);
+            document.getElementById('val-expense').innerText = formatCurrency(document.getElementById('inp-expense').value);
+            document.getElementById('val-return').innerText = document.getElementById('inp-return').value + '%';
+            document.getElementById('val-inflation').innerText = document.getElementById('inp-inflation').value + '%';
+            
+            if(!isSimulating) update3DScene(0);
+        }
+
+        function applyPreset(type) {
+            const presets = {
+                conservative: { returnRate: 6, vol: 0.08, monthly: 15000 },
+                balanced:     { returnRate: 10, vol: 0.12, monthly: 25000 },
+                aggressive:   { returnRate: 14, vol: 0.18, monthly: 40000 },
+                fire:         { returnRate: 12, vol: 0.15, monthly: 100000, retAge: 45 }
+            };
+            let p = presets[type];
+            state.vol = p.vol;
+            document.getElementById('inp-return').value = p.returnRate;
+            document.getElementById('inp-monthly').value = p.monthly;
+            if(p.retAge) document.getElementById('inp-retAge').value = p.retAge;
+            updateUI();
+        }
+
+        // --- 7. CINEMATIC SIMULATION SEQUENCE ---
+
+        function startSimulation() {
+            isSimulating = true;
+            
+            // 1. Hide Wizard
+            gsap.to('#wizard', { opacity: 0, duration: 1, pointerEvents: 'none' });
+            
+            // Calculate final paths
+            mcResults = runMonteCarlo(state);
+            let retIndex = state.retAge - state.age;
+            let retX = retIndex * 2; // Position of retirement age on X axis
+
+            // 2. Camera Panning (Accumulation)
+            // Fly along the pillars
+            gsap.to(camera.position, {
+                x: retX - 5, y: 3, z: 8,
+                duration: 4, ease: "power2.inOut",
+                onUpdate: () => camera.lookAt(camera.position.x + 5, 0, 0),
+                onComplete: phaseTwoRetirement
+            });
+        }
+
+        function phaseTwoRetirement() {
+            let retIndex = state.retAge - state.age;
+            let retX = retIndex * 2;
+            
+            // Position Sphere at Retirement Point
+            sphereGroup.position.set(retX, 2, 0);
+            sphereGroup.visible = true;
+            sphereGroup.scale.set(0.1, 0.1, 0.1);
+
+            // Change Environment to "Sunset"
+            gsap.to(scene.fog, { density: 0.03, duration: 3 });
+            gsap.to(scene.fog.color, { r: 0.2, g: 0.05, b: 0.0, duration: 3 });
+            document.body.style.backgroundColor = '#1a0500';
+
+            // Grow Sphere based on portfolio size
+            let peakBal = currentPath.find(p=>p.age === state.retAge).balance;
+            let sphereScale = Math.max(0.5, peakBal / 10000000); // 1 unit per crore approx
+            
+            gsap.to(sphereGroup.scale, { x: sphereScale, y: sphereScale, z: sphereScale, duration: 2, ease: "back.out(1.7)" });
+
+            // Camera orbits sphere
+            gsap.to(camera.position, {
+                x: retX - 8, y: 6, z: 12,
+                duration: 3, ease: "power2.out",
+                onUpdate: () => camera.lookAt(sphereGroup.position),
+                onComplete: phaseThreeMonteCarlo
+            });
+        }
+
+        function phaseThreeMonteCarlo() {
+            let retIndex = state.retAge - state.age;
+            let retX = retIndex * 2;
+            
+            // Draw trajectories erupting from sphere
+            let yearsInRetirement = DEATH_AGE - state.retAge;
+            let peakBal = currentPath.find(p=>p.age === state.retAge).balance;
+
+            mcGroup.position.set(retX, 0, 0);
+
+            for(let i=0; i<100; i++) {
+                let path = mcResults.paths[i].slice(retIndex); // Only retirement years
+                let line = mcLines[i];
+                let positions = line.geometry.attributes.position.array;
+                
+                let isSuccess = path[path.length-1].balance > 0;
+                line.material = isSuccess ? mcMaterialSuccess : mcMaterialFail;
+                
+                for(let j=0; j<path.length; j++) {
+                    // Spread paths out on Z axis for 3D effect, X is time, Y is balance
+                    let spreadZ = (Math.random() - 0.5) * 15;
+                    let posX = j * 2;
+                    let posY = (path[j].balance / peakBal) * sphereGroup.scale.y * 2; 
+                    
+                    positions[j*3] = posX;
+                    positions[j*3+1] = posY;
+                    positions[j*3+2] = spreadZ;
+                }
+                
+                line.geometry.setDrawRange(0, 0);
+                line.geometry.attributes.position.needsUpdate = true;
+                line.visible = true;
+
+                // Animate lines drawing out
+                gsap.to(line.geometry, {
+                    drawRange: { count: path.length },
+                    duration: 2 + Math.random(),
+                    ease: "power1.inOut"
+                });
+            }
+
+            // Animate Health Ring based on success probability
+            if(mcResults.successRate > 80) {
+                ringMat.color.setHex(0x00ffcc); // Overfunded
+            } else if (mcResults.successRate > 50) {
+                ringMat.color.setHex(0xffaa00); // Tight
+                // Flicker
+                gsap.to(ringMat, { opacity: 0.2, yoyo: true, repeat: -1, duration: 0.2 });
+            } else {
+                ringMat.color.setHex(0xff3333); // Underfunded
+                gsap.to(healthRing.scale, { x: 0.5, y: 0.5, z: 0.5, duration: 2 });
+            }
+
+            // Show Insights & Compare Tool
+            setTimeout(() => {
+                document.getElementById('out-prob').innerText = `${mcResults.successRate}%`;
+                document.getElementById('out-prob').className = `text-4xl font-bold mt-1 ${mcResults.successRate > 80 ? 'text-teal-400' : (mcResults.successRate > 50 ? 'text-yellow-400' : 'text-red-400')}`;
+                
+                document.getElementById('out-age').innerText = `Age ${mcResults.avgDepletion}`;
+                
+                let insightMsg = "";
+                if(mcResults.successRate > 90) insightMsg = "Your wealth engine is unstoppable. You can likely spend more or retire earlier.";
+                else if(mcResults.successRate > 60) insightMsg = "Solid trajectory, but susceptible to market shocks. Consider bumping savings by ₹5,000/mo.";
+                else insightMsg = "Danger zone. Your lifestyle exceeds portfolio growth. Delay retirement by 3 years or increase savings drastically.";
+                document.getElementById('out-insight').innerText = insightMsg;
+
+                gsap.to('#insights', { opacity: 1, duration: 1 });
+                gsap.to('#scenario-panel', { opacity: 1, duration: 1 });
+            }, 2500);
+        }
+
+        function resetSimulation() {
+            isSimulating = false;
+            
+            // Hide outputs
+            gsap.to('#insights', { opacity: 0, duration: 0.5 });
+            gsap.to('#scenario-panel', { opacity: 0, duration: 0.5 });
+            
+            // Reset Environment
+            gsap.to(scene.fog, { density: 0.015, duration: 2 });
+            gsap.to(scene.fog.color, { r: 0.02, g: 0.02, b: 0.06, duration: 2 }); // Hex 0x050510 approx
+            document.body.style.backgroundColor = '#050510';
+
+            // Reset Camera
+            gsap.to(camera.position, {
+                x: -10, y: 5, z: 20,
+                duration: 2, ease: "power2.inOut",
+                onUpdate: () => camera.lookAt(10, 0, 0)
+            });
+
+            // Hide Phase 2/3 objects
+            sphereGroup.visible = false;
+            mcLines.forEach(l => l.visible = false);
+            gsap.killTweensOf(ringMat);
+            ringMat.opacity = 0.8;
+            healthRing.scale.set(1,1,1);
+            document.getElementById('inp-morph').value = 0;
+
+            // Show Wizard
+            gsap.to('#wizard', { opacity: 1, duration: 1, delay: 1, pointerEvents: 'auto' });
+            
+            update3DScene(0);
+        }
+
+        // --- 8. RENDER LOOP ---
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            let delta = clock.getDelta();
+            
+            // Idle animations
+            if(sphereGroup.visible) {
+                coreMesh.rotation.y += 0.5 * delta;
+                coreMesh.rotation.x += 0.2 * delta;
+                healthRing.rotation.z -= 1.0 * delta; // Orbiting ring
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // Init
+        updateUI();
+        animate();
+
+        // Handle Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+    </script>
+</body>
+</html>

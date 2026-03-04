@@ -1,3 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /*?src=*
+Disallow: /*?ref=*
+Disallow: /*?utm=*
+Disallow: /*?*
+
 Sitemap: https://rkoots.github.io/sitemap.xml
