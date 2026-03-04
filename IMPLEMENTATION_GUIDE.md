@@ -1,7 +1,7 @@
 # RKoots Technical Knowledge Hub - Implementation Guide
 
 ## Overview
-This comprehensive guide outlines the complete transformation of rkoots.github.io from a generic tech blog into a professional technical knowledge hub focused on engineering leadership, system architecture, and scalable systems.
+This comprehensive guide outlines the complete transformation of the technical knowledge hub from a generic tech blog into a professional technical knowledge hub focused on engineering leadership, system architecture, and scalable systems.
 
 ## 🎯 Transformation Summary
 
@@ -15,7 +15,7 @@ This comprehensive guide outlines the complete transformation of rkoots.github.i
 ## 📁 New Site Structure
 
 ```
-rkoots.github.io/
+technical-hub/
 ├── _config.yml                    # Enhanced Jekyll configuration
 ├── index.html                     # Redesigned homepage with technical authority
 ├── _layouts/
@@ -63,7 +63,7 @@ rkoots.github.io/
 #### 1.1 Backup Current Site
 ```bash
 # Create backup of existing site
-cp -r rkoots.github.io rkoots.github.io.backup
+cp -r technical-hub technical-hub.backup
 git checkout -b transformation
 ```
 
@@ -167,7 +167,7 @@ git commit -m "Transform to technical knowledge hub"
 git push origin main
 
 # Monitor deployment
-# Check GitHub Pages build status
+# Check build status
 ```
 
 ## 📊 Content Creation Workflow
@@ -192,7 +192,7 @@ related_posts: true
 enable_comments: true
 programming_language: ["Python", "Java"]
 dependencies: ["Docker", "Kubernetes", "AWS"]
-github_repo: "https://github.com/rkoots/example-code"
+repo_url: "https://your-repo-url.example-code"
 image: "/assets/images/guide-cover.jpg"
 ---
 
@@ -359,11 +359,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build Jekyll site
         uses: actions/jekyll-build-pages@v1
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+      - name: Deploy to Web Hosting
+        # Configure based on your hosting provider
+        # Examples: AWS S3, Netlify, Vercel, etc.
 ```
 
 ## 📚 Learning Resources
@@ -381,7 +379,7 @@ jobs:
 ### Jekyll Resources
 - [Jekyll Documentation](https://jekyllrb.com/docs/)
 - [Jekyll SEO Tag Plugin](https://github.com/jekyll/jekyll-seo-tag)
-- [GitHub Pages Documentation](https://docs.github.com/en/pages)
+- [Professional Web Hosting Documentation](https://docs.your-hosting-provider.com/)
 
 ## 🤝 Community & Engagement
 
@@ -391,14 +389,14 @@ jobs:
 - **Exclusive content** - Early access to new guides and frameworks
 
 ### Community Building
-- **GitHub Discussions** - Technical Q&A and knowledge sharing
+- **Community Forums** - Technical Q&A and knowledge sharing
 - **LinkedIn Engagement** - Professional network and thought leadership
 - **Technical Speaking** - Conference presentations and workshops
 
 ### Content Distribution
 - **Dev.to** - Cross-post technical tutorials
 - **LinkedIn Articles** - Leadership and strategy content
-- **GitHub** - Open source projects and code examples
+- **Portfolio/Website** - Open source projects and code examples
 
 ## 🎉 Next Steps
 
@@ -420,7 +418,7 @@ jobs:
 ## 📞 Support & Contact
 
 For questions about implementation or technical guidance:
-- **GitHub Issues**: Create issues in repository
+- **Project Issues**: Create issues in project management system
 - **Email**: contact@rkoots.com
 - **LinkedIn**: [Rajkumar Venkataraman](https://linkedin.com/in/rkoots/)
 

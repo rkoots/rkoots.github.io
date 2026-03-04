@@ -6,13 +6,11 @@ description: "Finance tools and calculators including market outlook, tax calcul
 keywords: ["finance tools", "income tax calculator", "market outlook", "financial planning", "investment planner"]
 ---
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 
-<section class="finance-listing">
-  <h1 class="page-title"><i class="fas fa-chart-line"></i> Finance Tools</h1>
-  <p class="page-subtitle">Professional finance tools: market analysis, tax planning, and investment calculators.</p>
-
-  {% assign finance_pages = "" | split: "" %}
+{% assign finance_pages = "" | split: "" %}
 {% for page in site.pages %}
   {% if page.url contains '/finance/' and page.url != '/finance/' %}
     {% assign finance_pages = finance_pages | push: page %}
@@ -20,265 +18,676 @@ keywords: ["finance tools", "income tax calculator", "market outlook", "financia
 {% endfor %}
 {% assign finance_pages = finance_pages | sort: "title" %}
 
+<section class="finance-hero" aria-labelledby="finance-hero-title">
+  <div class="hero-content">
+    <span class="hero-eyebrow">Investment comparison tool • Portfolio diversification tool</span>
+    <h1 id="finance-hero-title">Advanced Financial Planning &amp; Investment Tools for Smarter Decisions</h1>
+    <p class="hero-subtitle">Compare, Analyze &amp; Optimize Your Investments in Seconds.</p>
+    <p class="hero-body">
+      Explore a curated suite of financial planning calculators and investment strategy planners built for clarity, speed, and
+      data-backed decisions. Every tool is designed to help you maximize returns, reduce risk, and improve allocation discipline.
+    </p>
+    <div class="hero-actions">
+      <a class="cta-primary" href="#finance-tools">Explore Financial Tools</a>
+      <a class="cta-secondary" href="{{ '/tools/' | relative_url }}">Browse All Toolkits</a>
+    </div>
+    <div class="hero-highlights">
+      <div>
+        <span>Real-Time Comparison</span>
+        <p>See fund, stock, and plan alternatives side by side.</p>
+      </div>
+      <div>
+        <span>Risk-Return Analytics</span>
+        <p>Quantify downside protection before you commit.</p>
+      </div>
+      <div>
+        <span>Smart Allocation</span>
+        <p>Turn market data into practical portfolio actions.</p>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual" aria-hidden="true">
+    <div class="orbit-glow"></div>
+    <div class="hero-card">
+      <h3>Mutual Fund Comparison India</h3>
+      <p>Filter by risk, return, and consistency metrics in seconds.</p>
+    </div>
+    <div class="hero-card secondary">
+      <h3>Financial Planning Calculator</h3>
+      <p>Stress test your goals with smarter assumptions.</p>
+    </div>
+  </div>
+</section>
+
+<section id="finance-tools" class="finance-tools" aria-labelledby="finance-tools-title">
+  <div class="section-header">
+    <p class="section-eyebrow">Investment strategy planner</p>
+    <h2 id="finance-tools-title">Finance Tools That Turn Data into Action</h2>
+    <p class="section-lead">
+      Each tool delivers clear insights, actionable recommendations, and transparent analytics for smarter investment decisions.
+    </p>
+  </div>
+
   {% if finance_pages.size > 0 %}
-    <div class="posts-grid">
-      {% for page in finance_pages %}
-        {% assign icon_class = "" %}
-        {% assign icon_color = "" %}
-        {% assign icon_bg = "" %}
-        
-        {% if page.title contains "Market" or page.title contains "Nifty" %}
-          {% assign icon_class = "fas fa-chart-candlestick" %}
-          {% assign icon_color = "#10b981" %}
-          {% assign icon_bg = "linear-gradient(135deg, #10b98120, #10b98110)" %}
-        {% elsif page.title contains "Tax" or page.title contains "tax" %}
-          {% assign icon_class = "fas fa-calculator" %}
-          {% assign icon_color = "#ef4444" %}
-          {% assign icon_bg = "linear-gradient(135deg, #ef444420, #ef444410)" %}
-        {% elsif page.title contains "Retirement" or page.title contains "retirement" %}
-          {% assign icon_class = "fas fa-piggy-bank" %}
-          {% assign icon_color = "#f59e0b" %}
-          {% assign icon_bg = "linear-gradient(135deg, #f59e0b20, #f59e0b10)" %}
-        {% elsif page.title contains "Investment" or page.title contains "Bazaar" %}
-          {% assign icon_class = "fas fa-coins" %}
-          {% assign icon_color = "#8b5cf6" %}
-          {% assign icon_bg = "linear-gradient(135deg, #8b5cf620, #8b5cf610)" %}
-        {% elsif page.title contains "Planner" or page.title contains "planner" %}
-          {% assign icon_class = "fas fa-clipboard-list" %}
-          {% assign icon_color = "#3b82f6" %}
-          {% assign icon_bg = "linear-gradient(135deg, #3b82f620, #3b82f610)" %}
-        {% else %}
-          {% assign icon_class = "fas fa-chart-pie" %}
-          {% assign icon_color = "#6366f1" %}
-          {% assign icon_bg = "linear-gradient(135deg, #6366f120, #6366f110)" %}
-        {% endif %}
-        
-        <article class="post-card">
-          <div class="card-icon-wrapper">
-            <div class="card-icon" style="color: {{ icon_color }}; background: {{ icon_bg }};">
-              <i class="{{ icon_class }}"></i>
+    {% for page in finance_pages %}
+      {% assign icon_key = "" %}
+      {% assign cta_text = "Analyze Now" %}
+      {% if page.title contains "Mutual" or page.title contains "Fund" %}
+        {% assign icon_key = "mutual" %}
+        {% assign cta_text = "Compare Now" %}
+      {% elsif page.title contains "SIP" or page.title contains "sip" %}
+        {% assign icon_key = "sip" %}
+        {% assign cta_text = "Start Planning" %}
+      {% elsif page.title contains "Retirement" or page.title contains "retirement" %}
+        {% assign icon_key = "retirement" %}
+        {% assign cta_text = "Plan Retirement" %}
+      {% elsif page.title contains "Loan" or page.title contains "loan" %}
+        {% assign icon_key = "loan" %}
+        {% assign cta_text = "Optimize Loan" %}
+      {% elsif page.title contains "Tax" or page.title contains "tax" %}
+        {% assign icon_key = "tax" %}
+        {% assign cta_text = "Reduce Tax" %}
+      {% elsif page.title contains "Stock" or page.title contains "Market" or page.title contains "Nifty" %}
+        {% assign icon_key = "stock" %}
+        {% assign cta_text = "Analyze Market" %}
+      {% else %}
+        {% assign icon_key = "default" %}
+      {% endif %}
+
+      <section class="tool-section" itemscope itemtype="https://schema.org/SoftwareApplication">
+        <meta itemprop="applicationCategory" content="FinancialApplication">
+        <meta itemprop="operatingSystem" content="Web">
+        <div class="tool-row">
+          <div class="tool-icon" aria-hidden="true">
+            <div class="icon-card icon-{{ icon_key }}" loading="lazy">
+              {% if icon_key == "mutual" %}
+                <svg viewBox="0 0 120 120" role="img" aria-label="Mutual fund growth icon">
+                  <defs>
+                    <linearGradient id="mf1" x1="0" x2="1" y1="0" y2="1">
+                      <stop offset="0%" stop-color="#22d3ee" />
+                      <stop offset="100%" stop-color="#1e3a8a" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="60" cy="60" r="48" fill="url(#mf1)" opacity="0.85" />
+                  <path d="M34 68 L52 52 L68 66 L86 38" stroke="#e0f2fe" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="52" cy="52" r="6" fill="#f8fafc" />
+                  <circle cx="68" cy="66" r="6" fill="#f8fafc" />
+                  <circle cx="86" cy="38" r="6" fill="#f8fafc" />
+                </svg>
+              {% elsif icon_key == "sip" %}
+                <svg viewBox="0 0 120 120" role="img" aria-label="SIP calendar icon">
+                  <defs>
+                    <linearGradient id="sip1" x1="0" x2="1" y1="1" y2="0">
+                      <stop offset="0%" stop-color="#0ea5e9" />
+                      <stop offset="100%" stop-color="#1e40af" />
+                    </linearGradient>
+                  </defs>
+                  <rect x="26" y="30" width="68" height="62" rx="14" fill="url(#sip1)" />
+                  <rect x="34" y="42" width="52" height="8" rx="4" fill="#e0f2fe" />
+                  <rect x="34" y="58" width="24" height="18" rx="6" fill="#f8fafc" />
+                  <path d="M62 78 L90 50" stroke="#f8fafc" stroke-width="6" stroke-linecap="round" />
+                  <path d="M84 50 L90 50 L90 56" stroke="#f8fafc" stroke-width="6" stroke-linecap="round" />
+                </svg>
+              {% elsif icon_key == "retirement" %}
+                <svg viewBox="0 0 120 120" role="img" aria-label="Retirement shield icon">
+                  <defs>
+                    <linearGradient id="ret1" x1="0" x2="1" y1="0" y2="1">
+                      <stop offset="0%" stop-color="#fbbf24" />
+                      <stop offset="100%" stop-color="#b45309" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M60 18 L92 30 V58 C92 76 78 94 60 102 C42 94 28 76 28 58 V30 Z" fill="url(#ret1)" />
+                  <path d="M44 64 L58 50 L70 62 L84 42" stroke="#fff7ed" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              {% elsif icon_key == "loan" %}
+                <svg viewBox="0 0 120 120" role="img" aria-label="Loan stack icon">
+                  <defs>
+                    <linearGradient id="loan1" x1="0" x2="1" y1="0" y2="1">
+                      <stop offset="0%" stop-color="#38bdf8" />
+                      <stop offset="100%" stop-color="#0f766e" />
+                    </linearGradient>
+                  </defs>
+                  <rect x="30" y="28" width="60" height="24" rx="10" fill="url(#loan1)" />
+                  <rect x="24" y="50" width="72" height="26" rx="12" fill="#0ea5e9" opacity="0.9" />
+                  <rect x="18" y="74" width="84" height="22" rx="11" fill="#0369a1" opacity="0.85" />
+                  <circle cx="60" cy="63" r="8" fill="#e0f2fe" />
+                </svg>
+              {% elsif icon_key == "tax" %}
+                <svg viewBox="0 0 120 120" role="img" aria-label="Tax document icon">
+                  <defs>
+                    <linearGradient id="tax1" x1="0" x2="1" y1="0" y2="1">
+                      <stop offset="0%" stop-color="#f97316" />
+                      <stop offset="100%" stop-color="#b91c1c" />
+                    </linearGradient>
+                  </defs>
+                  <rect x="32" y="20" width="56" height="80" rx="12" fill="url(#tax1)" />
+                  <rect x="40" y="36" width="40" height="10" rx="5" fill="#fff7ed" />
+                  <path d="M44 70 H76" stroke="#fff7ed" stroke-width="6" stroke-linecap="round" />
+                  <circle cx="60" cy="58" r="12" stroke="#fff7ed" stroke-width="6" fill="none" />
+                  <path d="M66 52 L56 64" stroke="#fff7ed" stroke-width="6" stroke-linecap="round" />
+                </svg>
+              {% elsif icon_key == "stock" %}
+                <svg viewBox="0 0 120 120" role="img" aria-label="Stock candlestick icon">
+                  <defs>
+                    <linearGradient id="stock1" x1="0" x2="1" y1="1" y2="0">
+                      <stop offset="0%" stop-color="#22c55e" />
+                      <stop offset="100%" stop-color="#065f46" />
+                    </linearGradient>
+                  </defs>
+                  <rect x="28" y="28" width="12" height="58" rx="6" fill="#86efac" />
+                  <rect x="54" y="18" width="12" height="80" rx="6" fill="url(#stock1)" />
+                  <rect x="80" y="36" width="12" height="50" rx="6" fill="#34d399" />
+                  <path d="M26 54 L42 44 L58 58 L78 30 L94 46" stroke="#dcfce7" stroke-width="6" fill="none" stroke-linecap="round" />
+                </svg>
+              {% else %}
+                <svg viewBox="0 0 120 120" role="img" aria-label="Finance analytics icon">
+                  <defs>
+                    <linearGradient id="def1" x1="0" x2="1" y1="0" y2="1">
+                      <stop offset="0%" stop-color="#38bdf8" />
+                      <stop offset="100%" stop-color="#1d4ed8" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="60" cy="60" r="46" fill="url(#def1)" />
+                  <path d="M36 72 V48" stroke="#e0f2fe" stroke-width="8" stroke-linecap="round" />
+                  <path d="M60 76 V36" stroke="#e0f2fe" stroke-width="8" stroke-linecap="round" />
+                  <path d="M84 68 V54" stroke="#e0f2fe" stroke-width="8" stroke-linecap="round" />
+                </svg>
+              {% endif %}
             </div>
           </div>
-          <div class="card-content">
-            <h2><a href="{{ page.url | relative_url }}">{{ page.title }}</a></h2>
-            {% if page.excerpt %}
-              <p class="post-excerpt">{{ page.excerpt | strip_html | truncate: 180 }}</p>
-            {% elsif page.summary %}
-              <p class="post-excerpt">{{ page.summary | strip_html | truncate: 180 }}</p>
-            {% elsif page.description %}
-              <p class="post-excerpt">{{ page.description | strip_html | truncate: 180 }}</p>
-            {% endif %}
-            <a class="read-more" href="{{ page.url | relative_url }}">
-              <i class="fas fa-arrow-right"></i> Open Tool
-            </a>
+          <div class="tool-content" itemprop="description">
+            <h2 itemprop="name">
+              <a href="{{ page.url | relative_url }}">{{ page.title }}</a>
+            </h2>
+            <p class="tool-description">
+              {% if page.excerpt %}
+                {{ page.excerpt | strip_html | strip_newlines | truncate: 220 }}
+              {% elsif page.summary %}
+                {{ page.summary | strip_html | strip_newlines | truncate: 220 }}
+              {% elsif page.description %}
+                {{ page.description | strip_html | strip_newlines | truncate: 220 }}
+              {% else %}
+                Analyze scenarios, compare outcomes, and make data-backed decisions with precision.
+              {% endif %}
+            </p>
+            <ul class="tool-benefits">
+              <li>Real-time comparison across strategies and products.</li>
+              <li>Smart diversification suggestions to improve allocation.</li>
+              <li>Risk-return analytics that highlight trade-offs.</li>
+            </ul>
+            <a class="cta-inline" href="{{ page.url | relative_url }}">{{ cta_text }}</a>
           </div>
-        </article>
-      {% endfor %}
-    </div>
+        </div>
+      </section>
+    {% endfor %}
   {% else %}
-    <p class="empty-state">No finance pages found yet.</p>
+    <p class="empty-state">No finance tools are published yet. Add pages under <code>/finance/</code> to populate this section.</p>
   {% endif %}
 </section>
 
+<section class="finance-faq" aria-labelledby="finance-faq-title" itemscope itemtype="https://schema.org/FAQPage">
+  <div class="section-header">
+    <p class="section-eyebrow">Financial planning calculator</p>
+    <h2 id="finance-faq-title">Frequently Asked Questions</h2>
+    <p class="section-lead">Answers to common questions about our investment comparison and planning tools.</p>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <h3 itemprop="name">How accurate are the investment comparison results?</h3>
+      <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">We use current market data and transparent methodology so you can audit assumptions and compare outcomes quickly.</p>
+      </div>
+    </div>
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <h3 itemprop="name">Can I use these tools for long-term financial planning?</h3>
+      <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">Yes. Use goal timelines, scenario analysis, and diversification insights to guide long-term allocation decisions.</p>
+      </div>
+    </div>
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <h3 itemprop="name">Do the tools help reduce portfolio risk?</h3>
+      <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">Every tool highlights volatility, concentration, and downside metrics so you can rebalance with confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="finance-cta" aria-labelledby="finance-cta-title">
+  <div class="cta-panel">
+    <h2 id="finance-cta-title">Make Data-Driven Financial Decisions With Confidence</h2>
+    <p>
+      Structured analysis beats guesswork. Use these tools to validate strategies, stress-test goals, and optimize your investment plan.
+    </p>
+    <a class="cta-primary" href="#finance-tools">Start Optimizing Your Investments Today</a>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "name": "Finance Tools",
+      "description": "Investment comparison tool, financial planning calculator, and portfolio diversification utilities.",
+      "url": "{{ '/finance/' | absolute_url }}"
+    }{% if finance_pages.size > 0 %},{% endif %}
+    {% for page in finance_pages %}
+    {
+      "@type": ["SoftwareApplication", "FinancialService"],
+      "name": "{{ page.title | escape }}",
+      "description": "{{ page.excerpt | default: page.summary | default: page.description | strip_html | strip_newlines | truncate: 200 | escape }}",
+      "url": "{{ page.url | absolute_url }}",
+      "applicationCategory": "FinancialApplication",
+      "operatingSystem": "Web"
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+
 <style>
-  .finance-listing {
-    padding: 2rem;
+  :root {
+    color-scheme: light;
+    --ink: #0f172a;
+    --slate: #334155;
+    --muted: #64748b;
+    --panel: rgba(255, 255, 255, 0.72);
+    --panel-dark: rgba(15, 23, 42, 0.55);
+    --accent: #0ea5e9;
+    --accent-dark: #1d4ed8;
+    --accent-soft: rgba(14, 165, 233, 0.16);
+    --glow: rgba(34, 211, 238, 0.3);
+  }
+
+  body {
+    font-family: "Manrope", sans-serif;
+  }
+
+  .finance-hero,
+  .finance-tools,
+  .finance-faq,
+  .finance-cta {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 4.5rem 2rem;
   }
 
-  .page-title {
-    font-size: 2.5rem;
-    border-bottom: 3px solid #3b82f6;
-    padding-bottom: 0.75rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .page-title i {
-    -webkit-text-fill-color: #3b82f6;
-  }
-
-  .page-subtitle {
-    margin-bottom: 2rem;
-    color: #64748b;
-    font-size: 1.1rem;
-  }
-
-  .posts-grid {
+  .finance-hero {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .post-card {
-    border: none;
-    padding: 0;
-    border-radius: 16px;
-    background: white;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    align-items: center;
     position: relative;
+    overflow: hidden;
   }
 
-  .post-card::before {
-    content: '';
+  .finance-hero::before {
+    content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.25), transparent 55%),
+      radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.2), transparent 45%),
+      linear-gradient(135deg, #f8fafc 0%, #eef2ff 55%, #f0f9ff 100%);
+    z-index: -2;
   }
 
-  .post-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  .hero-content h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(2.3rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1rem;
   }
 
-  .post-card:hover::before {
-    opacity: 1;
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    background: rgba(14, 165, 233, 0.1);
+    color: var(--accent-dark);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.25rem;
   }
 
-  .post-card:hover .card-icon {
-    transform: scale(1.1) rotateY(10deg);
-    box-shadow: 0 10px 25px -5px currentColor;
+  .hero-subtitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--slate);
+    margin-bottom: 1rem;
   }
 
-  .card-icon-wrapper {
-    padding: 2rem 2rem 1rem;
-    text-align: center;
+  .hero-body {
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 1.02rem;
+    margin-bottom: 2rem;
   }
 
-  .card-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .cta-primary,
+  .cta-inline {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0.85rem 1.8rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 12px 24px rgba(29, 78, 216, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .cta-primary:hover,
+  .cta-inline:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(29, 78, 216, 0.35);
+  }
+
+  .cta-secondary {
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .hero-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .hero-highlights span {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .hero-highlights p {
+    margin-top: 0.4rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .hero-visual {
     position: relative;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-height: 360px;
+    display: grid;
+    place-items: center;
   }
 
-  .card-icon::after {
-    content: '';
+  .orbit-glow {
     position: absolute;
-    inset: 0;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.32) 0%, transparent 70%);
+    animation: pulseGlow 8s ease-in-out infinite;
+  }
+
+  .hero-card {
+    width: min(320px, 90%);
+    background: var(--panel);
+    border-radius: 24px;
+    padding: 1.6rem;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+  }
+
+  .hero-card.secondary {
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
+    background: rgba(15, 23, 42, 0.7);
+    color: #f8fafc;
+  }
+
+  .hero-card h3 {
+    margin-bottom: 0.5rem;
+    font-family: "Space Grotesk", sans-serif;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-eyebrow {
+    color: var(--accent-dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-header h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(1.9rem, 3vw, 2.6rem);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-lead {
+    color: var(--muted);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .tool-section {
+    margin-bottom: 3rem;
+  }
+
+  .tool-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
+    align-items: center;
+    padding: 2.5rem;
+    border-radius: 28px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(226, 232, 240, 0.5));
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+  }
+
+  .finance-tools > .tool-section:nth-of-type(even) .tool-row {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 64, 175, 0.6));
+    color: #f8fafc;
+  }
+
+  .finance-tools > .tool-section:nth-of-type(even) .tool-description,
+  .finance-tools > .tool-section:nth-of-type(even) .tool-benefits li,
+  .finance-tools > .tool-section:nth-of-type(even) a {
+    color: #e2e8f0;
+  }
+
+  .finance-tools > .tool-section:nth-of-type(even) .cta-inline {
+    background: linear-gradient(135deg, #22d3ee, #38bdf8);
+  }
+
+  .finance-tools > .tool-section:nth-of-type(even) .tool-row {
+    grid-auto-flow: dense;
+  }
+
+  .finance-tools > .tool-section:nth-of-type(even) .tool-icon {
+    order: 2;
+  }
+
+  .tool-icon {
+    display: grid;
+    place-items: center;
+  }
+
+  .icon-card {
+    width: 180px;
+    height: 180px;
+    border-radius: 32px;
+    display: grid;
+    place-items: center;
+    background: rgba(15, 23, 42, 0.05);
+    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.4), 0 20px 30px rgba(15, 23, 42, 0.15);
+    transform-style: preserve-3d;
+    animation: spin3d 18s linear infinite;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    content-visibility: auto;
+    contain-intrinsic-size: 180px 180px;
+  }
+
+  .icon-card svg {
+    width: 110px;
+    height: 110px;
+    filter: drop-shadow(0 10px 14px rgba(15, 23, 42, 0.25));
+  }
+
+  .icon-card:hover {
+    transform: scale(1.05) rotateY(10deg);
+    box-shadow: 0 22px 40px rgba(14, 165, 233, 0.35);
+  }
+
+  .tool-content h2 {
+    margin-bottom: 0.8rem;
+    font-size: 1.8rem;
+  }
+
+  .tool-content a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .tool-description {
+    color: var(--slate);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+
+  .tool-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.8rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .tool-benefits li::before {
+    content: "✔";
+    margin-right: 0.6rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .finance-faq {
+    background: linear-gradient(120deg, #f8fafc, #eef2ff);
+    border-radius: 32px;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.8rem;
+  }
+
+  .faq-item {
+    background: white;
+    padding: 1.8rem;
     border-radius: 20px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    box-shadow: 0 14px 24px rgba(15, 23, 42, 0.08);
   }
 
-  .post-card:hover .card-icon::after {
-    opacity: 1;
+  .faq-item h3 {
+    margin-bottom: 0.6rem;
+    font-size: 1.1rem;
   }
 
-  .card-content {
-    padding: 0 2rem 2rem;
+  .finance-cta {
     text-align: center;
   }
 
-  .post-card h2 {
-    margin: 0 0 0.75rem;
-    font-size: 1.4rem;
-    color: #1e293b;
-    font-weight: 600;
+  .cta-panel {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 64, 175, 0.85));
+    color: white;
+    padding: 3rem;
+    border-radius: 32px;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
   }
 
-  .post-card h2 a {
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.2s ease;
-  }
-
-  .post-card h2 a:hover {
-    color: #3b82f6;
-  }
-
-  .post-excerpt {
-    font-size: 0.95rem;
-    color: #64748b;
-    margin: 0.75rem 0 1.5rem;
-    line-height: 1.6;
+  .cta-panel p {
+    color: rgba(226, 232, 240, 0.85);
+    max-width: 680px;
+    margin: 1rem auto 2rem;
   }
 
   .empty-state {
-    margin-top: 2rem;
-    color: #64748b;
     text-align: center;
     padding: 3rem;
-    background: #f8fafc;
-    border-radius: 12px;
-    border: 2px dashed #e2e8f0;
+    border-radius: 20px;
+    background: rgba(226, 232, 240, 0.6);
+    color: var(--muted);
   }
 
-  .read-more {
-    font-weight: 600;
-    text-decoration: none;
-    color: #3b82f6;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #3b82f610, #8b5cf610);
-    border: 1px solid #3b82f620;
-    transition: all 0.3s ease;
+  @keyframes spin3d {
+    0% { transform: rotateX(0deg) rotateY(0deg); }
+    50% { transform: rotateX(12deg) rotateY(180deg); }
+    100% { transform: rotateX(0deg) rotateY(360deg); }
   }
 
-  .read-more:hover {
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  @keyframes pulseGlow {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 0.5; }
   }
 
-  .read-more i {
-    transition: transform 0.3s ease;
-  }
-
-  .read-more:hover i {
-    transform: translateX(4px);
-  }
-
-  @media (max-width: 768px) {
-    .finance-listing {
-      padding: 1rem;
+  @media (max-width: 900px) {
+    .finance-hero,
+    .finance-tools,
+    .finance-faq,
+    .finance-cta {
+      padding: 3.5rem 1.5rem;
     }
-    
-    .page-title {
-      font-size: 2rem;
+
+    .tool-row {
+      padding: 2rem;
     }
-    
-    .posts-grid {
+  }
+
+  @media (max-width: 720px) {
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .finance-tools > .tool-section:nth-of-type(even) .tool-icon {
+      order: 0;
+    }
+
+    .tool-row {
       grid-template-columns: 1fr;
-      gap: 1rem;
+      text-align: left;
     }
-    
-    .card-icon {
-      width: 60px;
-      height: 60px;
-      font-size: 1.5rem;
+
+    .icon-card {
+      width: 150px;
+      height: 150px;
+      animation-duration: 26s;
     }
-    
-    .card-icon-wrapper,
-    .card-content {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .icon-card,
+    .orbit-glow {
+      animation: none;
+    }
+
+    .icon-card:hover {
+      transform: none;
     }
   }
 </style>

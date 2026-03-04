@@ -8,10 +8,10 @@ description: "The page you're looking for might have been removed, renamed, or i
 <head>
   <meta http-equiv="refresh" content="1; url=/">
   <script>
-    // Redirect for both local development and GitHub Pages
+    // Redirect for both web hosting and local development
     (function() {
-      // Check if we're on GitHub Pages or local development
-      if (window.location.hostname.includes('github.io') || window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')) {
+      // Check if we're on web hosting or local development
+      if (window.location.hostname.includes('.io') || window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')) {
         // Redirect immediately
         window.location.replace('/');
       } else {

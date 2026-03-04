@@ -430,8 +430,9 @@ const S={all:[...FUNDS],filt:[...FUNDS],sel:[],charts:{}};
 
 // ── M2: API SERVICE ─────────────────────────────────────────
 async function initData(){
-  try{const r=await fetch('https://api.mfapi.in/mf',{signal:AbortSignal.timeout(5000)});if(r.ok)await r.json();}catch(e){}
-  S.filt=[...S.all];renderTbl(S.filt);
+  // Initialize with hardcoded data - API call removed to prevent loading issues
+  S.filt=[...S.all];
+  renderTbl(S.filt);
   document.getElementById('tload').style.display='none';
   document.getElementById('twrap').style.display='block';
 }

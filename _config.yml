@@ -1,4 +1,4 @@
-# RKoots Technical Knowledge Hub - GitHub Pages Compatible Configuration
+# RKoots Technical Knowledge Hub - Professional Web Configuration
 
 title: "RKoots - Technical Architecture & Engineering Leadership"
 description: "Technical knowledge hub featuring the latest technology news, developer tools, engineering insights, and step-by-step technical guides for senior developers and tech leaders."
@@ -10,7 +10,6 @@ author:
   name: "Rajkumar Venkataraman"
   email: "contact@rkoots.com"
   twitter: "rkoots"
-  github: "rkoots"
   linkedin: "rkoots"
 
 # SEO Configuration
@@ -24,7 +23,7 @@ lang: en
 timezone: Asia/Kolkata
 encoding: utf-8
 
-# Build Settings - GitHub Pages Compatible
+# Build Settings - Professional Web Hosting
 markdown: kramdown
 highlighter: rouge
 kramdown:
@@ -129,7 +128,6 @@ social:
     - https://rkoots.substack.com
     - https://twitter.com/rkoots
     - https://www.linkedin.com/in/rkoots/
-    - https://github.com/rkoots
     - https://dev.to/rkoots
 
 # Optional Front Matter
@@ -147,8 +145,7 @@ titles_from_headings:
   strip_title: true
   collections: false
 
-# GitHub Metadata
-github: [metadata]
+# Web Metadata
 
 # Analytics (placeholder - add your actual tracking codes)
 google_analytics: ""

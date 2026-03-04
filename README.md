@@ -54,9 +54,9 @@ To provide senior engineers, tech leads, and architects with practical, battle-t
 
 ## 🛠️ Technology Stack
 
-### Jekyll & GitHub Pages
+### Jekyll & Professional Web Hosting
 - **Jekyll 4.3** - Static site generator
-- **GitHub Pages** - Free hosting and CI/CD
+- **Professional Web Hosting** - Static site deployment
 - **Liquid Templates** - Dynamic content rendering
 - **Markdown** - Content authoring
 
@@ -76,7 +76,7 @@ To provide senior engineers, tech leads, and architects with practical, battle-t
 ## 📁 Project Structure
 
 ```
-rkoots.github.io/
+rkoots-technical-hub/
 ├── _config.yml                 # Jekyll configuration
 ├── index.html                  # Homepage
 ├── _layouts/                   # Page templates
@@ -120,8 +120,8 @@ rkoots.github.io/
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/rkoots/rkoots.github.io.git
-   cd rkoots.github.io
+   git clone https://your-repo-url.git
+   cd rkoots-technical-hub
    ```
 
 2. **Install Dependencies**
@@ -146,8 +146,8 @@ bundle exec jekyll build
 # Test the built site
 bundle exec htmlproofer ./_site
 
-# Deploy to GitHub Pages
-git push origin main
+# Deploy to web server
+# Follow your hosting provider's deployment instructions
 ```
 
 ## 📝 Content Guidelines
@@ -170,7 +170,7 @@ keywords: ["microservices architecture", "scalable systems"]
 show_toc: true
 programming_language: ["Python", "Java"]
 dependencies: ["Docker", "Kubernetes"]
-github_repo: "https://github.com/rkoots/example-code"
+repo_url: "https://your-repo-url.example-code"
 ---
 ```
 
@@ -271,13 +271,12 @@ github_repo: "https://github.com/rkoots/example-code"
 
 ### Professional Network
 - **LinkedIn**: [Rajkumar Venkataraman](https://linkedin.com/in/rkoots/)
-- **GitHub**: [rkoots](https://github.com/rkoots)
 - **Twitter**: [@rkoots](https://twitter.com/rkoots)
 - **Dev.to**: [rkoots](https://dev.to/rkoots)
 
 ### Community
 - **Newsletter**: Weekly technical insights
-- **GitHub Discussions**: Technical Q&A
+- **Community Forums**: Technical Q&A
 - **Comments**: Article discussions and feedback
 - **Email**: contact@rkoots.com
 
@@ -288,7 +287,7 @@ This site is open source and available under the [MIT License](LICENSE).
 ## 🙏 Acknowledgments
 
 - **Jekyll Team** - For the excellent static site generator
-- **GitHub Pages** - For free hosting and CI/CD
+- **Web Hosting Providers** - For reliable hosting services
 - **Font Awesome** - For the icon library
 - **Google Fonts** - For beautiful typography
 - **The Engineering Community** - For inspiration and feedback
@@ -297,4 +296,4 @@ This site is open source and available under the [MIT License](LICENSE).
 
 **Built with ❤️ for the engineering community**
 
-*If you find this technical knowledge hub helpful, please consider giving it a ⭐ on GitHub and sharing it with your fellow engineers.*
+*If you find this technical knowledge hub helpful, please consider sharing it with your fellow engineers.*
