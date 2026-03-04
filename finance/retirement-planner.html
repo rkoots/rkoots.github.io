@@ -1,13 +1,45 @@
 ---
-title: Cinematic Retirement Planner
+title: Retirement Planner | Advanced Financial Planning Tool
 permalink: /finance/retirement-planner/
+description: "Interactive 3D retirement planning calculator with Monte Carlo simulations, portfolio projections, and comprehensive financial wellness analysis. Plan your retirement with cinematic visualization."
+keywords: ["retirement planner", "financial calculator", "Monte Carlo simulation", "portfolio projection", "retirement planning", "financial wellness", "investment calculator", "wealth management", "early retirement", "FIRE calculator"]
+author: "Rajkumar Venkataraman"
+robots: "index, follow"
+og:title: "Retirement Planner - Advanced Financial Planning Tool"
+og:description: "Plan your retirement with interactive 3D visualization and Monte Carlo simulations. Comprehensive financial wellness analysis with portfolio projections."
+og:type: "website"
+twitter:card: "summary_large_image"
+twitter:title: "Retirement Planner - Advanced Financial Planning Tool"
+twitter:description: "Interactive retirement planning with 3D visualization and Monte Carlo simulations"
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinematic Retirement Simulator</title>
+    <title>Retirement Simulator - Advanced Financial Planning Tool</title>
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Retirement Planner",
+      "description": "Interactive 3D retirement planning calculator with Monte Carlo simulations and portfolio projections",
+      "url": "https://rkoots.github.io/finance/retirement-planner/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Person",
+        "name": "Rajkumar Venkataraman"
+      }
+    }
+    </script>
     
     <!-- CDNs -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,7 +48,15 @@ permalink: /finance/retirement-planner/
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        body { margin: 0; overflow: hidden; background-color: #050510; color: white; font-family: 'Inter', sans-serif; }
+        body { 
+            margin: 0; 
+            overflow-x: hidden; 
+            background-color: #050510; 
+            color: white; 
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            position: relative;
+        }
         
         /* Custom Range Slider */
         input[type=range] {
@@ -57,9 +97,109 @@ permalink: /finance/retirement-planner/
             text-shadow: 0 0 10px rgba(0, 255, 204, 0.8);
         }
 
-        #canvas-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
+        #canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        #ui-layer { position: relative; z-index: 10; pointer-events: none; min-height: 100vh; }
         .pointer-events-auto { pointer-events: auto; }
+        
+        /* Financial Wellness Section */
+        .financial-wellness {
+            background: rgba(15, 15, 25, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            margin: 2rem auto;
+            max-width: 4xl;
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+        
+        .wellness-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .wellness-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        
+        .wellness-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 255, 204, 0.2);
+        }
+        
+        .wellness-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            color: #00ffcc;
+        }
+        
+        .wellness-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+        
+        .wellness-description {
+            font-size: 0.9rem;
+            color: #b3b3b3;
+            line-height: 1.5;
+        }
+        
+        /* SEO Content Section */
+        .seo-content {
+            background: rgba(10, 10, 20, 0.9);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin: 2rem auto;
+            max-width: 4xl;
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+        
+        .seo-content h2 {
+            color: #00ffcc;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .seo-content h3 {
+            color: #ffffff;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.75rem 0;
+        }
+        
+        .seo-content p {
+            color: #b3b3b3;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .seo-content ul {
+            color: #b3b3b3;
+            line-height: 1.6;
+            margin-left: 1.5rem;
+        }
+        
+        .seo-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer separation */
+        .footer-spacer {
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, rgba(5, 5, 16, 0.8));
+        }
     </style>
 </head>
 <body>
@@ -71,7 +211,7 @@ permalink: /finance/retirement-planner/
         <!-- Header -->
         <div class="absolute top-6 left-8 pointer-events-auto">
             <h1 class="text-2xl font-light tracking-widest text-glow"><i class="fa-solid fa-infinity mr-2"></i> FUTURA</h1>
-            <p class="text-xs text-gray-400 tracking-wider mt-1 uppercase">Cinematic Wealth Simulation</p>
+            <p class="text-xs text-gray-400 tracking-wider mt-1 uppercase">Wealth Simulation</p>
         </div>
 
         <!-- Wizard Input Panel -->
@@ -169,6 +309,85 @@ permalink: /finance/retirement-planner/
                 </button>
             </div>
         </div>
+
+        <!-- Financial Wellness Section -->
+        <div class="financial-wellness pointer-events-auto">
+            <h2 class="text-2xl font-bold text-center mb-4 text-glow">Financial Wellness Guidelines</h2>
+            <div class="wellness-grid">
+                <div class="wellness-card">
+                    <div class="wellness-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+                    <h3 class="wellness-title">Emergency Fund</h3>
+                    <p class="wellness-description">Maintain 6-12 months of expenses in liquid savings. This protects against job loss, medical emergencies, and unexpected costs.</p>
+                </div>
+                <div class="wellness-card">
+                    <div class="wellness-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3 class="wellness-title">Investment Diversification</h3>
+                    <p class="wellness-description">Spread investments across stocks, bonds, real estate, and gold. Consider index funds for low-cost diversification.</p>
+                </div>
+                <div class="wellness-card">
+                    <div class="wellness-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="wellness-title">Insurance Coverage</h3>
+                    <p class="wellness-description">Ensure adequate health, life, and disability insurance. Protect your family and assets from unexpected events.</p>
+                </div>
+                <div class="wellness-card">
+                    <div class="wellness-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h3 class="wellness-title">Financial Education</h3>
+                    <p class="wellness-description">Continuously learn about personal finance, investing, and tax planning. Knowledge is your best investment.</p>
+                </div>
+                <div class="wellness-card">
+                    <div class="wellness-icon"><i class="fa-solid fa-home"></i></div>
+                    <h3 class="wellness-title">Home Ownership</h3>
+                    <p class="wellness-description">Consider real estate as part of your portfolio. Home loans offer tax benefits and property can appreciate over time.</p>
+                </div>
+                <div class="wellness-card">
+                    <div class="wellness-icon"><i class="fa-solid fa-calculator"></i></div>
+                    <h3 class="wellness-title">Tax Planning</h3>
+                    <p class="wellness-description">Optimize tax deductions under 80C, 80D, and other sections. Use tax-saving investments to reduce your liability.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Content Section -->
+        <div class="seo-content pointer-events-auto">
+            <h2>Comprehensive Retirement Planning Guide</h2>
+            
+            <h3>Why Retirement Planning Matters</h3>
+            <p>Retirement planning is crucial for financial security and independence in your golden years. Our advanced retirement calculator uses Monte Carlo simulations to provide realistic projections based on market volatility and historical returns. This 3D visualization helps you understand the power of compound interest and the importance of early planning.</p>
+            
+            <h3>Key Features of Our Retirement Planner</h3>
+            <ul>
+                <li><strong>Monte Carlo Simulations:</strong> Run 100 scenarios to test your retirement plan against market volatility</li>
+                <li><strong>3D Visualization:</strong> Watch your wealth grow with animations and interactive charts</li>
+                <li><strong>Inflation Adjustments:</strong> Realistic projections account for rising living costs</li>
+                <li><strong>Scenario Comparison:</strong> Compare conservative vs aggressive investment strategies</li>
+                <li><strong>Success Probability:</strong> Understand the likelihood of achieving your retirement goals</li>
+                <li><strong>FIRE Calculator:</strong> Special mode for Financial Independence, Retire Early planning</li>
+            </ul>
+            
+            <h3>Retirement Planning Best Practices</h3>
+            <p>Successful retirement planning requires a holistic approach. Start by assessing your current financial situation, including assets, liabilities, and monthly expenses. Use our calculator to determine how much you need to save monthly to reach your retirement goals. Consider factors like inflation, expected returns, and desired retirement lifestyle.</p>
+            
+            <h3>Investment Strategies for Retirement</h3>
+            <p>Diversification is key to long-term investment success. Consider a mix of equity mutual funds, debt instruments, and real estate. Young investors can take more risk with higher equity allocation, while those nearing retirement should shift towards conservative options. Systematic Investment Plans (SIPs) offer rupee cost averaging and disciplined investing.</p>
+            
+            <h3>Tax-Efficient Retirement Planning</h3>
+            <p>Maximize tax benefits through instruments like PPF, EPF, NPS, and tax-saving mutual funds under Section 80C. Consider the tax implications of your withdrawal strategy in retirement. Long-term capital gains on equity are taxed differently than debt investments, so plan your asset allocation accordingly.</p>
+            
+            <h3>Common Retirement Planning Mistakes to Avoid</h3>
+            <ul>
+                <li>Starting too late - begin investing in your 20s if possible</li>
+                <li>Underestimating expenses - account for healthcare and inflation</li>
+                <li>Too conservative investments - balance safety with growth</li>
+                <li>Ignoring emergency funds - maintain liquidity for contingencies</li>
+                <li>No regular review - adjust your plan based on life changes</li>
+            </ul>
+            
+            <h3>Retirement Planning for Different Life Stages</h3>
+            <p>Your retirement strategy should evolve with your age and life circumstances. In your 20s and 30s, focus on aggressive growth and building habits. In your 40s, balance growth with wealth preservation. In your 50s, shift towards capital protection and retirement income planning. Use our calculator to model different scenarios and adjust your strategy accordingly.</p>
+        </div>
+
+        <!-- Footer Spacer -->
+        <div class="footer-spacer"></div>
 
     </div>
 
@@ -408,7 +627,7 @@ permalink: /finance/retirement-planner/
             updateUI();
         }
 
-        // --- 7. CINEMATIC SIMULATION SEQUENCE ---
+        // --- 7. SIMULATION SEQUENCE ---
 
         function startSimulation() {
             isSimulating = true;
