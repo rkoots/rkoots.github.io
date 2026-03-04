@@ -9,54 +9,103 @@ import requests
 BASE_DIR = Path(__file__).resolve().parent
 ROOT_DIR = BASE_DIR.parent
 POSTS_DIR = ROOT_DIR / "blog" / "_posts"
-HISTORY_FILE = BASE_DIR / "blog_history.json"
 
 # Gemini API configuration
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 FORCE_RUN = os.getenv("FORCE_RUN", "false").lower() == "true"
 
+import random
 
-def load_blog_history() -> List[str]:
-    """Load previously used topics to avoid duplicates"""
-    if not HISTORY_FILE.exists():
-        return []
-    try:
-        with open(HISTORY_FILE, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            return data.get('used_topics', [])
-    except (json.JSONDecodeError, KeyError):
-        return []
+TOPICS = [
+    "Best AI testing tools for developers",
+    "Jekyll SEO checklist for GitHub Pages",
+    "Free automation tools for solo founders",
+    "Claude vs ChatGPT for engineering workflows",
+    "AI-powered code review tools and practices",
+    "Top MLOps platforms for startup teams",
+    "How to use GitHub Actions for daily automation",
+    "Automating social media for tech blogs",
+    "Best open-source LLMs for local development",
+    "Prompt engineering techniques for software engineers",
+    "Building RAG applications with LangChain",
+    "Integrating AI into CI/CD pipelines",
+    "Developer productivity tools powered by AI",
+    "Cost optimization for cloud machine learning",
+    "Serverless architecture for AI applications",
+    "Vector databases comparison for RAG",
+    "Fine-tuning vs RAG for enterprise use cases",
+    "AI-assisted technical writing and documentation",
+    "Security considerations for LLM applications",
+    "Best VS Code extensions for AI development",
+    "Automated testing frameworks for React applications",
+    "Python web scraping with AI integration",
+    "Deploying machine learning models to production",
+    "Top database tools for modern web apps",
+    "AI image generation APIs for developers",
+    "Building chatbots with Next.js and OpenAI",
+    "Best practices for API design in 2024",
+    "Monitoring and observability for AI systems",
+    "Tech stack choices for solo developers",
+    "Automating DevOps workflows with Python",
+    "Best static site generators for developer blogs",
+    "Optimizing Core Web Vitals for tech blogs",
+    "Data engineering tools for small teams",
+    "Machine learning algorithms every developer should know",
+    "Setting up local AI development environments",
+    "Evaluating LLM performance and metrics",
+    "AI tools for database query optimization",
+    "Frontend frameworks comparison for AI apps",
+    "Best practices for storing API keys and secrets",
+    "Automated dependency updates and security scanning",
+    "Building scalable microservices with AI capabilities",
+    "Creating personalized user experiences with ML",
+    "AI tools for software architecture design",
+    "Using AI for log analysis and debugging",
+    "Continuous deployment strategies for AI models",
+    "Best practices for technical SEO",
+    "Monetization strategies for tech blogs",
+    "Open-source alternatives to enterprise AI tools",
+    "Future trends in software engineering",
+    "Writing efficient prompts for code generation",
+    "Building multimodal AI applications",
+    "Privacy-first machine learning techniques",
+    "Automated code refactoring with AI"
+]
 
-
-def save_topic_to_history(topic: str):
-    """Save topic to history to prevent duplicates"""
-    history = load_blog_history()
-    if topic not in history:
-        history.append(topic)
-        # Keep only last 50 topics
-        history = history[-50:]
-        
-        data = {'used_topics': history}
-        with open(HISTORY_FILE, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
-
-
-def get_trending_ai_topics() -> List[str]:
-    """Generate trending AI topics using Gemini"""
-    if not GEMINI_API_KEY:
-        print("Warning: GEMINI_API_KEY not set, using fallback topics")
-        return [
-            "AI Code Assistants in Software Development",
-            "Machine Learning in Production Systems",
-            "Large Language Models for Business Applications",
-            "AI Ethics and Responsible AI Development",
-            "Automated Testing with AI Tools"
-        ]
+def generate_blog_content_with_gemini(topic: str, now_utc: datetime.datetime) -> Tuple[str, str]:
+    """Generate blog title and content using Gemini API"""
+    current_date = now_utc.strftime("%B %d, %Y")
     
-    prompt = """Generate 5 trending AI/ML topics that are currently popular in the tech industry. 
-Focus on new tools, techniques, or methodologies. Return only a JSON array of topic strings.
-Topics should be specific and interesting for technical audiences.
-Example: ["AI-powered debugging tools", "Retrieval Augmented Generation best practices", "MLOps automation"]
+    if not GEMINI_API_KEY:
+        return f"{topic} - Latest Updates", generate_fallback_content(topic)
+    
+    prompt = f"""Today is {current_date}. 
+You are an expert technical writer and researcher. 
+Please research the internet for the latest news, updates, and trends regarding exactly this topic: "{topic}".
+
+Based on the latest information, please generate:
+1. A catchy, news-driven blog post title
+2. A comprehensive blog post of 1500-2500 words.
+
+Requirements for the blog post:
+- Target audience: Software engineers, developers, and technical leaders
+- Word count: 1500 to 2500 words
+- Tone: Professional, authoritative, and engaging
+- Structure MUST include:
+  - An engaging Introduction
+  - Table of Contents
+  - Main Content (multiple sections with deep dives)
+  - Comparison tables (where applicable, using Markdown tables)
+  - Internal linking suggestions (placeholders like `[Internal Link: Related Topic](/)`)
+  - Frequently Asked Questions (FAQs) section at the end
+  - Conclusion
+- Include practical examples, code snippets (if relevant), and actionable insights.
+- Format the entire response in Markdown.
+
+Please format your response EXACTLY as follows:
+TITLE: [Your generated title here]
+CONTENT:
+[Your markdown content here]
 """
     
     try:
@@ -72,91 +121,30 @@ Example: ["AI-powered debugging tools", "Retrieval Augmented Generation best pra
         
         if response.status_code == 200:
             result = response.json()
-            content = result['candidates'][0]['content']['parts'][0]['text']
-            # Extract JSON array from response
+            text = result['candidates'][0]['content']['parts'][0]['text']
+            
+            # Parse TITLE and CONTENT
             import re
-            json_match = re.search(r'\[.*?\]', content, re.DOTALL)
-            if json_match:
-                topics = json.loads(json_match.group())
-                return topics[:5]  # Ensure max 5 topics
+            title_match = re.search(r'TITLE:\s*(.*?)\nCONTENT:', text, re.IGNORECASE | re.DOTALL)
+            if title_match:
+                title = title_match.group(1).strip()
+                content = text[title_match.end():].strip()
+                # Clean up title if it has quotes
+                title = title.strip('"\'')
+                return title, content
+            else:
+                # Fallback parsing
+                lines = text.split('\n')
+                title = lines[0].replace('#', '').strip()
+                content = '\n'.join(lines[1:]).strip()
+                return title, content
         
-        print(f"Gemini API error: {response.status_code}")
-        return get_fallback_topics()
-        
-    except Exception as e:
-        print(f"Error fetching topics from Gemini: {e}")
-        return get_fallback_topics()
-
-
-def get_fallback_topics() -> List[str]:
-    """Fallback topics when Gemini fails"""
-    return [
-        "AI Code Generation Tools Comparison",
-        "Building Production-Ready LLM Applications",
-        "AI Testing Strategies for Modern Development",
-        "Machine Learning Operations Best Practices",
-        "AI-Powered DevOps Automation"
-    ]
-
-
-def select_new_topic() -> str:
-    """Select a topic that hasn't been used before"""
-    used_topics = load_blog_history()
-    trending_topics = get_trending_ai_topics()
-    
-    # Find first unused topic
-    for topic in trending_topics:
-        if topic not in used_topics:
-            save_topic_to_history(topic)
-            return topic
-    
-    # If all trending topics are used, use a fallback with date
-    topic = f"AI Insights - {datetime.datetime.now().strftime('%Y-%m-%d')}"
-    save_topic_to_history(topic)
-    return topic
-
-
-def generate_blog_content_with_gemini(topic: str) -> str:
-    """Generate blog content using Gemini API"""
-    if not GEMINI_API_KEY:
-        return generate_fallback_content(topic)
-    
-    prompt = f"""Write a comprehensive blog post about: "{topic}"
-
-Requirements:
-- Target audience: Software engineers and technical leaders
-- Length: 800-1200 words
-- Include practical examples and code snippets where relevant
-- Structure: Introduction, Main Content (2-3 sections), Conclusion
-- Tone: Professional but engaging
-- Include actionable insights
-- Format in markdown
-
-Focus on current trends, best practices, and real-world applications.
-"""
-    
-    try:
-        response = requests.post(
-            f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={GEMINI_API_KEY}",
-            headers={'Content-Type': 'application/json'},
-            json={
-                "contents": [{
-                    "parts": [{"text": prompt}]
-                }]
-            }
-        )
-        
-        if response.status_code == 200:
-            result = response.json()
-            content = result['candidates'][0]['content']['parts'][0]['text']
-            return content
-        
-        print(f"Gemini content generation error: {response.status_code}")
-        return generate_fallback_content(topic)
+        print(f"Gemini content generation error: {response.status_code} - {response.text}")
+        return f"{topic} - Latest Updates", generate_fallback_content(topic)
         
     except Exception as e:
         print(f"Error generating content with Gemini: {e}")
-        return generate_fallback_content(topic)
+        return f"{topic} - Latest Updates", generate_fallback_content(topic)
 
 
 def generate_fallback_content(topic: str) -> str:
@@ -208,11 +196,7 @@ def slugify(value: str) -> str:
     return re.sub(r"[\s_-]+", "-", slug)
 
 
-def build_title(topic: str, now_utc: datetime.datetime) -> str:
-    return f"{topic} - {now_utc.strftime('%d %b %Y')}"
-
-
-def build_markdown_post(topic: str, content: str, now_utc: datetime.datetime) -> str:
+def build_markdown_post(title: str, content: str, now_utc: datetime.datetime) -> str:
     date_str = now_utc.strftime("%Y-%m-%d")
     pub_str = now_utc.strftime("%Y-%m-%d %H:%M UTC")
     
@@ -226,7 +210,7 @@ def build_markdown_post(topic: str, content: str, now_utc: datetime.datetime) ->
     
     return f"""---
 layout: default
-title: "{topic} - {now_utc.strftime('%d %b %Y')}"
+title: "{title}"
 date: {date_str}
 author: Rajkumar V.
 categories: [AI, Technology, Engineering]
@@ -245,22 +229,22 @@ def is_publish_day(now_utc: datetime.datetime) -> bool:
 def generate_post_file(now_utc: datetime.datetime) -> Tuple[Path, str]:
     POSTS_DIR.mkdir(parents=True, exist_ok=True)
     
-    # Select a new trending topic
-    topic = select_new_topic()
+    # Select a new random topic
+    topic = random.choice(TOPICS)
     print(f"Selected topic: {topic}")
     
     # Generate content using Gemini
-    content = generate_blog_content_with_gemini(topic)
+    title, content = generate_blog_content_with_gemini(topic, now_utc)
     print(f"Generated content length: {len(content)} characters")
     
     # Build title and markdown
-    title = build_title(topic, now_utc)
     slug = slugify(title)
-    file_name = f"{now_utc.strftime('%Y-%m-%d')}-{slug}.md"
+    # Ensure unique filename with timestamp
+    file_name = f"{now_utc.strftime('%Y-%m-%d')}-{slug}-{int(now_utc.timestamp())}.md"
     post_path = POSTS_DIR / file_name
     
     # Create and save the post
-    post_markdown = build_markdown_post(topic, content, now_utc)
+    post_markdown = build_markdown_post(title, content, now_utc)
     post_path.write_text(post_markdown, encoding="utf-8")
     
     return post_path, title
