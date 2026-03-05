@@ -8,203 +8,127 @@ permalink: /sitemap.xml
     <!-- Homepage -->
     <url>
         <loc>https://rkoots.github.io/</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
 
-    <!-- About Page -->
+    <!-- Main Pages -->
     <url>
         <loc>https://rkoots.github.io/about/</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.80</priority>
     </url>
 
-    <!-- CV Page -->
     <url>
         <loc>https://rkoots.github.io/cv/</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.80</priority>
     </url>
 
-    <!-- Contact (CV section) -->
-    <url>
-        <loc>https://rkoots.github.io/cv/#contact</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.60</priority>
-    </url>
-
-    <!-- Sitemap -->
-    <url>
-        <loc>https://rkoots.github.io/sitemap/</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.70</priority>
-    </url>
-
-    <!-- Projects Page -->
-    <url>
-        <loc>https://rkoots.github.io/projects/</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.80</priority>
-    </url>
-
-    <!-- Terms of Service -->
-    <url>
-        <loc>https://rkoots.github.io/terms/</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.50</priority>
-    </url>
-
-    <!-- Tools Page -->
-    <url>
-        <loc>https://rkoots.github.io/tools/</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.60</priority>
-    </url>
-
-    <!-- Insights Page -->
-    <url>
-        <loc>https://rkoots.github.io/insights/</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.60</priority>
-    </url>
-
-    <!-- Guide Page -->
-    <url>
-        <loc>https://rkoots.github.io/guide/</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.80</priority>
-    </url>
-
-    <!-- Resume Page -->
     <url>
         <loc>https://rkoots.github.io/resume/</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.70</priority>
     </url>
 
-    <!-- Blog Page -->
+    <url>
+        <loc>https://rkoots.github.io/projects/</loc>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
+
+    <url>
+        <loc>https://rkoots.github.io/terms/</loc>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.30</priority>
+    </url>
+
+    <!-- Category Pages -->
     <url>
         <loc>https://rkoots.github.io/blog/</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.75</priority>
-    </url>
-
-    <!-- Tools Page -->
-    <!-- guide  Page -->
-    <url>
-        <loc>https://rkoots.github.io/styleguide/</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.70</priority>
-    </url>
-    <!-- Robots.txt -->
-    <url>
-        <loc>https://rkoots.github.io/robots.txt</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <!-- Ads.txt -->
-    <url>
-        <loc>https://rkoots.github.io/ads.txt</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/cppguide</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/csharp-style</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/Rguide</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/htmlcssguide</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/javaguide</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/jsguide</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/tsguide</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/xmlstyle</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/jsoncstyleguide.xml</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/objcguide</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/pyguide</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/shellguide</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/styleguide/angularjs-style</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-
-    <url>
-        <loc>https://rkoots.github.io/income-tax-calculator</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/finance</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://rkoots.github.io/finance/market/</loc>
-        <lastmod>2025-05-12</lastmod>
-        <priority>0.30</priority>
-    </url>
-
-    {% assign all_posts = site.posts | sort: "date" | reverse %}
-    {% for post in all_posts %}
-        <url>
-            <loc>{{ site.url }}{{ post.url }}</loc>
-            <lastmod>{{ post.date | date_to_rfc822 }}</lastmod>
-            <priority>0.60</priority>
-        </url>
-    {% endfor %}
-
-
-    <url>
-        <loc>https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6982545983951781888</loc>
-        <lastmod>2025-06-04</lastmod>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>daily</changefreq>
         <priority>0.90</priority>
     </url>
 
+    <url>
+        <loc>https://rkoots.github.io/tools/</loc>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
+
+    <url>
+        <loc>https://rkoots.github.io/guide/</loc>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
+
+    <url>
+        <loc>https://rkoots.github.io/insights/</loc>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
+
+    <url>
+        <loc>https://rkoots.github.io/finance/</loc>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.75</priority>
+    </url>
+
+    <url>
+        <loc>https://rkoots.github.io/styleguide/</loc>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.60</priority>
+    </url>
+
+    <!-- Finance Sub-pages -->
+    <url>
+        <loc>https://rkoots.github.io/finance/market/</loc>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.75</priority>
+    </url>
+
+    <!-- Tools Sub-pages -->
+    <url>
+        <loc>https://rkoots.github.io/income-tax-calculator/</loc>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.70</priority>
+    </url>
+
+    <!-- Style Guide Pages -->
+    {% for page in site.pages %}
+      {% if page.url contains '/styleguide/' and page.url != '/styleguide/' %}
+    <url>
+        <loc>https://rkoots.github.io{{ page.url | remove: '.html' | append: '/' }}</loc>
+        <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.50</priority>
+    </url>
+      {% endif %}
+    {% endfor %}
+
+    <!-- Blog Posts - Only canonical URLs, no parameters -->
+    {% assign all_posts = site.posts | sort: "date" | reverse %}
+    {% for post in all_posts %}
+    <url>
+        <loc>{{ site.url }}{{ post.url }}</loc>
+        <lastmod>{{ post.date | date: "%Y-%m-%d" }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.70</priority>
+    </url>
+    {% endfor %}
 
 </urlset>
