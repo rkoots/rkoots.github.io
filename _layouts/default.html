@@ -46,6 +46,9 @@
   <!-- RSS Feed -->
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
 
+  <!-- Structured Data for SEO -->
+  {% include structured_data.html %}
+
   <!-- Analytics -->
   {% if site.google_analytics %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
@@ -100,6 +103,7 @@
   </button>
 
   <!-- JavaScript -->
+  <script src="{{ '/assets/js/canonical-enforcer.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 
   <!-- Analytics -->

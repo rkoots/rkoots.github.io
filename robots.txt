@@ -1,4 +1,18 @@
 User-agent: *
 Allow: /
 
+# Block URL parameters that cause duplicate content
+Disallow: /*?src=*
+Disallow: /*?utm_*
+Disallow: /*?ref=*
+Disallow: /*?fbclid=*
+Disallow: /*?gclid=*
+
+# Allow crawling of all canonical pages
+Allow: /blog/
+Allow: /tools/
+Allow: /guide/
+Allow: /insights/
+Allow: /finance/
+
 Sitemap: https://rkoots.github.io/sitemap.xml

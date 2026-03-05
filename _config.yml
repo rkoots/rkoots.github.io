@@ -36,6 +36,18 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
+# Sitemap Configuration
+sitemap:
+  exclude:
+    - "/404.html"
+    - "/TechNews-backup/**"
+  include:
+    - "/blog/**"
+    - "/tools/**"
+    - "/guide/**"
+    - "/insights/**"
+    - "/finance/**"
+
 # Permalink structure
 permalink: /:categories/:year/:month/:day/:title/
 
