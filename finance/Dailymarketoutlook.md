@@ -1,9 +1,9 @@
 ---
 layout: default
-title: "Daily Market Outlook - Nifty, Bank Nifty, Top Gainers, Losers, Market Sentiment and News"
+title: "Daily Market Outlook - Nifty & Bank Nifty Live"
 categories: finance
 permalink: /finance/daily-market-outlook/
-excerpt: Daily Indian market dashboard with Nifty, Bank Nifty, gainers/losers, and sentiment signals.
+excerpt: Live Indian market dashboard with real-time Nifty, Bank Nifty indices, top gainers/losers, and technical sentiment signals.
 author: "Rajkumar V"
 summary: "Daily Market Outlook with financial news, trends, Nifty, Bank Nifty, momentum stocks, and more."
 keywords: [Daily Market Outlook, Nifty, Bank Nifty, Top Gainers, Top Losers, Market Sentiment, Finance News, Sector-wise Market Performance]

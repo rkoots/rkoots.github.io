@@ -1,8 +1,8 @@
 ---
 layout: default
-excerpt: A powerful developer tool for enhanced productivity and workflow optimization
+excerpt: Advanced finance planner with investment calculator, budget analyzer, and wealth projection tools for personalized financial planning.
 date: 2026-01-04
-title: Finance Planning App - Investment Calculator & Budget Planner
+title: Finance Planner - Investment & Budget Calculator
 categories: finance
 permalink: /finance/finance-planner/
 
