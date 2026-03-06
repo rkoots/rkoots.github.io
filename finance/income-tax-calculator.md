@@ -2,11 +2,11 @@
 layout: default
 excerpt: A powerful developer tool for enhanced productivity and workflow optimization
 date: 2026-01-05
-title: FREE Income Tax Calculator
+title: TAXORA - FREE Income Tax Calculator
 categories: finance
 permalink: /finance/income-tax-calculator/
 
-description: Calculate your income tax instantly for FY 2025-26 & 2024-25. Compare old vs new tax regime, maximize deductions under 80C, 80D, and get accurate estimates with cess and surcharge.
+description: TAXORA - Calculate your income tax instantly for FY 2025-26 & 2024-25. Compare old vs new tax regime, maximize deductions under 80C, 80D, and get accurate estimates with cess and surcharge.
 keywords: [income tax calculator, tax calculator India, FY 2025-26, AY 2026-27, old vs new tax regime, section 80C calculator, 80D deduction, income tax slabs, tax saving, ITR calculation, rebate 87A, surcharge calculator, cess calculator, VDA tax, digital assets tax]
 author: Rajkumar Koota
 robots: index, follow
@@ -135,7 +135,7 @@ image: /assets/images/income-tax-calculator-og.jpg
 
 <section itemscope itemtype="https://schema.org/WebApplication">
   <header>
-    <h1 itemprop="name">Income Tax Calculator India 2025-26</h1>
+    <h1><span style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 8px 16px; border-radius: 12px; font-weight: 700; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); display: inline-block;">🧾 TAXORA</span> - Income Tax Calculator India 2025-26</h1>
     <p itemprop="description"><strong>🇮🇳 Free Income Tax Calculator for FY 2025-26 (AY 2026-27)</strong> - Compare old vs new tax regime, calculate deductions under 80C, 80D, and get instant tax estimates with surcharge & cess. Updated with Budget 2025 changes.</p>
     <meta itemprop="dateModified" content="2025-03-02">
   </header>

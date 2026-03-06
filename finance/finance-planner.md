@@ -2,11 +2,11 @@
 layout: default
 excerpt: Advanced finance planner with investment calculator, budget analyzer, and wealth projection tools for personalized financial planning.
 date: 2026-01-04
-title: Finance Planner - Investment & Budget Calculator
+title: CAPITRA - Finance Planner
 categories: finance
 permalink: /finance/finance-planner/
 
-description: Plan your investments, control spending, and visualize your financial future with our advanced finance planning calculator. Get personalized investment strategies, budget analysis, and wealth projection tools.
+description: Plan your investments, control spending, and visualize your financial future with our advanced finance planning calculator. Get personalized investment strategies, budget analysis, and wealth projection tools.  Finance Planner - Investment & Budget Calculator
 keywords: finance planner, investment calculator, budget planner, financial planning, investment strategy, wealth management, retirement planning, tax saving, mutual funds, SIP calculator, emergency fund, financial goals, expense tracker, savings calculator, investment portfolio, financial advisor, personal finance, money management, investment analysis, risk assessment, financial freedom, wealth building, investment returns, compound interest calculator, retirement corpus, tax planning, financial literacy, investment tips, budget management, expense optimization, financial security, investment planning, wealth projection, financial dashboard
 ---
 
@@ -363,7 +363,7 @@ input[type="range"]::-moz-range-thumb {
 
 <div class="finance-container">
   <div class="header">
-    <h1>💰 Advanced Finance Planner</h1>
+    <h1><span style="background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; padding: 8px 16px; border-radius: 12px; font-weight: 700; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); display: inline-block;">💰 CAPITRA</span> - Advanced Finance Planner</h1>
     <p>Plan your investments, control spending, and visualize your financial future with interactive 3D analytics</p>
     <p style="font-size: 0.9em; opacity: 0.8; margin-top: 10px;">✅ Free Financial Planning Tool | 📊 Real-time Investment Analysis | 🎯 Personalized Wealth Strategies | 📈 3D Visualization Charts</p>
   </div>

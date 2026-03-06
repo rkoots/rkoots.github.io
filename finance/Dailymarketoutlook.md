@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "Daily Market Outlook - Nifty & Bank Nifty Live"
+title: "PULSAR - Market Outlook"
 categories: finance
 permalink: /finance/daily-market-outlook/
 excerpt: Live Indian market dashboard with real-time Nifty, Bank Nifty indices, top gainers/losers, and technical sentiment signals.
 author: "Rajkumar V"
-summary: "Daily Market Outlook with financial news, trends, Nifty, Bank Nifty, momentum stocks, and more."
+summary: "Daily Market Outlook with financial news, trends, Nifty, Bank Nifty, momentum stocks, and more. Daily Market Outlook - Nifty & Bank Nifty Live"
 keywords: [Daily Market Outlook, Nifty, Bank Nifty, Top Gainers, Top Losers, Market Sentiment, Finance News, Sector-wise Market Performance]
 tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, Sector-wise Performance, Top Gainers, Top Losers]
 ---
@@ -18,10 +18,11 @@ tags: [Daily Market Outlook, Nifty, Bank Nifty, Finance News, Market Sentiment, 
   <div class="hero-grid">
     <header class="outlook-hero reveal">
       <p class="chip">LIVE • TRADING</p>
-      <h1>Daily Market Outlook</h1>
+      <h1><span style="background: linear-gradient(135deg, #66c0ff, #4a90e2); color: white; padding: 8px 16px; border-radius: 12px; font-weight: 700; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(102, 192, 255, 0.3); display: inline-block;">⚡ PULSAR</span> - Market Outlook</h1>
       <p>
         Browser-side realtime pulse for your core stock universe + ETFs. Includes breadth,
         momentum, risk-bucket heat, and top movers from TradingView India scanner.
+        Daily Market Outlook - Nifty & Bank Nifty Live
       </p>
       <div class="hero-meta">
         <span id="lastRefresh">Last refresh: --</span>
