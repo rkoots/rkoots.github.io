@@ -18,10 +18,46 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
         <div class="tool-card">
           <div class="tool-header">
             <div class="tool-icon">
-              {% if post.icon %}
-                <i class="{{ post.icon }}"></i>
+              {% if post.logo_svg %}
+                <img class="tool-icon-img" src="{{ post.logo_svg | relative_url }}" alt="{{ post.title }} logo">
               {% else %}
-                <i class="fas fa-tools"></i>
+                {% assign title_len = post.title | size %}
+                {% assign seed_len = post.url | size %}
+                {% assign logo_seed = title_len | plus: seed_len | modulo: 6 %}
+                {% assign icon_a = post.title | strip_html | slice: 0, 1 | upcase %}
+                {% assign icon_b = post.title | remove: ' ' | slice: 1, 1 | upcase %}
+                {% case logo_seed %}
+                  {% when 0 %}
+                    {% assign logo_c1 = '#0ea5e9' %}
+                    {% assign logo_c2 = '#6366f1' %}
+                  {% when 1 %}
+                    {% assign logo_c1 = '#10b981' %}
+                    {% assign logo_c2 = '#06b6d4' %}
+                  {% when 2 %}
+                    {% assign logo_c1 = '#f59e0b' %}
+                    {% assign logo_c2 = '#ef4444' %}
+                  {% when 3 %}
+                    {% assign logo_c1 = '#8b5cf6' %}
+                    {% assign logo_c2 = '#ec4899' %}
+                  {% when 4 %}
+                    {% assign logo_c1 = '#14b8a6' %}
+                    {% assign logo_c2 = '#22c55e' %}
+                  {% else %}
+                    {% assign logo_c1 = '#f97316' %}
+                    {% assign logo_c2 = '#eab308' %}
+                {% endcase %}
+                <svg class="tool-icon-svg" viewBox="0 0 64 64" role="img" aria-label="{{ post.title }} logo">
+                  <defs>
+                    <linearGradient id="tool-grad-{{ forloop.index }}" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="{{ logo_c1 }}"></stop>
+                      <stop offset="100%" stop-color="{{ logo_c2 }}"></stop>
+                    </linearGradient>
+                  </defs>
+                  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#tool-grad-{{ forloop.index }})"></rect>
+                  <circle cx="50" cy="16" r="6" fill="rgba(255,255,255,0.22)"></circle>
+                  <path d="M10 48 L30 28 L40 38 L54 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-linecap="round"></path>
+                  <text x="32" y="39" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#ffffff">{{ icon_a }}{{ icon_b }}</text>
+                </svg>
               {% endif %}
             </div>
             <div class="tool-meta">
@@ -111,10 +147,46 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
         {% if is_ai_tool %}
         <div class="featured-card">
           <div class="featured-icon">
-            {% if post.icon %}
-              <i class="{{ post.icon }}"></i>
+            {% if post.logo_svg %}
+              <img class="featured-icon-img" src="{{ post.logo_svg | relative_url }}" alt="{{ post.title }} logo">
             {% else %}
-              <i class="fas fa-robot"></i>
+              {% assign ft_title_len = post.title | size %}
+              {% assign ft_seed_len = post.url | size %}
+              {% assign ft_logo_seed = ft_title_len | plus: ft_seed_len | modulo: 6 %}
+              {% assign ft_icon_a = post.title | strip_html | slice: 0, 1 | upcase %}
+              {% assign ft_icon_b = post.title | remove: ' ' | slice: 1, 1 | upcase %}
+              {% case ft_logo_seed %}
+                {% when 0 %}
+                  {% assign ft_logo_c1 = '#0ea5e9' %}
+                  {% assign ft_logo_c2 = '#6366f1' %}
+                {% when 1 %}
+                  {% assign ft_logo_c1 = '#10b981' %}
+                  {% assign ft_logo_c2 = '#06b6d4' %}
+                {% when 2 %}
+                  {% assign ft_logo_c1 = '#f59e0b' %}
+                  {% assign ft_logo_c2 = '#ef4444' %}
+                {% when 3 %}
+                  {% assign ft_logo_c1 = '#8b5cf6' %}
+                  {% assign ft_logo_c2 = '#ec4899' %}
+                {% when 4 %}
+                  {% assign ft_logo_c1 = '#14b8a6' %}
+                  {% assign ft_logo_c2 = '#22c55e' %}
+                {% else %}
+                  {% assign ft_logo_c1 = '#f97316' %}
+                  {% assign ft_logo_c2 = '#eab308' %}
+              {% endcase %}
+              <svg class="featured-icon-svg" viewBox="0 0 64 64" role="img" aria-label="{{ post.title }} logo">
+                <defs>
+                  <linearGradient id="featured-grad-{{ forloop.index }}" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="{{ ft_logo_c1 }}"></stop>
+                    <stop offset="100%" stop-color="{{ ft_logo_c2 }}"></stop>
+                  </linearGradient>
+                </defs>
+                <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#featured-grad-{{ forloop.index }})"></rect>
+                <circle cx="50" cy="16" r="6" fill="rgba(255,255,255,0.22)"></circle>
+                <path d="M10 48 L30 28 L40 38 L54 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-linecap="round"></path>
+                <text x="32" y="39" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#ffffff">{{ ft_icon_a }}{{ ft_icon_b }}</text>
+              </svg>
             {% endif %}
           </div>
           <h4>{{ post.title }}</h4>
@@ -183,13 +255,18 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
 .tool-icon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 1.3rem;
+  overflow: hidden;
+}
+
+.tool-icon-svg,
+.tool-icon-img {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .tool-meta {
@@ -394,14 +471,19 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
 .featured-icon {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
   border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 1.5rem;
+  overflow: hidden;
   margin: 0 auto 20px;
+}
+
+.featured-icon-svg,
+.featured-icon-img {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .featured-card h4 {

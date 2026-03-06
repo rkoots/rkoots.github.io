@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Prompt Generator Logo">
+  <defs>
+    <linearGradient id="pg-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#14b8a6"/>
+    </linearGradient>
+    <linearGradient id="pg-bolt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#pg-bg)"/>
+  <rect x="24" y="30" width="80" height="52" rx="12" fill="#ffffff" opacity="0.96"/>
+  <path d="M36 46h40M36 58h56M36 70h32" stroke="#0f766e" stroke-width="6" stroke-linecap="round"/>
+  <path d="M72 98l14-24h-10l10-18" fill="none" stroke="url(#pg-bolt)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="96" cy="34" r="6" fill="#ffffff" opacity="0.36"/>
+</svg>

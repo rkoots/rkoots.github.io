@@ -5,6 +5,7 @@ excerpt: "Generate QR codes for URLs, text, email, phone, WiFi, and events. Cust
 date: 2026-03-06
 categories: tools
 permalink: /tools/qr-generator/
+logo_svg: /assets/images/tools/logos/qr-generator.svg
 description: "Free online QR code generator. Create custom QR codes for URL, text, email, phone, WiFi login and event details. Color customization, PNG and SVG download."
 keywords: ["QR code generator", "free QR code", "custom QR code", "WiFi QR code", "URL QR code", "QR code maker", "online QR generator", "QR code download"]
 tags: [QR, generator, utility, download, mobile]
@@ -218,6 +219,14 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 let currentType = 'url';
 let qrCanvas = null;
 
+// Check if QRCode library is loaded
+if (typeof QRCode === 'undefined') {
+  console.error('QRCode library not loaded!');
+  alert('QRCode library failed to load. Please refresh the page.');
+} else {
+  console.log('QRCode library loaded successfully');
+}
+
 function setType(type, btn) {
   currentType = type;
   document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
@@ -274,11 +283,17 @@ function generateQR() {
   const size = parseInt(document.getElementById('qr-size').value);
   const fg = document.getElementById('qr-fg').value;
   const bg = document.getElementById('qr-bg').value;
+  console.log('Generating QR with data:', data, 'size:', size, 'fg:', fg, 'bg:', bg);
   const canvas = document.createElement('canvas');
   wrap.innerHTML = '';
   wrap.appendChild(canvas);
   QRCode.toCanvas(canvas, data, { width: Math.min(size, 240), margin: 2, color: { dark: fg, light: bg } }, err => {
-    if (err) { wrap.innerHTML = '<div style="color:red;font-size:0.85rem;text-align:center;padding:20px;">Error: ' + err.message + '</div>'; return; }
+    if (err) { 
+      console.error('QR generation error:', err);
+      wrap.innerHTML = '<div style="color:red;font-size:0.85rem;text-align:center;padding:20px;">Error: ' + err.message + '</div>'; 
+      return; 
+    }
+    console.log('QR generated successfully');
     qrCanvas = canvas;
   });
 }
@@ -299,11 +314,16 @@ async function downloadSVG() {
   const fg = document.getElementById('qr-fg').value;
   const bg = document.getElementById('qr-bg').value;
   const size = document.getElementById('qr-size').value;
+  console.log('Generating SVG with data:', data, 'size:', size, 'fg:', fg, 'bg:', bg);
   try {
-    const svgStr = await QRCode.toString(data, { type: 'svg', width: size, color: { dark: fg, light: bg } });
+    const svgStr = await QRCode.toString(data, { type: 'svg', width: size, margin: 2, color: { dark: fg, light: bg } });
+    console.log('SVG generated successfully, length:', svgStr.length);
     const blob = new Blob([svgStr], {type:'image/svg+xml'});
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'qrypta-qrcode.svg'; a.click();
-  } catch(e) { alert('SVG generation failed: ' + e.message); }
+  } catch(e) { 
+    console.error('SVG generation error:', e);
+    alert('SVG generation failed: ' + e.message); 
+  }
 }
 
 function shareQR() {
