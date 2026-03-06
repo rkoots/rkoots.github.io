@@ -144,6 +144,11 @@ permalink: /contact/
           <textarea id="message" name="message" maxlength="500" rows="6" required></textarea>
         </div>
 
+        <div class="form-group">
+          <label for="recaptcha">Security Check</label>
+          <div id="recaptcha" class="g-recaptcha" data-sitekey="6LeWqoEsAAAAALrRZ9HqhLAktjHQlu3vgrdgqK72"></div>
+        </div>
+
         <div id="formStatus" class="form-status" aria-live="polite"></div>
 
         <button type="submit" id="submitButton" class="btn btn-primary btn-submit">
@@ -277,6 +282,10 @@ permalink: /contact/
   font-size: 0.9rem;
 }
 
+.g-recaptcha {
+  margin-top: 8px;
+}
+
 .contact-form input,
 .contact-form textarea {
   width: 100%;
@@ -382,6 +391,7 @@ permalink: /contact/
 }
 </style>
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
 const contactForm = document.getElementById('contactForm');
 const messageInput = document.getElementById('message');
@@ -400,6 +410,12 @@ messageInput.addEventListener('input', () => {
 
 contactForm.addEventListener('submit', async (event) => {
   event.preventDefault();
+
+  const recaptchaResponse = grecaptcha.getResponse();
+  if (!recaptchaResponse) {
+    setFormStatus('Please complete the reCAPTCHA challenge.', 'error');
+    return;
+  }
 
   const formData = new FormData(contactForm);
   const payload = {
@@ -439,6 +455,7 @@ contactForm.addEventListener('submit', async (event) => {
 
     contactForm.reset();
     messageCounter.textContent = '0/500';
+    grecaptcha.reset();
     setFormStatus('Thanks for reaching out. Your message has been sent successfully.', 'success');
   } catch (error) {
     setFormStatus('Unable to send your message right now. Please try again in a moment.', 'error');
