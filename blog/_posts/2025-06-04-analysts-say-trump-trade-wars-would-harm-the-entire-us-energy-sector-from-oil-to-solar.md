@@ -57,9 +57,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [At Least 750 Us Hospitals Faced Disruptions During Last Years Crowdstrike Outage Study Finds](/blog/2025-07-22-at-least-750-us-hospitals-faced-disruptions-during-last-years-crowdstrike-outage-study-finds.html)
-- **Related post:** [Epic Games Says Apple Is Blocking Fortnite From The Us And Eu App Stores](/blog/2025-05-17-epic-games-says-apple-is-blocking-fortnite-from-the-us-and-eu-app-stores.html)
-- **Related post:** [Fortnite Is Finally Back On Us Iphones](/blog/2025-05-21-fortnite-is-finally-back-on-us-iphones.html)
+- **Related post:** [At Least 750 Us Hospitals Faced Disruptions During Last Years Crowdstrike Outage Study Finds](/blog/2025/07/22/at-least-750-us-hospitals-faced-disruptions-during-last-years-crowdstrike-outage-study-finds/)
+- **Related post:** [Epic Games Says Apple Is Blocking Fortnite From The Us And Eu App Stores](/tech-news/2025/05/17/epic-games-says-apple-is-blocking-fortnite-from-the-us-and-eu-app-stores/)
+- **Related post:** [Fortnite Is Finally Back On Us Iphones](/blog/2025/05/21/fortnite-is-finally-back-on-us-iphones/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

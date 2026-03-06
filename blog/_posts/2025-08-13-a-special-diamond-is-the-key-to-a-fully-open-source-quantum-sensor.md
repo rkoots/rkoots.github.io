@@ -64,9 +64,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Metas New Ai Model Llama 2 Open Source And Ready To Compete](/blog/2025-05-12-metas-new-ai-model-llama-2-open-source-and-ready-to-compete.html)
-- **Related post:** [Rise Of Quantum Compution](/blog/2025-04-25-rise_of_quantum_compution.html)
-- **Related post:** [The White Houses Favorite Source Of Pro Trump News Is The White Houses Youtube Channel](/blog/2025-07-04-the-white-houses-favorite-source-of-pro-trump-news-is-the-white-houses-youtube-channel.html)
+- **Related post:** [Metas New Ai Model Llama 2 Open Source And Ready To Compete](/blog/2023/10/27/metas-new-ai-model-llama-2-open-source-and-ready-to-compete/)
+- **Related post:** [Rise Of Quantum Compution](/blog/2025/04/25/Rise_of_quantum_compution/)
+- **Related post:** [The White Houses Favorite Source Of Pro Trump News Is The White Houses Youtube Channel](/tech-news/2025/07/04/the-white-houses-favorite-source-of-pro-trump-news-is-the-white-houses-youtube-channel/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

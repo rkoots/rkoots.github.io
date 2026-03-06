@@ -57,9 +57,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Best Prime Day Laptop Deals 2025 Macbooks Chromebooks And More](/blog/2025-07-13-best-prime-day-laptop-deals-2025-macbooks-chromebooks-and-more.html)
-- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/blog/2025-05-25-15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers.html)
-- **Related post:** [A 17 Hotdog And A Humanoid Robot Serving Popcorn Wireds Day At The Tesla Diner](/blog/2025-07-25-a-17-hotdog-and-a-humanoid-robot-serving-popcorn-wireds-day-at-the-tesla-diner.html)
+- **Related post:** [Best Prime Day Laptop Deals 2025 Macbooks Chromebooks And More](/blog/2025/07/13/best-prime-day-laptop-deals-2025-macbooks-chromebooks-and-more/)
+- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/tech-news/2025/05/25/15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers/)
+- **Related post:** [A 17 Hotdog And A Humanoid Robot Serving Popcorn Wireds Day At The Tesla Diner](/blog/2025/07/25/a-17-hotdog-and-a-humanoid-robot-serving-popcorn-wireds-day-at-the-tesla-diner/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

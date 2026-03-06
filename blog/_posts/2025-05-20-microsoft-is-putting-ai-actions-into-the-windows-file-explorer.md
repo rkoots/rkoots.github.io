@@ -71,9 +71,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025-05-19-ai-dev-tools-for-windows-get-a-fresh-coat-of-paint.html)
-- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025-05-20-ai-dev-tools-for-windows-get-a-fresh-coat-of-paint.html)
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
+- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025/05/20/ai-dev-tools-for-windows-get-a-fresh-coat-of-paint/)
+- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025/05/20/ai-dev-tools-for-windows-get-a-fresh-coat-of-paint/)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

@@ -58,9 +58,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [I Tried Out Dysons New Pencilvac Heres What You Need To Know](/blog/2025-05-22-i-tried-out-dysons-new-pencilvac-heres-what-you-need-to-know.html)
-- **Related post:** [A Vpn Company Canceled All Lifetime Subscriptions Claiming It Didnt Know About Them](/blog/2025-05-15-a-vpn-company-canceled-all-lifetime-subscriptions-claiming-it-didnt-know-about-them.html)
-- **Related post:** [Apple Beta Season Is Here](/blog/2025-07-28-apple-beta-season-is-here.html)
+- **Related post:** [I Tried Out Dysons New Pencilvac Heres What You Need To Know](/blog/2025/05/24/i-tried-out-dysons-new-pencilvac-heres-what-you-need-to-know/)
+- **Related post:** [A Vpn Company Canceled All Lifetime Subscriptions Claiming It Didnt Know About Them](/blog/2025/05/15/a-vpn-company-canceled-all-lifetime-subscriptions-claiming-it-didnt-know-about-them/)
+- **Related post:** [Apple Beta Season Is Here](/blog/2025/07/28/apple-beta-season-is-here/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

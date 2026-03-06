@@ -66,9 +66,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [14 Best Office Chairs Of 2025 Ive Tested Nearly 60 To Pick Them](/blog/2025-08-04-14-best-office-chairs-of-2025-ive-tested-nearly-60-to-pick-them.html)
-- **Related post:** [Elon Musks Grok Ai Cant Stop Talking About White Genocide](/blog/2025-05-17-elon-musks-grok-ai-cant-stop-talking-about-white-genocide.html)
-- **Related post:** [Former Tesla President Discloses The Secret To Scaling A Company](/blog/2025-07-22-former-tesla-president-discloses-the-secret-to-scaling-a-company.html)
+- **Related post:** [14 Best Office Chairs Of 2025 Ive Tested Nearly 60 To Pick Them](/tech-news/2025/08/04/14-best-office-chairs-of-2025-ive-tested-nearly-60-to-pick-them/)
+- **Related post:** [Elon Musks Grok Ai Cant Stop Talking About White Genocide](/blog/2025/05/17/elon-musks-grok-ai-cant-stop-talking-about-white-genocide/)
+- **Related post:** [Former Tesla President Discloses The Secret To Scaling A Company](/tech-news/2025/07/22/former-tesla-president-discloses-the-secret-to-scaling-a-company/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

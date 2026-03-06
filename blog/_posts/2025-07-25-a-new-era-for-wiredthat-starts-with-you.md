@@ -57,8 +57,8 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Best Heart Rate Monitors 2025 Wired Tested And Reviewed](/blog/2025-05-15-best-heart-rate-monitors-2025-wired-tested-and-reviewed.html)
-- **Related post:** [The Best Mushroom Coffee Wired Tested And Reviewed 2025](/blog/2025-06-07-the-best-mushroom-coffee-wired-tested-and-reviewed-2025.html)
+- **Related post:** [Best Heart Rate Monitors 2025 Wired Tested And Reviewed](/tech-news/2025/05/15/best-heart-rate-monitors-2025-wired-tested-and-reviewed/)
+- **Related post:** [The Best Mushroom Coffee Wired Tested And Reviewed 2025](/tech-news/2025/06/07/the-best-mushroom-coffee-wired-tested-and-reviewed-2025/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

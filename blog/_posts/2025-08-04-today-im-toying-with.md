@@ -58,9 +58,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [I Tried Out Dysons New Pencilvac Heres What You Need To Know](/blog/2025-05-22-i-tried-out-dysons-new-pencilvac-heres-what-you-need-to-know.html)
-- **Related post:** [I Tried Out Dysons New Pencilvac Heres What You Need To Know](/blog/2025-05-24-i-tried-out-dysons-new-pencilvac-heres-what-you-need-to-know.html)
-- **Related post:** [The Magpod Is A Basic Smartphone Tripod I Cant Live Without](/blog/2025-05-30-the-magpod-is-a-basic-smartphone-tripod-i-cant-live-without.html)
+- **Related post:** [I Tried Out Dysons New Pencilvac Heres What You Need To Know](/blog/2025/05/24/i-tried-out-dysons-new-pencilvac-heres-what-you-need-to-know/)
+- **Related post:** [I Tried Out Dysons New Pencilvac Heres What You Need To Know](/blog/2025/05/24/i-tried-out-dysons-new-pencilvac-heres-what-you-need-to-know/)
+- **Related post:** [The Magpod Is A Basic Smartphone Tripod I Cant Live Without](/blog/2025/05/30/the-magpod-is-a-basic-smartphone-tripod-i-cant-live-without/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

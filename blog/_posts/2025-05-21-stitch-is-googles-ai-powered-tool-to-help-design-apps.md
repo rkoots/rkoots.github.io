@@ -77,7 +77,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Developer Productivity Tools Powered By Ai Latest Updates 1772765212](/blog/2026-03-06-developer-productivity-tools-powered-by-ai-latest-updates-1772765212.html)
-- **Related post:** [Google Deepminds Ceo Thinks Ai Will Make Humans Less Selfish](/blog/2025-06-07-google-deepminds-ceo-thinks-ai-will-make-humans-less-selfish.html)
-- **Related post:** [Metas New Ai Model Llama 2 Takes On Openai And Google](/blog/2025-05-12-metas-new-ai-model-llama-2-takes-on-openai-and-google.html)
+- **Related post:** [Developer Productivity Tools Powered By Ai Latest Updates 1772765212](/blog/2026/03/06/developer-productivity-tools-powered-by-ai-latest-updates-1772765212/)
+- **Related post:** [Google Deepminds Ceo Thinks Ai Will Make Humans Less Selfish](/blog/2025/06/07/google-deepminds-ceo-thinks-ai-will-make-humans-less-selfish/)
+- **Related post:** [Metas New Ai Model Llama 2 Takes On Openai And Google](/tech-news/2024/10/27/metas-new-ai-model-llama-2-takes-on-openai-and-google/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)

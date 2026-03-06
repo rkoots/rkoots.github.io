@@ -59,9 +59,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Generative Ais Leap Into Personalized Medicine The Promise And Peril Of Ai Driven Drug Discovery](/blog/2025-05-15-generative-ais-leap-into-personalized-medicine-the-promise-and-peril-of-ai-driven-drug-discovery.html)
-- **Related post:** [9 Best Digital Notebooks Tablets And Smart Pens 2025](/blog/2025-05-18-9-best-digital-notebooks-tablets-and-smart-pens-2025.html)
-- **Related post:** [Api Security](/blog/2025-06-10-api_security.html)
+- **Related post:** [Generative Ais Leap Into Personalized Medicine The Promise And Peril Of Ai Driven Drug Discovery](/blog/2025/05/15/generative-ais-leap-into-personalized-medicine-the-promise-and-peril-of-ai-driven-drug-discovery/)
+- **Related post:** [9 Best Digital Notebooks Tablets And Smart Pens 2025](/tech-news/2025/05/18/9-best-digital-notebooks-tablets-and-smart-pens-2025/)
+- **Related post:** [Api Security](/blog/2025/06/10/api_security/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

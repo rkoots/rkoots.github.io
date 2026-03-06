@@ -59,9 +59,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A Surveillance Vendor Was Caught Exploiting A New Ss7 Attack To Track Peoples Phone Locations](/blog/2025-07-19-a-surveillance-vendor-was-caught-exploiting-a-new-ss7-attack-to-track-peoples-phone-locations.html)
-- **Related post:** [A 17 Hotdog And A Humanoid Robot Serving Popcorn Wireds Day At The Tesla Diner](/blog/2025-07-25-a-17-hotdog-and-a-humanoid-robot-serving-popcorn-wireds-day-at-the-tesla-diner.html)
-- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025-05-21-a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack.html)
+- **Related post:** [A Surveillance Vendor Was Caught Exploiting A New Ss7 Attack To Track Peoples Phone Locations](/tech-news/2025/07/19/a-surveillance-vendor-was-caught-exploiting-a-new-ss7-attack-to-track-peoples-phone-locations/)
+- **Related post:** [A 17 Hotdog And A Humanoid Robot Serving Popcorn Wireds Day At The Tesla Diner](/blog/2025/07/25/a-17-hotdog-and-a-humanoid-robot-serving-popcorn-wireds-day-at-the-tesla-diner/)
+- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025/05/21/a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

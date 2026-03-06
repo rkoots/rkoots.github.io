@@ -62,9 +62,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [5 Best Folding Phones 2025 Tested And Reviewed](/blog/2025-05-21-5-best-folding-phones-2025-tested-and-reviewed.html)
-- **Related post:** [5 Best Phones With Headphone Jacks 2025 Tested And Reviewed](/blog/2025-05-15-5-best-phones-with-headphone-jacks-2025-tested-and-reviewed.html)
-- **Related post:** [Are Those Viral Cooling Blankets For Real](/blog/2025-06-16-are-those-viral-cooling-blankets-for-real.html)
+- **Related post:** [5 Best Folding Phones 2025 Tested And Reviewed](/tech-news/2025/12/21/5-best-folding-phones-2025-tested-and-reviewed/)
+- **Related post:** [5 Best Phones With Headphone Jacks 2025 Tested And Reviewed](/blog/2025/05/15/5-best-phones-with-headphone-jacks-2025-tested-and-reviewed/)
+- **Related post:** [Are Those Viral Cooling Blankets For Real](/tech-news/2025/06/16/are-those-viral-cooling-blankets-for-real/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

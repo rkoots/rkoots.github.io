@@ -200,9 +200,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/blog/2025-05-25-15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers.html)
-- **Related post:** [A 17 Hotdog And A Humanoid Robot Serving Popcorn Wireds Day At The Tesla Diner](/blog/2025-07-25-a-17-hotdog-and-a-humanoid-robot-serving-popcorn-wireds-day-at-the-tesla-diner.html)
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
+- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/tech-news/2025/05/25/15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers/)
+- **Related post:** [A 17 Hotdog And A Humanoid Robot Serving Popcorn Wireds Day At The Tesla Diner](/blog/2025/07/25/a-17-hotdog-and-a-humanoid-robot-serving-popcorn-wireds-day-at-the-tesla-diner/)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

@@ -74,9 +74,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Elon Musk Departs Dc With A Black Eye And A Tattered Reputation](/blog/2025-05-31-elon-musk-departs-dc-with-a-black-eye-and-a-tattered-reputation.html)
-- **Related post:** [Elon Musk Says Hell Step Back From The Government Doge Isnt Going Anywhere](/blog/2025-05-26-elon-musk-says-hell-step-back-from-the-government-doge-isnt-going-anywhere.html)
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
+- **Related post:** [Elon Musk Departs Dc With A Black Eye And A Tattered Reputation](/tech-news/2025/05/31/elon-musk-departs-dc-with-a-black-eye-and-a-tattered-reputation/)
+- **Related post:** [Elon Musk Says Hell Step Back From The Government Doge Isnt Going Anywhere](/tech-news/2025/05/26/elon-musk-says-hell-step-back-from-the-government-doge-isnt-going-anywhere/)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

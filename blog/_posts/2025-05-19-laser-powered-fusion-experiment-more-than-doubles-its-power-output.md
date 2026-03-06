@@ -66,9 +66,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Developer Productivity Tools Powered By Ai Latest Updates 1772765212](/blog/2026-03-06-developer-productivity-tools-powered-by-ai-latest-updates-1772765212.html)
-- **Related post:** [Revolutionizing Retail Ai Powered Personal Shopping Assistants Take Center Stage](/blog/2025-05-12-revolutionizing-retail-ai-powered-personal-shopping-assistants-take-center-stage.html)
-- **Related post:** [Stitch Is Googles Ai Powered Tool To Help Design Apps](/blog/2025-05-21-stitch-is-googles-ai-powered-tool-to-help-design-apps.html)
+- **Related post:** [Developer Productivity Tools Powered By Ai Latest Updates 1772765212](/blog/2026/03/06/developer-productivity-tools-powered-by-ai-latest-updates-1772765212/)
+- **Related post:** [Revolutionizing Retail Ai Powered Personal Shopping Assistants Take Center Stage](/tech-news/2024/10/27/revolutionizing-retail-ai-powered-personal-shopping-assistants-take-center-stage/)
+- **Related post:** [Stitch Is Googles Ai Powered Tool To Help Design Apps](/blog/2025/05/21/stitch-is-googles-ai-powered-tool-to-help-design-apps/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

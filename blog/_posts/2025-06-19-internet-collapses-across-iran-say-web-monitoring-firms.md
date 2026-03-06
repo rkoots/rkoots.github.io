@@ -72,9 +72,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [12 Ways To Upgrade Your Wi Fi And Make Your Internet Faster 2025](/blog/2025-05-20-12-ways-to-upgrade-your-wi-fi-and-make-your-internet-faster-2025.html)
-- **Related post:** [12 Ways To Upgrade Your Wi Fi And Make Your Internet Faster 2025](/blog/2025-05-21-12-ways-to-upgrade-your-wi-fi-and-make-your-internet-faster-2025.html)
-- **Related post:** [Analysts Say Trump Trade Wars Would Harm The Entire Us Energy Sector From Oil To Solar](/blog/2025-06-04-analysts-say-trump-trade-wars-would-harm-the-entire-us-energy-sector-from-oil-to-solar.html)
+- **Related post:** [12 Ways To Upgrade Your Wi Fi And Make Your Internet Faster 2025](/tech-news/2025/05/21/12-ways-to-upgrade-your-wi-fi-and-make-your-internet-faster-2025/)
+- **Related post:** [12 Ways To Upgrade Your Wi Fi And Make Your Internet Faster 2025](/tech-news/2025/05/21/12-ways-to-upgrade-your-wi-fi-and-make-your-internet-faster-2025/)
+- **Related post:** [Analysts Say Trump Trade Wars Would Harm The Entire Us Energy Sector From Oil To Solar](/tech-news/2025/06/04/analysts-say-trump-trade-wars-would-harm-the-entire-us-energy-sector-from-oil-to-solar/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

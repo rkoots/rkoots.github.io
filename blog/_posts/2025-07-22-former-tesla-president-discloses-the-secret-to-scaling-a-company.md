@@ -63,9 +63,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A 17 Hotdog And A Humanoid Robot Serving Popcorn Wireds Day At The Tesla Diner](/blog/2025-07-25-a-17-hotdog-and-a-humanoid-robot-serving-popcorn-wireds-day-at-the-tesla-diner.html)
-- **Related post:** [A Vpn Company Canceled All Lifetime Subscriptions Claiming It Didnt Know About Them](/blog/2025-05-15-a-vpn-company-canceled-all-lifetime-subscriptions-claiming-it-didnt-know-about-them.html)
-- **Related post:** [How A Doordash Driver Scammed The Company Out Of 25 Million](/blog/2025-05-19-how-a-doordash-driver-scammed-the-company-out-of-25-million.html)
+- **Related post:** [A 17 Hotdog And A Humanoid Robot Serving Popcorn Wireds Day At The Tesla Diner](/blog/2025/07/25/a-17-hotdog-and-a-humanoid-robot-serving-popcorn-wireds-day-at-the-tesla-diner/)
+- **Related post:** [A Vpn Company Canceled All Lifetime Subscriptions Claiming It Didnt Know About Them](/blog/2025/05/15/a-vpn-company-canceled-all-lifetime-subscriptions-claiming-it-didnt-know-about-them/)
+- **Related post:** [How A Doordash Driver Scammed The Company Out Of 25 Million](/blog/2025/05/19/how-a-doordash-driver-scammed-the-company-out-of-25-million/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

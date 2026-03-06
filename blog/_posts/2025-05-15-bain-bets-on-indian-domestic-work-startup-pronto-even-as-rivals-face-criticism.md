@@ -57,9 +57,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Ai Startup Cohere Acquires Ottogrid A Platform For Conducting Market Research](/blog/2025-05-18-ai-startup-cohere-acquires-ottogrid-a-platform-for-conducting-market-research.html)
-- **Related post:** [Ai Video Startup Moonvalley Lands 53M According To Filing](/blog/2025-05-18-ai-video-startup-moonvalley-lands-53m-according-to-filing.html)
-- **Related post:** [How Does An Electric Bicycle Work 2025](/blog/2025-08-10-how-does-an-electric-bicycle-work-2025.html)
+- **Related post:** [Ai Startup Cohere Acquires Ottogrid A Platform For Conducting Market Research](/blog/2025/05/18/ai-startup-cohere-acquires-ottogrid-a-platform-for-conducting-market-research/)
+- **Related post:** [Ai Video Startup Moonvalley Lands 53M According To Filing](/tech-news/2025/05/18/ai-video-startup-moonvalley-lands-53m-according-to-filing/)
+- **Related post:** [How Does An Electric Bicycle Work 2025](/blog/2025/08/10/how-does-an-electric-bicycle-work-2025/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

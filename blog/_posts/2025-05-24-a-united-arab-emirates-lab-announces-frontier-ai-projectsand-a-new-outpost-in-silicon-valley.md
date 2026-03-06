@@ -71,9 +71,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025-05-21-a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack.html)
-- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026-03-03-ai-code-generation-tools-comparison-03-mar-2026.html)
-- **Related post:** [Ai Curious Assistant](/blog/2025-05-26-ai-curious-assistant.html)
+- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025/05/21/a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack/)
+- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026/03/03/ai-code-generation-tools-comparison-03-mar-2026/)
+- **Related post:** [Ai Curious Assistant](/blog/2025/05/26/AI-Curious-Assistant/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

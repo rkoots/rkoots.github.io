@@ -63,9 +63,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Elon Musk Departs Dc With A Black Eye And A Tattered Reputation](/blog/2025-05-31-elon-musk-departs-dc-with-a-black-eye-and-a-tattered-reputation.html)
-- **Related post:** [Musk Says Teslas Self Driving Tests Will Be Geofenced To The Safest Parts Of Austin](/blog/2025-05-21-musk-says-teslas-self-driving-tests-will-be-geofenced-to-the-safest-parts-of-austin.html)
-- **Related post:** [Apple Is Trying To Get Llm Siri Back On Track](/blog/2025-05-19-apple-is-trying-to-get-llm-siri-back-on-track.html)
+- **Related post:** [Elon Musk Departs Dc With A Black Eye And A Tattered Reputation](/tech-news/2025/05/31/elon-musk-departs-dc-with-a-black-eye-and-a-tattered-reputation/)
+- **Related post:** [Musk Says Teslas Self Driving Tests Will Be Geofenced To The Safest Parts Of Austin](/tech-news/2025/05/21/musk-says-teslas-self-driving-tests-will-be-geofenced-to-the-safest-parts-of-austin/)
+- **Related post:** [Apple Is Trying To Get Llm Siri Back On Track](/tech-news/2025/05/19/apple-is-trying-to-get-llm-siri-back-on-track/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

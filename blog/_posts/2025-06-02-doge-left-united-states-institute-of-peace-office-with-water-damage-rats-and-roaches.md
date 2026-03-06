@@ -60,9 +60,9 @@ AI adoption is moving from experimentation to production, which means readers in
 
 ## Further Reading and Related Resources
 
-- **Related post:** [10 Best Reusable Water Bottles Of 2025 Tested Reviewed](/blog/2025-05-28-10-best-reusable-water-bottles-of-2025-tested-reviewed.html)
-- **Related post:** [14 Best Office Chairs Of 2025 Ive Tested Nearly 60 To Pick Them](/blog/2025-08-04-14-best-office-chairs-of-2025-ive-tested-nearly-60-to-pick-them.html)
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
+- **Related post:** [10 Best Reusable Water Bottles Of 2025 Tested Reviewed](/tech-news/2025/05/28/10-best-reusable-water-bottles-of-2025-tested-reviewed/)
+- **Related post:** [14 Best Office Chairs Of 2025 Ive Tested Nearly 60 To Pick Them](/tech-news/2025/08/04/14-best-office-chairs-of-2025-ive-tested-nearly-60-to-pick-them/)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

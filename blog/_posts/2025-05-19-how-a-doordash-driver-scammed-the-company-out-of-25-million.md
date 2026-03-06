@@ -58,9 +58,9 @@ AI adoption is moving from experimentation to production, which means readers in
 
 ## Further Reading and Related Resources
 
-- **Related post:** [5 Best Folding Phones 2025 Tested And Reviewed](/blog/2025-05-21-5-best-folding-phones-2025-tested-and-reviewed.html)
-- **Related post:** [5 Best Phones With Headphone Jacks 2025 Tested And Reviewed](/blog/2025-05-15-5-best-phones-with-headphone-jacks-2025-tested-and-reviewed.html)
-- **Related post:** [A Vpn Company Canceled All Lifetime Subscriptions Claiming It Didnt Know About Them](/blog/2025-05-15-a-vpn-company-canceled-all-lifetime-subscriptions-claiming-it-didnt-know-about-them.html)
+- **Related post:** [5 Best Folding Phones 2025 Tested And Reviewed](/tech-news/2025/12/21/5-best-folding-phones-2025-tested-and-reviewed/)
+- **Related post:** [5 Best Phones With Headphone Jacks 2025 Tested And Reviewed](/blog/2025/05/15/5-best-phones-with-headphone-jacks-2025-tested-and-reviewed/)
+- **Related post:** [A Vpn Company Canceled All Lifetime Subscriptions Claiming It Didnt Know About Them](/blog/2025/05/15/a-vpn-company-canceled-all-lifetime-subscriptions-claiming-it-didnt-know-about-them/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

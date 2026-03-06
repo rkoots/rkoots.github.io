@@ -68,9 +68,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025-05-19-ai-dev-tools-for-windows-get-a-fresh-coat-of-paint.html)
-- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025-05-20-ai-dev-tools-for-windows-get-a-fresh-coat-of-paint.html)
-- **Related post:** [Analysts Say Trump Trade Wars Would Harm The Entire Us Energy Sector From Oil To Solar](/blog/2025-06-04-analysts-say-trump-trade-wars-would-harm-the-entire-us-energy-sector-from-oil-to-solar.html)
+- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025/05/20/ai-dev-tools-for-windows-get-a-fresh-coat-of-paint/)
+- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025/05/20/ai-dev-tools-for-windows-get-a-fresh-coat-of-paint/)
+- **Related post:** [Analysts Say Trump Trade Wars Would Harm The Entire Us Energy Sector From Oil To Solar](/tech-news/2025/06/04/analysts-say-trump-trade-wars-would-harm-the-entire-us-energy-sector-from-oil-to-solar/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

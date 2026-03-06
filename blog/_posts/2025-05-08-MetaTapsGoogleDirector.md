@@ -59,9 +59,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
-- **Related post:** [Ai Startup Cohere Acquires Ottogrid A Platform For Conducting Market Research](/blog/2025-05-18-ai-startup-cohere-acquires-ottogrid-a-platform-for-conducting-market-research.html)
-- **Related post:** [Google Deepminds Ceo Thinks Ai Will Make Humans Less Selfish](/blog/2025-06-07-google-deepminds-ceo-thinks-ai-will-make-humans-less-selfish.html)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
+- **Related post:** [Ai Startup Cohere Acquires Ottogrid A Platform For Conducting Market Research](/blog/2025/05/18/ai-startup-cohere-acquires-ottogrid-a-platform-for-conducting-market-research/)
+- **Related post:** [Google Deepminds Ceo Thinks Ai Will Make Humans Less Selfish](/blog/2025/06/07/google-deepminds-ceo-thinks-ai-will-make-humans-less-selfish/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

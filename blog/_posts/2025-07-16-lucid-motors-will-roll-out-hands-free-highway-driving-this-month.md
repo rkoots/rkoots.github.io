@@ -62,9 +62,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Blue Apron Coupons 80 Off Free Shipping June 2025](/blog/2025-06-02-blue-apron-coupons-80-off-free-shipping-june-2025.html)
-- **Related post:** [Gear News Of The Week Iphone 17 May Be A Month Away And Sonos To Raise Prices](/blog/2025-08-10-gear-news-of-the-week-iphone-17-may-be-a-month-away-and-sonos-to-raise-prices.html)
-- **Related post:** [How A Doordash Driver Scammed The Company Out Of 25 Million](/blog/2025-05-19-how-a-doordash-driver-scammed-the-company-out-of-25-million.html)
+- **Related post:** [Blue Apron Coupons 80 Off Free Shipping June 2025](/tech-news/2025/06/02/blue-apron-coupons-80-off-free-shipping-june-2025/)
+- **Related post:** [Gear News Of The Week Iphone 17 May Be A Month Away And Sonos To Raise Prices](/tech-news/2025/08/10/gear-news-of-the-week-iphone-17-may-be-a-month-away-and-sonos-to-raise-prices/)
+- **Related post:** [How A Doordash Driver Scammed The Company Out Of 25 Million](/blog/2025/05/19/how-a-doordash-driver-scammed-the-company-out-of-25-million/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

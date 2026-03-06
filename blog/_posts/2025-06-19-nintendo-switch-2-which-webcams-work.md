@@ -59,9 +59,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Nintendo Partners With Third Party Websites To Stop Switch 2 Scalpers](/blog/2025-05-28-nintendo-partners-with-third-party-websites-to-stop-switch-2-scalpers.html)
-- **Related post:** [Gamestop Will Have More Switch 2 Stock At Launch](/blog/2025-05-17-gamestop-will-have-more-switch-2-stock-at-launch.html)
-- **Related post:** [Bain Bets On Indian Domestic Work Startup Pronto Even As Rivals Face Criticism](/blog/2025-05-15-bain-bets-on-indian-domestic-work-startup-pronto-even-as-rivals-face-criticism.html)
+- **Related post:** [Nintendo Partners With Third Party Websites To Stop Switch 2 Scalpers](/blog/2025/05/28/nintendo-partners-with-third-party-websites-to-stop-switch-2-scalpers/)
+- **Related post:** [Gamestop Will Have More Switch 2 Stock At Launch](/blog/2025/05/17/gamestop-will-have-more-switch-2-stock-at-launch/)
+- **Related post:** [Bain Bets On Indian Domestic Work Startup Pronto Even As Rivals Face Criticism](/tech-news/2025/05/15/bain-bets-on-indian-domestic-work-startup-pronto-even-as-rivals-face-criticism/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

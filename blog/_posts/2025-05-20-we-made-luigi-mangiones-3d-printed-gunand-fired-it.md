@@ -65,9 +65,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Are Meal Kits Cheaper Than Groceries In 2025 We Break It Down](/blog/2025-05-19-are-meal-kits-cheaper-than-groceries-in-2025-we-break-it-down.html)
-- **Related post:** [Are Meal Kits Cheaper Than Groceries In 2025 We Break It Down](/blog/2025-05-20-are-meal-kits-cheaper-than-groceries-in-2025-we-break-it-down.html)
-- **Related post:** [We Bought A Peeing Robot Attack Dog From Temu It Was Even Weirder Than Expected](/blog/2025-06-03-we-bought-a-peeing-robot-attack-dog-from-temu-it-was-even-weirder-than-expected.html)
+- **Related post:** [Are Meal Kits Cheaper Than Groceries In 2025 We Break It Down](/blog/2025/05/20/are-meal-kits-cheaper-than-groceries-in-2025-we-break-it-down/)
+- **Related post:** [Are Meal Kits Cheaper Than Groceries In 2025 We Break It Down](/blog/2025/05/20/are-meal-kits-cheaper-than-groceries-in-2025-we-break-it-down/)
+- **Related post:** [We Bought A Peeing Robot Attack Dog From Temu It Was Even Weirder Than Expected](/tech-news/2025/06/03/we-bought-a-peeing-robot-attack-dog-from-temu-it-was-even-weirder-than-expected/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

@@ -61,9 +61,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Nintendo Switch 2 Which Webcams Work](/blog/2025-06-19-nintendo-switch-2-which-webcams-work.html)
-- **Related post:** [Gamestop Will Have More Switch 2 Stock At Launch](/blog/2025-05-17-gamestop-will-have-more-switch-2-stock-at-launch.html)
-- **Related post:** [Elon Musks Grok Ai Cant Stop Talking About White Genocide](/blog/2025-05-17-elon-musks-grok-ai-cant-stop-talking-about-white-genocide.html)
+- **Related post:** [Nintendo Switch 2 Which Webcams Work](/tech-news/2025/06/19/nintendo-switch-2-which-webcams-work/)
+- **Related post:** [Gamestop Will Have More Switch 2 Stock At Launch](/blog/2025/05/17/gamestop-will-have-more-switch-2-stock-at-launch/)
+- **Related post:** [Elon Musks Grok Ai Cant Stop Talking About White Genocide](/blog/2025/05/17/elon-musks-grok-ai-cant-stop-talking-about-white-genocide/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

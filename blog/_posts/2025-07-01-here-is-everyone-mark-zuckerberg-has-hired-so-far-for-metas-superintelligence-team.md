@@ -53,9 +53,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Apple Beta Season Is Here](/blog/2025-07-28-apple-beta-season-is-here.html)
-- **Related post:** [China Has Attempted What Might Be The First Ever Orbital Refueling Of A Satellite](/blog/2025-07-10-china-has-attempted-what-might-be-the-first-ever-orbital-refueling-of-a-satellite.html)
-- **Related post:** [Here Are 20 Of Our Favorite Deals You Can Still Grab From Reis Anniversary Sale](/blog/2025-05-23-here-are-20-of-our-favorite-deals-you-can-still-grab-from-reis-anniversary-sale.html)
+- **Related post:** [Apple Beta Season Is Here](/blog/2025/07/28/apple-beta-season-is-here/)
+- **Related post:** [China Has Attempted What Might Be The First Ever Orbital Refueling Of A Satellite](/tech-news/2025/07/10/china-has-attempted-what-might-be-the-first-ever-orbital-refueling-of-a-satellite/)
+- **Related post:** [Here Are 20 Of Our Favorite Deals You Can Still Grab From Reis Anniversary Sale](/blog/2025/05/23/here-are-20-of-our-favorite-deals-you-can-still-grab-from-reis-anniversary-sale/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

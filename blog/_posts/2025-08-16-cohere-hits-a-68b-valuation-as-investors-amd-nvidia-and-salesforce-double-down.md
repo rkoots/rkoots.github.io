@@ -56,9 +56,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [8 Best Down Comforters 2025 Tested And Reviewed](/blog/2025-05-18-8-best-down-comforters-2025-tested-and-reviewed.html)
-- **Related post:** [Ai Startup Cohere Acquires Ottogrid A Platform For Conducting Market Research](/blog/2025-05-18-ai-startup-cohere-acquires-ottogrid-a-platform-for-conducting-market-research.html)
-- **Related post:** [Are Meal Kits Cheaper Than Groceries In 2025 We Break It Down](/blog/2025-05-19-are-meal-kits-cheaper-than-groceries-in-2025-we-break-it-down.html)
+- **Related post:** [8 Best Down Comforters 2025 Tested And Reviewed](/tech-news/2025/05/18/8-best-down-comforters-2025-tested-and-reviewed/)
+- **Related post:** [Ai Startup Cohere Acquires Ottogrid A Platform For Conducting Market Research](/blog/2025/05/18/ai-startup-cohere-acquires-ottogrid-a-platform-for-conducting-market-research/)
+- **Related post:** [Are Meal Kits Cheaper Than Groceries In 2025 We Break It Down](/blog/2025/05/20/are-meal-kits-cheaper-than-groceries-in-2025-we-break-it-down/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

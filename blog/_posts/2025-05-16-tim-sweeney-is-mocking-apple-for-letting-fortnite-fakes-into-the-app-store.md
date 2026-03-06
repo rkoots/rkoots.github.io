@@ -57,9 +57,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Apple Blocks Fortnite8217S App Store Return As Downloads Fail In Europe](/blog/2025-05-16-apple-blocks-fortnite8217s-app-store-return-as-downloads-fail-in-europe.html)
-- **Related post:** [Epic Games Says Apple Is Blocking Fortnite From The Us And Eu App Stores](/blog/2025-05-17-epic-games-says-apple-is-blocking-fortnite-from-the-us-and-eu-app-stores.html)
-- **Related post:** [After Adding Its Own Billing Option On Ios Apple Asks Patreon To Move It To An External Browser](/blog/2025-05-17-after-adding-its-own-billing-option-on-ios-apple-asks-patreon-to-move-it-to-an-external-browser.html)
+- **Related post:** [Apple Blocks Fortnite8217S App Store Return As Downloads Fail In Europe](/blog/2025/05/16/apple-blocks-fortnite8217s-app-store-return-as-downloads-fail-in-europe/)
+- **Related post:** [Epic Games Says Apple Is Blocking Fortnite From The Us And Eu App Stores](/tech-news/2025/05/17/epic-games-says-apple-is-blocking-fortnite-from-the-us-and-eu-app-stores/)
+- **Related post:** [After Adding Its Own Billing Option On Ios Apple Asks Patreon To Move It To An External Browser](/blog/2025/05/17/after-adding-its-own-billing-option-on-ios-apple-asks-patreon-to-move-it-to-an-external-browser/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

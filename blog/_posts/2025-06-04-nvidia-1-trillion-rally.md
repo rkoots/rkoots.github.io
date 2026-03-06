@@ -56,9 +56,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Cohere Hits A 68B Valuation As Investors Amd Nvidia And Salesforce Double Down](/blog/2025-08-16-cohere-hits-a-68b-valuation-as-investors-amd-nvidia-and-salesforce-double-down.html)
-- **Related post:** [Cuisinart Propel 3 In 1 Review 2025 Pizza On A 4 Burner Grill](/blog/2025-06-04-cuisinart-propel-3-in-1-review-2025-pizza-on-a-4-burner-grill.html)
-- **Related post:** [Metas New Ai Model Llama 2 Open Source And Ready To Compete](/blog/2025-05-12-metas-new-ai-model-llama-2-open-source-and-ready-to-compete.html)
+- **Related post:** [Cohere Hits A 68B Valuation As Investors Amd Nvidia And Salesforce Double Down](/blog/2025/08/16/cohere-hits-a-68b-valuation-as-investors-amd-nvidia-and-salesforce-double-down/)
+- **Related post:** [Cuisinart Propel 3 In 1 Review 2025 Pizza On A 4 Burner Grill](/blog/2025/06/04/cuisinart-propel-3-in-1-review-2025-pizza-on-a-4-burner-grill/)
+- **Related post:** [Metas New Ai Model Llama 2 Open Source And Ready To Compete](/blog/2023/10/27/metas-new-ai-model-llama-2-open-source-and-ready-to-compete/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

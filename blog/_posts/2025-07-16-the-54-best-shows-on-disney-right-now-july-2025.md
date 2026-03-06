@@ -75,9 +75,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [The 24 Best Movies On Amazon Prime Right Now July 2025](/blog/2025-07-01-the-24-best-movies-on-amazon-prime-right-now-july-2025.html)
-- **Related post:** [The 48 Best Shows On Hbo Max Right Now August 2025](/blog/2025-08-07-the-48-best-shows-on-hbo-max-right-now-august-2025.html)
-- **Related post:** [Money Management July 2025](/blog/2025-07-09-money-management-july-2025.html)
+- **Related post:** [The 24 Best Movies On Amazon Prime Right Now July 2025](/blog/2025/07/01/the-24-best-movies-on-amazon-prime-right-now-july-2025/)
+- **Related post:** [The 48 Best Shows On Hbo Max Right Now August 2025](/tech-news/2025/08/07/the-48-best-shows-on-hbo-max-right-now-august-2025/)
+- **Related post:** [Money Management July 2025](/blog/2025/07/09/Money-Management-july-2025/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

@@ -62,9 +62,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Cfpb Quietly Kills Rule To Shield Americans From Data Brokers](/blog/2025-05-17-cfpb-quietly-kills-rule-to-shield-americans-from-data-brokers.html)
-- **Related post:** [How A Doordash Driver Scammed The Company Out Of 25 Million](/blog/2025-05-19-how-a-doordash-driver-scammed-the-company-out-of-25-million.html)
-- **Related post:** [Hp Coupon Codes Deals Save Up To 81 In May](/blog/2025-05-15-hp-coupon-codes-deals-save-up-to-81-in-may.html)
+- **Related post:** [Cfpb Quietly Kills Rule To Shield Americans From Data Brokers](/tech-news/2025/05/17/cfpb-quietly-kills-rule-to-shield-americans-from-data-brokers/)
+- **Related post:** [How A Doordash Driver Scammed The Company Out Of 25 Million](/blog/2025/05/19/how-a-doordash-driver-scammed-the-company-out-of-25-million/)
+- **Related post:** [Hp Coupon Codes Deals Save Up To 81 In May](/tech-news/2025/05/15/hp-coupon-codes-deals-save-up-to-81-in-may/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

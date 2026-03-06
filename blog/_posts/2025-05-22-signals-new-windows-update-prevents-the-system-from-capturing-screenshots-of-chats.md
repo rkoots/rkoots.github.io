@@ -66,7 +66,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025-05-19-ai-dev-tools-for-windows-get-a-fresh-coat-of-paint.html)
-- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025-05-20-ai-dev-tools-for-windows-get-a-fresh-coat-of-paint.html)
-- **Related post:** [How Edward Big Balls Coristine And Doge Got Access To A Federal Payroll System That Serves The Fbi](/blog/2025-07-31-how-edward-big-balls-coristine-and-doge-got-access-to-a-federal-payroll-system-that-serves-the-fbi.html)
+- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025/05/20/ai-dev-tools-for-windows-get-a-fresh-coat-of-paint/)
+- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025/05/20/ai-dev-tools-for-windows-get-a-fresh-coat-of-paint/)
+- **Related post:** [How Edward Big Balls Coristine And Doge Got Access To A Federal Payroll System That Serves The Fbi](/tech-news/2025/08/01/how-edward-big-balls-coristine-and-doge-got-access-to-a-federal-payroll-system-that-serves-the-fbi/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)

@@ -59,9 +59,9 @@ One useful way to evaluate elon musk’s longtime vc is suing his former employe
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Elon Musk Departs Dc With A Black Eye And A Tattered Reputation](/blog/2025-05-31-elon-musk-departs-dc-with-a-black-eye-and-a-tattered-reputation.html)
-- **Related post:** [Elon Musk Says Hell Step Back From The Government Doge Isnt Going Anywhere](/blog/2025-05-26-elon-musk-says-hell-step-back-from-the-government-doge-isnt-going-anywhere.html)
-- **Related post:** [A Decade In Bootstrapped Thinkst Canary Reaches 20M In Arr Without Vc Funding](/blog/2025-05-30-a-decade-in-bootstrapped-thinkst-canary-reaches-20m-in-arr-without-vc-funding.html)
+- **Related post:** [Elon Musk Departs Dc With A Black Eye And A Tattered Reputation](/tech-news/2025/05/31/elon-musk-departs-dc-with-a-black-eye-and-a-tattered-reputation/)
+- **Related post:** [Elon Musk Says Hell Step Back From The Government Doge Isnt Going Anywhere](/tech-news/2025/05/26/elon-musk-says-hell-step-back-from-the-government-doge-isnt-going-anywhere/)
+- **Related post:** [A Decade In Bootstrapped Thinkst Canary Reaches 20M In Arr Without Vc Funding](/tech-news/2025/05/30/a-decade-in-bootstrapped-thinkst-canary-reaches-20m-in-arr-without-vc-funding/)
 - **Authoritative reference:** [Google Search Central](https://developers.google.com/search)
 
 ## Final Thoughts

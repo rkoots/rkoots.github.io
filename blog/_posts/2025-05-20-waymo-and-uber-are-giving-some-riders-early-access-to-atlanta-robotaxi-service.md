@@ -53,9 +53,9 @@ AI adoption is moving from experimentation to production, which means readers in
 
 ## Further Reading and Related Resources
 
-- **Related post:** [The Epa Is Giving Some Forever Chemicals A Pass](/blog/2025-05-16-the-epa-is-giving-some-forever-chemicals-a-pass.html)
-- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025-05-21-a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack.html)
-- **Related post:** [Best Early Labor Day Mattress Sales 2025](/blog/2025-08-16-best-early-labor-day-mattress-sales-2025.html)
+- **Related post:** [The Epa Is Giving Some Forever Chemicals A Pass](/tech-news/2025/05/16/the-epa-is-giving-some-forever-chemicals-a-pass/)
+- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025/05/21/a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack/)
+- **Related post:** [Best Early Labor Day Mattress Sales 2025](/tech-news/2025/08/16/best-early-labor-day-mattress-sales-2025/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

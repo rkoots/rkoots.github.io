@@ -124,7 +124,7 @@ For many readers, the real question behind understanding ai agents: the future o
 
 ## Further Reading and Related Resources
 
-- **Related post:** [9 Best Digital Notebooks Tablets And Smart Pens 2025](/blog/2025-05-18-9-best-digital-notebooks-tablets-and-smart-pens-2025.html)
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
-- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026-03-03-ai-code-generation-tools-comparison-03-mar-2026.html)
+- **Related post:** [9 Best Digital Notebooks Tablets And Smart Pens 2025](/tech-news/2025/05/18/9-best-digital-notebooks-tablets-and-smart-pens-2025/)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
+- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026/03/03/ai-code-generation-tools-comparison-03-mar-2026/)
 - **Authoritative reference:** [Google Search Central](https://developers.google.com/search)

@@ -62,9 +62,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Spotify Says Support For External Payments On Ios Has Already Boosted Subscriptions](/blog/2025-05-21-spotify-says-support-for-external-payments-on-ios-has-already-boosted-subscriptions.html)
-- **Related post:** [Apple Beta Season Is Here](/blog/2025-07-28-apple-beta-season-is-here.html)
-- **Related post:** [Apple Blocks Fortnite8217S App Store Return As Downloads Fail In Europe](/blog/2025-05-16-apple-blocks-fortnite8217s-app-store-return-as-downloads-fail-in-europe.html)
+- **Related post:** [Spotify Says Support For External Payments On Ios Has Already Boosted Subscriptions](/tech-news/2025/05/21/spotify-says-support-for-external-payments-on-ios-has-already-boosted-subscriptions/)
+- **Related post:** [Apple Beta Season Is Here](/blog/2025/07/28/apple-beta-season-is-here/)
+- **Related post:** [Apple Blocks Fortnite8217S App Store Return As Downloads Fail In Europe](/blog/2025/05/16/apple-blocks-fortnite8217s-app-store-return-as-downloads-fail-in-europe/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

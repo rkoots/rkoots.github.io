@@ -57,7 +57,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Metas New Ai Model Llama 2 Takes On Openai And Google](/blog/2025-05-12-metas-new-ai-model-llama-2-takes-on-openai-and-google.html)
+- **Related post:** [Metas New Ai Model Llama 2 Takes On Openai And Google](/tech-news/2024/10/27/metas-new-ai-model-llama-2-takes-on-openai-and-google/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

@@ -169,7 +169,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026-03-03-ai-code-generation-tools-comparison-03-mar-2026.html)
-- **Related post:** [Automated Code Refactoring With Ai Latest Updates 1772615003](/blog/2026-03-04-automated-code-refactoring-with-ai-latest-updates-1772615003.html)
-- **Related post:** [We Tried On Googles Prototype Ai Smart Glasses](/blog/2025-05-21-we-tried-on-googles-prototype-ai-smart-glasses.html)
+- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026/03/03/ai-code-generation-tools-comparison-03-mar-2026/)
+- **Related post:** [Automated Code Refactoring With Ai Latest Updates 1772615003](/blog/2026/03/04/automated-code-refactoring-with-ai-latest-updates-1772615003/)
+- **Related post:** [We Tried On Googles Prototype Ai Smart Glasses](/tech-news/2025/05/21/we-tried-on-googles-prototype-ai-smart-glasses/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)

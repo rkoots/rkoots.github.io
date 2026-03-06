@@ -56,9 +56,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Cfpb Quietly Kills Rule To Shield Americans From Data Brokers](/blog/2025-05-17-cfpb-quietly-kills-rule-to-shield-americans-from-data-brokers.html)
-- **Related post:** [Coinbase Will Reimburse Customers Up To 400 Million After Data Breach](/blog/2025-05-18-coinbase-will-reimburse-customers-up-to-400-million-after-data-breach.html)
-- **Related post:** [Pinterset Data](/blog/2025-12-01-pinterset-data.html)
+- **Related post:** [Cfpb Quietly Kills Rule To Shield Americans From Data Brokers](/tech-news/2025/05/17/cfpb-quietly-kills-rule-to-shield-americans-from-data-brokers/)
+- **Related post:** [Coinbase Will Reimburse Customers Up To 400 Million After Data Breach](/blog/2025/05/18/coinbase-will-reimburse-customers-up-to-400-million-after-data-breach/)
+- **Related post:** [Pinterset Data](/tech-news/2025/05/16/Pinterset-data/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

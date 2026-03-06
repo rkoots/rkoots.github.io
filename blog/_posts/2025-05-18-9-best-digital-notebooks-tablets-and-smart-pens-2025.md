@@ -67,9 +67,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [The Best Pixel 9 Cases Tested And Reviewed 2025](/blog/2025-08-19-the-best-pixel-9-cases-tested-and-reviewed-2025.html)
-- **Related post:** [10 Best Android Phones Of 2025 Tested And Reviewed](/blog/2025-05-17-10-best-android-phones-of-2025-tested-and-reviewed.html)
-- **Related post:** [10 Best Android Phones Of 2025 Tested And Reviewed](/blog/2025-05-18-10-best-android-phones-of-2025-tested-and-reviewed.html)
+- **Related post:** [The Best Pixel 9 Cases Tested And Reviewed 2025](/blog/2025/08/19/the-best-pixel-9-cases-tested-and-reviewed-2025/)
+- **Related post:** [10 Best Android Phones Of 2025 Tested And Reviewed](/tech-news/2025/05/18/10-best-android-phones-of-2025-tested-and-reviewed/)
+- **Related post:** [10 Best Android Phones Of 2025 Tested And Reviewed](/tech-news/2025/05/18/10-best-android-phones-of-2025-tested-and-reviewed/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

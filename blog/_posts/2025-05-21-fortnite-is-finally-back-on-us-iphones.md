@@ -62,9 +62,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Epic Games Says Apple Is Blocking Fortnite From The Us And Eu App Stores](/blog/2025-05-17-epic-games-says-apple-is-blocking-fortnite-from-the-us-and-eu-app-stores.html)
-- **Related post:** [Analysts Say Trump Trade Wars Would Harm The Entire Us Energy Sector From Oil To Solar](/blog/2025-06-04-analysts-say-trump-trade-wars-would-harm-the-entire-us-energy-sector-from-oil-to-solar.html)
-- **Related post:** [Apple Finally Launches Next Gen Carplay Ultra Software Starting With Aston Martin](/blog/2025-05-16-apple-finally-launches-next-gen-carplay-ultra-software-starting-with-aston-martin.html)
+- **Related post:** [Epic Games Says Apple Is Blocking Fortnite From The Us And Eu App Stores](/tech-news/2025/05/17/epic-games-says-apple-is-blocking-fortnite-from-the-us-and-eu-app-stores/)
+- **Related post:** [Analysts Say Trump Trade Wars Would Harm The Entire Us Energy Sector From Oil To Solar](/tech-news/2025/06/04/analysts-say-trump-trade-wars-would-harm-the-entire-us-energy-sector-from-oil-to-solar/)
+- **Related post:** [Apple Finally Launches Next Gen Carplay Ultra Software Starting With Aston Martin](/tech-news/2025/05/16/apple-finally-launches-next-gen-carplay-ultra-software-starting-with-aston-martin/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

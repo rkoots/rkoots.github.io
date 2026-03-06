@@ -64,9 +64,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
-- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026-03-03-ai-code-generation-tools-comparison-03-mar-2026.html)
-- **Related post:** [Ai Curious Assistant](/blog/2025-05-26-ai-curious-assistant.html)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
+- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026/03/03/ai-code-generation-tools-comparison-03-mar-2026/)
+- **Related post:** [Ai Curious Assistant](/blog/2025/05/26/AI-Curious-Assistant/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

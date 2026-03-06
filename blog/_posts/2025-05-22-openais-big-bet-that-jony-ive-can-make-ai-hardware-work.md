@@ -61,9 +61,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Google Deepminds Ceo Thinks Ai Will Make Humans Less Selfish](/blog/2025-06-07-google-deepminds-ceo-thinks-ai-will-make-humans-less-selfish.html)
-- **Related post:** [Metas New Ai Model Llama 2 Takes On Openai And Google](/blog/2025-05-12-metas-new-ai-model-llama-2-takes-on-openai-and-google.html)
-- **Related post:** [Openai Pledges To Publish Ai Safety Test Results More Often](/blog/2025-05-15-openai-pledges-to-publish-ai-safety-test-results-more-often.html)
+- **Related post:** [Google Deepminds Ceo Thinks Ai Will Make Humans Less Selfish](/blog/2025/06/07/google-deepminds-ceo-thinks-ai-will-make-humans-less-selfish/)
+- **Related post:** [Metas New Ai Model Llama 2 Takes On Openai And Google](/tech-news/2024/10/27/metas-new-ai-model-llama-2-takes-on-openai-and-google/)
+- **Related post:** [Openai Pledges To Publish Ai Safety Test Results More Often](/blog/2025/05/15/openai-pledges-to-publish-ai-safety-test-results-more-often/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

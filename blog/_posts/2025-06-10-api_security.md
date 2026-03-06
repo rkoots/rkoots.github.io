@@ -147,7 +147,7 @@ One useful way to evaluate 20 essential api security best practices developers m
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Anthropic Ai Api](/blog/2025-05-06-anthropic_ai_api.html)
-- **Related post:** [Here Are 20 Of Our Favorite Deals You Can Still Grab From Reis Anniversary Sale](/blog/2025-05-23-here-are-20-of-our-favorite-deals-you-can-still-grab-from-reis-anniversary-sale.html)
-- **Related post:** [How The Signal Knockoff App Telemessage Got Hacked In 20 Minutes](/blog/2025-05-19-how-the-signal-knockoff-app-telemessage-got-hacked-in-20-minutes.html)
+- **Related post:** [Anthropic Ai Api](/tech-news/2025/05/07/Anthropic_AI_API/)
+- **Related post:** [Here Are 20 Of Our Favorite Deals You Can Still Grab From Reis Anniversary Sale](/blog/2025/05/23/here-are-20-of-our-favorite-deals-you-can-still-grab-from-reis-anniversary-sale/)
+- **Related post:** [How The Signal Knockoff App Telemessage Got Hacked In 20 Minutes](/tech-news/2025/05/19/how-the-signal-knockoff-app-telemessage-got-hacked-in-20-minutes/)
 - **Authoritative reference:** [OWASP API Security Project](https://owasp.org/www-project-api-security/)

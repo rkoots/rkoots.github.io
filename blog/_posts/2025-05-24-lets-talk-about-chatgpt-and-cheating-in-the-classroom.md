@@ -57,9 +57,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A Vpn Company Canceled All Lifetime Subscriptions Claiming It Didnt Know About Them](/blog/2025-05-15-a-vpn-company-canceled-all-lifetime-subscriptions-claiming-it-didnt-know-about-them.html)
-- **Related post:** [Elon Musks Grok Ai Cant Stop Talking About White Genocide](/blog/2025-05-17-elon-musks-grok-ai-cant-stop-talking-about-white-genocide.html)
-- **Related post:** [Openais Chatgpt 4 A Giant Leap For Ai Or Just Another Incremental Update](/blog/2025-05-12-openais-chatgpt-4-a-giant-leap-for-ai-or-just-another-incremental-update.html)
+- **Related post:** [A Vpn Company Canceled All Lifetime Subscriptions Claiming It Didnt Know About Them](/blog/2025/05/15/a-vpn-company-canceled-all-lifetime-subscriptions-claiming-it-didnt-know-about-them/)
+- **Related post:** [Elon Musks Grok Ai Cant Stop Talking About White Genocide](/blog/2025/05/17/elon-musks-grok-ai-cant-stop-talking-about-white-genocide/)
+- **Related post:** [Openais Chatgpt 4 A Giant Leap For Ai Or Just Another Incremental Update](/tech-news/2024/10/27/openais-chatgpt-4-a-giant-leap-for-ai-or-just-another-incremental-update/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

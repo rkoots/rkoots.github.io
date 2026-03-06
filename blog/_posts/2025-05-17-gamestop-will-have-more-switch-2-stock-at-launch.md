@@ -64,9 +64,9 @@ One useful way to evaluate gamestop will have more switch 2 stock at launch is t
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Nintendo Partners With Third Party Websites To Stop Switch 2 Scalpers](/blog/2025-05-28-nintendo-partners-with-third-party-websites-to-stop-switch-2-scalpers.html)
-- **Related post:** [Nintendo Switch 2 Which Webcams Work](/blog/2025-06-19-nintendo-switch-2-which-webcams-work.html)
-- **Related post:** [Metas New Ai Model Llama 2 Open Source And Ready To Compete](/blog/2025-05-12-metas-new-ai-model-llama-2-open-source-and-ready-to-compete.html)
+- **Related post:** [Nintendo Partners With Third Party Websites To Stop Switch 2 Scalpers](/blog/2025/05/28/nintendo-partners-with-third-party-websites-to-stop-switch-2-scalpers/)
+- **Related post:** [Nintendo Switch 2 Which Webcams Work](/tech-news/2025/06/19/nintendo-switch-2-which-webcams-work/)
+- **Related post:** [Metas New Ai Model Llama 2 Open Source And Ready To Compete](/blog/2023/10/27/metas-new-ai-model-llama-2-open-source-and-ready-to-compete/)
 - **Authoritative reference:** [Google Search Central](https://developers.google.com/search)
 
 ## Final Thoughts

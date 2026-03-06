@@ -63,6 +63,6 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Bain Bets On Indian Domestic Work Startup Pronto Even As Rivals Face Criticism](/blog/2025-05-15-bain-bets-on-indian-domestic-work-startup-pronto-even-as-rivals-face-criticism.html)
-- **Related post:** [The Magpod Is A Basic Smartphone Tripod I Cant Live Without](/blog/2025-05-30-the-magpod-is-a-basic-smartphone-tripod-i-cant-live-without.html)
+- **Related post:** [Bain Bets On Indian Domestic Work Startup Pronto Even As Rivals Face Criticism](/tech-news/2025/05/15/bain-bets-on-indian-domestic-work-startup-pronto-even-as-rivals-face-criticism/)
+- **Related post:** [The Magpod Is A Basic Smartphone Tripod I Cant Live Without](/blog/2025/05/30/the-magpod-is-a-basic-smartphone-tripod-i-cant-live-without/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)

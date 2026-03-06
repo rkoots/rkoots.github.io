@@ -120,9 +120,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Ai Startup Cohere Acquires Ottogrid A Platform For Conducting Market Research](/blog/2025-05-18-ai-startup-cohere-acquires-ottogrid-a-platform-for-conducting-market-research.html)
-- **Related post:** [Ai Video Startup Moonvalley Lands 53M According To Filing](/blog/2025-05-18-ai-video-startup-moonvalley-lands-53m-according-to-filing.html)
-- **Related post:** [Bain Bets On Indian Domestic Work Startup Pronto Even As Rivals Face Criticism](/blog/2025-05-15-bain-bets-on-indian-domestic-work-startup-pronto-even-as-rivals-face-criticism.html)
+- **Related post:** [Ai Startup Cohere Acquires Ottogrid A Platform For Conducting Market Research](/blog/2025/05/18/ai-startup-cohere-acquires-ottogrid-a-platform-for-conducting-market-research/)
+- **Related post:** [Ai Video Startup Moonvalley Lands 53M According To Filing](/tech-news/2025/05/18/ai-video-startup-moonvalley-lands-53m-according-to-filing/)
+- **Related post:** [Bain Bets On Indian Domestic Work Startup Pronto Even As Rivals Face Criticism](/tech-news/2025/05/15/bain-bets-on-indian-domestic-work-startup-pronto-even-as-rivals-face-criticism/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

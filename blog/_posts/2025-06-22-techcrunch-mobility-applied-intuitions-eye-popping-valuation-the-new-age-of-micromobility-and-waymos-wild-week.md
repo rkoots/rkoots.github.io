@@ -53,7 +53,7 @@ AI adoption is moving from experimentation to production, which means readers in
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Cohere Hits A 68B Valuation As Investors Amd Nvidia And Salesforce Double Down](/blog/2025-08-16-cohere-hits-a-68b-valuation-as-investors-amd-nvidia-and-salesforce-double-down.html)
-- **Related post:** [Elon Musk Departs Dc With A Black Eye And A Tattered Reputation](/blog/2025-05-31-elon-musk-departs-dc-with-a-black-eye-and-a-tattered-reputation.html)
-- **Related post:** [Gear News Of The Week Iphone 17 May Be A Month Away And Sonos To Raise Prices](/blog/2025-08-10-gear-news-of-the-week-iphone-17-may-be-a-month-away-and-sonos-to-raise-prices.html)
+- **Related post:** [Cohere Hits A 68B Valuation As Investors Amd Nvidia And Salesforce Double Down](/blog/2025/08/16/cohere-hits-a-68b-valuation-as-investors-amd-nvidia-and-salesforce-double-down/)
+- **Related post:** [Elon Musk Departs Dc With A Black Eye And A Tattered Reputation](/tech-news/2025/05/31/elon-musk-departs-dc-with-a-black-eye-and-a-tattered-reputation/)
+- **Related post:** [Gear News Of The Week Iphone 17 May Be A Month Away And Sonos To Raise Prices](/tech-news/2025/08/10/gear-news-of-the-week-iphone-17-may-be-a-month-away-and-sonos-to-raise-prices/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)

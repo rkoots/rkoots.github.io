@@ -64,9 +64,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/blog/2025-05-25-15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers.html)
-- **Related post:** [How Silicon Valleys Influence In Washington Benefits The Tech Elite](/blog/2025-05-17-how-silicon-valleys-influence-in-washington-benefits-the-tech-elite.html)
-- **Related post:** [The Best Travel Tech For Families 2025](/blog/2025-05-26-the-best-travel-tech-for-families-2025.html)
+- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/tech-news/2025/05/25/15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers/)
+- **Related post:** [How Silicon Valleys Influence In Washington Benefits The Tech Elite](/tech-news/2025/05/17/how-silicon-valleys-influence-in-washington-benefits-the-tech-elite/)
+- **Related post:** [The Best Travel Tech For Families 2025](/tech-news/2025/05/26/the-best-travel-tech-for-families-2025/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

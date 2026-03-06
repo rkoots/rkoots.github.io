@@ -57,9 +57,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Cuisinart Propel 3 In 1 Review 2025 Pizza On A 4 Burner Grill](/blog/2025-06-04-cuisinart-propel-3-in-1-review-2025-pizza-on-a-4-burner-grill.html)
-- **Related post:** [Elon Musks Grok Ai Cant Stop Talking About White Genocide](/blog/2025-05-17-elon-musks-grok-ai-cant-stop-talking-about-white-genocide.html)
-- **Related post:** [Microsoft Is Putting Ai Actions Into The Windows File Explorer](/blog/2025-05-20-microsoft-is-putting-ai-actions-into-the-windows-file-explorer.html)
+- **Related post:** [Cuisinart Propel 3 In 1 Review 2025 Pizza On A 4 Burner Grill](/blog/2025/06/04/cuisinart-propel-3-in-1-review-2025-pizza-on-a-4-burner-grill/)
+- **Related post:** [Elon Musks Grok Ai Cant Stop Talking About White Genocide](/blog/2025/05/17/elon-musks-grok-ai-cant-stop-talking-about-white-genocide/)
+- **Related post:** [Microsoft Is Putting Ai Actions Into The Windows File Explorer](/blog/2025/05/20/microsoft-is-putting-ai-actions-into-the-windows-file-explorer/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

@@ -67,7 +67,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Waymo And Uber Are Giving Some Riders Early Access To Atlanta Robotaxi Service](/blog/2025-05-20-waymo-and-uber-are-giving-some-riders-early-access-to-atlanta-robotaxi-service.html)
+- **Related post:** [Waymo And Uber Are Giving Some Riders Early Access To Atlanta Robotaxi Service](/tech-news/2025/05/20/waymo-and-uber-are-giving-some-riders-early-access-to-atlanta-robotaxi-service/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

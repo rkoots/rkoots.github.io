@@ -64,9 +64,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Googles Gemini Ai Advances Spark Debate On Ai Safety](/blog/2025-05-12-googles-gemini-ai-advances-spark-debate-on-ai-safety.html)
-- **Related post:** [Metas New Ai Model Llama 2 Takes On Openai And Google](/blog/2025-05-12-metas-new-ai-model-llama-2-takes-on-openai-and-google.html)
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
+- **Related post:** [Googles Gemini Ai Advances Spark Debate On Ai Safety](/tech-news/2025/05/12/googles-gemini-ai-advances-spark-debate-on-ai-safety/)
+- **Related post:** [Metas New Ai Model Llama 2 Takes On Openai And Google](/tech-news/2024/10/27/metas-new-ai-model-llama-2-takes-on-openai-and-google/)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

@@ -58,9 +58,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Google Deepminds Ceo Thinks Ai Will Make Humans Less Selfish](/blog/2025-06-07-google-deepminds-ceo-thinks-ai-will-make-humans-less-selfish.html)
-- **Related post:** [Solo Founder Vs Cofounder](/blog/2025-06-09-solo-founder-vs-cofounder.html)
-- **Related post:** [Zoox Issues Second Robotaxi Software Recall In A Month Following Collision](/blog/2025-05-26-zoox-issues-second-robotaxi-software-recall-in-a-month-following-collision.html)
+- **Related post:** [Google Deepminds Ceo Thinks Ai Will Make Humans Less Selfish](/blog/2025/06/07/google-deepminds-ceo-thinks-ai-will-make-humans-less-selfish/)
+- **Related post:** [Solo Founder Vs Cofounder](/blog/2025/06/09/Solo-Founder-vs-CoFounder/)
+- **Related post:** [Zoox Issues Second Robotaxi Software Recall In A Month Following Collision](/blog/2025/05/26/zoox-issues-second-robotaxi-software-recall-in-a-month-following-collision/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

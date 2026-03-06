@@ -324,9 +324,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026-03-03-ai-code-generation-tools-comparison-03-mar-2026.html)
-- **Related post:** [Generative Ais Leap Into Personalized Medicine The Promise And Peril Of Ai Driven Drug Discovery](/blog/2025-05-15-generative-ais-leap-into-personalized-medicine-the-promise-and-peril-of-ai-driven-drug-discovery.html)
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
+- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026/03/03/ai-code-generation-tools-comparison-03-mar-2026/)
+- **Related post:** [Generative Ais Leap Into Personalized Medicine The Promise And Peril Of Ai Driven Drug Discovery](/blog/2025/05/15/generative-ais-leap-into-personalized-medicine-the-promise-and-peril-of-ai-driven-drug-discovery/)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

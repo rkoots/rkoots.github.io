@@ -59,9 +59,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025-05-21-a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack.html)
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
-- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/blog/2025-05-25-15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers.html)
+- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025/05/21/a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack/)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
+- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/tech-news/2025/05/25/15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

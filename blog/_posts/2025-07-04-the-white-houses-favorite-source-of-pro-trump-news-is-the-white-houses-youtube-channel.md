@@ -73,9 +73,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A Special Diamond Is The Key To A Fully Open Source Quantum Sensor](/blog/2025-08-13-a-special-diamond-is-the-key-to-a-fully-open-source-quantum-sensor.html)
-- **Related post:** [Analysts Say Trump Trade Wars Would Harm The Entire Us Energy Sector From Oil To Solar](/blog/2025-06-04-analysts-say-trump-trade-wars-would-harm-the-entire-us-energy-sector-from-oil-to-solar.html)
-- **Related post:** [Elon Musks Grok Ai Cant Stop Talking About White Genocide](/blog/2025-05-17-elon-musks-grok-ai-cant-stop-talking-about-white-genocide.html)
+- **Related post:** [A Special Diamond Is The Key To A Fully Open Source Quantum Sensor](/blog/2025/08/13/a-special-diamond-is-the-key-to-a-fully-open-source-quantum-sensor/)
+- **Related post:** [Analysts Say Trump Trade Wars Would Harm The Entire Us Energy Sector From Oil To Solar](/tech-news/2025/06/04/analysts-say-trump-trade-wars-would-harm-the-entire-us-energy-sector-from-oil-to-solar/)
+- **Related post:** [Elon Musks Grok Ai Cant Stop Talking About White Genocide](/blog/2025/05/17/elon-musks-grok-ai-cant-stop-talking-about-white-genocide/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

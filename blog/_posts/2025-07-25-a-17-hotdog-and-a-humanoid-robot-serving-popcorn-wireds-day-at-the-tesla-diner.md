@@ -63,9 +63,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/blog/2025-05-25-15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers.html)
-- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/blog/2025-05-16-17-best-electric-bikes-2025-hauling-commuting-mountain-biking.html)
-- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/blog/2025-05-17-17-best-electric-bikes-2025-hauling-commuting-mountain-biking.html)
+- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/tech-news/2025/05/25/15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers/)
+- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/tech-news/2025/05/17/17-best-electric-bikes-2025-hauling-commuting-mountain-biking/)
+- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/tech-news/2025/05/17/17-best-electric-bikes-2025-hauling-commuting-mountain-biking/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

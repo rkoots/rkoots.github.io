@@ -57,9 +57,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A Surveillance Vendor Was Caught Exploiting A New Ss7 Attack To Track Peoples Phone Locations](/blog/2025-07-19-a-surveillance-vendor-was-caught-exploiting-a-new-ss7-attack-to-track-peoples-phone-locations.html)
-- **Related post:** [Elon Musks Grok Ai Cant Stop Talking About White Genocide](/blog/2025-05-17-elon-musks-grok-ai-cant-stop-talking-about-white-genocide.html)
-- **Related post:** [Nintendo Partners With Third Party Websites To Stop Switch 2 Scalpers](/blog/2025-05-28-nintendo-partners-with-third-party-websites-to-stop-switch-2-scalpers.html)
+- **Related post:** [A Surveillance Vendor Was Caught Exploiting A New Ss7 Attack To Track Peoples Phone Locations](/tech-news/2025/07/19/a-surveillance-vendor-was-caught-exploiting-a-new-ss7-attack-to-track-peoples-phone-locations/)
+- **Related post:** [Elon Musks Grok Ai Cant Stop Talking About White Genocide](/blog/2025/05/17/elon-musks-grok-ai-cant-stop-talking-about-white-genocide/)
+- **Related post:** [Nintendo Partners With Third Party Websites To Stop Switch 2 Scalpers](/blog/2025/05/28/nintendo-partners-with-third-party-websites-to-stop-switch-2-scalpers/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

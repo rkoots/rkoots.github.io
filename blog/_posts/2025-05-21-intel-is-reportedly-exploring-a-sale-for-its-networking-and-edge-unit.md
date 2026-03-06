@@ -72,9 +72,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Here Are 20 Of Our Favorite Deals You Can Still Grab From Reis Anniversary Sale](/blog/2025-05-23-here-are-20-of-our-favorite-deals-you-can-still-grab-from-reis-anniversary-sale.html)
-- **Related post:** [Sonys Dualsense Edge Controller Is Receiving A Rare 30 Discount](/blog/2025-06-01-sonys-dualsense-edge-controller-is-receiving-a-rare-30-discount.html)
-- **Related post:** [We Hand Picked The 37 Best Deals From The 2025 Rei Anniversary Sale](/blog/2025-05-20-we-hand-picked-the-37-best-deals-from-the-2025-rei-anniversary-sale.html)
+- **Related post:** [Here Are 20 Of Our Favorite Deals You Can Still Grab From Reis Anniversary Sale](/blog/2025/05/23/here-are-20-of-our-favorite-deals-you-can-still-grab-from-reis-anniversary-sale/)
+- **Related post:** [Sonys Dualsense Edge Controller Is Receiving A Rare 30 Discount](/tech-news/2025/06/01/sonys-dualsense-edge-controller-is-receiving-a-rare-30-discount/)
+- **Related post:** [We Hand Picked The 37 Best Deals From The 2025 Rei Anniversary Sale](/tech-news/2025/05/20/we-hand-picked-the-37-best-deals-from-the-2025-rei-anniversary-sale/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

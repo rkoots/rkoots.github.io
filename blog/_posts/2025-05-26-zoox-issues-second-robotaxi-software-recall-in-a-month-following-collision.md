@@ -60,9 +60,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Apple Finally Launches Next Gen Carplay Ultra Software Starting With Aston Martin](/blog/2025-05-16-apple-finally-launches-next-gen-carplay-ultra-software-starting-with-aston-martin.html)
-- **Related post:** [Billionaire Founder Of Luminar Replaced As Ceo Following Ethics Inquiry](/blog/2025-05-15-billionaire-founder-of-luminar-replaced-as-ceo-following-ethics-inquiry.html)
-- **Related post:** [Gear News Of The Week Iphone 17 May Be A Month Away And Sonos To Raise Prices](/blog/2025-08-10-gear-news-of-the-week-iphone-17-may-be-a-month-away-and-sonos-to-raise-prices.html)
+- **Related post:** [Apple Finally Launches Next Gen Carplay Ultra Software Starting With Aston Martin](/tech-news/2025/05/16/apple-finally-launches-next-gen-carplay-ultra-software-starting-with-aston-martin/)
+- **Related post:** [Billionaire Founder Of Luminar Replaced As Ceo Following Ethics Inquiry](/blog/2025/05/15/billionaire-founder-of-luminar-replaced-as-ceo-following-ethics-inquiry/)
+- **Related post:** [Gear News Of The Week Iphone 17 May Be A Month Away And Sonos To Raise Prices](/tech-news/2025/08/10/gear-news-of-the-week-iphone-17-may-be-a-month-away-and-sonos-to-raise-prices/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

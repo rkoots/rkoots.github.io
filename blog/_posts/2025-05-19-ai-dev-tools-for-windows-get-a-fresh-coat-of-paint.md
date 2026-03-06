@@ -59,9 +59,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025-05-20-ai-dev-tools-for-windows-get-a-fresh-coat-of-paint.html)
-- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026-03-03-ai-code-generation-tools-comparison-03-mar-2026.html)
-- **Related post:** [Developer Productivity Tools Powered By Ai Latest Updates 1772765212](/blog/2026-03-06-developer-productivity-tools-powered-by-ai-latest-updates-1772765212.html)
+- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025/05/20/ai-dev-tools-for-windows-get-a-fresh-coat-of-paint/)
+- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026/03/03/ai-code-generation-tools-comparison-03-mar-2026/)
+- **Related post:** [Developer Productivity Tools Powered By Ai Latest Updates 1772765212](/blog/2026/03/06/developer-productivity-tools-powered-by-ai-latest-updates-1772765212/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

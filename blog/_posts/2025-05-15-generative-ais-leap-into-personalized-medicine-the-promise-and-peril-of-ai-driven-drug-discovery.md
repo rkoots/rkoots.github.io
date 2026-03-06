@@ -72,7 +72,7 @@ One useful way to evaluate generative ai's leap into personalized medicine: the 
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Openais Chatgpt 4 A Giant Leap For Ai Or Just Another Incremental Update](/blog/2025-05-12-openais-chatgpt-4-a-giant-leap-for-ai-or-just-another-incremental-update.html)
-- **Related post:** [The Promise And Peril Of Digital Security In The Age Of Dictatorship](/blog/2025-07-07-the-promise-and-peril-of-digital-security-in-the-age-of-dictatorship.html)
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
+- **Related post:** [Openais Chatgpt 4 A Giant Leap For Ai Or Just Another Incremental Update](/tech-news/2024/10/27/openais-chatgpt-4-a-giant-leap-for-ai-or-just-another-incremental-update/)
+- **Related post:** [The Promise And Peril Of Digital Security In The Age Of Dictatorship](/tech-news/2025/07/07/the-promise-and-peril-of-digital-security-in-the-age-of-dictatorship/)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
 - **Authoritative reference:** [Google Search Central](https://developers.google.com/search)

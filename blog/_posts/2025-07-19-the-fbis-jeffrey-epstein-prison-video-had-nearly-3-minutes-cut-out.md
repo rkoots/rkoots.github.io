@@ -68,9 +68,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [14 Best Office Chairs Of 2025 Ive Tested Nearly 60 To Pick Them](/blog/2025-08-04-14-best-office-chairs-of-2025-ive-tested-nearly-60-to-pick-them.html)
-- **Related post:** [Ai Video Startup Moonvalley Lands 53M According To Filing](/blog/2025-05-18-ai-video-startup-moonvalley-lands-53m-according-to-filing.html)
-- **Related post:** [Cuisinart Propel 3 In 1 Review 2025 Pizza On A 4 Burner Grill](/blog/2025-06-04-cuisinart-propel-3-in-1-review-2025-pizza-on-a-4-burner-grill.html)
+- **Related post:** [14 Best Office Chairs Of 2025 Ive Tested Nearly 60 To Pick Them](/tech-news/2025/08/04/14-best-office-chairs-of-2025-ive-tested-nearly-60-to-pick-them/)
+- **Related post:** [Ai Video Startup Moonvalley Lands 53M According To Filing](/tech-news/2025/05/18/ai-video-startup-moonvalley-lands-53m-according-to-filing/)
+- **Related post:** [Cuisinart Propel 3 In 1 Review 2025 Pizza On A 4 Burner Grill](/blog/2025/06/04/cuisinart-propel-3-in-1-review-2025-pizza-on-a-4-burner-grill/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

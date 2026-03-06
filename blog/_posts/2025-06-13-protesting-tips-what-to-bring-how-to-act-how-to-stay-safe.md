@@ -79,7 +79,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Come For The Amenity Kits Stay For The Flight](/blog/2025-07-04-come-for-the-amenity-kits-stay-for-the-flight.html)
+- **Related post:** [Come For The Amenity Kits Stay For The Flight](/blog/2025/07/04/come-for-the-amenity-kits-stay-for-the-flight/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

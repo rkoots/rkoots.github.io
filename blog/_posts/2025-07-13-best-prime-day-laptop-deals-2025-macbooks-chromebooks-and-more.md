@@ -70,7 +70,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/blog/2025-05-25-15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers.html)
-- **Related post:** [Best Early Labor Day Mattress Sales 2025](/blog/2025-08-16-best-early-labor-day-mattress-sales-2025.html)
-- **Related post:** [The 23 Best Movies On Amazon Prime Right Now May 2025](/blog/2025-05-25-the-23-best-movies-on-amazon-prime-right-now-may-2025.html)
+- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/tech-news/2025/05/25/15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers/)
+- **Related post:** [Best Early Labor Day Mattress Sales 2025](/tech-news/2025/08/16/best-early-labor-day-mattress-sales-2025/)
+- **Related post:** [The 23 Best Movies On Amazon Prime Right Now May 2025](/blog/2025/05/25/the-23-best-movies-on-amazon-prime-right-now-may-2025/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)

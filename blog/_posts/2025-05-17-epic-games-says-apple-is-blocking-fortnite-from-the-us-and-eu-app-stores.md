@@ -61,9 +61,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Tim Sweeney Is Mocking Apple For Letting Fortnite Fakes Into The App Store](/blog/2025-05-16-tim-sweeney-is-mocking-apple-for-letting-fortnite-fakes-into-the-app-store.html)
-- **Related post:** [Apple Blocks Fortnite8217S App Store Return As Downloads Fail In Europe](/blog/2025-05-16-apple-blocks-fortnite8217s-app-store-return-as-downloads-fail-in-europe.html)
-- **Related post:** [Fortnite Is Finally Back On Us Iphones](/blog/2025-05-21-fortnite-is-finally-back-on-us-iphones.html)
+- **Related post:** [Tim Sweeney Is Mocking Apple For Letting Fortnite Fakes Into The App Store](/tech-news/2025/05/16/tim-sweeney-is-mocking-apple-for-letting-fortnite-fakes-into-the-app-store/)
+- **Related post:** [Apple Blocks Fortnite8217S App Store Return As Downloads Fail In Europe](/blog/2025/05/16/apple-blocks-fortnite8217s-app-store-return-as-downloads-fail-in-europe/)
+- **Related post:** [Fortnite Is Finally Back On Us Iphones](/blog/2025/05/21/fortnite-is-finally-back-on-us-iphones/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

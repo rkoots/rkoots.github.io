@@ -61,9 +61,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Here Is Everyone Mark Zuckerberg Has Hired So Far For Metas Superintelligence Team](/blog/2025-07-01-here-is-everyone-mark-zuckerberg-has-hired-so-far-for-metas-superintelligence-team.html)
-- **Related post:** [Spotify Says Support For External Payments On Ios Has Already Boosted Subscriptions](/blog/2025-05-21-spotify-says-support-for-external-payments-on-ios-has-already-boosted-subscriptions.html)
-- **Related post:** [Tensions Flare Between The Us And China Over Huaweis Ai Chips](/blog/2025-05-22-tensions-flare-between-the-us-and-china-over-huaweis-ai-chips.html)
+- **Related post:** [Here Is Everyone Mark Zuckerberg Has Hired So Far For Metas Superintelligence Team](/tech-news/2025/07/01/here-is-everyone-mark-zuckerberg-has-hired-so-far-for-metas-superintelligence-team/)
+- **Related post:** [Spotify Says Support For External Payments On Ios Has Already Boosted Subscriptions](/tech-news/2025/05/21/spotify-says-support-for-external-payments-on-ios-has-already-boosted-subscriptions/)
+- **Related post:** [Tensions Flare Between The Us And China Over Huaweis Ai Chips](/tech-news/2025/05/22/tensions-flare-between-the-us-and-china-over-huaweis-ai-chips/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

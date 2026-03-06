@@ -66,9 +66,9 @@ AI adoption is moving from experimentation to production, which means readers in
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Hp Coupon Codes Deals Save Up To 81 In May](/blog/2025-05-15-hp-coupon-codes-deals-save-up-to-81-in-may.html)
-- **Related post:** [30 Off Design Within Reach Promo Code May 2025](/blog/2025-05-19-30-off-design-within-reach-promo-code-may-2025.html)
-- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026-03-03-ai-code-generation-tools-comparison-03-mar-2026.html)
+- **Related post:** [Hp Coupon Codes Deals Save Up To 81 In May](/tech-news/2025/05/15/hp-coupon-codes-deals-save-up-to-81-in-may/)
+- **Related post:** [30 Off Design Within Reach Promo Code May 2025](/tech-news/2025/05/19/30-off-design-within-reach-promo-code-may-2025/)
+- **Related post:** [Ai Code Generation Tools Comparison 03 Mar 2026](/blog/2026/03/03/ai-code-generation-tools-comparison-03-mar-2026/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

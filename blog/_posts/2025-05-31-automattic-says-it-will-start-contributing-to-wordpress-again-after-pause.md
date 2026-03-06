@@ -66,9 +66,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Elon Musk Says Hell Step Back From The Government Doge Isnt Going Anywhere](/blog/2025-05-26-elon-musk-says-hell-step-back-from-the-government-doge-isnt-going-anywhere.html)
-- **Related post:** [Epic Games Says Apple Is Blocking Fortnite From The Us And Eu App Stores](/blog/2025-05-17-epic-games-says-apple-is-blocking-fortnite-from-the-us-and-eu-app-stores.html)
-- **Related post:** [Musk Says Teslas Self Driving Tests Will Be Geofenced To The Safest Parts Of Austin](/blog/2025-05-21-musk-says-teslas-self-driving-tests-will-be-geofenced-to-the-safest-parts-of-austin.html)
+- **Related post:** [Elon Musk Says Hell Step Back From The Government Doge Isnt Going Anywhere](/tech-news/2025/05/26/elon-musk-says-hell-step-back-from-the-government-doge-isnt-going-anywhere/)
+- **Related post:** [Epic Games Says Apple Is Blocking Fortnite From The Us And Eu App Stores](/tech-news/2025/05/17/epic-games-says-apple-is-blocking-fortnite-from-the-us-and-eu-app-stores/)
+- **Related post:** [Musk Says Teslas Self Driving Tests Will Be Geofenced To The Safest Parts Of Austin](/tech-news/2025/05/21/musk-says-teslas-self-driving-tests-will-be-geofenced-to-the-safest-parts-of-austin/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

@@ -82,5 +82,5 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Best Early Labor Day Mattress Sales 2025](/blog/2025-08-16-best-early-labor-day-mattress-sales-2025.html)
+- **Related post:** [Best Early Labor Day Mattress Sales 2025](/tech-news/2025/08/16/best-early-labor-day-mattress-sales-2025/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)

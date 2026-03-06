@@ -67,9 +67,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Blue Apron Coupons 80 Off Free Shipping June 2025](/blog/2025-06-02-blue-apron-coupons-80-off-free-shipping-june-2025.html)
-- **Related post:** [China Has Attempted What Might Be The First Ever Orbital Refueling Of A Satellite](/blog/2025-07-10-china-has-attempted-what-might-be-the-first-ever-orbital-refueling-of-a-satellite.html)
-- **Related post:** [Here Is Everyone Mark Zuckerberg Has Hired So Far For Metas Superintelligence Team](/blog/2025-07-01-here-is-everyone-mark-zuckerberg-has-hired-so-far-for-metas-superintelligence-team.html)
+- **Related post:** [Blue Apron Coupons 80 Off Free Shipping June 2025](/tech-news/2025/06/02/blue-apron-coupons-80-off-free-shipping-june-2025/)
+- **Related post:** [China Has Attempted What Might Be The First Ever Orbital Refueling Of A Satellite](/tech-news/2025/07/10/china-has-attempted-what-might-be-the-first-ever-orbital-refueling-of-a-satellite/)
+- **Related post:** [Here Is Everyone Mark Zuckerberg Has Hired So Far For Metas Superintelligence Team](/tech-news/2025/07/01/here-is-everyone-mark-zuckerberg-has-hired-so-far-for-metas-superintelligence-team/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

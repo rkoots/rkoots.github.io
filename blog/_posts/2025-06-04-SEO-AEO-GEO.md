@@ -164,8 +164,8 @@ A useful case study is a technical article that ranks modestly in traditional se
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Metaverse Internet Rise](/blog/2025-04-10-metaverse_internet_rise.html)
-- **Related post:** [Rise Of Quantum Compution](/blog/2025-04-25-rise_of_quantum_compution.html)
+- **Related post:** [Metaverse Internet Rise](/blog/2025/04/10/Metaverse_internet_rise/)
+- **Related post:** [Rise Of Quantum Compution](/blog/2025/04/25/Rise_of_quantum_compution/)
 - **Authoritative reference:** [Google Search Central](https://developers.google.com/search)
 
 ## Final Thoughts

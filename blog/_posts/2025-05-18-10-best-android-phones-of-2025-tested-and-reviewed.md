@@ -85,7 +85,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [10 Best Android Phones Of 2025 Tested And Reviewed](/blog/2025-05-17-10-best-android-phones-of-2025-tested-and-reviewed.html)
-- **Related post:** [10 Best Reusable Water Bottles Of 2025 Tested Reviewed](/blog/2025-05-28-10-best-reusable-water-bottles-of-2025-tested-reviewed.html)
-- **Related post:** [5 Best Folding Phones 2025 Tested And Reviewed](/blog/2025-05-21-5-best-folding-phones-2025-tested-and-reviewed.html)
+- **Related post:** [10 Best Android Phones Of 2025 Tested And Reviewed](/tech-news/2025/05/18/10-best-android-phones-of-2025-tested-and-reviewed/)
+- **Related post:** [10 Best Reusable Water Bottles Of 2025 Tested Reviewed](/tech-news/2025/05/28/10-best-reusable-water-bottles-of-2025-tested-reviewed/)
+- **Related post:** [5 Best Folding Phones 2025 Tested And Reviewed](/tech-news/2025/12/21/5-best-folding-phones-2025-tested-and-reviewed/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)

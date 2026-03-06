@@ -59,8 +59,8 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A Surveillance Vendor Was Caught Exploiting A New Ss7 Attack To Track Peoples Phone Locations](/blog/2025-07-19-a-surveillance-vendor-was-caught-exploiting-a-new-ss7-attack-to-track-peoples-phone-locations.html)
-- **Related post:** [The Methaphone Is A Phone Thats Not A Phone To Help You Stop Using Your Phone](/blog/2025-06-25-the-methaphone-is-a-phone-thats-not-a-phone-to-help-you-stop-using-your-phone.html)
+- **Related post:** [A Surveillance Vendor Was Caught Exploiting A New Ss7 Attack To Track Peoples Phone Locations](/tech-news/2025/07/19/a-surveillance-vendor-was-caught-exploiting-a-new-ss7-attack-to-track-peoples-phone-locations/)
+- **Related post:** [The Methaphone Is A Phone Thats Not A Phone To Help You Stop Using Your Phone](/tech-news/2025/06/25/the-methaphone-is-a-phone-thats-not-a-phone-to-help-you-stop-using-your-phone/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

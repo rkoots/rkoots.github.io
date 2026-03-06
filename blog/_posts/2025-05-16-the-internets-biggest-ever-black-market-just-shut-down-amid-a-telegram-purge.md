@@ -65,9 +65,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [12 Ways To Upgrade Your Wi Fi And Make Your Internet Faster 2025](/blog/2025-05-20-12-ways-to-upgrade-your-wi-fi-and-make-your-internet-faster-2025.html)
-- **Related post:** [12 Ways To Upgrade Your Wi Fi And Make Your Internet Faster 2025](/blog/2025-05-21-12-ways-to-upgrade-your-wi-fi-and-make-your-internet-faster-2025.html)
-- **Related post:** [8 Best Down Comforters 2025 Tested And Reviewed](/blog/2025-05-18-8-best-down-comforters-2025-tested-and-reviewed.html)
+- **Related post:** [12 Ways To Upgrade Your Wi Fi And Make Your Internet Faster 2025](/tech-news/2025/05/21/12-ways-to-upgrade-your-wi-fi-and-make-your-internet-faster-2025/)
+- **Related post:** [12 Ways To Upgrade Your Wi Fi And Make Your Internet Faster 2025](/tech-news/2025/05/21/12-ways-to-upgrade-your-wi-fi-and-make-your-internet-faster-2025/)
+- **Related post:** [8 Best Down Comforters 2025 Tested And Reviewed](/tech-news/2025/05/18/8-best-down-comforters-2025-tested-and-reviewed/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

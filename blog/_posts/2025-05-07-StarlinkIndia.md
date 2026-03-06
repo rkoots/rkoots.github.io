@@ -67,9 +67,9 @@ One useful way to evaluate starlink’s launch in india now a matter of when, no
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025-05-21-a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack.html)
-- **Related post:** [Gamestop Will Have More Switch 2 Stock At Launch](/blog/2025-05-17-gamestop-will-have-more-switch-2-stock-at-launch.html)
-- **Related post:** [India](/blog/2026-01-01-india.html)
+- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025/05/21/a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack/)
+- **Related post:** [Gamestop Will Have More Switch 2 Stock At Launch](/blog/2025/05/17/gamestop-will-have-more-switch-2-stock-at-launch/)
+- **Related post:** [India](/tech-news/2026/01/01/india/)
 - **Authoritative reference:** [Google Search Central](https://developers.google.com/search)
 
 ## Final Thoughts

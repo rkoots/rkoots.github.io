@@ -59,9 +59,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [We Tried On Googles Prototype Ai Smart Glasses](/blog/2025-05-21-we-tried-on-googles-prototype-ai-smart-glasses.html)
-- **Related post:** [9 Best Digital Notebooks Tablets And Smart Pens 2025](/blog/2025-05-18-9-best-digital-notebooks-tablets-and-smart-pens-2025.html)
-- **Related post:** [After Adding Its Own Billing Option On Ios Apple Asks Patreon To Move It To An External Browser](/blog/2025-05-17-after-adding-its-own-billing-option-on-ios-apple-asks-patreon-to-move-it-to-an-external-browser.html)
+- **Related post:** [We Tried On Googles Prototype Ai Smart Glasses](/tech-news/2025/05/21/we-tried-on-googles-prototype-ai-smart-glasses/)
+- **Related post:** [9 Best Digital Notebooks Tablets And Smart Pens 2025](/tech-news/2025/05/18/9-best-digital-notebooks-tablets-and-smart-pens-2025/)
+- **Related post:** [After Adding Its Own Billing Option On Ios Apple Asks Patreon To Move It To An External Browser](/blog/2025/05/17/after-adding-its-own-billing-option-on-ios-apple-asks-patreon-to-move-it-to-an-external-browser/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

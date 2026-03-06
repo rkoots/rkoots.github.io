@@ -55,9 +55,9 @@ AI adoption is moving from experimentation to production, which means readers in
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Elon Musk Says Hell Step Back From The Government Doge Isnt Going Anywhere](/blog/2025-05-26-elon-musk-says-hell-step-back-from-the-government-doge-isnt-going-anywhere.html)
-- **Related post:** [A 17 Hotdog And A Humanoid Robot Serving Popcorn Wireds Day At The Tesla Diner](/blog/2025-07-25-a-17-hotdog-and-a-humanoid-robot-serving-popcorn-wireds-day-at-the-tesla-diner.html)
-- **Related post:** [Automattic Says It Will Start Contributing To Wordpress Again After Pause](/blog/2025-05-31-automattic-says-it-will-start-contributing-to-wordpress-again-after-pause.html)
+- **Related post:** [Elon Musk Says Hell Step Back From The Government Doge Isnt Going Anywhere](/tech-news/2025/05/26/elon-musk-says-hell-step-back-from-the-government-doge-isnt-going-anywhere/)
+- **Related post:** [A 17 Hotdog And A Humanoid Robot Serving Popcorn Wireds Day At The Tesla Diner](/blog/2025/07/25/a-17-hotdog-and-a-humanoid-robot-serving-popcorn-wireds-day-at-the-tesla-diner/)
+- **Related post:** [Automattic Says It Will Start Contributing To Wordpress Again After Pause](/blog/2025/05/31/automattic-says-it-will-start-contributing-to-wordpress-again-after-pause/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

@@ -72,7 +72,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Microsoft Is Putting Ai Actions Into The Windows File Explorer](/blog/2025-05-20-microsoft-is-putting-ai-actions-into-the-windows-file-explorer.html)
-- **Related post:** [Stitch Is Googles Ai Powered Tool To Help Design Apps](/blog/2025-05-21-stitch-is-googles-ai-powered-tool-to-help-design-apps.html)
-- **Related post:** [Xais Grok 3 Comes To Microsoft Azure](/blog/2025-05-19-xais-grok-3-comes-to-microsoft-azure.html)
+- **Related post:** [Microsoft Is Putting Ai Actions Into The Windows File Explorer](/blog/2025/05/20/microsoft-is-putting-ai-actions-into-the-windows-file-explorer/)
+- **Related post:** [Stitch Is Googles Ai Powered Tool To Help Design Apps](/blog/2025/05/21/stitch-is-googles-ai-powered-tool-to-help-design-apps/)
+- **Related post:** [Xais Grok 3 Comes To Microsoft Azure](/tech-news/2025/05/19/xais-grok-3-comes-to-microsoft-azure/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)

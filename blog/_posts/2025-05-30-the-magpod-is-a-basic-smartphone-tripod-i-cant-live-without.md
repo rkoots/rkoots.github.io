@@ -66,9 +66,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A Decade In Bootstrapped Thinkst Canary Reaches 20M In Arr Without Vc Funding](/blog/2025-05-30-a-decade-in-bootstrapped-thinkst-canary-reaches-20m-in-arr-without-vc-funding.html)
-- **Related post:** [I Tried Out Dysons New Pencilvac Heres What You Need To Know](/blog/2025-05-22-i-tried-out-dysons-new-pencilvac-heres-what-you-need-to-know.html)
-- **Related post:** [I Tried Out Dysons New Pencilvac Heres What You Need To Know](/blog/2025-05-24-i-tried-out-dysons-new-pencilvac-heres-what-you-need-to-know.html)
+- **Related post:** [A Decade In Bootstrapped Thinkst Canary Reaches 20M In Arr Without Vc Funding](/tech-news/2025/05/30/a-decade-in-bootstrapped-thinkst-canary-reaches-20m-in-arr-without-vc-funding/)
+- **Related post:** [I Tried Out Dysons New Pencilvac Heres What You Need To Know](/blog/2025/05/24/i-tried-out-dysons-new-pencilvac-heres-what-you-need-to-know/)
+- **Related post:** [I Tried Out Dysons New Pencilvac Heres What You Need To Know](/blog/2025/05/24/i-tried-out-dysons-new-pencilvac-heres-what-you-need-to-know/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

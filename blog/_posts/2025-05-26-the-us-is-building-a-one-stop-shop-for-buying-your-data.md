@@ -68,9 +68,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Analysts Say Trump Trade Wars Would Harm The Entire Us Energy Sector From Oil To Solar](/blog/2025-06-04-analysts-say-trump-trade-wars-would-harm-the-entire-us-energy-sector-from-oil-to-solar.html)
-- **Related post:** [At Least 750 Us Hospitals Faced Disruptions During Last Years Crowdstrike Outage Study Finds](/blog/2025-07-22-at-least-750-us-hospitals-faced-disruptions-during-last-years-crowdstrike-outage-study-finds.html)
-- **Related post:** [Cfpb Quietly Kills Rule To Shield Americans From Data Brokers](/blog/2025-05-17-cfpb-quietly-kills-rule-to-shield-americans-from-data-brokers.html)
+- **Related post:** [Analysts Say Trump Trade Wars Would Harm The Entire Us Energy Sector From Oil To Solar](/tech-news/2025/06/04/analysts-say-trump-trade-wars-would-harm-the-entire-us-energy-sector-from-oil-to-solar/)
+- **Related post:** [At Least 750 Us Hospitals Faced Disruptions During Last Years Crowdstrike Outage Study Finds](/blog/2025/07/22/at-least-750-us-hospitals-faced-disruptions-during-last-years-crowdstrike-outage-study-finds/)
+- **Related post:** [Cfpb Quietly Kills Rule To Shield Americans From Data Brokers](/tech-news/2025/05/17/cfpb-quietly-kills-rule-to-shield-americans-from-data-brokers/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

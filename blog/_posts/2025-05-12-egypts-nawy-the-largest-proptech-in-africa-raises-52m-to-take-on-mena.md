@@ -53,7 +53,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Revolutionizing Retail Ai Powered Personal Shopping Assistants Take Center Stage](/blog/2025-05-12-revolutionizing-retail-ai-powered-personal-shopping-assistants-take-center-stage.html)
+- **Related post:** [Revolutionizing Retail Ai Powered Personal Shopping Assistants Take Center Stage](/tech-news/2024/10/27/revolutionizing-retail-ai-powered-personal-shopping-assistants-take-center-stage/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

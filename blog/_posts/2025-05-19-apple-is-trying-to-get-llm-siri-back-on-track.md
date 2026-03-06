@@ -59,9 +59,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A Surveillance Vendor Was Caught Exploiting A New Ss7 Attack To Track Peoples Phone Locations](/blog/2025-07-19-a-surveillance-vendor-was-caught-exploiting-a-new-ss7-attack-to-track-peoples-phone-locations.html)
-- **Related post:** [After Adding Its Own Billing Option On Ios Apple Asks Patreon To Move It To An External Browser](/blog/2025-05-17-after-adding-its-own-billing-option-on-ios-apple-asks-patreon-to-move-it-to-an-external-browser.html)
-- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025-05-19-ai-dev-tools-for-windows-get-a-fresh-coat-of-paint.html)
+- **Related post:** [A Surveillance Vendor Was Caught Exploiting A New Ss7 Attack To Track Peoples Phone Locations](/tech-news/2025/07/19/a-surveillance-vendor-was-caught-exploiting-a-new-ss7-attack-to-track-peoples-phone-locations/)
+- **Related post:** [After Adding Its Own Billing Option On Ios Apple Asks Patreon To Move It To An External Browser](/blog/2025/05/17/after-adding-its-own-billing-option-on-ios-apple-asks-patreon-to-move-it-to-an-external-browser/)
+- **Related post:** [Ai Dev Tools For Windows Get A Fresh Coat Of Paint](/blog/2025/05/20/ai-dev-tools-for-windows-get-a-fresh-coat-of-paint/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

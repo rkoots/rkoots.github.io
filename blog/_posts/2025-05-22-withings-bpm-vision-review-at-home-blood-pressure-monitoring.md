@@ -67,7 +67,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Withings Bpm Vision Review At Home Blood Pressure Monitoring](/blog/2025-05-21-withings-bpm-vision-review-at-home-blood-pressure-monitoring.html)
-- **Related post:** [Cuisinart Propel 3 In 1 Review 2025 Pizza On A 4 Burner Grill](/blog/2025-06-04-cuisinart-propel-3-in-1-review-2025-pizza-on-a-4-burner-grill.html)
-- **Related post:** [Eargo 8 Hearing Aids Review Too Expensive](/blog/2025-05-15-eargo-8-hearing-aids-review-too-expensive.html)
+- **Related post:** [Withings Bpm Vision Review At Home Blood Pressure Monitoring](/tech-news/2025/05/22/withings-bpm-vision-review-at-home-blood-pressure-monitoring/)
+- **Related post:** [Cuisinart Propel 3 In 1 Review 2025 Pizza On A 4 Burner Grill](/blog/2025/06/04/cuisinart-propel-3-in-1-review-2025-pizza-on-a-4-burner-grill/)
+- **Related post:** [Eargo 8 Hearing Aids Review Too Expensive](/blog/2025/05/16/eargo-8-hearing-aids-review-too-expensive/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)

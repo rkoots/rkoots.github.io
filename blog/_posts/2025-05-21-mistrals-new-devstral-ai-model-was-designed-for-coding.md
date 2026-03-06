@@ -75,9 +75,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [An Ai Model For The Brain Is Coming To The Icu](/blog/2025-08-13-an-ai-model-for-the-brain-is-coming-to-the-icu.html)
-- **Related post:** [Metas New Ai Model Llama 2 Open Source And Ready To Compete](/blog/2025-05-12-metas-new-ai-model-llama-2-open-source-and-ready-to-compete.html)
-- **Related post:** [Metas New Ai Model Llama 2 Takes On Openai And Google](/blog/2025-05-12-metas-new-ai-model-llama-2-takes-on-openai-and-google.html)
+- **Related post:** [An Ai Model For The Brain Is Coming To The Icu](/tech-news/2025/08/13/an-ai-model-for-the-brain-is-coming-to-the-icu/)
+- **Related post:** [Metas New Ai Model Llama 2 Open Source And Ready To Compete](/blog/2023/10/27/metas-new-ai-model-llama-2-open-source-and-ready-to-compete/)
+- **Related post:** [Metas New Ai Model Llama 2 Takes On Openai And Google](/tech-news/2024/10/27/metas-new-ai-model-llama-2-takes-on-openai-and-google/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

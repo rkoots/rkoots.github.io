@@ -60,9 +60,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
-- **Related post:** [Cohere Hits A 68B Valuation As Investors Amd Nvidia And Salesforce Double Down](/blog/2025-08-16-cohere-hits-a-68b-valuation-as-investors-amd-nvidia-and-salesforce-double-down.html)
-- **Related post:** [Techcrunch Mobility Applied Intuitions Eye Popping Valuation The New Age Of Micromobility And Waymos Wild Week](/blog/2025-06-22-techcrunch-mobility-applied-intuitions-eye-popping-valuation-the-new-age-of-micromobility-and-waymos-wild-week.html)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
+- **Related post:** [Cohere Hits A 68B Valuation As Investors Amd Nvidia And Salesforce Double Down](/blog/2025/08/16/cohere-hits-a-68b-valuation-as-investors-amd-nvidia-and-salesforce-double-down/)
+- **Related post:** [Techcrunch Mobility Applied Intuitions Eye Popping Valuation The New Age Of Micromobility And Waymos Wild Week](/tech-news/2025/06/22/techcrunch-mobility-applied-intuitions-eye-popping-valuation-the-new-age-of-micromobility-and-waymos-wild-week/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

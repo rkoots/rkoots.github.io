@@ -66,9 +66,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Arcs New 24 Foot Electric Boat Is Its Cheapest Yet](/blog/2025-05-17-arcs-new-24-foot-electric-boat-is-its-cheapest-yet.html)
-- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/blog/2025-05-16-17-best-electric-bikes-2025-hauling-commuting-mountain-biking.html)
-- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/blog/2025-05-17-17-best-electric-bikes-2025-hauling-commuting-mountain-biking.html)
+- **Related post:** [Arcs New 24 Foot Electric Boat Is Its Cheapest Yet](/blog/2025/05/19/arcs-new-24-foot-electric-boat-is-its-cheapest-yet/)
+- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/tech-news/2025/05/17/17-best-electric-bikes-2025-hauling-commuting-mountain-biking/)
+- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/tech-news/2025/05/17/17-best-electric-bikes-2025-hauling-commuting-mountain-biking/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

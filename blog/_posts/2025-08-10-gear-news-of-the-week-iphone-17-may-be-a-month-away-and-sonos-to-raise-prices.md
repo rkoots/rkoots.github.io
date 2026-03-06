@@ -67,9 +67,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/blog/2025-05-16-17-best-electric-bikes-2025-hauling-commuting-mountain-biking.html)
-- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/blog/2025-05-17-17-best-electric-bikes-2025-hauling-commuting-mountain-biking.html)
-- **Related post:** [30 Off Design Within Reach Promo Code May 2025](/blog/2025-05-19-30-off-design-within-reach-promo-code-may-2025.html)
+- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/tech-news/2025/05/17/17-best-electric-bikes-2025-hauling-commuting-mountain-biking/)
+- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/tech-news/2025/05/17/17-best-electric-bikes-2025-hauling-commuting-mountain-biking/)
+- **Related post:** [30 Off Design Within Reach Promo Code May 2025](/tech-news/2025/05/19/30-off-design-within-reach-promo-code-may-2025/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

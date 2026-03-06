@@ -62,9 +62,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Coinbase Will Reimburse Customers Up To 400 Million After Data Breach](/blog/2025-05-18-coinbase-will-reimburse-customers-up-to-400-million-after-data-breach.html)
-- **Related post:** [Naacp Calls On Memphis Officials To Halt Operations At Xais Dirty Data Center](/blog/2025-06-01-naacp-calls-on-memphis-officials-to-halt-operations-at-xais-dirty-data-center.html)
-- **Related post:** [Pinterset Data](/blog/2025-12-01-pinterset-data.html)
+- **Related post:** [Coinbase Will Reimburse Customers Up To 400 Million After Data Breach](/blog/2025/05/18/coinbase-will-reimburse-customers-up-to-400-million-after-data-breach/)
+- **Related post:** [Naacp Calls On Memphis Officials To Halt Operations At Xais Dirty Data Center](/blog/2025/06/01/naacp-calls-on-memphis-officials-to-halt-operations-at-xais-dirty-data-center/)
+- **Related post:** [Pinterset Data](/tech-news/2025/05/16/Pinterset-data/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

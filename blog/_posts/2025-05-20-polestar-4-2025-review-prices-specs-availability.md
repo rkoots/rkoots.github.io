@@ -70,7 +70,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Cuisinart Propel 3 In 1 Review 2025 Pizza On A 4 Burner Grill](/blog/2025-06-04-cuisinart-propel-3-in-1-review-2025-pizza-on-a-4-burner-grill.html)
-- **Related post:** [10 Best Android Phones Of 2025 Tested And Reviewed](/blog/2025-05-17-10-best-android-phones-of-2025-tested-and-reviewed.html)
-- **Related post:** [10 Best Android Phones Of 2025 Tested And Reviewed](/blog/2025-05-18-10-best-android-phones-of-2025-tested-and-reviewed.html)
+- **Related post:** [Cuisinart Propel 3 In 1 Review 2025 Pizza On A 4 Burner Grill](/blog/2025/06/04/cuisinart-propel-3-in-1-review-2025-pizza-on-a-4-burner-grill/)
+- **Related post:** [10 Best Android Phones Of 2025 Tested And Reviewed](/tech-news/2025/05/18/10-best-android-phones-of-2025-tested-and-reviewed/)
+- **Related post:** [10 Best Android Phones Of 2025 Tested And Reviewed](/tech-news/2025/05/18/10-best-android-phones-of-2025-tested-and-reviewed/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)

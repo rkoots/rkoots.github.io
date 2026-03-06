@@ -65,9 +65,9 @@ AI adoption is moving from experimentation to production, which means readers in
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/blog/2025-05-24-a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley.html)
-- **Related post:** [How Edward Big Balls Coristine And Doge Got Access To A Federal Payroll System That Serves The Fbi](/blog/2025-07-31-how-edward-big-balls-coristine-and-doge-got-access-to-a-federal-payroll-system-that-serves-the-fbi.html)
-- **Related post:** [How Edward Big Balls Coristine And Doge Got Access To A Federal Payroll System That Serves The Fbi](/blog/2025-08-01-how-edward-big-balls-coristine-and-doge-got-access-to-a-federal-payroll-system-that-serves-the-fbi.html)
+- **Related post:** [A United Arab Emirates Lab Announces Frontier Ai Projectsand A New Outpost In Silicon Valley](/tech-news/2025/05/24/a-united-arab-emirates-lab-announces-frontier-ai-projectsand-a-new-outpost-in-silicon-valley/)
+- **Related post:** [How Edward Big Balls Coristine And Doge Got Access To A Federal Payroll System That Serves The Fbi](/tech-news/2025/08/01/how-edward-big-balls-coristine-and-doge-got-access-to-a-federal-payroll-system-that-serves-the-fbi/)
+- **Related post:** [How Edward Big Balls Coristine And Doge Got Access To A Federal Payroll System That Serves The Fbi](/tech-news/2025/08/01/how-edward-big-balls-coristine-and-doge-got-access-to-a-federal-payroll-system-that-serves-the-fbi/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

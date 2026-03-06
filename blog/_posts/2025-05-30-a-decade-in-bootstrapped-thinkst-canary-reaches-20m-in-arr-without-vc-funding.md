@@ -61,8 +61,8 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025-05-21-a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack.html)
-- **Related post:** [The Magpod Is A Basic Smartphone Tripod I Cant Live Without](/blog/2025-05-30-the-magpod-is-a-basic-smartphone-tripod-i-cant-live-without.html)
+- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025/05/21/a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack/)
+- **Related post:** [The Magpod Is A Basic Smartphone Tripod I Cant Live Without](/blog/2025/05/30/the-magpod-is-a-basic-smartphone-tripod-i-cant-live-without/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

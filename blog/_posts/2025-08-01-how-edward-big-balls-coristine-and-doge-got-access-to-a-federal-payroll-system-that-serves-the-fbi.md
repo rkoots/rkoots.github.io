@@ -61,9 +61,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [How Edward Big Balls Coristine And Doge Got Access To A Federal Payroll System That Serves The Fbi](/blog/2025-07-31-how-edward-big-balls-coristine-and-doge-got-access-to-a-federal-payroll-system-that-serves-the-fbi.html)
-- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025-05-21-a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack.html)
-- **Related post:** [Doge Left United States Institute Of Peace Office With Water Damage Rats And Roaches](/blog/2025-06-02-doge-left-united-states-institute-of-peace-office-with-water-damage-rats-and-roaches.html)
+- **Related post:** [How Edward Big Balls Coristine And Doge Got Access To A Federal Payroll System That Serves The Fbi](/tech-news/2025/08/01/how-edward-big-balls-coristine-and-doge-got-access-to-a-federal-payroll-system-that-serves-the-fbi/)
+- **Related post:** [A Silicon Valley Vc Got Israel Starlink Access Within Days Of October 7 Attack](/blog/2025/05/21/a-silicon-valley-vc-got-israel-starlink-access-within-days-of-october-7-attack/)
+- **Related post:** [Doge Left United States Institute Of Peace Office With Water Damage Rats And Roaches](/blog/2025/06/02/doge-left-united-states-institute-of-peace-office-with-water-damage-rats-and-roaches/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

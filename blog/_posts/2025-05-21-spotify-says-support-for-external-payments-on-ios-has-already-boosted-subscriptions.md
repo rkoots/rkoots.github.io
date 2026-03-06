@@ -57,9 +57,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [After Adding Its Own Billing Option On Ios Apple Asks Patreon To Move It To An External Browser](/blog/2025-05-17-after-adding-its-own-billing-option-on-ios-apple-asks-patreon-to-move-it-to-an-external-browser.html)
-- **Related post:** [A Vpn Company Canceled All Lifetime Subscriptions Claiming It Didnt Know About Them](/blog/2025-05-15-a-vpn-company-canceled-all-lifetime-subscriptions-claiming-it-didnt-know-about-them.html)
-- **Related post:** [Automattic Says It Will Start Contributing To Wordpress Again After Pause](/blog/2025-05-31-automattic-says-it-will-start-contributing-to-wordpress-again-after-pause.html)
+- **Related post:** [After Adding Its Own Billing Option On Ios Apple Asks Patreon To Move It To An External Browser](/blog/2025/05/17/after-adding-its-own-billing-option-on-ios-apple-asks-patreon-to-move-it-to-an-external-browser/)
+- **Related post:** [A Vpn Company Canceled All Lifetime Subscriptions Claiming It Didnt Know About Them](/blog/2025/05/15/a-vpn-company-canceled-all-lifetime-subscriptions-claiming-it-didnt-know-about-them/)
+- **Related post:** [Automattic Says It Will Start Contributing To Wordpress Again After Pause](/blog/2025/05/31/automattic-says-it-will-start-contributing-to-wordpress-again-after-pause/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

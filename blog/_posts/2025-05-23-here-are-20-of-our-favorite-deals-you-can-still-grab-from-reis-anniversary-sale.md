@@ -76,9 +76,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [We Hand Picked The 37 Best Deals From The 2025 Rei Anniversary Sale](/blog/2025-05-20-we-hand-picked-the-37-best-deals-from-the-2025-rei-anniversary-sale.html)
-- **Related post:** [We Hand Picked The 45 Best Deals From The 2025 Rei Anniversary Sale](/blog/2025-05-23-we-hand-picked-the-45-best-deals-from-the-2025-rei-anniversary-sale.html)
-- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/blog/2025-05-25-15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers.html)
+- **Related post:** [We Hand Picked The 37 Best Deals From The 2025 Rei Anniversary Sale](/tech-news/2025/05/20/we-hand-picked-the-37-best-deals-from-the-2025-rei-anniversary-sale/)
+- **Related post:** [We Hand Picked The 45 Best Deals From The 2025 Rei Anniversary Sale](/tech-news/2025/05/23/we-hand-picked-the-45-best-deals-from-the-2025-rei-anniversary-sale/)
+- **Related post:** [15 Best Memorial Day Tech Deals 2025 Ipads And Bluetooth Speakers](/tech-news/2025/05/25/15-best-memorial-day-tech-deals-2025-ipads-and-bluetooth-speakers/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

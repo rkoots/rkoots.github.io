@@ -58,9 +58,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [A Special Diamond Is The Key To A Fully Open Source Quantum Sensor](/blog/2025-08-13-a-special-diamond-is-the-key-to-a-fully-open-source-quantum-sensor.html)
-- **Related post:** [Gemini Stepping Future](/blog/2025-05-08-gemini_stepping_future.html)
-- **Related post:** [Metaverse Internet Rise](/blog/2025-04-10-metaverse_internet_rise.html)
+- **Related post:** [A Special Diamond Is The Key To A Fully Open Source Quantum Sensor](/blog/2025/08/13/a-special-diamond-is-the-key-to-a-fully-open-source-quantum-sensor/)
+- **Related post:** [Gemini Stepping Future](/blog/2025/05/08/Gemini_Stepping_Future/)
+- **Related post:** [Metaverse Internet Rise](/blog/2025/04/10/Metaverse_internet_rise/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

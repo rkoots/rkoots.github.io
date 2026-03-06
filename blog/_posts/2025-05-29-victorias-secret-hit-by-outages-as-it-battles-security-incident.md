@@ -73,9 +73,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Api Security](/blog/2025-06-10-api_security.html)
-- **Related post:** [Former Tesla President Discloses The Secret To Scaling A Company](/blog/2025-07-22-former-tesla-president-discloses-the-secret-to-scaling-a-company.html)
-- **Related post:** [The Promise And Peril Of Digital Security In The Age Of Dictatorship](/blog/2025-07-07-the-promise-and-peril-of-digital-security-in-the-age-of-dictatorship.html)
+- **Related post:** [Api Security](/blog/2025/06/10/api_security/)
+- **Related post:** [Former Tesla President Discloses The Secret To Scaling A Company](/tech-news/2025/07/22/former-tesla-president-discloses-the-secret-to-scaling-a-company/)
+- **Related post:** [The Promise And Peril Of Digital Security In The Age Of Dictatorship](/tech-news/2025/07/07/the-promise-and-peril-of-digital-security-in-the-age-of-dictatorship/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

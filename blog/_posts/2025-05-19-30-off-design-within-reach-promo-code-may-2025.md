@@ -63,7 +63,7 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Groupon Promo Codes 30 Off May 2025](/blog/2025-05-22-groupon-promo-codes-30-off-may-2025.html)
-- **Related post:** [Home Depot Promo Codes Coupons 50 Off May 2025](/blog/2025-05-18-home-depot-promo-codes-coupons-50-off-may-2025.html)
-- **Related post:** [Adidas Promo Codes Deals 30 Off](/blog/2025-05-18-adidas-promo-codes-deals-30-off.html)
+- **Related post:** [Groupon Promo Codes 30 Off May 2025](/blog/2025/05/22/groupon-promo-codes-30-off-may-2025/)
+- **Related post:** [Home Depot Promo Codes Coupons 50 Off May 2025](/blog/2025/05/18/home-depot-promo-codes-coupons-50-off-may-2025/)
+- **Related post:** [Adidas Promo Codes Deals 30 Off](/tech-news/2025/05/20/adidas-promo-codes-deals-30-off/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)

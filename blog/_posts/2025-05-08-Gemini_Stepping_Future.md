@@ -127,9 +127,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Generative Ais Leap Into Personalized Medicine The Promise And Peril Of Ai Driven Drug Discovery](/blog/2025-05-15-generative-ais-leap-into-personalized-medicine-the-promise-and-peril-of-ai-driven-drug-discovery.html)
-- **Related post:** [Googles Gemini Ai Advances Spark Debate On Ai Safety](/blog/2025-05-12-googles-gemini-ai-advances-spark-debate-on-ai-safety.html)
-- **Related post:** [Googles Gemini Pro Outperforms Gpt 4 In Latest Benchmarks A New Ai Heavyweight](/blog/2025-05-14-googles-gemini-pro-outperforms-gpt-4-in-latest-benchmarks-a-new-ai-heavyweight.html)
+- **Related post:** [Generative Ais Leap Into Personalized Medicine The Promise And Peril Of Ai Driven Drug Discovery](/blog/2025/05/15/generative-ais-leap-into-personalized-medicine-the-promise-and-peril-of-ai-driven-drug-discovery/)
+- **Related post:** [Googles Gemini Ai Advances Spark Debate On Ai Safety](/tech-news/2025/05/12/googles-gemini-ai-advances-spark-debate-on-ai-safety/)
+- **Related post:** [Googles Gemini Pro Outperforms Gpt 4 In Latest Benchmarks A New Ai Heavyweight](/tech-news/2025/05/14/googles-gemini-pro-outperforms-gpt-4-in-latest-benchmarks-a-new-ai-heavyweight/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts

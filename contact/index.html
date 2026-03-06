@@ -23,7 +23,7 @@ permalink: /contact/
           <i class="fas fa-envelope"></i>
           <div>
             <h3>Email</h3>
-            <p><a href="mailto:contact@rkoots.com">rajkumarv88@outlook.com</a></p>
+            <p>Use the contact form to send your inquiry directly.</p>
             <p>For business inquiries, collaborations, and general questions</p>
           </div>
         </div>
@@ -113,16 +113,44 @@ permalink: /contact/
     
     <div class="contact-form-section">
       <h2>Send a Message</h2>
-      <p>For direct inquiries, you can reach out through my Substack newsletter or connect on LinkedIn.</p>
-      
-      <div class="contact-cta">
-        <h3>Subscribe to Technical Newsletter</h3>
-        <p>Get weekly insights on architecture, leadership, and emerging technologies</p>
-        <a href="https://rkoots.substack.com/subscribe" class="btn btn-primary" target="_blank" rel="noopener">
-          <i class="fas fa-envelope"></i>
-          Subscribe Now
-        </a>
-      </div>
+      <p>Share your details below and I’ll get back to you as soon as possible.</p>
+
+      <form id="contactForm" class="contact-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" maxlength="100" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" maxlength="150" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone <span class="optional-label">(Optional)</span></label>
+          <input type="tel" id="phone" name="phone" maxlength="30" inputmode="tel">
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" maxlength="150" required>
+        </div>
+
+        <div class="form-group">
+          <div class="field-header">
+            <label for="message">Message</label>
+            <span id="messageCounter" class="message-counter">0/500</span>
+          </div>
+          <textarea id="message" name="message" maxlength="500" rows="6" required></textarea>
+        </div>
+
+        <div id="formStatus" class="form-status" aria-live="polite"></div>
+
+        <button type="submit" id="submitButton" class="btn btn-primary btn-submit">
+          <i class="fas fa-paper-plane"></i>
+          Send Message
+        </button>
+      </form>
     </div>
   </div>
 </div>
@@ -214,22 +242,88 @@ permalink: /contact/
   margin-bottom: 30px;
 }
 
-.contact-cta {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  padding: 40px;
+.contact-form {
+  background: #f8f9fa;
   border-radius: 12px;
-  text-align: center;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-.contact-cta h3 {
-  margin: 0 0 15px 0;
-  font-size: 1.3rem;
+.form-group {
+  margin-bottom: 20px;
 }
 
-.contact-cta p {
-  margin: 0 0 25px 0;
-  opacity: 0.9;
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.optional-label {
+  color: #6c757d;
+  font-weight: 400;
+}
+
+.field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.message-counter {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d9dee5;
+  border-radius: 8px;
+  font: inherit;
+  color: #2c3e50;
+  background: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.form-status {
+  display: none;
+  margin-bottom: 20px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+}
+
+.form-status.is-visible {
+  display: block;
+}
+
+.form-status.success {
+  background: #e8f7ee;
+  color: #1e7e43;
+  border: 1px solid #b7e4c7;
+}
+
+.form-status.error {
+  background: #fff1f0;
+  color: #c0392b;
+  border: 1px solid #f1b0a8;
 }
 
 .btn-primary {
@@ -243,6 +337,20 @@ permalink: /contact/
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
+}
+
+.btn-submit {
+  width: 100%;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-primary:hover {
@@ -268,8 +376,74 @@ permalink: /contact/
     padding: 20px;
   }
   
-  .contact-cta {
-    padding: 30px 20px;
+  .contact-form {
+    padding: 24px 20px;
   }
 }
 </style>
+
+<script>
+const contactForm = document.getElementById('contactForm');
+const messageInput = document.getElementById('message');
+const messageCounter = document.getElementById('messageCounter');
+const formStatus = document.getElementById('formStatus');
+const submitButton = document.getElementById('submitButton');
+
+const setFormStatus = (message, type) => {
+  formStatus.textContent = message;
+  formStatus.className = `form-status is-visible ${type}`;
+};
+
+messageInput.addEventListener('input', () => {
+  messageCounter.textContent = `${messageInput.value.length}/500`;
+});
+
+contactForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(contactForm);
+  const payload = {
+    name: formData.get('name').trim(),
+    email: formData.get('email').trim(),
+    phone: formData.get('phone').trim(),
+    subject: formData.get('subject').trim(),
+    message: formData.get('message').trim(),
+    create_datetime: new Date().toISOString()
+  };
+
+  if (!payload.name || !payload.email || !payload.subject || !payload.message) {
+    setFormStatus('Please fill in all required fields.', 'error');
+    return;
+  }
+
+  if (payload.message.length > 500) {
+    setFormStatus('Message must be 500 characters or fewer.', 'error');
+    return;
+  }
+
+  submitButton.disabled = true;
+  setFormStatus('Sending your message...', 'success');
+
+  try {
+    const response = await fetch('https://rkoots1.firebaseio.com/contactus.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    contactForm.reset();
+    messageCounter.textContent = '0/500';
+    setFormStatus('Thanks for reaching out. Your message has been sent successfully.', 'success');
+  } catch (error) {
+    setFormStatus('Unable to send your message right now. Please try again in a moment.', 'error');
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+</script>

@@ -2,7 +2,7 @@
 layout: default
 title: "Top 10 IDEs for Web Development in 2025: The Ultimate Showdown 💥"
 date: 2025-05-13
-categories: [blog, webdev, programming, tools]
+categories: blog
 author: "rkoots Bot"
 tags: [webdev, programming, javascript, css, ide]
 description: "Explore the top 10 web development IDEs in 2025 with detailed pros, cons, and what makes them the best tools for front-end, back-end, and full-stack developers."

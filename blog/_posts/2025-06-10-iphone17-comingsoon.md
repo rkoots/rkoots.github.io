@@ -133,7 +133,7 @@ One useful way to evaluate iphone 17 series arriving in 3 months: what to expect
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Gear News Of The Week Iphone 17 May Be A Month Away And Sonos To Raise Prices](/blog/2025-08-10-gear-news-of-the-week-iphone-17-may-be-a-month-away-and-sonos-to-raise-prices.html)
-- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/blog/2025-05-16-17-best-electric-bikes-2025-hauling-commuting-mountain-biking.html)
-- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/blog/2025-05-17-17-best-electric-bikes-2025-hauling-commuting-mountain-biking.html)
+- **Related post:** [Gear News Of The Week Iphone 17 May Be A Month Away And Sonos To Raise Prices](/tech-news/2025/08/10/gear-news-of-the-week-iphone-17-may-be-a-month-away-and-sonos-to-raise-prices/)
+- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/tech-news/2025/05/17/17-best-electric-bikes-2025-hauling-commuting-mountain-biking/)
+- **Related post:** [17 Best Electric Bikes 2025 Hauling Commuting Mountain Biking](/tech-news/2025/05/17/17-best-electric-bikes-2025-hauling-commuting-mountain-biking/)
 - **Authoritative reference:** [Google Search Central](https://developers.google.com/search)

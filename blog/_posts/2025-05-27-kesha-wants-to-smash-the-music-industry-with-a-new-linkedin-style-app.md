@@ -64,9 +64,9 @@ Consider a hospital triage workflow: if clinicians must review thousands of scan
 
 ## Further Reading and Related Resources
 
-- **Related post:** [Apple Blocks Fortnite8217S App Store Return As Downloads Fail In Europe](/blog/2025-05-16-apple-blocks-fortnite8217s-app-store-return-as-downloads-fail-in-europe.html)
-- **Related post:** [Epic Games Says Apple Is Blocking Fortnite From The Us And Eu App Stores](/blog/2025-05-17-epic-games-says-apple-is-blocking-fortnite-from-the-us-and-eu-app-stores.html)
-- **Related post:** [How The Signal Knockoff App Telemessage Got Hacked In 20 Minutes](/blog/2025-05-19-how-the-signal-knockoff-app-telemessage-got-hacked-in-20-minutes.html)
+- **Related post:** [Apple Blocks Fortnite8217S App Store Return As Downloads Fail In Europe](/blog/2025/05/16/apple-blocks-fortnite8217s-app-store-return-as-downloads-fail-in-europe/)
+- **Related post:** [Epic Games Says Apple Is Blocking Fortnite From The Us And Eu App Stores](/tech-news/2025/05/17/epic-games-says-apple-is-blocking-fortnite-from-the-us-and-eu-app-stores/)
+- **Related post:** [How The Signal Knockoff App Telemessage Got Hacked In 20 Minutes](/tech-news/2025/05/19/how-the-signal-knockoff-app-telemessage-got-hacked-in-20-minutes/)
 - **Authoritative reference:** [OECD AI policy observatory](https://oecd.ai/)
 
 ## Final Thoughts
