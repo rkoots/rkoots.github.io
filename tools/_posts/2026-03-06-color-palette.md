@@ -5,8 +5,9 @@ excerpt: "Generate beautiful random color palettes, gradients, and HEX/RGB codes
 date: 2026-03-06
 categories: tools
 permalink: /tools/color-palette/
-description: "Free online color palette generator. Create random palettes, gradients, convert HEX to RGB, lock and export colors, copy codes. Perfect for designers and developers."
-keywords: ["color palette generator", "random color palette", "HEX to RGB", "gradient generator", "color picker", "color scheme", "online color tool", "color palette maker"]
+logo_svg: /assets/images/tools/logos/color-palette.svg
+description: "Generate beautiful color palettes instantly. Get HEX and RGB values, random themes, and save your favorite palettes."
+keywords: ["color palette generator", "hex color tool", "random palette generator", "UI color picker", "design color combinations"]
 tags: [color, design, palette, gradient, utility]
 ---
 

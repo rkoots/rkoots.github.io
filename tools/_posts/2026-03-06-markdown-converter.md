@@ -5,8 +5,9 @@ excerpt: "Convert Markdown to HTML with live preview, syntax highlighting, copy 
 date: 2026-03-06
 categories: tools
 permalink: /tools/markdown-converter/
-description: "Free online Markdown to HTML converter with live preview, syntax highlighting, copy and download. Includes Markdown cheat sheet. Works in browser."
-keywords: ["markdown to HTML", "markdown converter", "markdown editor online", "markdown preview", "convert markdown"]
+logo_svg: /assets/images/tools/logos/markdown-converter.svg
+description: "Convert Markdown to HTML and HTML to Markdown instantly. Live preview, copy output and download files."
+keywords: ["markdown converter", "markdown to html", "html to markdown", "live markdown preview"]
 tags: [markdown, HTML, converter, developer, writing]
 ---
 

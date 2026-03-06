@@ -5,6 +5,7 @@ excerpt: "Compress images online for free — drag and drop JPG, PNG, WebP. Clie
 date: 2026-03-06
 categories: tools
 permalink: /tools/image-compressor/
+logo_svg: /assets/images/tools/logos/image-compressor.svg
 description: "Free online image compressor. Compress JPG, PNG, WebP images entirely in your browser — no uploads. Quality slider, before/after preview, file size comparison, batch compression."
 keywords: ["image compressor", "compress images online", "JPG compressor", "PNG compressor", "WebP compressor", "reduce image size", "image optimization", "free image compressor"]
 tags: [image, compression, optimization, utility, web]

@@ -5,6 +5,7 @@ excerpt: "Test your typing speed in WPM with accuracy tracking, error highlighti
 date: 2026-03-06
 categories: tools
 permalink: /tools/typing-speed/
+logo_svg: /assets/images/tools/logos/typing-speed.svg
 description: "Free online typing speed test. Measure WPM (words per minute), accuracy percentage, error highlighting. Choose 30, 60, or 120 second timed modes. Share your result card."
 keywords: ["typing speed test", "WPM test", "words per minute", "typing test online", "typing accuracy", "keyboard speed test", "typing practice", "typing speed checker"]
 tags: [typing, speed-test, WPM, productivity, practice]

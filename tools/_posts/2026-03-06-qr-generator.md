@@ -71,8 +71,6 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .related-card .rc-name{font-size:0.85rem;font-weight:600;color:var(--text);margin-top:6px;}
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-
 <div class="qrypta">
   <div class="hero">
     <div class="hero-badge">📱 QRYPTA</div>
@@ -218,14 +216,43 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 <script>
 let currentType = 'url';
 let qrCanvas = null;
+let qrLibLoadPromise = null;
 
-// Check if QRCode library is loaded
-if (typeof QRCode === 'undefined') {
-  console.error('QRCode library not loaded!');
-  alert('QRCode library failed to load. Please refresh the page.');
-} else {
-  console.log('QRCode library loaded successfully');
+function ensureQRCodeReady() {
+  if (typeof QRCode !== 'undefined') return Promise.resolve(true);
+  if (qrLibLoadPromise) return qrLibLoadPromise;
+
+  const sources = [
+    'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js',
+    'https://unpkg.com/qrcode@1.5.3/build/qrcode.min.js'
+  ];
+  let idx = 0;
+
+  qrLibLoadPromise = new Promise((resolve, reject) => {
+    const loadNext = () => {
+      if (typeof QRCode !== 'undefined') { resolve(true); return; }
+      if (idx >= sources.length) {
+        reject(new Error('QRCode library failed to load from all sources.'));
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = sources[idx++];
+      script.async = true;
+      script.onload = () => resolve(true);
+      script.onerror = () => loadNext();
+      document.head.appendChild(script);
+    };
+
+    loadNext();
+  });
+
+  return qrLibLoadPromise;
 }
+
+ensureQRCodeReady().catch(err => {
+  console.error(err.message);
+});
 
 function setType(type, btn) {
   currentType = type;
@@ -272,7 +299,7 @@ function getQRData() {
   }
 }
 
-function generateQR() {
+async function generateQR() {
   const data = getQRData();
   const wrap = document.getElementById('qr-wrap');
   if (!data) {
@@ -283,6 +310,15 @@ function generateQR() {
   const size = parseInt(document.getElementById('qr-size').value);
   const fg = document.getElementById('qr-fg').value;
   const bg = document.getElementById('qr-bg').value;
+
+  try {
+    await ensureQRCodeReady();
+  } catch (err) {
+    wrap.innerHTML = '<div style="color:#b91c1c;font-size:0.85rem;text-align:center;padding:20px;">QR library failed to load. Check internet/CDN access and refresh.</div>';
+    qrCanvas = null;
+    return;
+  }
+
   console.log('Generating QR with data:', data, 'size:', size, 'fg:', fg, 'bg:', bg);
   const canvas = document.createElement('canvas');
   wrap.innerHTML = '';
@@ -316,6 +352,7 @@ async function downloadSVG() {
   const size = document.getElementById('qr-size').value;
   console.log('Generating SVG with data:', data, 'size:', size, 'fg:', fg, 'bg:', bg);
   try {
+    await ensureQRCodeReady();
     const svgStr = await QRCode.toString(data, { type: 'svg', width: size, margin: 2, color: { dark: fg, light: bg } });
     console.log('SVG generated successfully, length:', svgStr.length);
     const blob = new Blob([svgStr], {type:'image/svg+xml'});

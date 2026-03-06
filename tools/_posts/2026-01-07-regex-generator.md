@@ -5,6 +5,7 @@ date: 2026-01-07
 title: Regex Generator & Tester - Online Regular Expression Tool
 categories: tools
 permalink: /tools/regex-generator/
+logo_svg: /assets/images/tools/logos/regex-generator.svg
 
 description: Free online regex generator and tester tool. Build, test, and validate regular expressions with real-time matching, syntax highlighting, and common patterns library.
 keywords: regex generator online, regex tester tool, regular expression builder, test regex pattern, regex validator, online regex, regular expression tester, regex pattern builder, regex debug tool, regex cheat sheet, email regex, phone regex, URL regex, password validation regex, javascript regex, python regex, regex syntax, regex matching tool, regex playground, regex editor, regex analyzer, regex optimizer

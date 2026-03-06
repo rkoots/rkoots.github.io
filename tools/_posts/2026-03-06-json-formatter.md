@@ -5,8 +5,9 @@ excerpt: "Format, validate, minify, and explore JSON with syntax highlighting, c
 date: 2026-03-06
 categories: tools
 permalink: /tools/json-formatter/
-description: "Free online JSON formatter with syntax highlighting, validation, minification, collapsible tree view, error detection, copy and download. Works entirely in your browser."
-keywords: ["JSON formatter", "JSON validator", "JSON minifier", "JSON beautifier", "online JSON tool", "JSON tree view", "JSON syntax highlighting", "format JSON online"]
+logo_svg: /assets/images/tools/logos/json-formatter.svg
+description: "Free online JSON formatter and validator. Beautify, minify, validate and copy JSON instantly."
+keywords: ["json formatter", "json beautifier", "json validator", "minify json", "format json online"]
 tags: [JSON, developer, formatter, validator, utility]
 ---
 

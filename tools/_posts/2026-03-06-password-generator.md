@@ -5,8 +5,9 @@ excerpt: "Generate ultra-secure passwords with entropy scoring, crack time estim
 date: 2026-03-06
 categories: tools
 permalink: /tools/password-generator/
-description: "Free strong password generator with strength meter, entropy score, estimated crack time, password history and copy button. Generate secure passwords instantly online."
-keywords: ["password generator", "strong password generator", "secure password", "random password", "password strength meter", "entropy score", "crack time estimator", "online password generator"]
+logo_svg: /assets/images/tools/logos/password-generator.svg
+description: "Generate strong and secure passwords instantly. Customize length, symbols, numbers and complexity."
+keywords: ["password generator", "strong password", "secure password tool", "random password creator"]
 tags: [security, password, generator, encryption, privacy]
 ---
 

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Regex Generator Logo">
+  <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#dc2626"/><stop offset="100%" stop-color="#f97316"/></linearGradient></defs>
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#rg)"/>
+  <text x="64" y="74" text-anchor="middle" font-family="Consolas, monospace" font-size="48" font-weight="700" fill="#fff">.*</text>
+  <path d="M30 36h16M82 36h16" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+</svg>

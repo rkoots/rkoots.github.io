@@ -5,6 +5,7 @@ excerpt: "Convert units instantly across length, weight, temperature, data size,
 date: 2026-03-06
 categories: tools
 permalink: /tools/unit-converter/
+logo_svg: /assets/images/tools/logos/unit-converter.svg
 description: "Free online unit converter for length, weight, temperature, data size, speed, area and volume. Instant conversion with swap button, history, and animated results."
 keywords: ["unit converter", "length converter", "weight converter", "temperature converter", "data size converter", "speed converter", "area converter", "online unit conversion"]
 tags: [converter, utility, math, measurement, calculator]

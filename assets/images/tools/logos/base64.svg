@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Base64 Logo">
+  <defs><linearGradient id="b64" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1d4ed8"/><stop offset="100%" stop-color="#4f46e5"/></linearGradient></defs>
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#b64)"/>
+  <text x="64" y="56" text-anchor="middle" font-family="Consolas, monospace" font-size="20" font-weight="700" fill="#fff">0101</text>
+  <text x="64" y="82" text-anchor="middle" font-family="Consolas, monospace" font-size="26" font-weight="700" fill="#fff">64</text>
+</svg>

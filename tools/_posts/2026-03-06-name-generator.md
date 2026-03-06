@@ -5,6 +5,7 @@ excerpt: "Generate startup names, brand names, domain names, and fantasy charact
 date: 2026-03-06
 categories: tools
 permalink: /tools/name-generator/
+logo_svg: /assets/images/tools/logos/name-generator.svg
 description: "Free online random name generator for startups, brands, domains, and fantasy characters. Keyword-based generation, domain hints, save favorites, and one-click regeneration."
 keywords: ["name generator", "startup name generator", "brand name generator", "domain name generator", "fantasy name generator", "random name", "business name ideas", "company name generator"]
 tags: [names, generator, startup, branding, domain, fantasy]

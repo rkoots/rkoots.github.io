@@ -5,7 +5,8 @@ excerpt: "Calculate your exact age in years, months, days, hours and minutes. Ge
 date: 2026-03-06
 categories: tools
 permalink: /tools/age-calculator/
-description: "Free online age calculator – find your exact age in years, months, days, hours. Includes zodiac sign, next birthday countdown, age on other planets, life stats and milestone tracker."
+logo_svg: /assets/images/tools/logos/age-calculator.svg
+description: "Free age calculator online. Calculate exact age in years, months, days, hours and minutes from date of birth instantly."
 keywords: ["age calculator", "exact age calculator", "birthday calculator", "how old am I", "age in days", "zodiac sign calculator", "age on other planets", "birthday countdown", "days lived calculator"]
 tags: [age, calculator, birthday, zodiac, productivity, fun]
 og:title: "CHRONEXA – Advanced Age Calculator"

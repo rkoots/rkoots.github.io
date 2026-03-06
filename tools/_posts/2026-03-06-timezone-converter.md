@@ -5,8 +5,9 @@ excerpt: "Convert time across multiple cities and time zones. World clock dashbo
 date: 2026-03-06
 categories: tools
 permalink: /tools/timezone-converter/
-description: "Free online time zone converter with world clock dashboard, meeting planner, daylight saving detection, and visual time difference timeline. Search any city instantly."
-keywords: ["time zone converter", "world clock", "meeting planner", "time zone calculator", "DST detector", "city time converter", "online time zone tool", "compare time zones"]
+logo_svg: /assets/images/tools/logos/timezone-converter.svg
+description: "Convert time between world time zones instantly. Compare multiple cities and schedule meetings globally."
+keywords: ["timezone converter", "time zone conversion", "world clock", "meeting planner", "time zone calculator", "DST detector", "city time converter", "online time zone tool", "compare time zones"]
 tags: [timezone, world-clock, converter, productivity, meeting]
 ---
 

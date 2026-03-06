@@ -5,8 +5,9 @@ excerpt: "Count words, characters, sentences, paragraphs in real-time. Get readi
 date: 2026-03-06
 categories: tools
 permalink: /tools/word-counter/
-description: "Free online word counter – real-time word count, character count, sentence count, reading time, keyword density, readability score. Perfect for writers, students and SEO professionals."
-keywords: ["word counter", "character counter", "word count tool", "reading time calculator", "keyword density", "readability score", "sentence counter", "online word counter"]
+logo_svg: /assets/images/tools/logos/word-counter.svg
+description: "Count words, characters, sentences and paragraphs instantly. Useful for writers, students and SEO content creators."
+keywords: ["word counter", "character counter", "text analyzer", "essay word count", "reading time calculator", "keyword density", "readability score", "sentence counter", "online word counter"]
 tags: [writing, word-count, productivity, SEO, readability]
 ---
 

@@ -5,6 +5,7 @@ excerpt: "Calculate percentages instantly — X% of Y, percentage increase/decre
 date: 2026-03-06
 categories: tools
 permalink: /tools/percentage-calculator/
+logo_svg: /assets/images/tools/logos/percentage-calculator.svg
 description: "Free online percentage calculator with multiple modes: X% of Y, percentage increase/decrease, profit margin, discount calculator, markup calculator. Visual bars and instant results."
 keywords: ["percentage calculator", "percent of a number", "percentage increase calculator", "discount calculator", "profit margin calculator", "markup calculator", "percentage decrease", "online percentage tool"]
 tags: [calculator, percentage, finance, math, discount]
