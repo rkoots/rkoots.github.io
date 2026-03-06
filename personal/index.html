@@ -1437,9 +1437,6 @@
                 return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
             });
             
-            // Calculate monthly totals (sum of all assets per month)
-            const monthlyTotals = monthlyData.map(month => month.sb + month.fd + month.mf + month.eq);
-            
             // Calculate combined savings (SB + FD)
             const savingsData = monthlyData.map(month => month.sb + month.fd);
             
@@ -1471,21 +1468,6 @@
                     borderWidth: 3,
                     fill: false,
                     tension: 0.4
-                },
-                // Monthly total line (sum of all assets for each month)
-                {
-                    label: 'Monthly Total',
-                    data: monthlyTotals,
-                    borderColor: '#000000',
-                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                    borderWidth: 4,
-                    fill: false,
-                    tension: 0.4,
-                    pointRadius: 5,
-                    pointBackgroundColor: '#000000',
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 2,
-                    borderDash: [], // Solid line for monthly total
                 }
             ];
             
@@ -1502,16 +1484,13 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Asset Type Trend - Monthly + Monthly Total',
+                            text: 'Asset Type Trend - Monthly',
                             font: { size: 14, weight: 'bold' }
                         },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
                                     let label = context.dataset.label + ': ₹' + toLakhs(context.raw) + 'K';
-                                    if (context.datasetIndex === 3) { // Monthly total line
-                                        label += ' (Sum of all assets)';
-                                    }
                                     return label;
                                 }
                             }
