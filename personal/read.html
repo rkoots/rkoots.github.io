@@ -904,10 +904,10 @@
                     console.log("Populating equity cash...");
                     Object.entries(data.equityCash).forEach(([platform, persons]) => {
                         Object.entries(persons).forEach(([person, value]) => {
-                            const field = document.getElementById(`equity_cash_${platform.toLowerCase()}_${person.toLowerCase()}`);
+                            const field = document.getElementById(`cash_${platform.toLowerCase()}_${person.toLowerCase()}`);
                             if (field && value !== undefined) {
                                 field.value = value;
-                                console.log(`Set equity_cash_${platform.toLowerCase()}_${person.toLowerCase()} = ${value}`);
+                                console.log(`Set cash_${platform.toLowerCase()}_${person.toLowerCase()} = ${value}`);
                             }
                         });
                     });
