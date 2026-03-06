@@ -145,8 +145,12 @@ permalink: /contact/
         </div>
 
         <div class="form-group">
-          <label for="recaptcha">Security Check</label>
-          <div id="recaptcha" class="g-recaptcha" data-sitekey="6LeWqoEsAAAAALrRZ9HqhLAktjHQlu3vgrdgqK72"></div>
+          <div class="field-header captcha-header">
+            <label for="captchaAnswer">Security Check</label>
+            <button type="button" id="refreshCaptcha" class="captcha-refresh">New Question</button>
+          </div>
+          <p id="captchaQuestion" class="captcha-question"></p>
+          <input type="number" id="captchaAnswer" name="captchaAnswer" inputmode="numeric" required>
         </div>
 
         <div id="formStatus" class="form-status" aria-live="polite"></div>
@@ -277,13 +281,33 @@ permalink: /contact/
   gap: 12px;
 }
 
+.captcha-header {
+  margin-bottom: 8px;
+}
+
 .message-counter {
   color: #6c757d;
   font-size: 0.9rem;
 }
 
-.g-recaptcha {
-  margin-top: 8px;
+.captcha-question {
+  margin: 0 0 12px 0;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.captcha-refresh {
+  border: none;
+  background: transparent;
+  color: #667eea;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.captcha-refresh:hover {
+  text-decoration: underline;
 }
 
 .contact-form input,
@@ -391,29 +415,58 @@ permalink: /contact/
 }
 </style>
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
 const contactForm = document.getElementById('contactForm');
 const messageInput = document.getElementById('message');
 const messageCounter = document.getElementById('messageCounter');
+const captchaQuestion = document.getElementById('captchaQuestion');
+const captchaAnswer = document.getElementById('captchaAnswer');
+const refreshCaptcha = document.getElementById('refreshCaptcha');
 const formStatus = document.getElementById('formStatus');
 const submitButton = document.getElementById('submitButton');
+
+let captchaExpectedAnswer = null;
 
 const setFormStatus = (message, type) => {
   formStatus.textContent = message;
   formStatus.className = `form-status is-visible ${type}`;
 };
 
+const generateCaptcha = () => {
+  const left = Math.floor(Math.random() * 9) + 1;
+  const right = Math.floor(Math.random() * 9) + 1;
+  const useAddition = Math.random() >= 0.5;
+
+  if (useAddition) {
+    captchaExpectedAnswer = left + right;
+    captchaQuestion.textContent = `What is ${left} + ${right}?`;
+    return;
+  }
+
+  const larger = Math.max(left, right);
+  const smaller = Math.min(left, right);
+  captchaExpectedAnswer = larger - smaller;
+  captchaQuestion.textContent = `What is ${larger} - ${smaller}?`;
+};
+
 messageInput.addEventListener('input', () => {
   messageCounter.textContent = `${messageInput.value.length}/500`;
 });
 
+refreshCaptcha.addEventListener('click', () => {
+  captchaAnswer.value = '';
+  generateCaptcha();
+});
+
+generateCaptcha();
+
 contactForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  const recaptchaResponse = grecaptcha.getResponse();
-  if (!recaptchaResponse) {
-    setFormStatus('Please complete the reCAPTCHA challenge.', 'error');
+  if (Number(captchaAnswer.value) !== captchaExpectedAnswer) {
+    setFormStatus('Incorrect security answer. Please try the math question again.', 'error');
+    captchaAnswer.value = '';
+    generateCaptcha();
     return;
   }
 
@@ -455,7 +508,7 @@ contactForm.addEventListener('submit', async (event) => {
 
     contactForm.reset();
     messageCounter.textContent = '0/500';
-    grecaptcha.reset();
+    generateCaptcha();
     setFormStatus('Thanks for reaching out. Your message has been sent successfully.', 'success');
   } catch (error) {
     setFormStatus('Unable to send your message right now. Please try again in a moment.', 'error');
