@@ -141,7 +141,7 @@ img {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 9999;
   height: var(--header-height);
   background: rgba(255,255,255,.85);
   backdrop-filter: blur(12px) saturate(180%);
@@ -267,7 +267,7 @@ html[data-theme="dark"] .site-header {
   display: none;
   position: fixed;
   inset: var(--header-height) 0 0 0;
-  z-index: 999;
+  z-index: 10001;
   background: var(--color-surface);
   padding: var(--space-4);
   overflow-y: auto;
