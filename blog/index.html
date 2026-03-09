@@ -11,10 +11,18 @@ keywords: ["Tech blog", "rkoots blog", "engineering blog", "backend tutorials", 
     <p>✍️ Experiences, Experiments & Engineering - Articles straight from the trenches — covering real-world projects, lessons learned, and behind-the-scenes of building technology.</p>
   </div>
 
-  {% assign blog_posts = site.posts | where_exp: "p", "p.categories contains 'blog' or p.category == 'blog'" %}
-  {% if blog_posts.size == 0 %}
-    {% assign blog_posts = site.posts | where_exp: "p", "p.categories contains 'blog'" %}
-  {% endif %}
+  {% assign blog_posts = '' | split: '' %}
+  {% for post in site.posts %}
+    {% assign is_blog = false %}
+    {% if post.categories contains 'blog' %}
+      {% assign is_blog = true %}
+    {% elsif post.category == 'blog' %}
+      {% assign is_blog = true %}
+    {% endif %}
+    {% if is_blog %}
+      {% assign blog_posts = blog_posts | push: post %}
+    {% endif %}
+  {% endfor %}
   {% if blog_posts.size > 0 %}
     <div class="posts-grid">
       {% for post in blog_posts %}
