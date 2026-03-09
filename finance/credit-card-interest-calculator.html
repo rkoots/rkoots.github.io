@@ -1,0 +1,426 @@
+---
+layout: default
+title: "Credit Card Interest Calculator – APR Shock Tool"
+permalink: /finance/credit-card-interest-calculator/
+description: "Discover the true cost of carrying a credit card balance. Our APR Shock Tool reveals how much interest you really pay and how long it takes to escape debt."
+keywords: ["credit card interest calculator", "APR calculator", "credit card debt cost", "how much interest am I paying", "credit card payoff calculator India USA"]
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="tool-page-wrap">
+
+  <!-- Hero -->
+  <section class="tool-hero debt-hero">
+    <div class="tool-hero-badge">Debt & Credit Tools</div>
+    <h1>Credit Card Interest Calculator <span class="hero-accent">APR Shock Tool</span></h1>
+    <p class="tool-tagline">Your $2,000 balance could cost you $3,600. See the real number.</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="stat-num" id="hs-totalInterest">₹0</span><span class="stat-label">Total Interest Paid</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-payoffTime">0 mo</span><span class="stat-label">Payoff Timeline</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-costRatio">0×</span><span class="stat-label">Cost vs Balance</span></div>
+    </div>
+  </section>
+
+  <!-- Tool Card -->
+  <section class="tool-card-wrap">
+    <div class="tool-card">
+
+      <!-- Inputs -->
+      <div class="input-panel">
+        <h2 class="panel-title">Your Credit Card Details</h2>
+
+        <div class="input-group">
+          <label for="balance">Current Balance</label>
+          <div class="input-row">
+            <select id="currency" class="currency-sel">
+              <option value="₹">₹ INR</option>
+              <option value="$">$ USD</option>
+              <option value="£">£ GBP</option>
+            </select>
+            <input type="number" id="balance" value="50000" min="0" step="1000">
+          </div>
+          <input type="range" id="balanceSlider" min="1000" max="500000" step="1000" value="50000" class="range-slider">
+          <div class="range-labels"><span>₹1K</span><span>₹5L</span></div>
+        </div>
+
+        <div class="input-group">
+          <label for="apr">Annual Interest Rate (APR) <span class="badge-tip">Avg India: 36–42%</span></label>
+          <div class="input-suffix">
+            <input type="number" id="apr" value="36" min="1" max="60" step="0.5">
+            <span class="suffix">%</span>
+          </div>
+          <input type="range" id="aprSlider" min="6" max="60" step="0.5" value="36" class="range-slider">
+          <div class="range-labels"><span>6%</span><span>60%</span></div>
+        </div>
+
+        <div class="input-group">
+          <label for="monthlyPayment">Monthly Payment</label>
+          <div class="input-suffix">
+            <input type="number" id="monthlyPayment" value="2000" min="0" step="500">
+          </div>
+          <input type="range" id="paymentSlider" min="500" max="50000" step="500" value="2000" class="range-slider">
+          <div class="range-labels"><span>Min</span><span>Max</span></div>
+        </div>
+
+        <div class="input-group">
+          <label for="extraPayment">Extra Monthly Payment (Optional)</label>
+          <div class="input-suffix">
+            <input type="number" id="extraPayment" value="0" min="0" step="500">
+          </div>
+        </div>
+
+        <button class="calc-btn" id="calcBtn">Calculate My True Cost</button>
+      </div>
+
+      <!-- Results -->
+      <div class="result-panel" id="resultPanel">
+        <h2 class="panel-title">Your APR Reality Check</h2>
+
+        <div class="shock-box" id="shockBox">
+          <div class="shock-icon">⚡</div>
+          <p class="shock-msg" id="shockMsg">You will pay <strong id="totalInterestDisplay">—</strong> in interest alone</p>
+          <p class="shock-sub" id="shockSub">That's <strong id="costRatioDisplay">—</strong> times your original balance</p>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card primary">
+            <span class="metric-label">Total Interest</span>
+            <span class="metric-val" id="res-totalInterest">—</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Total Paid</span>
+            <span class="metric-val" id="res-totalPaid">—</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Payoff Time</span>
+            <span class="metric-val" id="res-months">—</span>
+          </div>
+          <div class="metric-card accent">
+            <span class="metric-label">Saved with Extra Payment</span>
+            <span class="metric-val" id="res-saved">—</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-section">
+          <div class="progress-label">
+            <span>Balance</span><span>Interest</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-fill balance-fill" id="balanceFill"></div>
+            <div class="progress-fill interest-fill" id="interestFill"></div>
+          </div>
+          <div class="progress-legend">
+            <span class="leg leg-balance">Principal</span>
+            <span class="leg leg-interest">Interest</span>
+          </div>
+        </div>
+
+        <!-- Amortization Mini Table -->
+        <div class="mini-table-wrap">
+          <h3>Payoff Schedule <span class="badge-tip">First 6 months</span></h3>
+          <table class="mini-table" id="amortTable">
+            <thead><tr><th>Month</th><th>Payment</th><th>Interest</th><th>Principal</th><th>Balance</th></tr></thead>
+            <tbody id="amortBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Insight Box -->
+        <div class="insight-box">
+          <h4>💡 What This Means</h4>
+          <p id="insightText">Fill in your details above to see personalized insights.</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="action-row">
+          <button class="share-btn" onclick="shareResult()">📤 Share Result</button>
+          <a href="/finance/debt-payoff-planner/" class="cta-link">Try Debt Payoff Planner →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What is APR and how is credit card interest calculated?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">APR (Annual Percentage Rate) is the yearly interest rate on your outstanding balance. Monthly interest = (APR ÷ 12) × outstanding balance. On a ₹50,000 balance at 36% APR, monthly interest = ₹1,500 — meaning minimum payments barely reduce principal.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Why does paying only the minimum take so long?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Minimum payments are typically 2–5% of your balance. Most of this covers interest, leaving very little to reduce principal. On a ₹1 lakh balance at 36% APR, minimum payments can take 15+ years to clear the debt.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What's the average credit card APR in India vs USA?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">In India, credit card APRs typically range from 30–44% per annum. In the USA, average APR is 20–30%. Both are significantly higher than personal loan rates, making credit card debt one of the most expensive forms of borrowing.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">How can I reduce my credit card interest burden?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">1) Pay more than the minimum — even ₹500 extra monthly saves thousands. 2) Consider a balance transfer to a lower-rate card. 3) Use a personal loan at lower interest to consolidate. 4) Always pay full statement balance to avoid interest entirely.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Internal Links -->
+  <section class="related-tools">
+    <h3>Related Tools</h3>
+    <div class="related-grid">
+      <a href="/finance/minimum-payment-trap/" class="related-card">Minimum Payment Trap Calculator</a>
+      <a href="/finance/debt-payoff-planner/" class="related-card">Debt Payoff Planner</a>
+      <a href="/finance/apr-cost-calculator/" class="related-card">APR Cost Calculator</a>
+      <a href="/finance/debt-consolidation-comparator/" class="related-card">Debt Consolidation Comparator</a>
+    </div>
+  </section>
+
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Credit Card Interest Calculator – APR Shock Tool",
+  "description": "Calculate the true cost of credit card debt including total interest paid, payoff timeline, and amortization schedule.",
+  "url": "{{ '/finance/credit-card-interest-calculator/' | absolute_url }}",
+  "applicationCategory": "FinancialApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+}
+</script>
+
+<script>
+  const sym = () => document.getElementById('currency').value;
+  const fmt = (n) => sym() + Math.round(n).toLocaleString('en-IN');
+
+  function linkSlider(inputId, sliderId) {
+    const inp = document.getElementById(inputId);
+    const sld = document.getElementById(sliderId);
+    inp.addEventListener('input', () => { sld.value = inp.value; calculate(); });
+    sld.addEventListener('input', () => { inp.value = sld.value; calculate(); });
+  }
+
+  linkSlider('balance', 'balanceSlider');
+  linkSlider('apr', 'aprSlider');
+  linkSlider('monthlyPayment', 'paymentSlider');
+  document.getElementById('extraPayment').addEventListener('input', calculate);
+  document.getElementById('currency').addEventListener('change', calculate);
+
+  function calculate() {
+    const balance = parseFloat(document.getElementById('balance').value) || 0;
+    const apr = parseFloat(document.getElementById('apr').value) || 0;
+    const payment = parseFloat(document.getElementById('monthlyPayment').value) || 0;
+    const extra = parseFloat(document.getElementById('extraPayment').value) || 0;
+    const monthlyRate = apr / 100 / 12;
+
+    if (balance <= 0 || apr <= 0 || payment <= 0) return;
+
+    // Without extra payment
+    let bal = balance, totalInt = 0, months = 0;
+    const rows = [];
+    while (bal > 0 && months < 600) {
+      const intCharge = bal * monthlyRate;
+      const principal = Math.min(payment - intCharge, bal);
+      if (payment <= intCharge) { months = 9999; break; }
+      totalInt += intCharge;
+      bal -= principal;
+      months++;
+      if (months <= 6) rows.push({ month: months, payment: payment, interest: intCharge, principal: principal, balance: Math.max(bal, 0) });
+    }
+
+    // With extra payment
+    let bal2 = balance, totalInt2 = 0, months2 = 0;
+    while (bal2 > 0 && months2 < 600) {
+      const intCharge = bal2 * monthlyRate;
+      const pay2 = payment + extra;
+      if (pay2 <= intCharge) break;
+      const principal2 = Math.min(pay2 - intCharge, bal2);
+      totalInt2 += intCharge;
+      bal2 -= principal2;
+      months2++;
+    }
+
+    const saved = totalInt - totalInt2;
+    const costRatio = (totalInt / balance).toFixed(2);
+    const totalPaid = balance + totalInt;
+
+    // Update hero stats
+    document.getElementById('hs-totalInterest').textContent = fmt(totalInt);
+    document.getElementById('hs-payoffTime').textContent = months >= 9999 ? '∞' : months + ' mo';
+    document.getElementById('hs-costRatio').textContent = costRatio + '×';
+
+    // Update results
+    document.getElementById('res-totalInterest').textContent = fmt(totalInt);
+    document.getElementById('res-totalPaid').textContent = fmt(totalPaid);
+    document.getElementById('res-months').textContent = months >= 9999 ? 'Never' : months + ' months';
+    document.getElementById('res-saved').textContent = saved > 0 ? fmt(saved) : '—';
+    document.getElementById('totalInterestDisplay').textContent = fmt(totalInt);
+    document.getElementById('costRatioDisplay').textContent = costRatio;
+    document.getElementById('shockMsg').innerHTML = `You will pay <strong>${fmt(totalInt)}</strong> in interest alone`;
+    document.getElementById('shockSub').innerHTML = `That's <strong>${costRatio}×</strong> your original balance`;
+
+    // Progress bar
+    const intPct = Math.min((totalInt / totalPaid) * 100, 100);
+    document.getElementById('balanceFill').style.width = (100 - intPct) + '%';
+    document.getElementById('interestFill').style.width = intPct + '%';
+
+    // Amortization table
+    const tbody = document.getElementById('amortBody');
+    tbody.innerHTML = rows.map(r => `<tr>
+      <td>${r.month}</td>
+      <td>${fmt(r.payment)}</td>
+      <td class="interest-col">${fmt(r.interest)}</td>
+      <td>${fmt(r.principal)}</td>
+      <td>${fmt(r.balance)}</td>
+    </tr>`).join('');
+
+    // Insight
+    let insight = '';
+    if (months >= 9999) {
+      insight = `⚠️ Your current payment of ${fmt(payment)} doesn't cover the monthly interest of ${fmt(balance * monthlyRate)}. You will never pay off this debt without increasing your payment.`;
+    } else if (costRatio > 1) {
+      insight = `You're paying ${fmt(totalInt)} in interest — more than your original balance. Increasing your monthly payment by just ${fmt(payment * 0.25)} would save you approximately ${fmt(saved > 0 ? saved : totalInt * 0.3)} and cut payoff time significantly.`;
+    } else {
+      insight = `At your current rate, you'll be debt-free in ${months} months. Adding ${fmt(500)} per month extra can shave off ${Math.round(months * 0.15)} months.`;
+    }
+    document.getElementById('insightText').textContent = insight;
+  }
+
+  function shareResult() {
+    const text = `My credit card debt analysis: ${document.getElementById('res-totalInterest').textContent} in interest, payoff in ${document.getElementById('res-months').textContent}. Check your own: ` + window.location.href;
+    if (navigator.share) navigator.share({ title: 'APR Shock Tool Result', text });
+    else { navigator.clipboard.writeText(text); alert('Result copied to clipboard!'); }
+  }
+
+  document.getElementById('calcBtn').addEventListener('click', calculate);
+  calculate();
+</script>
+
+<style>
+  :root {
+    --ink: #0f172a; --slate: #334155; --muted: #64748b;
+    --accent: #ef4444; --accent2: #f97316; --green: #22c55e;
+    --card-bg: #ffffff; --surface: #f8fafc;
+    --radius: 20px; --shadow: 0 20px 50px rgba(15,23,42,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Manrope", sans-serif; background: var(--surface); color: var(--ink); }
+
+  .tool-page-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* Hero */
+  .tool-hero { text-align: center; padding: 3.5rem 2rem 2.5rem; background: linear-gradient(135deg, #fff1f2, #fff7ed, #fef3c7); border-radius: 28px; margin-bottom: 2.5rem; }
+  .tool-hero-badge { display: inline-block; background: rgba(239,68,68,0.12); color: #dc2626; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 999px; margin-bottom: 1rem; }
+  .tool-hero h1 { font-family: "Space Grotesk", sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.15; margin-bottom: 0.75rem; }
+  .hero-accent { color: var(--accent); }
+  .tool-tagline { color: var(--slate); font-size: 1.1rem; margin-bottom: 2rem; }
+  .hero-stat-row { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+  .hero-stat { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .stat-num { font-family: "Space Grotesk", sans-serif; font-size: 1.9rem; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* Tool Card */
+  .tool-card-wrap { margin-bottom: 3rem; }
+  .tool-card { display: grid; grid-template-columns: 1fr 1.3fr; gap: 2rem; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+
+  /* Input Panel */
+  .input-panel { padding: 2.5rem 2rem; background: linear-gradient(160deg, #fff1f2 0%, #fff7ed 100%); }
+  .panel-title { font-family: "Space Grotesk", sans-serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 1.8rem; color: var(--ink); }
+  .input-group { margin-bottom: 1.5rem; }
+  .input-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--slate); }
+  .input-row { display: flex; gap: 0.5rem; }
+  .currency-sel { padding: 0.7rem 0.8rem; border: 1.5px solid #e2e8f0; border-radius: 12px; background: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; }
+  .input-suffix { position: relative; }
+  .input-suffix .suffix { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-weight: 600; }
+  input[type="number"] { width: 100%; padding: 0.8rem 1rem; border: 1.5px solid #e2e8f0; border-radius: 12px; font-size: 1rem; font-weight: 600; background: white; transition: border-color 0.2s; outline: none; }
+  input[type="number"]:focus { border-color: var(--accent); }
+  .range-slider { width: 100%; margin-top: 0.6rem; accent-color: var(--accent); }
+  .range-labels { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+  .badge-tip { font-size: 0.75rem; background: rgba(239,68,68,0.1); color: #dc2626; padding: 0.2rem 0.5rem; border-radius: 6px; font-weight: 600; margin-left: 0.4rem; }
+  .calc-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, #ef4444, #f97316); color: white; font-weight: 700; font-size: 1rem; border: none; border-radius: 14px; cursor: pointer; margin-top: 0.5rem; transition: transform 0.2s, box-shadow 0.2s; }
+  .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(239,68,68,0.35); }
+
+  /* Result Panel */
+  .result-panel { padding: 2.5rem 2rem; }
+  .shock-box { background: linear-gradient(135deg, #fef2f2, #fff7ed); border: 1.5px solid #fecaca; border-radius: 16px; padding: 1.5rem; text-align: center; margin-bottom: 1.8rem; }
+  .shock-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .shock-msg { font-size: 1.05rem; color: var(--ink); margin-bottom: 0.3rem; }
+  .shock-sub { font-size: 0.9rem; color: var(--muted); }
+  .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.8rem; }
+  .metric-card { padding: 1.2rem; border-radius: 14px; background: var(--surface); display: flex; flex-direction: column; gap: 0.4rem; }
+  .metric-card.primary { background: linear-gradient(135deg, #fef2f2, #fce7f3); }
+  .metric-card.accent { background: linear-gradient(135deg, #f0fdf4, #dcfce7); }
+  .metric-label { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  .metric-val { font-family: "Space Grotesk", sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); }
+
+  /* Progress Bar */
+  .progress-section { margin-bottom: 1.8rem; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; color: var(--muted); margin-bottom: 0.4rem; }
+  .progress-bar-track { height: 20px; border-radius: 10px; background: #e2e8f0; overflow: hidden; display: flex; }
+  .progress-fill { height: 100%; transition: width 0.6s ease; }
+  .balance-fill { background: linear-gradient(90deg, #3b82f6, #6366f1); }
+  .interest-fill { background: linear-gradient(90deg, #f97316, #ef4444); }
+  .progress-legend { display: flex; gap: 1.5rem; margin-top: 0.5rem; }
+  .leg { font-size: 0.78rem; font-weight: 600; display: flex; align-items: center; gap: 0.4rem; }
+  .leg::before { content: ''; width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  .leg-balance::before { background: #3b82f6; }
+  .leg-interest::before { background: #ef4444; }
+
+  /* Mini Table */
+  .mini-table-wrap { margin-bottom: 1.8rem; overflow-x: auto; }
+  .mini-table-wrap h3 { font-size: 1rem; margin-bottom: 0.8rem; }
+  .mini-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .mini-table th { background: #f1f5f9; padding: 0.6rem 0.8rem; text-align: right; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+  .mini-table th:first-child { text-align: left; }
+  .mini-table td { padding: 0.6rem 0.8rem; border-bottom: 1px solid #f1f5f9; text-align: right; }
+  .mini-table td:first-child { text-align: left; font-weight: 600; }
+  .interest-col { color: #ef4444; font-weight: 600; }
+
+  /* Insight */
+  .insight-box { background: linear-gradient(135deg, #eff6ff, #f0f9ff); border-left: 4px solid #3b82f6; padding: 1.2rem 1.4rem; border-radius: 0 12px 12px 0; margin-bottom: 1.5rem; }
+  .insight-box h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .insight-box p { font-size: 0.92rem; color: var(--slate); line-height: 1.6; }
+
+  /* Actions */
+  .action-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .share-btn { padding: 0.7rem 1.4rem; border-radius: 999px; border: 1.5px solid #e2e8f0; background: white; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: background 0.2s; }
+  .share-btn:hover { background: #f1f5f9; }
+  .cta-link { padding: 0.7rem 1.4rem; border-radius: 999px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; font-weight: 600; text-decoration: none; font-size: 0.9rem; }
+
+  /* FAQ */
+  .faq-section { margin: 3rem 0; }
+  .faq-section h2 { font-family: "Space Grotesk", sans-serif; font-size: 1.6rem; margin-bottom: 1.5rem; }
+  .faq-list { display: grid; gap: 1rem; }
+  .faq-item { background: white; border-radius: 14px; box-shadow: 0 4px 12px rgba(15,23,42,0.06); overflow: hidden; }
+  .faq-item summary { padding: 1.2rem 1.5rem; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .faq-item summary::after { content: '+'; font-size: 1.3rem; color: var(--muted); }
+  .faq-item[open] summary::after { content: '−'; }
+  .faq-item div { padding: 0 1.5rem 1.2rem; color: var(--slate); line-height: 1.7; font-size: 0.95rem; }
+
+  /* Related */
+  .related-tools { margin-top: 2rem; }
+  .related-tools h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; }
+  .related-grid { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .related-card { padding: 0.6rem 1.2rem; border-radius: 999px; background: white; border: 1.5px solid #e2e8f0; color: var(--ink); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: border-color 0.2s, background 0.2s; }
+  .related-card:hover { background: #eff6ff; border-color: #3b82f6; color: #1d4ed8; }
+
+  @media (max-width: 800px) {
+    .tool-card { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .hero-stat-row { gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .metrics-grid { grid-template-columns: 1fr; }
+    .tool-page-wrap { padding: 1rem 1rem 3rem; }
+  }
+</style>

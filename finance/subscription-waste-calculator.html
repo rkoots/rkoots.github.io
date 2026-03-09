@@ -1,0 +1,362 @@
+---
+layout: default
+title: "Subscription Waste Calculator – Track Recurring Payment Leaks"
+permalink: /finance/subscription-waste-calculator/
+description: "Audit all your subscriptions and recurring payments. Find unused services, calculate annual waste, and reclaim hidden money from your budget."
+keywords: ["subscription calculator India", "subscription tracker", "cancel subscriptions calculator", "how much am I spending on subscriptions", "recurring payment audit India"]
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="tool-page-wrap">
+
+  <section class="tool-hero sub-hero">
+    <div class="tool-hero-badge">Financial Stability Tools</div>
+    <h1>Subscription Waste Calculator <span class="hero-accent">Recurring Leak Audit</span></h1>
+    <p class="tool-tagline">The average Indian household wastes ₹3,000–₹8,000/year on forgotten subscriptions. Find yours.</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="stat-num" id="hs-monthly">—</span><span class="stat-label">Monthly Total</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-annual">—</span><span class="stat-label">Annual Total</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-waste">—</span><span class="stat-label">Estimated Waste</span></div>
+    </div>
+  </section>
+
+  <section class="tool-card-wrap">
+    <div class="tool-card-full">
+
+      <div class="sub-layout">
+        <div class="sub-input-col">
+          <div class="input-header">
+            <h2 class="panel-title">Your Subscriptions</h2>
+            <select id="currency"><option value="₹">₹ INR</option><option value="$">$ USD</option></select>
+          </div>
+
+          <p class="q-intro">Check all subscriptions you pay for. Mark unused ones honestly.</p>
+
+          <div class="preset-subs" id="presetSubs"></div>
+
+          <div class="custom-subs-section">
+            <h3>Custom Subscriptions</h3>
+            <div id="customSubList"></div>
+            <button class="add-sub-btn" id="addSubBtn">+ Add Custom Subscription</button>
+          </div>
+
+          <button class="calc-btn" onclick="calculate()">Calculate My Subscription Waste</button>
+        </div>
+
+        <div class="sub-results-col">
+          <h2 class="panel-title">Subscription Audit</h2>
+
+          <div class="waste-summary">
+            <div class="waste-circle">
+              <svg viewBox="0 0 120 120" width="120">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#f1f5f9" stroke-width="12"/>
+                <circle id="wasteArc" cx="60" cy="60" r="50" fill="none" stroke="#ef4444" stroke-width="12"
+                  stroke-dasharray="0 314" stroke-linecap="round" transform="rotate(-90 60 60)" style="transition:stroke-dasharray .6s;"/>
+                <text x="60" y="56" text-anchor="middle" font-family="Space Grotesk" font-size="16" font-weight="700" fill="#0f172a" id="wastePctText">0%</text>
+                <text x="60" y="70" text-anchor="middle" font-family="Manrope" font-size="9" fill="#64748b">waste</text>
+              </svg>
+            </div>
+            <div class="waste-stats">
+              <div class="ws-item"><span class="ws-label">Total Subscriptions</span><span class="ws-val" id="totalCount">—</span></div>
+              <div class="ws-item"><span class="ws-label">Monthly Spend</span><span class="ws-val" id="totalMonthly">—</span></div>
+              <div class="ws-item"><span class="ws-label">Annual Spend</span><span class="ws-val" id="totalAnnual">—</span></div>
+              <div class="ws-item danger"><span class="ws-label">Unused / Low Value</span><span class="ws-val" id="unusedTotal">—</span></div>
+              <div class="ws-item accent"><span class="ws-label">Annual Savings Potential</span><span class="ws-val" id="savingsPotential">—</span></div>
+            </div>
+          </div>
+
+          <div class="sub-breakdown" id="subBreakdown">
+            <h3>By Category</h3>
+            <div id="categoryBars"></div>
+          </div>
+
+          <div class="cut-list-wrap" id="cutListWrap">
+            <h3>🗑️ Subscriptions to Consider Cancelling</h3>
+            <div id="cutList"></div>
+          </div>
+
+          <div class="investment-alt-box" id="investAltBox">
+            <h4>📈 What If You Invested This Instead?</h4>
+            <p id="investAltText">—</p>
+          </div>
+
+          <div class="insight-box">
+            <h4>💡 Audit Insight</h4>
+            <p id="insightText">Add your subscriptions to see your waste analysis.</p>
+          </div>
+
+          <div class="action-row">
+            <button class="share-btn" onclick="shareResult()">📤 Share Result</button>
+            <a href="/finance/budget-optimizer/" class="cta-link">Optimize Full Budget →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">How much do Indians spend on subscriptions annually?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Urban Indians typically spend ₹2,000–₹8,000/month on subscriptions (OTT, apps, gyms, cloud storage, news). With household-sharing and forgotten free trials, 30–40% of this spending often goes to unused services.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What's the best way to audit subscriptions?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Check your bank/credit card statement for the past 3 months and list all recurring debits. Then ask: Did I use this last month? Does it justify its cost? Could a free alternative replace it? Cancel everything you can't answer "yes" to.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Should I share streaming subscriptions to save money?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes, where permitted. Family/Premium plans for Netflix, Spotify, and YouTube Premium allow multiple profiles at 2–3× the base price — meaning each member pays 50–70% less. Use this for services you actively use and share legitimately.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="related-tools">
+    <h3>Related Tools</h3>
+    <div class="related-grid">
+      <a href="/finance/expense-leak-detector/" class="related-card">Expense Leak Detector</a>
+      <a href="/finance/budget-optimizer/" class="related-card">Budget Optimizer</a>
+      <a href="/finance/emergency-fund-planner/" class="related-card">Emergency Fund Planner</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  const presets = [
+    { name: 'Netflix', cost: 649, cat: 'Entertainment', usage: 'high' },
+    { name: 'Amazon Prime', cost: 299, cat: 'Entertainment', usage: 'high' },
+    { name: 'Hotstar / Disney+', cost: 299, cat: 'Entertainment', usage: 'medium' },
+    { name: 'SonyLIV', cost: 299, cat: 'Entertainment', usage: 'low' },
+    { name: 'Spotify', cost: 119, cat: 'Music', usage: 'high' },
+    { name: 'YouTube Premium', cost: 189, cat: 'Entertainment', usage: 'medium' },
+    { name: 'Apple Music', cost: 99, cat: 'Music', usage: 'low' },
+    { name: 'Gym Membership', cost: 1500, cat: 'Fitness', usage: 'medium' },
+    { name: 'Cult.fit / Fitpass', cost: 2999, cat: 'Fitness', usage: 'low' },
+    { name: 'LinkedIn Premium', cost: 2499, cat: 'Professional', usage: 'low' },
+    { name: 'Google One (Storage)', cost: 130, cat: 'Productivity', usage: 'high' },
+    { name: 'iCloud Storage', cost: 75, cat: 'Productivity', usage: 'medium' },
+    { name: 'Zee5 / Alt Balaji', cost: 199, cat: 'Entertainment', usage: 'low' },
+    { name: 'News App (Digital)', cost: 199, cat: 'News', usage: 'low' },
+    { name: 'VPN Service', cost: 400, cat: 'Productivity', usage: 'medium' },
+    { name: 'Adobe Creative Cloud', cost: 5700, cat: 'Professional', usage: 'medium' },
+    { name: 'Antivirus / Security', cost: 299, cat: 'Productivity', usage: 'medium' },
+    { name: 'Coursera / Udemy', cost: 1999, cat: 'Learning', usage: 'low' },
+  ];
+
+  let customSubs = [];
+  const sym = () => document.getElementById('currency').value;
+  const fmt = n => sym() + Math.round(Math.abs(n)).toLocaleString('en-IN');
+
+  function renderPresets() {
+    const container = document.getElementById('presetSubs');
+    const cats = [...new Set(presets.map(p => p.cat))];
+    container.innerHTML = cats.map(cat => `
+      <div class="preset-cat">
+        <div class="pcat-label">${cat}</div>
+        ${presets.filter(p => p.cat === cat).map((p, i) => `
+          <label class="preset-row" id="pr-${p.name.replace(/\s/g,'_')}">
+            <input type="checkbox" name="preset" data-cost="${p.cost}" data-cat="${p.cat}" data-name="${p.name}" ${p.usage === 'high' ? 'checked' : ''}>
+            <span class="pr-name">${p.name}</span>
+            <span class="pr-cost">${sym()}${p.cost}/mo</span>
+            <select class="usage-sel" title="Usage level">
+              <option value="high" ${p.usage==='high'?'selected':''}>High use</option>
+              <option value="medium" ${p.usage==='medium'?'selected':''}>Some use</option>
+              <option value="low" ${p.usage==='low'?'selected':''}>Rarely use</option>
+            </select>
+          </label>`).join('')}
+      </div>`).join('');
+
+    document.querySelectorAll('.preset-row input, .usage-sel').forEach(el => el.addEventListener('change', calculate));
+  }
+
+  document.getElementById('addSubBtn').onclick = () => {
+    const idx = customSubs.length;
+    customSubs.push({ name: '', cost: 0, usage: 'medium' });
+    const list = document.getElementById('customSubList');
+    const div = document.createElement('div');
+    div.className = 'custom-sub-row';
+    div.dataset.idx = idx;
+    div.innerHTML = `
+      <input type="text" placeholder="Service name" class="cs-name" oninput="customSubs[${idx}].name=this.value;calculate()">
+      <input type="number" placeholder="Cost/mo" class="cs-cost" min="0" oninput="customSubs[${idx}].cost=parseFloat(this.value)||0;calculate()">
+      <select class="usage-sel cs-usage" onchange="customSubs[${idx}].usage=this.value;calculate()">
+        <option value="high">High use</option>
+        <option value="medium" selected>Some use</option>
+        <option value="low">Rarely use</option>
+      </select>
+      <button onclick="this.parentElement.remove();customSubs.splice(${idx},1);calculate()" class="remove-sub-btn">✕</button>`;
+    list.appendChild(div);
+  };
+  document.getElementById('currency').addEventListener('change', () => { renderPresets(); calculate(); });
+
+  function calculate() {
+    let totalMonthly = 0, wasteMonthly = 0, count = 0;
+    const catTotals = {};
+    const wasteItems = [];
+
+    document.querySelectorAll('.preset-row input[type=checkbox]:checked').forEach(cb => {
+      const row = cb.closest('.preset-row');
+      const cost = parseFloat(cb.dataset.cost) || 0;
+      const cat = cb.dataset.cat;
+      const usage = row.querySelector('.usage-sel').value;
+      totalMonthly += cost; count++;
+      catTotals[cat] = (catTotals[cat] || 0) + cost;
+      if (usage === 'low') { wasteMonthly += cost; wasteItems.push({ name: cb.dataset.name, cost, usage }); }
+      else if (usage === 'medium') { wasteMonthly += cost * 0.4; }
+    });
+
+    customSubs.forEach(cs => {
+      if (cs.cost > 0) {
+        totalMonthly += cs.cost; count++;
+        catTotals['Custom'] = (catTotals['Custom'] || 0) + cs.cost;
+        if (cs.usage === 'low') { wasteMonthly += cs.cost; wasteItems.push({ name: cs.name || 'Custom', cost: cs.cost, usage: cs.usage }); }
+        else if (cs.usage === 'medium') wasteMonthly += cs.cost * 0.4;
+      }
+    });
+
+    const totalAnnual = totalMonthly * 12;
+    const wasteAnnual = wasteMonthly * 12;
+    const wastePct = totalMonthly > 0 ? (wasteMonthly / totalMonthly) * 100 : 0;
+    const invest10yr = wasteMonthly > 0 ? wasteMonthly * 12 * ((Math.pow(1.12, 10) - 1) / 0.12) : 0;
+
+    document.getElementById('hs-monthly').textContent = fmt(totalMonthly);
+    document.getElementById('hs-annual').textContent = fmt(totalAnnual);
+    document.getElementById('hs-waste').textContent = fmt(wasteAnnual);
+    document.getElementById('totalCount').textContent = count;
+    document.getElementById('totalMonthly').textContent = fmt(totalMonthly);
+    document.getElementById('totalAnnual').textContent = fmt(totalAnnual);
+    document.getElementById('unusedTotal').textContent = fmt(wasteMonthly) + '/mo';
+    document.getElementById('savingsPotential').textContent = fmt(wasteAnnual) + '/yr';
+
+    const circ = 2 * Math.PI * 50;
+    document.getElementById('wasteArc').style.strokeDasharray = (wastePct / 100 * circ) + ' ' + circ;
+    document.getElementById('wastePctText').textContent = wastePct.toFixed(0) + '%';
+
+    // Category bars
+    const maxCat = Math.max(...Object.values(catTotals), 1);
+    document.getElementById('categoryBars').innerHTML = Object.entries(catTotals).map(([cat, val]) => `
+      <div class="cat-bar-row">
+        <span class="cb-label">${cat}</span>
+        <div class="cb-track"><div class="cb-fill" style="width:${val/maxCat*100}%"></div></div>
+        <span class="cb-val">${fmt(val)}/mo</span>
+      </div>`).join('');
+
+    // Cut list
+    document.getElementById('cutList').innerHTML = wasteItems.length
+      ? wasteItems.map(w => `<div class="cut-item">
+          <span class="cut-name">${w.name}</span>
+          <span class="cut-cost">${fmt(w.cost)}/mo = ${fmt(w.cost*12)}/yr</span>
+          <span class="cut-badge">Rarely used</span>
+        </div>`).join('')
+      : '<p style="color:#10b981;font-size:.9rem;">👍 No high-waste subscriptions detected!</p>';
+
+    document.getElementById('investAltText').textContent = wasteAnnual > 0
+      ? `If you cancelled unused subscriptions and invested ${fmt(wasteMonthly)}/month at 12% annual return, you'd have ${fmt(invest10yr)} in 10 years.`
+      : 'Cancel unused subscriptions to see how much you could grow instead.';
+
+    const insight = wastePct > 30
+      ? `${wastePct.toFixed(0)}% of your subscription spend goes to rarely-used services. Cancelling these saves ${fmt(wasteAnnual)}/year — equivalent to ${(wasteAnnual/50000).toFixed(1)} months of a mid-range SIP contribution.`
+      : `Your subscription usage is relatively efficient. Focus on reviewing "medium usage" services quarterly — many accumulate value drift over time.`;
+    document.getElementById('insightText').textContent = insight;
+  }
+
+  function shareResult() {
+    const text = `My subscription audit: ${document.getElementById('hs-monthly').textContent}/month, ${document.getElementById('hs-waste').textContent} annual waste! Audit yours: ` + window.location.href;
+    if (navigator.share) navigator.share({ title: 'Subscription Waste Audit', text });
+    else { navigator.clipboard.writeText(text); alert('Result copied!'); }
+  }
+
+  renderPresets();
+  calculate();
+</script>
+
+<style>
+  :root{--ink:#0f172a;--slate:#334155;--muted:#64748b;--accent:#ef4444;--surface:#f8fafc;--radius:20px;--shadow:0 20px 50px rgba(15,23,42,.10);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Manrope",sans-serif;background:var(--surface);color:var(--ink);}
+  .tool-page-wrap{max-width:1200px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .tool-hero{text-align:center;padding:3.5rem 2rem 2.5rem;background:linear-gradient(135deg,#fff1f2,#fef9c3,#fef2f2);border-radius:28px;margin-bottom:2.5rem;}
+  .tool-hero-badge{display:inline-block;background:rgba(239,68,68,.12);color:#dc2626;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:999px;margin-bottom:1rem;}
+  .tool-hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:.75rem;}
+  .hero-accent{color:#dc2626;}
+  .tool-tagline{color:var(--slate);font-size:1.05rem;margin-bottom:2rem;}
+  .hero-stat-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+  .stat-num{font-family:"Space Grotesk",sans-serif;font-size:1.8rem;font-weight:700;color:#dc2626;}
+  .stat-label{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .tool-card-wrap{margin-bottom:3rem;}
+  .tool-card-full{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:2.5rem;}
+  .sub-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;}
+  .input-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;}
+  .panel-title{font-family:"Space Grotesk",sans-serif;font-size:1.2rem;font-weight:700;}
+  .input-header select{padding:.5rem .8rem;border:1.5px solid #e2e8f0;border-radius:10px;font-weight:600;background:white;cursor:pointer;}
+  .q-intro{font-size:.85rem;color:var(--muted);margin-bottom:1.2rem;}
+  .preset-cat{margin-bottom:1.2rem;}
+  .pcat-label{font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.5rem;padding-bottom:.3rem;border-bottom:1px solid #f1f5f9;}
+  .preset-row{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:.5rem;padding:.4rem .2rem;cursor:pointer;}
+  .preset-row input[type=checkbox]{accent-color:#ef4444;width:16px;height:16px;cursor:pointer;}
+  .pr-name{font-size:.87rem;font-weight:500;color:var(--ink);}
+  .pr-cost{font-size:.8rem;color:var(--muted);font-weight:600;}
+  .usage-sel{padding:.3rem .5rem;border:1.5px solid #e2e8f0;border-radius:8px;font-size:.75rem;font-weight:600;background:white;cursor:pointer;}
+  .custom-subs-section{margin-top:1.5rem;margin-bottom:1rem;}
+  .custom-subs-section h3{font-size:.9rem;font-weight:700;margin-bottom:.7rem;}
+  .custom-sub-row{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;gap:.4rem;margin-bottom:.5rem;align-items:center;}
+  .cs-name,.cs-cost{padding:.55rem .7rem;border:1.5px solid #e2e8f0;border-radius:10px;font-size:.85rem;font-weight:600;outline:none;}
+  .cs-name:focus,.cs-cost:focus{border-color:#ef4444;}
+  .cs-usage{padding:.4rem .5rem;border:1.5px solid #e2e8f0;border-radius:8px;font-size:.8rem;font-weight:600;background:white;}
+  .add-sub-btn{width:100%;padding:.7rem;border:2px dashed #cbd5e1;border-radius:10px;background:transparent;color:var(--slate);font-weight:600;cursor:pointer;font-size:.88rem;margin-bottom:1rem;transition:border-color .2s,color .2s;}
+  .add-sub-btn:hover{border-color:#ef4444;color:#ef4444;}
+  .remove-sub-btn{background:#fee2e2;border:none;color:#dc2626;border-radius:7px;padding:.35rem .6rem;cursor:pointer;font-weight:700;}
+  .calc-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#ef4444,#f97316);color:#fff;font-weight:700;font-size:1rem;border:none;border-radius:14px;cursor:pointer;transition:transform .2s,box-shadow .2s;}
+  .calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(239,68,68,.35);}
+  .waste-summary{display:flex;align-items:center;gap:1.5rem;background:#f8fafc;border-radius:16px;padding:1.2rem;margin-bottom:1.5rem;}
+  .waste-stats{display:grid;gap:.5rem;flex:1;}
+  .ws-item{display:flex;justify-content:space-between;align-items:center;font-size:.83rem;}
+  .ws-label{color:var(--muted);font-weight:600;}
+  .ws-val{font-family:"Space Grotesk",sans-serif;font-weight:700;color:var(--ink);}
+  .ws-item.danger .ws-val{color:#ef4444;}
+  .ws-item.accent .ws-val{color:#10b981;}
+  .sub-breakdown{margin-bottom:1.5rem;}
+  .sub-breakdown h3,.cut-list-wrap h3{font-size:.95rem;font-weight:700;margin-bottom:.8rem;}
+  .cat-bar-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;}
+  .cb-label{font-size:.78rem;font-weight:600;color:var(--slate);min-width:90px;}
+  .cb-track{flex:1;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;}
+  .cb-fill{height:100%;background:linear-gradient(90deg,#ef4444,#f97316);border-radius:4px;transition:width .4s;}
+  .cb-val{font-size:.78rem;font-weight:700;color:var(--ink);min-width:80px;text-align:right;}
+  .cut-list-wrap{margin-bottom:1.5rem;}
+  .cut-item{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:.6rem;padding:.7rem .9rem;background:#fef2f2;border-radius:10px;margin-bottom:.4rem;}
+  .cut-name{font-size:.85rem;font-weight:600;}
+  .cut-cost{font-size:.8rem;color:#ef4444;font-weight:600;}
+  .cut-badge{font-size:.72rem;background:#fecaca;color:#b91c1c;padding:.2rem .5rem;border-radius:5px;font-weight:700;white-space:nowrap;}
+  .investment-alt-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-left:4px solid #22c55e;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin-bottom:1.2rem;}
+  .investment-alt-box h4{font-size:.88rem;font-weight:700;margin-bottom:.4rem;}
+  .investment-alt-box p{font-size:.87rem;color:var(--slate);line-height:1.5;}
+  .insight-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-left:4px solid #f97316;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin-bottom:1.5rem;}
+  .insight-box h4{font-size:.9rem;font-weight:700;margin-bottom:.5rem;}
+  .insight-box p{font-size:.9rem;color:var(--slate);line-height:1.6;}
+  .action-row{display:flex;gap:1rem;flex-wrap:wrap;}
+  .share-btn{padding:.7rem 1.4rem;border-radius:999px;border:1.5px solid #e2e8f0;background:white;font-weight:600;cursor:pointer;font-size:.9rem;}
+  .cta-link{padding:.7rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,#ef4444,#f97316);color:white;font-weight:600;text-decoration:none;font-size:.9rem;}
+  .faq-section{margin:3rem 0;}.faq-section h2{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;margin-bottom:1.5rem;}
+  .faq-list{display:grid;gap:1rem;}
+  .faq-item{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.06);overflow:hidden;}
+  .faq-item summary{padding:1.2rem 1.5rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .faq-item summary::after{content:'+';font-size:1.3rem;color:var(--muted);}
+  .faq-item[open] summary::after{content:'−';}
+  .faq-item div{padding:0 1.5rem 1.2rem;color:var(--slate);line-height:1.7;font-size:.95rem;}
+  .related-tools{margin-top:2rem;}.related-tools h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+  .related-grid{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .related-card{padding:.6rem 1.2rem;border-radius:999px;background:white;border:1.5px solid #e2e8f0;color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;transition:border-color .2s,background .2s;}
+  .related-card:hover{background:#fff1f2;border-color:#ef4444;color:#dc2626;}
+  @media(max-width:900px){.sub-layout{grid-template-columns:1fr;}}
+  @media(max-width:480px){.preset-row{grid-template-columns:auto 1fr auto;}.usage-sel{display:none;}.tool-page-wrap{padding:1rem 1rem 3rem;}}
+</style>

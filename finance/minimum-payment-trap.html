@@ -1,0 +1,339 @@
+---
+layout: default
+title: "Minimum Payment Trap Calculator – See Your True Payoff Cost"
+permalink: /finance/minimum-payment-trap/
+description: "Discover how minimum credit card payments trap you in debt for years. See the true interest explosion and payoff delay before it's too late."
+keywords: ["minimum payment trap", "credit card minimum payment calculator", "how long to pay off credit card", "debt payoff time calculator", "minimum payment interest calculator India"]
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="tool-page-wrap">
+
+  <section class="tool-hero trap-hero">
+    <div class="tool-hero-badge">Debt & Credit Tools</div>
+    <h1>Minimum Payment <span class="hero-accent">Trap Calculator</span></h1>
+    <p class="tool-tagline">Paying the minimum? You could be in debt for <span id="hs-years">—</span> years and pay <span id="hs-extra">—</span> extra.</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="stat-num" id="hs-minYears">—</span><span class="stat-label">Years (Min Payment)</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-fullYears">—</span><span class="stat-label">Years (Full Payment)</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-interestWaste">—</span><span class="stat-label">Interest Wasted</span></div>
+    </div>
+  </section>
+
+  <section class="tool-card-wrap">
+    <div class="tool-card">
+      <div class="input-panel">
+        <h2 class="panel-title">Your Card Details</h2>
+
+        <div class="input-group">
+          <label>Currency</label>
+          <select id="currency" class="full-sel"><option value="₹">₹ INR</option><option value="$">$ USD</option></select>
+        </div>
+
+        <div class="input-group">
+          <label for="balance">Outstanding Balance</label>
+          <input type="number" id="balance" value="100000" min="1000" step="1000">
+          <input type="range" id="balSlider" min="1000" max="1000000" step="1000" value="100000" class="range-slider">
+        </div>
+
+        <div class="input-group">
+          <label for="apr">APR <span class="badge-tip">India avg: 36–42%</span></label>
+          <div class="input-suffix"><input type="number" id="apr" value="36" min="1" max="60" step="0.5"><span class="suffix">%</span></div>
+          <input type="range" id="aprSlider" min="6" max="60" step="0.5" value="36" class="range-slider">
+        </div>
+
+        <div class="input-group">
+          <label for="minPct">Minimum Payment Rule</label>
+          <div class="input-suffix"><input type="number" id="minPct" value="2" min="1" max="10" step="0.5"><span class="suffix">% or ₹500 (whichever higher)</span></div>
+        </div>
+
+        <div class="input-group">
+          <label for="fixedPayment">Alternative Fixed Monthly Payment</label>
+          <input type="number" id="fixedPayment" value="5000" min="500" step="500">
+          <input type="range" id="fixedSlider" min="500" max="100000" step="500" value="5000" class="range-slider">
+        </div>
+
+        <button class="calc-btn" onclick="calculate()">Show Me the Trap</button>
+      </div>
+
+      <div class="result-panel">
+        <h2 class="panel-title">The Minimum Payment Trap</h2>
+
+        <div class="comparison-cards">
+          <div class="comp-card danger">
+            <div class="comp-icon">🐢</div>
+            <h3>Minimum Payments</h3>
+            <div class="comp-metric"><span class="comp-label">Time to Pay Off</span><span class="comp-val" id="minTime">—</span></div>
+            <div class="comp-metric"><span class="comp-label">Total Interest</span><span class="comp-val red" id="minInterest">—</span></div>
+            <div class="comp-metric"><span class="comp-label">Total Paid</span><span class="comp-val" id="minTotal">—</span></div>
+            <div class="comp-metric"><span class="comp-label">First Payment</span><span class="comp-val" id="minFirst">—</span></div>
+          </div>
+          <div class="comp-card success">
+            <div class="comp-icon">🚀</div>
+            <h3>Fixed Payment</h3>
+            <div class="comp-metric"><span class="comp-label">Time to Pay Off</span><span class="comp-val" id="fixTime">—</span></div>
+            <div class="comp-metric"><span class="comp-label">Total Interest</span><span class="comp-val green" id="fixInterest">—</span></div>
+            <div class="comp-metric"><span class="comp-label">Total Paid</span><span class="comp-val" id="fixTotal">—</span></div>
+            <div class="comp-metric"><span class="comp-label">Monthly Payment</span><span class="comp-val" id="fixFirst">—</span></div>
+          </div>
+        </div>
+
+        <div class="savings-banner" id="savingsBanner">
+          <span class="savings-label">You save with fixed payments:</span>
+          <span class="savings-amount" id="savingsAmount">—</span>
+          <span class="savings-time" id="savingsTime">and — years faster</span>
+        </div>
+
+        <div class="trap-viz">
+          <h3>Interest vs Principal Over Time</h3>
+          <div class="bar-chart" id="barChart"></div>
+          <div class="chart-legend">
+            <span class="cleg-item interest-leg">Interest</span>
+            <span class="cleg-item principal-leg">Principal</span>
+          </div>
+        </div>
+
+        <div class="insight-box">
+          <h4>💡 What This Means</h4>
+          <p id="insightText">Enter your balance to reveal the minimum payment trap in your situation.</p>
+        </div>
+
+        <div class="nudge-box" id="nudgeBox">
+          <p id="nudgeText"></p>
+        </div>
+
+        <div class="action-row">
+          <button class="share-btn" onclick="shareResult()">📤 Share Result</button>
+          <a href="/finance/debt-payoff-planner/" class="cta-link">Build Payoff Plan →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What is the minimum payment trap?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Banks set minimum payments at 2–5% of your balance so you stay in debt longer and pay more interest. On a ₹1 lakh balance at 36% APR, paying only 2% minimum means 15+ years of debt and ₹2+ lakh in interest charges.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">How does minimum payment percentage affect payoff time?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">As your balance decreases, your minimum payment (being a percentage of balance) also decreases — which means you pay less and less principal each month. This creates a geometric drag on debt elimination.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What fixed amount should I pay to escape the trap?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">A good rule: pay at least 5–10% of your original balance every month as a fixed amount. For ₹1 lakh, that's ₹5,000–₹10,000/month. This cuts payoff time from 15 years to under 2 years.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Is it bad to only pay the minimum on credit cards?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Paying only the minimum avoids late fees but is one of the most expensive financial decisions you can make. It maximizes bank profits at your expense. Always pay more than the minimum whenever possible.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="related-tools">
+    <h3>Related Tools</h3>
+    <div class="related-grid">
+      <a href="/finance/credit-card-interest-calculator/" class="related-card">Credit Card Interest Calculator</a>
+      <a href="/finance/debt-payoff-planner/" class="related-card">Debt Payoff Planner</a>
+      <a href="/finance/debt-consolidation-comparator/" class="related-card">Debt Consolidation Comparator</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  const sym = () => document.getElementById('currency').value;
+  const fmt = (n) => sym() + Math.round(Math.abs(n)).toLocaleString('en-IN');
+  const linkSlider = (a, b) => {
+    document.getElementById(a).addEventListener('input', e => { document.getElementById(b).value = e.target.value; calculate(); });
+    document.getElementById(b).addEventListener('input', e => { document.getElementById(a).value = e.target.value; calculate(); });
+  };
+  linkSlider('balance', 'balSlider');
+  linkSlider('apr', 'aprSlider');
+  linkSlider('fixedPayment', 'fixedSlider');
+  document.getElementById('minPct').addEventListener('input', calculate);
+  document.getElementById('currency').addEventListener('change', calculate);
+
+  function simulate(balance, apr, paymentFn) {
+    const monthlyRate = apr / 100 / 12;
+    let bal = balance, totalInt = 0, months = 0, firstPay = 0;
+    const yearlyData = [];
+    while (bal > 0.01 && months < 600) {
+      const intCharge = bal * monthlyRate;
+      const pay = paymentFn(bal, months);
+      if (pay <= intCharge && months > 0) { months = 9999; break; }
+      const principal = Math.min(pay - intCharge, bal);
+      totalInt += intCharge;
+      bal -= principal;
+      months++;
+      if (months === 1) firstPay = pay;
+      if (months % 12 === 0 || bal <= 0.01) {
+        yearlyData.push({ year: Math.ceil(months / 12), interest: intCharge, principal: principal });
+      }
+    }
+    return { months, totalInt, totalPaid: balance + totalInt, firstPay, yearlyData };
+  }
+
+  function calculate() {
+    const balance = parseFloat(document.getElementById('balance').value) || 0;
+    const apr = parseFloat(document.getElementById('apr').value) || 0;
+    const minPct = parseFloat(document.getElementById('minPct').value) / 100 || 0.02;
+    const fixedPay = parseFloat(document.getElementById('fixedPayment').value) || 0;
+    const minFloor = balance > 500 ? 500 : balance;
+
+    const minResult = simulate(balance, apr, (bal) => Math.max(bal * minPct, minFloor));
+    const fixResult = simulate(balance, apr, () => fixedPay);
+
+    const minYrs = minResult.months >= 9999 ? '∞' : (minResult.months / 12).toFixed(1);
+    const fixYrs = fixResult.months >= 9999 ? '∞' : (fixResult.months / 12).toFixed(1);
+    const saved = minResult.totalInt - fixResult.totalInt;
+    const timeSaved = minResult.months >= 9999 ? '∞' : ((minResult.months - fixResult.months) / 12).toFixed(1);
+
+    document.getElementById('hs-minYears').textContent = minYrs + ' yrs';
+    document.getElementById('hs-fullYears').textContent = fixYrs + ' yrs';
+    document.getElementById('hs-interestWaste').textContent = fmt(saved);
+    document.getElementById('hs-years').textContent = minYrs;
+    document.getElementById('hs-extra').textContent = fmt(minResult.totalInt);
+
+    document.getElementById('minTime').textContent = minResult.months >= 9999 ? 'Never' : minYrs + ' years';
+    document.getElementById('minInterest').textContent = fmt(minResult.totalInt);
+    document.getElementById('minTotal').textContent = fmt(minResult.totalPaid);
+    document.getElementById('minFirst').textContent = fmt(minResult.firstPay);
+
+    document.getElementById('fixTime').textContent = fixResult.months >= 9999 ? 'Payment too low' : fixYrs + ' years';
+    document.getElementById('fixInterest').textContent = fmt(fixResult.totalInt);
+    document.getElementById('fixTotal').textContent = fmt(fixResult.totalPaid);
+    document.getElementById('fixFirst').textContent = fmt(fixedPay);
+
+    document.getElementById('savingsAmount').textContent = fmt(saved);
+    document.getElementById('savingsTime').textContent = `and ${timeSaved} years faster`;
+
+    // Bar chart – yearly interest vs principal
+    const chart = document.getElementById('barChart');
+    const data = minResult.yearlyData.slice(0, 10);
+    const maxVal = Math.max(...data.map(d => d.interest + d.principal), 1);
+    chart.innerHTML = data.map(d => {
+      const iPct = (d.interest / maxVal) * 100;
+      const pPct = (d.principal / maxVal) * 100;
+      return `<div class="bar-group">
+        <div class="bar-stack">
+          <div class="bar-seg interest-seg" style="height:${iPct}%" title="Interest: ${fmt(d.interest)}"></div>
+          <div class="bar-seg principal-seg" style="height:${pPct}%" title="Principal: ${fmt(d.principal)}"></div>
+        </div>
+        <span class="bar-label">Yr${d.year}</span>
+      </div>`;
+    }).join('');
+
+    const insight = saved > 0
+      ? `By switching from minimum payments to ${fmt(fixedPay)}/month, you save ${fmt(saved)} in interest and become debt-free ${timeSaved} years sooner. That's money you could invest instead.`
+      : `Your fixed payment of ${fmt(fixedPay)} is lower than the effective minimum. Increase it to at least ${fmt(balance * 0.05)}/month to escape the trap.`;
+    document.getElementById('insightText').textContent = insight;
+
+    const nudge = minResult.totalInt > balance
+      ? `⚠️ You're paying ${(minResult.totalInt / balance * 100).toFixed(0)}% more than your original balance in interest. You're paying ${(minResult.totalInt / balance).toFixed(1)}× your debt in pure interest — this is the minimum payment trap.`
+      : `Minimum payments will cost you ${fmt(minResult.totalInt)} in interest over ${minYrs} years.`;
+    document.getElementById('nudgeText').textContent = nudge;
+  }
+
+  function shareResult() {
+    const text = `Minimum Payment Trap: ${document.getElementById('minTime').textContent} of debt vs ${document.getElementById('fixTime').textContent} with fixed payments. Save ${document.getElementById('savingsAmount').textContent}! Check your numbers: ` + window.location.href;
+    if (navigator.share) navigator.share({ title: 'Minimum Payment Trap', text });
+    else { navigator.clipboard.writeText(text); alert('Result copied!'); }
+  }
+
+  calculate();
+</script>
+
+<style>
+  :root { --ink:#0f172a; --slate:#334155; --muted:#64748b; --accent:#ef4444; --green:#22c55e; --surface:#f8fafc; --radius:20px; --shadow:0 20px 50px rgba(15,23,42,.10); }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Manrope",sans-serif;background:var(--surface);color:var(--ink);}
+  .tool-page-wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .tool-hero{text-align:center;padding:3.5rem 2rem 2.5rem;background:linear-gradient(135deg,#fff1f2,#fef3c7,#fdf2f8);border-radius:28px;margin-bottom:2.5rem;}
+  .tool-hero-badge{display:inline-block;background:rgba(239,68,68,.12);color:#dc2626;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:999px;margin-bottom:1rem;}
+  .tool-hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:.75rem;}
+  .hero-accent{color:var(--accent);}
+  .tool-tagline{color:var(--slate);font-size:1.05rem;margin-bottom:2rem;}
+  .hero-stat-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+  .stat-num{font-family:"Space Grotesk",sans-serif;font-size:1.8rem;font-weight:700;color:var(--accent);}
+  .stat-label{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .tool-card-wrap{margin-bottom:3rem;}
+  .tool-card{display:grid;grid-template-columns:1fr 1.4fr;gap:2rem;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+  .input-panel{padding:2.5rem 2rem;background:linear-gradient(160deg,#fff1f2,#fff7ed);}
+  .result-panel{padding:2.5rem 2rem;}
+  .panel-title{font-family:"Space Grotesk",sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1.8rem;}
+  .input-group{margin-bottom:1.5rem;}
+  .input-group label{display:block;font-weight:600;font-size:.9rem;margin-bottom:.5rem;color:var(--slate);}
+  .full-sel,.input-group input[type="number"]{width:100%;padding:.8rem 1rem;border:1.5px solid #e2e8f0;border-radius:12px;font-size:1rem;font-weight:600;background:white;outline:none;transition:border-color .2s;}
+  .input-group input[type="number"]:focus,.full-sel:focus{border-color:var(--accent);}
+  .input-suffix{position:relative;}
+  .input-suffix .suffix{position:absolute;right:1rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.82rem;font-weight:600;}
+  .range-slider{width:100%;margin-top:.6rem;accent-color:var(--accent);}
+  .badge-tip{font-size:.75rem;background:rgba(239,68,68,.1);color:#dc2626;padding:.2rem .5rem;border-radius:6px;font-weight:600;}
+  .calc-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#ef4444,#f97316);color:#fff;font-weight:700;font-size:1rem;border:none;border-radius:14px;cursor:pointer;margin-top:.5rem;transition:transform .2s,box-shadow .2s;}
+  .calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(239,68,68,.35);}
+  .comparison-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+  .comp-card{border-radius:16px;padding:1.4rem;display:flex;flex-direction:column;gap:.8rem;}
+  .comp-card.danger{background:linear-gradient(135deg,#fef2f2,#fff7ed);border:1.5px solid #fecaca;}
+  .comp-card.success{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1.5px solid #86efac;}
+  .comp-icon{font-size:1.8rem;}
+  .comp-card h3{font-family:"Space Grotesk",sans-serif;font-size:1rem;font-weight:700;}
+  .comp-metric{display:flex;flex-direction:column;gap:.15rem;}
+  .comp-label{font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  .comp-val{font-family:"Space Grotesk",sans-serif;font-size:1.15rem;font-weight:700;color:var(--ink);}
+  .comp-val.red{color:#ef4444;}
+  .comp-val.green{color:#16a34a;}
+  .savings-banner{background:linear-gradient(135deg,#1d4ed8,#0ea5e9);color:#fff;border-radius:14px;padding:1rem 1.4rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+  .savings-label{font-size:.85rem;font-weight:600;opacity:.85;}
+  .savings-amount{font-family:"Space Grotesk",sans-serif;font-size:1.5rem;font-weight:700;}
+  .savings-time{font-size:.85rem;opacity:.85;}
+  .trap-viz{margin-bottom:1.5rem;}
+  .trap-viz h3{font-size:.95rem;font-weight:700;margin-bottom:.8rem;}
+  .bar-chart{display:flex;align-items:flex-end;gap:.4rem;height:120px;padding:.5rem;background:#f8fafc;border-radius:12px;}
+  .bar-group{display:flex;flex-direction:column;align-items:center;gap:.3rem;flex:1;}
+  .bar-stack{display:flex;flex-direction:column-reverse;align-items:center;width:100%;height:100px;gap:1px;}
+  .bar-seg{width:100%;border-radius:4px 4px 0 0;transition:height .4s ease;}
+  .interest-seg{background:linear-gradient(180deg,#ef4444,#f97316);}
+  .principal-seg{background:linear-gradient(180deg,#3b82f6,#6366f1);}
+  .bar-label{font-size:.68rem;color:var(--muted);font-weight:600;}
+  .chart-legend{display:flex;gap:1rem;margin-top:.5rem;}
+  .cleg-item{font-size:.78rem;font-weight:600;display:flex;align-items:center;gap:.35rem;}
+  .cleg-item::before{content:'';width:12px;height:12px;border-radius:3px;display:inline-block;}
+  .interest-leg::before{background:#ef4444;}
+  .principal-leg::before{background:#3b82f6;}
+  .insight-box{background:linear-gradient(135deg,#eff6ff,#f0f9ff);border-left:4px solid #3b82f6;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin-bottom:1rem;}
+  .insight-box h4{font-size:.9rem;font-weight:700;margin-bottom:.5rem;}
+  .insight-box p{font-size:.92rem;color:var(--slate);line-height:1.6;}
+  .nudge-box{background:#fef9c3;border-left:4px solid #fbbf24;padding:1rem 1.4rem;border-radius:0 12px 12px 0;margin-bottom:1.5rem;}
+  .nudge-box p{font-size:.9rem;color:#92400e;line-height:1.6;font-weight:500;}
+  .action-row{display:flex;gap:1rem;flex-wrap:wrap;}
+  .share-btn{padding:.7rem 1.4rem;border-radius:999px;border:1.5px solid #e2e8f0;background:white;font-weight:600;cursor:pointer;font-size:.9rem;}
+  .cta-link{padding:.7rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:white;font-weight:600;text-decoration:none;font-size:.9rem;}
+  .faq-section{margin:3rem 0;}
+  .faq-section h2{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;margin-bottom:1.5rem;}
+  .faq-list{display:grid;gap:1rem;}
+  .faq-item{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.06);overflow:hidden;}
+  .faq-item summary{padding:1.2rem 1.5rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .faq-item summary::after{content:'+';font-size:1.3rem;color:var(--muted);}
+  .faq-item[open] summary::after{content:'−';}
+  .faq-item div{padding:0 1.5rem 1.2rem;color:var(--slate);line-height:1.7;font-size:.95rem;}
+  .related-tools{margin-top:2rem;}
+  .related-tools h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+  .related-grid{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .related-card{padding:.6rem 1.2rem;border-radius:999px;background:white;border:1.5px solid #e2e8f0;color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;transition:border-color .2s,background .2s;}
+  .related-card:hover{background:#eff6ff;border-color:#3b82f6;color:#1d4ed8;}
+  @media(max-width:800px){.tool-card{grid-template-columns:1fr;}.comparison-cards{grid-template-columns:1fr 1fr;}}
+  @media(max-width:480px){.comparison-cards{grid-template-columns:1fr;}.tool-page-wrap{padding:1rem 1rem 3rem;}}
+</style>

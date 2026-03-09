@@ -1,0 +1,343 @@
+---
+layout: default
+title: "Financial Health Score – Gamified Personal Finance Rating"
+permalink: /finance/financial-health-score/
+description: "Get your personal Financial Health Score out of 100. Gamified assessment of savings, debt, emergency fund, investments, and insurance coverage with actionable improvement steps."
+keywords: ["financial health score", "personal finance rating India", "financial wellness calculator", "how financially healthy am I", "financial health check India"]
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="tool-page-wrap">
+
+  <section class="tool-hero fhs-hero">
+    <div class="tool-hero-badge">Wealth Awareness & Tracking</div>
+    <h1>Financial Health Score <span class="hero-accent">Your Money Report Card</span></h1>
+    <p class="tool-tagline">Answer 10 questions. Get your score out of 100 with a personalised action plan.</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="stat-num" id="hs-score">—</span><span class="stat-label">Health Score</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-grade">—</span><span class="stat-label">Grade</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-rank">—</span><span class="stat-label">Top Percentile</span></div>
+    </div>
+  </section>
+
+  <section class="tool-card-wrap">
+    <div class="tool-card-full">
+
+      <div class="score-layout">
+
+        <!-- Questions -->
+        <div class="questions-col">
+          <h2 class="panel-title">Financial Assessment</h2>
+          <p class="q-intro">Rate each area honestly for an accurate score.</p>
+
+          <div id="questionList" class="question-list"></div>
+
+          <button class="calc-btn" onclick="calculate()">Calculate My Score</button>
+        </div>
+
+        <!-- Score Panel -->
+        <div class="score-col">
+          <div class="score-ring-wrap">
+            <svg viewBox="0 0 200 200" class="score-ring-svg">
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#f1f5f9" stroke-width="16"/>
+              <circle id="scoreArc" cx="100" cy="100" r="80" fill="none" stroke="url(#scoreGrad)" stroke-width="16"
+                stroke-linecap="round" stroke-dasharray="502" stroke-dashoffset="502"
+                transform="rotate(-90 100 100)" style="transition: stroke-dashoffset 0.8s ease;"/>
+              <defs>
+                <linearGradient id="scoreGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#f97316"/>
+                  <stop offset="50%" stop-color="#eab308"/>
+                  <stop offset="100%" stop-color="#22c55e"/>
+                </linearGradient>
+              </defs>
+              <text id="scoreNum" x="100" y="95" text-anchor="middle" font-family="Space Grotesk" font-size="40" font-weight="700" fill="#0f172a">—</text>
+              <text x="100" y="118" text-anchor="middle" font-family="Manrope" font-size="12" fill="#64748b">out of 100</text>
+            </svg>
+          </div>
+
+          <div class="grade-badge" id="gradeBadge">
+            <span class="grade-letter" id="gradeLetter">—</span>
+            <span class="grade-label" id="gradeLabel">Complete the assessment</span>
+          </div>
+
+          <div class="category-scores" id="categoryScores">
+            <h3>Score Breakdown</h3>
+            <div id="scoreBreakdown"></div>
+          </div>
+
+          <div class="top-issues" id="topIssues">
+            <h3>🎯 Top Improvement Actions</h3>
+            <div id="issueList"></div>
+          </div>
+
+          <div class="action-row">
+            <button class="share-btn" onclick="shareResult()">📤 Share Score</button>
+            <a href="/finance/net-worth-tracker/" class="cta-link">Track Net Worth →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What makes up a Financial Health Score?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Our score evaluates 6 key dimensions: Emergency Fund (20%), Debt Management (20%), Savings Rate (20%), Investment Coverage (15%), Insurance Protection (15%), and Budget Control (10%). Each area reflects a critical pillar of long-term financial wellbeing.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What score should I aim for?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Score 70–79: Good financial health. Score 80–89: Very strong — you're ahead of most Indians. Score 90+: Exceptional — you're in the top 5% financially. Scores below 60 indicate significant areas needing urgent attention.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">How often should I check my financial health score?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Re-assess every 3–6 months or after major life events (job change, marriage, new loan, big purchase). Tracking trends over time is more valuable than any single score.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="related-tools">
+    <h3>Related Tools</h3>
+    <div class="related-grid">
+      <a href="/finance/net-worth-tracker/" class="related-card">Net Worth Tracker</a>
+      <a href="/finance/emergency-fund-planner/" class="related-card">Emergency Fund Planner</a>
+      <a href="/finance/budget-optimizer/" class="related-card">Budget Optimizer</a>
+      <a href="/finance/dti-calculator/" class="related-card">DTI Calculator</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  const questions = [
+    {
+      id: 'emergencyFund', category: 'Emergency Fund', weight: 20,
+      text: 'How many months of expenses does your emergency fund cover?',
+      options: [
+        { label: '0 months', score: 0 }, { label: 'Less than 1 month', score: 3 },
+        { label: '1–3 months', score: 10 }, { label: '3–6 months', score: 16 },
+        { label: '6+ months', score: 20 }
+      ]
+    },
+    {
+      id: 'savingsRate', category: 'Savings Rate', weight: 20,
+      text: 'What percentage of your monthly income do you save?',
+      options: [
+        { label: 'I spend more than I earn', score: 0 }, { label: '0–5%', score: 5 },
+        { label: '5–10%', score: 10 }, { label: '10–20%', score: 15 },
+        { label: '20%+', score: 20 }
+      ]
+    },
+    {
+      id: 'debtDTI', category: 'Debt Management', weight: 20,
+      text: 'What percentage of your income goes to debt/EMI payments?',
+      options: [
+        { label: '50%+', score: 0 }, { label: '36–50%', score: 5 },
+        { label: '20–36%', score: 12 }, { label: '10–20%', score: 17 },
+        { label: 'Less than 10%', score: 20 }
+      ]
+    },
+    {
+      id: 'investments', category: 'Investments', weight: 15,
+      text: 'Do you invest regularly (SIP/stocks/bonds)?',
+      options: [
+        { label: 'No investments at all', score: 0 }, { label: 'Occasional, no system', score: 4 },
+        { label: 'Yes, some investments', score: 8 }, { label: 'Regular SIP/systematic plan', score: 12 },
+        { label: 'Diversified + retirement-funded', score: 15 }
+      ]
+    },
+    {
+      id: 'insurance', category: 'Insurance', weight: 15,
+      text: 'What insurance coverage do you have?',
+      options: [
+        { label: 'No insurance', score: 0 }, { label: 'Only employer health cover', score: 4 },
+        { label: 'Health insurance only', score: 8 }, { label: 'Health + term life', score: 12 },
+        { label: 'Health + term life + critical illness', score: 15 }
+      ]
+    },
+    {
+      id: 'budget', category: 'Budget Control', weight: 10,
+      text: 'Do you track your monthly income and expenses?',
+      options: [
+        { label: 'Never track', score: 0 }, { label: 'Roughly aware', score: 3 },
+        { label: 'Occasional tracking', score: 6 }, { label: 'Monthly review', score: 8 },
+        { label: 'Detailed budget + review', score: 10 }
+      ]
+    }
+  ];
+
+  const improvements = {
+    emergencyFund: 'Build emergency fund to 6 months of expenses using a high-yield savings account or liquid fund.',
+    savingsRate: 'Increase savings rate by reducing one discretionary expense and auto-transferring the savings.',
+    debtDTI: 'Reduce EMI burden — use Debt Payoff Planner to target highest-rate debt first.',
+    investments: 'Start or increase a monthly SIP — even ₹500/month compounds significantly over 10 years.',
+    insurance: 'Get a term life policy (15–20× annual income) and a standalone health policy (₹5L+ cover).',
+    budget: 'Set up a monthly budget using the 50/30/20 rule and review spending weekly.'
+  };
+
+  function renderQuestions() {
+    const list = document.getElementById('questionList');
+    list.innerHTML = questions.map((q, qi) => `
+      <div class="q-item" id="q-${q.id}">
+        <div class="q-number">Q${qi + 1}</div>
+        <div class="q-body">
+          <div class="q-text">${q.text}</div>
+          <div class="q-options">
+            ${q.options.map((o, oi) => `
+              <label class="q-option">
+                <input type="radio" name="${q.id}" value="${o.score}" ${oi === 0 ? 'checked' : ''} onchange="calculate()">
+                <span class="option-label">${o.label}</span>
+              </label>`).join('')}
+          </div>
+          <div class="q-progress-track">
+            <div class="q-progress-fill" id="qp-${q.id}" style="width:0%"></div>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  function calculate() {
+    let total = 0;
+    const breakdown = [];
+    const weakAreas = [];
+
+    questions.forEach(q => {
+      const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+      const score = selected ? parseInt(selected.value) : 0;
+      const pct = (score / q.weight) * 100;
+      total += score;
+      breakdown.push({ category: q.category, score, max: q.weight, pct });
+      if (pct < 50) weakAreas.push({ id: q.id, category: q.category, pct, tip: improvements[q.id] });
+      const bar = document.getElementById('qp-' + q.id);
+      if (bar) bar.style.width = pct + '%';
+    });
+
+    const finalScore = Math.round(total);
+    let grade, gradeLabel, gradeClass, rankText;
+    if (finalScore >= 90) { grade = 'A+'; gradeLabel = 'Exceptional'; gradeClass = 'grade-excellent'; rankText = 'Top 5%'; }
+    else if (finalScore >= 80) { grade = 'A'; gradeLabel = 'Very Strong'; gradeClass = 'grade-great'; rankText = 'Top 15%'; }
+    else if (finalScore >= 70) { grade = 'B+'; gradeLabel = 'Good'; gradeClass = 'grade-good'; rankText = 'Top 30%'; }
+    else if (finalScore >= 60) { grade = 'B'; gradeLabel = 'Average'; gradeClass = 'grade-avg'; rankText = 'Top 50%'; }
+    else if (finalScore >= 40) { grade = 'C'; gradeLabel = 'Needs Work'; gradeClass = 'grade-warn'; rankText = 'Bottom 40%'; }
+    else { grade = 'D'; gradeLabel = 'Critical'; gradeClass = 'grade-danger'; rankText = 'Bottom 20%'; }
+
+    // Animate ring
+    const circumference = 2 * Math.PI * 80;
+    const offset = circumference * (1 - finalScore / 100);
+    document.getElementById('scoreArc').style.strokeDashoffset = offset;
+    document.getElementById('scoreNum').textContent = finalScore;
+
+    document.getElementById('hs-score').textContent = finalScore + '/100';
+    document.getElementById('hs-grade').textContent = grade;
+    document.getElementById('hs-rank').textContent = rankText;
+
+    document.getElementById('gradeLetter').textContent = grade;
+    document.getElementById('gradeLabel').textContent = gradeLabel;
+    document.getElementById('gradeBadge').className = 'grade-badge ' + gradeClass;
+
+    // Breakdown
+    document.getElementById('scoreBreakdown').innerHTML = breakdown.map(b => `
+      <div class="cat-score-row">
+        <span class="cat-name">${b.category}</span>
+        <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${b.pct}%;background:${b.pct >= 80 ? '#22c55e' : b.pct >= 50 ? '#eab308' : '#ef4444'}"></div></div>
+        <span class="cat-pts">${b.score}/${b.max}</span>
+      </div>`).join('');
+
+    // Issues
+    weakAreas.sort((a, b) => a.pct - b.pct);
+    document.getElementById('issueList').innerHTML = weakAreas.slice(0, 3).map((w, i) => `
+      <div class="issue-item">
+        <span class="issue-rank">${i + 1}</span>
+        <div class="issue-body"><strong>${w.category}</strong> (${w.pct.toFixed(0)}% filled)<br>${w.tip}</div>
+      </div>`).join('') || '<p style="color:#10b981;font-weight:600;">🎉 No critical issues found!</p>';
+  }
+
+  function shareResult() {
+    const text = `My Financial Health Score: ${document.getElementById('hs-score').textContent} (Grade ${document.getElementById('hs-grade').textContent}) — ${document.getElementById('hs-rank').textContent}. Check yours: ` + window.location.href;
+    if (navigator.share) navigator.share({ title: 'Financial Health Score', text });
+    else { navigator.clipboard.writeText(text); alert('Result copied!'); }
+  }
+
+  renderQuestions();
+  calculate();
+</script>
+
+<style>
+  :root{--ink:#0f172a;--slate:#334155;--muted:#64748b;--accent:#f59e0b;--surface:#f8fafc;--radius:20px;--shadow:0 20px 50px rgba(15,23,42,.10);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Manrope",sans-serif;background:var(--surface);color:var(--ink);}
+  .tool-page-wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .tool-hero{text-align:center;padding:3.5rem 2rem 2.5rem;background:linear-gradient(135deg,#fffbeb,#fef3c7,#fde68a);border-radius:28px;margin-bottom:2.5rem;}
+  .tool-hero-badge{display:inline-block;background:rgba(245,158,11,.15);color:#b45309;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:999px;margin-bottom:1rem;}
+  .tool-hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:.75rem;}
+  .hero-accent{color:#d97706;}
+  .tool-tagline{color:var(--slate);font-size:1.05rem;margin-bottom:2rem;}
+  .hero-stat-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+  .stat-num{font-family:"Space Grotesk",sans-serif;font-size:1.8rem;font-weight:700;color:#d97706;}
+  .stat-label{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .tool-card-wrap{margin-bottom:3rem;}
+  .tool-card-full{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;padding:2.5rem;}
+  .score-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;}
+  .panel-title{font-family:"Space Grotesk",sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:.5rem;}
+  .q-intro{font-size:.88rem;color:var(--muted);margin-bottom:1.5rem;}
+  .question-list{display:grid;gap:1.2rem;margin-bottom:1.5rem;}
+  .q-item{display:flex;gap:.8rem;background:#f8fafc;border-radius:14px;padding:1.1rem;}
+  .q-number{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;flex-shrink:0;margin-top:.1rem;}
+  .q-body{flex:1;}
+  .q-text{font-weight:600;font-size:.9rem;color:var(--ink);margin-bottom:.7rem;}
+  .q-options{display:grid;gap:.4rem;margin-bottom:.6rem;}
+  .q-option{display:flex;align-items:center;gap:.5rem;cursor:pointer;}
+  .q-option input{accent-color:#f59e0b;}
+  .option-label{font-size:.85rem;color:var(--slate);}
+  .q-progress-track{height:4px;background:#e2e8f0;border-radius:2px;overflow:hidden;}
+  .q-progress-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#22c55e);border-radius:2px;transition:width .4s ease;}
+  .calc-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-weight:700;font-size:1rem;border:none;border-radius:14px;cursor:pointer;transition:transform .2s,box-shadow .2s;}
+  .calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(245,158,11,.4);}
+  .score-ring-wrap{display:flex;justify-content:center;margin-bottom:1rem;}
+  .score-ring-svg{width:180px;display:block;}
+  .grade-badge{text-align:center;padding:1rem;border-radius:16px;margin-bottom:1.5rem;border:2px solid transparent;}
+  .grade-excellent{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border-color:#6ee7b7;}
+  .grade-great{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#93c5fd;}
+  .grade-good{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-color:#86efac;}
+  .grade-avg{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-color:#fde68a;}
+  .grade-warn{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-color:#fdba74;}
+  .grade-danger{background:linear-gradient(135deg,#fef2f2,#fee2e2);border-color:#fca5a5;}
+  .grade-letter{display:block;font-family:"Space Grotesk",sans-serif;font-size:2.5rem;font-weight:700;}
+  .grade-label{font-size:.9rem;font-weight:600;color:var(--slate);}
+  .category-scores{margin-bottom:1.5rem;}
+  .category-scores h3,.top-issues h3{font-size:.95rem;font-weight:700;margin-bottom:.8rem;}
+  .cat-score-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;}
+  .cat-name{font-size:.78rem;font-weight:600;color:var(--slate);min-width:100px;}
+  .cat-bar-track{flex:1;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;}
+  .cat-bar-fill{height:100%;border-radius:4px;transition:width .5s ease;}
+  .cat-pts{font-size:.78rem;font-weight:700;color:var(--ink);min-width:36px;text-align:right;}
+  .top-issues{margin-bottom:1.5rem;}
+  .issue-item{display:flex;gap:.7rem;padding:.8rem;background:#f8fafc;border-radius:10px;margin-bottom:.5rem;align-items:flex-start;}
+  .issue-rank{width:24px;height:24px;border-radius:50%;background:#ef4444;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem;flex-shrink:0;}
+  .issue-body{font-size:.83rem;color:var(--slate);line-height:1.5;}
+  .action-row{display:flex;gap:1rem;flex-wrap:wrap;}
+  .share-btn{padding:.7rem 1.4rem;border-radius:999px;border:1.5px solid #e2e8f0;background:white;font-weight:600;cursor:pointer;font-size:.9rem;}
+  .cta-link{padding:.7rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;font-weight:600;text-decoration:none;font-size:.9rem;}
+  .faq-section{margin:3rem 0;}.faq-section h2{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;margin-bottom:1.5rem;}
+  .faq-list{display:grid;gap:1rem;}
+  .faq-item{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.06);overflow:hidden;}
+  .faq-item summary{padding:1.2rem 1.5rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .faq-item summary::after{content:'+';font-size:1.3rem;color:var(--muted);}
+  .faq-item[open] summary::after{content:'−';}
+  .faq-item div{padding:0 1.5rem 1.2rem;color:var(--slate);line-height:1.7;font-size:.95rem;}
+  .related-tools{margin-top:2rem;}.related-tools h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+  .related-grid{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .related-card{padding:.6rem 1.2rem;border-radius:999px;background:white;border:1.5px solid #e2e8f0;color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;transition:border-color .2s,background .2s;}
+  .related-card:hover{background:#fffbeb;border-color:#f59e0b;color:#d97706;}
+  @media(max-width:800px){.score-layout{grid-template-columns:1fr;}}
+  @media(max-width:480px){.tool-page-wrap{padding:1rem 1rem 3rem;}}
+</style>

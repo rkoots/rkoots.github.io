@@ -1,0 +1,389 @@
+---
+layout: default
+title: "APR Cost Calculator – Real Yearly Borrowing Cost"
+permalink: /finance/apr-cost-calculator/
+description: "Calculate the true Annual Percentage Rate on any loan. Compare APR vs interest rate, see hidden fees, and find the real cost of borrowing before you sign."
+keywords: ["APR calculator India", "annual percentage rate calculator", "true cost of loan India", "APR vs interest rate", "loan APR comparison calculator"]
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="tool-page-wrap">
+
+  <section class="tool-hero apr-hero">
+    <div class="tool-hero-badge">Debt & Credit Tools</div>
+    <h1>APR Cost Calculator <span class="hero-accent">True Borrowing Cost</span></h1>
+    <p class="tool-tagline">Lenders advertise interest rates. APR reveals the real cost including fees and charges.</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="stat-num" id="hs-apr">—%</span><span class="stat-label">True APR</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-totalCost">—</span><span class="stat-label">Total Cost of Loan</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-premium">—%</span><span class="stat-label">APR vs Advertised Rate</span></div>
+    </div>
+  </section>
+
+  <section class="tool-card-wrap">
+    <div class="tool-card">
+      <div class="input-panel">
+        <h2 class="panel-title">Loan Details</h2>
+
+        <div class="input-group">
+          <label>Currency</label>
+          <select id="currency" class="full-sel"><option value="₹">₹ INR</option><option value="$">$ USD</option></select>
+        </div>
+
+        <div class="section-divider">Loan Terms</div>
+        <div class="input-group">
+          <label for="loanAmount">Loan Amount</label>
+          <input type="number" id="loanAmount" value="500000" min="0" step="10000">
+          <input type="range" id="amtSlider" min="10000" max="5000000" step="10000" value="500000" class="range-slider">
+        </div>
+        <div class="input-group">
+          <label for="nominalRate">Advertised Interest Rate</label>
+          <div class="input-suffix"><input type="number" id="nominalRate" value="10.5" min="0.1" max="40" step="0.1"><span class="suffix">%</span></div>
+          <input type="range" id="rateSlider" min="1" max="40" step="0.1" value="10.5" class="range-slider">
+        </div>
+        <div class="input-group">
+          <label for="tenure">Loan Tenure</label>
+          <div class="input-row">
+            <input type="number" id="tenure" value="5" min="1" max="30" step="1">
+            <select id="tenureUnit" class="half-sel">
+              <option value="years" selected>Years</option>
+              <option value="months">Months</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section-divider">Fees & Charges</div>
+        <div class="input-group">
+          <label for="processingFee">Processing Fee</label>
+          <div class="input-row">
+            <input type="number" id="processingFee" value="1" min="0" step="0.1">
+            <select id="feeType" class="half-sel">
+              <option value="pct">% of loan</option>
+              <option value="flat">Flat amount</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="insurance">Loan Insurance (One-time)</label>
+          <input type="number" id="insurance" value="0" min="0" step="500">
+        </div>
+        <div class="input-group">
+          <label for="otherFees">Other Charges (Documentation, etc.)</label>
+          <input type="number" id="otherFees" value="0" min="0" step="500">
+        </div>
+        <div class="input-group">
+          <label for="prepaymentPenalty">Prepayment Penalty</label>
+          <div class="input-suffix"><input type="number" id="prepaymentPenalty" value="0" min="0" max="10" step="0.5"><span class="suffix">%</span></div>
+        </div>
+
+        <div class="section-divider">Loan Type</div>
+        <div class="input-group">
+          <label for="loanType">Loan Type</label>
+          <select id="loanType" class="full-sel">
+            <option value="reducing">Reducing Balance (EMI)</option>
+            <option value="flat">Flat Rate (Personal Loan)</option>
+          </select>
+        </div>
+
+        <button class="calc-btn" onclick="calculate()">Calculate True APR</button>
+      </div>
+
+      <div class="result-panel">
+        <h2 class="panel-title">True Cost Breakdown</h2>
+
+        <div class="apr-comparison">
+          <div class="apr-col advertised">
+            <div class="apr-icon">🏷️</div>
+            <h3>Advertised Rate</h3>
+            <div class="apr-rate" id="advertised-rate">—%</div>
+            <div class="apr-sub">What the bank says</div>
+          </div>
+          <div class="apr-vs">≠</div>
+          <div class="apr-col true-apr">
+            <div class="apr-icon">🎯</div>
+            <h3>True APR</h3>
+            <div class="apr-rate true" id="true-apr">—%</div>
+            <div class="apr-sub">What you actually pay</div>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card"><span class="metric-label">Monthly EMI</span><span class="metric-val" id="res-emi">—</span></div>
+          <div class="metric-card primary"><span class="metric-label">Total Interest Paid</span><span class="metric-val" id="res-interest">—</span></div>
+          <div class="metric-card danger"><span class="metric-label">Total Fees & Charges</span><span class="metric-val" id="res-fees">—</span></div>
+          <div class="metric-card"><span class="metric-label">Total Amount Paid</span><span class="metric-val" id="res-total">—</span></div>
+          <div class="metric-card accent"><span class="metric-label">True APR</span><span class="metric-val" id="res-apr">—%</span></div>
+          <div class="metric-card"><span class="metric-label">APR Premium Over Rate</span><span class="metric-val" id="res-premium">—%</span></div>
+        </div>
+
+        <div class="cost-waterfall">
+          <h3>Cost Breakdown</h3>
+          <div class="waterfall-chart" id="waterfallChart"></div>
+        </div>
+
+        <div class="loan-compare-grid">
+          <h3>Compare Lender Scenarios</h3>
+          <div class="compare-table-wrap">
+            <table class="compare-table" id="compareTable">
+              <thead><tr><th>Scenario</th><th>Rate</th><th>Fees</th><th>APR</th><th>Total Cost</th></tr></thead>
+              <tbody id="compareBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="insight-box">
+          <h4>💡 What This Means</h4>
+          <p id="insightText">Enter your loan details to see the true cost of borrowing.</p>
+        </div>
+
+        <div class="action-row">
+          <button class="share-btn" onclick="shareResult()">📤 Share Result</button>
+          <a href="/finance/debt-consolidation-comparator/" class="cta-link">Compare Lenders →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What's the difference between interest rate and APR?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">The interest rate is just the cost of the loan principal. APR (Annual Percentage Rate) includes interest rate PLUS all fees — processing fees, documentation charges, insurance, etc. APR is always higher than the stated rate and gives you the true cost of borrowing for comparison.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What is a flat rate vs reducing balance rate in India?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">In flat rate loans, interest is charged on the original principal throughout. In reducing balance loans, interest is charged only on the outstanding balance. A 10% flat rate is equivalent to roughly 18–20% reducing balance APR — significantly more expensive. Always compare on reducing balance or APR basis.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">How do processing fees affect APR?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">A 1% processing fee on a 2-year loan increases effective APR by roughly 0.5–0.7%. On a 1-year loan, the same fee has nearly double the impact on APR. This is why short-term loans with high processing fees are often far more expensive than they appear.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="related-tools">
+    <h3>Related Tools</h3>
+    <div class="related-grid">
+      <a href="/finance/credit-card-interest-calculator/" class="related-card">Credit Card Interest Calculator</a>
+      <a href="/finance/debt-consolidation-comparator/" class="related-card">Debt Consolidation Comparator</a>
+      <a href="/finance/dti-calculator/" class="related-card">DTI Calculator</a>
+      <a href="/finance/debt-payoff-planner/" class="related-card">Debt Payoff Planner</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  const sym = () => document.getElementById('currency').value;
+  const fmt = n => sym() + Math.round(Math.abs(n)).toLocaleString('en-IN');
+
+  const linkSlider = (a, b) => {
+    document.getElementById(a).addEventListener('input', e => { document.getElementById(b).value = e.target.value; calculate(); });
+    document.getElementById(b).addEventListener('input', e => { document.getElementById(a).value = e.target.value; calculate(); });
+  };
+  linkSlider('loanAmount', 'amtSlider');
+  linkSlider('nominalRate', 'rateSlider');
+  ['loanAmount','nominalRate','tenure','tenureUnit','processingFee','feeType','insurance','otherFees','prepaymentPenalty','loanType','currency'].forEach(id => {
+    document.getElementById(id).addEventListener('change', calculate);
+    if (document.getElementById(id).tagName === 'INPUT') document.getElementById(id).addEventListener('input', calculate);
+  });
+
+  function calcEMI(principal, monthlyRate, months) {
+    if (monthlyRate === 0) return principal / months;
+    return principal * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
+  }
+
+  function calcAPR(principal, fees, emi, months) {
+    const netDisbursed = principal - fees;
+    // Newton-Raphson to solve for APR
+    let r = 0.01;
+    for (let i = 0; i < 100; i++) {
+      const f = netDisbursed - emi * (1 - Math.pow(1 + r, -months)) / r;
+      const fp = emi * (months * Math.pow(1 + r, -(months + 1)) / r - (1 - Math.pow(1 + r, -months)) / (r * r));
+      const rNew = r - f / fp;
+      if (Math.abs(rNew - r) < 1e-8) break;
+      r = rNew;
+    }
+    return r * 12 * 100;
+  }
+
+  function calculate() {
+    const principal = parseFloat(document.getElementById('loanAmount').value) || 0;
+    const nomRate = parseFloat(document.getElementById('nominalRate').value) || 0;
+    const tenureVal = parseFloat(document.getElementById('tenure').value) || 0;
+    const tenureUnit = document.getElementById('tenureUnit').value;
+    const months = tenureUnit === 'years' ? tenureVal * 12 : tenureVal;
+    const loanType = document.getElementById('loanType').value;
+    const feeType = document.getElementById('feeType').value;
+    const procFeeVal = parseFloat(document.getElementById('processingFee').value) || 0;
+    const procFee = feeType === 'pct' ? principal * procFeeVal / 100 : procFeeVal;
+    const insurance = parseFloat(document.getElementById('insurance').value) || 0;
+    const otherFees = parseFloat(document.getElementById('otherFees').value) || 0;
+    const totalFees = procFee + insurance + otherFees;
+
+    let emi, totalInterest;
+    if (loanType === 'flat') {
+      totalInterest = principal * nomRate / 100 * (months / 12);
+      emi = (principal + totalInterest) / months;
+    } else {
+      const monthlyRate = nomRate / 100 / 12;
+      emi = calcEMI(principal, monthlyRate, months);
+      totalInterest = emi * months - principal;
+    }
+
+    const totalPaid = emi * months + totalFees;
+    const trueAPR = months > 0 && emi > 0 ? calcAPR(principal, totalFees, emi, months) : nomRate;
+    const aprPremium = trueAPR - nomRate;
+
+    document.getElementById('hs-apr').textContent = trueAPR.toFixed(2) + '%';
+    document.getElementById('hs-totalCost').textContent = fmt(totalPaid);
+    document.getElementById('hs-premium').textContent = '+' + aprPremium.toFixed(2);
+    document.getElementById('advertised-rate').textContent = nomRate.toFixed(2) + '%';
+    document.getElementById('true-apr').textContent = trueAPR.toFixed(2) + '%';
+
+    document.getElementById('res-emi').textContent = fmt(emi);
+    document.getElementById('res-interest').textContent = fmt(totalInterest);
+    document.getElementById('res-fees').textContent = fmt(totalFees);
+    document.getElementById('res-total').textContent = fmt(totalPaid);
+    document.getElementById('res-apr').textContent = trueAPR.toFixed(2) + '%';
+    document.getElementById('res-premium').textContent = '+' + aprPremium.toFixed(2) + '%';
+
+    // Waterfall chart
+    const parts = [
+      { label: 'Principal', value: principal, color: '#3b82f6' },
+      { label: 'Interest', value: totalInterest, color: '#f97316' },
+      { label: 'Fees', value: totalFees, color: '#ef4444' }
+    ];
+    const maxVal = totalPaid;
+    document.getElementById('waterfallChart').innerHTML = parts.map(p => `
+      <div class="wf-row">
+        <span class="wf-label">${p.label}</span>
+        <div class="wf-track"><div class="wf-fill" style="width:${p.value/maxVal*100}%;background:${p.color}"></div></div>
+        <span class="wf-val">${fmt(p.value)} (${(p.value/maxVal*100).toFixed(1)}%)</span>
+      </div>`).join('');
+
+    // Comparison table scenarios
+    const scenarios = [
+      { label: 'No fees (base)', rate: nomRate, fees: 0 },
+      { label: 'Your loan', rate: nomRate, fees: totalFees },
+      { label: '+1% higher rate, no fees', rate: nomRate + 1, fees: 0 },
+      { label: '+0.5% rate, no fees', rate: nomRate + 0.5, fees: 0 }
+    ];
+    document.getElementById('compareBody').innerHTML = scenarios.map(s => {
+      const mr = s.rate / 100 / 12;
+      const e = calcEMI(principal, mr, months);
+      const ti = e * months - principal;
+      const tp = e * months + s.fees;
+      const apr = calcAPR(principal, s.fees, e, months);
+      return `<tr>
+        <td>${s.label}</td>
+        <td>${s.rate.toFixed(1)}%</td>
+        <td>${fmt(s.fees)}</td>
+        <td><strong>${apr.toFixed(2)}%</strong></td>
+        <td>${fmt(tp)}</td>
+      </tr>`;
+    }).join('');
+
+    const insight = aprPremium > 2
+      ? `Your true APR of ${trueAPR.toFixed(2)}% is ${aprPremium.toFixed(2)}% higher than the advertised ${nomRate}% due to ${fmt(totalFees)} in fees. Always use APR to compare loans — a lender offering a slightly higher rate but lower fees may be cheaper overall.`
+      : `Your APR of ${trueAPR.toFixed(2)}% is close to the advertised rate — fees are minimal. Still compare APR across lenders before committing. A 0.5% difference in APR saves ${fmt(totalInterest * 0.05)} over the loan tenure.`;
+    document.getElementById('insightText').textContent = insight;
+  }
+
+  function shareResult() {
+    const text = `True loan APR: ${document.getElementById('hs-apr').textContent} vs advertised ${document.getElementById('advertised-rate').textContent}. Total cost: ${document.getElementById('hs-totalCost').textContent}. Calculate yours: ` + window.location.href;
+    if (navigator.share) navigator.share({ title: 'APR Cost Analysis', text });
+    else { navigator.clipboard.writeText(text); alert('Result copied!'); }
+  }
+
+  calculate();
+</script>
+
+<style>
+  :root{--ink:#0f172a;--slate:#334155;--muted:#64748b;--accent:#f97316;--surface:#f8fafc;--radius:20px;--shadow:0 20px 50px rgba(15,23,42,.10);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Manrope",sans-serif;background:var(--surface);color:var(--ink);}
+  .tool-page-wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .tool-hero{text-align:center;padding:3.5rem 2rem 2.5rem;background:linear-gradient(135deg,#fff7ed,#ffedd5,#fef9c3);border-radius:28px;margin-bottom:2.5rem;}
+  .tool-hero-badge{display:inline-block;background:rgba(249,115,22,.12);color:#c2410c;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:999px;margin-bottom:1rem;}
+  .tool-hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:.75rem;}
+  .hero-accent{color:#c2410c;}
+  .tool-tagline{color:var(--slate);font-size:1.05rem;margin-bottom:2rem;}
+  .hero-stat-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+  .stat-num{font-family:"Space Grotesk",sans-serif;font-size:1.8rem;font-weight:700;color:#c2410c;}
+  .stat-label{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .tool-card-wrap{margin-bottom:3rem;}
+  .tool-card{display:grid;grid-template-columns:1fr 1.3fr;gap:2rem;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+  .input-panel{padding:2.5rem 2rem;background:linear-gradient(160deg,#fff7ed,#ffedd5);}
+  .result-panel{padding:2.5rem 2rem;}
+  .panel-title{font-family:"Space Grotesk",sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;}
+  .section-divider{font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#c2410c;margin:1.2rem 0 .8rem;padding-bottom:.3rem;border-bottom:1.5px solid rgba(249,115,22,.2);}
+  .input-group{margin-bottom:1.1rem;}
+  .input-group label{display:block;font-weight:600;font-size:.88rem;margin-bottom:.4rem;color:var(--slate);}
+  .input-row{display:flex;gap:.5rem;}
+  .input-group input[type="number"],.full-sel,.half-sel{width:100%;padding:.75rem 1rem;border:1.5px solid #e2e8f0;border-radius:12px;font-size:.9rem;font-weight:600;background:white;outline:none;transition:border-color .2s;}
+  .half-sel{flex:1;}
+  .input-group input:focus,.full-sel:focus,.half-sel:focus{border-color:#f97316;}
+  .input-suffix{position:relative;}
+  .input-suffix input{width:100%;padding:.75rem 2.5rem .75rem 1rem;border:1.5px solid #e2e8f0;border-radius:12px;font-size:.9rem;font-weight:600;background:white;outline:none;}
+  .suffix{position:absolute;right:.8rem;top:50%;transform:translateY(-50%);color:var(--muted);font-weight:600;font-size:.85rem;pointer-events:none;}
+  .range-slider{width:100%;margin-top:.5rem;accent-color:#f97316;}
+  .calc-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#f97316,#dc2626);color:#fff;font-weight:700;font-size:1rem;border:none;border-radius:14px;cursor:pointer;margin-top:.8rem;transition:transform .2s,box-shadow .2s;}
+  .calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(249,115,22,.35);}
+  .apr-comparison{display:flex;align-items:center;gap:1rem;background:#f8fafc;border-radius:18px;padding:1.4rem;margin-bottom:1.8rem;}
+  .apr-col{flex:1;text-align:center;}
+  .apr-icon{font-size:1.8rem;margin-bottom:.4rem;}
+  .apr-col h3{font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem;}
+  .apr-rate{font-family:"Space Grotesk",sans-serif;font-size:2rem;font-weight:700;color:var(--ink);}
+  .apr-rate.true{color:#f97316;}
+  .apr-sub{font-size:.75rem;color:var(--muted);margin-top:.2rem;}
+  .apr-vs{font-size:1.5rem;font-weight:700;color:#ef4444;}
+  .metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.5rem;}
+  .metric-card{padding:.9rem;border-radius:12px;background:var(--surface);display:flex;flex-direction:column;gap:.3rem;}
+  .metric-card.primary{background:linear-gradient(135deg,#fff7ed,#ffedd5);}
+  .metric-card.accent{background:linear-gradient(135deg,#f0fdf4,#dcfce7);}
+  .metric-card.danger{background:linear-gradient(135deg,#fef2f2,#fee2e2);}
+  .metric-label{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  .metric-val{font-family:"Space Grotesk",sans-serif;font-size:1.15rem;font-weight:700;color:var(--ink);}
+  .cost-waterfall{margin-bottom:1.5rem;}
+  .cost-waterfall h3{font-size:.95rem;font-weight:700;margin-bottom:.8rem;}
+  .wf-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;}
+  .wf-label{font-size:.8rem;font-weight:600;color:var(--slate);min-width:65px;}
+  .wf-track{flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden;}
+  .wf-fill{height:100%;border-radius:6px;transition:width .5s ease;}
+  .wf-val{font-size:.78rem;font-weight:700;color:var(--ink);min-width:120px;text-align:right;}
+  .loan-compare-grid{margin-bottom:1.5rem;}
+  .loan-compare-grid h3{font-size:.95rem;font-weight:700;margin-bottom:.8rem;}
+  .compare-table-wrap{overflow-x:auto;}
+  .compare-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+  .compare-table th{background:#f1f5f9;padding:.55rem .7rem;text-align:left;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  .compare-table td{padding:.55rem .7rem;border-bottom:1px solid #f1f5f9;}
+  .insight-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-left:4px solid #f97316;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin-bottom:1.5rem;}
+  .insight-box h4{font-size:.9rem;font-weight:700;margin-bottom:.5rem;}
+  .insight-box p{font-size:.9rem;color:var(--slate);line-height:1.6;}
+  .action-row{display:flex;gap:1rem;flex-wrap:wrap;}
+  .share-btn{padding:.7rem 1.4rem;border-radius:999px;border:1.5px solid #e2e8f0;background:white;font-weight:600;cursor:pointer;font-size:.9rem;}
+  .cta-link{padding:.7rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,#f97316,#dc2626);color:white;font-weight:600;text-decoration:none;font-size:.9rem;}
+  .faq-section{margin:3rem 0;}.faq-section h2{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;margin-bottom:1.5rem;}
+  .faq-list{display:grid;gap:1rem;}
+  .faq-item{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.06);overflow:hidden;}
+  .faq-item summary{padding:1.2rem 1.5rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .faq-item summary::after{content:'+';font-size:1.3rem;color:var(--muted);}
+  .faq-item[open] summary::after{content:'−';}
+  .faq-item div{padding:0 1.5rem 1.2rem;color:var(--slate);line-height:1.7;font-size:.95rem;}
+  .related-tools{margin-top:2rem;}.related-tools h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+  .related-grid{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .related-card{padding:.6rem 1.2rem;border-radius:999px;background:white;border:1.5px solid #e2e8f0;color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;transition:border-color .2s,background .2s;}
+  .related-card:hover{background:#fff7ed;border-color:#f97316;color:#c2410c;}
+  @media(max-width:800px){.tool-card{grid-template-columns:1fr;}.metrics-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:480px){.metrics-grid{grid-template-columns:1fr;}.tool-page-wrap{padding:1rem 1rem 3rem;}}
+</style>

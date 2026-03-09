@@ -1,0 +1,339 @@
+---
+layout: default
+title: "Debt-to-Income (DTI) Calculator – Loan Approval Readiness"
+permalink: /finance/dti-calculator/
+description: "Calculate your Debt-to-Income ratio instantly. Know your loan approval readiness, see how lenders view you, and get actionable steps to improve your DTI."
+keywords: ["DTI calculator", "debt to income ratio calculator India", "loan approval calculator", "how to improve DTI ratio", "debt to income ratio for home loan India"]
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="tool-page-wrap">
+
+  <section class="tool-hero dti-hero">
+    <div class="tool-hero-badge">Debt & Credit Tools</div>
+    <h1>Debt-to-Income <span class="hero-accent">DTI Calculator</span></h1>
+    <p class="tool-tagline">Know your loan approval odds before you apply. Lenders check this number first.</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="stat-num" id="hs-dti">—%</span><span class="stat-label">Your DTI Ratio</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-status">—</span><span class="stat-label">Approval Status</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-room">—</span><span class="stat-label">Monthly Debt Headroom</span></div>
+    </div>
+  </section>
+
+  <section class="tool-card-wrap">
+    <div class="tool-card">
+      <div class="input-panel">
+        <h2 class="panel-title">Your Financial Profile</h2>
+
+        <div class="input-group">
+          <label>Currency</label>
+          <select id="currency" class="full-sel"><option value="₹">₹ INR</option><option value="$">$ USD</option></select>
+        </div>
+
+        <div class="section-divider">Monthly Income</div>
+
+        <div class="input-group">
+          <label for="grossIncome">Gross Monthly Income (Before Tax)</label>
+          <input type="number" id="grossIncome" value="80000" min="0" step="1000">
+          <input type="range" id="incomeSlider" min="10000" max="500000" step="5000" value="80000" class="range-slider">
+        </div>
+
+        <div class="input-group">
+          <label for="otherIncome">Other Monthly Income (Rental, etc.)</label>
+          <input type="number" id="otherIncome" value="0" min="0" step="1000">
+        </div>
+
+        <div class="section-divider">Monthly Debt Obligations</div>
+
+        <div class="input-group">
+          <label for="homeLoan">Home Loan EMI</label>
+          <input type="number" id="homeLoan" value="15000" min="0" step="500">
+        </div>
+        <div class="input-group">
+          <label for="carLoan">Car Loan EMI</label>
+          <input type="number" id="carLoan" value="5000" min="0" step="500">
+        </div>
+        <div class="input-group">
+          <label for="personalLoan">Personal Loan EMI</label>
+          <input type="number" id="personalLoan" value="3000" min="0" step="500">
+        </div>
+        <div class="input-group">
+          <label for="creditCard">Credit Card Min. Payments</label>
+          <input type="number" id="creditCard" value="2000" min="0" step="500">
+        </div>
+        <div class="input-group">
+          <label for="otherDebt">Other Monthly Debt Payments</label>
+          <input type="number" id="otherDebt" value="0" min="0" step="500">
+        </div>
+
+        <div class="section-divider">New Loan (Optional)</div>
+        <div class="input-group">
+          <label for="newLoanEMI">Proposed New Loan EMI</label>
+          <input type="number" id="newLoanEMI" value="0" min="0" step="500">
+          <span class="field-hint">Include this to see how a new loan affects your DTI</span>
+        </div>
+
+        <button class="calc-btn" onclick="calculate()">Check My DTI</button>
+      </div>
+
+      <div class="result-panel">
+        <h2 class="panel-title">DTI Analysis</h2>
+
+        <div class="dti-gauge-wrap">
+          <div class="dti-gauge">
+            <svg viewBox="0 0 200 110" class="gauge-svg">
+              <defs>
+                <linearGradient id="gaugeGrad" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0%" stop-color="#22c55e"/>
+                  <stop offset="40%" stop-color="#eab308"/>
+                  <stop offset="70%" stop-color="#f97316"/>
+                  <stop offset="100%" stop-color="#ef4444"/>
+                </linearGradient>
+              </defs>
+              <path d="M 20 100 A 80 80 0 0 1 180 100" stroke="url(#gaugeGrad)" stroke-width="18" fill="none" stroke-linecap="round"/>
+              <path d="M 20 100 A 80 80 0 0 1 180 100" stroke="#f1f5f9" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.3"/>
+              <line id="gaugeNeedle" x1="100" y1="100" x2="100" y2="30" stroke="#0f172a" stroke-width="3" stroke-linecap="round" transform="rotate(0, 100, 100)"/>
+              <circle cx="100" cy="100" r="6" fill="#0f172a"/>
+              <text x="20" y="118" font-size="9" fill="#64748b" font-family="Manrope">0%</text>
+              <text x="88" y="118" font-size="9" fill="#64748b" font-family="Manrope">36%</text>
+              <text x="162" y="118" font-size="9" fill="#64748b" font-family="Manrope">50%</text>
+            </svg>
+            <div class="gauge-center">
+              <span class="gauge-pct" id="gaugePct">—%</span>
+              <span class="gauge-label" id="gaugeLabel">DTI Ratio</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="approval-band" id="approvalBand">
+          <div class="band-icon" id="bandIcon">—</div>
+          <div class="band-text">
+            <h3 id="bandTitle">Calculate your DTI</h3>
+            <p id="bandDesc">Fill in your income and debt details.</p>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card"><span class="metric-label">Total Monthly Debt</span><span class="metric-val" id="res-totalDebt">—</span></div>
+          <div class="metric-card"><span class="metric-label">Total Monthly Income</span><span class="metric-val" id="res-totalIncome">—</span></div>
+          <div class="metric-card primary"><span class="metric-label">Current DTI</span><span class="metric-val" id="res-dti">—</span></div>
+          <div class="metric-card accent"><span class="metric-label">DTI with New Loan</span><span class="metric-val" id="res-newDti">—</span></div>
+        </div>
+
+        <div class="dti-benchmarks">
+          <h3>DTI Benchmarks</h3>
+          <div class="benchmark-list">
+            <div class="bm-item good"><span class="bm-range">Below 30%</span><span class="bm-label">Excellent – Easy approval, best rates</span></div>
+            <div class="bm-item ok"><span class="bm-range">30–36%</span><span class="bm-label">Good – Most lenders approve</span></div>
+            <div class="bm-item warn"><span class="bm-range">36–43%</span><span class="bm-label">Caution – Harder to get approved</span></div>
+            <div class="bm-item danger"><span class="bm-range">Above 43%</span><span class="bm-label">High Risk – Likely rejection</span></div>
+          </div>
+        </div>
+
+        <div class="insight-box">
+          <h4>💡 How to Improve Your DTI</h4>
+          <p id="insightText">Calculate your DTI to get personalized improvement steps.</p>
+        </div>
+
+        <div class="action-row">
+          <button class="share-btn" onclick="shareResult()">📤 Share Result</button>
+          <a href="/finance/debt-payoff-planner/" class="cta-link">Reduce Debt Faster →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What is a good DTI ratio for a home loan in India?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Most Indian banks prefer a DTI ratio below 40–43% for home loans. RBI guidelines suggest total EMI obligations should not exceed 50% of net monthly income. A DTI below 30% gives you the best chances and interest rates.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">How is DTI calculated?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">DTI = (Total Monthly Debt Payments ÷ Gross Monthly Income) × 100. For example, if your total EMIs are ₹25,000 and your gross income is ₹80,000, your DTI = 31.25%.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Does a high DTI affect credit score?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">DTI itself isn't directly used in CIBIL score calculations, but the debts contributing to a high DTI (credit utilization, multiple loans) do affect your score. A high DTI also means lenders view you as a higher credit risk during manual assessment.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">How can I lower my DTI ratio quickly?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">1) Pay off smaller debts first to eliminate EMIs. 2) Avoid taking new loans before applying. 3) Increase income through side income or declarations. 4) Use a balance transfer to consolidate high-payment debts into a single lower EMI.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="related-tools">
+    <h3>Related Tools</h3>
+    <div class="related-grid">
+      <a href="/finance/credit-score-simulator/" class="related-card">Credit Score Simulator</a>
+      <a href="/finance/debt-payoff-planner/" class="related-card">Debt Payoff Planner</a>
+      <a href="/finance/debt-consolidation-comparator/" class="related-card">Debt Consolidation Comparator</a>
+      <a href="/finance/net-worth-tracker/" class="related-card">Net Worth Tracker</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  const sym = () => document.getElementById('currency').value;
+  const fmt = n => sym() + Math.round(Math.abs(n)).toLocaleString('en-IN');
+
+  ['grossIncome','otherIncome','homeLoan','carLoan','personalLoan','creditCard','otherDebt','newLoanEMI'].forEach(id => {
+    document.getElementById(id).addEventListener('input', calculate);
+  });
+  document.getElementById('currency').addEventListener('change', calculate);
+  const inc = document.getElementById('grossIncome');
+  const sld = document.getElementById('incomeSlider');
+  inc.addEventListener('input', () => { sld.value = inc.value; });
+  sld.addEventListener('input', () => { inc.value = sld.value; calculate(); });
+
+  function calculate() {
+    const gross = parseFloat(document.getElementById('grossIncome').value) || 0;
+    const other = parseFloat(document.getElementById('otherIncome').value) || 0;
+    const totalIncome = gross + other;
+    const debts = ['homeLoan','carLoan','personalLoan','creditCard','otherDebt'].reduce((s, id) => s + (parseFloat(document.getElementById(id).value) || 0), 0);
+    const newLoan = parseFloat(document.getElementById('newLoanEMI').value) || 0;
+    const totalDebt = debts;
+    const totalDebtNew = debts + newLoan;
+    const dti = totalIncome > 0 ? (totalDebt / totalIncome) * 100 : 0;
+    const dtiNew = totalIncome > 0 ? (totalDebtNew / totalIncome) * 100 : 0;
+    const headroom = totalIncome * 0.43 - totalDebt;
+
+    // Gauge needle: 0% = -90deg, 50%+ = +90deg
+    const angle = Math.min((dti / 50) * 180 - 90, 90);
+    document.getElementById('gaugeNeedle').setAttribute('transform', `rotate(${angle}, 100, 100)`);
+    document.getElementById('gaugePct').textContent = dti.toFixed(1) + '%';
+
+    document.getElementById('hs-dti').textContent = dti.toFixed(1) + '%';
+    document.getElementById('hs-room').textContent = headroom > 0 ? fmt(headroom) : '—';
+
+    document.getElementById('res-totalDebt').textContent = fmt(totalDebt);
+    document.getElementById('res-totalIncome').textContent = fmt(totalIncome);
+    document.getElementById('res-dti').textContent = dti.toFixed(1) + '%';
+    document.getElementById('res-newDti').textContent = newLoan > 0 ? dtiNew.toFixed(1) + '%' : '—';
+
+    let bandClass, bandIcon, bandTitle, bandDesc, statusText, insight;
+    if (dti < 30) {
+      bandClass = 'band-green'; bandIcon = '✅'; bandTitle = 'Excellent DTI'; statusText = 'Excellent';
+      bandDesc = 'You have strong loan approval odds. Lenders will offer you the best interest rates.';
+      insight = `Your DTI of ${dti.toFixed(1)}% is excellent. You can comfortably take on ${fmt(headroom)} more in monthly EMIs before reaching the 43% threshold.`;
+    } else if (dti < 36) {
+      bandClass = 'band-blue'; bandIcon = '👍'; bandTitle = 'Good DTI'; statusText = 'Good';
+      bandDesc = 'Most lenders will approve you. Minor improvements can unlock better rates.';
+      insight = `At ${dti.toFixed(1)}% DTI, you're loan-ready. To improve further, try paying off your highest EMI first — this gives the biggest DTI reduction per rupee paid.`;
+    } else if (dti < 43) {
+      bandClass = 'band-orange'; bandIcon = '⚠️'; bandTitle = 'Caution Zone'; statusText = 'Caution';
+      bandDesc = 'Some lenders may approve with conditions. Reduce debt before major loan applications.';
+      insight = `Your DTI of ${dti.toFixed(1)}% puts you in the caution zone. To reach a good DTI, you need to reduce monthly debts by ${fmt(totalDebt - totalIncome * 0.36)}. Consider prepaying a loan or increasing your declared income.`;
+    } else {
+      bandClass = 'band-red'; bandIcon = '🚫'; bandTitle = 'High Risk DTI'; statusText = 'High Risk';
+      bandDesc = 'Most lenders will reject your application. Significant debt reduction required.';
+      insight = `At ${dti.toFixed(1)}% DTI, loan approval is unlikely. You need to reduce monthly obligations by ${fmt(totalDebt - totalIncome * 0.43)} to reach lender thresholds. Prioritize eliminating at least one EMI before applying.`;
+    }
+
+    document.getElementById('hs-status').textContent = statusText;
+    document.getElementById('gaugeLabel').textContent = 'DTI Ratio';
+    const band = document.getElementById('approvalBand');
+    band.className = `approval-band ${bandClass}`;
+    document.getElementById('bandIcon').textContent = bandIcon;
+    document.getElementById('bandTitle').textContent = bandTitle;
+    document.getElementById('bandDesc').textContent = bandDesc;
+    document.getElementById('insightText').textContent = insight;
+  }
+
+  function shareResult() {
+    const text = `My DTI ratio is ${document.getElementById('res-dti').textContent} — ${document.getElementById('hs-status').textContent}. Check yours: ` + window.location.href;
+    if (navigator.share) navigator.share({ title: 'DTI Calculator Result', text });
+    else { navigator.clipboard.writeText(text); alert('Result copied!'); }
+  }
+
+  calculate();
+</script>
+
+<style>
+  :root{--ink:#0f172a;--slate:#334155;--muted:#64748b;--accent:#0ea5e9;--green:#22c55e;--surface:#f8fafc;--radius:20px;--shadow:0 20px 50px rgba(15,23,42,.10);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Manrope",sans-serif;background:var(--surface);color:var(--ink);}
+  .tool-page-wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .tool-hero{text-align:center;padding:3.5rem 2rem 2.5rem;background:linear-gradient(135deg,#f0f9ff,#e0f2fe,#ede9fe);border-radius:28px;margin-bottom:2.5rem;}
+  .tool-hero-badge{display:inline-block;background:rgba(14,165,233,.12);color:#0284c7;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:999px;margin-bottom:1rem;}
+  .tool-hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:.75rem;}
+  .hero-accent{color:var(--accent);}
+  .tool-tagline{color:var(--slate);font-size:1.05rem;margin-bottom:2rem;}
+  .hero-stat-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+  .stat-num{font-family:"Space Grotesk",sans-serif;font-size:1.8rem;font-weight:700;color:var(--accent);}
+  .stat-label{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .tool-card-wrap{margin-bottom:3rem;}
+  .tool-card{display:grid;grid-template-columns:1fr 1.3fr;gap:2rem;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+  .input-panel{padding:2.5rem 2rem;background:linear-gradient(160deg,#f0f9ff,#e0f2fe);}
+  .result-panel{padding:2.5rem 2rem;}
+  .panel-title{font-family:"Space Grotesk",sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;}
+  .section-divider{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin:1.2rem 0 .8rem;padding-bottom:.4rem;border-bottom:1.5px solid rgba(14,165,233,.2);}
+  .input-group{margin-bottom:1.1rem;}
+  .input-group label{display:block;font-weight:600;font-size:.88rem;margin-bottom:.4rem;color:var(--slate);}
+  .input-group input[type="number"],.full-sel{width:100%;padding:.75rem 1rem;border:1.5px solid #e2e8f0;border-radius:12px;font-size:.95rem;font-weight:600;background:white;outline:none;transition:border-color .2s;}
+  .input-group input:focus,.full-sel:focus{border-color:var(--accent);}
+  .field-hint{display:block;font-size:.75rem;color:var(--muted);margin-top:.3rem;}
+  .range-slider{width:100%;margin-top:.5rem;accent-color:var(--accent);}
+  .calc-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#0ea5e9,#1d4ed8);color:#fff;font-weight:700;font-size:1rem;border:none;border-radius:14px;cursor:pointer;margin-top:.8rem;transition:transform .2s,box-shadow .2s;}
+  .calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(14,165,233,.35);}
+  .dti-gauge-wrap{display:flex;justify-content:center;margin-bottom:1.5rem;}
+  .dti-gauge{position:relative;width:200px;}
+  .gauge-svg{width:100%;display:block;}
+  .gauge-center{position:absolute;bottom:0;left:50%;transform:translateX(-50%);text-align:center;}
+  .gauge-pct{display:block;font-family:"Space Grotesk",sans-serif;font-size:2rem;font-weight:700;color:var(--ink);}
+  .gauge-label{display:block;font-size:.75rem;color:var(--muted);font-weight:600;}
+  .approval-band{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.4rem;border-radius:16px;margin-bottom:1.5rem;border:1.5px solid transparent;}
+  .band-green{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-color:#86efac;}
+  .band-blue{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#93c5fd;}
+  .band-orange{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-color:#fdba74;}
+  .band-red{background:linear-gradient(135deg,#fef2f2,#fee2e2);border-color:#fca5a5;}
+  .band-icon{font-size:2rem;}
+  .band-text h3{font-family:"Space Grotesk",sans-serif;font-size:1rem;font-weight:700;margin-bottom:.2rem;}
+  .band-text p{font-size:.88rem;color:var(--slate);line-height:1.5;}
+  .metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+  .metric-card{padding:1rem;border-radius:14px;background:var(--surface);display:flex;flex-direction:column;gap:.3rem;}
+  .metric-card.primary{background:linear-gradient(135deg,#eff6ff,#dbeafe);}
+  .metric-card.accent{background:linear-gradient(135deg,#f0fdf4,#dcfce7);}
+  .metric-label{font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  .metric-val{font-family:"Space Grotesk",sans-serif;font-size:1.3rem;font-weight:700;color:var(--ink);}
+  .dti-benchmarks{margin-bottom:1.5rem;}
+  .dti-benchmarks h3{font-size:.95rem;font-weight:700;margin-bottom:.8rem;}
+  .benchmark-list{display:grid;gap:.5rem;}
+  .bm-item{display:flex;align-items:center;gap:1rem;padding:.7rem 1rem;border-radius:10px;font-size:.85rem;}
+  .bm-item.good{background:#f0fdf4;}.bm-item.ok{background:#eff6ff;}.bm-item.warn{background:#fff7ed;}.bm-item.danger{background:#fef2f2;}
+  .bm-range{font-family:"Space Grotesk",sans-serif;font-weight:700;min-width:80px;}
+  .bm-label{color:var(--slate);}
+  .insight-box{background:linear-gradient(135deg,#eff6ff,#f0f9ff);border-left:4px solid #3b82f6;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin-bottom:1.5rem;}
+  .insight-box h4{font-size:.9rem;font-weight:700;margin-bottom:.5rem;}
+  .insight-box p{font-size:.9rem;color:var(--slate);line-height:1.6;}
+  .action-row{display:flex;gap:1rem;flex-wrap:wrap;}
+  .share-btn{padding:.7rem 1.4rem;border-radius:999px;border:1.5px solid #e2e8f0;background:white;font-weight:600;cursor:pointer;font-size:.9rem;}
+  .cta-link{padding:.7rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,#0ea5e9,#1d4ed8);color:white;font-weight:600;text-decoration:none;font-size:.9rem;}
+  .faq-section{margin:3rem 0;}.faq-section h2{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;margin-bottom:1.5rem;}
+  .faq-list{display:grid;gap:1rem;}
+  .faq-item{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.06);overflow:hidden;}
+  .faq-item summary{padding:1.2rem 1.5rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .faq-item summary::after{content:'+';font-size:1.3rem;color:var(--muted);}
+  .faq-item[open] summary::after{content:'−';}
+  .faq-item div{padding:0 1.5rem 1.2rem;color:var(--slate);line-height:1.7;font-size:.95rem;}
+  .related-tools{margin-top:2rem;}.related-tools h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+  .related-grid{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .related-card{padding:.6rem 1.2rem;border-radius:999px;background:white;border:1.5px solid #e2e8f0;color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;transition:border-color .2s,background .2s;}
+  .related-card:hover{background:#eff6ff;border-color:#0ea5e9;color:#0284c7;}
+  @media(max-width:800px){.tool-card{grid-template-columns:1fr;}.metrics-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:480px){.metrics-grid{grid-template-columns:1fr;}.tool-page-wrap{padding:1rem 1rem 3rem;}}
+</style>

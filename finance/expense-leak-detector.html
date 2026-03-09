@@ -1,0 +1,331 @@
+---
+layout: default
+title: "Expense Leak Detector – Find Wasteful Spending Patterns"
+permalink: /finance/expense-leak-detector/
+description: "Detect hidden expense leaks draining your budget. Identify wasteful spending patterns, get a leak score, and see exactly where your money disappears each month."
+keywords: ["expense leak detector", "wasteful spending calculator India", "where does my money go calculator", "spending pattern analyser India", "budget leak finder"]
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="tool-page-wrap">
+
+  <section class="tool-hero leak-hero">
+    <div class="tool-hero-badge">Financial Stability Tools</div>
+    <h1>Expense Leak Detector <span class="hero-accent">Find Where Money Hides</span></h1>
+    <p class="tool-tagline">Most people can't account for 20–30% of their income. This tool finds what's leaking.</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="stat-num" id="hs-leaked">—</span><span class="stat-label">Monthly Leakage</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-leakScore">—</span><span class="stat-label">Leak Score</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-annual">—</span><span class="stat-label">Annual Waste</span></div>
+    </div>
+  </section>
+
+  <section class="tool-card-wrap">
+    <div class="tool-card-full">
+      <div class="leak-layout">
+
+        <!-- Input Column -->
+        <div class="leak-inputs">
+          <h2 class="panel-title">Monthly Spending Audit</h2>
+          <div class="input-row-top">
+            <select id="currency"><option value="₹">₹ INR</option><option value="$">$ USD</option></select>
+          </div>
+
+          <div class="input-group">
+            <label for="income">Monthly Take-Home Income</label>
+            <input type="number" id="income" value="70000" min="0" step="1000">
+          </div>
+
+          <div class="leak-categories" id="leakCategories"></div>
+
+          <div class="input-group" style="margin-top:1rem;">
+            <label for="unknownSpend">Unaccounted / "Disappeared" Money</label>
+            <input type="number" id="unknownSpend" value="5000" min="0" step="500">
+            <span class="field-hint">Can't account for this — it's a strong leak signal</span>
+          </div>
+
+          <button class="calc-btn" onclick="calculate()">Detect My Leaks</button>
+        </div>
+
+        <!-- Results Column -->
+        <div class="leak-results">
+          <h2 class="panel-title">Leak Analysis</h2>
+
+          <div class="leak-gauge-wrap">
+            <div class="leak-gauge">
+              <svg viewBox="0 0 160 100" class="gauge-svg-small">
+                <path d="M 15 85 A 65 65 0 0 1 145 85" stroke="#f1f5f9" stroke-width="14" fill="none" stroke-linecap="round"/>
+                <path id="leakArcGreen" d="M 15 85 A 65 65 0 0 1 145 85" stroke="#22c55e" stroke-width="14" fill="none" stroke-linecap="round" stroke-dasharray="204" stroke-dashoffset="204" style="transition:stroke-dashoffset .8s;"/>
+                <path id="leakArc" d="M 15 85 A 65 65 0 0 1 145 85" stroke="#ef4444" stroke-width="14" fill="none" stroke-linecap="round" stroke-dasharray="204" stroke-dashoffset="204" style="transition:stroke-dashoffset .8s;"/>
+              </svg>
+              <div class="gauge-center-small">
+                <span class="gauge-pct-small" id="leakPctDisplay">0%</span>
+                <span class="gauge-lbl-small">leaked</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="leak-breakdown" id="leakBreakdown">
+            <h3>Spending Breakdown</h3>
+            <div id="breakdownBars"></div>
+          </div>
+
+          <div class="leak-flags" id="leakFlags">
+            <h3>🚨 Detected Leaks</h3>
+            <div id="flagList"></div>
+          </div>
+
+          <div class="potential-savings-box" id="potentialSavings">
+            <h3>💰 If You Fixed These Leaks</h3>
+            <div id="savingsProjection"></div>
+          </div>
+
+          <div class="insight-box">
+            <h4>💡 Leak Diagnosis</h4>
+            <p id="insightText">Enter your spending to detect leaks.</p>
+          </div>
+
+          <div class="action-row">
+            <button class="share-btn" onclick="shareResult()">📤 Share Result</button>
+            <a href="/finance/budget-optimizer/" class="cta-link">Fix with Budget Optimizer →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What are common expense leaks in India?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">The most common leaks: (1) UPI micro-transactions — ₹20–₹200 payments that add up to thousands, (2) Food delivery markups vs home cooking, (3) Impulse online shopping, (4) Forgotten subscriptions, (5) ATM cash withdrawals with no tracking, (6) Premium versions of free apps, (7) Bank charges on savings accounts.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">How do I find unaccounted spending?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Download your bank statement and credit card statement for 3 months. Your income minus savings minus all categorised expenses = unaccounted spend. Use apps like Walnut, Spenny, or Money Manager India to auto-categorise transactions and surface hidden leaks.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What is a healthy expense leak percentage?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Below 5% of income in unaccounted or wasteful spending is excellent. 5–15% is manageable with some discipline. Above 15% suggests systematic leakage requiring a structured budget. Above 25% is a red flag — aggressive tracking and a spending freeze are recommended.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="related-tools">
+    <h3>Related Tools</h3>
+    <div class="related-grid">
+      <a href="/finance/subscription-waste-calculator/" class="related-card">Subscription Waste Calculator</a>
+      <a href="/finance/budget-optimizer/" class="related-card">Budget Optimizer</a>
+      <a href="/finance/true-wage-calculator/" class="related-card">True Wage Calculator</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  const categories = [
+    { id: 'rent', label: 'Rent / EMI', benchmark: 30, leakThreshold: 40, cat: 'needs', value: 18000 },
+    { id: 'groceries', label: 'Groceries (Home)', benchmark: 10, leakThreshold: 18, cat: 'needs', value: 6000 },
+    { id: 'foodDelivery', label: 'Food Delivery (Swiggy/Zomato)', benchmark: 4, leakThreshold: 8, cat: 'leak', value: 4000 },
+    { id: 'dining', label: 'Dining Out / Café', benchmark: 3, leakThreshold: 7, cat: 'leak', value: 2000 },
+    { id: 'utilities', label: 'Utilities & Bills', benchmark: 5, leakThreshold: 8, cat: 'needs', value: 3000 },
+    { id: 'transport', label: 'Transport / Fuel', benchmark: 5, leakThreshold: 10, cat: 'needs', value: 3000 },
+    { id: 'shopping', label: 'Online Shopping / Impulse Buys', benchmark: 5, leakThreshold: 10, cat: 'leak', value: 3000 },
+    { id: 'entertainment', label: 'Entertainment / OTT', benchmark: 3, leakThreshold: 6, cat: 'wants', value: 1500 },
+    { id: 'subscriptions', label: 'Subscriptions (all)', benchmark: 2, leakThreshold: 5, cat: 'leak', value: 1500 },
+    { id: 'alcohol', label: 'Alcohol / Parties', benchmark: 2, leakThreshold: 5, cat: 'leak', value: 0 },
+    { id: 'gambling', label: 'Gaming / Fantasy / Stocks (gambling style)', benchmark: 0, leakThreshold: 2, cat: 'leak', value: 0 },
+    { id: 'healthcare', label: 'Healthcare & Medicine', benchmark: 3, leakThreshold: 8, cat: 'needs', value: 2000 },
+    { id: 'personal', label: 'Personal Care / Grooming', benchmark: 2, leakThreshold: 5, cat: 'wants', value: 1500 },
+    { id: 'emis', label: 'Loan EMIs (all)', benchmark: 10, leakThreshold: 20, cat: 'needs', value: 5000 },
+    { id: 'savings', label: 'Investments / SIP', benchmark: 20, leakThreshold: 5, cat: 'good', value: 7000 },
+  ];
+
+  const sym = () => document.getElementById('currency').value;
+  const fmt = n => sym() + Math.round(Math.abs(n)).toLocaleString('en-IN');
+
+  function renderCategories() {
+    const container = document.getElementById('leakCategories');
+    container.innerHTML = categories.map(c => `
+      <div class="leak-cat-row ${c.cat === 'leak' ? 'leak-row' : c.cat === 'good' ? 'good-row' : ''}">
+        <label class="leak-cat-label">${c.label}
+          ${c.cat === 'leak' ? '<span class="leak-tag">⚡ Leak-prone</span>' : ''}
+          ${c.cat === 'good' ? '<span class="good-tag">✅ Good</span>' : ''}
+        </label>
+        <input type="number" class="leak-input" id="lc-${c.id}" value="${c.value}" min="0" step="500" oninput="calculate()">
+      </div>`).join('');
+  }
+
+  document.getElementById('currency').addEventListener('change', calculate);
+  document.getElementById('income').addEventListener('input', calculate);
+  document.getElementById('unknownSpend').addEventListener('input', calculate);
+
+  function calculate() {
+    const income = parseFloat(document.getElementById('income').value) || 0;
+    const unknown = parseFloat(document.getElementById('unknownSpend').value) || 0;
+
+    let totalSpend = unknown;
+    const catData = categories.map(c => {
+      const val = parseFloat(document.getElementById('lc-' + c.id).value) || 0;
+      totalSpend += val;
+      const pctOfIncome = income > 0 ? val / income * 100 : 0;
+      const isLeak = c.cat === 'leak' && pctOfIncome > c.leakThreshold;
+      const isOverNeed = c.cat === 'needs' && pctOfIncome > c.leakThreshold;
+      const leakAmount = income > 0 ? Math.max(val - income * c.leakThreshold / 100, 0) : 0;
+      return { ...c, val, pctOfIncome, isLeak, isOverNeed, leakAmount };
+    });
+
+    const totalLeakage = catData.reduce((s, c) => s + (c.isLeak || c.isOverNeed ? c.leakAmount : 0), 0) + unknown;
+    const leakPct = income > 0 ? totalLeakage / income * 100 : 0;
+    const leakScore = Math.max(100 - Math.round(leakPct * 2.5), 0);
+
+    document.getElementById('hs-leaked').textContent = fmt(totalLeakage);
+    document.getElementById('hs-leakScore').textContent = leakScore + '/100';
+    document.getElementById('hs-annual').textContent = fmt(totalLeakage * 12);
+    document.getElementById('leakPctDisplay').textContent = leakPct.toFixed(1) + '%';
+
+    // Arc
+    const arcLen = 204;
+    const leakLen = Math.min(leakPct / 50 * arcLen, arcLen);
+    const goodLen = arcLen - leakLen;
+    document.getElementById('leakArc').style.strokeDashoffset = arcLen - leakLen;
+    document.getElementById('leakArcGreen').style.strokeDashoffset = arcLen - goodLen;
+    document.getElementById('leakArc').style.stroke = leakPct > 25 ? '#ef4444' : leakPct > 10 ? '#f97316' : '#eab308';
+
+    // Breakdown bars
+    const maxVal = Math.max(...catData.map(c => c.val), income * 0.35, 1);
+    document.getElementById('breakdownBars').innerHTML = catData.map(c => {
+      if (c.val === 0) return '';
+      const color = c.cat === 'good' ? '#22c55e' : c.isLeak || c.isOverNeed ? '#ef4444' : '#3b82f6';
+      return `<div class="bb-item">
+        <span class="bb-name">${c.label}</span>
+        <div class="bb-track-sm"><div class="bb-fill-sm" style="width:${c.val/maxVal*100}%;background:${color}"></div></div>
+        <span class="bb-amt">${fmt(c.val)} (${c.pctOfIncome.toFixed(0)}%)</span>
+      </div>`;
+    }).join('');
+
+    // Flags
+    const flags = catData.filter(c => c.isLeak || c.isOverNeed || (c.id === 'unknownSpend' && unknown > income * 0.05));
+    if (unknown > income * 0.05) flags.push({ label: 'Unaccounted Spending', leakAmount: unknown, id: 'unknown' });
+    document.getElementById('flagList').innerHTML = flags.length
+      ? flags.map(f => `<div class="flag-item">
+          <span class="flag-name">⚠️ ${f.label}</span>
+          <span class="flag-amt">${fmt(f.leakAmount)}/mo wasted</span>
+          <span class="flag-annual">${fmt(f.leakAmount * 12)}/yr</span>
+        </div>`).join('')
+      : '<div class="flag-good">✅ No major leaks detected! Great discipline.</div>';
+
+    // Savings projection
+    const invest10yr = totalLeakage > 0 ? totalLeakage * ((Math.pow(1.12, 10) - 1) / 0.12) * (12 / 12) : 0;
+    document.getElementById('savingsProjection').innerHTML = `
+      <div class="proj-row"><span>Monthly savings recovered</span><strong>${fmt(totalLeakage)}</strong></div>
+      <div class="proj-row"><span>Annual savings recovered</span><strong>${fmt(totalLeakage * 12)}</strong></div>
+      <div class="proj-row accent"><span>If invested at 12% for 10 yrs</span><strong>${fmt(invest10yr)}</strong></div>`;
+
+    const insight = leakPct > 20
+      ? `You're losing ${leakPct.toFixed(1)}% of your income (${fmt(totalLeakage)}/month) to leaks. Your top leaks: ${catData.filter(c => c.isLeak).slice(0,2).map(c => c.label).join(', ')}. Fixing these would recover ${fmt(totalLeakage * 12)} annually.`
+      : leakPct > 8
+      ? `Moderate leakage detected at ${leakPct.toFixed(1)}%. Review food delivery and shopping categories — these are the most controllable leaks for most Indian households.`
+      : `Your spending is well-controlled with only ${leakPct.toFixed(1)}% leakage. Focus on maximizing the ${catData.find(c=>c.id==='savings')?.pctOfIncome.toFixed(1)}% savings rate now.`;
+    document.getElementById('insightText').textContent = insight;
+  }
+
+  function shareResult() {
+    const text = `My expense leak score: ${document.getElementById('hs-leakScore').textContent}. Monthly leakage: ${document.getElementById('hs-leaked').textContent}. Find yours: ` + window.location.href;
+    if (navigator.share) navigator.share({ title: 'Expense Leak Score', text });
+    else { navigator.clipboard.writeText(text); alert('Result copied!'); }
+  }
+
+  renderCategories();
+  calculate();
+</script>
+
+<style>
+  :root{--ink:#0f172a;--slate:#334155;--muted:#64748b;--accent:#f97316;--surface:#f8fafc;--radius:20px;--shadow:0 20px 50px rgba(15,23,42,.10);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Manrope",sans-serif;background:var(--surface);color:var(--ink);}
+  .tool-page-wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .tool-hero{text-align:center;padding:3.5rem 2rem 2.5rem;background:linear-gradient(135deg,#fff7ed,#ffedd5,#fef9c3);border-radius:28px;margin-bottom:2.5rem;}
+  .tool-hero-badge{display:inline-block;background:rgba(249,115,22,.12);color:#c2410c;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:999px;margin-bottom:1rem;}
+  .tool-hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:.75rem;}
+  .hero-accent{color:#c2410c;}
+  .tool-tagline{color:var(--slate);font-size:1.05rem;margin-bottom:2rem;}
+  .hero-stat-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+  .stat-num{font-family:"Space Grotesk",sans-serif;font-size:1.8rem;font-weight:700;color:#c2410c;}
+  .stat-label{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .tool-card-wrap{margin-bottom:3rem;}
+  .tool-card-full{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:2.5rem;}
+  .leak-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:3rem;}
+  .panel-title{font-family:"Space Grotesk",sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1.2rem;}
+  .input-row-top{margin-bottom:1rem;}
+  .input-row-top select{padding:.5rem .8rem;border:1.5px solid #e2e8f0;border-radius:10px;font-weight:600;background:white;}
+  .input-group{margin-bottom:1rem;}
+  .input-group label{display:block;font-weight:600;font-size:.88rem;margin-bottom:.4rem;color:var(--slate);}
+  .input-group input{width:100%;padding:.75rem 1rem;border:1.5px solid #e2e8f0;border-radius:12px;font-size:.9rem;font-weight:600;background:white;outline:none;transition:border-color .2s;}
+  .input-group input:focus{border-color:#f97316;}
+  .field-hint{display:block;font-size:.75rem;color:var(--muted);margin-top:.3rem;}
+  .leak-categories{display:grid;gap:.5rem;margin-bottom:.5rem;}
+  .leak-cat-row{display:flex;align-items:center;justify-content:space-between;padding:.55rem .8rem;border-radius:10px;background:#f8fafc;gap:.5rem;}
+  .leak-cat-row.leak-row{background:#fff7ed;}
+  .leak-cat-row.good-row{background:#f0fdf4;}
+  .leak-cat-label{font-size:.83rem;font-weight:500;color:var(--ink);flex:1;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;}
+  .leak-tag{font-size:.68rem;background:#ffedd5;color:#c2410c;padding:.15rem .45rem;border-radius:5px;font-weight:700;white-space:nowrap;}
+  .good-tag{font-size:.68rem;background:#dcfce7;color:#166534;padding:.15rem .45rem;border-radius:5px;font-weight:700;}
+  .leak-input{width:110px;padding:.5rem .7rem;border:1.5px solid #e2e8f0;border-radius:10px;font-size:.88rem;font-weight:700;text-align:right;outline:none;background:white;transition:border-color .2s;}
+  .leak-input:focus{border-color:#f97316;}
+  .calc-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#f97316,#dc2626);color:#fff;font-weight:700;font-size:1rem;border:none;border-radius:14px;cursor:pointer;margin-top:.8rem;transition:transform .2s,box-shadow .2s;}
+  .calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(249,115,22,.35);}
+  .leak-gauge-wrap{display:flex;justify-content:center;margin-bottom:1.5rem;}
+  .leak-gauge{position:relative;width:160px;}
+  .gauge-svg-small{width:100%;display:block;}
+  .gauge-center-small{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);text-align:center;}
+  .gauge-pct-small{display:block;font-family:"Space Grotesk",sans-serif;font-size:1.6rem;font-weight:700;color:var(--ink);}
+  .gauge-lbl-small{display:block;font-size:.72rem;color:var(--muted);font-weight:600;}
+  .leak-breakdown{margin-bottom:1.5rem;}
+  .leak-breakdown h3,.leak-flags h3,.potential-savings-box h3{font-size:.95rem;font-weight:700;margin-bottom:.8rem;}
+  .bb-item{display:grid;grid-template-columns:1.5fr 1fr auto;align-items:center;gap:.5rem;margin-bottom:.4rem;}
+  .bb-name{font-size:.78rem;font-weight:500;color:var(--slate);}
+  .bb-track-sm{height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;}
+  .bb-fill-sm{height:100%;border-radius:4px;transition:width .4s;}
+  .bb-amt{font-size:.75rem;font-weight:700;color:var(--ink);text-align:right;white-space:nowrap;}
+  .leak-flags{margin-bottom:1.5rem;}
+  .flag-item{display:grid;grid-template-columns:1.5fr 1fr 1fr;align-items:center;gap:.5rem;padding:.6rem .8rem;background:#fef2f2;border-radius:9px;margin-bottom:.4rem;font-size:.82rem;}
+  .flag-name{font-weight:600;color:#991b1b;}
+  .flag-amt{color:#ef4444;font-weight:700;}
+  .flag-annual{color:var(--muted);font-size:.75rem;text-align:right;}
+  .flag-good{background:#ecfdf5;color:#166534;padding:.7rem 1rem;border-radius:9px;font-weight:600;font-size:.88rem;}
+  .potential-savings-box{background:#f0fdf4;border-radius:14px;padding:1.2rem;margin-bottom:1.5rem;}
+  .proj-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;font-size:.85rem;border-bottom:1px solid rgba(0,0,0,.05);}
+  .proj-row:last-child{border-bottom:none;}
+  .proj-row span{color:var(--slate);}
+  .proj-row strong{font-family:"Space Grotesk",sans-serif;font-weight:700;}
+  .proj-row.accent strong{color:#10b981;font-size:1.05rem;}
+  .insight-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-left:4px solid #f97316;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin-bottom:1.5rem;}
+  .insight-box h4{font-size:.9rem;font-weight:700;margin-bottom:.5rem;}
+  .insight-box p{font-size:.9rem;color:var(--slate);line-height:1.6;}
+  .action-row{display:flex;gap:1rem;flex-wrap:wrap;}
+  .share-btn{padding:.7rem 1.4rem;border-radius:999px;border:1.5px solid #e2e8f0;background:white;font-weight:600;cursor:pointer;font-size:.9rem;}
+  .cta-link{padding:.7rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,#f97316,#dc2626);color:white;font-weight:600;text-decoration:none;font-size:.9rem;}
+  .faq-section{margin:3rem 0;}.faq-section h2{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;margin-bottom:1.5rem;}
+  .faq-list{display:grid;gap:1rem;}
+  .faq-item{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.06);overflow:hidden;}
+  .faq-item summary{padding:1.2rem 1.5rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .faq-item summary::after{content:'+';font-size:1.3rem;color:var(--muted);}
+  .faq-item[open] summary::after{content:'−';}
+  .faq-item div{padding:0 1.5rem 1.2rem;color:var(--slate);line-height:1.7;font-size:.95rem;}
+  .related-tools{margin-top:2rem;}.related-tools h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+  .related-grid{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .related-card{padding:.6rem 1.2rem;border-radius:999px;background:white;border:1.5px solid #e2e8f0;color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;transition:border-color .2s,background .2s;}
+  .related-card:hover{background:#fff7ed;border-color:#f97316;color:#c2410c;}
+  @media(max-width:900px){.leak-layout{grid-template-columns:1fr;}}
+  @media(max-width:480px){.bb-item{grid-template-columns:1fr auto;}.bb-amt{display:none;}.flag-item{grid-template-columns:1fr 1fr;}.flag-annual{display:none;}.tool-page-wrap{padding:1rem 1rem 3rem;}}
+</style>

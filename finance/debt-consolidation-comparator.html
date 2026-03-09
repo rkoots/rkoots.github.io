@@ -1,0 +1,402 @@
+---
+layout: default
+title: "Debt Consolidation Comparator – Loan vs Balance Transfer vs Settlement"
+permalink: /finance/debt-consolidation-comparator/
+description: "Compare debt consolidation options side by side. See if a personal loan, balance transfer, or debt settlement saves you more money and time."
+keywords: ["debt consolidation calculator India", "balance transfer vs personal loan", "debt consolidation comparison", "should I consolidate debt India", "debt settlement calculator"]
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="tool-page-wrap">
+
+  <section class="tool-hero consol-hero">
+    <div class="tool-hero-badge">Debt & Credit Tools</div>
+    <h1>Debt Consolidation <span class="hero-accent">Comparator</span></h1>
+    <p class="tool-tagline">Personal loan, balance transfer, or settlement? Compare all 3 options to find your cheapest exit.</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="stat-num" id="hs-current">—</span><span class="stat-label">Current Total Interest</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-best">—</span><span class="stat-label">Best Option Saves</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-winner">—</span><span class="stat-label">Recommended</span></div>
+    </div>
+  </section>
+
+  <section class="tool-card-wrap">
+    <div class="tool-card-full">
+
+      <!-- Current Debts -->
+      <div class="current-debts-section">
+        <div class="section-row">
+          <h2 class="panel-title">Your Current Debts</h2>
+          <select id="currency"><option value="₹">₹ INR</option><option value="$">$ USD</option></select>
+        </div>
+        <div id="debtInputList" class="debt-input-list"></div>
+        <button class="add-debt-btn" id="addDebtBtn">+ Add Debt</button>
+        <div class="current-summary" id="currentSummary">
+          <div class="cs-item"><span>Total Debt</span><strong id="cs-total">—</strong></div>
+          <div class="cs-item"><span>Monthly Payments</span><strong id="cs-monthly">—</strong></div>
+          <div class="cs-item"><span>Total Interest (Current path)</span><strong id="cs-interest">—</strong></div>
+          <div class="cs-item"><span>Avg. Weighted APR</span><strong id="cs-avgApr">—%</strong></div>
+        </div>
+      </div>
+
+      <!-- Options Comparison -->
+      <div class="options-grid">
+
+        <div class="option-card option-a">
+          <div class="opt-header">
+            <div class="opt-icon">🏦</div>
+            <h3>Personal Loan</h3>
+            <span class="opt-badge">Most Common</span>
+          </div>
+          <div class="opt-inputs">
+            <div class="oi-row"><label>Interest Rate</label><div class="oi-input-wrap"><input type="number" id="pl-rate" value="14" min="1" max="40" step="0.5"><span>%</span></div></div>
+            <div class="oi-row"><label>Tenure</label><div class="oi-input-wrap"><input type="number" id="pl-tenure" value="3" min="1" max="10" step="1"><span>yrs</span></div></div>
+            <div class="oi-row"><label>Processing Fee</label><div class="oi-input-wrap"><input type="number" id="pl-fee" value="1" min="0" max="5" step="0.25"><span>%</span></div></div>
+          </div>
+          <div class="opt-results" id="pl-results">
+            <div class="or-row"><span>New EMI</span><strong id="pl-emi">—</strong></div>
+            <div class="or-row"><span>Total Interest</span><strong id="pl-interest">—</strong></div>
+            <div class="or-row"><span>Processing Fee</span><strong id="pl-procfee">—</strong></div>
+            <div class="or-row accent"><span>You Save vs Current</span><strong id="pl-save">—</strong></div>
+          </div>
+          <div class="opt-verdict" id="pl-verdict">—</div>
+        </div>
+
+        <div class="option-card option-b">
+          <div class="opt-header">
+            <div class="opt-icon">💳</div>
+            <h3>Balance Transfer</h3>
+            <span class="opt-badge">Fastest</span>
+          </div>
+          <div class="opt-inputs">
+            <div class="oi-row"><label>Transfer APR</label><div class="oi-input-wrap"><input type="number" id="bt-rate" value="0" min="0" max="24" step="0.5"><span>%</span></div></div>
+            <div class="oi-row"><label>Promo Period</label><div class="oi-input-wrap"><input type="number" id="bt-promo" value="12" min="1" max="24" step="1"><span>mo</span></div></div>
+            <div class="oi-row"><label>After-promo APR</label><div class="oi-input-wrap"><input type="number" id="bt-postrate" value="36" min="1" max="60" step="0.5"><span>%</span></div></div>
+            <div class="oi-row"><label>Transfer Fee</label><div class="oi-input-wrap"><input type="number" id="bt-fee" value="2" min="0" max="5" step="0.5"><span>%</span></div></div>
+          </div>
+          <div class="opt-results" id="bt-results">
+            <div class="or-row"><span>Promo Period Interest</span><strong id="bt-promoInt">—</strong></div>
+            <div class="or-row"><span>Transfer Fee</span><strong id="bt-tfee">—</strong></div>
+            <div class="or-row"><span>Required Monthly Payoff</span><strong id="bt-required">—</strong></div>
+            <div class="or-row accent"><span>You Save vs Current</span><strong id="bt-save">—</strong></div>
+          </div>
+          <div class="opt-verdict" id="bt-verdict">—</div>
+        </div>
+
+        <div class="option-card option-c">
+          <div class="opt-header">
+            <div class="opt-icon">🤝</div>
+            <h3>Debt Settlement</h3>
+            <span class="opt-badge">High Risk</span>
+          </div>
+          <div class="opt-inputs">
+            <div class="oi-row"><label>Settlement % of Debt</label><div class="oi-input-wrap"><input type="number" id="ds-pct" value="60" min="10" max="100" step="5"><span>%</span></div></div>
+            <div class="oi-row"><label>Settlement Fee</label><div class="oi-input-wrap"><input type="number" id="ds-fee" value="15" min="0" max="30" step="1"><span>% of settled</span></div></div>
+            <div class="oi-row"><label>Credit Score Impact</label>
+              <select id="ds-impact" class="oi-select">
+                <option value="severe">Severe (-100 to -200 pts)</option>
+                <option value="moderate">Moderate (-50 to -100 pts)</option>
+              </select>
+            </div>
+          </div>
+          <div class="opt-results">
+            <div class="or-row"><span>Settlement Amount</span><strong id="ds-amount">—</strong></div>
+            <div class="or-row"><span>Settlement Fee</span><strong id="ds-feeval">—</strong></div>
+            <div class="or-row"><span>Total Cost</span><strong id="ds-total">—</strong></div>
+            <div class="or-row accent"><span>You Save vs Current</span><strong id="ds-save">—</strong></div>
+          </div>
+          <div class="opt-verdict warning-verdict" id="ds-verdict">⚠️ Severely damages credit score. Use only as last resort.</div>
+        </div>
+      </div>
+
+      <!-- Winner Banner -->
+      <div class="winner-banner" id="winnerBanner">
+        <h3 id="winnerTitle">—</h3>
+        <p id="winnerDesc">—</p>
+      </div>
+
+      <div class="insight-box">
+        <h4>💡 Consolidation Insight</h4>
+        <p id="insightText">Enter your debts and consolidation options to get a comparison.</p>
+      </div>
+
+      <div class="action-row">
+        <button class="calc-btn" onclick="calculate()">Compare All Options</button>
+        <button class="share-btn" onclick="shareResult()">📤 Share</button>
+        <a href="/finance/debt-payoff-planner/" class="cta-link">Build Payoff Plan →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">When should I consolidate debt with a personal loan?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Consolidate with a personal loan when: (1) The loan rate is significantly lower than your current average debt rate, (2) You want a fixed payoff date, and (3) You can qualify for a loan. A personal loan at 14% beats credit cards at 36% dramatically.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Is balance transfer a good idea in India?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Balance transfers to 0% promo cards work well IF you can pay off the full balance during the promo period. If not, after-promo rates (30–42% in India) kick in and you're worse off. Calculate the required monthly payment to clear the balance and ensure it's feasible.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Does debt consolidation hurt credit score?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">A personal loan application causes a small temporary dip (hard inquiry). If you successfully close credit card accounts, it can slightly lower your average account age. However, consistently paying the consolidated loan on time improves your score significantly over 12–24 months. Settlement causes severe, long-lasting damage.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="related-tools">
+    <h3>Related Tools</h3>
+    <div class="related-grid">
+      <a href="/finance/debt-payoff-planner/" class="related-card">Debt Payoff Planner</a>
+      <a href="/finance/apr-cost-calculator/" class="related-card">APR Cost Calculator</a>
+      <a href="/finance/dti-calculator/" class="related-card">DTI Calculator</a>
+      <a href="/finance/credit-card-interest-calculator/" class="related-card">Credit Card Interest Calculator</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  let debts = [
+    { name: 'Credit Card 1', balance: 80000, apr: 36, minPay: 2400 },
+    { name: 'Credit Card 2', balance: 40000, apr: 42, minPay: 1200 },
+    { name: 'Personal Loan', balance: 100000, apr: 20, minPay: 4000 }
+  ];
+  const sym = () => document.getElementById('currency').value;
+  const fmt = n => sym() + Math.round(Math.abs(n)).toLocaleString('en-IN');
+
+  function renderDebts() {
+    document.getElementById('debtInputList').innerHTML = debts.map((d, i) => `
+      <div class="debt-row">
+        <input class="dr-name" type="text" value="${d.name}" oninput="debts[${i}].name=this.value">
+        <input class="dr-num" type="number" value="${d.balance}" placeholder="Balance" oninput="debts[${i}].balance=parseFloat(this.value)||0">
+        <div class="dr-apr"><input class="dr-num" type="number" value="${d.apr}" placeholder="APR%" oninput="debts[${i}].apr=parseFloat(this.value)||0"><span>%</span></div>
+        <input class="dr-num" type="number" value="${d.minPay}" placeholder="Min Pay" oninput="debts[${i}].minPay=parseFloat(this.value)||0">
+        <button class="rm-btn" onclick="debts.splice(${i},1);renderDebts();calculate()">✕</button>
+      </div>`).join('');
+  }
+
+  document.getElementById('addDebtBtn').onclick = () => {
+    debts.push({ name: 'New Debt', balance: 10000, apr: 24, minPay: 500 });
+    renderDebts(); calculate();
+  };
+  document.getElementById('currency').addEventListener('change', calculate);
+  ['pl-rate','pl-tenure','pl-fee','bt-rate','bt-promo','bt-postrate','bt-fee','ds-pct','ds-fee','ds-impact'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('change', calculate);
+    if (el.tagName === 'INPUT') el.addEventListener('input', calculate);
+  });
+
+  function simulateDebt(balance, apr, payment) {
+    let bal = balance, totalInt = 0, months = 0;
+    const monthlyRate = apr / 100 / 12;
+    while (bal > 0.01 && months < 600) {
+      const intCharge = bal * monthlyRate;
+      if (payment <= intCharge) { return { totalInt: Infinity, months: 9999 }; }
+      totalInt += intCharge;
+      bal -= Math.min(payment - intCharge, bal);
+      months++;
+    }
+    return { totalInt, months };
+  }
+
+  function calculate() {
+    const totalDebt = debts.reduce((s, d) => s + d.balance, 0);
+    const totalMonthly = debts.reduce((s, d) => s + d.minPay, 0);
+    const weightedAPR = totalDebt > 0 ? debts.reduce((s, d) => s + d.apr * d.balance, 0) / totalDebt : 0;
+
+    let totalCurrentInt = 0;
+    debts.forEach(d => {
+      const res = simulateDebt(d.balance, d.apr, d.minPay);
+      totalCurrentInt += res.totalInt === Infinity ? d.balance * 2 : res.totalInt;
+    });
+
+    document.getElementById('cs-total').textContent = fmt(totalDebt);
+    document.getElementById('cs-monthly').textContent = fmt(totalMonthly) + '/mo';
+    document.getElementById('cs-interest').textContent = fmt(totalCurrentInt);
+    document.getElementById('cs-avgApr').textContent = weightedAPR.toFixed(1);
+    document.getElementById('hs-current').textContent = fmt(totalCurrentInt);
+
+    // Personal Loan
+    const plRate = parseFloat(document.getElementById('pl-rate').value) || 0;
+    const plTenure = parseFloat(document.getElementById('pl-tenure').value) || 0;
+    const plFee = parseFloat(document.getElementById('pl-fee').value) / 100 || 0;
+    const plMonths = plTenure * 12;
+    const plMonthlyRate = plRate / 100 / 12;
+    const plProcFee = totalDebt * plFee;
+    const plEMI = plMonthlyRate > 0 ? totalDebt * plMonthlyRate * Math.pow(1+plMonthlyRate, plMonths) / (Math.pow(1+plMonthlyRate,plMonths)-1) : totalDebt/plMonths;
+    const plTotalInt = plEMI * plMonths - totalDebt;
+    const plSave = totalCurrentInt - plTotalInt - plProcFee;
+
+    document.getElementById('pl-emi').textContent = fmt(plEMI) + '/mo';
+    document.getElementById('pl-interest').textContent = fmt(plTotalInt);
+    document.getElementById('pl-procfee').textContent = fmt(plProcFee);
+    document.getElementById('pl-save').textContent = (plSave > 0 ? '+' : '') + fmt(plSave);
+    document.getElementById('pl-save').style.color = plSave > 0 ? '#10b981' : '#ef4444';
+    document.getElementById('pl-verdict').textContent = plRate < weightedAPR ? '✅ Lower than current avg rate' : '⚠️ Rate not lower than current avg';
+    document.getElementById('pl-verdict').className = 'opt-verdict ' + (plRate < weightedAPR ? 'verdict-good' : 'verdict-warn');
+
+    // Balance Transfer
+    const btRate = parseFloat(document.getElementById('bt-rate').value) || 0;
+    const btPromo = parseFloat(document.getElementById('bt-promo').value) || 12;
+    const btPostRate = parseFloat(document.getElementById('bt-postrate').value) || 36;
+    const btFee = parseFloat(document.getElementById('bt-fee').value) / 100 || 0;
+    const btTransferFee = totalDebt * btFee;
+    const btPromoInt = totalDebt * btRate / 100 / 12 * btPromo;
+    const btRequired = totalDebt / btPromo;
+    const btSave = totalCurrentInt - btPromoInt - btTransferFee;
+
+    document.getElementById('bt-promoInt').textContent = fmt(btPromoInt);
+    document.getElementById('bt-tfee').textContent = fmt(btTransferFee);
+    document.getElementById('bt-required').textContent = fmt(btRequired) + '/mo';
+    document.getElementById('bt-save').textContent = (btSave > 0 ? '+' : '') + fmt(btSave);
+    document.getElementById('bt-save').style.color = btSave > 0 ? '#10b981' : '#ef4444';
+    document.getElementById('bt-verdict').textContent = btRate === 0 ? '✅ 0% promo rate — pay within promo period!' : `⚠️ Post-promo rate: ${btPostRate}%`;
+    document.getElementById('bt-verdict').className = 'opt-verdict ' + (btRate === 0 ? 'verdict-good' : 'verdict-warn');
+
+    // Debt Settlement
+    const dsPct = parseFloat(document.getElementById('ds-pct').value) / 100 || 0.6;
+    const dsFee = parseFloat(document.getElementById('ds-fee').value) / 100 || 0.15;
+    const dsAmount = totalDebt * dsPct;
+    const dsFeeVal = dsAmount * dsFee;
+    const dsTotal = dsAmount + dsFeeVal;
+    const dsSave = totalCurrentInt - (dsTotal - totalDebt);
+
+    document.getElementById('ds-amount').textContent = fmt(dsAmount);
+    document.getElementById('ds-feeval').textContent = fmt(dsFeeVal);
+    document.getElementById('ds-total').textContent = fmt(dsTotal);
+    document.getElementById('ds-save').textContent = (dsSave > 0 ? '+' : '') + fmt(dsSave);
+    document.getElementById('ds-save').style.color = dsSave > 0 ? '#10b981' : '#ef4444';
+
+    // Winner
+    const options = [
+      { name: 'Personal Loan', save: plSave, key: 'pl' },
+      { name: 'Balance Transfer', save: btSave, key: 'bt' },
+      { name: 'Debt Settlement', save: dsSave, key: 'ds', risky: true }
+    ].filter(o => !o.risky || o.save > 0);
+
+    options.sort((a, b) => b.save - a.save);
+    const winner = options[0];
+    document.getElementById('hs-best').textContent = winner && winner.save > 0 ? fmt(winner.save) : '—';
+    document.getElementById('hs-winner').textContent = winner ? winner.name : 'Keep Current';
+
+    if (winner && winner.save > 0) {
+      document.getElementById('winnerTitle').textContent = `🏆 Best Option: ${winner.name}`;
+      document.getElementById('winnerDesc').textContent = `Saves you ${fmt(winner.save)} vs continuing current repayment strategy.`;
+      document.getElementById('winnerBanner').className = 'winner-banner winner-show';
+    } else {
+      document.getElementById('winnerTitle').textContent = 'No clear winner found';
+      document.getElementById('winnerDesc').textContent = 'Try adjusting rates or improving your repayment plan directly.';
+      document.getElementById('winnerBanner').className = 'winner-banner winner-neutral';
+    }
+
+    const insight = winner && winner.save > 1000
+      ? `${winner.name} is your best consolidation option, saving ${fmt(winner.save)} in total interest. Your current weighted APR is ${weightedAPR.toFixed(1)}% — any option below this rate saves money.`
+      : `Consolidation may not save significant money in your case. Focus on the Debt Payoff Planner to pay down highest-rate debts first without restructuring.`;
+    document.getElementById('insightText').textContent = insight;
+  }
+
+  function shareResult() {
+    const text = `Debt consolidation analysis: Best option saves ${document.getElementById('hs-best').textContent} — ${document.getElementById('hs-winner').textContent}. Compare yours: ` + window.location.href;
+    if (navigator.share) navigator.share({ title: 'Debt Consolidation Result', text });
+    else { navigator.clipboard.writeText(text); alert('Result copied!'); }
+  }
+
+  renderDebts(); calculate();
+</script>
+
+<style>
+  :root{--ink:#0f172a;--slate:#334155;--muted:#64748b;--accent:#6366f1;--surface:#f8fafc;--radius:20px;--shadow:0 20px 50px rgba(15,23,42,.10);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Manrope",sans-serif;background:var(--surface);color:var(--ink);}
+  .tool-page-wrap{max-width:1200px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .tool-hero{text-align:center;padding:3.5rem 2rem 2.5rem;background:linear-gradient(135deg,#eef2ff,#ede9fe,#f5f3ff);border-radius:28px;margin-bottom:2.5rem;}
+  .tool-hero-badge{display:inline-block;background:rgba(99,102,241,.12);color:#4f46e5;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:999px;margin-bottom:1rem;}
+  .tool-hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:.75rem;}
+  .hero-accent{color:#4f46e5;}
+  .tool-tagline{color:var(--slate);font-size:1.05rem;margin-bottom:2rem;}
+  .hero-stat-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+  .stat-num{font-family:"Space Grotesk",sans-serif;font-size:1.8rem;font-weight:700;color:#4f46e5;}
+  .stat-label{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .tool-card-wrap{margin-bottom:3rem;}
+  .tool-card-full{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:2.5rem;}
+  .current-debts-section{margin-bottom:2rem;}
+  .section-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+  .panel-title{font-family:"Space Grotesk",sans-serif;font-size:1.2rem;font-weight:700;}
+  .section-row select{padding:.5rem .8rem;border:1.5px solid #e2e8f0;border-radius:10px;font-weight:600;background:white;}
+  .debt-input-list{display:grid;gap:.6rem;margin-bottom:.8rem;}
+  .debt-row{display:grid;grid-template-columns:2fr 1.5fr 1.2fr 1.5fr auto;gap:.5rem;align-items:center;background:#f8fafc;padding:.7rem 1rem;border-radius:12px;}
+  .dr-name,.dr-num{padding:.55rem .7rem;border:1.5px solid #e2e8f0;border-radius:10px;font-size:.88rem;font-weight:600;width:100%;outline:none;background:white;}
+  .dr-name:focus,.dr-num:focus{border-color:#6366f1;}
+  .dr-apr{position:relative;}
+  .dr-apr span{position:absolute;right:.6rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.8rem;font-weight:600;pointer-events:none;}
+  .rm-btn{background:#fee2e2;border:none;color:#dc2626;border-radius:8px;padding:.35rem .6rem;cursor:pointer;font-weight:700;flex-shrink:0;}
+  .add-debt-btn{padding:.7rem 1.2rem;border:2px dashed #cbd5e1;border-radius:10px;background:transparent;color:var(--slate);font-weight:600;cursor:pointer;font-size:.88rem;margin-bottom:1.2rem;transition:border-color .2s,color .2s;}
+  .add-debt-btn:hover{border-color:#6366f1;color:#4f46e5;}
+  .current-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;background:#f8fafc;border-radius:14px;padding:1.2rem;}
+  .cs-item{display:flex;flex-direction:column;gap:.3rem;}
+  .cs-item span{font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  .cs-item strong{font-family:"Space Grotesk",sans-serif;font-size:1.1rem;font-weight:700;color:var(--ink);}
+  .options-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:2rem;}
+  .option-card{border-radius:18px;padding:1.5rem;border:2px solid transparent;}
+  .option-a{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#bfdbfe;}
+  .option-b{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-color:#86efac;}
+  .option-c{background:linear-gradient(135deg,#fef9c3,#fef3c7);border-color:#fde68a;}
+  .opt-header{display:flex;align-items:center;gap:.6rem;margin-bottom:1.2rem;flex-wrap:wrap;}
+  .opt-icon{font-size:1.5rem;}
+  .opt-header h3{font-family:"Space Grotesk",sans-serif;font-size:1rem;font-weight:700;flex:1;}
+  .opt-badge{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.2rem .5rem;border-radius:5px;background:rgba(0,0,0,.07);}
+  .opt-inputs{margin-bottom:1.2rem;}
+  .oi-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;}
+  .oi-row label{font-size:.82rem;font-weight:600;color:var(--slate);flex:1;}
+  .oi-input-wrap{display:flex;align-items:center;gap:.3rem;}
+  .oi-input-wrap input{width:70px;padding:.5rem .6rem;border:1.5px solid #e2e8f0;border-radius:9px;font-weight:700;font-size:.9rem;text-align:center;outline:none;background:white;}
+  .oi-input-wrap input:focus{border-color:#6366f1;}
+  .oi-input-wrap span{font-size:.8rem;font-weight:600;color:var(--muted);}
+  .oi-select{padding:.45rem .6rem;border:1.5px solid #e2e8f0;border-radius:9px;font-size:.78rem;font-weight:600;background:white;cursor:pointer;}
+  .opt-results{border-top:1px solid rgba(0,0,0,.08);padding-top:1rem;margin-bottom:.8rem;}
+  .or-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;font-size:.83rem;}
+  .or-row span{color:var(--slate);}
+  .or-row strong{font-weight:700;color:var(--ink);}
+  .or-row.accent strong{font-size:1rem;}
+  .opt-verdict{font-size:.78rem;font-weight:600;padding:.4rem .7rem;border-radius:7px;text-align:center;}
+  .verdict-good{background:#dcfce7;color:#166534;}
+  .verdict-warn{background:#fef9c3;color:#92400e;}
+  .warning-verdict{background:#fef9c3;color:#92400e;}
+  .winner-banner{border-radius:16px;padding:1.4rem 2rem;margin-bottom:1.5rem;text-align:center;}
+  .winner-show{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:2px solid #6ee7b7;}
+  .winner-neutral{background:#f8fafc;border:2px solid #e2e8f0;}
+  .winner-banner h3{font-family:"Space Grotesk",sans-serif;font-size:1.2rem;margin-bottom:.4rem;}
+  .winner-banner p{font-size:.9rem;color:var(--slate);}
+  .insight-box{background:linear-gradient(135deg,#eef2ff,#ede9fe);border-left:4px solid #6366f1;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin-bottom:1.5rem;}
+  .insight-box h4{font-size:.9rem;font-weight:700;margin-bottom:.5rem;}
+  .insight-box p{font-size:.9rem;color:var(--slate);line-height:1.6;}
+  .action-row{display:flex;gap:1rem;flex-wrap:wrap;}
+  .calc-btn{padding:.85rem 1.6rem;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-weight:700;font-size:.95rem;border:none;border-radius:14px;cursor:pointer;transition:transform .2s,box-shadow .2s;}
+  .calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(99,102,241,.35);}
+  .share-btn{padding:.7rem 1.4rem;border-radius:999px;border:1.5px solid #e2e8f0;background:white;font-weight:600;cursor:pointer;font-size:.9rem;}
+  .cta-link{padding:.7rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;font-weight:600;text-decoration:none;font-size:.9rem;}
+  .faq-section{margin:3rem 0;}.faq-section h2{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;margin-bottom:1.5rem;}
+  .faq-list{display:grid;gap:1rem;}
+  .faq-item{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.06);overflow:hidden;}
+  .faq-item summary{padding:1.2rem 1.5rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .faq-item summary::after{content:'+';font-size:1.3rem;color:var(--muted);}
+  .faq-item[open] summary::after{content:'−';}
+  .faq-item div{padding:0 1.5rem 1.2rem;color:var(--slate);line-height:1.7;font-size:.95rem;}
+  .related-tools{margin-top:2rem;}.related-tools h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+  .related-grid{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .related-card{padding:.6rem 1.2rem;border-radius:999px;background:white;border:1.5px solid #e2e8f0;color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;transition:border-color .2s,background .2s;}
+  .related-card:hover{background:#eef2ff;border-color:#6366f1;color:#4f46e5;}
+  @media(max-width:1000px){.options-grid{grid-template-columns:1fr 1fr;}.current-summary{grid-template-columns:1fr 1fr;}}
+  @media(max-width:700px){.options-grid{grid-template-columns:1fr;}.debt-row{grid-template-columns:1fr 1fr;}.tool-page-wrap{padding:1rem 1rem 3rem;}}
+</style>

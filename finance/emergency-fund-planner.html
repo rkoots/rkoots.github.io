@@ -1,0 +1,300 @@
+---
+layout: default
+title: "Emergency Fund Planner – Job Loss Survival Calculator"
+permalink: /finance/emergency-fund-planner/
+description: "Calculate exactly how much emergency fund you need. See how many months you can survive a job loss and get a savings plan to build your safety net fast."
+keywords: ["emergency fund calculator India", "how much emergency fund do I need", "job loss survival calculator", "emergency savings planner", "3 6 months expenses calculator"]
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="tool-page-wrap">
+
+  <section class="tool-hero ef-hero">
+    <div class="tool-hero-badge">Financial Stability Tools</div>
+    <h1>Emergency Fund Planner <span class="hero-accent">Survival Calculator</span></h1>
+    <p class="tool-tagline">If you lost your income today, how long could you survive? Find out — then fix it.</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="stat-num" id="hs-survival">— mo</span><span class="stat-label">Current Survival Time</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-target">—</span><span class="stat-label">Target Fund Needed</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-gap">—</span><span class="stat-label">Savings Gap</span></div>
+    </div>
+  </section>
+
+  <section class="tool-card-wrap">
+    <div class="tool-card">
+      <div class="input-panel">
+        <h2 class="panel-title">Your Financial Situation</h2>
+
+        <div class="input-group">
+          <label>Currency</label>
+          <select id="currency" class="full-sel"><option value="₹">₹ INR</option><option value="$">$ USD</option></select>
+        </div>
+
+        <div class="section-divider">Monthly Essential Expenses</div>
+        <div class="input-group"><label for="housing">Rent / EMI</label><input type="number" id="housing" value="15000" min="0" step="500"></div>
+        <div class="input-group"><label for="food">Food & Groceries</label><input type="number" id="food" value="8000" min="0" step="500"></div>
+        <div class="input-group"><label for="utilities">Utilities & Bills</label><input type="number" id="utilities" value="3000" min="0" step="500"></div>
+        <div class="input-group"><label for="transport">Transport</label><input type="number" id="transport" value="3000" min="0" step="500"></div>
+        <div class="input-group"><label for="insurance">Insurance Premiums</label><input type="number" id="insurance" value="2000" min="0" step="500"></div>
+        <div class="input-group"><label for="debt">Loan EMIs / Debt</label><input type="number" id="debt" value="5000" min="0" step="500"></div>
+        <div class="input-group"><label for="otherExp">Other Essentials</label><input type="number" id="otherExp" value="2000" min="0" step="500"></div>
+
+        <div class="section-divider">Your Current Savings</div>
+        <div class="input-group"><label for="currentSavings">Current Emergency Savings</label><input type="number" id="currentSavings" value="50000" min="0" step="5000"></div>
+        <div class="input-group"><label for="monthlySave">Monthly Amount You Can Save</label><input type="number" id="monthlySave" value="5000" min="0" step="500"></div>
+
+        <div class="section-divider">Your Risk Profile</div>
+        <div class="input-group">
+          <label for="targetMonths">Target Coverage (Months) <span class="badge-tip">3–6 standard, 9–12 freelancer</span></label>
+          <select id="targetMonths" class="full-sel">
+            <option value="3">3 Months (Minimum Safe)</option>
+            <option value="6" selected>6 Months (Recommended)</option>
+            <option value="9">9 Months (Cautious)</option>
+            <option value="12">12 Months (Freelancer/High Risk)</option>
+          </select>
+        </div>
+
+        <button class="calc-btn" onclick="calculate()">Analyze My Safety Net</button>
+      </div>
+
+      <div class="result-panel">
+        <h2 class="panel-title">Survival Analysis</h2>
+
+        <div class="survival-meter">
+          <h3>Current Survival Time</h3>
+          <div class="meter-track">
+            <div class="meter-fill" id="meterFill"></div>
+            <div class="meter-labels">
+              <span>0</span><span>3 mo</span><span>6 mo</span><span>12 mo</span>
+            </div>
+          </div>
+          <div class="meter-status" id="meterStatus">—</div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card"><span class="metric-label">Monthly Expenses</span><span class="metric-val" id="res-monthly">—</span></div>
+          <div class="metric-card primary"><span class="metric-label">Target Fund</span><span class="metric-val" id="res-target">—</span></div>
+          <div class="metric-card"><span class="metric-label">Current Fund</span><span class="metric-val" id="res-current">—</span></div>
+          <div class="metric-card accent"><span class="metric-label">Months to Goal</span><span class="metric-val" id="res-buildTime">—</span></div>
+        </div>
+
+        <div class="savings-plan-box" id="savingsPlanBox">
+          <h3>📅 Your Savings Plan</h3>
+          <div class="plan-timeline" id="planTimeline"></div>
+        </div>
+
+        <div class="risk-bands">
+          <h3>Emergency Fund Benchmarks</h3>
+          <div class="risk-band-list">
+            <div class="rb-item rb-danger"><span>0–1 Month</span><span>Critical — Any disruption is catastrophic</span></div>
+            <div class="rb-item rb-warn"><span>1–3 Months</span><span>At Risk — Vulnerable to extended job loss</span></div>
+            <div class="rb-item rb-ok"><span>3–6 Months</span><span>Safe — Covers most employment gaps</span></div>
+            <div class="rb-item rb-good"><span>6–12 Months</span><span>Secure — Business owners, freelancers, ideal</span></div>
+          </div>
+        </div>
+
+        <div class="insight-box">
+          <h4>💡 What This Means</h4>
+          <p id="insightText">Add your expenses to see your survival analysis.</p>
+        </div>
+
+        <div class="action-row">
+          <button class="share-btn" onclick="shareResult()">📤 Share Result</button>
+          <a href="/finance/budget-optimizer/" class="cta-link">Optimize Your Budget →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">How much emergency fund do I need in India?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Standard advice is 3–6 months of essential expenses. For salaried employees in stable jobs, 3–4 months may suffice. Freelancers, business owners, or those in volatile industries should target 9–12 months. In India, given notice periods and job market recovery times, 6 months is the recommended minimum.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Where should I keep my emergency fund?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Keep emergency funds in high-liquidity, low-risk instruments: savings accounts (4–7% in India), liquid mutual funds (same-day redemption), or short-term FDs. Avoid locking it in equity, PPF, or real estate — the whole point is instant access.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Should emergency fund include investments?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">No. Emergency fund should be in cash or cash-equivalent instruments only. Investments can fluctuate — your emergency fund must be stable and instantly accessible, even on a weekend or market holiday.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">How do I build an emergency fund fast?</summary>
+        <div itemscree itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">1) Set a fixed monthly auto-transfer to a dedicated savings account. 2) Redirect any windfalls (bonuses, tax refunds) entirely to the fund. 3) Cut one subscription or discretionary expense per month. 4) Use our Subscription Waste Calculator to find hidden savings.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="related-tools">
+    <h3>Related Tools</h3>
+    <div class="related-grid">
+      <a href="/finance/budget-optimizer/" class="related-card">Budget Optimizer</a>
+      <a href="/finance/cashflow-stress-calculator/" class="related-card">Cashflow Stress Calculator</a>
+      <a href="/finance/subscription-waste-calculator/" class="related-card">Subscription Waste Calculator</a>
+      <a href="/finance/net-worth-tracker/" class="related-card">Net Worth Tracker</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  const ids = ['housing','food','utilities','transport','insurance','debt','otherExp','currentSavings','monthlySave'];
+  ids.forEach(id => document.getElementById(id).addEventListener('input', calculate));
+  document.getElementById('targetMonths').addEventListener('change', calculate);
+  document.getElementById('currency').addEventListener('change', calculate);
+  const sym = () => document.getElementById('currency').value;
+  const fmt = n => sym() + Math.round(Math.abs(n)).toLocaleString('en-IN');
+
+  function calculate() {
+    const expenseIds = ['housing','food','utilities','transport','insurance','debt','otherExp'];
+    const monthly = expenseIds.reduce((s, id) => s + (parseFloat(document.getElementById(id).value) || 0), 0);
+    const current = parseFloat(document.getElementById('currentSavings').value) || 0;
+    const savePM = parseFloat(document.getElementById('monthlySave').value) || 0;
+    const targetMo = parseInt(document.getElementById('targetMonths').value) || 6;
+    const target = monthly * targetMo;
+    const gap = Math.max(target - current, 0);
+    const survivalMonths = monthly > 0 ? current / monthly : 0;
+    const buildTime = savePM > 0 ? Math.ceil(gap / savePM) : 999;
+
+    document.getElementById('hs-survival').textContent = survivalMonths.toFixed(1) + ' mo';
+    document.getElementById('hs-target').textContent = fmt(target);
+    document.getElementById('hs-gap').textContent = gap > 0 ? fmt(gap) : 'Funded ✅';
+
+    document.getElementById('res-monthly').textContent = fmt(monthly);
+    document.getElementById('res-target').textContent = fmt(target);
+    document.getElementById('res-current').textContent = fmt(current);
+    document.getElementById('res-buildTime').textContent = buildTime >= 999 ? '∞' : buildTime + ' mo';
+
+    const pct = Math.min((survivalMonths / 12) * 100, 100);
+    document.getElementById('meterFill').style.width = pct + '%';
+    document.getElementById('meterFill').style.background = survivalMonths < 1 ? '#ef4444' : survivalMonths < 3 ? '#f97316' : survivalMonths < 6 ? '#eab308' : '#22c55e';
+
+    let statusText, statusClass;
+    if (survivalMonths < 1) { statusText = '🚨 Critical — Less than 1 month survival'; statusClass = 'status-critical'; }
+    else if (survivalMonths < 3) { statusText = '⚠️ At Risk — ' + survivalMonths.toFixed(1) + ' months'; statusClass = 'status-warn'; }
+    else if (survivalMonths < 6) { statusText = '👍 Getting Safe — ' + survivalMonths.toFixed(1) + ' months'; statusClass = 'status-ok'; }
+    else { statusText = '✅ Secure — ' + survivalMonths.toFixed(1) + ' months'; statusClass = 'status-good'; }
+    document.getElementById('meterStatus').textContent = statusText;
+    document.getElementById('meterStatus').className = 'meter-status ' + statusClass;
+
+    const milestones = [1, 3, 6, targetMo].filter(m => m <= targetMo);
+    const timeline = document.getElementById('planTimeline');
+    timeline.innerHTML = milestones.map(m => {
+      const needed = monthly * m;
+      const addlMonths = savePM > 0 ? Math.ceil(Math.max(needed - current, 0) / savePM) : '—';
+      const reached = current >= needed;
+      return `<div class="plan-step ${reached ? 'reached' : ''}">
+        <div class="plan-dot">${reached ? '✓' : addlMonths}</div>
+        <div class="plan-label">${m}-Month Fund<br><strong>${fmt(needed)}</strong><br>${reached ? '✅ Already reached' : `~${addlMonths} months to go`}</div>
+      </div>`;
+    }).join('<div class="plan-connector"></div>');
+
+    let insight = '';
+    if (gap <= 0) {
+      insight = `🎉 You've fully funded your ${targetMo}-month emergency fund. Consider moving excess to investments or increasing your target to ${targetMo + 3} months.`;
+    } else if (savePM <= 0) {
+      insight = `You have ${survivalMonths.toFixed(1)} months of coverage but a gap of ${fmt(gap)}. Set a monthly savings target to build your fund.`;
+    } else {
+      insight = `At ${fmt(savePM)}/month, you'll fully fund your ${targetMo}-month emergency buffer in ${buildTime} months. Your most urgent milestone: 3-month cover at ${fmt(monthly * 3)} — ${Math.ceil(Math.max(monthly * 3 - current, 0) / savePM)} months away.`;
+    }
+    document.getElementById('insightText').textContent = insight;
+  }
+
+  function shareResult() {
+    const text = `My emergency fund covers ${document.getElementById('hs-survival').textContent} of expenses. Target: ${document.getElementById('hs-target').textContent}. Check yours: ` + window.location.href;
+    if (navigator.share) navigator.share({ title: 'Emergency Fund Analysis', text });
+    else { navigator.clipboard.writeText(text); alert('Result copied!'); }
+  }
+
+  calculate();
+</script>
+
+<style>
+  :root{--ink:#0f172a;--slate:#334155;--muted:#64748b;--accent:#10b981;--surface:#f8fafc;--radius:20px;--shadow:0 20px 50px rgba(15,23,42,.10);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Manrope",sans-serif;background:var(--surface);color:var(--ink);}
+  .tool-page-wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .tool-hero{text-align:center;padding:3.5rem 2rem 2.5rem;background:linear-gradient(135deg,#ecfdf5,#d1fae5,#a7f3d0);border-radius:28px;margin-bottom:2.5rem;}
+  .tool-hero-badge{display:inline-block;background:rgba(16,185,129,.15);color:#059669;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:999px;margin-bottom:1rem;}
+  .tool-hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:.75rem;}
+  .hero-accent{color:#059669;}
+  .tool-tagline{color:var(--slate);font-size:1.05rem;margin-bottom:2rem;}
+  .hero-stat-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+  .stat-num{font-family:"Space Grotesk",sans-serif;font-size:1.8rem;font-weight:700;color:#059669;}
+  .stat-label{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .tool-card-wrap{margin-bottom:3rem;}
+  .tool-card{display:grid;grid-template-columns:1fr 1.3fr;gap:2rem;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+  .input-panel{padding:2.5rem 2rem;background:linear-gradient(160deg,#ecfdf5,#d1fae5);}
+  .result-panel{padding:2.5rem 2rem;}
+  .panel-title{font-family:"Space Grotesk",sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;}
+  .section-divider{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#059669;margin:1.2rem 0 .8rem;padding-bottom:.4rem;border-bottom:1.5px solid rgba(16,185,129,.25);}
+  .input-group{margin-bottom:1rem;}
+  .input-group label{display:block;font-weight:600;font-size:.88rem;margin-bottom:.4rem;color:var(--slate);}
+  .input-group input[type="number"],.full-sel{width:100%;padding:.75rem 1rem;border:1.5px solid #d1fae5;border-radius:12px;font-size:.95rem;font-weight:600;background:white;outline:none;transition:border-color .2s;}
+  .input-group input:focus,.full-sel:focus{border-color:#10b981;}
+  .badge-tip{font-size:.72rem;background:rgba(16,185,129,.15);color:#059669;padding:.15rem .45rem;border-radius:6px;font-weight:600;}
+  .calc-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:700;font-size:1rem;border:none;border-radius:14px;cursor:pointer;margin-top:.8rem;transition:transform .2s,box-shadow .2s;}
+  .calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(16,185,129,.4);}
+  .survival-meter{margin-bottom:1.8rem;}
+  .survival-meter h3{font-size:1rem;font-weight:700;margin-bottom:.8rem;}
+  .meter-track{background:#f1f5f9;border-radius:12px;height:28px;position:relative;overflow:hidden;margin-bottom:.4rem;}
+  .meter-fill{height:100%;border-radius:12px;transition:width .6s ease,background .4s ease;}
+  .meter-labels{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;padding:0 .6rem;font-size:.72rem;font-weight:600;color:rgba(255,255,255,.7);pointer-events:none;}
+  .meter-status{font-weight:700;font-size:.9rem;padding:.5rem .8rem;border-radius:8px;display:inline-block;}
+  .status-critical{background:#fee2e2;color:#dc2626;}
+  .status-warn{background:#fff7ed;color:#c2410c;}
+  .status-ok{background:#fef9c3;color:#92400e;}
+  .status-good{background:#dcfce7;color:#166534;}
+  .metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.8rem;}
+  .metric-card{padding:1rem;border-radius:14px;background:var(--surface);display:flex;flex-direction:column;gap:.3rem;}
+  .metric-card.primary{background:linear-gradient(135deg,#ecfdf5,#d1fae5);}
+  .metric-card.accent{background:linear-gradient(135deg,#eff6ff,#dbeafe);}
+  .metric-label{font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  .metric-val{font-family:"Space Grotesk",sans-serif;font-size:1.3rem;font-weight:700;color:var(--ink);}
+  .savings-plan-box{background:#f8fafc;border-radius:16px;padding:1.4rem;margin-bottom:1.5rem;}
+  .savings-plan-box h3{font-size:.95rem;font-weight:700;margin-bottom:1rem;}
+  .plan-timeline{display:flex;align-items:center;gap:.3rem;overflow-x:auto;padding:.5rem 0;}
+  .plan-step{display:flex;flex-direction:column;align-items:center;gap:.4rem;min-width:100px;text-align:center;}
+  .plan-step.reached .plan-dot{background:#10b981;}
+  .plan-dot{width:36px;height:36px;border-radius:50%;background:#e2e8f0;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;}
+  .plan-label{font-size:.78rem;color:var(--slate);line-height:1.5;}
+  .plan-connector{flex:1;height:2px;background:#e2e8f0;min-width:20px;}
+  .risk-band-list{display:grid;gap:.5rem;margin-bottom:1.5rem;}
+  .rb-item{display:flex;justify-content:space-between;padding:.7rem 1rem;border-radius:10px;font-size:.83rem;gap:1rem;}
+  .rb-item span:first-child{font-weight:700;min-width:90px;}
+  .rb-danger{background:#fef2f2;}.rb-warn{background:#fff7ed;}.rb-ok{background:#fef9c3;}.rb-good{background:#ecfdf5;}
+  .risk-bands{margin-bottom:1.5rem;}
+  .risk-bands h3{font-size:.95rem;font-weight:700;margin-bottom:.8rem;}
+  .insight-box{background:linear-gradient(135deg,#ecfdf5,#f0fdf4);border-left:4px solid #10b981;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin-bottom:1.5rem;}
+  .insight-box h4{font-size:.9rem;font-weight:700;margin-bottom:.5rem;}
+  .insight-box p{font-size:.9rem;color:var(--slate);line-height:1.6;}
+  .action-row{display:flex;gap:1rem;flex-wrap:wrap;}
+  .share-btn{padding:.7rem 1.4rem;border-radius:999px;border:1.5px solid #e2e8f0;background:white;font-weight:600;cursor:pointer;font-size:.9rem;}
+  .cta-link{padding:.7rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,#10b981,#059669);color:white;font-weight:600;text-decoration:none;font-size:.9rem;}
+  .faq-section{margin:3rem 0;}.faq-section h2{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;margin-bottom:1.5rem;}
+  .faq-list{display:grid;gap:1rem;}
+  .faq-item{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.06);overflow:hidden;}
+  .faq-item summary{padding:1.2rem 1.5rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .faq-item summary::after{content:'+';font-size:1.3rem;color:var(--muted);}
+  .faq-item[open] summary::after{content:'−';}
+  .faq-item div{padding:0 1.5rem 1.2rem;color:var(--slate);line-height:1.7;font-size:.95rem;}
+  .related-tools{margin-top:2rem;}.related-tools h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+  .related-grid{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .related-card{padding:.6rem 1.2rem;border-radius:999px;background:white;border:1.5px solid #e2e8f0;color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;transition:border-color .2s,background .2s;}
+  .related-card:hover{background:#ecfdf5;border-color:#10b981;color:#059669;}
+  @media(max-width:800px){.tool-card{grid-template-columns:1fr;}.metrics-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:480px){.metrics-grid{grid-template-columns:1fr;}.tool-page-wrap{padding:1rem 1rem 3rem;}}
+</style>

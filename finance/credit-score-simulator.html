@@ -1,0 +1,495 @@
+---
+layout: default
+title: "Credit Score Simulator – India CIBIL & USA FICO Score Impact"
+permalink: /finance/credit-score-simulator/
+description: "Simulate how financial decisions impact your credit score. See the effect of late payments, new loans, credit utilization, and repayments on your CIBIL or FICO score."
+keywords: ["CIBIL score simulator India", "credit score impact calculator", "how to improve CIBIL score", "credit score calculator India", "FICO score simulator"]
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="tool-page-wrap">
+
+  <section class="tool-hero cs-hero">
+    <div class="tool-hero-badge">Debt & Credit Tools</div>
+    <h1>Credit Score Simulator <span class="hero-accent">CIBIL & FICO</span></h1>
+    <p class="tool-tagline">Every financial action moves your score. Simulate yours before you act — not after.</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="stat-num" id="hs-current">—</span><span class="stat-label">Current Score</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-projected">—</span><span class="stat-label">Projected Score</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-change">—</span><span class="stat-label">Score Change</span></div>
+    </div>
+  </section>
+
+  <section class="tool-card-wrap">
+    <div class="tool-card-full">
+      <div class="cs-layout">
+
+        <!-- Profile Input -->
+        <div class="cs-input-col">
+          <h2 class="panel-title">Your Credit Profile</h2>
+
+          <div class="model-tabs">
+            <button class="model-tab active" onclick="setModel('cibil',this)">🇮🇳 CIBIL (India)</button>
+            <button class="model-tab" onclick="setModel('fico',this)">🇺🇸 FICO (USA)</button>
+          </div>
+
+          <div class="input-group">
+            <label for="currentScore" id="scoreLabel">Current CIBIL Score (300–900)</label>
+            <input type="number" id="currentScore" value="720" min="300" max="900" step="1">
+            <input type="range" id="scoreSlider" min="300" max="900" step="1" value="720" class="range-slider">
+            <div class="score-range-label" id="scoreRangeLabel">Good</div>
+          </div>
+
+          <div class="section-divider">Simulate These Actions</div>
+          <p class="sim-intro">Select which actions you're planning or have done:</p>
+
+          <div class="actions-list" id="actionsList"></div>
+
+          <div class="section-divider">Credit History Facts</div>
+          <div class="input-group">
+            <label for="utilization">Current Credit Utilization</label>
+            <div class="input-suffix-wrap">
+              <input type="number" id="utilization" value="35" min="0" max="100" step="1">
+              <span class="suffix">%</span>
+            </div>
+            <input type="range" id="utilSlider" min="0" max="100" step="1" value="35" class="range-slider util-slider">
+            <div class="util-hint" id="utilHint">⚠️ High — aim for under 30%</div>
+          </div>
+          <div class="input-group">
+            <label for="accountAge">Average Account Age</label>
+            <div class="input-suffix-wrap">
+              <input type="number" id="accountAge" value="4" min="0" max="30" step="1">
+              <span class="suffix">years</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="missedPayments">Missed/Late Payments (Last 12 months)</label>
+            <input type="number" id="missedPayments" value="0" min="0" max="12" step="1">
+          </div>
+          <div class="input-group">
+            <label for="activeLoans">Number of Active Loans / Credit Cards</label>
+            <input type="number" id="activeLoans" value="2" min="0" max="20" step="1">
+          </div>
+
+          <button class="calc-btn" onclick="calculate()">Simulate My Score</button>
+        </div>
+
+        <!-- Results Column -->
+        <div class="cs-result-col">
+          <h2 class="panel-title">Score Simulation</h2>
+
+          <div class="score-display-row">
+            <div class="score-meter">
+              <svg viewBox="0 0 220 130" class="meter-svg">
+                <defs>
+                  <linearGradient id="meterGrad" x1="0" x2="1" y1="0" y2="0">
+                    <stop offset="0%" stop-color="#ef4444"/>
+                    <stop offset="35%" stop-color="#f97316"/>
+                    <stop offset="55%" stop-color="#eab308"/>
+                    <stop offset="75%" stop-color="#22c55e"/>
+                    <stop offset="100%" stop-color="#10b981"/>
+                  </linearGradient>
+                </defs>
+                <path d="M 20 110 A 90 90 0 0 1 200 110" stroke="url(#meterGrad)" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <path d="M 20 110 A 90 90 0 0 1 200 110" stroke="#f1f5f9" stroke-width="16" fill="none" stroke-linecap="round" opacity=".35"/>
+                <line id="needle1" x1="110" y1="110" x2="110" y2="32" stroke="#0f172a" stroke-width="3" stroke-linecap="round" transform="rotate(-90 110 110)" style="transition:transform .6s;"/>
+                <line id="needle2" x1="110" y1="110" x2="110" y2="32" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 3" transform="rotate(-90 110 110)" style="transition:transform .6s;opacity:0;"/>
+                <circle cx="110" cy="110" r="7" fill="#0f172a"/>
+                <text x="20" y="128" font-size="9" fill="#64748b" font-family="Manrope">300</text>
+                <text x="93" y="20" font-size="9" fill="#64748b" font-family="Manrope" id="meterMid">600</text>
+                <text x="192" y="128" font-size="9" fill="#64748b" font-family="Manrope" id="meterMax">900</text>
+              </svg>
+              <div class="score-nums">
+                <div class="score-current-display">
+                  <span class="sc-val" id="sc-current">720</span>
+                  <span class="sc-label">Current</span>
+                </div>
+                <div class="score-arrow" id="scoreArrow">→</div>
+                <div class="score-projected-display">
+                  <span class="sc-val projected" id="sc-projected">720</span>
+                  <span class="sc-label">Projected</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="score-band-display" id="scoreBand">
+            <div class="band-info">
+              <span class="band-range" id="bandRange">—</span>
+              <span class="band-desc" id="bandDesc">—</span>
+            </div>
+            <div class="band-change" id="bandChange">—</div>
+          </div>
+
+          <div class="factor-impacts" id="factorImpacts">
+            <h3>Score Factor Analysis <span id="modelName">CIBIL</span></h3>
+            <div id="factorBars"></div>
+          </div>
+
+          <div class="action-impacts" id="actionImpacts">
+            <h3>Selected Actions Impact</h3>
+            <div id="actionImpactList"></div>
+          </div>
+
+          <div class="improvement-plan">
+            <h3>📈 Fastest Ways to Improve</h3>
+            <div id="improvementTips"></div>
+          </div>
+
+          <div class="insight-box">
+            <h4>💡 Score Insight</h4>
+            <p id="insightText">Enter your credit profile to simulate your score.</p>
+          </div>
+
+          <div class="action-row">
+            <button class="share-btn" onclick="shareResult()">📤 Share Result</button>
+            <a href="/finance/dti-calculator/" class="cta-link">Check Loan Readiness →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What CIBIL score is good for a home loan in India?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">750+ is considered excellent and qualifies you for the best home loan rates. 700–749 is good — most banks will approve but at slightly higher rates. Below 650 will see rejections from major banks, though NBFCs may still lend at higher rates. Aim for 750+ before applying.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">How long does it take to improve CIBIL score by 100 points?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">With disciplined action: 6–12 months for a 50–100 point improvement. Key actions: (1) Pay all EMIs on time, (2) Reduce credit utilization below 30%, (3) Don't close old accounts, (4) Avoid multiple loan applications in quick succession. CIBIL updates monthly.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Does checking your own CIBIL score affect it?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">No. Checking your own score (soft inquiry) has zero impact. Only hard inquiries — when a lender checks your score for a loan application — cause a small temporary dip (5–10 points). Check your CIBIL score regularly; it's free once a year at CIBIL.com.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What factors affect CIBIL score the most?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Payment history (35%) is the biggest factor — even one missed payment can drop your score by 50–100 points. Credit utilization (30%) — keep below 30% of your total limit. Length of credit history (15%), credit mix (10%), and new inquiries (10%) complete the picture.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="related-tools">
+    <h3>Related Tools</h3>
+    <div class="related-grid">
+      <a href="/finance/dti-calculator/" class="related-card">DTI Calculator</a>
+      <a href="/finance/debt-payoff-planner/" class="related-card">Debt Payoff Planner</a>
+      <a href="/finance/credit-card-interest-calculator/" class="related-card">Credit Card Interest Calculator</a>
+      <a href="/finance/financial-health-score/" class="related-card">Financial Health Score</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  let model = 'cibil';
+  const MIN_SCORE = { cibil: 300, fico: 300 };
+  const MAX_SCORE = { cibil: 900, fico: 850 };
+
+  const actions = [
+    { id: 'payOnTime', label: 'Make all payments on time for 6 months', impact: { cibil: +40, fico: +35 }, cat: 'positive' },
+    { id: 'reduceUtil', label: 'Reduce credit utilization below 30%', impact: { cibil: +30, fico: +28 }, cat: 'positive' },
+    { id: 'reduceUtil10', label: 'Reduce credit utilization below 10%', impact: { cibil: +20, fico: +18 }, cat: 'positive' },
+    { id: 'closedAccount', label: 'Close an old credit card', impact: { cibil: -15, fico: -12 }, cat: 'negative' },
+    { id: 'missedPayment', label: 'Miss one EMI payment (30 days late)', impact: { cibil: -80, fico: -60 }, cat: 'negative' },
+    { id: 'defaulted', label: 'Default on a loan (90+ days late)', impact: { cibil: -150, fico: -120 }, cat: 'negative' },
+    { id: 'newLoan', label: 'Apply for a new loan (hard inquiry)', impact: { cibil: -10, fico: -8 }, cat: 'negative' },
+    { id: 'multipleInquiries', label: 'Apply for 3+ loans in 30 days', impact: { cibil: -25, fico: -20 }, cat: 'negative' },
+    { id: 'settledAccount', label: 'Settle a loan (not fully paid)', impact: { cibil: -100, fico: -80 }, cat: 'negative' },
+    { id: 'securedCard', label: 'Open secured/FD-backed credit card', impact: { cibil: +15, fico: +12 }, cat: 'positive' },
+    { id: 'payOffCard', label: 'Pay off a credit card fully', impact: { cibil: +25, fico: +20 }, cat: 'positive' },
+    { id: 'increaseLimit', label: 'Get credit limit increase (without using more)', impact: { cibil: +15, fico: +12 }, cat: 'positive' },
+  ];
+
+  function setModel(m, el) {
+    model = m;
+    document.querySelectorAll('.model-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    const isUSA = m === 'fico';
+    document.getElementById('scoreLabel').textContent = isUSA ? 'Current FICO Score (300–850)' : 'Current CIBIL Score (300–900)';
+    document.getElementById('meterMax').textContent = isUSA ? '850' : '900';
+    document.getElementById('meterMid').textContent = isUSA ? '575' : '600';
+    document.getElementById('modelName').textContent = isUSA ? 'FICO' : 'CIBIL';
+    const scoreInput = document.getElementById('currentScore');
+    scoreInput.max = isUSA ? 850 : 900;
+    document.getElementById('scoreSlider').max = isUSA ? 850 : 900;
+    calculate();
+  }
+
+  function renderActions() {
+    document.getElementById('actionsList').innerHTML = actions.map(a => `
+      <label class="action-row ${a.cat === 'positive' ? 'action-pos' : 'action-neg'}">
+        <input type="checkbox" class="action-cb" data-id="${a.id}" onchange="calculate()">
+        <span class="action-label">${a.label}</span>
+        <span class="action-impact ${a.cat}">${a.impact.cibil > 0 ? '+' : ''}${a.impact.cibil} pts</span>
+      </label>`).join('');
+  }
+
+  const linkSlider = (a, b, cb) => {
+    document.getElementById(a).addEventListener('input', e => { document.getElementById(b).value = e.target.value; cb && cb(); calculate(); });
+    document.getElementById(b).addEventListener('input', e => { document.getElementById(a).value = e.target.value; cb && cb(); calculate(); });
+  };
+  linkSlider('currentScore', 'scoreSlider');
+  linkSlider('utilization', 'utilSlider', updateUtilHint);
+  ['accountAge','missedPayments','activeLoans'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
+
+  function updateUtilHint() {
+    const u = parseInt(document.getElementById('utilization').value) || 0;
+    const hint = document.getElementById('utilHint');
+    if (u <= 10) { hint.textContent = '✅ Excellent — under 10%'; hint.style.color = '#10b981'; }
+    else if (u <= 30) { hint.textContent = '✅ Good — under 30%'; hint.style.color = '#22c55e'; }
+    else if (u <= 50) { hint.textContent = '⚠️ Caution — aim for under 30%'; hint.style.color = '#f97316'; }
+    else { hint.textContent = '🚨 High — reducing will boost score significantly'; hint.style.color = '#ef4444'; }
+  }
+
+  function getScoreRange(score, m) {
+    if (m === 'cibil') {
+      if (score >= 800) return { label: 'Exceptional', color: '#10b981', desc: 'Best rates, instant approval' };
+      if (score >= 750) return { label: 'Excellent', color: '#22c55e', desc: 'Qualify for all products at best rates' };
+      if (score >= 700) return { label: 'Good', color: '#84cc16', desc: 'Most loans approved, good rates' };
+      if (score >= 650) return { label: 'Fair', color: '#eab308', desc: 'Some approvals, higher rates' };
+      if (score >= 550) return { label: 'Poor', color: '#f97316', desc: 'Limited options, NBFCs only' };
+      return { label: 'Very Poor', color: '#ef4444', desc: 'Most applications rejected' };
+    } else {
+      if (score >= 800) return { label: 'Exceptional', color: '#10b981', desc: 'Best rates available' };
+      if (score >= 740) return { label: 'Very Good', color: '#22c55e', desc: 'Above average, good rates' };
+      if (score >= 670) return { label: 'Good', color: '#84cc16', desc: 'Near or above average' };
+      if (score >= 580) return { label: 'Fair', color: '#eab308', desc: 'Below average, limited options' };
+      return { label: 'Poor', color: '#ef4444', desc: 'Significant improvement needed' };
+    }
+  }
+
+  function calculate() {
+    const currentScore = parseInt(document.getElementById('currentScore').value) || 700;
+    const utilization = parseInt(document.getElementById('utilization').value) || 0;
+    const accountAge = parseInt(document.getElementById('accountAge').value) || 0;
+    const missed = parseInt(document.getElementById('missedPayments').value) || 0;
+    const activeLoans = parseInt(document.getElementById('activeLoans').value) || 0;
+    const MAX = MAX_SCORE[model];
+    const MIN = MIN_SCORE[model];
+
+    // Baseline adjustments from profile
+    let adjustment = 0;
+    if (utilization <= 10) adjustment += 15;
+    else if (utilization <= 30) adjustment += 5;
+    else if (utilization > 50) adjustment -= 20;
+    else if (utilization > 70) adjustment -= 40;
+
+    if (accountAge >= 7) adjustment += 10;
+    else if (accountAge >= 4) adjustment += 5;
+    else if (accountAge <= 1) adjustment -= 10;
+
+    if (missed === 0) adjustment += 5;
+    else if (missed === 1) adjustment -= 40;
+    else if (missed >= 2) adjustment -= 80;
+
+    if (activeLoans > 6) adjustment -= 15;
+
+    // Selected actions
+    let actionTotal = 0;
+    const selectedActions = [];
+    document.querySelectorAll('.action-cb:checked').forEach(cb => {
+      const a = actions.find(x => x.id === cb.dataset.id);
+      if (a) {
+        const imp = a.impact[model];
+        actionTotal += imp;
+        selectedActions.push({ ...a, imp });
+      }
+    });
+
+    let projectedScore = Math.min(Math.max(currentScore + adjustment + actionTotal, MIN), MAX);
+
+    // Update needles
+    const range = MAX - MIN;
+    const angle1 = ((currentScore - MIN) / range * 180) - 90;
+    const angle2 = ((projectedScore - MIN) / range * 180) - 90;
+    document.getElementById('needle1').setAttribute('transform', `rotate(${angle1}, 110, 110)`);
+    const n2 = document.getElementById('needle2');
+    n2.setAttribute('transform', `rotate(${angle2}, 110, 110)`);
+    n2.style.opacity = selectedActions.length > 0 ? '1' : '0';
+
+    // Score range labels
+    const currentRange = getScoreRange(currentScore, model);
+    const projectedRange = getScoreRange(projectedScore, model);
+    const change = projectedScore - currentScore;
+
+    document.getElementById('hs-current').textContent = currentScore;
+    document.getElementById('hs-projected').textContent = projectedScore;
+    document.getElementById('hs-change').textContent = (change >= 0 ? '+' : '') + change;
+    document.getElementById('sc-current').textContent = currentScore;
+    document.getElementById('sc-projected').textContent = projectedScore;
+    document.getElementById('sc-projected').style.color = change >= 0 ? '#22c55e' : '#ef4444';
+    document.getElementById('scoreArrow').textContent = change > 0 ? '↑' : change < 0 ? '↓' : '→';
+    document.getElementById('scoreArrow').style.color = change > 0 ? '#22c55e' : change < 0 ? '#ef4444' : '#64748b';
+
+    const scoreRangeLabel = document.getElementById('scoreRangeLabel');
+    scoreRangeLabel.textContent = currentRange.label;
+    scoreRangeLabel.style.color = currentRange.color;
+
+    document.getElementById('bandRange').textContent = projectedRange.label + ' (' + projectedScore + ')';
+    document.getElementById('bandRange').style.color = projectedRange.color;
+    document.getElementById('bandDesc').textContent = projectedRange.desc;
+    document.getElementById('bandChange').textContent = (change >= 0 ? '+' : '') + change + ' points';
+    document.getElementById('bandChange').style.color = change >= 0 ? '#22c55e' : '#ef4444';
+
+    // Factor bars (CIBIL weights)
+    const factors = [
+      { label: 'Payment History', weight: 35, score: missed === 0 ? 100 : missed === 1 ? 40 : 15 },
+      { label: 'Credit Utilization', weight: 30, score: utilization <= 10 ? 100 : utilization <= 30 ? 80 : utilization <= 50 ? 50 : utilization <= 70 ? 25 : 10 },
+      { label: 'Credit History Age', weight: 15, score: accountAge >= 7 ? 100 : accountAge >= 4 ? 75 : accountAge >= 2 ? 50 : 25 },
+      { label: 'Credit Mix', weight: 10, score: Math.min(activeLoans * 20, 100) },
+      { label: 'New Inquiries', weight: 10, score: 100 }
+    ];
+    document.getElementById('factorBars').innerHTML = factors.map(f => {
+      const color = f.score >= 75 ? '#22c55e' : f.score >= 50 ? '#eab308' : '#ef4444';
+      return `<div class="fb-row">
+        <span class="fb-label">${f.label} <span class="fb-weight">${f.weight}%</span></span>
+        <div class="fb-track"><div class="fb-fill" style="width:${f.score}%;background:${color}"></div></div>
+        <span class="fb-score" style="color:${color}">${f.score >= 75 ? '✅' : f.score >= 50 ? '⚠️' : '🚨'}</span>
+      </div>`;
+    }).join('');
+
+    // Action impacts
+    document.getElementById('actionImpactList').innerHTML = selectedActions.length
+      ? selectedActions.map(a => `<div class="ai-item ${a.imp >= 0 ? 'ai-pos' : 'ai-neg'}">
+          <span class="ai-label">${a.label}</span>
+          <span class="ai-val">${a.imp >= 0 ? '+' : ''}${a.imp} pts</span>
+        </div>`).join('')
+      : '<p class="ai-empty">Select actions above to see their score impact.</p>';
+
+    // Improvement tips
+    const tips = [];
+    if (missed > 0) tips.push('🔴 Clear all overdue payments immediately — payment history is 35% of your score.');
+    if (utilization > 30) tips.push('🟡 Reduce credit card balances below 30% of your limit — this is the fastest way to improve.');
+    if (utilization > 50) tips.push('🔴 Request a credit limit increase without spending more — this instantly reduces utilization %.');
+    if (accountAge < 3) tips.push('🟡 Keep oldest accounts open — closing old cards shortens your credit history.');
+    if (currentScore < 700) tips.push('🟢 Get a secured credit card (FD-backed) and use it for small purchases — builds credit history safely.');
+    tips.push('🟢 Set up auto-pay for all EMIs — even one missed payment can drop your score by 80 points.');
+    document.getElementById('improvementTips').innerHTML = tips.map(t => `<div class="tip-item">${t}</div>`).join('');
+
+    const insight = change > 30
+      ? `With your planned actions, your ${model.toUpperCase()} score could improve by ${change} points to ${projectedScore} (${projectedRange.label}). This could unlock better loan rates and increase your borrowing capacity.`
+      : change < -30
+      ? `Warning: Your planned actions could drop your score by ${Math.abs(change)} points to ${projectedScore}. Reconsider before proceeding — especially missing payments or settling loans.`
+      : `Your ${model.toUpperCase()} score is ${currentScore} (${currentRange.label}). Focus on reducing credit utilization and maintaining perfect payment history for the fastest score improvement.`;
+    document.getElementById('insightText').textContent = insight;
+  }
+
+  function shareResult() {
+    const text = `My ${model.toUpperCase()} score simulation: ${document.getElementById('hs-current').textContent} → ${document.getElementById('hs-projected').textContent} (${document.getElementById('hs-change').textContent} points). Simulate yours: ` + window.location.href;
+    if (navigator.share) navigator.share({ title: 'Credit Score Simulation', text });
+    else { navigator.clipboard.writeText(text); alert('Result copied!'); }
+  }
+
+  renderActions();
+  updateUtilHint();
+  calculate();
+</script>
+
+<style>
+  :root{--ink:#0f172a;--slate:#334155;--muted:#64748b;--accent:#6366f1;--surface:#f8fafc;--radius:20px;--shadow:0 20px 50px rgba(15,23,42,.10);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Manrope",sans-serif;background:var(--surface);color:var(--ink);}
+  .tool-page-wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .tool-hero{text-align:center;padding:3.5rem 2rem 2.5rem;background:linear-gradient(135deg,#eef2ff,#ede9fe,#f0f9ff);border-radius:28px;margin-bottom:2.5rem;}
+  .tool-hero-badge{display:inline-block;background:rgba(99,102,241,.12);color:#4f46e5;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:999px;margin-bottom:1rem;}
+  .tool-hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:.75rem;}
+  .hero-accent{color:#4f46e5;}
+  .tool-tagline{color:var(--slate);font-size:1.05rem;margin-bottom:2rem;}
+  .hero-stat-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+  .stat-num{font-family:"Space Grotesk",sans-serif;font-size:1.8rem;font-weight:700;color:#4f46e5;}
+  .stat-label{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .tool-card-wrap{margin-bottom:3rem;}
+  .tool-card-full{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:2.5rem;}
+  .cs-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;}
+  .panel-title{font-family:"Space Grotesk",sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1.2rem;}
+  .model-tabs{display:flex;gap:.4rem;background:#f1f5f9;padding:.25rem;border-radius:10px;margin-bottom:1.5rem;}
+  .model-tab{flex:1;padding:.6rem;border:none;border-radius:8px;background:transparent;font-weight:600;cursor:pointer;font-size:.9rem;transition:background .2s,color .2s;}
+  .model-tab.active{background:white;color:#4f46e5;box-shadow:0 2px 8px rgba(99,102,241,.15);}
+  .input-group{margin-bottom:1.2rem;}
+  .input-group label{display:block;font-weight:600;font-size:.88rem;margin-bottom:.4rem;color:var(--slate);}
+  .input-group input[type="number"]{width:100%;padding:.75rem 1rem;border:1.5px solid #e2e8f0;border-radius:12px;font-size:.95rem;font-weight:600;background:white;outline:none;transition:border-color .2s;}
+  .input-group input:focus{border-color:#6366f1;}
+  .input-suffix-wrap{position:relative;}
+  .input-suffix-wrap input{width:100%;padding:.75rem 3rem .75rem 1rem;border:1.5px solid #e2e8f0;border-radius:12px;font-size:.95rem;font-weight:600;background:white;outline:none;}
+  .input-suffix-wrap .suffix{position:absolute;right:.9rem;top:50%;transform:translateY(-50%);color:var(--muted);font-weight:600;font-size:.85rem;pointer-events:none;}
+  .range-slider{width:100%;margin-top:.5rem;accent-color:#6366f1;}
+  .util-slider{accent-color:#f97316;}
+  .score-range-label,.util-hint{font-size:.78rem;font-weight:700;margin-top:.3rem;}
+  .section-divider{font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#4f46e5;margin:1.2rem 0 .8rem;padding-bottom:.3rem;border-bottom:1.5px solid rgba(99,102,241,.2);}
+  .sim-intro{font-size:.83rem;color:var(--muted);margin-bottom:.8rem;}
+  .actions-list{display:grid;gap:.4rem;margin-bottom:.8rem;max-height:320px;overflow-y:auto;padding-right:.2rem;}
+  .action-row{display:flex;align-items:center;gap:.6rem;padding:.6rem .8rem;border-radius:10px;cursor:pointer;transition:background .2s;}
+  .action-pos{background:#f0fdf4;border:1px solid #dcfce7;}
+  .action-pos:hover{background:#dcfce7;}
+  .action-neg{background:#fef2f2;border:1px solid #fecaca;}
+  .action-neg:hover{background:#fecaca;}
+  .action-row input[type=checkbox]{accent-color:#6366f1;width:15px;height:15px;flex-shrink:0;}
+  .action-label{font-size:.83rem;font-weight:500;flex:1;}
+  .action-impact{font-family:"Space Grotesk",sans-serif;font-size:.82rem;font-weight:700;white-space:nowrap;}
+  .action-impact.positive{color:#16a34a;}
+  .action-impact.negative{color:#dc2626;}
+  .calc-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-weight:700;font-size:1rem;border:none;border-radius:14px;cursor:pointer;transition:transform .2s,box-shadow .2s;}
+  .calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(99,102,241,.35);}
+  .score-display-row{display:flex;justify-content:center;margin-bottom:1.5rem;}
+  .score-meter{width:100%;}
+  .meter-svg{width:100%;max-width:220px;display:block;margin:0 auto;}
+  .score-nums{display:flex;justify-content:center;align-items:center;gap:1.5rem;margin-top:.5rem;}
+  .score-current-display,.score-projected-display{display:flex;flex-direction:column;align-items:center;}
+  .sc-val{font-family:"Space Grotesk",sans-serif;font-size:2rem;font-weight:700;color:var(--ink);}
+  .sc-val.projected{color:#6366f1;}
+  .sc-label{font-size:.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+  .score-arrow{font-size:1.5rem;font-weight:700;}
+  .score-band-display{display:flex;justify-content:space-between;align-items:center;background:#f8fafc;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+  .band-info{display:flex;flex-direction:column;gap:.2rem;}
+  .band-range{font-family:"Space Grotesk",sans-serif;font-size:1.1rem;font-weight:700;}
+  .band-desc{font-size:.82rem;color:var(--muted);}
+  .band-change{font-family:"Space Grotesk",sans-serif;font-size:1.3rem;font-weight:700;}
+  .factor-impacts,.action-impacts,.improvement-plan{margin-bottom:1.5rem;}
+  .factor-impacts h3,.action-impacts h3,.improvement-plan h3{font-size:.95rem;font-weight:700;margin-bottom:.8rem;}
+  .fb-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;}
+  .fb-label{font-size:.78rem;font-weight:500;min-width:140px;color:var(--slate);}
+  .fb-weight{font-size:.7rem;color:var(--muted);font-weight:700;}
+  .fb-track{flex:1;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;}
+  .fb-fill{height:100%;border-radius:4px;transition:width .5s ease;}
+  .fb-score{font-size:.9rem;min-width:20px;text-align:center;}
+  .ai-item{display:flex;justify-content:space-between;align-items:center;padding:.6rem .8rem;border-radius:9px;margin-bottom:.4rem;font-size:.83rem;}
+  .ai-pos{background:#f0fdf4;}.ai-neg{background:#fef2f2;}
+  .ai-label{flex:1;}
+  .ai-val{font-family:"Space Grotesk",sans-serif;font-weight:700;}
+  .ai-pos .ai-val{color:#16a34a;}.ai-neg .ai-val{color:#dc2626;}
+  .ai-empty{font-size:.85rem;color:var(--muted);font-style:italic;}
+  .tip-item{padding:.6rem .9rem;background:#f8fafc;border-radius:9px;margin-bottom:.4rem;font-size:.83rem;line-height:1.5;color:var(--slate);}
+  .insight-box{background:linear-gradient(135deg,#eef2ff,#ede9fe);border-left:4px solid #6366f1;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin-bottom:1.5rem;}
+  .insight-box h4{font-size:.9rem;font-weight:700;margin-bottom:.5rem;}
+  .insight-box p{font-size:.9rem;color:var(--slate);line-height:1.6;}
+  .action-row{display:flex;gap:1rem;flex-wrap:wrap;}
+  .share-btn{padding:.7rem 1.4rem;border-radius:999px;border:1.5px solid #e2e8f0;background:white;font-weight:600;cursor:pointer;font-size:.9rem;}
+  .cta-link{padding:.7rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;font-weight:600;text-decoration:none;font-size:.9rem;}
+  .faq-section{margin:3rem 0;}.faq-section h2{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;margin-bottom:1.5rem;}
+  .faq-list{display:grid;gap:1rem;}
+  .faq-item{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.06);overflow:hidden;}
+  .faq-item summary{padding:1.2rem 1.5rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .faq-item summary::after{content:'+';font-size:1.3rem;color:var(--muted);}
+  .faq-item[open] summary::after{content:'−';}
+  .faq-item div{padding:0 1.5rem 1.2rem;color:var(--slate);line-height:1.7;font-size:.95rem;}
+  .related-tools{margin-top:2rem;}.related-tools h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+  .related-grid{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .related-card{padding:.6rem 1.2rem;border-radius:999px;background:white;border:1.5px solid #e2e8f0;color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;transition:border-color .2s,background .2s;}
+  .related-card:hover{background:#eef2ff;border-color:#6366f1;color:#4f46e5;}
+  @media(max-width:900px){.cs-layout{grid-template-columns:1fr;}}
+  @media(max-width:480px){.tool-page-wrap{padding:1rem 1rem 3rem;}.score-nums{gap:.8rem;}.sc-val{font-size:1.5rem;}}
+</style>

@@ -1,0 +1,413 @@
+---
+layout: default
+title: "Monthly Budget Optimizer – Smart Expense Allocation Planner"
+permalink: /finance/budget-optimizer/
+description: "Build a smart monthly budget using the 50/30/20 rule. Get AI-style nudges on overspending, identify expense leaks, and optimize your cash allocation."
+keywords: ["budget calculator India", "50 30 20 rule calculator", "monthly budget planner India", "smart budget optimizer", "how to budget salary India"]
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="tool-page-wrap">
+
+  <section class="tool-hero budget-hero">
+    <div class="tool-hero-badge">Financial Stability Tools</div>
+    <h1>Monthly Budget Optimizer <span class="hero-accent">50/30/20 Planner</span></h1>
+    <p class="tool-tagline">Stop guessing where your money goes. Build a data-backed budget that actually works.</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="stat-num" id="hs-surplus">—</span><span class="stat-label">Monthly Surplus</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-saveRate">—%</span><span class="stat-label">Savings Rate</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-score">—</span><span class="stat-label">Budget Score</span></div>
+    </div>
+  </section>
+
+  <section class="tool-card-wrap">
+    <div class="tool-card-full">
+
+      <div class="budget-layout">
+        <!-- Input Column -->
+        <div class="budget-inputs">
+          <h2 class="panel-title">Your Monthly Budget</h2>
+          <div class="input-group">
+            <label>Currency</label>
+            <select id="currency" class="full-sel"><option value="₹">₹ INR</option><option value="$">$ USD</option></select>
+          </div>
+          <div class="input-group">
+            <label for="income">Monthly Take-Home Income</label>
+            <input type="number" id="income" value="70000" min="0" step="1000">
+            <input type="range" id="incSlider" min="10000" max="500000" step="5000" value="70000" class="range-slider">
+          </div>
+
+          <div class="rule-toggle">
+            <span class="rule-label">Budget Rule:</span>
+            <div class="rule-tabs">
+              <button class="rule-tab active" onclick="setRule('503020',this)">50/30/20</button>
+              <button class="rule-tab" onclick="setRule('702010',this)">70/20/10</button>
+              <button class="rule-tab" onclick="setRule('custom',this)">Custom</button>
+            </div>
+          </div>
+
+          <div id="customRuleInputs" style="display:none;" class="custom-rules">
+            <div class="custom-rule-row">
+              <label>Needs %</label><input type="number" id="needsPct" value="50" min="0" max="100"><span>%</span>
+            </div>
+            <div class="custom-rule-row">
+              <label>Wants %</label><input type="number" id="wantsPct" value="30" min="0" max="100"><span>%</span>
+            </div>
+            <div class="custom-rule-row">
+              <label>Savings %</label><input type="number" id="savePct" value="20" min="0" max="100"><span>%</span>
+            </div>
+          </div>
+
+          <div class="expense-section">
+            <div class="exp-header needs-header">🏠 Needs (Essentials)</div>
+            <div class="exp-row"><label>Rent / EMI</label><input type="number" class="exp-input needs-input" value="18000" min="0" step="500"></div>
+            <div class="exp-row"><label>Groceries & Food</label><input type="number" class="exp-input needs-input" value="8000" min="0" step="500"></div>
+            <div class="exp-row"><label>Utilities & Bills</label><input type="number" class="exp-input needs-input" value="3000" min="0" step="500"></div>
+            <div class="exp-row"><label>Transport</label><input type="number" class="exp-input needs-input" value="3000" min="0" step="500"></div>
+            <div class="exp-row"><label>Insurance / EMI</label><input type="number" class="exp-input needs-input" value="3000" min="0" step="500"></div>
+            <div class="exp-row"><label>Other Needs</label><input type="number" class="exp-input needs-input" value="1000" min="0" step="500"></div>
+          </div>
+
+          <div class="expense-section">
+            <div class="exp-header wants-header">🎮 Wants (Lifestyle)</div>
+            <div class="exp-row"><label>Dining Out / Swiggy</label><input type="number" class="exp-input wants-input" value="3000" min="0" step="500"></div>
+            <div class="exp-row"><label>Entertainment / OTT</label><input type="number" class="exp-input wants-input" value="2000" min="0" step="500"></div>
+            <div class="exp-row"><label>Shopping / Clothes</label><input type="number" class="exp-input wants-input" value="3000" min="0" step="500"></div>
+            <div class="exp-row"><label>Hobbies / Fitness</label><input type="number" class="exp-input wants-input" value="1500" min="0" step="500"></div>
+            <div class="exp-row"><label>Travel / Vacations</label><input type="number" class="exp-input wants-input" value="2000" min="0" step="500"></div>
+            <div class="exp-row"><label>Other Wants</label><input type="number" class="exp-input wants-input" value="0" min="0" step="500"></div>
+          </div>
+
+          <div class="expense-section">
+            <div class="exp-header savings-header">💰 Savings & Investments</div>
+            <div class="exp-row"><label>SIP / Mutual Funds</label><input type="number" class="exp-input save-input" value="5000" min="0" step="500"></div>
+            <div class="exp-row"><label>Emergency Fund Top-Up</label><input type="number" class="exp-input save-input" value="2000" min="0" step="500"></div>
+            <div class="exp-row"><label>PPF / NPS / EPF</label><input type="number" class="exp-input save-input" value="2000" min="0" step="500"></div>
+            <div class="exp-row"><label>Other Savings</label><input type="number" class="exp-input save-input" value="0" min="0" step="500"></div>
+          </div>
+
+          <button class="calc-btn" onclick="calculate()">Optimize My Budget</button>
+        </div>
+
+        <!-- Results Column -->
+        <div class="budget-results">
+          <h2 class="panel-title">Budget Analysis</h2>
+
+          <div class="budget-donut-wrap">
+            <svg viewBox="0 0 200 200" class="donut-svg" id="donutSvg">
+              <circle cx="100" cy="100" r="70" fill="none" stroke="#f1f5f9" stroke-width="30"/>
+              <circle id="donut-needs" cx="100" cy="100" r="70" fill="none" stroke="#3b82f6" stroke-width="30" stroke-dasharray="0 439" stroke-linecap="round" transform="rotate(-90 100 100)" style="transition:stroke-dasharray .6s;"/>
+              <circle id="donut-wants" cx="100" cy="100" r="70" fill="none" stroke="#f97316" stroke-width="30" stroke-dasharray="0 439" stroke-linecap="round" transform="rotate(-90 100 100)" style="transition:stroke-dasharray .6s;"/>
+              <circle id="donut-save" cx="100" cy="100" r="70" fill="none" stroke="#22c55e" stroke-width="30" stroke-dasharray="0 439" stroke-linecap="round" transform="rotate(-90 100 100)" style="transition:stroke-dasharray .6s;"/>
+              <text x="100" y="96" text-anchor="middle" font-family="Space Grotesk" font-size="12" font-weight="700" fill="#64748b">Budget</text>
+              <text x="100" y="112" text-anchor="middle" font-family="Space Grotesk" font-size="11" font-weight="600" fill="#0f172a" id="donutLabel">Score</text>
+            </svg>
+            <div class="donut-legend">
+              <div class="dl-item"><span class="dl-dot needs-dot"></span><span>Needs</span><span class="dl-val" id="needsTotal">—</span></div>
+              <div class="dl-item"><span class="dl-dot wants-dot"></span><span>Wants</span><span class="dl-val" id="wantsTotal">—</span></div>
+              <div class="dl-item"><span class="dl-dot save-dot"></span><span>Savings</span><span class="dl-val" id="saveTotal">—</span></div>
+            </div>
+          </div>
+
+          <div class="budget-vs-target" id="budgetVsTarget">
+            <div class="bvt-row">
+              <span class="bvt-label">Needs</span>
+              <div class="bvt-bars">
+                <div class="bvt-bar actual needs-bar" id="needs-actual-bar"></div>
+                <div class="bvt-bar target-bar" id="needs-target-bar"></div>
+              </div>
+              <span class="bvt-status" id="needs-status">—</span>
+            </div>
+            <div class="bvt-row">
+              <span class="bvt-label">Wants</span>
+              <div class="bvt-bars">
+                <div class="bvt-bar actual wants-bar" id="wants-actual-bar"></div>
+                <div class="bvt-bar target-bar" id="wants-target-bar"></div>
+              </div>
+              <span class="bvt-status" id="wants-status">—</span>
+            </div>
+            <div class="bvt-row">
+              <span class="bvt-label">Savings</span>
+              <div class="bvt-bars">
+                <div class="bvt-bar actual save-bar" id="save-actual-bar"></div>
+                <div class="bvt-bar target-bar" id="save-target-bar"></div>
+              </div>
+              <span class="bvt-status" id="save-status">—</span>
+            </div>
+          </div>
+
+          <div class="surplus-box" id="surplusBox">
+            <span class="surplus-label">Monthly Surplus / Deficit</span>
+            <span class="surplus-amount" id="surplusAmount">—</span>
+          </div>
+
+          <div class="nudges-box" id="nudgesBox">
+            <h3>🎯 Smart Budget Nudges</h3>
+            <div id="nudgesList"></div>
+          </div>
+
+          <div class="insight-box">
+            <h4>💡 Budget Insight</h4>
+            <p id="insightText">Enter your income and expenses to get a personalised budget analysis.</p>
+          </div>
+
+          <div class="action-row">
+            <button class="share-btn" onclick="shareResult()">📤 Share Budget</button>
+            <a href="/finance/expense-leak-detector/" class="cta-link">Find Expense Leaks →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What is the 50/30/20 budget rule?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">The 50/30/20 rule allocates 50% of take-home pay to needs (rent, food, EMIs), 30% to wants (dining, entertainment, shopping), and 20% to savings and investments. It's a simple, proven framework for sustainable financial management.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Is the 50/30/20 rule realistic in Indian cities?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">In metro cities like Mumbai and Delhi, rent alone can consume 30–40% of income. The 70/20/10 rule (70% needs, 20% wants, 10% savings) is more realistic for early-career professionals. Use our custom rule option to set targets that fit your city and situation.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What's a healthy savings rate in India?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Financial experts recommend saving at least 20% of take-home income. For aggressive wealth building or early retirement, aim for 30–40%. Even 10% saved consistently and invested in index funds can create significant wealth over 20 years due to compounding.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="related-tools">
+    <h3>Related Tools</h3>
+    <div class="related-grid">
+      <a href="/finance/expense-leak-detector/" class="related-card">Expense Leak Detector</a>
+      <a href="/finance/subscription-waste-calculator/" class="related-card">Subscription Waste Calculator</a>
+      <a href="/finance/emergency-fund-planner/" class="related-card">Emergency Fund Planner</a>
+      <a href="/finance/true-wage-calculator/" class="related-card">True Wage Calculator</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  let rule = { needs: 50, wants: 30, save: 20 };
+  const sym = () => document.getElementById('currency').value;
+  const fmt = n => sym() + Math.round(Math.abs(n)).toLocaleString('en-IN');
+
+  function setRule(type, el) {
+    document.querySelectorAll('.rule-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    const cr = document.getElementById('customRuleInputs');
+    if (type === '503020') { rule = { needs:50, wants:30, save:20 }; cr.style.display='none'; }
+    else if (type === '702010') { rule = { needs:70, wants:20, save:10 }; cr.style.display='none'; }
+    else { cr.style.display=''; }
+    calculate();
+  }
+
+  document.getElementById('income').addEventListener('input', e => { document.getElementById('incSlider').value = e.target.value; calculate(); });
+  document.getElementById('incSlider').addEventListener('input', e => { document.getElementById('income').value = e.target.value; calculate(); });
+  document.querySelectorAll('.exp-input, #needsPct, #wantsPct, #savePct').forEach(el => el.addEventListener('input', calculate));
+  document.getElementById('currency').addEventListener('change', calculate);
+
+  function calculate() {
+    const income = parseFloat(document.getElementById('income').value) || 0;
+    if (document.getElementById('customRuleInputs').style.display !== 'none') {
+      rule.needs = parseFloat(document.getElementById('needsPct').value) || 50;
+      rule.wants = parseFloat(document.getElementById('wantsPct').value) || 30;
+      rule.save = parseFloat(document.getElementById('savePct').value) || 20;
+    }
+
+    const needsActual = Array.from(document.querySelectorAll('.needs-input')).reduce((s,el) => s + (parseFloat(el.value)||0), 0);
+    const wantsActual = Array.from(document.querySelectorAll('.wants-input')).reduce((s,el) => s + (parseFloat(el.value)||0), 0);
+    const saveActual = Array.from(document.querySelectorAll('.save-input')).reduce((s,el) => s + (parseFloat(el.value)||0), 0);
+    const totalSpent = needsActual + wantsActual + saveActual;
+    const surplus = income - totalSpent;
+    const saveRate = income > 0 ? ((saveActual / income) * 100).toFixed(1) : 0;
+
+    const needsTarget = income * rule.needs / 100;
+    const wantsTarget = income * rule.wants / 100;
+    const saveTarget = income * rule.save / 100;
+
+    const needsPct = income > 0 ? needsActual / income * 100 : 0;
+    const wantsPct = income > 0 ? wantsActual / income * 100 : 0;
+    const savePctActual = income > 0 ? saveActual / income * 100 : 0;
+
+    // Score out of 100
+    let score = 100;
+    if (needsPct > rule.needs * 1.1) score -= 15;
+    if (wantsPct > rule.wants * 1.1) score -= 20;
+    if (savePctActual < rule.save * 0.9) score -= 25;
+    if (surplus < 0) score -= 30;
+    if (savePctActual < 10) score -= 10;
+    score = Math.max(score, 0);
+
+    document.getElementById('hs-surplus').textContent = (surplus < 0 ? '-' : '') + fmt(surplus);
+    document.getElementById('hs-saveRate').textContent = saveRate;
+    document.getElementById('hs-score').textContent = score + '/100';
+    document.getElementById('donutLabel').textContent = score + '/100';
+
+    document.getElementById('needsTotal').textContent = fmt(needsActual) + ' (' + needsPct.toFixed(0) + '%)';
+    document.getElementById('wantsTotal').textContent = fmt(wantsActual) + ' (' + wantsPct.toFixed(0) + '%)';
+    document.getElementById('saveTotal').textContent = fmt(saveActual) + ' (' + savePctActual.toFixed(0) + '%)';
+
+    // Donut chart (stacked offsets)
+    const circ = 2 * Math.PI * 70;
+    const nLen = (needsPct / 100) * circ;
+    const wLen = (wantsPct / 100) * circ;
+    const sLen = (savePctActual / 100) * circ;
+    let offset = 0;
+    setDonut('donut-needs', nLen, circ, offset);
+    offset += nLen;
+    setDonut('donut-wants', wLen, circ, offset);
+    offset += wLen;
+    setDonut('donut-save', sLen, circ, offset);
+
+    function setDonut(id, len, total, off) {
+      const el = document.getElementById(id);
+      el.style.strokeDasharray = len + ' ' + (total - len);
+      el.style.strokeDashoffset = -off;
+      el.setAttribute('transform', `rotate(-90 100 100)`);
+    }
+
+    // Bars
+    const max = Math.max(needsActual, wantsActual, saveActual, income, 1);
+    document.getElementById('needs-actual-bar').style.width = (needsActual/max*100) + '%';
+    document.getElementById('needs-target-bar').style.width = (needsTarget/max*100) + '%';
+    document.getElementById('wants-actual-bar').style.width = (wantsActual/max*100) + '%';
+    document.getElementById('wants-target-bar').style.width = (wantsTarget/max*100) + '%';
+    document.getElementById('save-actual-bar').style.width = (saveActual/max*100) + '%';
+    document.getElementById('save-target-bar').style.width = (saveTarget/max*100) + '%';
+
+    const statusIcon = (actual, target) => actual <= target * 1.05 ? '✅' : actual <= target * 1.2 ? '⚠️' : '🚨';
+    document.getElementById('needs-status').textContent = statusIcon(needsActual, needsTarget);
+    document.getElementById('wants-status').textContent = statusIcon(wantsActual, wantsTarget);
+    document.getElementById('save-status').textContent = saveActual >= saveTarget * 0.95 ? '✅' : saveActual >= saveTarget * 0.7 ? '⚠️' : '🚨';
+
+    // Surplus box
+    const sbox = document.getElementById('surplusBox');
+    document.getElementById('surplusAmount').textContent = (surplus < 0 ? '-' : '+') + fmt(surplus);
+    sbox.style.background = surplus >= 0 ? 'linear-gradient(135deg,#ecfdf5,#d1fae5)' : 'linear-gradient(135deg,#fef2f2,#fee2e2)';
+
+    // Nudges
+    const nudges = [];
+    if (wantsActual > wantsTarget) nudges.push(`You're spending ${fmt(wantsActual - wantsTarget)} more on Wants than your target. Cut one recurring lifestyle expense to get back on track.`);
+    if (needsActual > needsTarget) nudges.push(`Needs are ${((needsPct - rule.needs)).toFixed(0)}% above target. Consider refinancing EMIs or finding lower-cost alternatives.`);
+    if (saveActual < saveTarget) nudges.push(`You're saving ${fmt(saveTarget - saveActual)}/month less than your ${rule.save}% target. Auto-transfer savings on salary day before you can spend it.`);
+    if (surplus < 0) nudges.push(`Monthly deficit of ${fmt(Math.abs(surplus))} — you're spending more than you earn. Immediate action required.`);
+    if (saveRate < 10) nudges.push(`Savings rate of ${saveRate}% is critically low. Even ₹2,000/month in a SIP grows to ₹4L+ in 10 years.`);
+
+    const nudgeList = document.getElementById('nudgesList');
+    nudgeList.innerHTML = nudges.length
+      ? nudges.map(n => `<div class="nudge-item">⚡ ${n}</div>`).join('')
+      : '<div class="nudge-item green">🎉 Your budget is well-balanced! Keep it up.</div>';
+
+    const insight = surplus >= 0
+      ? `Your budget score is ${score}/100. You have a monthly surplus of ${fmt(surplus)} — allocate it to investments or emergency fund. Savings rate: ${saveRate}%.`
+      : `You're overspending by ${fmt(Math.abs(surplus))}/month. This creates debt or depletes savings. Review your Wants category first — it's the most flexible.`;
+    document.getElementById('insightText').textContent = insight;
+  }
+
+  function shareResult() {
+    const text = `My budget score: ${document.getElementById('hs-score').textContent}, savings rate: ${document.getElementById('hs-saveRate').textContent}%. Plan yours: ` + window.location.href;
+    if (navigator.share) navigator.share({ title: 'Budget Score', text });
+    else { navigator.clipboard.writeText(text); alert('Result copied!'); }
+  }
+
+  calculate();
+</script>
+
+<style>
+  :root{--ink:#0f172a;--slate:#334155;--muted:#64748b;--accent:#3b82f6;--surface:#f8fafc;--radius:20px;--shadow:0 20px 50px rgba(15,23,42,.10);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Manrope",sans-serif;background:var(--surface);color:var(--ink);}
+  .tool-page-wrap{max-width:1200px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .tool-hero{text-align:center;padding:3.5rem 2rem 2.5rem;background:linear-gradient(135deg,#eff6ff,#dbeafe,#e0e7ff);border-radius:28px;margin-bottom:2.5rem;}
+  .tool-hero-badge{display:inline-block;background:rgba(59,130,246,.12);color:#1d4ed8;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:999px;margin-bottom:1rem;}
+  .tool-hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:.75rem;}
+  .hero-accent{color:#1d4ed8;}
+  .tool-tagline{color:var(--slate);font-size:1.05rem;margin-bottom:2rem;}
+  .hero-stat-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+  .stat-num{font-family:"Space Grotesk",sans-serif;font-size:1.8rem;font-weight:700;color:#1d4ed8;}
+  .stat-label{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .tool-card-wrap{margin-bottom:3rem;}
+  .tool-card-full{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:2.5rem;}
+  .budget-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;}
+  .panel-title{font-family:"Space Grotesk",sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;}
+  .input-group{margin-bottom:1.2rem;}
+  .input-group label{display:block;font-weight:600;font-size:.88rem;margin-bottom:.4rem;color:var(--slate);}
+  .input-group input[type="number"],.full-sel{width:100%;padding:.75rem 1rem;border:1.5px solid #e2e8f0;border-radius:12px;font-size:.9rem;font-weight:600;background:white;outline:none;transition:border-color .2s;}
+  .input-group input:focus,.full-sel:focus{border-color:#3b82f6;}
+  .range-slider{width:100%;margin-top:.5rem;accent-color:#3b82f6;}
+  .rule-toggle{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem;flex-wrap:wrap;}
+  .rule-label{font-weight:600;font-size:.88rem;color:var(--slate);}
+  .rule-tabs{display:flex;gap:.3rem;background:#f1f5f9;padding:.25rem;border-radius:10px;}
+  .rule-tab{padding:.5rem 1rem;border:none;border-radius:8px;background:transparent;font-weight:600;cursor:pointer;font-size:.85rem;transition:background .2s,color .2s;}
+  .rule-tab.active{background:white;color:#1d4ed8;box-shadow:0 2px 6px rgba(59,130,246,.15);}
+  .custom-rules{background:#f0f9ff;border-radius:12px;padding:1rem;margin-bottom:1rem;}
+  .custom-rule-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;}
+  .custom-rule-row label{font-size:.85rem;font-weight:600;color:var(--slate);flex:1;}
+  .custom-rule-row input{width:70px;padding:.5rem;border:1.5px solid #e2e8f0;border-radius:8px;font-weight:700;text-align:center;outline:none;}
+  .custom-rule-row span{font-weight:600;color:var(--muted);}
+  .expense-section{margin-bottom:1.2rem;}
+  .exp-header{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:.5rem .8rem;border-radius:8px;margin-bottom:.6rem;}
+  .needs-header{background:#eff6ff;color:#1d4ed8;}
+  .wants-header{background:#fff7ed;color:#c2410c;}
+  .savings-header{background:#f0fdf4;color:#15803d;}
+  .exp-row{display:grid;grid-template-columns:1fr auto;gap:.5rem;align-items:center;margin-bottom:.4rem;}
+  .exp-row label{font-size:.84rem;font-weight:500;color:var(--slate);}
+  .exp-input{width:120px;padding:.55rem .7rem;border:1.5px solid #e2e8f0;border-radius:10px;font-size:.9rem;font-weight:700;text-align:right;outline:none;transition:border-color .2s;background:white;}
+  .exp-input:focus{border-color:#3b82f6;}
+  .calc-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff;font-weight:700;font-size:1rem;border:none;border-radius:14px;cursor:pointer;margin-top:.5rem;transition:transform .2s,box-shadow .2s;}
+  .calc-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(59,130,246,.35);}
+  .budget-donut-wrap{display:flex;align-items:center;gap:1.5rem;margin-bottom:1.8rem;background:#f8fafc;border-radius:18px;padding:1.2rem;}
+  .donut-svg{width:140px;flex-shrink:0;}
+  .donut-legend{display:grid;gap:.6rem;}
+  .dl-item{display:flex;align-items:center;gap:.5rem;font-size:.85rem;}
+  .dl-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+  .needs-dot{background:#3b82f6;}.wants-dot{background:#f97316;}.save-dot{background:#22c55e;}
+  .dl-val{font-family:"Space Grotesk",sans-serif;font-weight:700;margin-left:auto;font-size:.82rem;}
+  .budget-vs-target{margin-bottom:1.5rem;}
+  .bvt-row{display:flex;align-items:center;gap:.7rem;margin-bottom:.7rem;}
+  .bvt-label{font-size:.78rem;font-weight:600;width:55px;color:var(--slate);}
+  .bvt-bars{flex:1;position:relative;height:24px;}
+  .bvt-bar{height:10px;border-radius:5px;position:absolute;transition:width .5s ease;}
+  .actual{top:0;opacity:.9;}
+  .target-bar{top:13px;background:#e2e8f0;}
+  .needs-bar{background:#3b82f6;}.wants-bar{background:#f97316;}.save-bar{background:#22c55e;}
+  .bvt-status{font-size:1rem;width:24px;text-align:center;}
+  .surplus-box{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.4rem;border-radius:14px;margin-bottom:1.5rem;transition:background .3s;}
+  .surplus-label{font-weight:600;font-size:.88rem;color:var(--slate);}
+  .surplus-amount{font-family:"Space Grotesk",sans-serif;font-size:1.5rem;font-weight:700;}
+  .nudges-box{margin-bottom:1.5rem;}
+  .nudges-box h3{font-size:.95rem;font-weight:700;margin-bottom:.7rem;}
+  .nudge-item{background:#fef9c3;border-left:3px solid #fbbf24;padding:.7rem 1rem;border-radius:0 10px 10px 0;margin-bottom:.5rem;font-size:.85rem;color:#92400e;line-height:1.5;}
+  .nudge-item.green{background:#ecfdf5;border-color:#22c55e;color:#166534;}
+  .insight-box{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-left:4px solid #3b82f6;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin-bottom:1.5rem;}
+  .insight-box h4{font-size:.9rem;font-weight:700;margin-bottom:.5rem;}
+  .insight-box p{font-size:.9rem;color:var(--slate);line-height:1.6;}
+  .action-row{display:flex;gap:1rem;flex-wrap:wrap;}
+  .share-btn{padding:.7rem 1.4rem;border-radius:999px;border:1.5px solid #e2e8f0;background:white;font-weight:600;cursor:pointer;font-size:.9rem;}
+  .cta-link{padding:.7rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:white;font-weight:600;text-decoration:none;font-size:.9rem;}
+  .faq-section{margin:3rem 0;}.faq-section h2{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;margin-bottom:1.5rem;}
+  .faq-list{display:grid;gap:1rem;}
+  .faq-item{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.06);overflow:hidden;}
+  .faq-item summary{padding:1.2rem 1.5rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .faq-item summary::after{content:'+';font-size:1.3rem;color:var(--muted);}
+  .faq-item[open] summary::after{content:'−';}
+  .faq-item div{padding:0 1.5rem 1.2rem;color:var(--slate);line-height:1.7;font-size:.95rem;}
+  .related-tools{margin-top:2rem;}.related-tools h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+  .related-grid{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .related-card{padding:.6rem 1.2rem;border-radius:999px;background:white;border:1.5px solid #e2e8f0;color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;transition:border-color .2s,background .2s;}
+  .related-card:hover{background:#eff6ff;border-color:#3b82f6;color:#1d4ed8;}
+  @media(max-width:900px){.budget-layout{grid-template-columns:1fr;}}
+  @media(max-width:480px){.tool-page-wrap{padding:1rem 1rem 3rem;}.exp-input{width:100px;}}
+</style>

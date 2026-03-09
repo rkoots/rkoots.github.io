@@ -1,0 +1,325 @@
+---
+layout: default
+title: "Net Worth Tracker – Assets vs Liabilities Dashboard"
+permalink: /finance/net-worth-tracker/
+description: "Calculate your real net worth instantly. Track assets vs liabilities, see your wealth snapshot, and understand your true financial position."
+keywords: ["net worth calculator India", "assets vs liabilities calculator", "how to calculate net worth", "personal net worth tracker", "net worth meaning India"]
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="tool-page-wrap">
+
+  <section class="tool-hero nw-hero">
+    <div class="tool-hero-badge">Wealth Awareness & Tracking</div>
+    <h1>Net Worth Tracker <span class="hero-accent">Assets vs Liabilities</span></h1>
+    <p class="tool-tagline">Your true financial position in one number. Most people are shocked by what they find.</p>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><span class="stat-num" id="hs-netWorth">—</span><span class="stat-label">Net Worth</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-assets">—</span><span class="stat-label">Total Assets</span></div>
+      <div class="hero-stat"><span class="stat-num" id="hs-liabilities">—</span><span class="stat-label">Total Liabilities</span></div>
+    </div>
+  </section>
+
+  <section class="tool-card-wrap">
+    <div class="tool-card-full">
+      <div class="nw-grid">
+
+        <!-- Assets -->
+        <div class="nw-col">
+          <div class="col-header assets-header">
+            <h2>Assets <span class="col-sub">What You Own</span></h2>
+            <span class="col-total" id="assetTotal">₹0</span>
+          </div>
+
+          <div class="nw-section">
+            <div class="nw-section-title">Cash & Bank</div>
+            <div class="nw-row"><label>Savings Account</label><input type="number" class="asset-input" data-key="savings" value="50000" min="0"></div>
+            <div class="nw-row"><label>Fixed Deposits</label><input type="number" class="asset-input" data-key="fd" value="100000" min="0"></div>
+            <div class="nw-row"><label>Cash in Hand</label><input type="number" class="asset-input" data-key="cash" value="5000" min="0"></div>
+          </div>
+
+          <div class="nw-section">
+            <div class="nw-section-title">Investments</div>
+            <div class="nw-row"><label>Mutual Funds</label><input type="number" class="asset-input" data-key="mf" value="200000" min="0"></div>
+            <div class="nw-row"><label>Stocks / Equity</label><input type="number" class="asset-input" data-key="stocks" value="150000" min="0"></div>
+            <div class="nw-row"><label>PPF / EPF / NPS</label><input type="number" class="asset-input" data-key="ppf" value="300000" min="0"></div>
+            <div class="nw-row"><label>Gold / Jewellery</label><input type="number" class="asset-input" data-key="gold" value="100000" min="0"></div>
+          </div>
+
+          <div class="nw-section">
+            <div class="nw-section-title">Property</div>
+            <div class="nw-row"><label>Primary Home (Market Value)</label><input type="number" class="asset-input" data-key="home" value="5000000" min="0"></div>
+            <div class="nw-row"><label>Other Real Estate</label><input type="number" class="asset-input" data-key="realestate" value="0" min="0"></div>
+          </div>
+
+          <div class="nw-section">
+            <div class="nw-section-title">Other Assets</div>
+            <div class="nw-row"><label>Vehicle(s)</label><input type="number" class="asset-input" data-key="vehicle" value="500000" min="0"></div>
+            <div class="nw-row"><label>Business Value</label><input type="number" class="asset-input" data-key="business" value="0" min="0"></div>
+            <div class="nw-row"><label>Other</label><input type="number" class="asset-input" data-key="otherasset" value="0" min="0"></div>
+          </div>
+        </div>
+
+        <!-- Liabilities -->
+        <div class="nw-col">
+          <div class="col-header liab-header">
+            <h2>Liabilities <span class="col-sub">What You Owe</span></h2>
+            <span class="col-total" id="liabTotal">₹0</span>
+          </div>
+
+          <div class="nw-section">
+            <div class="nw-section-title">Loans</div>
+            <div class="nw-row"><label>Home Loan Outstanding</label><input type="number" class="liab-input" data-key="homeloan" value="3500000" min="0"></div>
+            <div class="nw-row"><label>Car Loan</label><input type="number" class="liab-input" data-key="carloan" value="300000" min="0"></div>
+            <div class="nw-row"><label>Personal Loan</label><input type="number" class="liab-input" data-key="personalloan" value="100000" min="0"></div>
+            <div class="nw-row"><label>Education Loan</label><input type="number" class="liab-input" data-key="edloan" value="0" min="0"></div>
+          </div>
+
+          <div class="nw-section">
+            <div class="nw-section-title">Credit</div>
+            <div class="nw-row"><label>Credit Card Balances</label><input type="number" class="liab-input" data-key="cc" value="50000" min="0"></div>
+            <div class="nw-row"><label>Buy Now Pay Later (BNPL)</label><input type="number" class="liab-input" data-key="bnpl" value="0" min="0"></div>
+          </div>
+
+          <div class="nw-section">
+            <div class="nw-section-title">Other Obligations</div>
+            <div class="nw-row"><label>Family / Informal Loans</label><input type="number" class="liab-input" data-key="informal" value="0" min="0"></div>
+            <div class="nw-row"><label>Other Liabilities</label><input type="number" class="liab-input" data-key="otherliab" value="0" min="0"></div>
+          </div>
+
+          <!-- Net Worth Result in Liabilities column -->
+          <div class="networth-result-box" id="nwResultBox">
+            <div class="nw-label">Your Net Worth</div>
+            <div class="nw-amount" id="nwAmount">—</div>
+            <div class="nw-status" id="nwStatus">—</div>
+          </div>
+
+          <!-- Visual breakdown -->
+          <div class="breakdown-bars">
+            <div class="bb-row assets-bar-row">
+              <span class="bb-label">Assets</span>
+              <div class="bb-track"><div class="bb-fill assets-fill" id="assetBar"></div></div>
+            </div>
+            <div class="bb-row liab-bar-row">
+              <span class="bb-label">Liabilities</span>
+              <div class="bb-track"><div class="bb-fill liab-fill" id="liabBar"></div></div>
+            </div>
+          </div>
+
+          <div class="nw-currency-row">
+            <label for="currency">Currency:</label>
+            <select id="currency"><option value="₹">₹ INR</option><option value="$">$ USD</option></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Insights -->
+      <div class="nw-bottom">
+        <div class="asset-breakdown">
+          <h3>Asset Allocation</h3>
+          <div class="alloc-grid" id="allocGrid"></div>
+        </div>
+
+        <div class="wealth-insight">
+          <div class="insight-box">
+            <h4>💡 Wealth Insight</h4>
+            <p id="insightText">Enter your financial details above to get your net worth analysis.</p>
+          </div>
+          <div class="action-row">
+            <button class="share-btn" onclick="shareResult()">📤 Share Net Worth</button>
+            <a href="/finance/financial-health-score/" class="cta-link">Get Health Score →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What is net worth and why does it matter?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Net worth = Total Assets − Total Liabilities. It's the single most honest measure of your financial health. A positive and growing net worth means you're building wealth. Tracking it monthly reveals whether your financial habits are working.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">Should I include my home in net worth calculation?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes, but use current market value (not purchase price) and subtract the outstanding home loan. A ₹50L home with ₹35L loan = ₹15L net equity. Note that primary homes are illiquid assets — your investable net worth (excluding primary home) is often more useful for retirement planning.</p>
+        </div>
+      </details>
+      <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary itemprop="name">What is a good net worth by age in India?</summary>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">A common benchmark: Net Worth = (Age − 25) × Annual Income ÷ 5. For a 35-year-old earning ₹12L/year, target = (35−25) × 12L ÷ 5 = ₹24L. This is a rough guide — actual targets depend on lifestyle, city, and retirement goals.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="related-tools">
+    <h3>Related Tools</h3>
+    <div class="related-grid">
+      <a href="/finance/financial-health-score/" class="related-card">Financial Health Score</a>
+      <a href="/finance/dti-calculator/" class="related-card">DTI Calculator</a>
+      <a href="/finance/emergency-fund-planner/" class="related-card">Emergency Fund Planner</a>
+      <a href="/finance/true-wage-calculator/" class="related-card">True Wage Calculator</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  const sym = () => document.getElementById('currency').value;
+  const fmt = n => sym() + Math.round(Math.abs(n)).toLocaleString('en-IN');
+
+  const assetKeys = { savings:'Savings', fd:'Fixed Deposits', cash:'Cash', mf:'Mutual Funds', stocks:'Stocks', ppf:'PPF/EPF/NPS', gold:'Gold', home:'Property (Home)', realestate:'Real Estate', vehicle:'Vehicles', business:'Business', otherasset:'Other' };
+  const liabKeys = { homeloan:'Home Loan', carloan:'Car Loan', personalloan:'Personal Loan', edloan:'Education Loan', cc:'Credit Cards', bnpl:'BNPL', informal:'Informal Loans', otherliab:'Other' };
+
+  function getTotal(selector) {
+    return Array.from(document.querySelectorAll(selector)).reduce((s, el) => s + (parseFloat(el.value) || 0), 0);
+  }
+
+  function calculate() {
+    const totalAssets = getTotal('.asset-input');
+    const totalLiab = getTotal('.liab-input');
+    const netWorth = totalAssets - totalLiab;
+
+    document.getElementById('hs-netWorth').textContent = (netWorth < 0 ? '-' : '') + fmt(netWorth);
+    document.getElementById('hs-assets').textContent = fmt(totalAssets);
+    document.getElementById('hs-liabilities').textContent = fmt(totalLiab);
+    document.getElementById('assetTotal').textContent = fmt(totalAssets);
+    document.getElementById('liabTotal').textContent = fmt(totalLiab);
+    document.getElementById('nwAmount').textContent = (netWorth < 0 ? '-' : '') + fmt(netWorth);
+    document.getElementById('nwAmount').style.color = netWorth >= 0 ? '#10b981' : '#ef4444';
+
+    const ratio = totalAssets > 0 ? (totalLiab / totalAssets) * 100 : 0;
+    let statusText, boxClass;
+    if (netWorth < 0) { statusText = '🚨 Negative Net Worth'; boxClass = 'nw-negative'; }
+    else if (ratio > 60) { statusText = '⚠️ High Debt Load'; boxClass = 'nw-warn'; }
+    else if (ratio > 30) { statusText = '👍 Building Wealth'; boxClass = 'nw-ok'; }
+    else { statusText = '✅ Strong Position'; boxClass = 'nw-good'; }
+    document.getElementById('nwStatus').textContent = statusText;
+    document.getElementById('nwResultBox').className = 'networth-result-box ' + boxClass;
+
+    const maxVal = Math.max(totalAssets, totalLiab, 1);
+    document.getElementById('assetBar').style.width = (totalAssets / maxVal * 100) + '%';
+    document.getElementById('liabBar').style.width = (totalLiab / maxVal * 100) + '%';
+
+    // Asset allocation
+    const allocGrid = document.getElementById('allocGrid');
+    const assetInputs = document.querySelectorAll('.asset-input');
+    const assetData = Array.from(assetInputs).map(el => ({
+      key: el.dataset.key, label: assetKeys[el.dataset.key], value: parseFloat(el.value) || 0
+    })).filter(d => d.value > 0).sort((a, b) => b.value - a.value);
+
+    allocGrid.innerHTML = assetData.map(d => {
+      const pct = totalAssets > 0 ? ((d.value / totalAssets) * 100).toFixed(1) : 0;
+      return `<div class="alloc-item">
+        <div class="alloc-label">${d.label}</div>
+        <div class="alloc-bar-track"><div class="alloc-bar-fill" style="width:${pct}%"></div></div>
+        <div class="alloc-vals"><span>${fmt(d.value)}</span><span>${pct}%</span></div>
+      </div>`;
+    }).join('');
+
+    // Insight
+    let insight = '';
+    if (netWorth < 0) {
+      insight = `Your liabilities exceed your assets by ${fmt(Math.abs(netWorth))}. Focus on debt reduction — use the Debt Payoff Planner to accelerate this. Avoid new debt until net worth turns positive.`;
+    } else {
+      const debtRatio = ratio.toFixed(0);
+      insight = `Your net worth is ${fmt(netWorth)} with a ${debtRatio}% debt-to-asset ratio. ${ratio > 60 ? 'Debt is consuming a large portion of your assets — consider accelerating loan repayments.' : ratio > 30 ? 'You\'re building wealth steadily. Increasing monthly investments by 10% will compound significantly over 10 years.' : 'Excellent position! Your assets significantly outweigh liabilities. Consider diversifying investments for optimal growth.'}`;
+    }
+    document.getElementById('insightText').textContent = insight;
+  }
+
+  document.querySelectorAll('.asset-input, .liab-input').forEach(el => el.addEventListener('input', calculate));
+  document.getElementById('currency').addEventListener('change', calculate);
+
+  function shareResult() {
+    const text = `My net worth: ${document.getElementById('nwAmount').textContent}. Assets: ${document.getElementById('hs-assets').textContent}, Liabilities: ${document.getElementById('hs-liabilities').textContent}. Track yours: ` + window.location.href;
+    if (navigator.share) navigator.share({ title: 'Net Worth Result', text });
+    else { navigator.clipboard.writeText(text); alert('Result copied!'); }
+  }
+
+  calculate();
+</script>
+
+<style>
+  :root{--ink:#0f172a;--slate:#334155;--muted:#64748b;--accent:#8b5cf6;--surface:#f8fafc;--radius:20px;--shadow:0 20px 50px rgba(15,23,42,.10);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Manrope",sans-serif;background:var(--surface);color:var(--ink);}
+  .tool-page-wrap{max-width:1200px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .tool-hero{text-align:center;padding:3.5rem 2rem 2.5rem;background:linear-gradient(135deg,#faf5ff,#ede9fe,#ddd6fe);border-radius:28px;margin-bottom:2.5rem;}
+  .tool-hero-badge{display:inline-block;background:rgba(139,92,246,.12);color:#7c3aed;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:999px;margin-bottom:1rem;}
+  .tool-hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.15;margin-bottom:.75rem;}
+  .hero-accent{color:#7c3aed;}
+  .tool-tagline{color:var(--slate);font-size:1.05rem;margin-bottom:2rem;}
+  .hero-stat-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+  .stat-num{font-family:"Space Grotesk",sans-serif;font-size:1.8rem;font-weight:700;color:#7c3aed;}
+  .stat-label{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+  .tool-card-wrap{margin-bottom:3rem;}
+  .tool-card-full{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+  .nw-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .nw-col{padding:2rem;}
+  .nw-col:first-child{border-right:1px solid #f1f5f9;background:linear-gradient(160deg,#f0fdf4,#ecfdf5);}
+  .nw-col:last-child{background:linear-gradient(160deg,#fef2f2,#fff1f2);}
+  .col-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid rgba(0,0,0,.06);}
+  .col-header h2{font-family:"Space Grotesk",sans-serif;font-size:1.2rem;font-weight:700;}
+  .col-sub{font-size:.8rem;font-weight:500;color:var(--muted);margin-left:.5rem;}
+  .assets-header .col-total{font-family:"Space Grotesk",sans-serif;font-size:1.3rem;font-weight:700;color:#10b981;}
+  .liab-header .col-total{font-family:"Space Grotesk",sans-serif;font-size:1.3rem;font-weight:700;color:#ef4444;}
+  .nw-section{margin-bottom:1.2rem;}
+  .nw-section-title{font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.6rem;padding-bottom:.3rem;border-bottom:1px solid rgba(0,0,0,.05);}
+  .nw-row{display:grid;grid-template-columns:1fr auto;gap:.5rem;align-items:center;margin-bottom:.5rem;}
+  .nw-row label{font-size:.85rem;font-weight:500;color:var(--slate);}
+  .asset-input,.liab-input{width:140px;padding:.55rem .7rem;border:1.5px solid #e2e8f0;border-radius:10px;font-size:.9rem;font-weight:700;text-align:right;outline:none;transition:border-color .2s;background:white;}
+  .asset-input:focus{border-color:#10b981;}
+  .liab-input:focus{border-color:#ef4444;}
+  .networth-result-box{border-radius:18px;padding:1.4rem;text-align:center;margin-bottom:1.2rem;border:2px solid transparent;}
+  .nw-good{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border-color:#6ee7b7;}
+  .nw-ok{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#93c5fd;}
+  .nw-warn{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-color:#fdba74;}
+  .nw-negative{background:linear-gradient(135deg,#fef2f2,#fee2e2);border-color:#fca5a5;}
+  .nw-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.3rem;}
+  .nw-amount{font-family:"Space Grotesk",sans-serif;font-size:2rem;font-weight:700;margin-bottom:.3rem;}
+  .nw-status{font-size:.88rem;font-weight:600;}
+  .breakdown-bars{margin-bottom:1rem;}
+  .bb-row{display:flex;align-items:center;gap:.8rem;margin-bottom:.5rem;}
+  .bb-label{font-size:.78rem;font-weight:600;width:70px;color:var(--slate);}
+  .bb-track{flex:1;height:10px;background:#f1f5f9;border-radius:5px;overflow:hidden;}
+  .bb-fill{height:100%;border-radius:5px;transition:width .5s ease;}
+  .assets-fill{background:linear-gradient(90deg,#10b981,#34d399);}
+  .liab-fill{background:linear-gradient(90deg,#ef4444,#f87171);}
+  .nw-currency-row{display:flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:600;color:var(--muted);}
+  .nw-currency-row select{padding:.4rem .6rem;border:1.5px solid #e2e8f0;border-radius:8px;font-size:.85rem;background:white;}
+  .nw-bottom{padding:2rem;border-top:1px solid #f1f5f9;display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:start;}
+  .asset-breakdown h3{font-size:1rem;font-weight:700;margin-bottom:1rem;}
+  .alloc-grid{display:grid;gap:.6rem;}
+  .alloc-label{font-size:.8rem;font-weight:600;color:var(--slate);margin-bottom:.2rem;}
+  .alloc-bar-track{height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;margin-bottom:.2rem;}
+  .alloc-bar-fill{height:100%;background:linear-gradient(90deg,#8b5cf6,#6366f1);border-radius:4px;transition:width .4s ease;}
+  .alloc-vals{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);}
+  .insight-box{background:linear-gradient(135deg,#faf5ff,#ede9fe);border-left:4px solid #8b5cf6;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin-bottom:1.2rem;}
+  .insight-box h4{font-size:.9rem;font-weight:700;margin-bottom:.5rem;}
+  .insight-box p{font-size:.9rem;color:var(--slate);line-height:1.6;}
+  .action-row{display:flex;gap:1rem;flex-wrap:wrap;}
+  .share-btn{padding:.7rem 1.4rem;border-radius:999px;border:1.5px solid #e2e8f0;background:white;font-weight:600;cursor:pointer;font-size:.9rem;}
+  .cta-link{padding:.7rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:white;font-weight:600;text-decoration:none;font-size:.9rem;}
+  .faq-section{margin:3rem 0;}.faq-section h2{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;margin-bottom:1.5rem;}
+  .faq-list{display:grid;gap:1rem;}
+  .faq-item{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.06);overflow:hidden;}
+  .faq-item summary{padding:1.2rem 1.5rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .faq-item summary::after{content:'+';font-size:1.3rem;color:var(--muted);}
+  .faq-item[open] summary::after{content:'−';}
+  .faq-item div{padding:0 1.5rem 1.2rem;color:var(--slate);line-height:1.7;font-size:.95rem;}
+  .related-tools{margin-top:2rem;}.related-tools h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+  .related-grid{display:flex;gap:.8rem;flex-wrap:wrap;}
+  .related-card{padding:.6rem 1.2rem;border-radius:999px;background:white;border:1.5px solid #e2e8f0;color:var(--ink);text-decoration:none;font-size:.88rem;font-weight:600;transition:border-color .2s,background .2s;}
+  .related-card:hover{background:#faf5ff;border-color:#8b5cf6;color:#7c3aed;}
+  @media(max-width:900px){.nw-grid{grid-template-columns:1fr;}.nw-col:first-child{border-right:none;border-bottom:1px solid #f1f5f9;}.nw-bottom{grid-template-columns:1fr;}}
+  @media(max-width:480px){.tool-page-wrap{padding:1rem 1rem 3rem;}.nw-row{grid-template-columns:1fr;}.asset-input,.liab-input{width:100%;}}
+</style>
