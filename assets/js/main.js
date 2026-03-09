@@ -24,16 +24,55 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   if (mobileMenuToggle) {
-    mobileMenuToggle.addEventListener('click', openMobileMenu);
+    // Add both click and touch events for better mobile support
+    mobileMenuToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      openMobileMenu();
+    });
+    
+    mobileMenuToggle.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      openMobileMenu();
+    });
   }
   
   if (mobileNavClose) {
-    mobileNavClose.addEventListener('click', closeMobileMenu);
+    mobileNavClose.addEventListener('click', function(e) {
+      e.preventDefault();
+      closeMobileMenu();
+    });
+    
+    mobileNavClose.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      closeMobileMenu();
+    });
   }
   
   if (overlay) {
-    overlay.addEventListener('click', closeMobileMenu);
+    overlay.addEventListener('click', function(e) {
+      e.preventDefault();
+      closeMobileMenu();
+    });
+    
+    overlay.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      closeMobileMenu();
+    });
   }
+  
+  // Add click and touch events to mobile nav links to ensure they work
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Close menu after navigation
+      setTimeout(() => closeMobileMenu(), 300);
+    });
+    
+    link.addEventListener('touchstart', function(e) {
+      // Ensure touch events work properly
+      this.style.touchAction = 'manipulation';
+    });
+  });
   
   // Close mobile menu on escape key
   document.addEventListener('keydown', function(e) {
