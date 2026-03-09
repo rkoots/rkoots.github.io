@@ -758,6 +758,20 @@
   .mobile-nav-overlay.is-open {
     position: fixed !important;
   }
+
+  /* On phones, drawer is full-width; disable dim overlay to avoid disabled look */
+  .mobile-nav-overlay,
+  .mobile-nav-overlay.is-open {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  .mobile-nav {
+    z-index: 10050 !important;
+    pointer-events: auto !important;
+  }
   
   /* Ensure menu stays on top during scroll */
   .site-header {
