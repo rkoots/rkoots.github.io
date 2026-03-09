@@ -761,6 +761,19 @@
   .site-header {
     z-index: 9999 !important;
   }
+  
+  /* Ensure mobile nav links are clickable */
+  .mobile-nav-link {
+    pointer-events: auto !important;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  .mobile-nav-link:hover,
+  .mobile-nav-link:focus {
+    pointer-events: auto !important;
+  }
 }
 
 .site-header {

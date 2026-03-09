@@ -64,14 +64,20 @@ document.addEventListener('DOMContentLoaded', function() {
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
   mobileNavLinks.forEach(link => {
     link.addEventListener('click', function(e) {
-      // Close menu after navigation
-      setTimeout(() => closeMobileMenu(), 300);
+      // Allow normal navigation - don't prevent default
+      // Only close menu if it's an internal link (not external)
+      const href = this.getAttribute('href');
+      if (href && href.startsWith('/')) {
+        // Close menu after a short delay to allow navigation to start
+        setTimeout(() => closeMobileMenu(), 100);
+      }
     });
     
-    link.addEventListener('touchstart', function(e) {
-      // Ensure touch events work properly
-      this.style.touchAction = 'manipulation';
-    });
+    // Remove touchstart event to prevent interference with click
+    // link.addEventListener('touchstart', function(e) {
+    //   // Ensure touch events work properly
+    //   this.style.touchAction = 'manipulation';
+    // });
   });
   
   // Close mobile menu on escape key
