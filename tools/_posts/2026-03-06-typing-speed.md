@@ -41,7 +41,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .timer-display{font-size:3rem;font-weight:800;color:var(--primary);text-align:center;animation:pulse 1s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.7;}}
 .timer-display.done{animation:none;color:var(--success);}
-.passage-wrap{background:#0f172a;border-radius:14px;padding:20px;font-family:'Courier New',monospace;font-size:1.05rem;line-height:1.8;margin-bottom:16px;min-height:120px;user-select:none;}
+.passage-wrap{background:#0f172a;border-radius:14px;padding:20px;font-family:'Courier New',monospace;font-size:1.05rem;line-height:1.8;margin-bottom:16px;min-height:120px;user-select:none;word-wrap:break-word;overflow-wrap:break-word;white-space:pre-wrap;}
 .char-correct{color:#4ade80;}
 .char-wrong{color:#f87171;text-decoration:underline;background:rgba(239,68,68,0.15);}
 .char-current{background:rgba(249,115,22,0.5);border-radius:2px;}

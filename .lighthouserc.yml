@@ -1,0 +1,39 @@
+ci:
+  collect:
+    url:
+      - https://rkoots.github.io/
+      - https://rkoots.github.io/blog/
+      - https://rkoots.github.io/tools/
+      - https://rkoots.github.io/tools/json-formatter/
+    numberOfRuns: 3
+    settings:
+      preset: desktop
+  assert:
+    preset: lighthouse:recommended
+    assertions:
+      categories:performance:
+        - warn
+        - minScore: 0.80
+      categories:accessibility:
+        - error
+        - minScore: 0.90
+      categories:best-practices:
+        - warn
+        - minScore: 0.85
+      categories:seo:
+        - error
+        - minScore: 0.90
+      uses-text-compression:
+        - warn
+        - audit: uses-text-compression
+      render-blocking-resources:
+        - warn
+        - audit: render-blocking-resources
+      uses-responsive-images:
+        - warn
+        - audit: uses-responsive-images
+      tap-targets:
+        - warn
+        - audit: tap-targets
+  upload:
+    target: temporary-public-storage

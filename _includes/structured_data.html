@@ -1,5 +1,5 @@
 <!-- Structured Data for SEO -->
-{% if page.layout == 'post' or page.layout == 'technical-guide' %}
+{% if page.is_post or page.layout == 'technical-guide' %}
   <!-- TechArticle Schema -->
   <script type="application/ld+json">
   {
@@ -67,6 +67,25 @@
     },
     "datePublished": "{{ page.date | date: "%Y-%m-%d" }}",
     "dateModified": "{{ page.last_modified_at | default: page.date | date: "%Y-%m-%d" }}"
+  }
+  </script>
+{% endif %}
+
+<!-- Article published/modified for posts (in head via default.html OG tags) -->
+{% if page.is_post %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": {{ page.url | absolute_url | jsonify }},
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": {{ site.url | jsonify }}},
+        {"@type": "ListItem", "position": 2, "name": {{ page.categories | first | capitalize | jsonify }}, "item": {{ site.url | append: '/' | append: page.categories | first | jsonify }}},
+        {"@type": "ListItem", "position": 3, "name": {{ page.title | jsonify }}, "item": {{ page.url | absolute_url | jsonify }}}
+      ]
+    }
   }
   </script>
 {% endif %}

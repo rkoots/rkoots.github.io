@@ -1,0 +1,18 @@
+{% comment %}
+  Calculates and renders estimated reading time for post content.
+  Usage: {% include reading-time.html content=content %}
+  Falls back to page.content if no content param passed.
+{% endcomment %}
+{% assign _content = include.content | default: content | default: page.content %}
+{% assign words = _content | strip_html | number_of_words %}
+{% assign reading_mins = words | divided_by: 200 | plus: 1 %}
+<span class="reading-time" aria-label="{{ reading_mins }} minute read">
+  <i class="fas fa-clock" aria-hidden="true"></i>
+  {% if reading_mins == 1 %}
+    1 min read
+  {% elsif reading_mins < 5 %}
+    {{ reading_mins }} min read
+  {% else %}
+    {{ reading_mins }} min read &middot; {{ words | divided_by: 1000.0 | round: 1 }}k words
+  {% endif %}
+</span>

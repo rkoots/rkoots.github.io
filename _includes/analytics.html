@@ -1,0 +1,55 @@
+{% if site.google_analytics %}
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ site.google_analytics }}', {
+    'page_path': '{{ page.url }}',
+    'anonymize_ip': true,
+    'send_page_view': true
+  });
+
+  // Track outbound links
+  document.addEventListener('click', function(e) {
+    var target = e.target.closest('a');
+    if (!target) return;
+    var href = target.href;
+    if (href && !href.includes(location.hostname) && !href.startsWith('mailto') && !href.startsWith('#')) {
+      gtag('event', 'click', {
+        'event_category': 'outbound',
+        'event_label': href,
+        'transport_type': 'beacon'
+      });
+    }
+  });
+
+  // Track newsletter CTA clicks
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-track]');
+    if (!btn) return;
+    gtag('event', btn.dataset.track, {
+      'event_category': btn.dataset.category || 'engagement',
+      'event_label': btn.dataset.label || btn.innerText
+    });
+  });
+
+  // Track blog post read progress
+  {% if page.is_post %}
+  var articleRead = false;
+  window.addEventListener('scroll', function() {
+    if (articleRead) return;
+    var scrollPct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    if (scrollPct > 75) {
+      articleRead = true;
+      gtag('event', 'read_article', {
+        'event_category': 'engagement',
+        'event_label': '{{ page.title | escape }}',
+        'event_value': 75
+      });
+    }
+  }, { passive: true });
+  {% endif %}
+</script>
+{% endif %}

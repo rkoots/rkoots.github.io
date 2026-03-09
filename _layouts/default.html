@@ -9,15 +9,17 @@
   <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
   <meta name="author" content="{{ page.author | default: site.author.name }}">
-  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <link rel="canonical" href="{{ page.url | absolute_url | split: '?' | first }}">
 
   <!-- Open Graph Meta Tags -->
-  <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+  <meta property="og:type" content="{% if page.is_post %}article{% else %}website{% endif %}">
   <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
   <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:url" content="{{ page.url | absolute_url | split: '?' | first }}">
   <meta property="og:site_name" content="{{ site.title }}">
-  <meta property="og:image" content="{{ '/assets/images/rkoots-technical-guide-social.jpg' | absolute_url }}">
+  <meta property="og:image" content="{{ page.image | default: site.seo.default_image | absolute_url }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
 
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="{{ site.seo.twitter_card | default: 'summary_large_image' }}">
@@ -25,7 +27,8 @@
   <meta name="twitter:creator" content="@{{ site.seo.twitter_username }}">
   <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
   <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-  <meta name="twitter:image" content="{{ '/assets/images/rkoots-technical-guide-social.jpg' | absolute_url }}">
+  <meta name="twitter:image" content="{{ page.image | default: site.seo.default_image | absolute_url }}">
+  <meta name="twitter:image:alt" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -49,16 +52,8 @@
   <!-- Structured Data for SEO -->
   {% include structured_data.html %}
 
-  <!-- Analytics -->
-  {% if site.google_analytics %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '{{ site.google_analytics }}');
-    </script>
-  {% endif %}
+  <!-- Analytics (GA4) -->
+  {% include analytics.html %}
 
   <!-- Google Ads -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7927442030711768"
@@ -80,6 +75,9 @@
   <!-- Main Content -->
   <main id="main-content" class="main-content" role="main">
     <div class="container">
+      {% if page.is_post and page.show_toc %}
+        {% include toc.html %}
+      {% endif %}
       {{ content }}
     </div>
   </main>
@@ -105,17 +103,6 @@
   <!-- JavaScript -->
   <script src="{{ '/assets/js/canonical-enforcer.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
-
-  <!-- Analytics -->
-  {% if site.google_analytics %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '{{ site.google_analytics }}');
-    </script>
-  {% endif %}
 
   <style>
     /* Basic styles for functionality */

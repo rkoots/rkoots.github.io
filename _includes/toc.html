@@ -1,0 +1,128 @@
+{% comment %}
+  Auto-generated Table of Contents from page headings.
+  Requires: page.show_toc == true and page.content with ## headings.
+  Usage: {% include toc.html %}
+{% endcomment %}
+{% if page.show_toc %}
+  {% assign headings = page.content | split: '<h' %}
+  {% assign has_headings = false %}
+  {% for heading in headings %}
+    {% assign level = heading | slice: 0 %}
+    {% if level == '2' or level == '3' %}
+      {% assign has_headings = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% if has_headings %}
+  <nav class="toc-nav" id="toc" aria-label="Table of contents">
+    <div class="toc-header">
+      <i class="fas fa-list-ul" aria-hidden="true"></i>
+      <span>Table of Contents</span>
+      <button class="toc-toggle" id="toc-toggle" aria-label="Toggle table of contents" aria-expanded="true">
+        <i class="fas fa-chevron-up"></i>
+      </button>
+    </div>
+    <ol class="toc-list" id="toc-list">
+      {% for heading in headings %}
+        {% assign level = heading | slice: 0 %}
+        {% if level == '2' or level == '3' %}
+          {% assign parts = heading | split: '"' %}
+          {% assign id = parts[1] %}
+          {% assign text_raw = heading | split: '>' | last | split: '</h' | first %}
+          {% assign text = text_raw | strip_html %}
+          {% if level == '2' %}
+          <li class="toc-item toc-h2">
+            <a href="#{{ id }}" class="toc-link">{{ text }}</a>
+          </li>
+          {% elsif level == '3' %}
+          <li class="toc-item toc-h3">
+            <a href="#{{ id }}" class="toc-link">{{ text }}</a>
+          </li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </ol>
+  </nav>
+  <style>
+  .toc-nav {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-left: 4px solid #667eea;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 0 0 32px;
+    font-size: 0.9rem;
+  }
+  .toc-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 12px;
+  }
+  .toc-header i { color: #667eea; }
+  .toc-toggle {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6c757d;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: color 0.2s;
+  }
+  .toc-toggle:hover { color: #667eea; }
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .toc-item { margin-bottom: 6px; }
+  .toc-h3 { padding-left: 16px; }
+  .toc-link {
+    color: #495057;
+    text-decoration: none;
+    transition: color 0.2s;
+    line-height: 1.4;
+  }
+  .toc-link:hover { color: #667eea; text-decoration: underline; }
+  .toc-link.active { color: #667eea; font-weight: 600; }
+  .toc-list.collapsed { display: none; }
+  @media (max-width: 768px) {
+    .toc-nav { font-size: 0.85rem; }
+  }
+  </style>
+  <script>
+  (function() {
+    var toggle = document.getElementById('toc-toggle');
+    var list = document.getElementById('toc-list');
+    if (!toggle || !list) return;
+    toggle.addEventListener('click', function() {
+      var expanded = this.getAttribute('aria-expanded') !== 'false';
+      list.classList.toggle('collapsed', expanded);
+      this.setAttribute('aria-expanded', !expanded);
+      this.querySelector('i').className = expanded ? 'fas fa-chevron-down' : 'fas fa-chevron-up';
+    });
+    // Active link highlighting on scroll
+    var links = document.querySelectorAll('.toc-link');
+    var headingEls = [];
+    links.forEach(function(l) {
+      var id = l.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) headingEls.push({ el: el, link: l });
+    });
+    window.addEventListener('scroll', function() {
+      var scrollY = window.scrollY + 100;
+      var active = null;
+      headingEls.forEach(function(h) {
+        if (h.el.offsetTop <= scrollY) active = h;
+      });
+      links.forEach(function(l) { l.classList.remove('active'); });
+      if (active) active.link.classList.add('active');
+    }, { passive: true });
+  })();
+  </script>
+  {% endif %}
+{% endif %}

@@ -6,26 +6,22 @@
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 {% endif %}
 
-<!-- Canonical URL - Always strip parameters -->
-<link rel="canonical" href="{{ page.url | absolute_url | split: '?' | first }}">
-
-<!-- Alternate URLs for language/region (if needed in future) -->
-<link rel="alternate" hreflang="en" href="{{ page.url | absolute_url | split: '?' | first }}">
-
-<!-- Prevent duplicate content from www/non-www -->
+<!-- Canonical URL -->
 <link rel="canonical" href="{{ page.url | absolute_url | split: '?' | first | replace: 'http://www.', 'https://' | replace: 'http://', 'https://' }}">
 
 <!-- OpenGraph Meta Tags with clean URLs -->
 <meta property="og:url" content="{{ page.url | absolute_url | split: '?' | first }}">
-<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+<meta property="og:type" content="{% if page.is_post %}article{% else %}website{% endif %}">
 <meta property="og:title" content="{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
 <meta property="og:description" content="{% if page.description %}{{ page.description }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 <meta property="og:image" content="{{ page.image | default: site.seo.default_image | absolute_url }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:site_name" content="{{ site.title }}">
 <meta property="og:locale" content="en_US">
 
 <!-- Article specific OpenGraph -->
-{% if page.layout == 'post' %}
+{% if page.is_post %}
 <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
 <meta property="article:modified_time" content="{{ page.last_modified_at | default: page.date | date_to_xmlschema }}">
 <meta property="article:author" content="{{ page.author | default: site.author.name }}">
@@ -48,6 +44,7 @@
 <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
 <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 <meta name="twitter:image" content="{{ page.image | default: site.seo.default_image | absolute_url }}">
+<meta name="twitter:image:alt" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
 
 <!-- Additional SEO Meta Tags -->
 <meta name="author" content="{{ page.author | default: site.author.name }}">
@@ -65,20 +62,8 @@
 <!-- Theme Color -->
 <meta name="theme-color" content="#667eea">
 <meta name="msapplication-navbutton-color" content="#667eea">
-<meta name="apple-mobile-web-app-status-bar-style" content="#667eea">
 
 <!-- Verification Tags (add your verification codes) -->
 <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE"> -->
 <!-- <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE"> -->
 
-<!-- Prevent search engines from indexing parameter URLs via meta tag -->
-<script>
-  // Additional client-side canonical enforcement
-  if (window.location.search) {
-    var cleanURL = window.location.origin + window.location.pathname;
-    var link = document.querySelector('link[rel="canonical"]');
-    if (link) {
-      link.href = cleanURL;
-    }
-  }
-</script>

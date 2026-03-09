@@ -1,18 +1,19 @@
 User-agent: *
 Allow: /
 
-# Block URL parameters that cause duplicate content
-Disallow: /*?src=*
-Disallow: /*?utm_*
-Disallow: /*?ref=*
-Disallow: /*?fbclid=*
-Disallow: /*?gclid=*
+# Block build artifacts and private pages
+Disallow: /_site/
+Disallow: /TechNews-backup/
+Disallow: /contact/read
+Disallow: /personal/read
+Disallow: /iwater/read
 
-# Allow crawling of all canonical pages
-Allow: /blog/
-Allow: /tools/
-Allow: /guide/
-Allow: /insights/
-Allow: /finance/
+# Block duplicate/parameter URLs
+Disallow: /*?*
 
+# Priority pages for crawlers
 Sitemap: https://rkoots.github.io/sitemap.xml
+Sitemap: https://rkoots.github.io/feed.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1

@@ -64,6 +64,8 @@ defaults:
       author: "Rajkumar Venkataraman"
       show_toc: true
       related_posts: true
+      is_post: true
+      show_breadcrumbs: true
   - scope:
       path: ""
       type: "tools"
@@ -89,7 +91,6 @@ categories:
     description: "Development environments, productivity tools, automation scripts, and software reviews"
     color: "#f57c00"
     icon: "fas fa-tools"
-    icon: "fas fa-blog"
   guide:
     name: "Technical Guides"
     description: "Step-by-step tutorials, implementation guides, and comprehensive how-to documentation"
@@ -106,10 +107,10 @@ feed:
   path: feed.xml
   posts_limit: 20
 
-# Sass Configuration - Temporarily disabled
-# sass:
-#   style: compressed
-#   sass_dir: _sass
+# Sass Configuration
+sass:
+  style: compressed
+  sass_dir: _sass
 
 # Exclude from processing
 exclude:

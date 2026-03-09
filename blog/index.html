@@ -11,7 +11,10 @@ keywords: ["Tech blog", "rkoots blog", "engineering blog", "backend tutorials", 
     <p>✍️ Experiences, Experiments & Engineering - Articles straight from the trenches — covering real-world projects, lessons learned, and behind-the-scenes of building technology.</p>
   </div>
 
-  {% assign blog_posts = site.posts | where: "categories", "blog" %}
+  {% assign blog_posts = site.posts | where_exp: "p", "p.categories contains 'blog' or p.category == 'blog'" %}
+  {% if blog_posts.size == 0 %}
+    {% assign blog_posts = site.posts | where_exp: "p", "p.categories contains 'blog'" %}
+  {% endif %}
   {% if blog_posts.size > 0 %}
     <div class="posts-grid">
       {% for post in blog_posts %}
@@ -28,6 +31,12 @@ keywords: ["Tech blog", "rkoots blog", "engineering blog", "backend tutorials", 
                   {{ post.author }}
                 </span>
               {% endif %}
+              {% assign words = post.content | strip_html | number_of_words %}
+              {% assign reading_mins = words | divided_by: 200 | plus: 1 %}
+              <span class="reading-time">
+                <i class="fas fa-clock"></i>
+                {{ reading_mins }} min read
+              </span>
             </div>
             <h2 class="post-title">
               <a href="{{ post.url | relative_url }}">{{ post.title }}</a>

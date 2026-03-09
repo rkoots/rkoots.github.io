@@ -123,37 +123,44 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // Add active class to navigation based on current page
+  // Add active class and aria-current to navigation based on current page
   const currentPath = window.location.pathname;
   const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
   
   navLinks.forEach(link => {
-    const linkPath = new URL(link.href).pathname;
-    if (linkPath === currentPath || (currentPath === '/' && linkPath === '/')) {
-      link.classList.add('active');
-    }
+    try {
+      const linkPath = new URL(link.href).pathname;
+      const isActive = linkPath === currentPath ||
+        (currentPath !== '/' && linkPath !== '/' && currentPath.startsWith(linkPath));
+      if (isActive) {
+        link.classList.add('active');
+        link.setAttribute('aria-current', 'page');
+      }
+    } catch(e) {}
   });
   
-  // Newsletter form submission
+  // Newsletter form submission — redirect to Substack with email pre-filled
   const newsletterForms = document.querySelectorAll('.newsletter-form');
   newsletterForms.forEach(form => {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      const email = this.querySelector('input[type="email"]').value;
-      
-      // Show success message
+      const emailInput = this.querySelector('input[type="email"]');
+      const email = emailInput ? emailInput.value.trim() : '';
+      const base = 'https://rkoots.substack.com/subscribe';
+      const url = email ? base + '?email=' + encodeURIComponent(email) : base;
+      window.open(url, '_blank', 'noopener,noreferrer');
+
       const successMessage = document.createElement('div');
       successMessage.className = 'newsletter-success';
+      successMessage.setAttribute('role', 'status');
       successMessage.innerHTML = `
-        <div style="background: #28a745; color: white; padding: 15px; border-radius: 8px; margin-top: 10px; animation: slideIn 0.3s ease-out;">
-          <i class="fas fa-check-circle"></i> Thank you for subscribing! Check your email for confirmation.
+        <div style="background:#28a745;color:white;padding:12px 16px;border-radius:8px;margin-top:10px;animation:slideIn 0.3s ease-out;display:flex;align-items:center;gap:8px;">
+          <i class="fas fa-check-circle" aria-hidden="true"></i>
+          Opening Substack to complete subscription — check your inbox!
         </div>
       `;
-      
       this.appendChild(successMessage);
-      this.reset();
-      
-      // Remove message after 5 seconds
+      if (emailInput) emailInput.value = '';
       setTimeout(() => {
         successMessage.style.animation = 'slideOut 0.3s ease-out forwards';
         setTimeout(() => successMessage.remove(), 300);
