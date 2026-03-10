@@ -75,11 +75,22 @@
       
       if (!toggle || !list) return;
       
-      // Generate TOC from actual headings in the DOM
+      // Generate TOC from actual article headings in the DOM
       var mainContent = document.querySelector('.main-content');
       if (!mainContent) return;
-      
-      var headings = mainContent.querySelectorAll('h2, h3');
+
+      // Prefer explicit post/article wrappers so we don't accidentally parse TOC/header headings.
+      var contentRoot =
+        mainContent.querySelector('.ccr-post') ||
+        mainContent.querySelector('article') ||
+        mainContent;
+
+      var headings = Array.prototype.filter.call(
+        contentRoot.querySelectorAll('h2, h3'),
+        function(heading) {
+          return !heading.closest('#toc, .toc-nav, nav');
+        }
+      );
       if (headings.length === 0) {
         var tocNav = document.getElementById('toc');
         if (tocNav) tocNav.style.display = 'none';

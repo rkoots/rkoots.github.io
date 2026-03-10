@@ -6,6 +6,7 @@ author: Rajkumar V.
 categories: blog
 tags: [Claude Code, AI, Code Review, Enterprise Architecture, DevOps, SDLC, Microservices]
 description: A deep dive into Claude Code's agent team-based review system: architecture, integration patterns, and scalability benefits for modern engineering organizations.
+excerpt: Multi-agent code review systems scale engineering quality by combining parallel AI specialists, cross-validation, and enterprise SDLC integration patterns.
 image: /blog/images/claude_code_review.png
 show_toc: true
 is_post: true
@@ -999,7 +1000,7 @@ is_post: true
           <p>Typical implementation: $15-25 per review. Organizations set monthly budgets ($500-5000) and configure repository-based prioritization to optimize spend.</p>
         </article>
         <article class="panel">
-          <h3>Success Metrics</h4>
+          <h3>Success Metrics</h3>
           <p>Track PR merge velocity, finding acceptance rates, incident reduction, and developer satisfaction. Establish 30-60-90 day improvement targets.</p>
         </article>
         <article class="panel">
