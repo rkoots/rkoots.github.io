@@ -306,7 +306,7 @@ is_post: true
         </article>
       </div>
 
-      <div style="margin-top:1.6rem;">
+      <div class="u-mt-16">
         <details>
           <summary>Case Study: E-commerce Platform Refactor</summary>
           <p class="insight-body">
@@ -366,7 +366,7 @@ is_post: true
         </div>
       </div>
 
-      <div class="story-grid" style="margin-top:1.6rem;">
+      <div class="story-grid u-mt-16">
         <article class="panel">
           <h3>Custom Rule Engine</h3>
           <p>Organizations define custom rules for specific architectural requirements. Machine learning adapts rules based on accepted patterns and rejected suggestions over time.</p>
@@ -412,7 +412,7 @@ is_post: true
         </article>
       </div>
 
-      <div style="margin-top:1.6rem;">
+      <div class="u-mt-16">
         <details>
           <summary>Learning Organization Impact</summary>
           <p class="insight-body">
@@ -477,7 +477,7 @@ is_post: true
         </div>
       </div>
 
-      <div class="story-grid" style="margin-top:1.6rem;">
+      <div class="story-grid u-mt-16">
         <article class="panel">
           <h3>Cost Management</h3>
           <p>Typical implementation: $15–25 per review. Organizations set monthly budgets ($500–5,000) and configure repository-based prioritization to optimize spend against risk exposure.</p>
@@ -496,7 +496,7 @@ is_post: true
         </article>
       </div>
 
-      <div style="margin-top:1.6rem;">
+      <div class="u-mt-16">
         <details>
           <summary>Change Management Considerations</summary>
           <p class="insight-body">
