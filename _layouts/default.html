@@ -44,6 +44,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/blog-system.css' | relative_url }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- RSS Feed -->
@@ -77,7 +78,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
      crossorigin="anonymous"></script>
 </head>
 
-<body class="{{ page.layout | default: 'default' }}-layout {{ page.category | default: 'default' }}-category">
+{% assign is_blog_page = false %}
+{% if page.categories contains 'blog' %}
+  {% assign is_blog_page = true %}
+{% elsif page.category == 'blog' %}
+  {% assign is_blog_page = true %}
+{% elsif page.url contains '/blog/' %}
+  {% assign is_blog_page = true %}
+{% endif %}
+
+<body class="{{ page.layout | default: 'default' }}-layout {{ page.category | default: 'default' }}-category{% if is_blog_page %} blog-system{% endif %}">
   <!-- Skip to main content for accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -95,7 +105,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       {% if page.is_post and page.show_toc %}
         {% include toc.html %}
       {% endif %}
-      {{ content }}
+      {% if is_blog_page and page.collection == 'posts' %}
+        <div class="blog-prose">
+          {{ content }}
+        </div>
+      {% else %}
+        {{ content }}
+      {% endif %}
     </div>
   </main>
 
