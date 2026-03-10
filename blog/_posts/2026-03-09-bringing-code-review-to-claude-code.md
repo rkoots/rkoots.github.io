@@ -1037,6 +1037,7 @@ is_post: true
   </div>
 </article>
 
+{% raw %}
 <script>
   (() => {
     const root = document.querySelector('.ccr-post');
@@ -1102,3 +1103,4 @@ is_post: true
     window.addEventListener('scroll', onScroll, { passive: true });
   })();
 </script>
+{% endraw %}
