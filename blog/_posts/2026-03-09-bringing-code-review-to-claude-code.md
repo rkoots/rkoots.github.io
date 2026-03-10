@@ -35,6 +35,10 @@ is_post: true
       radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.12), transparent 45%),
       radial-gradient(circle at 90% 5%, rgba(13, 148, 136, 0.12), transparent 40%),
       var(--bg);
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
     padding-bottom: 5rem;
     overflow-x: clip;
   }
@@ -77,7 +81,7 @@ is_post: true
   }
 
   .ccr-post .post-shell {
-    width: min(1120px, 92vw);
+    width: min(1120px, calc(100% - 2rem));
     margin: 0 auto;
   }
 
@@ -95,7 +99,7 @@ is_post: true
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    width: min(1120px, 92vw);
+    width: min(1120px, calc(100% - 2rem));
     margin: 0 auto;
     padding: 0.8rem 0;
   }
