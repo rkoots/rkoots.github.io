@@ -8,6 +8,7 @@ tags: [Claude Code, AI, Code Review, Enterprise Architecture, DevOps, SDLC, Micr
 description: "A deep dive into Claude Code's agent team-based review system: architecture, integration patterns, and scalability benefits for modern engineering organizations."
 excerpt: Multi-agent code review systems scale engineering quality by combining parallel AI specialists, cross-validation, and enterprise SDLC integration patterns.
 image: /blog/images/claude_code_review.png
+linkedin_post: https://www.linkedin.com/posts/rkoots_claudecode-codereview-ai-activity-7437008264732758016-Rm6M?utm_source=share&utm_medium=member_desktop&rcm=ACoAACImIIAB6s16Z0TBsxdB64-CBHk4hlNorZE
 show_toc: false
 is_post: true
 ---
@@ -104,7 +105,8 @@ is_post: true
     font-size: 0.84rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--text);
+    font-weight: 600;
   }
 
   .ccr-post .nav-links {
@@ -112,6 +114,8 @@ is_post: true
     gap: 0.35rem;
     overflow-x: auto;
     scrollbar-width: none;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .ccr-post .nav-links::-webkit-scrollbar {
@@ -119,14 +123,16 @@ is_post: true
   }
 
   .ccr-post .nav-link {
-    color: var(--muted);
+    color: var(--text);
     text-decoration: none;
-    font-size: 0.86rem;
-    font-weight: 700;
+    font-size: 0.82rem;
+    font-weight: 600;
     white-space: nowrap;
-    padding: 0.45rem 0.7rem;
+    padding: 0.4rem 0.65rem;
     border-radius: 999px;
     transition: all 0.25s ease;
+    border: 1px solid var(--border);
+    background: var(--surface-strong);
   }
 
   .ccr-post .nav-link:hover,
