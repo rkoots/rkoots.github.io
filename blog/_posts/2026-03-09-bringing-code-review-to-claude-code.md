@@ -619,19 +619,23 @@ is_post: true
         code output grows exponentially. This creates systemic risk in distributed systems where quality assurance 
         becomes the bottleneck to innovation velocity.
       </p>
-      
-      <div class="metric-grid">
+
+      <div class="story-grid">
         <article class="panel">
           <h3>Pre-AI Review Coverage</h3>
-          <p>Only 16% of PRs received substantive analysis. Critical paths in microservices architectures went under-reviewed, creating hidden failure modes.</p>
+          <p>Only 16% of PRs received substantive analysis. Critical paths in microservices architectures went under-reviewed, creating hidden failure modes that surface only in production.</p>
         </article>
         <article class="panel">
           <h3>Post-AI Review Coverage</h3>
-          <p>54% of PRs now receive deep analysis. Large-scale distributed systems gain comprehensive coverage across service boundaries and dependency chains.</p>
+          <p>54% of PRs now receive deep analysis. Large-scale distributed systems gain comprehensive coverage across service boundaries and dependency chains that human reviewers cannot fully trace.</p>
         </article>
         <article class="panel">
           <h3>Throughput Impact</h3>
-          <p>Engineering teams report 40% faster merge cycles while maintaining or improving quality metrics. Review queues no longer block deployment pipelines.</p>
+          <p>Engineering teams report 40% faster merge cycles while maintaining or improving quality metrics. Review queues no longer block deployment pipelines or create sprint bottlenecks.</p>
+        </article>
+        <article class="panel">
+          <h3>Headcount Efficiency</h3>
+          <p>Organizations absorb 200% YoY code growth without proportional senior engineer hiring. Multi-agent elasticity replaces the need for 3–4x reviewer headcount to maintain coverage.</p>
         </article>
       </div>
 
@@ -639,9 +643,17 @@ is_post: true
         <details>
           <summary>Technical Deep Dive: Review Capacity Economics</summary>
           <p class="insight-body">
-            Human reviewers typically handle 15-20 PRs per week with meaningful depth. At 200% YoY code growth, 
-            organizations need 3-4x more senior engineers just to maintain coverage. Multi-agent systems provide 
+            Human reviewers typically handle 15–20 PRs per week with meaningful depth. At 200% YoY code growth, 
+            organizations need 3–4x more senior engineers just to maintain coverage. Multi-agent systems provide 
             elastic scaling: PR complexity drives resource allocation rather than headcount constraints.
+          </p>
+        </details>
+        <details>
+          <summary>The Hidden Cost of Under-Review</summary>
+          <p class="insight-body">
+            Industry data shows that defects escaping to production cost 10–100x more to remediate than those 
+            caught at review. At scale, under-reviewed PRs compound this risk: each undetected issue increases 
+            architectural debt, raises incident probability, and narrows the window for safe refactoring.
           </p>
         </details>
       </div>
@@ -757,6 +769,10 @@ is_post: true
         <article class="panel">
           <h3>Quality Standardization</h3>
           <p>Consistent application of organizational coding standards across teams and repositories, eliminating quality variations between different engineering groups.</p>
+        </article>
+        <article class="panel">
+          <h3>Continuous Feedback Loop</h3>
+          <p>Accepted and rejected AI findings feed back into the system, continuously refining agent accuracy to reflect each organization's specific codebase and standards over time.</p>
         </article>
       </div>
     </section>
@@ -896,15 +912,19 @@ is_post: true
       <div class="story-grid" style="margin-top:1.6rem;">
         <article class="panel">
           <h3>Custom Rule Engine</h3>
-          <p>Organizations define custom rules for specific architectural requirements. Machine learning adapts rules based on accepted patterns and rejected suggestions.</p>
+          <p>Organizations define custom rules for specific architectural requirements. Machine learning adapts rules based on accepted patterns and rejected suggestions over time.</p>
         </article>
         <article class="panel">
           <h3>Governance Dashboard</h3>
-          <p>Centralized view of architectural health across repositories. Trend analysis shows improvement or degradation of code quality over time.</p>
+          <p>Centralized view of architectural health across repositories. Trend analysis shows improvement or degradation of code quality and standards adherence over time.</p>
         </article>
         <article class="panel">
           <h3>Team Autonomy</h3>
-          <p>Balances organizational standards with team autonomy. Teams can override rules with justification, creating feedback loops for governance evolution.</p>
+          <p>Balances organizational standards with team autonomy. Teams can override rules with documented justification, creating transparent feedback loops for governance evolution.</p>
+        </article>
+        <article class="panel">
+          <h3>Audit Trail and Reporting</h3>
+          <p>Every governance decision is logged with timestamps, agent reasoning, and reviewer disposition. Provides immutable audit trails for compliance and post-incident analysis.</p>
         </article>
       </div>
     </section>
@@ -916,22 +936,22 @@ is_post: true
         and build collective expertise. The system acts as a force multiplier for senior engineering experience.
       </p>
 
-      <div class="metric-grid">
+      <div class="story-grid">
         <article class="panel">
           <h3>Review Throughput</h3>
-          <p>Engineering teams report 40% faster PR merge cycles. Senior engineers focus on architectural decisions rather than routine code analysis.</p>
+          <p>Engineering teams report 40% faster PR merge cycles. Senior engineers redirect focus to architectural decisions rather than routine code analysis and surface-level feedback.</p>
         </article>
         <article class="panel">
           <h3>Knowledge Distribution</h3>
-          <p>Best practices spread 3x faster across teams. Junior developers receive detailed explanations that build institutional knowledge.</p>
+          <p>Best practices spread 3x faster across teams. Junior developers receive detailed, contextual explanations that build institutional knowledge and accelerate technical growth.</p>
         </article>
         <article class="panel">
           <h3>Onboarding Acceleration</h3>
-          <p>New team members reach productivity 50% faster. AI explanations provide context about codebase patterns and architectural decisions.</p>
+          <p>New team members reach productivity 50% faster. AI explanations provide rich context about codebase patterns, architectural decisions, and unwritten team conventions.</p>
         </article>
         <article class="panel">
           <h3>Meeting Reduction</h3>
-          <p>Code review meetings decrease by 60%. Asynchronous detailed feedback reduces need for synchronous discussion cycles.</p>
+          <p>Code review meetings decrease by 60%. Asynchronous, detailed AI feedback reduces the need for synchronous discussion cycles and clarification back-and-forth.</p>
         </article>
       </div>
 
@@ -1003,15 +1023,19 @@ is_post: true
       <div class="story-grid" style="margin-top:1.6rem;">
         <article class="panel">
           <h3>Cost Management</h3>
-          <p>Typical implementation: $15-25 per review. Organizations set monthly budgets ($500-5000) and configure repository-based prioritization to optimize spend.</p>
+          <p>Typical implementation: $15–25 per review. Organizations set monthly budgets ($500–5,000) and configure repository-based prioritization to optimize spend against risk exposure.</p>
         </article>
         <article class="panel">
           <h3>Success Metrics</h3>
-          <p>Track PR merge velocity, finding acceptance rates, incident reduction, and developer satisfaction. Establish 30-60-90 day improvement targets.</p>
+          <p>Track PR merge velocity, finding acceptance rates, incident reduction, and developer satisfaction. Establish 30-60-90 day improvement targets with stakeholder-visible dashboards.</p>
         </article>
         <article class="panel">
           <h3>Risk Mitigation</h3>
-          <p>Implement gradual rollout with fallback mechanisms. Maintain human review for critical security changes while building confidence in AI recommendations.</p>
+          <p>Implement gradual rollout with fallback mechanisms. Maintain human review for critical security changes while building organizational confidence in AI recommendations.</p>
+        </article>
+        <article class="panel">
+          <h3>Enterprise Support</h3>
+          <p>Dedicated onboarding, SLA-backed availability, and custom integration assistance for Team and Enterprise plans. Security reviews and data handling agreements available on request.</p>
         </article>
       </div>
 
