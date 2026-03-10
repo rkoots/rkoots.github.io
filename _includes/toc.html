@@ -1,20 +1,8 @@
 {% comment %}
-  Auto-generated Table of Contents from page headings.
-  Requires: page.show_toc == true and page.content with ## headings.
-  Usage: {% include toc.html %}
+  Improved Table of Contents that works with Jekyll's processed HTML.
+  Uses Jekyll's built-in heading IDs and processed content.
 {% endcomment %}
 {% if page.show_toc %}
-  {% assign headings = page.content | split: '<h' %}
-  {% assign has_headings = false %}
-  {% for heading in headings %}
-    {% assign level = heading | slice: 0 %}
-    {% if level == '2' or level == '3' %}
-      {% assign has_headings = true %}
-      {% break %}
-    {% endif %}
-  {% endfor %}
-
-  {% if has_headings %}
   <nav class="toc-nav" id="toc" aria-label="Table of contents">
     <div class="toc-header">
       <i class="fas fa-list-ul" aria-hidden="true"></i>
@@ -24,26 +12,10 @@
       </button>
     </div>
     <ol class="toc-list" id="toc-list">
-      {% for heading in headings %}
-        {% assign level = heading | slice: 0 %}
-        {% if level == '2' or level == '3' %}
-          {% assign parts = heading | split: '"' %}
-          {% assign id = parts[1] %}
-          {% assign text_raw = heading | split: '>' | last | split: '</h' | first %}
-          {% assign text = text_raw | strip_html %}
-          {% if level == '2' %}
-          <li class="toc-item toc-h2">
-            <a href="#{{ id }}" class="toc-link">{{ text }}</a>
-          </li>
-          {% elsif level == '3' %}
-          <li class="toc-item toc-h3">
-            <a href="#{{ id }}" class="toc-link">{{ text }}</a>
-          </li>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
+      <!-- TOC items will be populated by JavaScript -->
     </ol>
   </nav>
+  
   <style>
   .toc-nav {
     background: #f8f9fa;
@@ -94,35 +66,83 @@
     .toc-nav { font-size: 0.85rem; }
   }
   </style>
+  
   <script>
   (function() {
-    var toggle = document.getElementById('toc-toggle');
-    var list = document.getElementById('toc-list');
-    if (!toggle || !list) return;
-    toggle.addEventListener('click', function() {
-      var expanded = this.getAttribute('aria-expanded') !== 'false';
-      list.classList.toggle('collapsed', expanded);
-      this.setAttribute('aria-expanded', !expanded);
-      this.querySelector('i').className = expanded ? 'fas fa-chevron-down' : 'fas fa-chevron-up';
-    });
-    // Active link highlighting on scroll
-    var links = document.querySelectorAll('.toc-link');
-    var headingEls = [];
-    links.forEach(function(l) {
-      var id = l.getAttribute('href').slice(1);
-      var el = document.getElementById(id);
-      if (el) headingEls.push({ el: el, link: l });
-    });
-    window.addEventListener('scroll', function() {
-      var scrollY = window.scrollY + 100;
-      var active = null;
-      headingEls.forEach(function(h) {
-        if (h.el.offsetTop <= scrollY) active = h;
+    document.addEventListener('DOMContentLoaded', function() {
+      var toggle = document.getElementById('toc-toggle');
+      var list = document.getElementById('toc-list');
+      
+      if (!toggle || !list) return;
+      
+      // Generate TOC from actual headings in the DOM
+      var mainContent = document.querySelector('.main-content');
+      if (!mainContent) return;
+      
+      var headings = mainContent.querySelectorAll('h2, h3');
+      if (headings.length === 0) {
+        var tocNav = document.getElementById('toc');
+        if (tocNav) tocNav.style.display = 'none';
+        return;
+      }
+      
+      var tocFragment = document.createDocumentFragment();
+      headings.forEach(function(heading, index) {
+        // Ensure heading has an ID
+        if (!heading.id) {
+          var text = heading.textContent.trim();
+          var id = text.toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim('-');
+          heading.id = id || 'heading-' + index;
+        }
+        
+        var li = document.createElement('li');
+        li.className = 'toc-item toc-' + heading.tagName.toLowerCase();
+        
+        var a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.className = 'toc-link';
+        a.textContent = heading.textContent.trim();
+        
+        li.appendChild(a);
+        tocFragment.appendChild(li);
       });
-      links.forEach(function(l) { l.classList.remove('active'); });
-      if (active) active.link.classList.add('active');
-    }, { passive: true });
+      
+      list.appendChild(tocFragment);
+      
+      // Toggle functionality
+      toggle.addEventListener('click', function() {
+        var expanded = this.getAttribute('aria-expanded') !== 'false';
+        list.classList.toggle('collapsed', expanded);
+        this.setAttribute('aria-expanded', !expanded);
+        this.querySelector('i').className = expanded ? 'fas fa-chevron-down' : 'fas fa-chevron-up';
+      });
+      
+      // Active link highlighting on scroll
+      var links = document.querySelectorAll('.toc-link');
+      var headingEls = [];
+      links.forEach(function(l) {
+        var id = l.getAttribute('href').slice(1);
+        var el = document.getElementById(id);
+        if (el) headingEls.push({ el: el, link: l });
+      });
+      
+      function updateActiveLink() {
+        var scrollY = window.scrollY + 100;
+        var active = null;
+        headingEls.forEach(function(h) {
+          if (h.el.offsetTop <= scrollY) active = h;
+        });
+        links.forEach(function(l) { l.classList.remove('active'); });
+        if (active) active.link.classList.add('active');
+      }
+      
+      window.addEventListener('scroll', updateActiveLink, { passive: true });
+      updateActiveLink(); // Initial call
+    });
   })();
   </script>
-  {% endif %}
 {% endif %}

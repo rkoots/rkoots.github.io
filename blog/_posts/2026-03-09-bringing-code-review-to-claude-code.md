@@ -7,122 +7,788 @@ categories: blog
 tags: [Claude Code, AI, Code Review, Product Development, Anthropic]
 description: Claude Code introduces a thorough, agent team-based review system modeled on the one we run at Anthropic. Available in research preview for Team and Enterprise plans.
 image: /blog/images/claude_code_review.png
-show_toc: true
+show_toc: false
 is_post: true
 ---
 
-## Overview
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
-Bringing Code Review to Claude Code represents a significant advancement in AI-powered development tools, addressing the growing bottleneck in code review processes as engineering productivity scales. This post explores the new multi-agent review system that brings Anthropic's internal review practices to external development teams.
+<style>
+  .ccr-post {
+    --bg: #f2f6fb;
+    --surface: rgba(255, 255, 255, 0.86);
+    --surface-strong: #ffffff;
+    --text: #0b1220;
+    --muted: #4c5a75;
+    --primary: #0d9488;
+    --secondary: #2563eb;
+    --accent: #f59e0b;
+    --border: rgba(15, 23, 42, 0.12);
+    --shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+    font-family: "Manrope", sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.12), transparent 45%),
+      radial-gradient(circle at 90% 5%, rgba(13, 148, 136, 0.12), transparent 40%),
+      var(--bg);
+    padding-bottom: 5rem;
+    overflow-x: clip;
+  }
 
-# Bringing Code Review to Claude Code
+  @media (prefers-color-scheme: dark) {
+    .ccr-post {
+      --bg: #060b15;
+      --surface: rgba(14, 23, 40, 0.78);
+      --surface-strong: #0e1728;
+      --text: #e8edf8;
+      --muted: #a0aec6;
+      --primary: #2dd4bf;
+      --secondary: #60a5fa;
+      --accent: #fbbf24;
+      --border: rgba(148, 163, 184, 0.24);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+    }
+  }
 
-![Claude Code Review System](/blog/images/claude_code_review.png)
+  .ccr-post * {
+    box-sizing: border-box;
+  }
 
-![Multi-Agent Code Review Architecture](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1200&h=600&fit=crop&crop=entropy&auto=format&q=80)
+  .ccr-post .progress-track {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(148, 163, 184, 0.22);
+    z-index: 120;
+  }
 
-## Introduction
+  .ccr-post .progress-track span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+    transition: width 0.14s linear;
+  }
 
-Today we're introducing Code Review, which dispatches a team of agents on every PR to catch the bugs that skims miss, built for depth, not speed. It's the system we run on nearly every PR at Anthropic. Now in research preview for Team and Enterprise.
+  .ccr-post .post-shell {
+    width: min(1120px, 92vw);
+    margin: 0 auto;
+  }
 
-## Managing the Review Bottleneck
+  .ccr-post .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
 
-Code output per Anthropic engineer has grown 200% in the last year. Code review has become a bottleneck, and we hear the same from customers every week. They tell us developers are stretched thin, and many PRs get skims rather than deep reads.
+  .ccr-post .top-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: min(1120px, 92vw);
+    margin: 0 auto;
+    padding: 0.8rem 0;
+  }
 
-We needed a reviewer we could trust on every PR. Code Review is the result: deep, multi-agent reviews that catch bugs human reviewers often miss themselves. It's a more thorough (and more expensive) option than our existing Claude Code GitHub Action, which remains open source and available.
+  .ccr-post .brand {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.84rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
 
-### Impact at Anthropic
+  .ccr-post .nav-links {
+    display: flex;
+    gap: 0.35rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
 
-We run Code Review on nearly every PR at Anthropic. Before, 16% of PRs got substantive review comments. Now 54% do. It won't approve PRs — that's still a human call — but it closes the gap so reviewers can actually cover what's shipping.
+  .ccr-post .nav-links::-webkit-scrollbar {
+    display: none;
+  }
 
-## How It Works
+  .ccr-post .nav-link {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.86rem;
+    font-weight: 700;
+    white-space: nowrap;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    transition: all 0.25s ease;
+  }
 
-When a PR is opened, Code Review dispatches a team of agents. The agents look for bugs in parallel, verify bugs to filter out false positives, and rank bugs by severity. The result lands on the PR as a single high-signal overview comment, plus in-line comments for specific bugs.
+  .ccr-post .nav-link:hover,
+  .ccr-post .nav-link:focus-visible,
+  .ccr-post .nav-link.is-active {
+    color: var(--text);
+    background: color-mix(in srgb, var(--secondary) 15%, var(--surface-strong));
+    outline: none;
+  }
 
-### Scalable Reviews
+  .ccr-post .hero {
+    position: relative;
+    margin-top: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    isolation: isolate;
+  }
 
-Reviews scale with the PR. Large or complex changes get more agents and a deeper read; trivial ones get a lightweight pass. Based on our testing, the average review takes around 20 minutes.
+  .ccr-post .hero::before {
+    content: "";
+    position: absolute;
+    inset: -15% -10%;
+    background: conic-gradient(from 210deg, rgba(13, 148, 136, 0.25), rgba(37, 99, 235, 0.3), rgba(245, 158, 11, 0.18), rgba(13, 148, 136, 0.25));
+    filter: blur(42px);
+    animation: ccr-gradient-spin 14s linear infinite;
+    z-index: -2;
+  }
 
-## Code Review in Action
+  .ccr-post .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(130deg, rgba(255, 255, 255, 0.55), transparent 48%);
+    z-index: -1;
+    pointer-events: none;
+  }
 
-We've been running Code Review internally for months: on large PRs (over 1,000 lines changed), 84% get findings, averaging 7.5 issues. On small PRs under 50 lines, that drops to 31%, averaging 0.5 issues. Engineers largely agree with what it surfaces: less than 1% of findings are marked incorrect.
+  @media (prefers-color-scheme: dark) {
+    .ccr-post .hero::after {
+      background: linear-gradient(130deg, rgba(6, 11, 21, 0.45), transparent 48%);
+    }
+  }
 
-### Real-World Impact
+  .ccr-post .hero-grid {
+    display: grid;
+    gap: 1.4rem;
+    padding: 2.2rem 1.2rem;
+  }
 
-In one case, a one-line change to a production service looked routine and was the kind of diff that normally gets a quick approval. But Code Review flagged it as critical. The change would have broken authentication for the service, a failure mode that's easy to read past in the diff but obvious once pointed out. It was fixed before merge, and the engineer shared afterwards that they wouldn't have caught it on their own.
+  .ccr-post .eyebrow {
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+    color: var(--secondary);
+    margin-bottom: 0.75rem;
+  }
 
-### Customer Success
+  .ccr-post h1 {
+    margin: 0;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(1.8rem, 5.8vw, 3.4rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
 
-Early access customers have seen similar patterns. On a ZFS encryption refactor in TrueNAS's open-source middleware, Code Review surfaced a pre-existing bug in adjacent code: a type mismatch that was silently wiping the encryption key cache on every sync. It was a latent issue in code the PR happened to touch, the kind of thing a human reviewer scanning the changeset wouldn't immediately go looking for.
+  .ccr-post .headline-glow {
+    background: linear-gradient(95deg, var(--secondary), var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: ccr-headline-shift 5.2s ease-in-out infinite;
+  }
 
-## Cost and Control
+  .ccr-post .hero-copy {
+    font-size: 1rem;
+    line-height: 1.72;
+    color: var(--muted);
+    max-width: 64ch;
+  }
 
-Code Review optimizes for depth and is more expensive than lighter-weight solutions like the Claude Code GitHub Action. Reviews are billed on token usage and generally average $15–25, scaling with PR size and complexity. 
+  .ccr-post .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.2rem;
+  }
 
-### Administrative Controls
+  .ccr-post .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0.7rem 1rem;
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
 
-Admins have many ways to control spend and usage:
+  .ccr-post .btn-primary {
+    color: #fff;
+    background: linear-gradient(120deg, var(--secondary), var(--primary));
+    box-shadow: 0 10px 26px rgba(37, 99, 235, 0.35);
+  }
 
-- **Monthly organization caps**: Define total monthly spend across all reviews
-- **Repository-level control**: Enable reviews only on the repositories you choose
-- **Analytics dashboard**: Track PRs reviewed, acceptance rate, and total review review costs
+  .ccr-post .btn-secondary {
+    color: var(--text);
+    border: 1px solid var(--border);
+    background: var(--surface-strong);
+  }
 
-## Getting Started
+  .ccr-post .btn:hover,
+  .ccr-post .btn:focus-visible {
+    transform: translateY(-2px) scale(1.01);
+    outline: none;
+  }
 
-Code Review is available now as a research preview in beta for Team and Enterprise plans. 
+  .ccr-post .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
 
-### For Admins
+  .ccr-post .stat {
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
+    border-radius: 14px;
+    padding: 0.8rem;
+    text-align: center;
+    transition: transform 0.25s ease;
+  }
 
-Enable Code Review in your Claude Code settings, install the GitHub App, and select repositories you'd like to run reviews on.
+  .ccr-post .stat:hover {
+    transform: translateY(-4px);
+  }
 
-### For Developers
+  .ccr-post .stat-value {
+    display: block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(1.1rem, 4vw, 1.8rem);
+  }
 
-Once enabled, reviews run automatically on new PRs. No configuration needed.
+  .ccr-post .stat-label {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
 
-Explore the docs for more information.
+  .ccr-post .section {
+    margin-top: clamp(2.2rem, 6vw, 4.2rem);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+    padding: clamp(1.3rem, 4vw, 2.4rem);
+    transform: translateY(32px);
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(.22,.68,.16,.99), opacity 0.8s ease;
+  }
 
-## Conclusion
+  .ccr-post .section.in-view {
+    transform: translateY(0);
+    opacity: 1;
+  }
 
-Code Review represents a fundamental shift in how development teams can approach quality assurance at scale. By bringing Anthropic's internal multi-agent review system to external teams, we're addressing the critical bottleneck that emerges as engineering productivity grows. While it represents a more substantial investment than lightweight solutions, the depth of review and bug prevention capabilities offer compelling value for teams that prioritize code quality and reliability.
+  .ccr-post h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(1.35rem, 4vw, 2rem);
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+  }
 
-*Published on 2026-03-09 10:32 UTC*
+  .ccr-post .lead {
+    color: var(--muted);
+    margin-top: 0;
+    line-height: 1.75;
+  }
 
-## In This Article
+  .ccr-post .metric-grid,
+  .ccr-post .story-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    margin-top: 1.4rem;
+  }
 
-- Overview of Claude Code's new multi-agent review system
-- The growing code review bottleneck in modern development
-- How the agent team-based system works
-- Real-world impact and customer success stories
-- Cost structure and administrative controls
-- Getting started guide for teams and enterprises
+  .ccr-post .panel {
+    border-radius: 16px;
+    padding: 1rem;
+    background: color-mix(in srgb, var(--surface-strong) 85%, transparent);
+    border: 1px solid var(--border);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
 
-## Why This Topic Matters
+  .ccr-post .panel:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--secondary) 40%, var(--border));
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+  }
 
-As engineering teams scale and code output increases exponentially, traditional code review processes become unsustainable. AI-powered multi-agent review systems represent the next evolution in development tooling, offering depth and consistency that human reviewers struggle to maintain at scale.
+  .ccr-post .panel h3 {
+    margin: 0 0 0.45rem;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1rem;
+  }
 
-## Key Takeaways
+  .ccr-post .panel p {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--muted);
+  }
 
-- Code Review uses a multi-agent system to provide thorough, depth-focused analysis rather than quick scans
-- The system has increased substantive review coverage from 16% to 54% at Anthropic
-- Large PRs (1000+ lines) see 84% review coverage with 7.5 average issues found
-- The system costs $15-25 per review but offers significant bug prevention value
-- Available now in research preview for Team and Enterprise plans
+  .ccr-post .diagram {
+    margin-top: 1.6rem;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    padding: 1rem;
+    background: linear-gradient(145deg, color-mix(in srgb, var(--surface-strong) 75%, transparent), transparent 68%);
+  }
 
-## Practical Example and Reader Context
+  .ccr-post .diagram-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+    align-items: center;
+  }
 
-Consider a fast-growing startup where engineering output has tripled in six months. The senior developers who used to carefully review every PR are now overwhelmed, leading to rubber-stamp approvals. Code Review acts as a force multiplier, providing consistent, thorough analysis on every PR while humans focus on architectural decisions and final approval.
+  .ccr-post .node {
+    position: relative;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--surface-strong);
+    padding: 0.8rem;
+    text-align: center;
+    overflow: hidden;
+  }
 
-## Visual Suggestion
+  .ccr-post .node::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent, color-mix(in srgb, var(--secondary) 18%, transparent), transparent);
+    transform: translateX(-110%);
+    animation: ccr-scan 4.8s ease-in-out infinite;
+  }
 
-![Multi-Agent Code Review System in Action](https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop&crop=entropy&auto=format&q=80)
+  .ccr-post .node strong {
+    display: block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.96rem;
+  }
 
-*Figure: Multi-agent code review system showing parallel analysis, bug verification, and severity ranking processes.*
+  .ccr-post .node span {
+    color: var(--muted);
+    font-size: 0.86rem;
+  }
 
-> **Alt text:** Multi-agent code review system showing parallel analysis, bug verification, and severity ranking processes.
-> **Caption:** The multi-agent review system that powers Claude Code's thorough code analysis.
+  .ccr-post .connector {
+    width: 2px;
+    height: 24px;
+    margin: 0 auto;
+    background: linear-gradient(var(--secondary), transparent);
+  }
 
-## Further Reading and Related Resources
+  .ccr-post details {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 0.9rem 1rem;
+    background: color-mix(in srgb, var(--surface-strong) 88%, transparent);
+  }
 
-- **Related post:** [AI Code Generation Tools Comparison](/blog/2026/03/03/ai-code-generation-tools-comparison-03-mar-2026/)
-- **Related post:** [Developer Productivity Tools Powered by AI](/blog/2026/03/06/developer-productivity-tools-powered-by-ai-latest-updates-1772765212/)
-- **Authoritative reference:** [Claude Code Documentation](https://docs.anthropic.com/claude-code)
+  .ccr-post details + details {
+    margin-top: 0.8rem;
+  }
+
+  .ccr-post summary {
+    cursor: pointer;
+    font-weight: 800;
+    list-style: none;
+    position: relative;
+    padding-right: 1.2rem;
+  }
+
+  .ccr-post summary::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .ccr-post details[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .ccr-post summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .ccr-post .insight-body {
+    margin-top: 0.7rem;
+    color: var(--muted);
+    line-height: 1.68;
+  }
+
+  .ccr-post .timeline {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .ccr-post .step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.8rem;
+    align-items: start;
+    padding: 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--surface-strong) 86%, transparent);
+  }
+
+  .ccr-post .step-index {
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: linear-gradient(130deg, var(--secondary), var(--primary));
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+  }
+
+  .ccr-post .step h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-family: "Space Grotesk", sans-serif;
+  }
+
+  .ccr-post .step p {
+    margin: 0.3rem 0 0;
+    color: var(--muted);
+    line-height: 1.63;
+  }
+
+  .ccr-post .floating-card {
+    transform: translateY(var(--parallax, 0));
+    transition: transform 0.2s linear;
+  }
+
+  .ccr-post .footer-note {
+    margin-top: 2.2rem;
+    color: var(--muted);
+    text-align: center;
+    font-size: 0.84rem;
+  }
+
+  @media (min-width: 760px) {
+    .ccr-post .hero-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      padding: 2.6rem;
+      gap: 1.7rem;
+      align-items: center;
+    }
+
+    .ccr-post .metric-grid,
+    .ccr-post .story-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ccr-post .diagram-stage {
+      grid-template-columns: repeat(7, auto);
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .ccr-post .connector {
+      width: 42px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--secondary), transparent);
+    }
+  }
+
+  @keyframes ccr-gradient-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes ccr-headline-shift {
+    0%, 100% { background-position: 0 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes ccr-scan {
+    0%, 25% { transform: translateX(-110%); }
+    65%, 100% { transform: translateX(110%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ccr-post *,
+    .ccr-post *::before,
+    .ccr-post *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+
+    .ccr-post .section {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<article class="ccr-post" id="top">
+  <div class="progress-track" aria-hidden="true"><span id="scroll-progress"></span></div>
+
+  <nav class="top-nav" aria-label="Post sections">
+    <div class="top-nav-inner">
+      <span class="brand">Claude Code Review</span>
+      <div class="nav-links">
+        <a class="nav-link" href="#overview">Overview</a>
+        <a class="nav-link" href="#bottleneck">Bottleneck</a>
+        <a class="nav-link" href="#architecture">Architecture</a>
+        <a class="nav-link" href="#impact">Impact</a>
+        <a class="nav-link" href="#economics">Economics</a>
+        <a class="nav-link" href="#launch">Launch</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="post-shell">
+    <header class="hero" id="overview" data-section>
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Research Preview • Team + Enterprise</p>
+          <h1>
+            Bringing Code Review to <span class="headline-glow">Claude Code</span>
+          </h1>
+          <p class="hero-copy">
+            Anthropic is productizing its own high-rigor review workflow: a coordinated team of AI reviewers
+            that reads pull requests in parallel, verifies findings, and delivers prioritized feedback that
+            helps engineering teams ship faster without reducing quality.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#architecture">Explore the system</a>
+            <a class="btn btn-secondary" href="https://docs.anthropic.com/claude-code">Read docs</a>
+          </div>
+        </div>
+
+        <aside class="hero-stats floating-card" aria-label="Key impact metrics">
+          <div class="stat">
+            <span class="stat-value">54%</span>
+            <span class="stat-label">PRs with substantive comments</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">84%</span>
+            <span class="stat-label">Large PRs with findings</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">&lt;1%</span>
+            <span class="stat-label">Findings marked incorrect</span>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <section class="section" id="bottleneck" data-section>
+      <h2>The Review Bottleneck Is Now a Leadership Risk</h2>
+      <p class="lead">
+        Code output per Anthropic engineer has grown roughly 200% year-over-year. That productivity jump is
+        powerful, but it pressures review capacity and introduces risk when teams rely on skim-level feedback.
+      </p>
+      <div class="metric-grid">
+        <article class="panel">
+          <h3>Before</h3>
+          <p>Only 16% of PRs received substantive comments, creating coverage gaps in production-critical paths.</p>
+        </article>
+        <article class="panel">
+          <h3>After</h3>
+          <p>With AI-assisted deep review on most PRs, substantive-comment coverage increased to 54%.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="architecture" data-section>
+      <h2>Multi-Agent Architecture in Motion</h2>
+      <p class="lead">
+        Instead of one fast pass, the system dispatches specialized agents that evaluate potential defects,
+        cross-check claims, and return a single ranked review narrative.
+      </p>
+
+      <div class="diagram floating-card" role="img" aria-label="Animated flow of parallel agent review">
+        <div class="diagram-stage">
+          <div class="node"><strong>PR Intake</strong><span>Context mapping</span></div>
+          <div class="connector" aria-hidden="true"></div>
+          <div class="node"><strong>Parallel Agents</strong><span>Bug hunts + edge checks</span></div>
+          <div class="connector" aria-hidden="true"></div>
+          <div class="node"><strong>Verification</strong><span>False-positive filtering</span></div>
+          <div class="connector" aria-hidden="true"></div>
+          <div class="node"><strong>Severity Ranking</strong><span>Actionable final report</span></div>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;">
+        <details>
+          <summary>Insight: Why this catches what skim reviews miss</summary>
+          <p class="insight-body">
+            The architecture creates deliberate redundancy: one layer identifies potential failures and another
+            layer attempts to disprove them. This adversarial pattern raises precision while preserving depth.
+          </p>
+        </details>
+        <details>
+          <summary>Insight: Dynamic scaling by PR size</summary>
+          <p class="insight-body">
+            Large or complex diffs are assigned additional agents for deeper reasoning. Small PRs get a lighter
+            pass, reducing noise and preserving turnaround speed where depth is less critical.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <section class="section" id="impact" data-section>
+      <h2>Field Evidence: Reliability Gains in Real Teams</h2>
+      <p class="lead">
+        Internal and early-access usage shows high signal quality. On large PRs (&gt;1000 changed lines), 84% receive
+        findings with an average of 7.5 issues; on small PRs (&lt;50 lines), the system reports only where needed.
+      </p>
+      <div class="story-grid">
+        <article class="panel">
+          <h3>Authentication Incident Avoided</h3>
+          <p>
+            A one-line service change looked routine but would have broken authentication. Code Review flagged it as
+            critical before merge, preventing an outage-class regression.
+          </p>
+        </article>
+        <article class="panel">
+          <h3>Latent ZFS Bug Surfaced</h3>
+          <p>
+            In a TrueNAS middleware refactor, the system found adjacent pre-existing code that silently reset
+            encryption key cache state on sync.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="economics" data-section>
+      <h2>Economics and Governance</h2>
+      <p class="lead">
+        Reviews optimize for depth, not cheapest execution. Typical cost is $15-25 per review, scaling with code
+        size and complexity. Organizations can cap spend and control where review runs.
+      </p>
+      <div class="timeline">
+        <div class="step">
+          <span class="step-index">1</span>
+          <div>
+            <h4>Set organization budget limits</h4>
+            <p>Define monthly token spend ceilings to align review coverage with engineering and finance priorities.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-index">2</span>
+          <div>
+            <h4>Enable by repository criticality</h4>
+            <p>Activate deep review for high-risk services first, then expand to broader repo coverage.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-index">3</span>
+          <div>
+            <h4>Track acceptance and signal quality</h4>
+            <p>Use analytics to monitor findings accepted by engineers and tune depth/cost balance over time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="launch" data-section>
+      <h2>Launch Checklist for Engineering Leaders</h2>
+      <p class="lead">
+        Code Review is available in research preview for Team and Enterprise plans. Admins can enable the GitHub
+        integration in Claude Code settings and onboard repositories with no developer-side setup required.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://docs.anthropic.com/claude-code">Open implementation guide</a>
+        <a class="btn btn-secondary" href="/blog/2026/03/06/developer-productivity-tools-powered-by-ai-latest-updates-1772765212/">Read related analysis</a>
+      </div>
+      <p class="footer-note">Published on 2026-03-09 • Designed as an immersive single-post experience</p>
+    </section>
+  </div>
+</article>
+
+<script>
+  (() => {
+    const root = document.querySelector('.ccr-post');
+    if (!root) return;
+
+    const sections = Array.from(root.querySelectorAll('[data-section]'));
+    const links = Array.from(root.querySelectorAll('.nav-link'));
+    const progress = root.querySelector('#scroll-progress');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    links.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const targetId = link.getAttribute('href');
+        if (!targetId || !targetId.startsWith('#')) return;
+        const target = root.querySelector(targetId);
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+      });
+    });
+
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const scrolled = (doc.scrollTop || document.body.scrollTop);
+      const height = (doc.scrollHeight - doc.clientHeight) || 1;
+      const pct = Math.min(100, Math.max(0, (scrolled / height) * 100));
+      if (progress) progress.style.width = `${pct}%`;
+
+      if (!prefersReduced) {
+        const parallaxNodes = root.querySelectorAll('.floating-card');
+        parallaxNodes.forEach((node, index) => {
+          const speed = (index + 1) * 0.03;
+          node.style.setProperty('--parallax', `${Math.max(-12, Math.min(16, scrolled * speed * -0.1))}px`);
+        });
+      }
+    };
+
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+
+          const id = entry.target.getAttribute('id');
+          if (!id) return;
+          const relatedLink = root.querySelector(`.nav-link[href="#${id}"]`);
+          if (!relatedLink) return;
+          if (entry.isIntersecting && entry.intersectionRatio > 0.45) {
+            links.forEach((item) => item.classList.remove('is-active'));
+            relatedLink.classList.add('is-active');
+          }
+        });
+      },
+      {
+        threshold: [0.2, 0.45, 0.7],
+        rootMargin: '-10% 0px -35% 0px'
+      }
+    );
+
+    sections.forEach((section) => sectionObserver.observe(section));
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>
