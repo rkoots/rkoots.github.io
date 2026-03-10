@@ -13,6 +13,549 @@ show_toc: false
 is_post: true
 ---
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .ccr-post {
+    --bg: #f2f6fb;
+    --surface: rgba(255, 255, 255, 0.86);
+    --surface-strong: #ffffff;
+    --text: #0b1220;
+    --muted: #4c5a75;
+    --primary: #0d9488;
+    --secondary: #2563eb;
+    --accent: #f59e0b;
+    --border: rgba(15, 23, 42, 0.12);
+    --shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+    font-family: "Manrope", sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.12), transparent 45%),
+      radial-gradient(circle at 90% 5%, rgba(13, 148, 136, 0.12), transparent 40%),
+      var(--bg);
+    padding-bottom: 5rem;
+    overflow-x: clip;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .ccr-post {
+      --bg: #060b15;
+      --surface: rgba(14, 23, 40, 0.78);
+      --surface-strong: #0e1728;
+      --text: #e8edf8;
+      --muted: #a0aec6;
+      --primary: #2dd4bf;
+      --secondary: #60a5fa;
+      --accent: #fbbf24;
+      --border: rgba(148, 163, 184, 0.24);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+    }
+  }
+
+  .ccr-post * {
+    box-sizing: border-box;
+  }
+
+  .ccr-post .progress-track {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(148, 163, 184, 0.22);
+    z-index: 120;
+  }
+
+  .ccr-post .progress-track span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+    transition: width 0.14s linear;
+  }
+
+  .ccr-post .post-shell {
+    width: min(1120px, 92vw);
+    margin: 0 auto;
+  }
+
+  .ccr-post .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ccr-post .top-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: min(1120px, 92vw);
+    margin: 0 auto;
+    padding: 0.8rem 0;
+  }
+
+  .ccr-post .brand {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.84rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .ccr-post .nav-links {
+    display: flex;
+    gap: 0.35rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .ccr-post .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ccr-post .nav-link {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 0.4rem 0.65rem;
+    border-radius: 999px;
+    transition: all 0.25s ease;
+    border: 1px solid var(--border);
+    background: var(--surface-strong);
+  }
+
+  .ccr-post .nav-link:hover,
+  .ccr-post .nav-link:focus-visible,
+  .ccr-post .nav-link.is-active {
+    color: var(--text);
+    background: color-mix(in srgb, var(--secondary) 15%, var(--surface-strong));
+    outline: none;
+  }
+
+  .ccr-post .hero {
+    position: relative;
+    margin-top: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .ccr-post .hero::before {
+    content: "";
+    position: absolute;
+    inset: -15% -10%;
+    background: conic-gradient(from 210deg, rgba(13, 148, 136, 0.25), rgba(37, 99, 235, 0.3), rgba(245, 158, 11, 0.18), rgba(13, 148, 136, 0.25));
+    filter: blur(42px);
+    animation: ccr-gradient-spin 14s linear infinite;
+    z-index: -2;
+  }
+
+  .ccr-post .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(130deg, rgba(255, 255, 255, 0.55), transparent 48%);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .ccr-post .hero::after {
+      background: linear-gradient(130deg, rgba(6, 11, 21, 0.45), transparent 48%);
+    }
+  }
+
+  .ccr-post .hero-grid {
+    display: grid;
+    gap: 1.4rem;
+    padding: 2.2rem 1.2rem;
+  }
+
+  .ccr-post .eyebrow {
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+    color: var(--secondary);
+    margin-bottom: 0.75rem;
+  }
+
+  .ccr-post h1 {
+    margin: 0;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(1.8rem, 5.8vw, 3.4rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  .ccr-post .headline-glow {
+    background: linear-gradient(95deg, var(--secondary), var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: ccr-headline-shift 5.2s ease-in-out infinite;
+  }
+
+  .ccr-post .hero-copy {
+    font-size: 1rem;
+    line-height: 1.72;
+    color: var(--muted);
+    max-width: 64ch;
+  }
+
+  .ccr-post .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.2rem;
+  }
+
+  .ccr-post .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0.7rem 1rem;
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+
+  .ccr-post .btn-primary {
+    color: #fff;
+    background: linear-gradient(120deg, var(--secondary), var(--primary));
+    box-shadow: 0 10px 26px rgba(37, 99, 235, 0.35);
+  }
+
+  .ccr-post .btn-secondary {
+    color: var(--text);
+    border: 1px solid var(--border);
+    background: var(--surface-strong);
+  }
+
+  .ccr-post .btn:hover,
+  .ccr-post .btn:focus-visible {
+    transform: translateY(-2px) scale(1.01);
+    outline: none;
+  }
+
+  .ccr-post .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .ccr-post .stat {
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
+    border-radius: 14px;
+    padding: 0.8rem;
+    text-align: center;
+    transition: transform 0.25s ease;
+  }
+
+  .ccr-post .stat:hover {
+    transform: translateY(-4px);
+  }
+
+  .ccr-post .stat-value {
+    display: block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(1.1rem, 4vw, 1.8rem);
+  }
+
+  .ccr-post .stat-label {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+
+  .ccr-post .section {
+    margin-top: clamp(2.2rem, 6vw, 4.2rem);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+    padding: clamp(1.3rem, 4vw, 2.4rem);
+    transform: translateY(32px);
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(.22,.68,.16,.99), opacity 0.8s ease;
+  }
+
+  .ccr-post .section.in-view {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .ccr-post h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(1.35rem, 4vw, 2rem);
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+
+  .ccr-post .lead {
+    color: var(--muted);
+    margin-top: 0;
+    line-height: 1.75;
+  }
+
+  .ccr-post .metric-grid,
+  .ccr-post .story-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    margin-top: 1.4rem;
+  }
+
+  .ccr-post .panel {
+    border-radius: 16px;
+    padding: 1rem;
+    background: color-mix(in srgb, var(--surface-strong) 85%, transparent);
+    border: 1px solid var(--border);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .ccr-post .panel:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--secondary) 40%, var(--border));
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+  }
+
+  .ccr-post .panel h3 {
+    margin: 0 0 0.45rem;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1rem;
+  }
+
+  .ccr-post .panel p {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  .ccr-post .diagram {
+    margin-top: 1.6rem;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    padding: 1rem;
+    background: linear-gradient(145deg, color-mix(in srgb, var(--surface-strong) 75%, transparent), transparent 68%);
+  }
+
+  .ccr-post .diagram-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+    align-items: center;
+  }
+
+  .ccr-post .node {
+    position: relative;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--surface-strong);
+    padding: 0.8rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .ccr-post .node::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent, color-mix(in srgb, var(--secondary) 18%, transparent), transparent);
+    transform: translateX(-110%);
+    animation: ccr-scan 4.8s ease-in-out infinite;
+  }
+
+  .ccr-post .node strong {
+    display: block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.96rem;
+  }
+
+  .ccr-post .node span {
+    color: var(--muted);
+    font-size: 0.86rem;
+  }
+
+  .ccr-post .connector {
+    width: 2px;
+    height: 24px;
+    margin: 0 auto;
+    background: linear-gradient(var(--secondary), transparent);
+  }
+
+  .ccr-post details {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 0.9rem 1rem;
+    background: color-mix(in srgb, var(--surface-strong) 88%, transparent);
+  }
+
+  .ccr-post details + details {
+    margin-top: 0.8rem;
+  }
+
+  .ccr-post summary {
+    cursor: pointer;
+    font-weight: 800;
+    list-style: none;
+    position: relative;
+    padding-right: 1.2rem;
+  }
+
+  .ccr-post summary::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .ccr-post details[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .ccr-post summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .ccr-post .insight-body {
+    margin-top: 0.7rem;
+    color: var(--muted);
+    line-height: 1.68;
+  }
+
+  .ccr-post .timeline {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .ccr-post .step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.8rem;
+    align-items: start;
+    padding: 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--surface-strong) 86%, transparent);
+  }
+
+  .ccr-post .step-index {
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: linear-gradient(130deg, var(--secondary), var(--primary));
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+  }
+
+  .ccr-post .step h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-family: "Space Grotesk", sans-serif;
+  }
+
+  .ccr-post .step p {
+    margin: 0.3rem 0 0;
+    color: var(--muted);
+    line-height: 1.63;
+  }
+
+  .ccr-post .floating-card {
+    transform: translateY(var(--parallax, 0));
+    transition: transform 0.2s linear;
+  }
+
+  .ccr-post .footer-note {
+    margin-top: 2.2rem;
+    color: var(--muted);
+    text-align: center;
+    font-size: 0.84rem;
+  }
+
+  @media (min-width: 760px) {
+    .ccr-post .hero-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      padding: 2.6rem;
+      gap: 1.7rem;
+      align-items: center;
+    }
+
+    .ccr-post .metric-grid,
+    .ccr-post .story-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ccr-post .diagram-stage {
+      grid-template-columns: repeat(7, auto);
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .ccr-post .connector {
+      width: 42px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--secondary), transparent);
+    }
+  }
+
+  @keyframes ccr-gradient-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes ccr-headline-shift {
+    0%, 100% { background-position: 0 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes ccr-scan {
+    0%, 25% { transform: translateX(-110%); }
+    65%, 100% { transform: translateX(110%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ccr-post *,
+    .ccr-post *::before,
+    .ccr-post *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+
+    .ccr-post .section {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
 <article class="ccr-post" id="top">
   <div class="progress-track" aria-hidden="true"><span id="scroll-progress"></span></div>
 
@@ -96,7 +639,7 @@ is_post: true
         </article>
       </div>
 
-      <div class="u-mt-16">
+      <div style="margin-top:1.6rem;">
         <details>
           <summary>Technical Deep Dive: Review Capacity Economics</summary>
           <p class="insight-body">
@@ -136,7 +679,7 @@ is_post: true
         </div>
       </div>
 
-      <div class="story-grid u-mt-16">
+      <div class="story-grid" style="margin-top:1.6rem;">
         <article class="panel">
           <h3>Security Agent</h3>
           <p>Analyzes authentication flows, input validation, dependency vulnerabilities, and compliance patterns. Maintains context of security architecture across microservice boundaries.</p>
@@ -155,7 +698,7 @@ is_post: true
         </article>
       </div>
 
-      <div class="u-mt-10">
+      <div style="margin-top:1rem;">
         <details>
           <summary>Technical Pattern: Adversarial Validation</summary>
           <p class="insight-body">
@@ -214,7 +757,7 @@ is_post: true
         </div>
       </div>
 
-      <div class="story-grid u-mt-16">
+      <div class="story-grid" style="margin-top:1.6rem;">
         <article class="panel">
           <h3>Augmented Human Review</h3>
           <p>Senior engineers report 60% time savings on routine analysis while maintaining deeper involvement in architectural decisions and complex problem-solving.</p>
@@ -260,7 +803,7 @@ is_post: true
         </article>
       </div>
 
-      <div class="u-mt-16">
+      <div style="margin-top:1.6rem;">
         <details>
           <summary>Implementation Pattern: Quality Gates</summary>
           <p class="insight-body">
@@ -306,7 +849,7 @@ is_post: true
         </article>
       </div>
 
-      <div class="u-mt-16">
+      <div style="margin-top:1.6rem;">
         <details>
           <summary>Case Study: E-commerce Platform Refactor</summary>
           <p class="insight-body">
@@ -366,7 +909,7 @@ is_post: true
         </div>
       </div>
 
-      <div class="story-grid u-mt-16">
+      <div class="story-grid" style="margin-top:1.6rem;">
         <article class="panel">
           <h3>Custom Rule Engine</h3>
           <p>Organizations define custom rules for specific architectural requirements. Machine learning adapts rules based on accepted patterns and rejected suggestions over time.</p>
@@ -412,7 +955,7 @@ is_post: true
         </article>
       </div>
 
-      <div class="u-mt-16">
+      <div style="margin-top:1.6rem;">
         <details>
           <summary>Learning Organization Impact</summary>
           <p class="insight-body">
@@ -477,7 +1020,7 @@ is_post: true
         </div>
       </div>
 
-      <div class="story-grid u-mt-16">
+      <div class="story-grid" style="margin-top:1.6rem;">
         <article class="panel">
           <h3>Cost Management</h3>
           <p>Typical implementation: $15–25 per review. Organizations set monthly budgets ($500–5,000) and configure repository-based prioritization to optimize spend against risk exposure.</p>
@@ -496,7 +1039,7 @@ is_post: true
         </article>
       </div>
 
-      <div class="u-mt-16">
+      <div style="margin-top:1.6rem;">
         <details>
           <summary>Change Management Considerations</summary>
           <p class="insight-body">
@@ -515,7 +1058,7 @@ is_post: true
         </details>
       </div>
 
-      <div class="hero-actions u-mt-20">
+      <div class="hero-actions" style="margin-top:2rem;">
         <a class="btn btn-primary" href="https://docs.anthropic.com/claude-code">Access implementation documentation</a>
         <a class="btn btn-secondary" href="https://docs.anthropic.com/claude-code/pricing">Review pricing and plans</a>
       </div>
