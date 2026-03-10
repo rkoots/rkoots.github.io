@@ -5,7 +5,7 @@ date: 2026-03-09
 author: Rajkumar V.
 categories: blog
 tags: [Claude Code, AI, Code Review, Enterprise Architecture, DevOps, SDLC, Microservices]
-description: A deep dive into Claude Code's agent team-based review system: architecture, integration patterns, and scalability benefits for modern engineering organizations.
+description: "A deep dive into Claude Code's agent team-based review system: architecture, integration patterns, and scalability benefits for modern engineering organizations."
 excerpt: Multi-agent code review systems scale engineering quality by combining parallel AI specialists, cross-validation, and enterprise SDLC integration patterns.
 image: /blog/images/claude_code_review.png
 show_toc: false
