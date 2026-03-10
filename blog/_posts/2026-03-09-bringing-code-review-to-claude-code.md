@@ -6,6 +6,9 @@ author: Rajkumar V.
 categories: blog
 tags: [Claude Code, AI, Code Review, Product Development, Anthropic]
 description: Claude Code introduces a thorough, agent team-based review system modeled on the one we run at Anthropic. Available in research preview for Team and Enterprise plans.
+image: /blog/images/claude_code_review.png
+show_toc: true
+is_post: true
 ---
 
 ## Overview
@@ -13,6 +16,10 @@ description: Claude Code introduces a thorough, agent team-based review system m
 Bringing Code Review to Claude Code represents a significant advancement in AI-powered development tools, addressing the growing bottleneck in code review processes as engineering productivity scales. This post explores the new multi-agent review system that brings Anthropic's internal review practices to external development teams.
 
 # Bringing Code Review to Claude Code
+
+![Claude Code Review System](/blog/images/claude_code_review.png)
+
+![Multi-Agent Code Review Architecture](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1200&h=600&fit=crop&crop=entropy&auto=format&q=80)
 
 ## Introduction
 
@@ -107,7 +114,10 @@ Consider a fast-growing startup where engineering output has tripled in six mont
 
 ## Visual Suggestion
 
-> **Suggested image:** A diagram showing multiple AI agents working in parallel on a code review, with bug detection, verification, and severity ranking workflows.
+![Multi-Agent Code Review System in Action](https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop&crop=entropy&auto=format&q=80)
+
+*Figure: Multi-agent code review system showing parallel analysis, bug verification, and severity ranking processes.*
+
 > **Alt text:** Multi-agent code review system showing parallel analysis, bug verification, and severity ranking processes.
 > **Caption:** The multi-agent review system that powers Claude Code's thorough code analysis.
 
