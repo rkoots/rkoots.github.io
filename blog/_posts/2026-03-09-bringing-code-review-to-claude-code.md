@@ -11,6 +11,7 @@ image: /blog/images/claude_code_review.png
 linkedin_post: https://www.linkedin.com/posts/rkoots_claudecode-codereview-ai-activity-7437008264732758016-Rm6M?utm_source=share&utm_medium=member_desktop&rcm=ACoAACImIIAB6s16Z0TBsxdB64-CBHk4hlNorZE
 show_toc: false
 is_post: true
+show_breadcrumbs: true
 ---
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
