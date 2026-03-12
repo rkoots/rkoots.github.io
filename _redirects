@@ -33,22 +33,16 @@
 
 # 404 URL redirects to appropriate pages
 /tools/tool/2023/10/27/makecom-your-no-code-automation-hub.html /finance/ 301
+/tools/tool/2023/10/27/raycast-your-command-line-interface-for-everything.html /tools/ 301
 /styleguide/csharp-style /finance/ 301
 /blog/2025/05/07/Gemini_NextStep.html /finance/ 301
 
-# Remove query parameters for SEO (canonical URLs)
-/guide/styleguide/jsguide /guide/styleguide/jsguide/ 301
-/guide/styleguide/* /guide/styleguide/:splat 301
-
-# Redirect technews parameter URLs to clean destinations
-/technews/news/2026/01/14/photoprompts.html* /blog/tech-news/2026/01/14/photoprompts/ 301
-/technews/tech-news/2026/01/01/india.html* /blog/tech-news/2026/01/01/india/ 301
-/technews/news/2026/01/14/Valentines.html* /blog/tech-news/2026/01/14/Valentines/ 301
-
 # Styleguide URL fixes - add trailing slashes and proper paths
 /styleguide /guide/styleguide/ 301
+/styleguide/* /guide/styleguide/:splat 301
 /styleguide/htmlcssguide /guide/styleguide/htmlcssguide/ 301
 /styleguide/Rguide.html /guide/styleguide/Rguide.xml 301
+/styleguide/Rguide /guide/styleguide/Rguide.xml 301
 /styleguide/javaguide /guide/styleguide/javaguide.html 301
 /styleguide/angularjs-style /guide/styleguide/angularjs-style.html 301
 
@@ -57,10 +51,25 @@
 /blog/publications /blog/ 301
 
 # Additional parameter URL redirects for comprehensive coverage
-/guide/2025/05/12/Python_Guide.html* /guide/styleguide/ 301
-/technews/tech-news/2026/01/01/iPhone.html* /blog/tech-news/2026/01/01/iphone/ 301
+/guide/2025/05/12/Python_Guide.html* /guide/_posts/2024-01-01-Python_Guide/ 301
+/technews/tech-news/2026/01/01/iPhone.html* /blog/ 301
 /blog/2025/05/22/RCBvsSRH-AI-Showdown* /blog/ 301
-/styleguide/Rguide* /guide/styleguide/Rguide.xml 301
+/technews/news/2025/05/26/GoogleTrends* /blog/ 301
+
+# Redirect technews parameter URLs to clean destinations
+/technews/news/2026/01/14/photoprompts.html* /blog/tech-news/2026/01/14/photoprompts/ 301
+/technews/tech-news/2026/01/01/india.html* /blog/tech-news/2026/01/01/india/ 301
+/technews/news/2026/01/14/Valentines.html* /blog/tech-news/2026/01/14/Valentines/ 301
+/technews/* /blog/ 301
+
+# Remove query parameters for SEO (canonical URLs)
+/guide/styleguide/jsguide /guide/styleguide/jsguide/ 301
+/guide/styleguide/* /guide/styleguide/:splat 301
 
 # Home page parameter redirects
 /?* / 301
+
+# Catch-all for any remaining parameter URLs - must be last
+/*?src=* /:splat 301
+/*?utm* /:splat 301
+/*?ref=* /:splat 301
