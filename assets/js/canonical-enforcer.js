@@ -63,11 +63,42 @@
         if (hasParametersToRemove()) {
             const cleanURL = getCanonicalURL();
             
-            // Use replaceState to update URL without reload
-            // This maintains user experience while fixing SEO
-            if (window.history && window.history.replaceState) {
-                window.history.replaceState({}, document.title, cleanURL);
+            // For search engines, we need a proper redirect
+            // Check if we should use server redirect or client-side
+            if (window.location.search.includes('src=')) {
+                // Use meta refresh for search engines
+                let metaRefresh = document.querySelector('meta[http-equiv="refresh"]');
+                if (!metaRefresh) {
+                    metaRefresh = document.createElement('meta');
+                    metaRefresh.setAttribute('http-equiv', 'refresh');
+                    metaRefresh.content = `0; url=${cleanURL}`;
+                    document.head.appendChild(metaRefresh);
+                } else {
+                    metaRefresh.content = `0; url=${cleanURL}`;
+                }
+                
+                // Also add noindex meta tag if not present
+                let noindexTag = document.querySelector('meta[name="robots"][content*="noindex"]');
+                if (!noindexTag) {
+                    noindexTag = document.createElement('meta');
+                    noindexTag.name = 'robots';
+                    noindexTag.content = 'noindex, follow';
+                    document.head.appendChild(noindexTag);
+                }
+                
+                // Update canonical tag
                 updateCanonicalTag();
+                
+                // Redirect after a short delay to allow meta tags to be processed
+                setTimeout(() => {
+                    window.location.href = cleanURL;
+                }, 100);
+            } else {
+                // Use replaceState for non-critical parameters
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState({}, document.title, cleanURL);
+                    updateCanonicalTag();
+                }
             }
         }
     }

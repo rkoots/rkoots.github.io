@@ -6,11 +6,12 @@
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 {% endif %}
 
-<!-- Canonical URL -->
-<link rel="canonical" href="{{ page.url | absolute_url | split: '?' | first | replace: 'http://www.', 'https://' | replace: 'http://', 'https://' }}">
+<!-- Canonical URL with parameter removal -->
+{% assign clean_url = page.url | absolute_url | split: '?' | first | replace: 'http://www.', 'https://' | replace: 'http://', 'https://' %}
+<link rel="canonical" href="{{ clean_url }}">
 
 <!-- OpenGraph Meta Tags with clean URLs -->
-<meta property="og:url" content="{{ page.url | absolute_url | split: '?' | first }}">
+<meta property="og:url" content="{{ clean_url }}">
 <meta property="og:type" content="{% if page.is_post %}article{% else %}website{% endif %}">
 <meta property="og:title" content="{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
 <meta property="og:description" content="{% if page.description %}{{ page.description }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
@@ -66,4 +67,24 @@
 <!-- Verification Tags (add your verification codes) -->
 <!-- <meta name="google-site-verification" content="xtKWUwBnNPkmJJsl7qwTpGRwIR6tLHCSlUWnXPY-wcY"> -->
 <!-- <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE"> -->
+
+<!-- JavaScript-based canonical URL enforcement for parameter URLs -->
+{% if page.url contains '?' %}
+<script>
+  // Immediate redirect for SEO - prevents parameter URL indexing
+  (function() {
+    var cleanUrl = window.location.origin + window.location.pathname;
+    if (window.location.search && window.location.search.includes('src=')) {
+      // Add noindex meta tag
+      var meta = document.createElement('meta');
+      meta.name = 'robots';
+      meta.content = 'noindex, follow';
+      document.head.appendChild(meta);
+      
+      // Redirect to clean URL
+      window.location.replace(cleanUrl);
+    }
+  })();
+</script>
+{% endif %}
 
