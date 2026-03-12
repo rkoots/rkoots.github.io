@@ -7,13 +7,11 @@ Disallow: /TechNews-backup/
 Disallow: /contact/read
 Disallow: /personal/read
 Disallow: /iwater/read
+Disallow: /auto/
+Disallow: /scripts/
 
 # Block duplicate/parameter URLs
 Disallow: /*?*
 
-# Priority pages for crawlers
-Sitemap: https://rkoots.github.io/sitemap.xml
-Sitemap: https://rkoots.github.io/feed.xml
-
-# Crawl-delay for polite crawling
-Crawl-delay: 1
+# Sitemap
+Sitemap: sitemap.xml

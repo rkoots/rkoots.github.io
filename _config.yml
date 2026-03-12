@@ -41,12 +41,15 @@ sitemap:
   exclude:
     - "/404.html"
     - "/TechNews-backup/**"
+    - "/auto/**"
+    - "/scripts/**"
   include:
     - "/blog/**"
     - "/tools/**"
     - "/guide/**"
     - "/insights/**"
     - "/finance/**"
+    - "/quickref/**"
 
 # Permalink structure
 permalink: /:categories/:year/:month/:day/:title/
