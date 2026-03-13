@@ -1,0 +1,30 @@
+# LinkedIn Automation - Git Ignore
+
+# Environment variables (CRITICAL - contains API keys and tokens)
+.env
+
+# Python virtual environment
+venv/
+env/
+*.pyc
+__pycache__/
+
+# Log files
+*.log
+logs/
+
+# Cron backup files
+crontab.backup.*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test output
+test_output/
