@@ -686,26 +686,11 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
 </style>
 
 <script>
-// Floating CTA scroll behavior
-let lastScrollTop = 0;
+// Floating CTA - ensure it's visible on page load
 const floatingCTA = document.querySelector('.floating-cta');
 
 if (floatingCTA) {
-  window.addEventListener('scroll', function() {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    if (scrollTop > lastScrollTop && scrollTop > 200) {
-      // Scrolling down
-      floatingCTA.classList.remove('hide');
-    } else if (scrollTop < lastScrollTop && scrollTop > 200) {
-      // Scrolling up
-      floatingCTA.classList.add('hide');
-    } else if (scrollTop <= 200) {
-      // Near top - always show
-      floatingCTA.classList.remove('hide');
-    }
-    
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-  }, false);
+  // Remove any hide class and ensure button is visible
+  floatingCTA.classList.remove('hide');
 }
 </script>
