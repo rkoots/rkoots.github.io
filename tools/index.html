@@ -199,6 +199,15 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
   </div>
 </div>
 
+<!-- Floating CTA Button -->
+<div class="floating-cta">
+  <a href="/ai-tools/" class="cta-button">
+    <span class="cta-icon">🔥</span>
+    <span class="cta-text">Featured AI Tools</span>
+    <span class="cta-arrow">→</span>
+  </a>
+</div>
+
 <style>
 .tools-content {
   max-width: 1200px;
@@ -551,4 +560,152 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
+
+/* Floating CTA Button Styles */
+.floating-cta {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  animation: slideInUp 0.6s ease-out, pulse 2s infinite;
+}
+
+.cta-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.cta-button:hover::before {
+  left: 100%;
+}
+
+.cta-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6);
+  background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+.cta-icon {
+  font-size: 1.2rem;
+  animation: flame 1.5s ease-in-out infinite;
+}
+
+.cta-text {
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.cta-arrow {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover .cta-arrow {
+  transform: translateX(5px);
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes flame {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.1) rotate(-5deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+/* Mobile Responsive for CTA */
+@media (max-width: 768px) {
+  .floating-cta {
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+  }
+  
+  .cta-button {
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
+  
+  .cta-text {
+    font-size: 0.95rem;
+  }
+}
+
+/* Hide on scroll up, show on scroll down */
+.floating-cta.hide {
+  transform: translateY(120px);
+  opacity: 0;
+}
 </style>
+
+<script>
+// Floating CTA scroll behavior
+let lastScrollTop = 0;
+const floatingCTA = document.querySelector('.floating-cta');
+
+if (floatingCTA) {
+  window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > lastScrollTop && scrollTop > 200) {
+      // Scrolling down
+      floatingCTA.classList.remove('hide');
+    } else if (scrollTop < lastScrollTop && scrollTop > 200) {
+      // Scrolling up
+      floatingCTA.classList.add('hide');
+    } else if (scrollTop <= 200) {
+      // Near top - always show
+      floatingCTA.classList.remove('hide');
+    }
+    
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  }, false);
+}
+</script>
