@@ -9,6 +9,7 @@ description: "Explore the top 10 web development IDEs in 2025 with detailed pros
 keywords: "best IDEs for web development, top IDEs for coding, 2025 IDEs, web development tools, javascript IDEs, full-stack development IDEs, front-end IDEs, coding tools, AI-powered IDEs, IDE comparison, developer productivity, code editor benchmarks"
 seo_schema: "Article"
 permalink: /blog/webdev/programming/tools/2025/05/13/Top-IDE-In-Market/
+is_post: true
 show_toc: true
 ---
 
