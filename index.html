@@ -323,23 +323,23 @@ keywords: ["system architecture", "engineering leadership", "cloud infrastructur
       {% for post in recent_posts limit: 6 %}
         {% assign words = post.content | strip_html | number_of_words %}
         {% assign reading_mins = words | divided_by: 200 | plus: 1 %}
-        <article class="recent-post-card" itemscope itemtype="https://schema.org/Article">
+        <article class="recent-post-card">
           <div class="recent-post-meta">
             {% if post.categories %}
               <span class="recent-post-category">{{ post.categories | first | capitalize }}</span>
             {% endif %}
-            <time class="recent-post-date" datetime="{{ post.date | date: '%Y-%m-%d' }}" itemprop="datePublished">
+            <time class="recent-post-date">
               {{ post.date | date: "%b %d, %Y" }}
             </time>
             <span class="recent-post-reading">
               <i class="fas fa-clock" aria-hidden="true"></i> {{ reading_mins }}m
             </span>
           </div>
-          <h3 class="recent-post-title" itemprop="headline">
+          <h3 class="recent-post-title">
             <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
           </h3>
           {% if post.excerpt %}
-            <p class="recent-post-excerpt" itemprop="description">
+            <p class="recent-post-excerpt">
               {{ post.excerpt | strip_html | truncate: 120 }}
             </p>
           {% endif %}
@@ -850,3 +850,47 @@ keywords: ["system architecture", "engineering leadership", "cloud infrastructur
   }
 }
 </style>
+
+<!-- JSON-LD Structured Data for Recent Posts -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Latest Technical Content",
+  "description": "Recent articles and tools from our technical knowledge base",
+  "itemListElement": [
+    {% assign recent_posts = site.posts | sort: 'date' | reverse %}
+    {% for post in recent_posts limit: 6 %}
+    {
+      "@type": "Article",
+      "position": {{ forloop.index }},
+      "name": {{ post.title | jsonify }},
+      "headline": {{ post.title | jsonify }},
+      "description": {{ post.description | default: post.excerpt | strip_html | truncate: 160 | jsonify }},
+      "url": {{ post.url | absolute_url | jsonify }},
+      "datePublished": "{{ post.date | date_to_xmlschema }}",
+      "dateModified": "{{ post.last_modified_at | default: post.date | date_to_xmlschema }}",
+      "author": {
+        "@type": "Person",
+        "name": {{ post.author | default: site.author.name | jsonify }}
+      },
+      "image": [
+        {{ post.image | default: site.seo.default_image | absolute_url | jsonify }}
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": {{ site.title | jsonify }},
+        "logo": {
+          "@type": "ImageObject",
+          "url": {{ site.seo.default_image | absolute_url | jsonify }}
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": {{ post.url | absolute_url | jsonify }}
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>

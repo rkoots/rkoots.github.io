@@ -10,8 +10,8 @@
     "image": [
       {{ page.image | default: site.seo.default_image | absolute_url | jsonify }}
     ],
-    "datePublished": "{{ page.date | date: "%Y-%m-%d" }}",
-    "dateModified": "{{ page.last_modified_at | default: page.date | date: "%Y-%m-%d" }}",
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
     "author": {
       "@type": "Person",
       "name": {{ page.author | default: site.author.name | jsonify }},
@@ -65,8 +65,8 @@
       "name": {{ site.title | jsonify }},
       "url": {{ site.url | jsonify }}
     },
-    "datePublished": "{{ page.date | date: "%Y-%m-%d" }}",
-    "dateModified": "{{ page.last_modified_at | default: page.date | date: "%Y-%m-%d" }}"
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}"
   }
   </script>
 {% endif %}
