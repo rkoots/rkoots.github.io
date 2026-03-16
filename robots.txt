@@ -14,4 +14,4 @@ Disallow: /scripts/
 Disallow: /*?*
 
 # Sitemap
-Sitemap: sitemap.xml
+Sitemap: https://rkoots.github.io/robots.txt
