@@ -14,107 +14,63 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Setup Python environment
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       - name: Install Python dependencies
         run: |
-          echo "🔧 Starting Python dependencies installation..."
+          echo "🔧 Installing Python dependencies..."
           python -m pip install --upgrade pip
-          echo "✅ pip upgraded successfully"
           
-          echo "📦 Installing from requirements.txt..."
           if [ -f "requirements.txt" ]; then
             pip install -r requirements.txt
             echo "✅ Dependencies installed from requirements.txt"
           else
-            echo "📦 Installing required packages manually..."
             pip install requests google-generativeai
-            echo "✅ Python dependencies installed successfully"
+            echo "✅ Core dependencies installed manually"
           fi
           
-          echo "📋 Verifying installed packages..."
           pip list | grep -E "(requests|google-generativeai)"
 
-      - name: Generate AI blog post
+      - name: Generate and post to WordPress
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           WP_KEY: ${{ secrets.WP_KEY }}
         run: |
-          echo "🚀 Starting AI blog post generation..."
-          echo "📅 Current date and time: $(date)"
-          echo "🔍 Checking if auto/gemini_wordpress_poster.py exists..."
-          if [ -f "auto/gemini_wordpress_poster.py" ]; then
-            echo "✅ gemini_wordpress_poster.py found"
-            echo "📄 File permissions: $(ls -la auto/gemini_wordpress_poster.py)"
-          else
-            echo "❌ ERROR: auto/gemini_wordpress_poster.py not found!"
+          echo "🚀 Starting WordPress post generation..."
+          
+          # Verify environment variables
+          if [ -z "$GEMINI_API_KEY" ] || [ -z "$WP_KEY" ]; then
+            echo "❌ ERROR: Required API keys not configured!"
             exit 1
           fi
           
-          echo "🔑 Checking environment variables..."
-          echo "GEMINI_API_KEY: ${GEMINI_API_KEY:+✅ Set}${GEMINI_API_KEY:-❌ Not set}"
-          echo "WP_KEY: ${WP_KEY:+✅ Set}${WP_KEY:-❌ Not set}"
-          
-          if [ -z "$GEMINI_API_KEY" ]; then
-            echo "❌ ERROR: GEMINI_API_KEY is not set!"
-            exit 1
-          fi
-          
-          if [ -z "$WP_KEY" ]; then
-            echo "❌ ERROR: WP_KEY is not set!"
-            exit 1
-          fi
-          
+          # Execute WordPress posting script
           echo "🐍 Running gemini_wordpress_poster.py..."
           python auto/gemini_wordpress_poster.py
-          echo "✅ gemini_wordpress_poster.py script completed"
-          
-          else
-            echo "❌ ERROR: gemini_wordpress_poster.py not found!"
-            exit 1
-          fi
+          echo "✅ WordPress posting completed"
 
-      - name: Commit generated post to git
+      - name: Commit and push changes
         run: |
-          echo "🔧 Starting git commit process..."
-          echo "📅 Current date and time: $(date)"
+          echo "🔧 Starting git operations..."
           
-          echo "⚙️ Configuring git user..."
+          # Configure git
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          echo "✅ Git user configured"
           
-          echo "📁 Current working directory: $(pwd)"
-          echo "📋 Repository status:"
-          git status
-          
-          echo "📝 Adding blog/_posts/*.md files..."
+          # Stage blog posts
           git add blog/_posts/*.md
           
-          echo "🔍 Checking staged changes..."
-          if git diff --cached --quiet; then
-            echo "ℹ️ No generated post changes to commit."
-            echo "📋 Final repository status:"
-            git status
-            exit 0
+          # Commit if changes exist
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(blog): auto-post - $(date +'%Y-%m-%d %H:%M')"
+            git push
+            echo "✅ Changes committed and pushed"
           else
-            echo "✅ Changes staged for commit"
-            echo "📋 Staged files:"
-            git diff --cached --name-only
+            echo "ℹ️ No changes to commit"
           fi
-          
-          echo "💾 Committing changes..."
-          git commit -m "chore(blog): add scheduled Wed/Fri post - $(date +'%Y-%m-%d')"
-          echo "✅ Changes committed successfully"
-          
-          echo "📤 Pushing to repository..."
-          git push
-          echo "✅ Changes pushed successfully"
-          
-          echo "🎉 Git commit process completed!"

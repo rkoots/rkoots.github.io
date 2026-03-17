@@ -34,10 +34,45 @@ def fetch_sitemap_links() -> List[str]:
         
         # Extract all URLs
         urls = []
-        for url in root.findall('.//ns:url' if namespace else './/url', namespace):
-            loc = url.find('ns:loc' if namespace else 'loc')
-            if loc is not None:
-                urls.append(loc.text)
+        # Try different sitemap structures
+        if root.tag.endswith('sitemapindex'):
+            # This is a sitemap index, need to fetch individual sitemaps
+            for sitemap in root.findall('.//ns:sitemap' if namespace else './/sitemap', namespace):
+                loc = sitemap.find('ns:loc' if namespace else 'loc')
+                if loc is not None:
+                    # Fetch the actual sitemap
+                    try:
+                        sitemap_response = requests.get(loc.text)
+                        sitemap_response.raise_for_status()
+                        sitemap_root = ElementTree.fromstring(sitemap_response.content)
+                        for url in sitemap_root.findall('.//ns:url' if namespace else './/url', namespace):
+                            url_loc = url.find('ns:loc' if namespace else 'loc')
+                            if url_loc is not None:
+                                urls.append(url_loc.text)
+                    except Exception as e:
+                        logger.warning(f"Failed to fetch sitemap {loc.text}: {str(e)}")
+        else:
+            # This is a regular sitemap
+            # Try with namespace first
+            if namespace:
+                for url in root.findall('.//ns:url', namespace):
+                    loc = url.find('ns:loc', namespace)
+                    if loc is not None:
+                        urls.append(loc.text)
+            else:
+                # Try without namespace
+                for url in root.findall('.//url'):
+                    loc = url.find('loc')
+                    if loc is not None:
+                        urls.append(loc.text)
+            
+            # If still no URLs, try alternative parsing
+            if not urls:
+                # Remove namespace and try again
+                for url in root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}url'):
+                    loc = url.find('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')
+                    if loc is not None:
+                        urls.append(loc.text)
         
         logger.info(f"Found {len(urls)} URLs in sitemap")
         return urls
@@ -66,7 +101,7 @@ def generate_blog_with_gemini(internal_link: Optional[str] = None) -> Dict:
     try:
         # Configure Gemini
         genai.configure(api_key=GEMINI_API_KEY)
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         
         # Prepare internal link instruction
         internal_link_instruction = ""
