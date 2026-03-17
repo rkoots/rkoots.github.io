@@ -321,9 +321,9 @@
         </div>
         
         <div class="matrix-section">
-            <h2>Assets Distribution Matrix (in K's)</h2>
+            <h2>Assets Distribution Matrix (in Lakhs)</h2>
             <div id="matrix-table-container">
-                <p style="text-align: center; color: #666;">Click "Load Sample Data" or "Load Firebase Data" to view matrix</p>
+                <p style="text-align: center; color: #666;">Click "Load Firebase Data" to view matrix</p>
             </div>
         </div>
         
@@ -409,84 +409,9 @@
         };
 
         let allPortfolioData = []; // Store all historical data
+        let latestPortfolioData = null; // Store latest Firebase entry for current computations
 
-        // Load sample data
-        function loadSampleData() {
-            const realData = [
-                {
-                    date: '2026-01-10',
-                    bankAccounts: {
-                        IDFC: { AR: { FD: 0, SB: 0 }, PD: { FD: 0, SB: 0 }, RK: { FD: 0, SB: 91000 }, SS: { FD: 0, SB: 0 }, VK: { FD: 0, SB: 0 } },
-                        Kotak: { AR: { FD: 0, SB: 0 }, PD: { FD: 0, SB: 0 }, RK: { FD: 0, SB: 61000 }, SS: { FD: 0, SB: 75000 }, VK: { FD: 0, SB: 45000 } },
-                        SBI: { AR: { FD: 0, SB: 0 }, PD: { FD: 250000, SB: 100000 }, RK: { FD: 200000, SB: 192000 }, SS: { FD: 0, SB: 0 }, VK: { FD: 500000, SB: 100000 } }
-                    },
-                    mutualFunds: {
-                        Grow: { RK: 0, SS: 0, VK: 0 },
-                        IDFC: { RK: 0, SS: 0, VK: 0 },
-                        Kotak: { RK: 0, SS: 0, VK: 0 },
-                        PTM: { RK: 0, SS: 0, VK: 0 },
-                        SBI: { RK: 0, SS: 0, VK: 0 },
-                        UPX: { RK: 0, SS: 0, VK: 0 }
-                    },
-                    equity: {
-                        Dhan: { RK: 0, SS: 0, VK: 0 },
-                        Grow: { RK: 0, SS: 227000, VK: 905000 },
-                        PTM: { RK: 311000, SS: 0, VK: 0 },
-                        Zero: { RK: 3315700, SS: 0, VK: 0 }
-                    },
-                    equityCash: {
-                        Dhan: { RK: 0, SS: 0, VK: 0 },
-                        Grow: { RK: 0, SS: 0, VK: 0 },
-                        PTM: { RK: 514000, SS: 0, VK: 0 },
-                        Zero: { RK: 144000, SS: 0, VK: 0 }
-                    },
-                    lending: {
-                        "Anbu": 18000,
-                        "Myd1-+bbj4": 500000,
-                        "SH": 15000,
-                        "Venkat": 45000
-                    }
-                },
-                {
-                    date: '2026-02-17',
-                    bankAccounts: {
-                        IDFC: { AR: { FD: 0, SB: 0 }, PD: { FD: 0, SB: 0 }, RK: { FD: 0, SB: 45000 }, SS: { FD: 0, SB: 0 }, VK: { FD: 0, SB: 0 } },
-                        Kotak: { AR: { FD: 0, SB: 0 }, PD: { FD: 0, SB: 0 }, RK: { FD: 0, SB: 88000 }, SS: { FD: 0, SB: 90000 }, VK: { FD: 0, SB: 45000 } },
-                        SBI: { AR: { FD: 0, SB: 0 }, PD: { FD: 250000, SB: 125000 }, RK: { FD: 200000, SB: 82000 }, SS: { FD: 0, SB: 0 }, VK: { FD: 500000, SB: 100000 } }
-                    },
-                    mutualFunds: {
-                        Grow: { RK: 0, SS: 0, VK: 0 },
-                        IDFC: { RK: 0, SS: 0, VK: 0 },
-                        Kotak: { RK: 0, SS: 0, VK: 0 },
-                        PTM: { RK: 0, SS: 0, VK: 0 },
-                        SBI: { RK: 0, SS: 0, VK: 0 },
-                        UPX: { RK: 0, SS: 0, VK: 0 }
-                    },
-                    equity: {
-                        Dhan: { RK: 0, SS: 0, VK: 0 },
-                        Grow: { RK: 0, SS: 231000, VK: 1000000 },
-                        PTM: { RK: 677000, SS: 0, VK: 0 },
-                        Zero: { RK: 3720000, SS: 0, VK: 0 }
-                    },
-                    equityCash: {
-                        Dhan: { RK: 0, SS: 0, VK: 0 },
-                        Grow: { RK: 0, SS: 0, VK: 0 },
-                        PTM: { RK: 761000, SS: 0, VK: 0 },
-                        Zero: { RK: 0, SS: 0, VK: 0 }
-                    },
-                    lending: {
-                        "Anbu": 18000,
-                        "Myd1-+bbj4": 500000,
-                        "SH": 15000,
-                        "Venkat": 45000
-                    }
-                }
-            ];
-            
-            allPortfolioData = realData;
-            updateDashboard();
-        }
-
+        
         // Load data from Firebase in real-time
         function loadFirebaseData() {
             console.log("Loading data from Firebase...");
@@ -507,6 +432,9 @@
                     const rawData = Object.values(data).filter(entry => entry !== null && entry !== undefined);
                     console.log("Filtered raw data:", rawData);
                     
+                    // Capture latest entry directly from Firebase payload
+                    latestPortfolioData = getLatestPortfolioEntry(rawData);
+
                     // Group by date and keep the latest entry for each date
                     const dateMap = new Map();
                     rawData.forEach(entry => {
@@ -677,9 +605,7 @@
             }
 
             // Calculate Lending total
-            for (const platform in portfolioData.lending) {
-                lendingTotal += portfolioData.lending[platform];
-            }
+            lendingTotal += sumLendingValues(portfolioData.lending);
 
             return {
                 SB: sbTotal,
@@ -731,6 +657,11 @@
                         wealthByPerson[person] += portfolioData.equityCash[platform][person];
                     }
                 }
+            }
+
+            // Calculate lending wealth (assign all lending to RK)
+            if (portfolioData.lending) {
+                wealthByPerson['RK'] += sumLendingValues(portfolioData.lending);
             }
 
             return wealthByPerson;
@@ -797,9 +728,7 @@
             
             // Lending
             if (data.lending) {
-                for (const platform in data.lending) {
-                    total += data.lending[platform] || 0;
-                }
+                total += sumLendingValues(data.lending);
             }
             
             return total;
@@ -810,12 +739,65 @@
             return (amount / 100000).toFixed(1);
         }
 
+        // Convert to thousands (K) and format to 1 decimal place
+        function toThousands(amount) {
+            return (amount / 1000).toFixed(1);
+        }
+
+        // Get latest entry by timestamp (preferred) or date
+        function getLatestPortfolioEntry(entries) {
+            if (!Array.isArray(entries) || entries.length === 0) return null;
+
+            return entries.reduce((latest, current) => {
+                if (!latest) return current;
+
+                const latestTs = Number(latest.timestamp) || 0;
+                const currentTs = Number(current.timestamp) || 0;
+                if (currentTs !== latestTs) {
+                    return currentTs > latestTs ? current : latest;
+                }
+
+                const latestDate = new Date(latest.date || 0).getTime() || 0;
+                const currentDate = new Date(current.date || 0).getTime() || 0;
+                return currentDate > latestDate ? current : latest;
+            }, null);
+        }
+
+        // Flatten all numeric lending values (supports objects, arrays, nested structures)
+        function flattenLendingEntries(lendingData, parentPath = 'lending') {
+            const entries = [];
+            if (lendingData === null || lendingData === undefined) return entries;
+
+            if (typeof lendingData === 'number' || typeof lendingData === 'string') {
+                const numericValue = Number(lendingData);
+                if (!Number.isNaN(numericValue)) {
+                    entries.push({ key: parentPath, rawValue: lendingData, numericValue });
+                }
+                return entries;
+            }
+
+            if (typeof lendingData === 'object') {
+                Object.entries(lendingData).forEach(([key, value]) => {
+                    entries.push(...flattenLendingEntries(value, `${parentPath}.${key}`));
+                });
+            }
+
+            return entries;
+        }
+
+        function sumLendingValues(lendingData) {
+            return flattenLendingEntries(lendingData).reduce((sum, item) => sum + item.numericValue, 0);
+        }
+
         // Create wealth distribution matrix
         function createWealthMatrix() {
-            if (allPortfolioData.length === 0) return;
+            const latestData = latestPortfolioData || getLatestPortfolioEntry(allPortfolioData);
+            if (!latestData) return;
 
-            // Use latest data
-            const latestData = allPortfolioData[allPortfolioData.length - 1];
+            console.log('[Matrix] Using latest entry:', {
+                date: latestData.date || null,
+                timestamp: latestData.timestamp || null
+            });
             
             // Initialize matrix
             const persons = ['RK', 'PD', 'SS', 'VK', 'AR'];
@@ -835,7 +817,7 @@
                 Object.values(latestData.bankAccounts).forEach(bank => {
                     Object.entries(bank).forEach(([person, accounts]) => {
                         if (matrix[person]) {
-                            matrix[person].SB += accounts.SB || 0;
+                            matrix[person].SB += Number(accounts.SB) || 0;
                         }
                     });
                 });
@@ -846,7 +828,7 @@
                 Object.values(latestData.bankAccounts).forEach(bank => {
                     Object.entries(bank).forEach(([person, accounts]) => {
                         if (matrix[person]) {
-                            matrix[person].FD += accounts.FD || 0;
+                            matrix[person].FD += Number(accounts.FD) || 0;
                         }
                     });
                 });
@@ -857,7 +839,7 @@
                 Object.values(latestData.mutualFunds).forEach(platform => {
                     Object.entries(platform).forEach(([person, amount]) => {
                         if (matrix[person]) {
-                            matrix[person].MF += amount || 0;
+                            matrix[person].MF += Number(amount) || 0;
                         }
                     });
                 });
@@ -868,7 +850,7 @@
                 Object.values(latestData.equity).forEach(platform => {
                     Object.entries(platform).forEach(([person, amount]) => {
                         if (matrix[person]) {
-                            matrix[person].EQ += amount || 0;
+                            matrix[person].EQ += Number(amount) || 0;
                         }
                     });
                 });
@@ -879,26 +861,27 @@
                 Object.values(latestData.equityCash).forEach(platform => {
                     Object.entries(platform).forEach(([person, amount]) => {
                         if (matrix[person]) {
-                            matrix[person].EQ += amount || 0;
+                            matrix[person].EQ += Number(amount) || 0;
                         }
                     });
                 });
             }
 
-            // Calculate Lending (distribute equally among persons who have non-zero totals)
+            // Calculate Lending (assign all lending to RK)
             if (latestData.lending) {
-                const lendingTotal = Object.values(latestData.lending).reduce((sum, val) => sum + val, 0);
-                const activePersons = persons.filter(person => {
-                    const personTotal = assetTypes.reduce((sum, type) => sum + matrix[person][type], 0);
-                    return personTotal > 0;
-                });
-                
-                if (activePersons.length > 0) {
-                    const lendingPerPerson = lendingTotal / activePersons.length;
-                    activePersons.forEach(person => {
-                        matrix[person].Lending += lendingPerPerson;
-                    });
+                console.log('[Matrix][Lending] Raw lending object:', latestData.lending);
+
+                const lendingEntries = flattenLendingEntries(latestData.lending);
+                console.table(lendingEntries);
+
+                const lendingTotal = sumLendingValues(latestData.lending);
+                // Assign all lending to RK
+                if (matrix['RK']) {
+                    matrix['RK'].Lending += lendingTotal;
                 }
+
+                console.log('[Matrix][Lending] Computed total assigned to RK:', lendingTotal);
+                console.log('[Matrix][Lending] RK lending cell value:', matrix['RK'] ? matrix['RK'].Lending : null);
             }
 
             // Generate HTML table
@@ -934,6 +917,9 @@
                 
                 grandTotal += personTotal;
             });
+
+            console.log('[Matrix] Final RK row:', matrix['RK']);
+            console.log('[Matrix] Lending column total:', columnTotals['Lending']);
             
             // Total row
             tableHTML += '<tr class="total-row">';

@@ -1135,12 +1135,13 @@
                 };
 
                 // Add lending data
-                const lendingPlatforms = ['a', 'b', 'c', 'd', 'e'];
+                const lendingPlatforms = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
                 lendingPlatforms.forEach(platform => {
                     const name = formData.get(`lending_${platform}_name`);
-                    const amount = parseFloat(formData.get(`lending_${platform}_amount`)) || 0;
-                    if (name && amount > 0) {
-                        portfolioEntry.lending[name] = amount;
+                    const amount = parseFloat(formData.get(`lending_${platform}_amount`));
+
+                    if (name && name.trim() && !Number.isNaN(amount)) {
+                        portfolioEntry.lending[name.trim()] = amount;
                     }
                 });
 
