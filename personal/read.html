@@ -1135,7 +1135,11 @@
                 };
 
                 // Add lending data
-                const lendingPlatforms = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+                const lendingPlatforms = Array.from(formData.keys())
+                    .map(key => key.match(/^lending_(.+)_name$/))
+                    .filter(Boolean)
+                    .map(match => match[1]);
+
                 lendingPlatforms.forEach(platform => {
                     const name = formData.get(`lending_${platform}_name`);
                     const amount = parseFloat(formData.get(`lending_${platform}_amount`));

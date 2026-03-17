@@ -435,23 +435,11 @@
                     // Capture latest entry directly from Firebase payload
                     latestPortfolioData = getLatestPortfolioEntry(rawData);
 
-                    // Group by date and keep the latest entry for each date
-                    const dateMap = new Map();
-                    rawData.forEach(entry => {
-                        if (entry && entry.date) {
-                            const existingEntry = dateMap.get(entry.date);
-                            // If no existing entry or this entry has a later timestamp, use this one
-                            if (!existingEntry || (entry.timestamp && existingEntry.timestamp && entry.timestamp > existingEntry.timestamp)) {
-                                dateMap.set(entry.date, entry);
-                            } else if (!existingEntry) {
-                                // If no timestamp comparison possible, use the newer one (appears later in array)
-                                dateMap.set(entry.date, entry);
-                            }
-                        }
-                    });
-                    
-                    // Convert back to array and sort by date
-                    allPortfolioData = Array.from(dateMap.values()).sort((a, b) => new Date(a.date) - new Date(b.date));
+                    // Keep ALL records; sort so latest record is always at the end
+                    allPortfolioData = rawData
+                        .map((entry, index) => ({ entry, index }))
+                        .sort((a, b) => getEntrySortTime(a.entry, a.index) - getEntrySortTime(b.entry, b.index))
+                        .map(item => item.entry);
                     
                     console.log("Processed portfolio data:", allPortfolioData);
                     
@@ -744,23 +732,32 @@
             return (amount / 1000).toFixed(1);
         }
 
+        function getEntrySortTime(entry, fallbackIndex = 0) {
+            const ts = Number(entry?.timestamp);
+            if (!Number.isNaN(ts) && ts > 0) return ts;
+
+            const dateTs = new Date(entry?.date || '').getTime();
+            if (!Number.isNaN(dateTs) && dateTs > 0) return dateTs;
+
+            return fallbackIndex;
+        }
+
         // Get latest entry by timestamp (preferred) or date
         function getLatestPortfolioEntry(entries) {
             if (!Array.isArray(entries) || entries.length === 0) return null;
 
-            return entries.reduce((latest, current) => {
-                if (!latest) return current;
+            let latestEntry = null;
+            let latestSortTime = -Infinity;
 
-                const latestTs = Number(latest.timestamp) || 0;
-                const currentTs = Number(current.timestamp) || 0;
-                if (currentTs !== latestTs) {
-                    return currentTs > latestTs ? current : latest;
+            entries.forEach((entry, index) => {
+                const sortTime = getEntrySortTime(entry, index);
+                if (sortTime >= latestSortTime) {
+                    latestSortTime = sortTime;
+                    latestEntry = entry;
                 }
+            });
 
-                const latestDate = new Date(latest.date || 0).getTime() || 0;
-                const currentDate = new Date(current.date || 0).getTime() || 0;
-                return currentDate > latestDate ? current : latest;
-            }, null);
+            return latestEntry;
         }
 
         // Flatten all numeric lending values (supports objects, arrays, nested structures)
@@ -791,7 +788,7 @@
 
         // Create wealth distribution matrix
         function createWealthMatrix() {
-            const latestData = latestPortfolioData || getLatestPortfolioEntry(allPortfolioData);
+            const latestData = allPortfolioData[allPortfolioData.length - 1] || latestPortfolioData || getLatestPortfolioEntry(allPortfolioData);
             if (!latestData) return;
 
             console.log('[Matrix] Using latest entry:', {
