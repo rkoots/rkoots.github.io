@@ -54,23 +54,3 @@ jobs:
           echo "🐍 Running gemini_wordpress_poster.py..."
           python auto/gemini_wordpress_poster.py
           echo "✅ WordPress posting completed"
-
-      - name: Commit and push changes
-        run: |
-          echo "🔧 Starting git operations..."
-          
-          # Configure git
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Stage blog posts
-          git add blog/_posts/*.md
-          
-          # Commit if changes exist
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(blog): auto-post - $(date +'%Y-%m-%d %H:%M')"
-            git push
-            echo "✅ Changes committed and pushed"
-          else
-            echo "ℹ️ No changes to commit"
-          fi
