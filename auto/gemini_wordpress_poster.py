@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Configuration
-GEMINI_API_KEY = 'AIzaSyDkkg8CHBDzIw_ua495iZg3PsDvufbZYgM' #os.getenv("GEMINI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 WORDPRESS_SITE_URL = "https://rkoots.wordpress.com"
 WORDPRESS_USERNAME = "rkoots"
 WORDPRESS_APP_PASSWORD = os.getenv("WP_KEY")
@@ -25,7 +25,7 @@ SITEMAP_URL = "https://rkoots.github.io/sitemap.xml"
 # Email configuration for Post by Email
 WORDPRESS_POST_EMAIL = "jatu669tofi@post.wordpress.com"
 EMAIL_SENDER = "market007ads@gmail.com"  # Update with your email
-EMAIL_PASSWORD = "cedp usix ulwi khcr"   # Update with your email password
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")   # Update with your email password
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 
