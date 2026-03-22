@@ -1,0 +1,476 @@
+---
+layout: game
+permalink: /games/challenges/dhurandhar/
+title: "Dhurandhar: The Revenge"
+description: "Strike at the exact right moment. Too early = miss. Perfect timing = critical combo."
+use_firebase: true
+---
+<style>
+.dh-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%}
+.dh-menu-hero{text-align:center;margin-bottom:28px}
+.dh-menu-hero .h-emoji{font-size:4rem;line-height:1;display:block;margin-bottom:10px}
+.dh-menu-hero h2{font-size:1.7rem;font-weight:800;color:white;margin:0 0 6px}
+.dh-menu-hero p{color:rgba(255,255,255,0.45);font-size:0.85rem;max-width:420px;margin:0 auto;line-height:1.5}
+.dh-menu-hero strong{color:#fbbf24}
+.dh-mode-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:580px;width:100%;margin-bottom:18px}
+@media(max-width:520px){.dh-mode-cards{grid-template-columns:1fr}}
+.dh-mode-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:18px;padding:22px 16px;text-align:center;cursor:pointer;transition:all 0.2s;font-family:inherit;color:white}
+.dh-mode-card:hover{transform:translateY(-2px);background:rgba(255,255,255,0.08)}
+.dh-mode-card .m-emoji{font-size:2.2rem;margin-bottom:8px}
+.dh-mode-card h3{font-size:0.95rem;font-weight:700;margin:0 0 6px}
+.dh-mode-card p{font-size:0.72rem;color:rgba(255,255,255,0.45);margin:0;line-height:1.4}
+.dh-tags{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.dh-tag{font-size:0.65rem;padding:2px 8px;border-radius:10px}
+.dh-hint{font-size:0.78rem;color:rgba(255,255,255,0.3);text-align:center}
+.dh-ui-wrap{position:relative;width:100%;max-width:500px}
+.dh-ui-bar{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;width:100%;box-sizing:border-box}
+.dh-health{font-size:1rem;letter-spacing:2px}
+.dh-score-num{font-size:1.6rem;font-weight:800;color:white;line-height:1}
+.dh-score-lbl{font-size:0.58rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:1px}
+.dh-combo{font-size:0.9rem;font-weight:700;color:#fbbf24;transition:opacity 0.3s}
+.dh-stat{font-size:0.68rem;color:rgba(255,255,255,0.4)}
+.dh-stat b{color:rgba(255,255,255,0.75);font-weight:600}
+.dh-mode-pill{font-size:0.68rem;padding:3px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-bottom:4px}
+#dhCanvas{display:block;max-width:100%;border-radius:12px;cursor:crosshair}
+.dh-result-box{max-width:500px;width:100%;text-align:center}
+.dh-result-title{font-size:1.8rem;font-weight:800;color:white;margin-bottom:4px}
+.dh-result-sub{font-size:0.75rem;color:rgba(255,255,255,0.4);margin-bottom:16px}
+.dh-winner{font-size:1.1rem;font-weight:700;color:#fbbf24;min-height:26px;margin-bottom:16px}
+.dh-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px}
+@media(max-width:400px){.dh-stats-grid{grid-template-columns:repeat(2,1fr)}}
+.dh-sc{background:rgba(255,255,255,0.05);border-radius:12px;padding:14px 8px}
+.dh-sc .sv{font-size:1.4rem;font-weight:800;color:white}
+.dh-sc .sl{font-size:0.62rem;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-top:2px}
+.dh-btns{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
+</style>
+
+<!-- MENU -->
+<div id="dhMenu" class="dh-screen">
+  <div class="dh-menu-hero">
+    <span class="h-emoji">⚔️</span>
+    <h2>Dhurandhar: The Revenge</h2>
+    <p>Enemies approach. Press <strong>SPACE / TAP</strong> at the exact right moment.<br>
+    Too early = miss. <strong>Perfect timing = combo.</strong></p>
+  </div>
+  <div class="dh-mode-cards">
+    <button id="dhBtnChallenge" class="dh-mode-card">
+      <div class="m-emoji">⚡</div>
+      <h3>Challenge</h3>
+      <p>Survive as long as possible. Speed increases every 10 seconds.</p>
+      <div class="dh-tags">
+        <span class="dh-tag" style="background:rgba(251,191,36,0.15);color:#fbbf24">Leaderboard</span>
+      </div>
+    </button>
+    <button id="dhBtnRevenge" class="dh-mode-card">
+      <div class="m-emoji">🔥</div>
+      <h3>Revenge</h3>
+      <p>Smaller window. Fake enemies. Faster. For those who think they're good.</p>
+      <div class="dh-tags">
+        <span class="dh-tag" style="background:rgba(239,68,68,0.15);color:#f87171">Hard</span>
+        <span class="dh-tag" style="background:rgba(251,191,36,0.1);color:#fbbf24">Leaderboard</span>
+      </div>
+    </button>
+    <button id="dhBtnDuel" class="dh-mode-card">
+      <div class="m-emoji">🤺</div>
+      <h3>2-Player Duel</h3>
+      <p>Alternate turns. P1: SPACE. P2: ENTER. First to lose all HP loses.</p>
+      <div class="dh-tags">
+        <span class="dh-tag" style="background:rgba(102,126,234,0.15);color:#a5b4fc">Local 2P</span>
+      </div>
+    </button>
+  </div>
+  <div class="dh-hint">🎮 SPACE to strike &nbsp;|&nbsp; TAP on mobile</div>
+</div>
+
+<!-- GAME -->
+<div id="dhGame" class="dh-screen" style="display:none">
+  <div style="text-align:center;margin-bottom:4px">
+    <span id="dhModePill" class="dh-mode-pill" style="background:rgba(251,191,36,0.15);color:#fbbf24">⚡ Challenge</span>
+  </div>
+  <div class="dh-ui-bar">
+    <div>
+      <div class="dh-health" id="dhHealth">❤️❤️❤️❤️❤️</div>
+      <div class="dh-health" id="dhHealthP2" style="color:#f093fb;display:none"></div>
+    </div>
+    <div style="text-align:center;flex:1">
+      <div class="dh-combo" id="dhCombo" style="opacity:0.25">—</div>
+    </div>
+    <div style="text-align:right">
+      <div class="dh-score-num" id="dhScore">0</div>
+      <div class="dh-score-lbl">Score</div>
+      <div id="dhScoreP2" style="font-size:0.78rem;color:#f093fb;display:none"></div>
+    </div>
+  </div>
+  <div class="dh-ui-wrap">
+    <canvas id="dhCanvas" width="500" height="500"></canvas>
+  </div>
+  <div class="dh-ui-bar" style="padding-top:4px">
+    <div class="dh-stat">Time <b id="dhTime">0s</b> &nbsp; <span id="dhSpeedWrap">Speed <b id="dhSpeed">1.0×</b></span></div>
+    <div class="dh-stat">Accuracy <b id="dhAcc">—</b></div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div id="dhResult" class="dh-screen" style="display:none">
+  <div class="dh-result-box">
+    <div class="dh-result-title">Game Over</div>
+    <div class="dh-result-sub" id="dhResultMode">Challenge Mode</div>
+    <div class="dh-winner" id="dhWinner"></div>
+    <div class="dh-stats-grid">
+      <div class="dh-sc"><div class="sv" id="rScore">0</div><div class="sl">Score</div></div>
+      <div class="dh-sc"><div class="sv" id="rCombo">0</div><div class="sl">Max Combo</div></div>
+      <div class="dh-sc"><div class="sv" id="rAcc">—</div><div class="sl">Accuracy</div></div>
+      <div class="dh-sc"><div class="sv" id="rTime">0s</div><div class="sl">Survived</div></div>
+    </div>
+    <div class="dh-btns">
+      <button id="dhRetry" class="btn-start" style="background:linear-gradient(135deg,#667eea,#764ba2)"><i class="fas fa-redo"></i> Play Again</button>
+      <button id="dhMenuBtn" class="btn-start" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15)"><i class="fas fa-home"></i> Menu</button>
+    </div>
+    <div id="dhSubmitWrap">
+      <div class="auth-panel">
+        <div class="auth-signed-in" style="display:none;flex:1;align-items:center;gap:8px">
+          <div class="auth-avatar auth-avatar-img" style="width:26px;height:26px;font-size:0.75rem"></div>
+          <span class="auth-name" style="font-size:0.85rem"></span>
+        </div>
+        <div class="auth-signed-out" style="display:flex;align-items:center">
+          <span id="dhSignInMsg" style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Sign in to save score</span>
+        </div>
+        <button class="btn-google btn-google-signin"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G"> Sign in</button>
+        <button id="dhSubmitBtn" class="btn-start" style="background:linear-gradient(135deg,#fbbf24,#f59e0b);display:none"><i class="fas fa-upload"></i> Submit</button>
+      </div>
+    </div>
+    <div id="dhLbWrap" class="leaderboard-panel" style="margin-top:8px">
+      <div class="leaderboard-header">
+        <h3 class="leaderboard-title"><i class="fas fa-trophy"></i> Leaderboard</h3>
+        <span class="lb-user-rank"></span>
+      </div>
+      <div id="dhLbList" class="lb-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){'use strict';
+var canvas,ctx,W=500,H=500,CX=250,CY=250;
+var phase='menu',mode='challenge',CFG;
+var MODES={
+  challenge:{oz:140,iz:80,spd:2.5,si:2200,fr:0,hp:5},
+  revenge:  {oz:100,iz:55,spd:3.0,si:1700,fr:0.3,hp:5},
+  duel:     {oz:130,iz:75,spd:2.5,si:2000,fr:0,hp:3}
+};
+function mkP(){return{score:0,combo:0,maxCombo:0,hp:5,hits:0,misses:0,total:0};}
+var p1=mkP(),p2=mkP(),duelTurn=1;
+var enemies=[],fbs=[],lastSpawn=0,sInterval=2200,spd=1;
+var t0=0,elapsed=0,raf=null,shake=0,flash=0,flashC='#ef4444';
+
+function init(){
+  canvas=document.getElementById('dhCanvas');
+  ctx=canvas.getContext('2d');
+  resizeCv();
+  window.addEventListener('resize',resizeCv);
+  document.addEventListener('keydown',onKey);
+  canvas.addEventListener('click',onTap);
+  canvas.addEventListener('touchstart',function(e){e.preventDefault();onTap(e.changedTouches[0]);},{passive:false});
+  $('dhBtnChallenge').onclick=function(){go('challenge');};
+  $('dhBtnRevenge').onclick=function(){go('revenge');};
+  $('dhBtnDuel').onclick=function(){go('duel');};
+  $('dhRetry').onclick=function(){go(mode);};
+  $('dhMenuBtn').onclick=showMenu;
+  $('dhSubmitBtn').onclick=submitScore;
+}
+function $(id){return document.getElementById(id);}
+function show(id){$(id).style.display='flex';}
+function hide(id){$(id).style.display='none';}
+function resizeCv(){var w=Math.min((canvas.parentElement||document.body).clientWidth,500);canvas.style.width=w+'px';canvas.style.height=w+'px';}
+
+function go(m){
+  mode=m;CFG=MODES[m];
+  p1=mkP();p2=mkP();p1.hp=CFG.hp;p2.hp=CFG.hp;
+  duelTurn=1;enemies=[];fbs=[];lastSpawn=0;spd=1;sInterval=CFG.si;
+  t0=performance.now();shake=0;flash=0;phase='playing';
+  hide('dhMenu');hide('dhResult');show('dhGame');
+  var pill=$('dhModePill'),isDuel=m==='duel',isRevenge=m==='revenge';
+  pill.textContent=isDuel?'🤺 2-Player Duel':isRevenge?'🔥 Revenge':'⚡ Challenge';
+  pill.style.background=isDuel?'rgba(102,126,234,0.15)':isRevenge?'rgba(239,68,68,0.15)':'rgba(251,191,36,0.15)';
+  pill.style.color=isDuel?'#a5b4fc':isRevenge?'#f87171':'#fbbf24';
+  $('dhHealthP2').style.display=isDuel?'block':'none';
+  $('dhScoreP2').style.display=isDuel?'block':'none';
+  $('dhSpeedWrap').style.display=isDuel?'none':'inline';
+  if(raf)cancelAnimationFrame(raf);
+  loop(t0);
+}
+
+function loop(now){
+  if(phase!=='playing')return;
+  raf=requestAnimationFrame(loop);
+  elapsed=now-t0;
+  if(mode!=='duel'){
+    var lv=Math.floor(elapsed/10000);
+    spd=Math.min(3,1+lv*0.12);
+    sInterval=Math.max(650,CFG.si-lv*120);
+  }
+  var live=enemies.filter(function(e){return e.alive&&!e.rev;}).length;
+  if(live===0&&(now-lastSpawn)>sInterval){spawnE();lastSpawn=now;}
+  enemies.forEach(function(e){if(e.alive||e.dy>0)updE(e);});
+  enemies=enemies.filter(function(e){return e.alive||e.dy>0;});
+  fbs.forEach(function(f){f.y-=f.vy;f.a-=0.022;});
+  fbs=fbs.filter(function(f){return f.a>0;});
+  if(shake>0)shake--;
+  if(flash>0)flash-=0.04;
+  updUI();
+  render(now);
+}
+
+function ctr(pn){
+  if(mode!=='duel')return{x:CX,y:CY};
+  return pn===1?{x:W*0.28,y:CY}:{x:W*0.72,y:CY};
+}
+
+function spawnE(){
+  var fake=Math.random()<CFG.fr;
+  var c=ctr(mode==='duel'?duelTurn:1);
+  var a=Math.random()*Math.PI*2,dist=265;
+  enemies.push({x:c.x+Math.cos(a)*dist,y:c.y+Math.sin(a)*dist,tx:c.x,ty:c.y,
+    spd:CFG.spd*spd,fake:fake,rev:false,alive:true,dy:0,fp:mode==='duel'?duelTurn:1,ph:Math.random()*6.28});
+}
+
+function updE(e){
+  if(e.dy>0){e.dy--;return;}
+  e.ph+=0.12;
+  var dx=e.tx-e.x,dy=e.ty-e.y,d=Math.sqrt(dx*dx+dy*dy);
+  if(e.fake&&!e.rev&&d<CFG.oz+25){
+    e.rev=true;
+    var ax=Math.atan2(e.y-e.ty,e.x-e.tx);
+    e.tx=e.tx+Math.cos(ax)*400;e.ty=e.ty+Math.sin(ax)*400;
+    dx=e.tx-e.x;dy=e.ty-e.y;d=Math.sqrt(dx*dx+dy*dy);
+  }
+  if(d>2){e.x+=dx/d*e.spd;e.y+=dy/d*e.spd;}
+  if(e.rev&&(e.x<-60||e.x>W+60||e.y<-60||e.y>H+60)){e.alive=false;return;}
+  var c=ctr(e.fp),d2=Math.sqrt((c.x-e.x)*(c.x-e.x)+(c.y-e.y)*(c.y-e.y));
+  if(!e.rev&&d2<22){
+    e.alive=false;
+    var p=e.fp===2?p2:p1;
+    p.misses++;p.total++;p.combo=0;p.hp--;
+    impact('#ef4444');fb('Too Late! 💀',c.x,c.y-65,'#ef4444');
+    if(mode==='duel')nextT();else if(p1.hp<=0)endGame();
+    updUI();
+  }
+}
+
+function onKey(e){
+  if(phase!=='playing')return;
+  if(e.code==='Space'){e.preventDefault();strike(1);}
+  if(e.code==='Enter'){e.preventDefault();strike(2);}
+}
+function onTap(e){
+  if(phase!=='playing')return;
+  if(mode==='duel'&&e&&e.clientX){
+    var r=canvas.getBoundingClientRect();
+    strike((e.clientX-r.left)<r.width/2?1:2);
+  }else strike(1);
+}
+
+function strike(pn){
+  if(mode==='duel'&&duelTurn!==pn)return;
+  var p=pn===2?p2:p1,c=ctr(pn);
+  p.total++;
+  var tgt=null,minD=Infinity;
+  enemies.forEach(function(e){
+    if(!e.alive||e.rev)return;
+    if(mode==='duel'&&e.fp!==pn)return;
+    var d=Math.sqrt((c.x-e.x)*(c.x-e.x)+(c.y-e.y)*(c.y-e.y));
+    if(d<minD){minD=d;tgt=e;}
+  });
+  if(!tgt||minD>CFG.oz){
+    p.misses++;p.combo=0;p.hp--;
+    impact('#ef4444');fb('Too Early! ❌',c.x,c.y-65,'#ef4444');
+    if(mode==='duel')nextT();
+    if(p1.hp<=0||(mode==='duel'&&p2.hp<=0))endGame();
+    return;
+  }
+  tgt.alive=false;tgt.dy=10;
+  if(tgt.fake){
+    p.misses++;p.combo=0;p.hp--;
+    impact('#a855f7');fb('BAIT! 🪤',c.x,c.y-65,'#a855f7');
+    if(mode==='duel')nextT();
+    if(p1.hp<=0||(mode==='duel'&&p2.hp<=0))endGame();
+    return;
+  }
+  if(minD<=CFG.iz){
+    p.combo++;p.maxCombo=Math.max(p.maxCombo,p.combo);
+    var pts=2*p.combo;p.score+=pts;p.hits++;
+    flash=0.12;flashC='#fbbf24';
+    fb('⚡ PERFECT! ×'+p.combo,c.x,c.y-72,'#fbbf24');
+    fb('+'+pts,c.x+35,c.y-102,'#f59e0b');
+  }else{
+    p.hits++;p.score++;flash=0.06;flashC='#4ade80';
+    fb('Hit! ⚔️',c.x,c.y-62,'#4ade80');fb('+1',c.x+22,c.y-90,'#86efac');
+  }
+  if(mode==='duel')nextT();
+}
+
+function nextT(){
+  if(p1.hp<=0||p2.hp<=0){endGame();return;}
+  duelTurn=duelTurn===1?2:1;
+  lastSpawn=performance.now()-sInterval+500;
+}
+function impact(c){shake=10;flash=0.28;flashC=c;}
+function fb(txt,x,y,col){fbs.push({text:txt,x:x+(Math.random()-.5)*14,y:y,a:1,vy:1.4,color:col});}
+
+/* === RENDER === */
+function render(now){
+  ctx.save();
+  if(shake>0){var s=shake*1.2;ctx.translate((Math.random()-.5)*s,(Math.random()-.5)*s);}
+  drawBG();
+  if(mode==='duel'){
+    ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=1;ctx.setLineDash([5,8]);
+    ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,H);ctx.stroke();ctx.setLineDash([]);
+    ctx.font='bold 10px monospace';ctx.textAlign='center';
+    ctx.fillStyle=duelTurn===1?'rgba(102,126,234,0.8)':'rgba(240,147,251,0.8)';
+    ctx.fillText('P'+duelTurn+': '+(duelTurn===1?'SPACE':'ENTER')+' → Strike',W/2,H-12);
+    drawArena(ctr(1),enemies.filter(function(e){return e.fp===1;}),p1,now,'1');
+    drawArena(ctr(2),enemies.filter(function(e){return e.fp===2;}),p2,now,'2');
+  }else{
+    drawArena({x:CX,y:CY},enemies,p1,now,'');
+  }
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  fbs.forEach(function(f){ctx.globalAlpha=f.a;ctx.fillStyle=f.color;ctx.font='bold 15px sans-serif';ctx.fillText(f.text,f.x,f.y);});
+  ctx.globalAlpha=1;
+  if(flash>0.01){ctx.fillStyle=flashC;ctx.globalAlpha=flash;ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;}
+  ctx.restore();
+}
+
+function drawBG(){
+  var g=ctx.createRadialGradient(CX,CY,0,CX,CY,320);
+  g.addColorStop(0,'#1a0808');g.addColorStop(1,'#0d0d1a');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(255,255,255,0.022)';ctx.lineWidth=1;
+  for(var x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(var y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+}
+
+function drawArena(c,enms,player,now,lbl){
+  var cx=c.x,cy=c.y,pls=Math.sin(now*0.004)*5;
+  var za=false,pa=false;
+  enms.forEach(function(e){
+    if(!e.alive||e.rev)return;
+    var d=Math.sqrt((cx-e.x)*(cx-e.x)+(cy-e.y)*(cy-e.y));
+    if(d<CFG.oz)za=true;if(d<CFG.iz)pa=true;
+  });
+  ctx.beginPath();ctx.arc(cx,cy,CFG.oz+pls,0,Math.PI*2);
+  ctx.strokeStyle=za?'rgba(251,191,36,0.75)':'rgba(255,255,255,0.1)';
+  ctx.lineWidth=za?2.5:1.5;ctx.setLineDash([8,12]);ctx.stroke();ctx.setLineDash([]);
+  ctx.beginPath();ctx.arc(cx,cy,CFG.iz+pls*0.5,0,Math.PI*2);
+  ctx.strokeStyle=pa?'rgba(251,146,60,1)':'rgba(251,146,60,0.22)';
+  ctx.lineWidth=pa?2.5:1;ctx.stroke();
+  if(!za){
+    ctx.font='9px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillStyle='rgba(255,255,255,0.1)';ctx.fillText('HIT',cx,cy-CFG.oz-10);
+    ctx.fillStyle='rgba(251,146,60,0.35)';ctx.fillText('PERFECT',cx,cy-CFG.iz-10);
+  }
+  enms.forEach(function(e){drawE(e);});
+  drawChar(cx,cy,player.hp,now);
+  if(lbl){
+    ctx.font='bold 10px sans-serif';ctx.textAlign='center';
+    ctx.fillStyle=lbl==='1'?'rgba(102,126,234,0.5)':'rgba(240,147,251,0.5)';
+    ctx.fillText('P'+lbl,cx,cy+55);
+  }
+}
+
+function drawChar(cx,cy,hp,now){
+  if(hp<=0)return;
+  var bob=Math.sin(now*0.0025)*2;
+  if(hp<=1){
+    var wg=ctx.createRadialGradient(cx,cy,6,cx,cy,44);
+    var wa=0.25+Math.sin(now*0.015)*0.2;
+    wg.addColorStop(0,'rgba(239,68,68,'+wa+')');wg.addColorStop(1,'rgba(239,68,68,0)');
+    ctx.fillStyle=wg;ctx.beginPath();ctx.arc(cx,cy,44,0,Math.PI*2);ctx.fill();
+  }
+  ctx.save();ctx.font=(mode==='duel'?'30':'38')+'px serif';
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('⚔️',cx,cy+bob);ctx.restore();
+}
+
+function drawE(e){
+  var alp=e.alive?1:(e.dy/10);if(alp<=0)return;
+  var gw=0.5+Math.sin(e.ph)*0.5,c=e.fake?[168,85,247]:[239,68,68],cs='rgba('+c.join(',')+',';
+  ctx.globalAlpha=alp;
+  var gr=ctx.createRadialGradient(e.x,e.y,0,e.x,e.y,35);
+  gr.addColorStop(0,cs+(0.55+gw*0.4)+')');gr.addColorStop(0.45,cs+'0.2)');gr.addColorStop(1,cs+'0)');
+  ctx.fillStyle=gr;ctx.beginPath();ctx.arc(e.x,e.y,35,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle=cs+'1)';ctx.beginPath();ctx.arc(e.x,e.y,9+gw*3,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='white';ctx.beginPath();ctx.arc(e.x,e.y,3.5,0,Math.PI*2);ctx.fill();
+  if(!e.alive&&e.dy>0){
+    var br=(10-e.dy)*4,bg=ctx.createRadialGradient(e.x,e.y,0,e.x,e.y,br);
+    bg.addColorStop(0,cs+'0.8)');bg.addColorStop(1,cs+'0)');
+    ctx.fillStyle=bg;ctx.beginPath();ctx.arc(e.x,e.y,br,0,Math.PI*2);ctx.fill();
+  }
+  ctx.globalAlpha=1;
+}
+
+/* === UI === */
+function updUI(){
+  var hMax=mode==='duel'?3:5,h1='',h2='';
+  for(var i=0;i<hMax;i++){h1+=i<p1.hp?'❤️':'🖤';h2+=i<p2.hp?'❤️':'🖤';}
+  $('dhHealth').textContent=h1;
+  $('dhScore').textContent=p1.score;
+  var c=$('dhCombo');
+  if(p1.combo>=2){c.textContent='🔥 ×'+p1.combo+' Combo';c.style.opacity='1';c.style.color='#fbbf24';}
+  else if(p1.combo===1){c.textContent='×1';c.style.opacity='0.5';c.style.color='white';}
+  else{c.textContent='—';c.style.opacity='0.25';c.style.color='white';}
+  var acc=p1.total>0?Math.round(p1.hits/p1.total*100):100;
+  $('dhAcc').textContent=acc+'%';
+  $('dhTime').textContent=Math.floor(elapsed/1000)+'s';
+  $('dhSpeed').textContent=spd.toFixed(1)+'×';
+  if(mode==='duel'){
+    $('dhHealthP2').textContent=h2;
+    $('dhScoreP2').textContent='P2: '+p2.score+' pts';
+  }
+}
+
+/* === END === */
+function endGame(){
+  phase='gameover';if(raf)cancelAnimationFrame(raf);
+  var surv=Math.floor(elapsed/1000);
+  hide('dhGame');show('dhResult');
+  var winner='';
+  if(mode==='duel')winner=p1.hp>0?'⚔️ Player 1 Wins!':'⚔️ Player 2 Wins!';
+  $('dhWinner').textContent=winner;
+  $('rScore').textContent=mode==='duel'?p1.score+' / '+p2.score:p1.score;
+  $('rCombo').textContent=p1.maxCombo;
+  $('rAcc').textContent=(p1.total>0?Math.round(p1.hits/p1.total*100):100)+'%';
+  $('rTime').textContent=surv+'s';
+  $('dhResultMode').textContent=mode==='challenge'?'⚡ Challenge Mode':mode==='revenge'?'🔥 Revenge Mode':'🤺 2-Player Duel';
+  var showLb=mode!=='duel'&&window.GameLeaderboard;
+  $('dhSubmitWrap').style.display=showLb?'block':'none';
+  $('dhLbWrap').style.display=showLb?'block':'none';
+  if(showLb){
+    var gid='dhurandhar-'+mode;
+    var uid=window.GameAuth&&window.GameAuth.isSignedIn()?window.GameAuth.getCurrentUser().uid:null;
+    window.GameLeaderboard.load(gid,'dhLbList',uid);
+    var signedIn=window.GameAuth&&window.GameAuth.isSignedIn();
+    $('dhSubmitBtn').style.display=signedIn?'inline-flex':'none';
+    $('dhSignInMsg').style.display=signedIn?'none':'flex';
+  }
+}
+
+function submitScore(){
+  if(!window.GameAuth||!window.GameLeaderboard)return;
+  var user=window.GameAuth.getCurrentUser();if(!user)return;
+  var gid='dhurandhar-'+mode;
+  window.GameAuth.getIdToken().then(function(tok){
+    return window.GameLeaderboard.submitScore(gid,user.uid,user.displayName||'Player',p1.score,tok);
+  }).then(function(res){
+    window.GameAuth.showToast(res.reason,res.updated?'success':'info');
+    if(res.updated)window.GameLeaderboard.load(gid,'dhLbList',user.uid);
+  });
+}
+
+function showMenu(){
+  phase='menu';if(raf)cancelAnimationFrame(raf);
+  hide('dhGame');hide('dhResult');show('dhMenu');
+}
+
+document.addEventListener('DOMContentLoaded',init);
+}());
+</script>
