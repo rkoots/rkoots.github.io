@@ -44,8 +44,10 @@ use_firebase: true
 .dh-btns{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
 </style>
 
+<div class="game-container" style="padding:20px 16px">
+
 <!-- MENU -->
-<div id="dhMenu" class="dh-screen">
+<div id="dhMenu" class="dh-screen" style="min-height:70vh">
   <div class="dh-menu-hero">
     <span class="h-emoji">⚔️</span>
     <h2>Dhurandhar: The Revenge</h2>
@@ -148,6 +150,7 @@ use_firebase: true
     </div>
   </div>
 </div>
+</div><!-- /.game-container -->
 
 <script>
 (function(){'use strict';
@@ -181,7 +184,13 @@ function init(){
 function $(id){return document.getElementById(id);}
 function show(id){$(id).style.display='flex';}
 function hide(id){$(id).style.display='none';}
-function resizeCv(){var w=Math.min((canvas.parentElement||document.body).clientWidth,500);canvas.style.width=w+'px';canvas.style.height=w+'px';}
+function resizeCv(){
+  var wrap=document.getElementById('dhGame');
+  if(!wrap||wrap.style.display==='none')return;
+  var w=Math.min((canvas.parentElement||document.body).clientWidth||500,500);
+  if(w<10)w=Math.min(document.body.clientWidth||500,500);
+  canvas.style.width=w+'px';canvas.style.height=w+'px';
+}
 
 function go(m){
   mode=m;CFG=MODES[m];
@@ -197,6 +206,7 @@ function go(m){
   $('dhScoreP2').style.display=isDuel?'block':'none';
   $('dhSpeedWrap').style.display=isDuel?'none':'inline';
   if(raf)cancelAnimationFrame(raf);
+  setTimeout(resizeCv,10);
   loop(t0);
 }
 
@@ -471,6 +481,6 @@ function showMenu(){
   hide('dhGame');hide('dhResult');show('dhMenu');
 }
 
-document.addEventListener('DOMContentLoaded',init);
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
 }());
 </script>
