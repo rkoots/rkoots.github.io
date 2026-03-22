@@ -1,0 +1,247 @@
+---
+layout: game
+permalink: /games/challenges/math-sprint/
+title: "Math Sprint"
+description: "Solve as many math problems as you can in 60 seconds. Score = correct answers × difficulty bonus."
+use_firebase: true
+---
+<div class="challenge-container">
+
+  <div class="game-header" style="max-width:1100px">
+    <div class="game-title">
+      <span class="game-emoji">🧮</span>
+      <h1>Math Sprint</h1>
+    </div>
+    <a href="/games/challenges/" class="back-link"><i class="fas fa-arrow-left"></i> All Challenges</a>
+  </div>
+
+  <div class="auth-panel" style="max-width:1100px">
+    <div class="auth-signed-out" style="display:flex;align-items:center;gap:10px;flex:1">
+      <span class="auth-signed-out-msg"><i class="fas fa-info-circle"></i> Sign in to submit your score.</span>
+    </div>
+    <div class="auth-signed-in" style="display:none;flex:1">
+      <div class="auth-user-info">
+        <div class="auth-avatar auth-avatar-img"></div>
+        <span class="auth-name"></span>
+      </div>
+    </div>
+    <button class="btn-google btn-google-signin">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      Sign in with Google
+    </button>
+    <button class="btn-signout" style="display:none">Sign out</button>
+  </div>
+
+  <div class="challenge-layout" style="max-width:1100px">
+
+    <div class="challenge-game-area">
+      <div class="typing-stats">
+        <div class="typing-stat"><div class="stat-val" id="timerDisp">60</div><div class="stat-lbl">Seconds</div></div>
+        <div class="typing-stat"><div class="stat-val" id="correctDisp">0</div><div class="stat-lbl">Correct</div></div>
+        <div class="typing-stat"><div class="stat-val" id="wrongDisp">0</div><div class="stat-lbl">Wrong</div></div>
+        <div class="typing-stat"><div class="stat-val" id="scoreDisp">0</div><div class="stat-lbl">Score</div></div>
+      </div>
+
+      <!-- Problem display -->
+      <div id="problemArea" style="text-align:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 16px">
+        <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:8px" id="diffLabel">—</div>
+        <div class="math-problem" id="mathProblem" style="font-size:clamp(2rem,8vw,3rem)">Start to begin!</div>
+        <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap" id="optionBtns"></div>
+        <p class="game-status-msg" id="feedbackMsg" style="margin-top:12px;font-size:0.85rem"></p>
+      </div>
+
+      <!-- Idle -->
+      <div style="text-align:center" id="startArea">
+        <p style="color:rgba(255,255,255,0.5);font-size:0.875rem">Solve math problems as fast as possible.<br>Pick the correct answer from 4 options.<br>Harder problems = more points. 60 seconds.</p>
+        <button class="btn-game-action" id="startBtn" style="margin-top:16px">Start</button>
+      </div>
+
+      <!-- Score submit -->
+      <div class="score-submit-area" id="scoreSubmit" style="display:none">
+        <div class="final-score-display">
+          <div class="score-label">Final Score</div>
+          <div><span class="score-value" id="finalScore">0</span><span class="score-unit">pts</span></div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.45);margin-top:6px" id="scoreBreakdown"></div>
+        </div>
+        <button class="btn-submit-score" id="submitBtn"><i class="fas fa-upload"></i> Submit Score</button>
+        <button class="btn-play-again" id="playAgainBtn"><i class="fas fa-redo"></i> Play Again</button>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.35)" id="submitMsg"></div>
+      </div>
+    </div>
+
+    <div class="leaderboard-panel">
+      <div class="leaderboard-header">
+        <i class="fas fa-trophy" style="color:#fbbf24"></i>
+        <h3>Leaderboard</h3>
+        <button onclick="loadLeaderboard()" style="margin-left:auto;background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:0.8rem;padding:4px 8px;border-radius:6px"><i class="fas fa-sync-alt"></i></button>
+      </div>
+      <div class="leaderboard-body" id="leaderboardBody"><div class="lb-loading">Loading…</div></div>
+      <div class="lb-user-rank" id="userRankBar" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
+<div id="game-toast" class="game-toast"></div>
+
+<script>
+(function(){
+  var CHALLENGE_ID='math-sprint';
+  var TIME=60;
+  var phase='idle',timeLeft,score,correct,wrong,timerInterval,currentAnswer,currentPoints;
+
+  var timerEl=document.getElementById('timerDisp');
+  var correctEl=document.getElementById('correctDisp');
+  var wrongEl=document.getElementById('wrongDisp');
+  var scoreEl=document.getElementById('scoreDisp');
+  var mathEl=document.getElementById('mathProblem');
+  var diffEl=document.getElementById('diffLabel');
+  var optionBtns=document.getElementById('optionBtns');
+  var feedbackEl=document.getElementById('feedbackMsg');
+  var startArea=document.getElementById('startArea');
+  var startBtn=document.getElementById('startBtn');
+  var scoreSubmit=document.getElementById('scoreSubmit');
+  var finalScoreEl=document.getElementById('finalScore');
+  var scoreBreakdown=document.getElementById('scoreBreakdown');
+  var submitBtn=document.getElementById('submitBtn');
+  var playAgainBtn=document.getElementById('playAgainBtn');
+  var submitMsg=document.getElementById('submitMsg');
+
+  startBtn.addEventListener('click',function(){ startArea.style.display='none'; startGame(); });
+  playAgainBtn.addEventListener('click',function(){
+    scoreSubmit.style.display='none';startArea.style.display='block';
+    timerEl.textContent=TIME;correctEl.textContent='0';wrongEl.textContent='0';scoreEl.textContent='0';
+    mathEl.textContent='Start to begin!';diffEl.textContent='—';optionBtns.innerHTML='';
+    feedbackEl.textContent='';submitBtn.disabled=false;submitMsg.textContent='';
+  });
+
+  function startGame(){
+    phase='playing';score=0;correct=0;wrong=0;timeLeft=TIME;
+    scoreSubmit.style.display='none';
+    timerEl.textContent=TIME;correctEl.textContent='0';wrongEl.textContent='0';scoreEl.textContent='0';
+    feedbackEl.textContent='';
+    nextQuestion();
+    timerInterval=setInterval(function(){
+      timeLeft--;
+      timerEl.textContent=timeLeft;
+      if(timeLeft<=0){ clearInterval(timerInterval); endGame(); }
+    },1000);
+  }
+
+  function nextQuestion(){
+    if(phase!=='playing') return;
+    var q=generateQ(Math.min(Math.floor(correct/5)+1,3));
+    currentAnswer=q.answer;currentPoints=q.points;
+    mathEl.textContent=q.problem;
+    diffEl.textContent=q.label;
+    var opts=generateOptions(q.answer,q.range);
+    optionBtns.innerHTML='';
+    opts.forEach(function(opt){
+      var btn=document.createElement('button');
+      btn.className='math-option-btn';
+      btn.textContent=opt;
+      btn.style.cssText='padding:12px 20px;border-radius:10px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.06);color:white;font-size:1.1rem;cursor:pointer;min-width:70px;transition:all 0.15s';
+      btn.addEventListener('click',function(){ handleAnswer(opt,btn); });
+      optionBtns.appendChild(btn);
+    });
+  }
+
+  function handleAnswer(chosen,btn){
+    if(phase!=='playing') return;
+    optionBtns.querySelectorAll('button').forEach(function(b){ b.disabled=true; });
+    if(chosen===currentAnswer){
+      btn.style.background='rgba(74,222,128,0.3)';btn.style.borderColor='#4ade80';
+      score+=currentPoints;correct++;
+      scoreEl.textContent=score;correctEl.textContent=correct;
+      feedbackEl.textContent='✅ +'+currentPoints+' pts!';feedbackEl.className='game-status-msg win';
+    } else {
+      btn.style.background='rgba(239,68,68,0.25)';btn.style.borderColor='#ef4444';
+      wrong++;wrongEl.textContent=wrong;
+      feedbackEl.textContent='❌ Wrong! Answer: '+currentAnswer;feedbackEl.className='game-status-msg lose';
+    }
+    setTimeout(function(){ if(phase==='playing') nextQuestion(); },500);
+  }
+
+  function generateQ(difficulty){
+    var a,b,op,ans,label,points,range;
+    if(difficulty===1){
+      a=rand(1,15);b=rand(1,15);op=rand(0,1)?'+':'-';
+      if(op==='-'&&b>a){var t=a;a=b;b=t;}
+      label='⭐ Easy (+3pts)';points=3;range=20;
+    } else if(difficulty===2){
+      op=['×','+','-'][rand(0,2)];
+      if(op==='×'){a=rand(2,9);b=rand(2,9);}
+      else{a=rand(10,50);b=rand(10,50);if(op==='-'&&b>a){var t=a;a=b;b=t;}}
+      label='⭐⭐ Medium (+5pts)';points=5;range=40;
+    } else {
+      op=['×','÷'][rand(0,1)];
+      if(op==='×'){a=rand(7,15);b=rand(7,12);}
+      else{b=rand(2,12);a=b*rand(3,10);}
+      label='⭐⭐⭐ Hard (+10pts)';points=10;range=80;
+    }
+    switch(op){
+      case '+':ans=a+b;break;case '-':ans=a-b;break;
+      case '×':ans=a*b;break;case '÷':ans=a/b;break;
+    }
+    return{problem:a+' '+op+' '+b+' = ?',answer:ans,label:label,points:points,range:range};
+  }
+
+  function generateOptions(correct,range){
+    var opts=[correct];
+    while(opts.length<4){
+      var fake=correct+rand(-Math.min(range,correct-1),range);
+      if(fake!==correct&&!opts.includes(fake)&&fake>=0) opts.push(fake);
+    }
+    return shuffle(opts);
+  }
+
+  function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+  function shuffle(arr){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=rand(0,i);var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+  function endGame(){
+    phase='done';optionBtns.innerHTML='';feedbackEl.textContent='';
+    finalScoreEl.textContent=score;
+    scoreBreakdown.textContent=correct+' correct · '+wrong+' wrong · '+score+' total points';
+    scoreSubmit.style.display='flex';loadLeaderboard();
+    submitBtn.onclick=function(){
+      var user=window.GameAuth?GameAuth.getCurrentUser():null;
+      if(!user){GameAuth.showToast('Sign in first!','error');return;}
+      submitBtn.disabled=true;submitMsg.textContent='Submitting…';
+      user.getIdToken().then(function(token){
+        return GameLeaderboard.submitScore(CHALLENGE_ID,user.uid,user.displayName||'Player',score,token);
+      }).then(function(res){
+        submitMsg.textContent=res.updated?'✅ '+res.reason:'⚠️ '+res.reason;
+        if(res.updated)GameAuth.showToast('Score submitted!','success');
+        loadLeaderboard();
+      }).catch(function(e){submitMsg.textContent='❌ '+e.message;submitBtn.disabled=false;});
+    };
+  }
+
+  function loadLeaderboard(){
+    var user=window.GameAuth?GameAuth.getCurrentUser():null;
+    var uid=user?user.uid:null;
+    if(window.GameLeaderboard){
+      GameLeaderboard.load(CHALLENGE_ID,'leaderboardBody',uid).then(function(scores){
+        var bar=document.getElementById('userRankBar');
+        if(uid&&scores&&scores.length>0){
+          var rank=scores.findIndex(function(s){return s.userId===uid;})+1;
+          if(rank>0){bar.textContent='Your rank: #'+rank+' of '+scores.length;bar.style.display='block';}
+        }
+      });
+    }
+  }
+
+  if(document.readyState!=='loading') setTimeout(loadLeaderboard,500);
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(loadLeaderboard,500);});
+  if(window.GameAuth){
+    GameAuth.onAuthChange(function(user){
+      document.querySelectorAll('.btn-signout').forEach(function(b){b.style.display=user?'inline-flex':'none';});
+      document.querySelectorAll('.btn-google-signin').forEach(function(b){b.style.display=user?'none':'inline-flex';});
+      loadLeaderboard();
+    });
+  }
+}());
+</script>
+
+<style>
+.math-option-btn:hover{background:rgba(102,126,234,0.2)!important;border-color:#667eea!important;transform:scale(1.05)}
+</style>

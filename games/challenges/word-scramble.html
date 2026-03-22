@@ -1,0 +1,239 @@
+---
+layout: game
+permalink: /games/challenges/word-scramble/
+title: "Word Scramble Challenge"
+description: "Unscramble as many words as you can in 60 seconds. Longer words score more. Global leaderboard."
+use_firebase: true
+---
+<div class="challenge-container">
+
+  <div class="game-header" style="max-width:1100px">
+    <div class="game-title">
+      <span class="game-emoji">🔤</span>
+      <h1>Word Scramble</h1>
+    </div>
+    <a href="/games/challenges/" class="back-link"><i class="fas fa-arrow-left"></i> All Challenges</a>
+  </div>
+
+  <div class="auth-panel" style="max-width:1100px">
+    <div class="auth-signed-out" style="display:flex;align-items:center;gap:10px;flex:1">
+      <span class="auth-signed-out-msg"><i class="fas fa-info-circle"></i> Sign in to submit your score.</span>
+    </div>
+    <div class="auth-signed-in" style="display:none;flex:1">
+      <div class="auth-user-info">
+        <div class="auth-avatar auth-avatar-img"></div>
+        <span class="auth-name"></span>
+      </div>
+    </div>
+    <button class="btn-google btn-google-signin">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      Sign in with Google
+    </button>
+    <button class="btn-signout" style="display:none">Sign out</button>
+  </div>
+
+  <div class="challenge-layout" style="max-width:1100px">
+
+    <div class="challenge-game-area">
+      <div class="typing-stats">
+        <div class="typing-stat"><div class="stat-val" id="timerDisp">60</div><div class="stat-lbl">Seconds</div></div>
+        <div class="typing-stat"><div class="stat-val" id="solvedDisp">0</div><div class="stat-lbl">Solved</div></div>
+        <div class="typing-stat"><div class="stat-val" id="skippedDisp">0</div><div class="stat-lbl">Skipped</div></div>
+        <div class="typing-stat"><div class="stat-val" id="scoreDisp">0</div><div class="stat-lbl">Score</div></div>
+      </div>
+
+      <div style="text-align:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px 16px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.4)" id="diffLabel">—</div>
+        <div style="font-size:clamp(1.8rem,7vw,3rem);font-weight:800;letter-spacing:0.2em;color:white" id="scrambledWord">—</div>
+        <div style="font-size:0.8rem;color:rgba(255,255,255,0.35)" id="hintEl"></div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <input type="text" id="answerInput" class="typing-input" style="max-width:280px;height:44px;font-size:1rem;text-align:center;padding:8px 14px" placeholder="Type your answer…" autocomplete="off" autocorrect="off" spellcheck="false" disabled>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center">
+          <button class="btn-game-action" id="submitAnswerBtn" disabled>Submit ✓</button>
+          <button class="btn-game-reset" id="skipBtn" disabled>Skip →</button>
+        </div>
+        <p class="game-status-msg" id="feedbackMsg"></p>
+      </div>
+
+      <div style="text-align:center" id="startArea">
+        <p style="color:rgba(255,255,255,0.5);font-size:0.875rem">Unscramble words as fast as you can!<br>Longer words = more points. 60 seconds on the clock.</p>
+        <button class="btn-game-action" id="startBtn" style="margin-top:16px">Start</button>
+      </div>
+
+      <div class="score-submit-area" id="scoreSubmit" style="display:none">
+        <div class="final-score-display">
+          <div class="score-label">Final Score</div>
+          <div><span class="score-value" id="finalScore">0</span><span class="score-unit">pts</span></div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.45);margin-top:6px" id="scoreBreakdown"></div>
+        </div>
+        <button class="btn-submit-score" id="submitBtn"><i class="fas fa-upload"></i> Submit Score</button>
+        <button class="btn-play-again" id="playAgainBtn"><i class="fas fa-redo"></i> Play Again</button>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.35)" id="submitMsg"></div>
+      </div>
+    </div>
+
+    <div class="leaderboard-panel">
+      <div class="leaderboard-header">
+        <i class="fas fa-trophy" style="color:#fbbf24"></i>
+        <h3>Leaderboard</h3>
+        <button onclick="loadLeaderboard()" style="margin-left:auto;background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:0.8rem;padding:4px 8px;border-radius:6px"><i class="fas fa-sync-alt"></i></button>
+      </div>
+      <div class="leaderboard-body" id="leaderboardBody"><div class="lb-loading">Loading…</div></div>
+      <div class="lb-user-rank" id="userRankBar" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
+<div id="game-toast" class="game-toast"></div>
+
+<script>
+(function(){
+  var CHALLENGE_ID='word-scramble';
+  var WORDS=[
+    {word:'python',pts:6},{word:'matrix',pts:6},{word:'jungle',pts:6},{word:'bridge',pts:6},
+    {word:'planet',pts:6},{word:'freeze',pts:6},{word:'rocket',pts:6},{word:'castle',pts:6},
+    {word:'lantern',pts:7},{word:'captain',pts:7},{word:'blanket',pts:7},{word:'diamond',pts:7},
+    {word:'phantom',pts:7},{word:'thunder',pts:7},{word:'balance',pts:7},{word:'horizon',pts:7},
+    {word:'champion',pts:8},{word:'explorer',pts:8},{word:'keyboard',pts:8},{word:'symphony',pts:8},
+    {word:'spectrum',pts:8},{word:'mountain',pts:8},{word:'navigate',pts:8},{word:'discover',pts:8},
+    {word:'adventure',pts:9},{word:'algorithm',pts:9},{word:'framework',pts:9},{word:'blueprint',pts:9},
+    {word:'javascript',pts:10},{word:'technology',pts:10},{word:'engineering',pts:11}
+  ];
+
+  var phase='idle',timeLeft,score,solved,skipped,timerInterval,currentWord,usedWords;
+
+  var timerEl=document.getElementById('timerDisp');
+  var solvedEl=document.getElementById('solvedDisp');
+  var skippedEl=document.getElementById('skippedDisp');
+  var scoreEl=document.getElementById('scoreDisp');
+  var scrambledEl=document.getElementById('scrambledWord');
+  var hintEl=document.getElementById('hintEl');
+  var diffEl=document.getElementById('diffLabel');
+  var answerInput=document.getElementById('answerInput');
+  var submitAnswerBtn=document.getElementById('submitAnswerBtn');
+  var skipBtn=document.getElementById('skipBtn');
+  var feedbackEl=document.getElementById('feedbackMsg');
+  var startArea=document.getElementById('startArea');
+  var startBtn=document.getElementById('startBtn');
+  var scoreSubmit=document.getElementById('scoreSubmit');
+  var finalScoreEl=document.getElementById('finalScore');
+  var scoreBreakdown=document.getElementById('scoreBreakdown');
+  var submitBtn=document.getElementById('submitBtn');
+  var playAgainBtn=document.getElementById('playAgainBtn');
+  var submitMsg=document.getElementById('submitMsg');
+
+  startBtn.addEventListener('click',function(){ startArea.style.display='none'; startGame(); });
+  submitAnswerBtn.addEventListener('click',checkAnswer);
+  skipBtn.addEventListener('click',skipWord);
+  answerInput.addEventListener('keydown',function(e){ if(e.key==='Enter') checkAnswer(); });
+  playAgainBtn.addEventListener('click',resetUI);
+
+  function startGame(){
+    phase='playing';score=0;solved=0;skipped=0;timeLeft=60;
+    usedWords=[];
+    scoreSubmit.style.display='none';
+    timerEl.textContent=60;solvedEl.textContent='0';skippedEl.textContent='0';scoreEl.textContent='0';
+    answerInput.disabled=false;submitAnswerBtn.disabled=false;skipBtn.disabled=false;
+    feedbackEl.textContent='';
+    nextWord();
+    timerInterval=setInterval(function(){
+      timeLeft--;timerEl.textContent=timeLeft;
+      if(timeLeft<=0){clearInterval(timerInterval);endGame();}
+    },1000);
+  }
+
+  function nextWord(){
+    if(phase!=='playing') return;
+    var available=WORDS.filter(function(w){return usedWords.indexOf(w.word)===-1;});
+    if(!available.length){ usedWords=[]; available=WORDS.slice(); }
+    var chosen=available[Math.floor(Math.random()*available.length)];
+    usedWords.push(chosen.word);
+    currentWord=chosen;
+    scrambledEl.textContent=scramble(chosen.word).toUpperCase();
+    hintEl.textContent=chosen.word.length+' letters · '+chosen.pts+' points';
+    diffEl.textContent=chosen.word.length<=6?'⭐ Easy':chosen.word.length<=8?'⭐⭐ Medium':'⭐⭐⭐ Hard';
+    answerInput.value='';answerInput.focus();
+    feedbackEl.textContent='';feedbackEl.className='game-status-msg';
+  }
+
+  function checkAnswer(){
+    if(phase!=='playing') return;
+    var guess=answerInput.value.trim().toLowerCase();
+    if(!guess) return;
+    if(guess===currentWord.word){
+      score+=currentWord.pts;solved++;
+      scoreEl.textContent=score;solvedEl.textContent=solved;
+      feedbackEl.textContent='✅ +'+currentWord.pts+' pts!';feedbackEl.className='game-status-msg win';
+      setTimeout(nextWord,300);
+    } else {
+      feedbackEl.textContent='❌ Try again!';feedbackEl.className='game-status-msg lose';
+      answerInput.value='';answerInput.focus();
+    }
+  }
+
+  function skipWord(){
+    if(phase!=='playing') return;
+    skipped++;skippedEl.textContent=skipped;
+    feedbackEl.textContent='⏭ Skipped!';feedbackEl.className='game-status-msg draw';
+    nextWord();
+  }
+
+  function endGame(){
+    phase='done';answerInput.disabled=true;submitAnswerBtn.disabled=true;skipBtn.disabled=true;
+    finalScoreEl.textContent=score;
+    scoreBreakdown.textContent=solved+' words solved · '+skipped+' skipped · '+score+' points';
+    scoreSubmit.style.display='flex';loadLeaderboard();
+    submitBtn.onclick=function(){
+      var user=window.GameAuth?GameAuth.getCurrentUser():null;
+      if(!user){GameAuth.showToast('Sign in first!','error');return;}
+      submitBtn.disabled=true;submitMsg.textContent='Submitting…';
+      user.getIdToken().then(function(token){
+        return GameLeaderboard.submitScore(CHALLENGE_ID,user.uid,user.displayName||'Player',score,token);
+      }).then(function(res){
+        submitMsg.textContent=res.updated?'✅ '+res.reason:'⚠️ '+res.reason;
+        if(res.updated)GameAuth.showToast('Score submitted!','success');
+        loadLeaderboard();
+      }).catch(function(e){submitMsg.textContent='❌ '+e.message;submitBtn.disabled=false;});
+    };
+  }
+
+  function resetUI(){
+    scoreSubmit.style.display='none';startArea.style.display='block';
+    scrambledEl.textContent='—';hintEl.textContent='';diffEl.textContent='—';
+    timerEl.textContent=60;solvedEl.textContent='0';skippedEl.textContent='0';scoreEl.textContent='0';
+    feedbackEl.textContent='';submitBtn.disabled=false;submitMsg.textContent='';
+  }
+
+  function scramble(word){
+    var arr=word.split('');
+    do{ for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;} }
+    while(arr.join('')===word);
+    return arr.join('');
+  }
+
+  function loadLeaderboard(){
+    var user=window.GameAuth?GameAuth.getCurrentUser():null;
+    var uid=user?user.uid:null;
+    if(window.GameLeaderboard){
+      GameLeaderboard.load(CHALLENGE_ID,'leaderboardBody',uid).then(function(scores){
+        var bar=document.getElementById('userRankBar');
+        if(uid&&scores&&scores.length>0){
+          var rank=scores.findIndex(function(s){return s.userId===uid;})+1;
+          if(rank>0){bar.textContent='Your rank: #'+rank+' of '+scores.length;bar.style.display='block';}
+        }
+      });
+    }
+  }
+
+  if(document.readyState!=='loading') setTimeout(loadLeaderboard,500);
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(loadLeaderboard,500);});
+  if(window.GameAuth){
+    GameAuth.onAuthChange(function(user){
+      document.querySelectorAll('.btn-signout').forEach(function(b){b.style.display=user?'inline-flex':'none';});
+      document.querySelectorAll('.btn-google-signin').forEach(function(b){b.style.display=user?'none':'inline-flex';});
+      loadLeaderboard();
+    });
+  }
+}());
+</script>

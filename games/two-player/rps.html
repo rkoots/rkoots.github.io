@@ -1,0 +1,164 @@
+---
+layout: game
+permalink: /games/two-player/rps/
+title: "Rock Paper Scissors"
+description: "2-player Rock Paper Scissors. Best of 7. Choose simultaneously, no peeking!"
+---
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-title">
+      <span class="game-emoji">✂️</span>
+      <h1>Rock Paper Scissors</h1>
+    </div>
+    <a href="/games/two-player/" class="back-link"><i class="fas fa-arrow-left"></i> All 2P Games</a>
+  </div>
+
+  <div style="width:100%;max-width:700px;display:flex;flex-direction:column;gap:16px">
+    <div class="split-top-bar" style="border-radius:14px">
+      <div class="player-score p1-score">
+        <span class="label">Player 1</span>
+        <span class="score" id="p1score">0</span>
+      </div>
+      <div class="turn-indicator" id="roundInfo">Best of 7</div>
+      <div class="player-score p2-score" style="text-align:right">
+        <span class="score" id="p2score">0</span>
+        <span class="label">Player 2</span>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:start">
+      <!-- P1 Panel -->
+      <div style="background:rgba(102,126,234,0.08);border:1px solid rgba(102,126,234,0.2);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px">
+        <div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:1px">PLAYER 1</div>
+        <div class="rps-choice-display" id="p1choice">❓</div>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.35)" id="p1chosen">Pick below</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+          <button class="rps-btn" data-player="1" data-val="rock" title="Rock">🪨</button>
+          <button class="rps-btn" data-player="1" data-val="paper" title="Paper">📄</button>
+          <button class="rps-btn" data-player="1" data-val="scissors" title="Scissors">✂️</button>
+        </div>
+      </div>
+
+      <!-- Center -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 0">
+        <div style="font-size:1.5rem;font-weight:700;color:rgba(255,255,255,0.2)">VS</div>
+        <div style="width:2px;height:60px;background:rgba(255,255,255,0.08)"></div>
+      </div>
+
+      <!-- P2 Panel -->
+      <div style="background:rgba(240,147,251,0.08);border:1px solid rgba(240,147,251,0.2);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px">
+        <div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:1px">PLAYER 2</div>
+        <div class="rps-choice-display" id="p2choice">❓</div>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.35)" id="p2chosen">Pick below</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+          <button class="rps-btn p2" data-player="2" data-val="rock" title="Rock">🪨</button>
+          <button class="rps-btn p2" data-player="2" data-val="paper" title="Paper">📄</button>
+          <button class="rps-btn p2" data-player="2" data-val="scissors" title="Scissors">✂️</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center">
+      <p class="game-status-msg" id="statusMsg"></p>
+      <div id="roundResult" style="font-size:1.4rem;display:none"></div>
+      <button class="btn-game-action" id="revealBtn" style="display:none">Reveal! 👀</button>
+      <button class="btn-game-reset" id="resetBtn">Reset</button>
+    </div>
+  </div>
+</div>
+
+<style>
+.game-container{background:#0d0d1a}
+.rps-choice-display{font-size:3rem;line-height:1;min-height:52px;transition:all 0.3s}
+.rps-btn{font-size:1.6rem;padding:10px 14px;border-radius:12px;border:2px solid rgba(102,126,234,0.3);background:rgba(102,126,234,0.1);cursor:pointer;transition:all 0.2s;line-height:1}
+.rps-btn:hover{transform:scale(1.12);border-color:#667eea;background:rgba(102,126,234,0.25)}
+.rps-btn.selected{border-color:#4ade80;background:rgba(74,222,128,0.2);transform:scale(1.08)}
+.rps-btn.p2{border-color:rgba(240,147,251,0.3);background:rgba(240,147,251,0.1)}
+.rps-btn.p2:hover{border-color:#f093fb;background:rgba(240,147,251,0.25)}
+.rps-btn.p2.selected{border-color:#4ade80;background:rgba(74,222,128,0.2)}
+</style>
+
+<script>
+(function(){
+  var WIN_SCORE=4, choices={1:null,2:null}, scores={1:0,2:0}, round=0, revealed=false;
+  var EMOJI={rock:'🪨',paper:'📄',scissors:'✂️'};
+  var BEATS={rock:'scissors',paper:'rock',scissors:'paper'};
+
+  var p1choiceEl=document.getElementById('p1choice');
+  var p2choiceEl=document.getElementById('p2choice');
+  var p1chosenEl=document.getElementById('p1chosen');
+  var p2chosenEl=document.getElementById('p2chosen');
+  var p1scoreEl=document.getElementById('p1score');
+  var p2scoreEl=document.getElementById('p2score');
+  var roundInfo=document.getElementById('roundInfo');
+  var statusEl=document.getElementById('statusMsg');
+  var roundResult=document.getElementById('roundResult');
+  var revealBtn=document.getElementById('revealBtn');
+  var resetBtn=document.getElementById('resetBtn');
+
+  document.querySelectorAll('.rps-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var p=parseInt(this.dataset.player), v=this.dataset.val;
+      if(revealed) return;
+      choices[p]=v;
+      if(p===1){p1choiceEl.textContent='🫣';p1chosenEl.textContent='✅ Locked in!';}
+      else{p2choiceEl.textContent='🫣';p2chosenEl.textContent='✅ Locked in!';}
+      document.querySelectorAll('.rps-btn[data-player="'+p+'"]').forEach(function(b){
+        b.classList.toggle('selected',b.dataset.val===v);
+      });
+      if(choices[1]&&choices[2]) revealBtn.style.display='inline-flex';
+    });
+  });
+
+  revealBtn.addEventListener('click',reveal);
+  resetBtn.addEventListener('click',reset);
+
+  function reveal(){
+    revealed=true;
+    revealBtn.style.display='none';
+    p1choiceEl.textContent=EMOJI[choices[1]];
+    p2choiceEl.textContent=EMOJI[choices[2]];
+    round++;
+
+    var winner=0;
+    if(choices[1]===choices[2])winner=0;
+    else if(BEATS[choices[1]]===choices[2])winner=1;
+    else winner=2;
+
+    var resultEmojis={0:'🤝 Draw!',1:'🎉 P1 wins round!',2:'🎉 P2 wins round!'};
+    roundResult.textContent=resultEmojis[winner]+' ('+choices[1]+' vs '+choices[2]+')';
+    roundResult.style.display='block';
+
+    if(winner){scores[winner]++;p1scoreEl.textContent=scores[1];p2scoreEl.textContent=scores[2];}
+
+    var matchWin=scores[1]>=WIN_SCORE||scores[2]>=WIN_SCORE;
+    if(matchWin){
+      statusEl.textContent='Player '+(scores[1]>scores[2]?'1':'2')+' wins the match! 🏆';
+      statusEl.className='game-status-msg win';
+      roundInfo.textContent='Game Over!';
+    } else {
+      roundInfo.textContent='Round '+round+' done';
+      setTimeout(nextRound,1500);
+    }
+  }
+
+  function nextRound(){
+    revealed=false;choices={1:null,2:null};
+    p1choiceEl.textContent='❓';p2choiceEl.textContent='❓';
+    p1chosenEl.textContent='Pick below';p2chosenEl.textContent='Pick below';
+    roundResult.style.display='none';
+    statusEl.textContent='';statusEl.className='game-status-msg';
+    document.querySelectorAll('.rps-btn').forEach(function(b){b.classList.remove('selected');});
+    var need=WIN_SCORE-Math.max(scores[1],scores[2]);
+    roundInfo.textContent='Need '+need+' more to win';
+  }
+
+  function reset(){
+    scores={1:0,2:0};round=0;
+    p1scoreEl.textContent='0';p2scoreEl.textContent='0';
+    roundInfo.textContent='Best of 7';
+    statusEl.textContent='';statusEl.className='game-status-msg';
+    nextRound();
+  }
+}());
+</script>

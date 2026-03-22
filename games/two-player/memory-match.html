@@ -1,0 +1,157 @@
+---
+layout: game
+permalink: /games/two-player/memory-match/
+title: "Memory Match"
+description: "2-player memory card matching. Flip cards to find pairs. Match = extra turn. Most pairs wins!"
+---
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-title">
+      <span class="game-emoji">🃏</span>
+      <h1>Memory Match</h1>
+    </div>
+    <a href="/games/two-player/" class="back-link"><i class="fas fa-arrow-left"></i> All 2P Games</a>
+  </div>
+
+  <div style="width:100%;max-width:720px;display:flex;flex-direction:column;gap:16px">
+    <div class="split-top-bar" style="border-radius:14px">
+      <div class="player-score p1-score" id="p1bar" style="outline:2px solid transparent;border-radius:10px;transition:outline 0.2s">
+        <span class="label">Player 1 🔵</span>
+        <span class="score" id="p1pairs">0</span>
+        <span style="font-size:0.7rem;color:rgba(255,255,255,0.4)">pairs</span>
+      </div>
+      <div class="turn-indicator" id="turnEl">Player 1's Turn</div>
+      <div class="player-score p2-score" style="text-align:right;outline:2px solid transparent;border-radius:10px;transition:outline 0.2s" id="p2bar">
+        <span class="label">Player 2 🔴</span>
+        <span class="score" id="p2pairs">0</span>
+        <span style="font-size:0.7rem;color:rgba(255,255,255,0.4)">pairs</span>
+      </div>
+    </div>
+
+    <div class="memory-grid" id="memoryGrid"></div>
+
+    <div style="text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center">
+      <p class="game-status-msg" id="statusMsg"></p>
+      <button class="btn-game-action" id="newGameBtn">New Game</button>
+    </div>
+  </div>
+</div>
+
+<style>
+.game-container{background:#0d0d1a}
+.memory-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;width:100%}
+@media(max-width:500px){.memory-grid{grid-template-columns:repeat(4,1fr)}}
+.mem-card{aspect-ratio:1;border-radius:10px;cursor:pointer;position:relative;transform-style:preserve-3d;transition:transform 0.4s;user-select:none}
+.mem-card.flipped,.mem-card.matched{transform:rotateY(180deg)}
+.mem-card-front,.mem-card-back{position:absolute;inset:0;border-radius:10px;display:flex;align-items:center;justify-content:center;backface-visibility:hidden;font-size:clamp(1rem,4vw,1.6rem)}
+.mem-card-front{background:rgba(102,126,234,0.15);border:2px solid rgba(102,126,234,0.3)}
+.mem-card-back{transform:rotateY(180deg);background:rgba(30,30,50,0.9);border:2px solid rgba(255,255,255,0.1)}
+.mem-card.matched .mem-card-back{border-color:#4ade80;background:rgba(74,222,128,0.15)}
+.mem-card.p1-match .mem-card-back{border-color:#667eea}
+.mem-card.p2-match .mem-card-back{border-color:#f093fb}
+</style>
+
+<script>
+(function(){
+  var EMOJIS=['🐶','🐱','🐻','🦊','🐸','🐯','🦁','🐼','🦄','🐨','🦋','🐙'];
+  var grid=[], flipped=[], matched=0, currentPlayer=1, scores={1:0,2:0}, locked=false;
+  var TOTAL_PAIRS=12;
+
+  var gridEl=document.getElementById('memoryGrid');
+  var turnEl=document.getElementById('turnEl');
+  var statusEl=document.getElementById('statusMsg');
+  var p1pairsEl=document.getElementById('p1pairs');
+  var p2pairsEl=document.getElementById('p2pairs');
+  var p1bar=document.getElementById('p1bar');
+  var p2bar=document.getElementById('p2bar');
+  var newGameBtn=document.getElementById('newGameBtn');
+
+  newGameBtn.addEventListener('click',initGame);
+
+  function initGame(){
+    matched=0;flipped=[];currentPlayer=1;scores={1:0,2:0};locked=false;
+    p1pairsEl.textContent='0';p2pairsEl.textContent='0';
+    statusEl.textContent='';statusEl.className='game-status-msg';
+    updateTurnUI();
+
+    var pairs=EMOJIS.slice(0,TOTAL_PAIRS);
+    grid=pairs.concat(pairs);
+    grid=shuffle(grid);
+
+    gridEl.innerHTML='';
+    grid.forEach(function(emoji,i){
+      var card=document.createElement('div');
+      card.className='mem-card';
+      card.dataset.index=i;
+      card.dataset.emoji=emoji;
+      card.innerHTML='<div class="mem-card-front">🎴</div><div class="mem-card-back">'+emoji+'</div>';
+      card.addEventListener('click',function(){handleClick(this);});
+      gridEl.appendChild(card);
+    });
+  }
+
+  function handleClick(card){
+    if(locked||card.classList.contains('flipped')||card.classList.contains('matched')) return;
+    card.classList.add('flipped');
+    flipped.push(card);
+    if(flipped.length===2) checkMatch();
+  }
+
+  function checkMatch(){
+    locked=true;
+    var a=flipped[0],b=flipped[1];
+    if(a.dataset.emoji===b.dataset.emoji){
+      // Match!
+      var cls=currentPlayer===1?'p1-match':'p2-match';
+      a.classList.add('matched',cls);
+      b.classList.add('matched',cls);
+      scores[currentPlayer]++;
+      p1pairsEl.textContent=scores[1];
+      p2pairsEl.textContent=scores[2];
+      matched++;
+      flipped=[];
+      locked=false;
+      statusEl.textContent='✅ Match! Player '+currentPlayer+' goes again!';
+      statusEl.className='game-status-msg win';
+      if(matched===TOTAL_PAIRS) endGame();
+    } else {
+      setTimeout(function(){
+        a.classList.remove('flipped');
+        b.classList.remove('flipped');
+        flipped=[];
+        currentPlayer=currentPlayer===1?2:1;
+        updateTurnUI();
+        statusEl.textContent='';
+        locked=false;
+      },1000);
+    }
+  }
+
+  function updateTurnUI(){
+    var c=currentPlayer===1?'rgba(102,126,234,0.3)':'rgba(240,147,251,0.3)';
+    turnEl.textContent='Player '+currentPlayer+'\'s Turn';
+    turnEl.style.background=currentPlayer===1?'rgba(102,126,234,0.2)':'rgba(240,147,251,0.2)';
+    p1bar.style.outline=currentPlayer===1?'2px solid #667eea':'2px solid transparent';
+    p2bar.style.outline=currentPlayer===2?'2px solid #f093fb':'2px solid transparent';
+  }
+
+  function endGame(){
+    locked=true;
+    var winner=scores[1]>scores[2]?'Player 1 🔵':scores[2]>scores[1]?'Player 2 🔴':'Tie!';
+    statusEl.textContent='Game Over! '+(scores[1]===scores[2]?'Tie! 🤝':winner+' wins! 🏆')+' ('+scores[1]+' vs '+scores[2]+' pairs)';
+    statusEl.className=scores[1]===scores[2]?'game-status-msg draw':'game-status-msg win';
+    turnEl.textContent='Game Over';
+  }
+
+  function shuffle(arr){
+    var a=arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j=Math.floor(Math.random()*(i+1));
+      var t=a[i];a[i]=a[j];a[j]=t;
+    }
+    return a;
+  }
+
+  initGame();
+}());
+</script>

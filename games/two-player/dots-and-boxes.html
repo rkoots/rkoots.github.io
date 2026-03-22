@@ -1,0 +1,218 @@
+---
+layout: game
+permalink: /games/two-player/dots-and-boxes/
+title: "Dots & Boxes"
+description: "2-player Dots and Boxes on a 5x5 grid. Draw lines, complete boxes, score points. Most boxes wins!"
+---
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-title">
+      <span class="game-emoji">📦</span>
+      <h1>Dots &amp; Boxes</h1>
+    </div>
+    <a href="/games/two-player/" class="back-link"><i class="fas fa-arrow-left"></i> All 2P Games</a>
+  </div>
+
+  <div style="width:100%;max-width:600px;display:flex;flex-direction:column;gap:16px">
+    <div class="split-top-bar" style="border-radius:14px">
+      <div class="player-score p1-score" id="p1bar">
+        <span class="label">Player 1 🔵</span>
+        <span class="score" id="p1score">0</span>
+      </div>
+      <div class="turn-indicator" id="turnEl">P1's Turn</div>
+      <div class="player-score p2-score" style="text-align:right" id="p2bar">
+        <span class="score" id="p2score">0</span>
+        <span class="label">Player 2 🔴</span>
+      </div>
+    </div>
+
+    <canvas id="dabCanvas" style="border-radius:16px;background:#0d0d1a;cursor:pointer;width:100%;touch-action:none"></canvas>
+
+    <div style="text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center">
+      <p class="game-status-msg" id="statusMsg"></p>
+      <button class="btn-game-action" id="newGameBtn">New Game</button>
+    </div>
+  </div>
+</div>
+
+<style>.game-container{background:#0d0d1a}</style>
+
+<script>
+(function(){
+  var GRID=5; // GRID x GRID boxes = (GRID+1) x (GRID+1) dots
+  var DOTS=GRID+1;
+  var canvas=document.getElementById('dabCanvas');
+  var ctx=canvas.getContext('2d');
+  var hLines,vLines,boxes,currentPlayer,scores;
+  var CELL,PAD,DOT_R;
+  var p1scoreEl=document.getElementById('p1score');
+  var p2scoreEl=document.getElementById('p2score');
+  var p1bar=document.getElementById('p1bar');
+  var p2bar=document.getElementById('p2bar');
+  var turnEl=document.getElementById('turnEl');
+  var statusEl=document.getElementById('statusMsg');
+  var newGameBtn=document.getElementById('newGameBtn');
+  var P1_COL='#667eea',P2_COL='#f093fb';
+
+  newGameBtn.addEventListener('click',initGame);
+
+  function initGame(){
+    hLines=Array.from({length:DOTS},function(){return Array(GRID).fill(0);});
+    vLines=Array.from({length:GRID},function(){return Array(DOTS).fill(0);});
+    boxes=Array.from({length:GRID},function(){return Array(GRID).fill(0);});
+    currentPlayer=1;scores={1:0,2:0};
+    statusEl.textContent='';statusEl.className='game-status-msg';
+    updateTurnUI();
+    resizeAndDraw();
+  }
+
+  function resizeAndDraw(){
+    var maxW=Math.min(canvas.parentElement.clientWidth,520);
+    canvas.width=maxW;canvas.height=maxW;
+    PAD=maxW*0.1;
+    CELL=(maxW-PAD*2)/GRID;
+    DOT_R=maxW*0.018;
+    draw();
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    // Draw lines
+    for(var r=0;r<DOTS;r++){
+      for(var c=0;c<GRID;c++){
+        if(hLines[r][c]){
+          ctx.strokeStyle=hLines[r][c]===1?P1_COL:P2_COL;
+          ctx.lineWidth=4;ctx.lineCap='round';
+          ctx.beginPath();
+          ctx.moveTo(PAD+c*CELL,PAD+r*CELL);
+          ctx.lineTo(PAD+(c+1)*CELL,PAD+r*CELL);
+          ctx.stroke();
+        }
+      }
+    }
+    for(var r=0;r<GRID;r++){
+      for(var c=0;c<DOTS;c++){
+        if(vLines[r][c]){
+          ctx.strokeStyle=vLines[r][c]===1?P1_COL:P2_COL;
+          ctx.lineWidth=4;ctx.lineCap='round';
+          ctx.beginPath();
+          ctx.moveTo(PAD+c*CELL,PAD+r*CELL);
+          ctx.lineTo(PAD+c*CELL,PAD+(r+1)*CELL);
+          ctx.stroke();
+        }
+      }
+    }
+    // Draw boxes
+    for(var r=0;r<GRID;r++){
+      for(var c=0;c<GRID;c++){
+        if(boxes[r][c]){
+          ctx.fillStyle=boxes[r][c]===1?'rgba(102,126,234,0.22)':'rgba(240,147,251,0.22)';
+          ctx.fillRect(PAD+c*CELL+3,PAD+r*CELL+3,CELL-6,CELL-6);
+          ctx.fillStyle=boxes[r][c]===1?P1_COL:P2_COL;
+          ctx.font='bold '+(CELL*0.35)+'px Inter';
+          ctx.textAlign='center';ctx.textBaseline='middle';
+          ctx.fillText(boxes[r][c]===1?'①':'②',PAD+c*CELL+CELL/2,PAD+r*CELL+CELL/2);
+        }
+      }
+    }
+    // Ghost lines on hover handled via mousemove
+    // Draw dots
+    for(var r=0;r<DOTS;r++){
+      for(var c=0;c<DOTS;c++){
+        ctx.beginPath();
+        ctx.arc(PAD+c*CELL,PAD+r*CELL,DOT_R,0,Math.PI*2);
+        ctx.fillStyle='white';ctx.fill();
+      }
+    }
+  }
+
+  function getHit(mx,my){
+    var THRESH=CELL*0.28;
+    // Check horizontal lines
+    for(var r=0;r<DOTS;r++){
+      for(var c=0;c<GRID;c++){
+        var x1=PAD+c*CELL,y1=PAD+r*CELL,x2=PAD+(c+1)*CELL;
+        if(Math.abs(my-y1)<THRESH&&mx>x1+THRESH&&mx<x2-THRESH)
+          return{type:'h',r:r,c:c};
+      }
+    }
+    // Check vertical lines
+    for(var r=0;r<GRID;r++){
+      for(var c=0;c<DOTS;c++){
+        var x1=PAD+c*CELL,y1=PAD+r*CELL,y2=PAD+(r+1)*CELL;
+        if(Math.abs(mx-x1)<THRESH&&my>y1+THRESH&&my<y2-THRESH)
+          return{type:'v',r:r,c:c};
+      }
+    }
+    return null;
+  }
+
+  canvas.addEventListener('click',function(e){
+    var rect=canvas.getBoundingClientRect();
+    var sx=canvas.width/rect.width,sy=canvas.height/rect.height;
+    var mx=(e.clientX-rect.left)*sx,my=(e.clientY-rect.top)*sy;
+    handleMove(mx,my);
+  });
+  canvas.addEventListener('touchstart',function(e){
+    e.preventDefault();
+    var rect=canvas.getBoundingClientRect();
+    var sx=canvas.width/rect.width,sy=canvas.height/rect.height;
+    var t=e.changedTouches[0];
+    var mx=(t.clientX-rect.left)*sx,my=(t.clientY-rect.top)*sy;
+    handleMove(mx,my);
+  },{passive:false});
+
+  function handleMove(mx,my){
+    if(statusEl.className.includes('win')||statusEl.className.includes('draw')) return;
+    var hit=getHit(mx,my);
+    if(!hit) return;
+    if(hit.type==='h'){
+      if(hLines[hit.r][hit.c]) return;
+      hLines[hit.r][hit.c]=currentPlayer;
+    } else {
+      if(vLines[hit.r][hit.c]) return;
+      vLines[hit.r][hit.c]=currentPlayer;
+    }
+    var scored=checkBoxes();
+    draw();
+    var total=scores[1]+scores[2];
+    if(total===GRID*GRID){endGame();return;}
+    if(!scored){currentPlayer=currentPlayer===1?2:1;}
+    updateTurnUI();
+  }
+
+  function checkBoxes(){
+    var scored=false;
+    for(var r=0;r<GRID;r++){
+      for(var c=0;c<GRID;c++){
+        if(boxes[r][c]) continue;
+        if(hLines[r][c]&&hLines[r+1][c]&&vLines[r][c]&&vLines[r][c+1]){
+          boxes[r][c]=currentPlayer;
+          scores[currentPlayer]++;
+          p1scoreEl.textContent=scores[1];
+          p2scoreEl.textContent=scores[2];
+          scored=true;
+        }
+      }
+    }
+    return scored;
+  }
+
+  function updateTurnUI(){
+    turnEl.textContent='P'+currentPlayer+'\'s Turn';
+    turnEl.style.background=currentPlayer===1?'rgba(102,126,234,0.2)':'rgba(240,147,251,0.2)';
+    p1bar.style.outline=currentPlayer===1?'2px solid #667eea':'2px solid transparent';
+    p2bar.style.outline=currentPlayer===2?'2px solid #f093fb':'2px solid transparent';
+  }
+
+  function endGame(){
+    var w=scores[1]>scores[2]?1:scores[2]>scores[1]?2:0;
+    statusEl.textContent=w?'Player '+w+' wins! 🏆 ('+scores[1]+' vs '+scores[2]+')':'Tie! 🤝 ('+scores[1]+'-'+scores[2]+')';
+    statusEl.className=w?'game-status-msg win':'game-status-msg draw';
+    turnEl.textContent='Game Over';
+  }
+
+  window.addEventListener('resize',resizeAndDraw);
+  initGame();
+}());
+</script>

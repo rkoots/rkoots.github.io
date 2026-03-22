@@ -1,0 +1,202 @@
+---
+layout: game
+permalink: /games/two-player/word-scramble-duel/
+title: "Word Scramble Duel"
+description: "2-player word unscramble. Same scrambled word for both players. First to type it correctly wins the round. 10 rounds."
+---
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-title">
+      <span class="game-emoji">🔤</span>
+      <h1>Word Scramble Duel</h1>
+    </div>
+    <a href="/games/two-player/" class="back-link"><i class="fas fa-arrow-left"></i> All 2P Games</a>
+  </div>
+
+  <div style="width:100%;max-width:800px;display:flex;flex-direction:column;gap:16px">
+    <div class="split-top-bar" style="border-radius:14px">
+      <div class="player-score p1-score">
+        <span class="label">Player 1</span>
+        <span class="score" id="p1score">0</span>
+      </div>
+      <div class="turn-indicator" id="roundInfo">Round 1 / 10</div>
+      <div class="player-score p2-score" style="text-align:right">
+        <span class="score" id="p2score">0</span>
+        <span class="label">Player 2</span>
+      </div>
+    </div>
+
+    <!-- Scrambled Word -->
+    <div style="text-align:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px 16px">
+      <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:8px">UNSCRAMBLE THIS WORD</div>
+      <div style="font-size:clamp(2rem,8vw,3.5rem);font-weight:800;letter-spacing:0.2em;color:white" id="scrambledWord">—</div>
+      <div style="font-size:0.75rem;color:rgba(255,255,255,0.3);margin-top:8px" id="hintEl"></div>
+    </div>
+
+    <!-- Dual Input -->
+    <div class="math-arena">
+      <div class="math-player-panel p1-panel" id="p1panel">
+        <div style="font-size:0.85rem;font-weight:600;color:rgba(255,255,255,0.6)">PLAYER 1</div>
+        <input type="text" id="p1input" class="word-input" placeholder="Type here…" autocomplete="off" autocorrect="off" spellcheck="false">
+        <button class="math-key" style="width:100%;padding:10px;font-size:0.9rem;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.3);border-radius:10px;color:white;cursor:pointer" data-player="1">Submit ✓</button>
+        <div class="game-status-msg" id="p1status" style="font-size:0.8rem"></div>
+      </div>
+      <div style="width:2px;background:rgba(255,255,255,0.08);border-radius:2px;min-height:80px;align-self:stretch"></div>
+      <div class="math-player-panel p2-panel" id="p2panel">
+        <div style="font-size:0.85rem;font-weight:600;color:rgba(255,255,255,0.6)">PLAYER 2</div>
+        <input type="text" id="p2input" class="word-input" placeholder="Type here…" autocomplete="off" autocorrect="off" spellcheck="false">
+        <button class="math-key" style="width:100%;padding:10px;font-size:0.9rem;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.3);border-radius:10px;color:white;cursor:pointer" data-player="2">Submit ✓</button>
+        <div class="game-status-msg" id="p2status" style="font-size:0.8rem"></div>
+      </div>
+    </div>
+
+    <div style="text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn-game-action" id="startBtn">Start Game</button>
+      <button class="btn-game-reset" id="resetBtn" style="display:none">Play Again</button>
+    </div>
+    <p class="game-status-msg" id="statusMsg" style="text-align:center"></p>
+  </div>
+</div>
+
+<style>
+.game-container{background:#0d0d1a}
+.word-input{width:100%;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:white;font-size:1rem;outline:none}
+.word-input:focus{border-color:rgba(102,126,234,0.6);background:rgba(102,126,234,0.08)}
+</style>
+
+<script>
+(function(){
+  var WORDS=[
+    {word:'javascript',hint:'Programming language'},
+    {word:'keyboard',hint:'Input device'},
+    {word:'penguin',hint:'Antarctic bird'},
+    {word:'champion',hint:'Winner'},
+    {word:'explorer',hint:'Adventure seeker'},
+    {word:'thunder',hint:'Storm sound'},
+    {word:'blanket',hint:'Keeps you warm'},
+    {word:'diamond',hint:'Precious gem'},
+    {word:'phantom',hint:'Ghost'},
+    {word:'captain',hint:'Ship leader'},
+    {word:'lantern',hint:'Light source'},
+    {word:'science',hint:'Study of the world'},
+    {word:'balance',hint:'Equilibrium'},
+    {word:'horizon',hint:'Where sky meets earth'},
+    {word:'journey',hint:'Long trip'}
+  ];
+  var TOTAL=10, round=0, roundActive=false, scores={1:0,2:0};
+  var currentWord='', answered=false;
+
+  var scrambledEl=document.getElementById('scrambledWord');
+  var hintEl=document.getElementById('hintEl');
+  var roundEl=document.getElementById('roundInfo');
+  var p1score=document.getElementById('p1score');
+  var p2score=document.getElementById('p2score');
+  var p1input=document.getElementById('p1input');
+  var p2input=document.getElementById('p2input');
+  var p1panel=document.getElementById('p1panel');
+  var p2panel=document.getElementById('p2panel');
+  var p1status=document.getElementById('p1status');
+  var p2status=document.getElementById('p2status');
+  var statusEl=document.getElementById('statusMsg');
+  var startBtn=document.getElementById('startBtn');
+  var resetBtn=document.getElementById('resetBtn');
+  var roundTimer;
+
+  document.querySelectorAll('[data-player]').forEach(function(btn){
+    btn.addEventListener('click',function(){ submitAnswer(parseInt(this.dataset.player)); });
+  });
+  p1input.addEventListener('keydown',function(e){ if(e.key==='Enter') submitAnswer(1); });
+  p2input.addEventListener('keydown',function(e){ if(e.key==='Enter') submitAnswer(2); });
+
+  startBtn.addEventListener('click',function(){ startBtn.style.display='none'; startNextRound(); });
+  resetBtn.addEventListener('click',function(){
+    scores={1:0,2:0};round=0;p1score.textContent='0';p2score.textContent='0';
+    resetBtn.style.display='none';startBtn.style.display='inline-flex';
+    scrambledEl.textContent='—';hintEl.textContent='';statusEl.textContent='';
+    clearPanel(1);clearPanel(2);
+  });
+
+  function startNextRound(){
+    round++;
+    roundEl.textContent='Round '+round+' / '+TOTAL;
+    clearPanel(1);clearPanel(2);statusEl.textContent='';statusEl.className='game-status-msg';
+    answered=false;
+
+    var chosen=WORDS[Math.floor(Math.random()*WORDS.length)];
+    currentWord=chosen.word;
+    scrambledEl.textContent=scramble(currentWord).toUpperCase();
+    hintEl.textContent='Hint: '+chosen.hint+' ('+currentWord.length+' letters)';
+    roundActive=true;
+    p1input.value='';p2input.value='';
+    p1input.disabled=false;p2input.disabled=false;
+    p1input.focus();
+
+    clearTimeout(roundTimer);
+    roundTimer=setTimeout(function(){
+      if(roundActive){
+        roundActive=false;
+        statusEl.textContent="Time's up! Answer: "+currentWord.toUpperCase();
+        statusEl.className='game-status-msg draw';
+        if(round<TOTAL) setTimeout(startNextRound,2000);
+        else endGame();
+      }
+    },20000);
+  }
+
+  function submitAnswer(player){
+    if(!roundActive||answered) return;
+    var input=player===1?p1input:p2input;
+    var status=player===1?p1status:p2status;
+    var panel=player===1?p1panel:p2panel;
+    var guess=input.value.trim().toLowerCase();
+    if(!guess) return;
+    if(guess===currentWord){
+      answered=true;roundActive=false;clearTimeout(roundTimer);
+      scores[player]++;p1score.textContent=scores[1];p2score.textContent=scores[2];
+      status.textContent='✅ Correct! +1';status.className='game-status-msg win';
+      panel.classList.add('correct');
+      statusEl.textContent='Player '+player+' unscrambled it! The word was: '+currentWord.toUpperCase();
+      statusEl.className='game-status-msg win';
+      p1input.disabled=true;p2input.disabled=true;
+      if(round<TOTAL) setTimeout(startNextRound,1800);
+      else setTimeout(endGame,1200);
+    } else {
+      status.textContent='❌ Wrong!';status.className='game-status-msg lose';
+      panel.classList.add('wrong');
+      setTimeout(function(){ panel.classList.remove('wrong');status.textContent='';status.className=''; },600);
+      input.value='';
+    }
+  }
+
+  function clearPanel(p){
+    var panel=p===1?p1panel:p2panel;
+    var status=p===1?p1status:p2status;
+    panel.classList.remove('correct','wrong');
+    status.textContent='';status.className='game-status-msg';
+    (p===1?p1input:p2input).value='';
+    (p===1?p1input:p2input).disabled=false;
+  }
+
+  function endGame(){
+    roundActive=false;
+    var w=scores[1]>scores[2]?'Player 1':'Player 2';
+    statusEl.textContent='Game Over! '+(scores[1]===scores[2]?'Tie! 🤝':w+' wins! 🏆')+' ('+scores[1]+' vs '+scores[2]+')';
+    statusEl.className=scores[1]===scores[2]?'game-status-msg draw':'game-status-msg win';
+    roundEl.textContent='Final Score';
+    scrambledEl.textContent='🎮';
+    p1input.disabled=true;p2input.disabled=true;
+    resetBtn.style.display='inline-flex';
+  }
+
+  function scramble(word){
+    var arr=word.split('');
+    do{
+      for(var i=arr.length-1;i>0;i--){
+        var j=Math.floor(Math.random()*(i+1));
+        var t=arr[i];arr[i]=arr[j];arr[j]=t;
+      }
+    }while(arr.join('')===word);
+    return arr.join('');
+  }
+}());
+</script>
