@@ -12,13 +12,18 @@
  *    { "rules": { ".read": true, ".write": "auth != null" } }
  */
 window.FIREBASE_CONFIG = {
-  apiKey: "REPLACE_WITH_YOUR_API_KEY",
+  apiKey: "AIzaSyBz_RAvcwDpvyH5_UXTGXWZJ5DmQ1RsvIU",
   authDomain: "games-rkoots.firebaseapp.com",
   databaseURL: "https://games-rkoots-default-rtdb.firebaseio.com",
   projectId: "games-rkoots",
-  storageBucket: "games-rkoots.appspot.com",
-  messagingSenderId: "REPLACE_WITH_SENDER_ID",
-  appId: "REPLACE_WITH_APP_ID"
+  storageBucket: "games-rkoots.firebasestorage.app",
+  messagingSenderId: "644089913016",
+  appId: "1:644089913016:web:34ea6f83d1dc4891909e4d",
+  measurementId: "G-MW4P84QQJY"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 window.FIREBASE_DB_URL = "https://games-rkoots-default-rtdb.firebaseio.com";

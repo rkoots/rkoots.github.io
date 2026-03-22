@@ -13,7 +13,7 @@
   function _initFirebase() {
     if (_app) return;
     const cfg = window.FIREBASE_CONFIG;
-    if (!cfg || cfg.apiKey === 'REPLACE_WITH_YOUR_API_KEY') {
+    if (!cfg || cfg.apiKey === 'AIzaSyBz_RAvcwDpvyH5_UXTGXWZJ5DmQ1RsvIU') {
       console.warn('[Games Auth] Firebase not configured. Set values in firebase-config.js');
       return;
     }
