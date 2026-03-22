@@ -24,10 +24,37 @@
         _currentUser = user;
         _authCallbacks.forEach(function (cb) { cb(user); });
         _updateAuthUI(user);
+        if (user) { _saveToUserbase(user); }
       });
     } catch (e) {
       console.error('[Games Auth] Init error:', e);
     }
+  }
+
+  function _saveToUserbase(user) {
+    var DB_URL = window.FIREBASE_DB_URL || 'https://games-rkoots-default-rtdb.firebaseio.com';
+    var path = DB_URL + '/userbase/' + user.uid + '.json';
+    fetch(path)
+      .then(function (r) { return r.json(); })
+      .then(function (existing) {
+        var payload = {
+          username: user.displayName || 'Player',
+          email: user.email || '',
+          consent: true,
+          lastSeen: new Date().toISOString()
+        };
+        if (!existing || !existing.consentDate) {
+          payload.consentDate = new Date().toISOString();
+        }
+        return user.getIdToken().then(function (token) {
+          return fetch(path + '?auth=' + token, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        });
+      })
+      .catch(function (e) { console.warn('[GameAuth] Userbase save failed:', e); });
   }
 
   function _updateAuthUI(user) {

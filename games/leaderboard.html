@@ -1,0 +1,486 @@
+---
+layout: game
+permalink: /games/leaderboard/
+title: "Global Leaderboard"
+description: "Top players across all RKoots games. All-time champions, weekly and monthly bests, trending games, and live rankings."
+use_firebase: true
+---
+
+<div style="width:100%;max-width:1200px;margin:0 auto;padding:0 16px 60px">
+
+  <!-- Page header -->
+  <div class="game-header" style="margin-bottom:0">
+    <div class="game-title">
+      <span class="game-emoji">🏆</span>
+      <h1>Global Leaderboard</h1>
+    </div>
+    <a href="/games/" class="back-link"><i class="fas fa-arrow-left"></i> Games Hub</a>
+  </div>
+
+  <!-- Auth strip -->
+  <div class="auth-panel" style="margin:16px 0">
+    <div class="auth-signed-out" style="display:flex;align-items:center;gap:10px;flex:1">
+      <span class="auth-signed-out-msg"><i class="fas fa-info-circle"></i> Sign in to highlight your rank across all games.</span>
+    </div>
+    <div class="auth-signed-in" style="display:none;flex:1">
+      <div class="auth-user-info">
+        <div class="auth-avatar auth-avatar-img"></div>
+        <span class="auth-name"></span>
+      </div>
+    </div>
+    <button class="btn-google btn-google-signin">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"> Sign in with Google
+    </button>
+    <button class="btn-signout" style="display:none">Sign out</button>
+  </div>
+
+  <!-- Summary stats -->
+  <div id="summaryStats" class="glb-stats-row">
+    <div class="glb-stat"><div class="glb-stat-val" id="statPlayers">—</div><div class="glb-stat-lbl">Total Players</div></div>
+    <div class="glb-stat"><div class="glb-stat-val" id="statScores">—</div><div class="glb-stat-lbl">Scores Submitted</div></div>
+    <div class="glb-stat"><div class="glb-stat-val" id="statGames">6</div><div class="glb-stat-lbl">Games</div></div>
+    <div class="glb-stat"><div class="glb-stat-val" id="statActive">—</div><div class="glb-stat-lbl">Active This Week</div></div>
+  </div>
+
+  <!-- Hall of Fame -->
+  <section class="glb-section">
+    <div class="glb-section-header">
+      <span>👑</span><h2>Hall of Fame</h2>
+      <span class="glb-section-sub">All-time #1 per game</span>
+    </div>
+    <div class="glb-hof-grid" id="hofGrid">
+      <div class="glb-loading"><i class="fas fa-spinner fa-spin"></i> Loading champions…</div>
+    </div>
+  </section>
+
+  <!-- Hot + Trending row -->
+  <div class="glb-two-col">
+
+    <section class="glb-section glb-card">
+      <div class="glb-section-header">
+        <span>🔥</span><h2>Hot Right Now</h2>
+        <span class="glb-section-sub">Best score in last 24 h</span>
+      </div>
+      <div id="hotNow"><div class="glb-loading"><i class="fas fa-spinner fa-spin"></i></div></div>
+    </section>
+
+    <section class="glb-section glb-card">
+      <div class="glb-section-header">
+        <span>📈</span><h2>Trending</h2>
+        <span class="glb-section-sub">Most active game this week</span>
+      </div>
+      <div id="trending"><div class="glb-loading"><i class="fas fa-spinner fa-spin"></i></div></div>
+    </section>
+
+  </div>
+
+  <!-- Per-Game Full Leaderboards (tabs) -->
+  <section class="glb-section">
+    <div class="glb-section-header">
+      <span>🎯</span><h2>Per-Game Rankings</h2>
+      <span class="glb-section-sub">Top 10 per game</span>
+    </div>
+    <div class="glb-tabs" id="gameTabs"></div>
+    <div class="glb-tab-panels" id="gameTabPanels"></div>
+  </section>
+
+  <!-- Time-period highs -->
+  <section class="glb-section">
+    <div class="glb-section-header">
+      <span>📅</span><h2>Period Highs</h2>
+      <span class="glb-section-sub">Best score per game across time windows</span>
+    </div>
+    <div class="glb-period-tabs">
+      <button class="glb-period-tab active" data-period="week">This Week</button>
+      <button class="glb-period-tab" data-period="month">This Month</button>
+      <button class="glb-period-tab" data-period="year">This Year</button>
+    </div>
+    <div id="periodTable"><div class="glb-loading"><i class="fas fa-spinner fa-spin"></i></div></div>
+  </section>
+
+</div>
+
+<div id="game-toast" class="game-toast"></div>
+
+<style>
+/* ── Global Leaderboard Styles ── */
+.glb-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+@media(max-width:600px){.glb-stats-row{grid-template-columns:repeat(2,1fr)}}
+.glb-stat{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px;text-align:center}
+.glb-stat-val{font-size:1.8rem;font-weight:800;color:white;line-height:1.1}
+.glb-stat-lbl{font-size:0.72rem;color:rgba(255,255,255,0.45);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+
+.glb-section{margin-bottom:32px}
+.glb-section-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.glb-section-header h2{font-size:1.1rem;font-weight:700;color:white;margin:0}
+.glb-section-header>span:first-child{font-size:1.3rem;line-height:1}
+.glb-section-sub{font-size:0.75rem;color:rgba(255,255,255,0.4);margin-left:4px}
+.glb-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px}
+
+.glb-two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+@media(max-width:700px){.glb-two-col{grid-template-columns:1fr}}
+
+/* Hall of Fame */
+.glb-hof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:800px){.glb-hof-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.glb-hof-grid{grid-template-columns:1fr}}
+.glb-hof-card{background:linear-gradient(135deg,rgba(251,191,36,0.08),rgba(251,191,36,0.03));border:1px solid rgba(251,191,36,0.2);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden;transition:transform 0.2s}
+.glb-hof-card:hover{transform:translateY(-2px)}
+.glb-hof-card .hof-game{font-size:0.7rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:.5px}
+.glb-hof-card .hof-emoji{font-size:1.4rem;line-height:1}
+.glb-hof-card .hof-name{font-size:1rem;font-weight:700;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.glb-hof-card .hof-score{font-size:1.3rem;font-weight:800;color:#fbbf24}
+.glb-hof-card .hof-date{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.glb-hof-card .hof-crown{position:absolute;top:10px;right:12px;font-size:1.1rem;opacity:0.4}
+.glb-hof-card.you-card{border-color:rgba(102,126,234,0.4);background:linear-gradient(135deg,rgba(102,126,234,0.12),rgba(102,126,234,0.04))}
+.glb-hof-card.you-card .hof-score{color:#a5b4fc}
+
+/* Hot/Trending entries */
+.glb-hot-item{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.07);margin-bottom:8px;background:rgba(255,255,255,0.03)}
+.glb-hot-item .hot-game{font-size:0.72rem;color:rgba(255,255,255,0.4)}
+.glb-hot-item .hot-name{font-size:0.9rem;color:white;font-weight:600}
+.glb-hot-item .hot-score{margin-left:auto;font-size:1rem;font-weight:700;color:#f093fb}
+.glb-hot-item .hot-time{font-size:0.68rem;color:rgba(255,255,255,0.3)}
+.glb-trend-bar{display:flex;flex-direction:column;gap:8px}
+.glb-trend-row{display:flex;align-items:center;gap:8px;font-size:0.85rem}
+.glb-trend-fill{height:8px;border-radius:4px;background:linear-gradient(90deg,#667eea,#764ba2);min-width:4px;transition:width 0.5s}
+.glb-trend-label{color:rgba(255,255,255,0.7);white-space:nowrap;min-width:130px;font-size:0.78rem}
+.glb-trend-count{color:rgba(255,255,255,0.4);font-size:0.72rem;margin-left:auto}
+
+/* Per-game tabs */
+.glb-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.glb-tab-btn{padding:7px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.6);font-size:0.78rem;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.glb-tab-btn.active{background:rgba(102,126,234,0.25);border-color:rgba(102,126,234,0.5);color:white}
+.glb-tab-panel{display:none}
+.glb-tab-panel.active{display:block}
+
+/* Per-game table */
+.glb-rank-table{width:100%;border-collapse:collapse}
+.glb-rank-table tr{border-bottom:1px solid rgba(255,255,255,0.05)}
+.glb-rank-table tr:last-child{border-bottom:none}
+.glb-rank-table tr.you-row td{background:rgba(102,126,234,0.1)}
+.glb-rank-table td{padding:10px 8px;font-size:0.85rem;color:rgba(255,255,255,0.8)}
+.glb-rank-table td:first-child{width:42px;font-weight:700;color:rgba(255,255,255,0.4)}
+.glb-rank-table td.name-col{color:white;font-weight:600}
+.glb-rank-table td.score-col{text-align:right;font-weight:700;color:#a5b4fc}
+.glb-rank-table td.date-col{text-align:right;font-size:0.72rem;color:rgba(255,255,255,0.35);white-space:nowrap}
+.glb-rank-table tr:nth-child(1) td:first-child{color:#fbbf24}
+.glb-rank-table tr:nth-child(2) td:first-child{color:#94a3b8}
+.glb-rank-table tr:nth-child(3) td:first-child{color:#cd7c2f}
+
+/* Period tabs + table */
+.glb-period-tabs{display:flex;gap:8px;margin-bottom:14px}
+.glb-period-tab{padding:7px 18px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.5);font-size:0.82rem;cursor:pointer;transition:all 0.2s}
+.glb-period-tab.active{background:rgba(240,147,251,0.2);border-color:rgba(240,147,251,0.4);color:white}
+.glb-period-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:700px){.glb-period-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:430px){.glb-period-grid{grid-template-columns:1fr}}
+.glb-period-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px}
+.glb-period-card .pc-game{font-size:0.7rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.glb-period-card .pc-emoji{font-size:1.1rem;margin-bottom:2px}
+.glb-period-card .pc-name{font-size:0.9rem;font-weight:600;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.glb-period-card .pc-score{font-size:1.1rem;font-weight:800;color:#f093fb}
+.glb-period-card .pc-date{font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:2px}
+.glb-period-card.no-data .pc-name{color:rgba(255,255,255,0.3);font-style:italic;font-weight:400}
+.glb-period-card.no-data .pc-score{display:none}
+
+.glb-loading{text-align:center;padding:24px;color:rgba(255,255,255,0.3);font-size:0.85rem}
+.glb-no-data{text-align:center;padding:16px;color:rgba(255,255,255,0.25);font-size:0.8rem;font-style:italic}
+</style>
+
+<script>
+(function(){
+  var DB_URL = 'https://games-rkoots-default-rtdb.firebaseio.com';
+  var GAMES = [
+    {id:'reaction-speed', name:'Reaction Speed', emoji:'⚡', url:'/games/challenges/reaction-speed/'},
+    {id:'number-memory',  name:'Number Memory',  emoji:'🔢', url:'/games/challenges/number-memory/'},
+    {id:'typing-speed',   name:'Typing Speed',   emoji:'⌨️', url:'/games/challenges/typing-speed/'},
+    {id:'color-memory',   name:'Color Memory',   emoji:'🌈', url:'/games/challenges/color-memory/'},
+    {id:'math-sprint',    name:'Math Sprint',    emoji:'🧮', url:'/games/challenges/math-sprint/'},
+    {id:'word-scramble',  name:'Word Scramble',  emoji:'🔤', url:'/games/challenges/word-scramble/'}
+  ];
+
+  var NOW = Date.now();
+  var T = {
+    day:   NOW - 86400000,
+    week:  NOW - 7  * 86400000,
+    month: NOW - 30 * 86400000,
+    year:  NOW - 365* 86400000
+  };
+
+  var allData = {};   // { [gameId]: [{userId, name, score, timestamp}, ...] sorted desc }
+  var currentUid = null;
+  var activePeriod = 'week';
+  var activeTab = null;
+
+  /* ── Fetch all scorecards ── */
+  function fetchAll() {
+    return fetch(DB_URL + '/scorecard.json')
+      .then(function(r){ return r.json(); })
+      .then(function(raw){
+        if(!raw) return;
+        GAMES.forEach(function(g){
+          var gameRaw = raw[g.id] || {};
+          allData[g.id] = Object.entries(gameRaw).map(function(e){
+            return Object.assign({userId: e[0]}, e[1]);
+          }).sort(function(a,b){ return b.score - a.score; });
+        });
+        renderAll();
+      })
+      .catch(function(e){ console.error('[GLB] fetch error', e); });
+  }
+
+  function renderAll(){
+    renderStats();
+    renderHOF();
+    renderHotNow();
+    renderTrending();
+    renderGameTabs();
+    renderPeriodTable(activePeriod);
+  }
+
+  /* ── Summary stats ── */
+  function renderStats(){
+    var playerSet = new Set();
+    var totalScores = 0;
+    var activeSet = new Set();
+    GAMES.forEach(function(g){
+      var scores = allData[g.id] || [];
+      scores.forEach(function(s){
+        playerSet.add(s.userId);
+        totalScores++;
+        if(s.timestamp >= T.week) activeSet.add(s.userId);
+      });
+    });
+    document.getElementById('statPlayers').textContent = playerSet.size;
+    document.getElementById('statScores').textContent = totalScores;
+    document.getElementById('statActive').textContent = activeSet.size;
+  }
+
+  /* ── Hall of Fame (#1 per game) ── */
+  function renderHOF(){
+    var el = document.getElementById('hofGrid');
+    var html = '';
+    GAMES.forEach(function(g){
+      var scores = allData[g.id] || [];
+      var top = scores[0];
+      var isYou = top && currentUid && top.userId === currentUid;
+      html += '<a href="'+g.url+'" class="glb-hof-card'+(isYou?' you-card':'')+'" style="text-decoration:none">';
+      html += '<div class="hof-crown">👑</div>';
+      html += '<div class="hof-emoji">'+g.emoji+'</div>';
+      html += '<div class="hof-game">'+g.name+'</div>';
+      if(top){
+        html += '<div class="hof-name">'+_esc(top.name)+(isYou?' 🫵':'')+' </div>';
+        html += '<div class="hof-score">'+top.score+'</div>';
+        html += '<div class="hof-date">'+_fmtDate(top.timestamp)+'</div>';
+      } else {
+        html += '<div class="hof-name" style="color:rgba(255,255,255,0.3);font-style:italic;font-weight:400">No entries yet</div>';
+        html += '<div class="hof-score" style="color:rgba(255,255,255,0.15)">—</div>';
+      }
+      html += '</a>';
+    });
+    el.innerHTML = html;
+  }
+
+  /* ── Hot Right Now (last 24h, best score) ── */
+  function renderHotNow(){
+    var el = document.getElementById('hotNow');
+    var hotItems = [];
+    GAMES.forEach(function(g){
+      var scores = (allData[g.id]||[]).filter(function(s){ return s.timestamp >= T.day; });
+      if(scores.length > 0){
+        hotItems.push(Object.assign({}, scores[0], {gameName: g.name, gameEmoji: g.emoji, gameUrl: g.url}));
+      }
+    });
+    hotItems.sort(function(a,b){ return b.score - a.score; });
+    if(hotItems.length === 0){
+      el.innerHTML = '<div class="glb-no-data">No activity in the last 24 hours.<br>Be the first to post a score!</div>';
+      return;
+    }
+    var html = '';
+    hotItems.slice(0,5).forEach(function(item){
+      html += '<div class="glb-hot-item">';
+      html += '<span style="font-size:1.2rem">'+item.gameEmoji+'</span>';
+      html += '<div><div class="hot-name">'+_esc(item.name)+'</div><div class="hot-game">'+item.gameName+'</div></div>';
+      html += '<div style="text-align:right"><div class="hot-score">'+item.score+'</div><div class="hot-time">'+_timeAgo(item.timestamp)+'</div></div>';
+      html += '</div>';
+    });
+    el.innerHTML = html;
+  }
+
+  /* ── Trending (most submissions this week by game) ── */
+  function renderTrending(){
+    var el = document.getElementById('trending');
+    var counts = GAMES.map(function(g){
+      var n = (allData[g.id]||[]).filter(function(s){ return s.timestamp >= T.week; }).length;
+      return {game: g, count: n};
+    }).sort(function(a,b){ return b.count - a.count; });
+    var max = counts[0].count || 1;
+    if(max === 0){
+      el.innerHTML = '<div class="glb-no-data">No activity this week yet!</div>';
+      return;
+    }
+    var html = '<div class="glb-trend-bar">';
+    counts.forEach(function(item){
+      var pct = Math.max(4, Math.round((item.count / max)*100));
+      html += '<div class="glb-trend-row">';
+      html += '<span class="glb-trend-label">'+item.game.emoji+' '+item.game.name+'</span>';
+      html += '<div class="glb-trend-fill" style="width:'+pct+'px"></div>';
+      html += '<span class="glb-trend-count">'+item.count+' score'+(item.count!==1?'s':'')+'</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+    // Also show who's leading this week overall
+    var weekLeaders = [];
+    GAMES.forEach(function(g){
+      var scores = (allData[g.id]||[]).filter(function(s){ return s.timestamp >= T.week; });
+      if(scores.length > 0){
+        weekLeaders.push({name: scores[0].name, game: g.name, score: scores[0].score, isYou: currentUid && scores[0].userId === currentUid});
+      }
+    });
+    weekLeaders.sort(function(a,b){ return b.score - a.score; });
+    if(weekLeaders.length > 0){
+      var top = weekLeaders[0];
+      html += '<div style="margin-top:12px;padding:10px;border-radius:10px;background:rgba(240,147,251,0.08);border:1px solid rgba(240,147,251,0.15);font-size:0.8rem">';
+      html += '<span style="color:rgba(255,255,255,0.4)">🏅 Weekly Leader: </span>';
+      html += '<span style="color:white;font-weight:600">'+_esc(top.name)+(top.isYou?' 🫵':'')+'</span>';
+      html += '<span style="color:rgba(255,255,255,0.4)"> · '+top.game+' · '+top.score+' pts</span>';
+      html += '</div>';
+    }
+    el.innerHTML = html;
+  }
+
+  /* ── Per-Game Tabs ── */
+  function renderGameTabs(){
+    var tabsEl = document.getElementById('gameTabs');
+    var panelsEl = document.getElementById('gameTabPanels');
+    var tabsHtml = '', panelsHtml = '';
+
+    GAMES.forEach(function(g, i){
+      var isActive = i === 0;
+      if(!activeTab) activeTab = g.id;
+      tabsHtml += '<button class="glb-tab-btn'+(isActive?' active':'')+'" data-game="'+g.id+'">'+g.emoji+' '+g.name+'</button>';
+      panelsHtml += '<div class="glb-tab-panel'+(isActive?' active':'')+'" id="panel-'+g.id+'">';
+      panelsHtml += renderGameTable(g, allData[g.id] || []);
+      panelsHtml += '</div>';
+    });
+
+    tabsEl.innerHTML = tabsHtml;
+    panelsEl.innerHTML = panelsHtml;
+
+    tabsEl.querySelectorAll('.glb-tab-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        tabsEl.querySelectorAll('.glb-tab-btn').forEach(function(b){ b.classList.remove('active'); });
+        panelsEl.querySelectorAll('.glb-tab-panel').forEach(function(p){ p.classList.remove('active'); });
+        btn.classList.add('active');
+        document.getElementById('panel-'+btn.dataset.game).classList.add('active');
+      });
+    });
+  }
+
+  function renderGameTable(game, scores){
+    if(scores.length === 0) return '<div class="glb-no-data">No scores yet for '+game.name+'. <a href="'+game.url+'" style="color:#a78bfa">Be the first!</a></div>';
+    var medals = ['🥇','🥈','🥉'];
+    var html = '<table class="glb-rank-table"><thead><tr style="border-bottom:1px solid rgba(255,255,255,0.1)">';
+    html += '<th style="text-align:left;padding:8px;font-size:0.7rem;color:rgba(255,255,255,0.35);font-weight:500">RANK</th>';
+    html += '<th style="text-align:left;padding:8px;font-size:0.7rem;color:rgba(255,255,255,0.35);font-weight:500">PLAYER</th>';
+    html += '<th style="text-align:right;padding:8px;font-size:0.7rem;color:rgba(255,255,255,0.35);font-weight:500">SCORE</th>';
+    html += '<th style="text-align:right;padding:8px;font-size:0.7rem;color:rgba(255,255,255,0.35);font-weight:500">DATE</th>';
+    html += '</tr></thead><tbody>';
+    var top10 = scores.slice(0,10);
+    top10.forEach(function(s, i){
+      var rank = i+1;
+      var isYou = currentUid && s.userId === currentUid;
+      html += '<tr'+(isYou?' class="you-row"':'')+'>';
+      html += '<td>'+(rank<=3?medals[i]:'#'+rank)+'</td>';
+      html += '<td class="name-col">'+_esc(s.name)+(isYou?' <span style="font-size:0.7rem;color:#a5b4fc;font-weight:400">(you)</span>':'')+'</td>';
+      html += '<td class="score-col">'+s.score+'</td>';
+      html += '<td class="date-col">'+_fmtDate(s.timestamp)+'</td>';
+      html += '</tr>';
+    });
+    // Show current user below top 10 if not in it
+    if(currentUid){
+      var userIdx = scores.findIndex(function(s){ return s.userId === currentUid; });
+      if(userIdx >= 10){
+        var us = scores[userIdx];
+        html += '<tr><td colspan="4" style="padding:4px 8px;text-align:center;font-size:0.7rem;color:rgba(255,255,255,0.25)">· · ·</td></tr>';
+        html += '<tr class="you-row">';
+        html += '<td>#'+(userIdx+1)+'</td>';
+        html += '<td class="name-col">'+_esc(us.name)+' <span style="font-size:0.7rem;color:#a5b4fc">(you)</span></td>';
+        html += '<td class="score-col">'+us.score+'</td>';
+        html += '<td class="date-col">'+_fmtDate(us.timestamp)+'</td>';
+        html += '</tr>';
+      }
+    }
+    html += '</tbody></table>';
+    return html;
+  }
+
+  /* ── Period Highs ── */
+  function renderPeriodTable(period){
+    activePeriod = period;
+    var cutoff = T[period];
+    var el = document.getElementById('periodTable');
+    var html = '<div class="glb-period-grid">';
+    GAMES.forEach(function(g){
+      var filtered = (allData[g.id]||[]).filter(function(s){ return s.timestamp >= cutoff; });
+      filtered.sort(function(a,b){ return b.score - a.score; });
+      var top = filtered[0];
+      var isYou = top && currentUid && top.userId === currentUid;
+      html += '<div class="glb-period-card'+(top?'':' no-data')+'">';
+      html += '<div class="pc-emoji">'+g.emoji+'</div>';
+      html += '<div class="pc-game">'+g.name+'</div>';
+      if(top){
+        html += '<div class="pc-name">'+_esc(top.name)+(isYou?' 🫵':'')+'</div>';
+        html += '<div class="pc-score">'+top.score+'</div>';
+        html += '<div class="pc-date">'+_fmtDate(top.timestamp)+'</div>';
+      } else {
+        html += '<div class="pc-name">No entries</div>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+    el.innerHTML = html;
+  }
+
+  /* ── Period tab clicks ── */
+  document.querySelectorAll('.glb-period-tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.glb-period-tab').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderPeriodTable(btn.dataset.period);
+    });
+  });
+
+  /* ── Auth integration ── */
+  if(window.GameAuth){
+    GameAuth.onAuthChange(function(user){
+      currentUid = user ? user.uid : null;
+      document.querySelectorAll('.btn-signout').forEach(function(b){ b.style.display = user ? 'inline-flex' : 'none'; });
+      document.querySelectorAll('.btn-google-signin').forEach(function(b){ b.style.display = user ? 'none' : 'inline-flex'; });
+      if(Object.keys(allData).length > 0){ renderAll(); }
+    });
+  }
+
+  /* ── Helpers ── */
+  function _esc(s){
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function _fmtDate(ts){
+    if(!ts) return '—';
+    var d = new Date(ts);
+    return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'2-digit'});
+  }
+
+  function _timeAgo(ts){
+    var diff = Date.now() - ts;
+    if(diff < 3600000) return Math.floor(diff/60000)+'m ago';
+    if(diff < 86400000) return Math.floor(diff/3600000)+'h ago';
+    return Math.floor(diff/86400000)+'d ago';
+  }
+
+  /* ── Boot ── */
+  fetchAll();
+}());
+</script>
