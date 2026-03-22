@@ -22,8 +22,4 @@ window.FIREBASE_CONFIG = {
   measurementId: "G-MW4P84QQJY"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
 window.FIREBASE_DB_URL = "https://games-rkoots-default-rtdb.firebaseio.com";
