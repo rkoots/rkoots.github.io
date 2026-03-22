@@ -1,0 +1,254 @@
+---
+layout: game
+title: "Math Duel"
+description: "2-player math challenge. Solve the problem first using your numpad. 10 rapid-fire rounds."
+---
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-title">
+      <span class="game-emoji">🧮</span>
+      <h1>Math Duel</h1>
+    </div>
+    <a href="/games/two-player/" class="back-link"><i class="fas fa-arrow-left"></i> All 2P Games</a>
+  </div>
+
+  <div style="width:100%;max-width:800px;display:flex;flex-direction:column;gap:16px">
+
+    <div class="split-top-bar" style="border-radius:14px">
+      <div class="player-score p1-score">
+        <span class="label">Player 1</span>
+        <span class="score" id="p1score">0</span>
+      </div>
+      <div class="turn-indicator" id="roundInfo">Round 1 / 10</div>
+      <div class="player-score p2-score" style="text-align:right">
+        <span class="score" id="p2score">0</span>
+        <span class="label">Player 2</span>
+      </div>
+    </div>
+
+    <!-- Problem Center -->
+    <div style="text-align:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px 16px">
+      <div class="math-round-info" id="diffLabel">Warming up…</div>
+      <div class="math-problem" id="mathProblem" style="font-size:clamp(2rem,8vw,3.2rem);margin:10px 0">—</div>
+      <p class="game-status-msg" id="statusMsg"></p>
+    </div>
+
+    <!-- Dueling Panels -->
+    <div class="math-arena">
+      <!-- Player 1 -->
+      <div class="math-player-panel p1-panel" id="p1panel">
+        <div style="font-size:0.85rem;font-weight:600;color:rgba(255,255,255,0.6)">PLAYER 1</div>
+        <div class="math-display" id="p1display">_</div>
+        <div class="math-numpad" id="p1numpad">
+          <button class="math-key" data-player="1" data-val="7">7</button>
+          <button class="math-key" data-player="1" data-val="8">8</button>
+          <button class="math-key" data-player="1" data-val="9">9</button>
+          <button class="math-key" data-player="1" data-val="4">4</button>
+          <button class="math-key" data-player="1" data-val="5">5</button>
+          <button class="math-key" data-player="1" data-val="6">6</button>
+          <button class="math-key" data-player="1" data-val="1">1</button>
+          <button class="math-key" data-player="1" data-val="2">2</button>
+          <button class="math-key" data-player="1" data-val="3">3</button>
+          <button class="math-key" data-player="1" data-val="⌫">⌫</button>
+          <button class="math-key" data-player="1" data-val="0">0</button>
+          <button class="math-key" data-player="1" data-val="✓" style="background:rgba(74,222,128,0.2);border-color:rgba(74,222,128,0.4)">✓</button>
+        </div>
+      </div>
+
+      <!-- Center divider (desktop) -->
+      <div class="math-problem-center" style="min-width:40px">
+        <div style="width:2px;height:100%;background:rgba(255,255,255,0.08);border-radius:2px"></div>
+      </div>
+
+      <!-- Player 2 -->
+      <div class="math-player-panel p2-panel" id="p2panel">
+        <div style="font-size:0.85rem;font-weight:600;color:rgba(255,255,255,0.6)">PLAYER 2</div>
+        <div class="math-display" id="p2display">_</div>
+        <div class="math-numpad" id="p2numpad">
+          <button class="math-key" data-player="2" data-val="7">7</button>
+          <button class="math-key" data-player="2" data-val="8">8</button>
+          <button class="math-key" data-player="2" data-val="9">9</button>
+          <button class="math-key" data-player="2" data-val="4">4</button>
+          <button class="math-key" data-player="2" data-val="5">5</button>
+          <button class="math-key" data-player="2" data-val="6">6</button>
+          <button class="math-key" data-player="2" data-val="1">1</button>
+          <button class="math-key" data-player="2" data-val="2">2</button>
+          <button class="math-key" data-player="2" data-val="3">3</button>
+          <button class="math-key" data-player="2" data-val="⌫">⌫</button>
+          <button class="math-key" data-player="2" data-val="0">0</button>
+          <button class="math-key" data-player="2" data-val="✓" style="background:rgba(74,222,128,0.2);border-color:rgba(74,222,128,0.4)">✓</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn-game-action" id="startBtn">Start Game</button>
+      <button class="btn-game-reset" id="resetBtn" style="display:none">Play Again</button>
+    </div>
+  </div>
+</div>
+
+<style>.game-container{background:#0d0d1a}</style>
+
+<script>
+(function(){
+  var TOTAL_ROUNDS = 10;
+  var round = 0;
+  var scores = {1:0, 2:0};
+  var answer = null;
+  var inputs = {1:'', 2:''};
+  var roundActive = false;
+  var roundTimer;
+
+  var problemEl = document.getElementById('mathProblem');
+  var diffEl = document.getElementById('diffLabel');
+  var statusEl = document.getElementById('statusMsg');
+  var roundEl = document.getElementById('roundInfo');
+  var p1El = document.getElementById('p1score');
+  var p2El = document.getElementById('p2score');
+  var p1disp = document.getElementById('p1display');
+  var p2disp = document.getElementById('p2display');
+  var p1panel = document.getElementById('p1panel');
+  var p2panel = document.getElementById('p2panel');
+  var startBtn = document.getElementById('startBtn');
+  var resetBtn = document.getElementById('resetBtn');
+
+  document.querySelectorAll('.math-key').forEach(function(key){
+    key.addEventListener('click', function(){
+      var player = parseInt(this.dataset.player);
+      var val = this.dataset.val;
+      handleKey(player, val);
+    });
+  });
+
+  startBtn.addEventListener('click', function(){
+    startBtn.style.display = 'none';
+    startNextRound();
+  });
+
+  resetBtn.addEventListener('click', function(){
+    scores = {1:0, 2:0}; round = 0;
+    p1El.textContent = '0'; p2El.textContent = '0';
+    resetBtn.style.display = 'none';
+    startBtn.style.display = 'inline-flex';
+    problemEl.textContent = '—';
+    statusEl.textContent = '';
+    roundEl.textContent = 'Round 1 / ' + TOTAL_ROUNDS;
+    diffEl.textContent = 'Warming up…';
+    clearPanel(1); clearPanel(2);
+  });
+
+  function handleKey(player, val) {
+    if (!roundActive) return;
+    var disp = player === 1 ? p1disp : p2disp;
+    if (val === '⌫') {
+      inputs[player] = inputs[player].slice(0, -1) || '';
+    } else if (val === '✓') {
+      submitAnswer(player);
+      return;
+    } else {
+      if (inputs[player].length < 5) inputs[player] += val;
+    }
+    disp.textContent = inputs[player] || '_';
+  }
+
+  function submitAnswer(player) {
+    if (!roundActive) return;
+    var guess = parseInt(inputs[player]);
+    if (isNaN(guess)) return;
+    var panel = player === 1 ? p1panel : p2panel;
+    if (guess === answer) {
+      roundActive = false;
+      clearTimeout(roundTimer);
+      scores[player]++;
+      p1El.textContent = scores[1];
+      p2El.textContent = scores[2];
+      panel.classList.add('correct');
+      statusEl.textContent = 'Player ' + player + ' got it! (' + answer + ') 🎉';
+      statusEl.className = 'game-status-msg win';
+      if (round >= TOTAL_ROUNDS) { setTimeout(endGame, 1200); }
+      else { setTimeout(startNextRound, 1500); }
+    } else {
+      panel.classList.add('wrong');
+      setTimeout(function(){ panel.classList.remove('wrong'); }, 600);
+      inputs[player] = '';
+      (player === 1 ? p1disp : p2disp).textContent = '_';
+    }
+  }
+
+  function startNextRound() {
+    round++;
+    roundEl.textContent = 'Round ' + round + ' / ' + TOTAL_ROUNDS;
+    inputs = {1:'', 2:''};
+    clearPanel(1); clearPanel(2);
+    statusEl.textContent = '';
+    statusEl.className = 'game-status-msg';
+
+    var q = generateQuestion(round);
+    answer = q.answer;
+    problemEl.textContent = q.problem;
+    diffEl.textContent = q.difficulty;
+    roundActive = true;
+
+    clearTimeout(roundTimer);
+    roundTimer = setTimeout(function(){
+      if (!roundActive) return;
+      roundActive = false;
+      statusEl.textContent = "Time's up! No winner this round.";
+      statusEl.className = 'game-status-msg draw';
+      if (round >= TOTAL_ROUNDS) setTimeout(endGame, 1200);
+      else setTimeout(startNextRound, 1800);
+    }, 15000);
+  }
+
+  function generateQuestion(r) {
+    var difficulty, a, b, op, ans, prob;
+    if (r <= 3) {
+      difficulty = '⭐ Easy';
+      a = rand(2, 12); b = rand(2, 12);
+      op = rand(0,1) === 0 ? '+' : '-';
+      if (op === '-' && b > a) { var t=a; a=b; b=t; }
+    } else if (r <= 7) {
+      difficulty = '⭐⭐ Medium';
+      a = rand(5, 25); b = rand(5, 25);
+      op = ['+','-','×'][rand(0,2)];
+      if (op === '-' && b > a) { var t=a; a=b; b=t; }
+      if (op === '×') { a = rand(2,9); b = rand(2,9); }
+    } else {
+      difficulty = '⭐⭐⭐ Hard';
+      op = ['×','÷','+','-'][rand(0,3)];
+      if (op === '×') { a = rand(6,15); b = rand(6,12); }
+      else if (op === '÷') { b = rand(2,9); a = b * rand(2,12); }
+      else { a = rand(20,99); b = rand(20,99); if (op==='-'&&b>a){var t=a;a=b;b=t;} }
+    }
+    switch(op) {
+      case '+': ans = a+b; break;
+      case '-': ans = a-b; break;
+      case '×': ans = a*b; break;
+      case '÷': ans = a/b; break;
+    }
+    return { problem: a + ' ' + op + ' ' + b + ' = ?', answer: ans, difficulty: difficulty };
+  }
+
+  function rand(min, max) { return Math.floor(Math.random()*(max-min+1))+min; }
+
+  function clearPanel(player) {
+    var panel = player === 1 ? p1panel : p2panel;
+    var disp = player === 1 ? p1disp : p2disp;
+    panel.classList.remove('correct','wrong');
+    inputs[player] = '';
+    disp.textContent = '_';
+  }
+
+  function endGame() {
+    roundActive = false;
+    clearTimeout(roundTimer);
+    var winner = scores[1] > scores[2] ? 'Player 1 🏆' : scores[2] > scores[1] ? 'Player 2 🏆' : 'Tie Game! 🤝';
+    statusEl.textContent = 'Game Over! ' + winner + ' ('+scores[1]+' vs '+scores[2]+')';
+    statusEl.className = scores[1]===scores[2] ? 'game-status-msg draw' : 'game-status-msg win';
+    roundEl.textContent = 'Final Score';
+    problemEl.textContent = '🎮';
+    resetBtn.style.display = 'inline-flex';
+  }
+}());
+</script>

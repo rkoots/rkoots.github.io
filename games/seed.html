@@ -1,0 +1,108 @@
+---
+layout: game
+title: "Seed Leaderboard Data"
+description: "Admin page to seed initial dummy data into Firebase leaderboards."
+use_firebase: true
+---
+<div class="challenge-container" style="align-items:center;justify-content:center">
+  <div style="max-width:600px;width:100%;display:flex;flex-direction:column;gap:20px">
+
+    <div class="game-title" style="justify-content:center;margin-bottom:8px">
+      <span class="game-emoji">🌱</span>
+      <h1>Seed Leaderboard Data</h1>
+    </div>
+
+    <div style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:14px;padding:16px;font-size:0.875rem;color:rgba(255,255,255,0.7)">
+      <strong style="color:#fbbf24">⚠️ Admin only.</strong> Run once to populate leaderboards with 10 dummy users per challenge. Safe to re-run — duplicate seed UIDs are overwritten in-place.
+    </div>
+
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
+      <h3 style="color:white;font-size:1rem;margin:0">Seed All Challenges</h3>
+      <p style="color:rgba(255,255,255,0.5);font-size:0.875rem;margin:0">
+        Seeds <strong style="color:white">10 dummy players</strong> for each of:<br>
+        Reaction Speed · Number Memory · Typing Speed
+      </p>
+      <button class="btn-game-action" id="seedAllBtn" style="align-self:flex-start">
+        <i class="fas fa-database"></i> Seed All Challenges
+      </button>
+      <div id="seedAllLog" style="font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);background:rgba(0,0,0,0.3);border-radius:10px;padding:14px;min-height:60px;display:none;white-space:pre-wrap;line-height:1.7"></div>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
+      <h3 style="color:white;font-size:1rem;margin:0">Seed Individual Challenge</h3>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn-game-reset" data-challenge="reaction-speed">⚡ Reaction Speed</button>
+        <button class="btn-game-reset" data-challenge="number-memory">🔢 Number Memory</button>
+        <button class="btn-game-reset" data-challenge="typing-speed">⌨️ Typing Speed</button>
+      </div>
+      <div id="singleSeedLog" style="font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);background:rgba(0,0,0,0.3);border-radius:10px;padding:14px;min-height:40px;display:none;white-space:pre-wrap;line-height:1.7"></div>
+    </div>
+
+    <div style="text-align:center">
+      <a href="/games/" style="color:#a78bfa;font-size:0.875rem;text-decoration:none">← Back to Games Hub</a>
+    </div>
+  </div>
+</div>
+
+<div id="game-toast" class="game-toast"></div>
+
+<script>
+(function(){
+  var seedAllBtn = document.getElementById('seedAllBtn');
+  var seedAllLog = document.getElementById('seedAllLog');
+  var singleLog = document.getElementById('singleSeedLog');
+
+  function log(el, msg) {
+    el.style.display = 'block';
+    el.textContent += msg + '\n';
+    el.scrollTop = el.scrollHeight;
+  }
+
+  seedAllBtn.addEventListener('click', function(){
+    if (!window.GameLeaderboard) { alert('Firebase not configured. Check firebase-config.js'); return; }
+    seedAllBtn.disabled = true;
+    seedAllLog.textContent = '';
+    log(seedAllLog, '🌱 Starting seed for all challenges…');
+
+    var origLog = console.log;
+    console.log = function(msg){ origLog(msg); log(seedAllLog, msg); };
+
+    GameLeaderboard.seedAllChallenges().then(function(){
+      console.log = origLog;
+      log(seedAllLog, '\n✅ All challenges seeded successfully!');
+      seedAllBtn.disabled = false;
+      if (window.GameAuth) GameAuth.showToast('All leaderboards seeded!', 'success');
+    }).catch(function(e){
+      console.log = origLog;
+      log(seedAllLog, '❌ Error: ' + e.message);
+      seedAllBtn.disabled = false;
+    });
+  });
+
+  document.querySelectorAll('[data-challenge]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var cid = this.dataset.challenge;
+      if (!window.GameLeaderboard) { alert('Firebase not configured.'); return; }
+      var self = this;
+      self.disabled = true;
+      singleLog.textContent = '';
+      log(singleLog, '🌱 Seeding ' + cid + '…');
+
+      var generators = {
+        'reaction-speed': function(i){ return Math.floor(850 - i*40 + Math.random()*30); },
+        'number-memory': function(i){ return Math.max(3, 12 - i + Math.floor(Math.random()*3)); },
+        'typing-speed': function(i){ return Math.floor(120 - i*7 + Math.random()*10); }
+      };
+
+      GameLeaderboard.seedDummyData(cid, generators[cid]).then(function(){
+        log(singleLog, '✅ ' + cid + ' seeded!');
+        self.disabled = false;
+        if (window.GameAuth) GameAuth.showToast(cid + ' seeded!', 'success');
+      }).catch(function(e){
+        log(singleLog, '❌ Error: ' + e.message);
+        self.disabled = false;
+      });
+    });
+  });
+}());
+</script>

@@ -1,0 +1,232 @@
+---
+layout: game
+title: "Reaction Tap"
+description: "2-player reaction game. Tap your side first when the signal turns green. 5-round showdown."
+---
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-title">
+      <span class="game-emoji">⚡</span>
+      <h1>Reaction Tap</h1>
+    </div>
+    <a href="/games/two-player/" class="back-link"><i class="fas fa-arrow-left"></i> All 2P Games</a>
+  </div>
+
+  <div style="width:100%;max-width:700px;display:flex;flex-direction:column;gap:16px">
+
+    <!-- Round / info bar -->
+    <div class="split-top-bar" style="border-radius:14px">
+      <div class="player-score p1-score">
+        <span class="label">Player 1</span>
+        <span class="score" id="p1wins">0</span>
+      </div>
+      <div style="text-align:center">
+        <div class="turn-indicator" id="roundInfo">Round 1 / 5</div>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-top:4px" id="instrText">Tap your side when it turns green!</div>
+      </div>
+      <div class="player-score p2-score" style="text-align:right">
+        <span class="score" id="p2wins">0</span>
+        <span class="label">Player 2</span>
+      </div>
+    </div>
+
+    <!-- Arena -->
+    <div class="reaction-arena">
+      <div class="reaction-player-zone p1-zone" id="p1zone">
+        <div class="reaction-player-label">PLAYER 1</div>
+        <div style="font-size:2.5rem">👈</div>
+        <div class="reaction-player-score" id="p1lastTime">—</div>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.4)">ms</div>
+      </div>
+
+      <div class="reaction-center">
+        <div class="reaction-signal" id="signal"></div>
+        <div style="font-size:0.7rem;color:rgba(255,255,255,0.35);text-align:center;margin-top:6px" id="signalLabel">waiting…</div>
+      </div>
+
+      <div class="reaction-player-zone p2-zone" id="p2zone">
+        <div class="reaction-player-label">PLAYER 2</div>
+        <div style="font-size:2.5rem">👉</div>
+        <div class="reaction-player-score" id="p2lastTime">—</div>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.4)">ms</div>
+      </div>
+    </div>
+
+    <!-- Status & controls -->
+    <div style="text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center">
+      <p class="game-status-msg" id="statusMsg"></p>
+      <button class="btn-game-action" id="startBtn">Start Game</button>
+      <button class="btn-game-reset" id="resetBtn" style="display:none">Play Again</button>
+    </div>
+
+  </div>
+</div>
+
+<style>.game-container{background:#0d0d1a}</style>
+
+<script>
+(function(){
+  var ROUNDS = 5;
+  var round = 0;
+  var scores = {p1: 0, p2: 0};
+  var phase = 'idle'; // idle | countdown | waiting | active | result | over
+  var signalTime = 0;
+  var tapped = {p1: false, p2: false};
+  var times = {p1: null, p2: null};
+  var penaltyRound = {p1: false, p2: false};
+  var timer;
+
+  var p1Zone = document.getElementById('p1zone');
+  var p2Zone = document.getElementById('p2zone');
+  var signal = document.getElementById('signal');
+  var signalLabel = document.getElementById('signalLabel');
+  var roundInfo = document.getElementById('roundInfo');
+  var instrText = document.getElementById('instrText');
+  var statusEl = document.getElementById('statusMsg');
+  var p1WinsEl = document.getElementById('p1wins');
+  var p2WinsEl = document.getElementById('p2wins');
+  var p1TimeEl = document.getElementById('p1lastTime');
+  var p2TimeEl = document.getElementById('p2lastTime');
+  var startBtn = document.getElementById('startBtn');
+  var resetBtn = document.getElementById('resetBtn');
+
+  startBtn.addEventListener('click', function(){
+    startBtn.style.display = 'none';
+    startRound();
+  });
+  resetBtn.addEventListener('click', function(){
+    scores = {p1:0, p2:0};
+    round = 0;
+    p1WinsEl.textContent = '0';
+    p2WinsEl.textContent = '0';
+    resetBtn.style.display = 'none';
+    startBtn.style.display = 'inline-flex';
+    statusEl.textContent = '';
+    statusEl.className = 'game-status-msg';
+    roundInfo.textContent = 'Round 1 / ' + ROUNDS;
+    setZoneState(p1Zone, 'default');
+    setZoneState(p2Zone, 'default');
+    p1TimeEl.textContent = '—';
+    p2TimeEl.textContent = '—';
+    signalLabel.textContent = 'waiting…';
+    signal.className = 'reaction-signal';
+    phase = 'idle';
+  });
+
+  function handleTap(player) {
+    if (phase === 'waiting') {
+      // Too early!
+      penaltyRound[player] = true;
+      tapped[player] = true;
+      times[player] = 9999;
+      setZoneState(player === 'p1' ? p1Zone : p2Zone, 'fail');
+      checkBothTapped();
+      return;
+    }
+    if (phase !== 'active') return;
+    if (tapped[player]) return;
+    tapped[player] = true;
+    times[player] = Date.now() - signalTime;
+    setZoneState(player === 'p1' ? p1Zone : p2Zone, 'success');
+    if (player === 'p1') p1TimeEl.textContent = times.p1;
+    else p2TimeEl.textContent = times.p2;
+    checkBothTapped();
+  }
+
+  p1Zone.addEventListener('click', function(){ handleTap('p1'); });
+  p2Zone.addEventListener('click', function(){ handleTap('p2'); });
+  p1Zone.addEventListener('touchstart', function(e){ e.preventDefault(); handleTap('p1'); }, {passive:false});
+  p2Zone.addEventListener('touchstart', function(e){ e.preventDefault(); handleTap('p2'); }, {passive:false});
+
+  function checkBothTapped() {
+    if (tapped.p1 && tapped.p2) {
+      resolveRound();
+    } else if (phase === 'active') {
+      // Wait for other player (max 3s)
+      clearTimeout(timer);
+      timer = setTimeout(function(){
+        if (!tapped.p1) { tapped.p1 = true; times.p1 = 3000; setZoneState(p1Zone, 'fail'); p1TimeEl.textContent = '—'; }
+        if (!tapped.p2) { tapped.p2 = true; times.p2 = 3000; setZoneState(p2Zone, 'fail'); p2TimeEl.textContent = '—'; }
+        resolveRound();
+      }, 3000);
+    }
+  }
+
+  function resolveRound() {
+    phase = 'result';
+    clearTimeout(timer);
+    var winner = null;
+    if (penaltyRound.p1 && !penaltyRound.p2) winner = 'p2';
+    else if (penaltyRound.p2 && !penaltyRound.p1) winner = 'p1';
+    else if (times.p1 < times.p2) winner = 'p1';
+    else if (times.p2 < times.p1) winner = 'p2';
+
+    if (winner) {
+      scores[winner]++;
+      statusEl.textContent = (winner === 'p1' ? 'Player 1' : 'Player 2') + ' wins round ' + round + '! (' + Math.min(times.p1||9999, times.p2||9999) + 'ms)';
+      statusEl.className = 'game-status-msg win';
+    } else {
+      statusEl.textContent = 'Tie round! (' + (times.p1||'—') + 'ms vs ' + (times.p2||'—') + 'ms)';
+      statusEl.className = 'game-status-msg draw';
+    }
+    p1WinsEl.textContent = scores.p1;
+    p2WinsEl.textContent = scores.p2;
+
+    if (round >= ROUNDS) {
+      setTimeout(endGame, 1200);
+    } else {
+      setTimeout(startRound, 1800);
+    }
+  }
+
+  function startRound() {
+    round++;
+    roundInfo.textContent = 'Round ' + round + ' / ' + ROUNDS;
+    tapped = {p1: false, p2: false};
+    times = {p1: null, p2: null};
+    penaltyRound = {p1: false, p2: false};
+    setZoneState(p1Zone, 'default');
+    setZoneState(p2Zone, 'default');
+    p1TimeEl.textContent = '—';
+    p2TimeEl.textContent = '—';
+    statusEl.textContent = '';
+    statusEl.className = 'game-status-msg';
+    signal.className = 'reaction-signal wait';
+    signalLabel.textContent = 'Get ready…';
+    instrText.textContent = 'Wait for green, then tap fast!';
+    phase = 'waiting';
+
+    var delay = 2000 + Math.random() * 3000;
+    timer = setTimeout(function(){
+      if (phase !== 'waiting') return;
+      phase = 'active';
+      signal.className = 'reaction-signal go';
+      signalLabel.textContent = 'GO!';
+      signalTime = Date.now();
+      // Auto-resolve if nobody taps in 4s
+      timer = setTimeout(function(){
+        if (!tapped.p1) { tapped.p1 = true; times.p1 = 4000; }
+        if (!tapped.p2) { tapped.p2 = true; times.p2 = 4000; }
+        resolveRound();
+      }, 4000);
+    }, delay);
+  }
+
+  function endGame() {
+    phase = 'over';
+    signal.className = 'reaction-signal';
+    signalLabel.textContent = 'Game Over';
+    var winner = scores.p1 > scores.p2 ? 'Player 1 🎉' : scores.p2 > scores.p1 ? 'Player 2 🎉' : 'It\'s a Tie!';
+    statusEl.textContent = 'Final: ' + winner + ' ('+scores.p1+' vs '+scores.p2+' rounds)';
+    statusEl.className = scores.p1 === scores.p2 ? 'game-status-msg draw' : 'game-status-msg win';
+    roundInfo.textContent = 'Game Over';
+    resetBtn.style.display = 'inline-flex';
+  }
+
+  function setZoneState(zone, state) {
+    zone.classList.remove('success','fail','tapped');
+    if (state === 'success') zone.classList.add('success');
+    if (state === 'fail') zone.classList.add('fail');
+  }
+}());
+</script>

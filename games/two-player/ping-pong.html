@@ -1,0 +1,283 @@
+---
+layout: game
+title: "Ping Pong"
+description: "2-player canvas Pong. P1 uses W/S keys, P2 uses arrow keys. Touch supported on mobile."
+---
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-title">
+      <span class="game-emoji">🏓</span>
+      <h1>Ping Pong</h1>
+    </div>
+    <a href="/games/two-player/" class="back-link"><i class="fas fa-arrow-left"></i> All 2P Games</a>
+  </div>
+
+  <div class="pong-container">
+    <div class="split-top-bar" style="border-radius:16px 16px 0 0">
+      <div class="player-score p1-score">
+        <span class="label">P1 (W/S)</span>
+        <span class="score" id="p1score">0</span>
+      </div>
+      <div id="pongStatus" class="turn-indicator" style="cursor:pointer">▶ Tap to Start</div>
+      <div class="player-score p2-score" style="text-align:right">
+        <span class="score" id="p2score">0</span>
+        <span class="label">P2 (↑/↓)</span>
+      </div>
+    </div>
+    <canvas id="pongCanvas" width="800" height="450"></canvas>
+    <div class="pong-controls-hint">
+      <span>P1: W / S keys &nbsp;|&nbsp; Touch left side</span>
+      <span>First to 7 wins</span>
+      <span>Touch right side &nbsp;|&nbsp; P2: ↑ / ↓ keys</span>
+    </div>
+  </div>
+</div>
+
+<style>
+.game-container { background: #0d0d1a; }
+#pongCanvas { cursor: pointer; border-radius: 0 0 16px 16px; }
+</style>
+
+<script>
+(function(){
+  var canvas = document.getElementById('pongCanvas');
+  var ctx = canvas.getContext('2d');
+  var statusEl = document.getElementById('pongStatus');
+  var p1El = document.getElementById('p1score');
+  var p2El = document.getElementById('p2score');
+
+  var W, H, PADDLE_W = 12, PADDLE_H, BALL_SIZE;
+  var scores = {p1: 0, p2: 0};
+  var WIN_SCORE = 7;
+  var state = 'idle'; // idle | playing | paused | over
+  var raf;
+
+  var p1 = {}, p2 = {}, ball = {};
+  var keys = {};
+
+  function resize() {
+    var rect = canvas.parentElement.getBoundingClientRect();
+    var maxW = Math.min(rect.width, 800);
+    canvas.width = maxW;
+    canvas.height = Math.round(maxW * 9 / 16);
+    W = canvas.width; H = canvas.height;
+    PADDLE_H = H * 0.18;
+    BALL_SIZE = W * 0.018;
+    if (state !== 'playing') initPositions();
+  }
+
+  function initPositions() {
+    p1 = { x: PADDLE_W * 1.5, y: H/2 - PADDLE_H/2, dy: 0 };
+    p2 = { x: W - PADDLE_W * 2.5, y: H/2 - PADDLE_H/2, dy: 0 };
+    resetBall();
+  }
+
+  function resetBall(side) {
+    var dir = (side === 2) ? -1 : 1;
+    var angle = (Math.random() * 0.6 - 0.3);
+    var speed = W * 0.007;
+    ball = {
+      x: W/2, y: H/2,
+      vx: speed * dir * Math.cos(angle),
+      vy: speed * Math.sin(angle)
+    };
+  }
+
+  function update() {
+    if (state !== 'playing') return;
+    var speed = H * 0.012;
+
+    // Paddle movement
+    if (keys['w'] || keys['W']) p1.y -= speed;
+    if (keys['s'] || keys['S']) p1.y += speed;
+    if (keys['ArrowUp']) p2.y -= speed;
+    if (keys['ArrowDown']) p2.y += speed;
+
+    p1.y = Math.max(0, Math.min(H - PADDLE_H, p1.y));
+    p2.y = Math.max(0, Math.min(H - PADDLE_H, p2.y));
+
+    // Ball movement
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+
+    // Top/bottom bounce
+    if (ball.y - BALL_SIZE < 0) { ball.y = BALL_SIZE; ball.vy = Math.abs(ball.vy); }
+    if (ball.y + BALL_SIZE > H) { ball.y = H - BALL_SIZE; ball.vy = -Math.abs(ball.vy); }
+
+    // Paddle collisions
+    if (ball.vx < 0 && ball.x - BALL_SIZE < p1.x + PADDLE_W &&
+        ball.x + BALL_SIZE > p1.x && ball.y > p1.y && ball.y < p1.y + PADDLE_H) {
+      ball.vx = Math.abs(ball.vx) * 1.05;
+      var rel = (ball.y - (p1.y + PADDLE_H/2)) / (PADDLE_H/2);
+      ball.vy = rel * W * 0.008;
+    }
+    if (ball.vx > 0 && ball.x + BALL_SIZE > p2.x &&
+        ball.x - BALL_SIZE < p2.x + PADDLE_W && ball.y > p2.y && ball.y < p2.y + PADDLE_H) {
+      ball.vx = -Math.abs(ball.vx) * 1.05;
+      var rel = (ball.y - (p2.y + PADDLE_H/2)) / (PADDLE_H/2);
+      ball.vy = rel * W * 0.008;
+    }
+
+    // Clamp speed
+    var maxSpd = W * 0.018;
+    var spd = Math.sqrt(ball.vx*ball.vx + ball.vy*ball.vy);
+    if (spd > maxSpd) { ball.vx = ball.vx/spd*maxSpd; ball.vy = ball.vy/spd*maxSpd; }
+
+    // Scoring
+    if (ball.x < 0) {
+      scores.p2++;
+      p2El.textContent = scores.p2;
+      if (scores.p2 >= WIN_SCORE) { endGame(2); return; }
+      resetBall(2);
+    }
+    if (ball.x > W) {
+      scores.p1++;
+      p1El.textContent = scores.p1;
+      if (scores.p1 >= WIN_SCORE) { endGame(1); return; }
+      resetBall(1);
+    }
+  }
+
+  function draw() {
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, W, H);
+
+    // Center line
+    ctx.setLineDash([8, 8]);
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(W/2, 0); ctx.lineTo(W/2, H); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Paddles
+    var pr = PADDLE_W * 0.6;
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = '#667eea';
+    ctx.fillStyle = '#667eea';
+    roundRect(ctx, p1.x, p1.y, PADDLE_W, PADDLE_H, pr);
+
+    ctx.shadowColor = '#f093fb';
+    ctx.fillStyle = '#f093fb';
+    roundRect(ctx, p2.x, p2.y, PADDLE_W, PADDLE_H, pr);
+
+    // Ball
+    ctx.shadowBlur = 16;
+    ctx.shadowColor = 'white';
+    ctx.fillStyle = 'white';
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, BALL_SIZE, 0, Math.PI*2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x+r, y);
+    ctx.lineTo(x+w-r, y);
+    ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+    ctx.lineTo(x+w, y+h-r);
+    ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+    ctx.lineTo(x+r, y+h);
+    ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+    ctx.lineTo(x, y+r);
+    ctx.quadraticCurveTo(x, y, x+r, y);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function gameLoop() {
+    update();
+    draw();
+    raf = requestAnimationFrame(gameLoop);
+  }
+
+  function startGame() {
+    if (state === 'over') { scores={p1:0,p2:0}; p1El.textContent='0'; p2El.textContent='0'; }
+    state = 'playing';
+    statusEl.textContent = '⏸ Pause';
+    initPositions();
+    if (raf) cancelAnimationFrame(raf);
+    gameLoop();
+  }
+
+  function endGame(winner) {
+    state = 'over';
+    cancelAnimationFrame(raf);
+    statusEl.textContent = '🏆 P' + winner + ' wins! Tap to restart';
+    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold ' + (W * 0.06) + 'px Inter';
+    ctx.textAlign = 'center';
+    ctx.fillText('Player ' + winner + ' Wins! 🏆', W/2, H/2);
+  }
+
+  // Keyboard
+  document.addEventListener('keydown', function(e) {
+    keys[e.key] = true;
+    if (['ArrowUp','ArrowDown',' '].includes(e.key)) e.preventDefault();
+  });
+  document.addEventListener('keyup', function(e) { keys[e.key] = false; });
+
+  // Click to start/pause
+  canvas.addEventListener('click', function() {
+    if (state === 'idle' || state === 'over') { startGame(); }
+    else if (state === 'playing') {
+      state = 'paused'; cancelAnimationFrame(raf);
+      statusEl.textContent = '▶ Resume';
+    } else if (state === 'paused') {
+      state = 'playing'; statusEl.textContent = '⏸ Pause'; gameLoop();
+    }
+  });
+  statusEl.addEventListener('click', function() { canvas.click(); });
+
+  // Touch controls
+  canvas.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    Array.from(e.changedTouches).forEach(function(t) {
+      if (state === 'idle' || state === 'over') { startGame(); return; }
+      // Store touch for tracking
+      canvas._touches = canvas._touches || {};
+      canvas._touches[t.identifier] = { x: t.clientX, y: t.clientY, side: t.clientX < W/2 ? 'p1' : 'p2' };
+    });
+  }, {passive: false});
+
+  canvas.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    var rect = canvas.getBoundingClientRect();
+    var scaleY = H / rect.height;
+    Array.from(e.changedTouches).forEach(function(t) {
+      var touch = (canvas._touches || {})[t.identifier];
+      if (!touch) return;
+      var canvasY = (t.clientY - rect.top) * scaleY;
+      if (touch.side === 'p1') p1.y = canvasY - PADDLE_H/2;
+      else p2.y = canvasY - PADDLE_H/2;
+    });
+  }, {passive: false});
+
+  canvas.addEventListener('touchend', function(e) {
+    Array.from(e.changedTouches).forEach(function(t) {
+      if (canvas._touches) delete canvas._touches[t.identifier];
+    });
+  });
+
+  // Draw idle state
+  function drawIdle() {
+    resize();
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.font = (W * 0.035) + 'px Inter';
+    ctx.textAlign = 'center';
+    ctx.fillText('Tap or click to start', W/2, H/2);
+  }
+
+  window.addEventListener('resize', function() {
+    resize();
+    if (state !== 'playing') drawIdle();
+  });
+
+  resize();
+  drawIdle();
+}());
+</script>

@@ -1,0 +1,298 @@
+---
+layout: game
+title: "Typing Speed Challenge"
+description: "Type the paragraph as fast and accurately as you can. Score = WPM × accuracy. Compete on the global leaderboard."
+use_firebase: true
+---
+<div class="challenge-container">
+
+  <!-- Header -->
+  <div class="game-header" style="max-width:1100px">
+    <div class="game-title">
+      <span class="game-emoji">⌨️</span>
+      <h1>Typing Speed Challenge</h1>
+    </div>
+    <a href="/games/challenges/" class="back-link"><i class="fas fa-arrow-left"></i> All Challenges</a>
+  </div>
+
+  <!-- Auth bar -->
+  <div class="auth-panel" style="max-width:1100px">
+    <div class="auth-signed-out" style="display:flex;align-items:center;gap:10px;flex:1">
+      <span class="auth-signed-out-msg"><i class="fas fa-info-circle"></i> Sign in with Google to submit your WPM score.</span>
+    </div>
+    <div class="auth-signed-in" style="display:none;flex:1">
+      <div class="auth-user-info">
+        <div class="auth-avatar auth-avatar-img"></div>
+        <span class="auth-name"></span>
+      </div>
+    </div>
+    <button class="btn-google btn-google-signin">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      Sign in with Google
+    </button>
+    <button class="btn-signout" style="display:none">Sign out</button>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="challenge-layout" style="max-width:1100px">
+
+    <!-- Game Area -->
+    <div class="challenge-game-area">
+
+      <!-- Live Stats -->
+      <div class="typing-stats">
+        <div class="typing-stat"><div class="stat-val" id="wpmDisp">0</div><div class="stat-lbl">WPM</div></div>
+        <div class="typing-stat"><div class="stat-val" id="accDisp">100%</div><div class="stat-lbl">Accuracy</div></div>
+        <div class="typing-stat"><div class="stat-val" id="timerDisp">60</div><div class="stat-lbl">Seconds</div></div>
+        <div class="typing-stat"><div class="stat-val" id="errDisp">0</div><div class="stat-lbl">Errors</div></div>
+      </div>
+
+      <!-- Text Display -->
+      <div class="typing-text-display" id="textDisplay"></div>
+
+      <!-- Input -->
+      <textarea class="typing-input" id="typingInput" rows="3" placeholder="Start typing here… (timer starts on first keystroke)" disabled></textarea>
+
+      <!-- Controls -->
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+        <button class="btn-game-action" id="startBtn">Start</button>
+        <button class="btn-game-reset" id="newTextBtn" style="display:none">New Text</button>
+      </div>
+
+      <!-- Score Submit -->
+      <div class="score-submit-area" id="scoreSubmit" style="display:none">
+        <div class="final-score-display">
+          <div class="score-label">Your Score (WPM × Accuracy)</div>
+          <div><span class="score-value" id="finalScore">0</span><span class="score-unit">pts</span></div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.45);margin-top:6px" id="scoreBreakdown"></div>
+        </div>
+        <button class="btn-submit-score" id="submitBtn">
+          <i class="fas fa-upload"></i> Submit to Leaderboard
+        </button>
+        <button class="btn-play-again" id="playAgainBtn">
+          <i class="fas fa-redo"></i> Play Again
+        </button>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.35)" id="submitMsg"></div>
+      </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="leaderboard-panel">
+      <div class="leaderboard-header">
+        <i class="fas fa-trophy" style="color:#fbbf24"></i>
+        <h3>Leaderboard</h3>
+        <button onclick="loadLeaderboard()" style="margin-left:auto;background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:0.8rem;padding:4px 8px;border-radius:6px"><i class="fas fa-sync-alt"></i></button>
+      </div>
+      <div class="leaderboard-body" id="leaderboardBody">
+        <div class="lb-loading">Loading…</div>
+      </div>
+      <div class="lb-user-rank" id="userRankBar" style="display:none"></div>
+    </div>
+
+  </div>
+</div>
+
+<div id="game-toast" class="game-toast"></div>
+
+<script>
+(function(){
+  var CHALLENGE_ID = 'typing-speed';
+  var TIME_LIMIT = 60;
+  var TEXTS = [
+    "The quick brown fox jumps over the lazy dog. Programming is the art of telling another human what one wants the computer to do. The best code is code that never has to be written.",
+    "Technology is best when it brings people together. Innovation distinguishes between a leader and a follower. The only way to do great work is to love what you do.",
+    "In the middle of every difficulty lies opportunity. Success is not final, failure is not fatal: it is the courage to continue that counts. Keep your face always toward the sunshine.",
+    "First, solve the problem. Then, write the code. Simplicity is the ultimate sophistication. Programs must be written for people to read, and only incidentally for machines to execute.",
+    "The function of good software is to make the complex appear to be simple. Any sufficiently advanced technology is indistinguishable from magic. Code is like humor. When you have to explain it, it is bad."
+  ];
+
+  var phase = 'idle';
+  var startTime, timerInterval;
+  var currentText = '';
+  var textChars = [];
+  var cursorPos = 0;
+  var errors = 0;
+  var totalTyped = 0;
+  var finalWPM = 0, finalAcc = 100, finalScore = 0;
+
+  var textDisplay = document.getElementById('textDisplay');
+  var typingInput = document.getElementById('typingInput');
+  var wpmEl = document.getElementById('wpmDisp');
+  var accEl = document.getElementById('accDisp');
+  var timerEl = document.getElementById('timerDisp');
+  var errEl = document.getElementById('errDisp');
+  var startBtn = document.getElementById('startBtn');
+  var newTextBtn = document.getElementById('newTextBtn');
+  var scoreSubmit = document.getElementById('scoreSubmit');
+  var finalScoreEl = document.getElementById('finalScore');
+  var scoreBreakdown = document.getElementById('scoreBreakdown');
+  var submitBtn = document.getElementById('submitBtn');
+  var playAgainBtn = document.getElementById('playAgainBtn');
+  var submitMsg = document.getElementById('submitMsg');
+
+  startBtn.addEventListener('click', function(){
+    startBtn.style.display = 'none';
+    newTextBtn.style.display = 'inline-flex';
+    initGame();
+  });
+
+  newTextBtn.addEventListener('click', initGame);
+  playAgainBtn.addEventListener('click', function(){
+    scoreSubmit.style.display = 'none';
+    startBtn.style.display = 'inline-flex';
+    newTextBtn.style.display = 'none';
+    submitBtn.disabled = false;
+    submitMsg.textContent = '';
+    textDisplay.innerHTML = '';
+    typingInput.value = '';
+    typingInput.disabled = true;
+    timerEl.textContent = TIME_LIMIT;
+    wpmEl.textContent = '0';
+    accEl.textContent = '100%';
+    errEl.textContent = '0';
+    phase = 'idle';
+  });
+
+  typingInput.addEventListener('input', function(){
+    if (phase === 'ready') {
+      phase = 'typing';
+      startTime = Date.now();
+      timerInterval = setInterval(tick, 200);
+    }
+    if (phase !== 'typing') return;
+    processInput(this.value);
+  });
+
+  typingInput.addEventListener('keydown', function(e){
+    if (e.key === 'Tab') e.preventDefault();
+  });
+
+  function initGame() {
+    clearInterval(timerInterval);
+    phase = 'ready';
+    errors = 0; totalTyped = 0; cursorPos = 0;
+    currentText = TEXTS[Math.floor(Math.random()*TEXTS.length)];
+    textChars = currentText.split('');
+    renderText();
+    typingInput.value = '';
+    typingInput.disabled = false;
+    typingInput.focus();
+    wpmEl.textContent = '0';
+    accEl.textContent = '100%';
+    timerEl.textContent = TIME_LIMIT;
+    errEl.textContent = '0';
+    scoreSubmit.style.display = 'none';
+  }
+
+  function renderText(typed) {
+    typed = typed || '';
+    var html = '';
+    for (var i = 0; i < textChars.length; i++) {
+      var ch = textChars[i] === ' ' ? '&nbsp;' : textChars[i];
+      if (i < typed.length) {
+        if (typed[i] === textChars[i]) {
+          html += '<span class="typing-char correct">' + ch + '</span>';
+        } else {
+          html += '<span class="typing-char wrong">' + (textChars[i] === ' ' ? '&nbsp;' : textChars[i]) + '</span>';
+        }
+      } else if (i === typed.length) {
+        html += '<span class="typing-char current">' + ch + '</span>';
+      } else {
+        html += '<span class="typing-char pending">' + ch + '</span>';
+      }
+    }
+    textDisplay.innerHTML = html;
+  }
+
+  function processInput(typed) {
+    renderText(typed);
+    totalTyped = typed.length;
+    errors = 0;
+    for (var i = 0; i < typed.length && i < currentText.length; i++) {
+      if (typed[i] !== currentText[i]) errors++;
+    }
+    errEl.textContent = errors;
+    var elapsed = (Date.now() - startTime) / 60000;
+    if (elapsed > 0) {
+      var words = typed.trim().split(/\s+/).length;
+      wpmEl.textContent = Math.round(words / elapsed);
+    }
+    var acc = totalTyped > 0 ? Math.round(((totalTyped - errors) / totalTyped) * 100) : 100;
+    accEl.textContent = Math.max(0, acc) + '%';
+
+    if (typed.length >= currentText.length) {
+      endGame();
+    }
+  }
+
+  function tick() {
+    if (phase !== 'typing') return;
+    var elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var remaining = Math.max(0, TIME_LIMIT - elapsed);
+    timerEl.textContent = remaining;
+    if (remaining <= 0) endGame();
+  }
+
+  function endGame() {
+    clearInterval(timerInterval);
+    phase = 'done';
+    typingInput.disabled = true;
+
+    var elapsed = Math.max(1, (Date.now() - startTime) / 60000);
+    var typed = typingInput.value;
+    var correctChars = 0;
+    for (var i = 0; i < typed.length && i < currentText.length; i++) {
+      if (typed[i] === currentText[i]) correctChars++;
+    }
+    finalWPM = Math.round((correctChars / 5) / elapsed);
+    finalAcc = totalTyped > 0 ? Math.max(0, Math.round(((totalTyped - errors) / totalTyped) * 100)) : 0;
+    finalScore = Math.round(finalWPM * (finalAcc / 100));
+
+    wpmEl.textContent = finalWPM;
+    accEl.textContent = finalAcc + '%';
+    finalScoreEl.textContent = finalScore;
+    scoreBreakdown.textContent = finalWPM + ' WPM × ' + finalAcc + '% accuracy = ' + finalScore + ' pts';
+    scoreSubmit.style.display = 'flex';
+    loadLeaderboard();
+
+    submitBtn.onclick = function(){
+      var user = window.GameAuth ? GameAuth.getCurrentUser() : null;
+      if (!user) { GameAuth.showToast('Sign in with Google first!', 'error'); return; }
+      submitBtn.disabled = true;
+      submitMsg.textContent = 'Submitting…';
+      user.getIdToken().then(function(token){
+        return GameLeaderboard.submitScore(CHALLENGE_ID, user.uid, user.displayName||'Player', finalScore, token);
+      }).then(function(res){
+        submitMsg.textContent = res.updated ? '✅ ' + res.reason : '⚠️ ' + res.reason;
+        if (res.updated) GameAuth.showToast('Score submitted!', 'success');
+        loadLeaderboard();
+      }).catch(function(e){ submitMsg.textContent = '❌ ' + e.message; submitBtn.disabled = false; });
+    };
+  }
+
+  function loadLeaderboard() {
+    var user = window.GameAuth ? GameAuth.getCurrentUser() : null;
+    var uid = user ? user.uid : null;
+    if (window.GameLeaderboard) {
+      GameLeaderboard.load(CHALLENGE_ID, 'leaderboardBody', uid).then(function(scores){
+        var bar = document.getElementById('userRankBar');
+        if (uid && scores && scores.length > 0) {
+          var rank = scores.findIndex(function(s){ return s.userId === uid; }) + 1;
+          if (rank > 0) { bar.textContent = 'Your rank: #'+rank+' of '+scores.length; bar.style.display='block'; }
+        }
+      });
+    }
+  }
+
+  if (document.readyState !== 'loading') setTimeout(loadLeaderboard, 500);
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(loadLeaderboard, 500); });
+
+  if (window.GameAuth) {
+    GameAuth.onAuthChange(function(user){
+      document.querySelectorAll('.btn-signout').forEach(function(b){ b.style.display=user?'inline-flex':'none'; });
+      document.querySelectorAll('.btn-google-signin').forEach(function(b){ b.style.display=user?'none':'inline-flex'; });
+      loadLeaderboard();
+    });
+  }
+}());
+</script>

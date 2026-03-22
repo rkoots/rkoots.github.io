@@ -50,6 +50,7 @@ sitemap:
     - "/insights/**"
     - "/finance/**"
     - "/quickref/**"
+    - "/games/**"
 
 # Permalink structure
 permalink: /:categories/:year/:month/:day/:title/

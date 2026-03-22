@@ -1,0 +1,152 @@
+---
+layout: game
+title: "Tic Tac Toe"
+description: "2-player Tic Tac Toe. Classic X vs O on a 3x3 grid. First to get 3 in a row wins."
+---
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-title">
+      <span class="game-emoji">⭕</span>
+      <h1>Tic Tac Toe</h1>
+    </div>
+    <a href="/games/two-player/" class="back-link"><i class="fas fa-arrow-left"></i> All 2P Games</a>
+  </div>
+
+  <div class="split-game" style="max-width:520px">
+    <div class="split-top-bar">
+      <div class="player-score p1-score">
+        <span class="label">Player 1 (X)</span>
+        <span class="score" id="p1score">0</span>
+      </div>
+      <div class="turn-indicator" id="turnIndicator">X's Turn</div>
+      <div class="player-score p2-score" style="text-align:right">
+        <span class="label">Player 2 (O)</span>
+        <span class="score" id="p2score">0</span>
+      </div>
+    </div>
+
+    <div class="game-board-area">
+      <div class="ttt-board" id="tttBoard">
+        <div class="ttt-cell" data-index="0"></div>
+        <div class="ttt-cell" data-index="1"></div>
+        <div class="ttt-cell" data-index="2"></div>
+        <div class="ttt-cell" data-index="3"></div>
+        <div class="ttt-cell" data-index="4"></div>
+        <div class="ttt-cell" data-index="5"></div>
+        <div class="ttt-cell" data-index="6"></div>
+        <div class="ttt-cell" data-index="7"></div>
+        <div class="ttt-cell" data-index="8"></div>
+      </div>
+
+      <p class="game-status-msg" id="statusMsg"></p>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+        <button class="btn-game-action" id="newRoundBtn" style="display:none">Next Round</button>
+        <button class="btn-game-reset" id="resetBtn">Reset Scores</button>
+      </div>
+
+      <div style="font-size:0.78rem;color:rgba(255,255,255,0.35);text-align:center">
+        Draws: <span id="draws">0</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.game-container { background: #0d0d1a; }
+</style>
+
+<script>
+(function () {
+  var board = Array(9).fill(null);
+  var currentPlayer = 'X';
+  var gameOver = false;
+  var scores = { X: 0, O: 0, draws: 0 };
+  var WINS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+  var cells = document.querySelectorAll('.ttt-cell');
+  var turnEl = document.getElementById('turnIndicator');
+  var statusEl = document.getElementById('statusMsg');
+  var p1El = document.getElementById('p1score');
+  var p2El = document.getElementById('p2score');
+  var drawsEl = document.getElementById('draws');
+  var newRoundBtn = document.getElementById('newRoundBtn');
+  var resetBtn = document.getElementById('resetBtn');
+
+  cells.forEach(function (cell) {
+    cell.addEventListener('click', function () { handleClick(parseInt(this.dataset.index)); });
+  });
+
+  newRoundBtn.addEventListener('click', startNewRound);
+  resetBtn.addEventListener('click', function () {
+    scores = { X: 0, O: 0, draws: 0 };
+    updateScoreUI();
+    startNewRound();
+  });
+
+  function handleClick(i) {
+    if (gameOver || board[i]) return;
+    board[i] = currentPlayer;
+    cells[i].textContent = currentPlayer;
+    cells[i].classList.add(currentPlayer.toLowerCase(), 'taken');
+
+    var winLine = checkWin();
+    if (winLine) {
+      winLine.forEach(function (idx) { cells[idx].classList.add('winner'); });
+      scores[currentPlayer]++;
+      updateScoreUI();
+      statusEl.textContent = 'Player ' + (currentPlayer === 'X' ? '1' : '2') + ' (' + currentPlayer + ') wins! 🎉';
+      statusEl.className = 'game-status-msg win';
+      turnEl.textContent = '—';
+      gameOver = true;
+      newRoundBtn.style.display = 'inline-flex';
+      return;
+    }
+    if (board.every(function (v) { return v !== null; })) {
+      scores.draws++;
+      updateScoreUI();
+      statusEl.textContent = "It's a Draw! 🤝";
+      statusEl.className = 'game-status-msg draw';
+      turnEl.textContent = '—';
+      gameOver = true;
+      newRoundBtn.style.display = 'inline-flex';
+      return;
+    }
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    turnEl.textContent = currentPlayer + "'s Turn";
+    turnEl.style.background = currentPlayer === 'X'
+      ? 'rgba(102,126,234,0.2)' : 'rgba(240,147,251,0.2)';
+  }
+
+  function checkWin() {
+    for (var i = 0; i < WINS.length; i++) {
+      var line = WINS[i];
+      if (board[line[0]] && board[line[0]] === board[line[1]] && board[line[0]] === board[line[2]]) {
+        return line;
+      }
+    }
+    return null;
+  }
+
+  function startNewRound() {
+    board = Array(9).fill(null);
+    currentPlayer = 'X';
+    gameOver = false;
+    cells.forEach(function (c) {
+      c.textContent = '';
+      c.className = 'ttt-cell';
+    });
+    statusEl.textContent = '';
+    statusEl.className = 'game-status-msg';
+    turnEl.textContent = "X's Turn";
+    turnEl.style.background = 'rgba(102,126,234,0.2)';
+    newRoundBtn.style.display = 'none';
+  }
+
+  function updateScoreUI() {
+    p1El.textContent = scores.X;
+    p2El.textContent = scores.O;
+    drawsEl.textContent = scores.draws;
+  }
+}());
+</script>

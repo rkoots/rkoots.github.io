@@ -1,0 +1,299 @@
+---
+layout: game
+title: "Number Memory"
+description: "Remember a flashing sequence of digits and type it back. Each level adds a digit. How far can you go?"
+use_firebase: true
+---
+<div class="challenge-container">
+
+  <!-- Header -->
+  <div class="game-header" style="max-width:1100px">
+    <div class="game-title">
+      <span class="game-emoji">🔢</span>
+      <h1>Number Memory</h1>
+    </div>
+    <a href="/games/challenges/" class="back-link"><i class="fas fa-arrow-left"></i> All Challenges</a>
+  </div>
+
+  <!-- Auth bar -->
+  <div class="auth-panel" style="max-width:1100px">
+    <div class="auth-signed-out" style="display:flex;align-items:center;gap:10px;flex:1">
+      <span class="auth-signed-out-msg"><i class="fas fa-info-circle"></i> Sign in with Google to submit your score.</span>
+    </div>
+    <div class="auth-signed-in" style="display:none;flex:1">
+      <div class="auth-user-info">
+        <div class="auth-avatar auth-avatar-img"></div>
+        <span class="auth-name"></span>
+      </div>
+    </div>
+    <button class="btn-google btn-google-signin">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      Sign in with Google
+    </button>
+    <button class="btn-signout" style="display:none">Sign out</button>
+  </div>
+
+  <!-- Main layout -->
+  <div class="challenge-layout" style="max-width:1100px">
+
+    <!-- Game Area -->
+    <div class="challenge-game-area">
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+        <div class="reaction-stat"><div class="stat-val" id="levelDisp">—</div><div class="stat-lbl">Level</div></div>
+        <div class="reaction-stat"><div class="stat-val" id="bestLevel">—</div><div class="stat-lbl">Best Level</div></div>
+      </div>
+
+      <span class="level-badge" id="levelBadge">Get Ready</span>
+
+      <!-- Show phase: display number -->
+      <div id="showPhase" style="display:none;flex-direction:column;align-items:center;gap:16px;width:100%">
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.5)">Memorize this number!</div>
+        <div class="memory-display" id="numberDisplay"></div>
+        <div style="display:flex;gap:8px;justify-content:center">
+          <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3)" id="dot0"></div>
+          <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3)" id="dot1"></div>
+          <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3)" id="dot2"></div>
+        </div>
+      </div>
+
+      <!-- Input phase -->
+      <div id="inputPhase" style="display:none;flex-direction:column;align-items:center;gap:16px;width:100%">
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.5)">Type the number you saw!</div>
+        <div class="memory-display" id="inputDisplay" style="font-size:clamp(1.5rem,5vw,2.5rem)">_</div>
+        <div class="memory-numpad">
+          <button class="memory-key" data-val="7">7</button>
+          <button class="memory-key" data-val="8">8</button>
+          <button class="memory-key" data-val="9">9</button>
+          <button class="memory-key" data-val="4">4</button>
+          <button class="memory-key" data-val="5">5</button>
+          <button class="memory-key" data-val="6">6</button>
+          <button class="memory-key" data-val="1">1</button>
+          <button class="memory-key" data-val="2">2</button>
+          <button class="memory-key" data-val="3">3</button>
+          <button class="memory-key" data-val="⌫">⌫</button>
+          <button class="memory-key" data-val="0">0</button>
+          <button class="memory-key" data-val="✓" style="background:rgba(74,222,128,0.2);border-color:rgba(74,222,128,0.4);font-size:1.4rem">✓</button>
+        </div>
+        <p class="game-status-msg" id="inputStatus"></p>
+      </div>
+
+      <!-- Idle -->
+      <div id="idlePhase" style="flex-direction:column;align-items:center;gap:16px;display:flex">
+        <p style="color:rgba(255,255,255,0.5);font-size:0.9rem;text-align:center">A number will flash briefly. Memorize it and type it back.<br>Each correct round adds one more digit.</p>
+        <button class="btn-game-action" id="startBtn">Start Game</button>
+      </div>
+
+      <!-- Score Submit -->
+      <div class="score-submit-area" id="scoreSubmit" style="display:none">
+        <div class="final-score-display">
+          <div class="score-label">Highest Level Reached</div>
+          <div><span class="score-value" id="finalScore">0</span></div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.45);margin-top:6px">digits remembered</div>
+        </div>
+        <button class="btn-submit-score" id="submitBtn">
+          <i class="fas fa-upload"></i> Submit Score
+        </button>
+        <button class="btn-play-again" id="playAgainBtn">
+          <i class="fas fa-redo"></i> Play Again
+        </button>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.35)" id="submitMsg"></div>
+      </div>
+
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="leaderboard-panel">
+      <div class="leaderboard-header">
+        <i class="fas fa-trophy" style="color:#fbbf24"></i>
+        <h3>Leaderboard</h3>
+        <button onclick="loadLeaderboard()" style="margin-left:auto;background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:0.8rem;padding:4px 8px;border-radius:6px"><i class="fas fa-sync-alt"></i></button>
+      </div>
+      <div class="leaderboard-body" id="leaderboardBody">
+        <div class="lb-loading">Loading…</div>
+      </div>
+      <div class="lb-user-rank" id="userRankBar" style="display:none"></div>
+    </div>
+
+  </div>
+</div>
+
+<div id="game-toast" class="game-toast"></div>
+
+<script>
+(function(){
+  var CHALLENGE_ID = 'number-memory';
+  var level = 3;
+  var bestLevel = 0;
+  var currentNumber = '';
+  var userInput = '';
+  var phase = 'idle';
+  var showTimer;
+  var displayInterval;
+
+  var levelDisp = document.getElementById('levelDisp');
+  var bestLevelEl = document.getElementById('bestLevel');
+  var levelBadge = document.getElementById('levelBadge');
+  var numberDisplay = document.getElementById('numberDisplay');
+  var inputDisplay = document.getElementById('inputDisplay');
+  var inputStatus = document.getElementById('inputStatus');
+  var showPhase = document.getElementById('showPhase');
+  var inputPhase = document.getElementById('inputPhase');
+  var idlePhase = document.getElementById('idlePhase');
+  var scoreSubmit = document.getElementById('scoreSubmit');
+  var finalScoreEl = document.getElementById('finalScore');
+  var submitBtn = document.getElementById('submitBtn');
+  var playAgainBtn = document.getElementById('playAgainBtn');
+  var submitMsg = document.getElementById('submitMsg');
+  var startBtn = document.getElementById('startBtn');
+
+  document.querySelectorAll('.memory-key').forEach(function(k){
+    k.addEventListener('click', function(){ handleKey(this.dataset.val); });
+  });
+
+  startBtn.addEventListener('click', startGame);
+  playAgainBtn.addEventListener('click', resetGame);
+
+  function startGame() {
+    idlePhase.style.display = 'none';
+    scoreSubmit.style.display = 'none';
+    level = 3; bestLevel = 0;
+    updateDisplay();
+    nextRound();
+  }
+
+  function nextRound() {
+    phase = 'showing';
+    userInput = '';
+    currentNumber = generateNumber(level);
+    levelDisp.textContent = level;
+    levelBadge.textContent = 'Level ' + level + ' — ' + level + ' digits';
+    showPhase.style.display = 'flex';
+    inputPhase.style.display = 'none';
+    inputStatus.textContent = '';
+    numberDisplay.textContent = currentNumber;
+
+    // Animate dots
+    var showDuration = Math.max(1500, level * 600);
+    var elapsed = 0;
+    var dotInterval = setInterval(function(){
+      elapsed += 100;
+      var pct = elapsed / showDuration;
+      for (var i=0;i<3;i++) {
+        var dot = document.getElementById('dot'+i);
+        if (dot) dot.style.background = pct > (i/3) ? '#667eea' : 'rgba(255,255,255,0.2)';
+      }
+    }, 100);
+
+    showTimer = setTimeout(function(){
+      clearInterval(dotInterval);
+      showPhase.style.display = 'none';
+      inputPhase.style.display = 'flex';
+      phase = 'input';
+      inputDisplay.textContent = '_';
+      userInput = '';
+    }, showDuration);
+  }
+
+  function handleKey(val) {
+    if (phase !== 'input') return;
+    if (val === '⌫') {
+      userInput = userInput.slice(0,-1);
+    } else if (val === '✓') {
+      checkAnswer();
+      return;
+    } else {
+      if (userInput.length < 20) userInput += val;
+    }
+    inputDisplay.textContent = userInput || '_';
+  }
+
+  function checkAnswer() {
+    if (userInput === currentNumber) {
+      // Correct!
+      if (level > bestLevel) bestLevel = level;
+      bestLevelEl.textContent = bestLevel;
+      inputStatus.textContent = '✅ Correct! +1 digit';
+      inputStatus.className = 'game-status-msg win';
+      level++;
+      setTimeout(nextRound, 900);
+    } else {
+      // Wrong
+      inputStatus.textContent = '❌ Wrong! It was: ' + currentNumber;
+      inputStatus.className = 'game-status-msg lose';
+      if (level > bestLevel) bestLevel = level - 1;
+      phase = 'over';
+      setTimeout(showGameOver, 1400);
+    }
+  }
+
+  function showGameOver() {
+    inputPhase.style.display = 'none';
+    finalScoreEl.textContent = bestLevel;
+    scoreSubmit.style.display = 'flex';
+    levelBadge.textContent = 'Game Over!';
+    bestLevelEl.textContent = bestLevel;
+    loadLeaderboard();
+
+    submitBtn.onclick = function(){
+      var user = window.GameAuth ? GameAuth.getCurrentUser() : null;
+      if (!user) { GameAuth.showToast('Sign in with Google first!', 'error'); return; }
+      submitBtn.disabled = true;
+      submitMsg.textContent = 'Submitting…';
+      user.getIdToken().then(function(token){
+        return GameLeaderboard.submitScore(CHALLENGE_ID, user.uid, user.displayName||'Player', bestLevel, token);
+      }).then(function(res){
+        submitMsg.textContent = res.updated ? '✅ ' + res.reason : '⚠️ ' + res.reason;
+        if (res.updated) GameAuth.showToast('Score submitted!', 'success');
+        loadLeaderboard();
+      }).catch(function(e){ submitMsg.textContent = '❌ ' + e.message; submitBtn.disabled = false; });
+    };
+  }
+
+  function resetGame() {
+    scoreSubmit.style.display = 'none';
+    idlePhase.style.display = 'flex';
+    levelDisp.textContent = '—';
+    levelBadge.textContent = 'Get Ready';
+    submitBtn.disabled = false;
+    submitMsg.textContent = '';
+  }
+
+  function generateNumber(digits) {
+    var n = '';
+    n += (Math.floor(Math.random()*9)+1).toString();
+    for (var i=1;i<digits;i++) n += Math.floor(Math.random()*10).toString();
+    return n;
+  }
+
+  function updateDisplay() {
+    levelDisp.textContent = level;
+    bestLevelEl.textContent = bestLevel || '—';
+  }
+
+  function loadLeaderboard() {
+    var user = window.GameAuth ? GameAuth.getCurrentUser() : null;
+    var uid = user ? user.uid : null;
+    if (window.GameLeaderboard) {
+      GameLeaderboard.load(CHALLENGE_ID, 'leaderboardBody', uid).then(function(scores){
+        var bar = document.getElementById('userRankBar');
+        if (uid && scores && scores.length > 0) {
+          var rank = scores.findIndex(function(s){ return s.userId === uid; }) + 1;
+          if (rank > 0) { bar.textContent = 'Your rank: #'+rank+' of '+scores.length; bar.style.display='block'; }
+        }
+      });
+    }
+  }
+
+  if (document.readyState !== 'loading') setTimeout(loadLeaderboard, 500);
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(loadLeaderboard, 500); });
+
+  if (window.GameAuth) {
+    GameAuth.onAuthChange(function(user){
+      document.querySelectorAll('.btn-signout').forEach(function(b){ b.style.display=user?'inline-flex':'none'; });
+      document.querySelectorAll('.btn-google-signin').forEach(function(b){ b.style.display=user?'none':'inline-flex'; });
+      loadLeaderboard();
+    });
+  }
+}());
+</script>

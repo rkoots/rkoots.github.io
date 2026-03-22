@@ -1,0 +1,179 @@
+---
+layout: game
+title: "Connect 4"
+description: "2-player Connect 4. Drop colored discs into a 6x7 grid and connect 4 in a row to win."
+---
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-title">
+      <span class="game-emoji">🔴</span>
+      <h1>Connect 4</h1>
+    </div>
+    <a href="/games/two-player/" class="back-link"><i class="fas fa-arrow-left"></i> All 2P Games</a>
+  </div>
+
+  <div class="split-game" style="max-width:600px">
+    <div class="split-top-bar">
+      <div class="player-score p1-score">
+        <div style="width:18px;height:18px;border-radius:50%;background:#667eea;display:inline-block;margin-right:6px;vertical-align:middle"></div>
+        <span class="label">P1</span>
+        <span class="score" id="p1score">0</span>
+      </div>
+      <div class="turn-indicator" id="turnIndicator">🔵 Player 1</div>
+      <div class="player-score p2-score" style="text-align:right">
+        <span class="score" id="p2score">0</span>
+        <span class="label">P2</span>
+        <div style="width:18px;height:18px;border-radius:50%;background:#f5576c;display:inline-block;margin-left:6px;vertical-align:middle"></div>
+      </div>
+    </div>
+
+    <div class="game-board-area" style="padding:16px">
+      <!-- Column drop buttons -->
+      <div class="c4-board" id="c4ColBtns" style="margin-bottom:4px">
+        <button class="c4-col-btn" data-col="0">▼</button>
+        <button class="c4-col-btn" data-col="1">▼</button>
+        <button class="c4-col-btn" data-col="2">▼</button>
+        <button class="c4-col-btn" data-col="3">▼</button>
+        <button class="c4-col-btn" data-col="4">▼</button>
+        <button class="c4-col-btn" data-col="5">▼</button>
+        <button class="c4-col-btn" data-col="6">▼</button>
+      </div>
+      <!-- Game grid -->
+      <div class="c4-board" id="c4Grid"></div>
+
+      <p class="game-status-msg" id="statusMsg" style="margin-top:12px"></p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:8px">
+        <button class="btn-game-action" id="newRoundBtn" style="display:none">Next Round</button>
+        <button class="btn-game-reset" id="resetBtn">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>.game-container{background:#0d0d1a}</style>
+
+<script>
+(function(){
+  var ROWS = 6, COLS = 7;
+  var board, currentPlayer, gameOver;
+  var scores = {1:0, 2:0};
+
+  var gridEl = document.getElementById('c4Grid');
+  var colBtns = document.querySelectorAll('.c4-col-btn');
+  var turnEl = document.getElementById('turnIndicator');
+  var statusEl = document.getElementById('statusMsg');
+  var p1El = document.getElementById('p1score');
+  var p2El = document.getElementById('p2score');
+  var newRoundBtn = document.getElementById('newRoundBtn');
+  var resetBtn = document.getElementById('resetBtn');
+
+  function initBoard() {
+    board = Array.from({length: ROWS}, function(){ return Array(COLS).fill(0); });
+    currentPlayer = 1;
+    gameOver = false;
+    renderGrid();
+    statusEl.textContent = '';
+    statusEl.className = 'game-status-msg';
+    newRoundBtn.style.display = 'none';
+    updateTurn();
+    colBtns.forEach(function(b){ b.disabled = false; });
+  }
+
+  function renderGrid() {
+    gridEl.innerHTML = '';
+    for (var r = 0; r < ROWS; r++) {
+      for (var c = 0; c < COLS; c++) {
+        var cell = document.createElement('div');
+        cell.className = 'c4-cell';
+        if (board[r][c] === 1) cell.classList.add('p1');
+        else if (board[r][c] === 2) cell.classList.add('p2');
+        cell.dataset.row = r;
+        cell.dataset.col = c;
+        gridEl.appendChild(cell);
+      }
+    }
+  }
+
+  colBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (gameOver) return;
+      dropDisc(parseInt(this.dataset.col));
+    });
+  });
+
+  newRoundBtn.addEventListener('click', initBoard);
+  resetBtn.addEventListener('click', function(){ scores={1:0,2:0}; updateScoreUI(); initBoard(); });
+
+  function dropDisc(col) {
+    var row = -1;
+    for (var r = ROWS-1; r >= 0; r--) {
+      if (board[r][col] === 0) { row = r; break; }
+    }
+    if (row === -1) return; // column full
+
+    board[row][col] = currentPlayer;
+    renderGrid();
+
+    var winCells = checkWin(row, col);
+    if (winCells) {
+      winCells.forEach(function(pos){
+        var idx = pos[0] * COLS + pos[1];
+        gridEl.children[idx].classList.add('winner');
+      });
+      scores[currentPlayer]++;
+      updateScoreUI();
+      statusEl.textContent = 'Player ' + currentPlayer + ' wins! 🎉';
+      statusEl.className = 'game-status-msg win';
+      gameOver = true;
+      newRoundBtn.style.display = 'inline-flex';
+      colBtns.forEach(function(b){ b.disabled = true; });
+      return;
+    }
+
+    var full = board[0].every(function(v){ return v !== 0; });
+    if (full) {
+      statusEl.textContent = "It's a Draw! 🤝";
+      statusEl.className = 'game-status-msg draw';
+      gameOver = true;
+      newRoundBtn.style.display = 'inline-flex';
+      return;
+    }
+
+    currentPlayer = currentPlayer === 1 ? 2 : 1;
+    updateTurn();
+  }
+
+  function checkWin(row, col) {
+    var dirs = [[0,1],[1,0],[1,1],[1,-1]];
+    for (var d = 0; d < dirs.length; d++) {
+      var dr = dirs[d][0], dc = dirs[d][1];
+      var line = [[row,col]];
+      for (var step = 1; step < 4; step++) {
+        var nr = row+dr*step, nc = col+dc*step;
+        if (nr>=0&&nr<ROWS&&nc>=0&&nc<COLS&&board[nr][nc]===currentPlayer) line.push([nr,nc]);
+        else break;
+      }
+      for (var step = 1; step < 4; step++) {
+        var nr = row-dr*step, nc = col-dc*step;
+        if (nr>=0&&nr<ROWS&&nc>=0&&nc<COLS&&board[nr][nc]===currentPlayer) line.push([nr,nc]);
+        else break;
+      }
+      if (line.length >= 4) return line;
+    }
+    return null;
+  }
+
+  function updateTurn() {
+    var color = currentPlayer === 1 ? '#667eea' : '#f5576c';
+    turnEl.textContent = (currentPlayer === 1 ? '🔵' : '🔴') + ' Player ' + currentPlayer;
+    turnEl.style.background = currentPlayer === 1 ? 'rgba(102,126,234,0.2)' : 'rgba(245,87,108,0.2)';
+  }
+
+  function updateScoreUI() {
+    p1El.textContent = scores[1];
+    p2El.textContent = scores[2];
+  }
+
+  initBoard();
+}());
+</script>

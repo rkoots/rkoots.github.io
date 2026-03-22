@@ -52,6 +52,19 @@
           </a>
         </li>
 
+        <!-- Games -->
+        <li class="nav-item has-dropdown">
+          <a href="/games/" class="nav-link">
+            <i class="fas fa-gamepad"></i>
+            <span class="nav-text">Games</span>
+            <i class="fas fa-chevron-down nav-dropdown-arrow"></i>
+          </a>
+          <div class="nav-dropdown">
+            <a href="/games/two-player/"><i class="fas fa-users"></i> 2 Player</a>
+            <a href="/games/challenges/"><i class="fas fa-trophy"></i> Challenges</a>
+          </div>
+        </li>
+
       </ul>
     </nav>
 
@@ -125,6 +138,18 @@
           </a>
         </li>
         <li class="mobile-nav-item">
+          <button class="mobile-nav-toggle-btn" id="mobile-games-toggle" aria-expanded="false">
+            <i class="fas fa-gamepad"></i>
+            <span>Games</span>
+            <i class="fas fa-chevron-down mobile-nav-caret"></i>
+          </button>
+          <div class="mobile-nav-sub" id="mobile-games-sub">
+            <a href="/games/"><i class="fas fa-th"></i> All Games</a>
+            <a href="/games/two-player/"><i class="fas fa-users"></i> 2 Player</a>
+            <a href="/games/challenges/"><i class="fas fa-trophy"></i> Challenges</a>
+          </div>
+        </li>
+        <li class="mobile-nav-item">
           <a href="https://rkoots.substack.com/subscribe" class="mobile-nav-link" target="_blank" rel="noopener">
             <i class="fas fa-envelope"></i>
             <span>Newsletter</span>
@@ -133,6 +158,19 @@
       </ul>
     </nav>
   </div>
+  <script>
+  (function(){
+    var btn = document.getElementById('mobile-games-toggle');
+    var sub = document.getElementById('mobile-games-sub');
+    if(btn && sub){
+      btn.addEventListener('click', function(){
+        var open = sub.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open);
+      });
+    }
+  })();
+  </script>
 
   <!-- Search Modal -->
   <div class="search-modal" id="search-modal">
