@@ -43,6 +43,7 @@ sitemap:
     - "/TechNews-backup/**"
     - "/auto/**"
     - "/scripts/**"
+    - "/games/seed.html"
   include:
     - "/blog/**"
     - "/tools/**"
