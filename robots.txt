@@ -10,8 +10,5 @@ Disallow: /iwater/read
 Disallow: /auto/
 Disallow: /scripts/
 
-# Block duplicate/parameter URLs
-Disallow: /*?*
-
 # Sitemap
 Sitemap: https://rkoots.github.io/robots.txt
