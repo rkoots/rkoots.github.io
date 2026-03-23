@@ -56,6 +56,8 @@ description: "2-player Tap Battle. Tap your button as fast as possible in 10 sec
 .reaction-player-zone:not(:disabled):active{transform:scale(0.92)}
 </style>
 
+<script src="/assets/js/games/fullscreen.js"></script>
+
 <script>
 (function(){
   var scores = {p1:0, p2:0};
@@ -63,6 +65,8 @@ description: "2-player Tap Battle. Tap your button as fast as possible in 10 sec
   var gameActive = false;
   var startTime, timerInterval;
   var GAME_DURATION = 10000;
+  
+  GameFullscreen.init('.game-container', { autoEnterOnStart: true });
 
   var p1Btn = document.getElementById('p1Btn');
   var p2Btn = document.getElementById('p2Btn');
@@ -84,6 +88,7 @@ description: "2-player Tap Battle. Tap your button as fast as possible in 10 sec
     startBtn.style.display = 'none';
     statusMsg.textContent = 'TAP TAP TAP!!!';
     statusMsg.className = 'game-status-msg win';
+    GameFullscreen.onGameStart();
     updateTaps();
 
     timerInterval = setInterval(function(){

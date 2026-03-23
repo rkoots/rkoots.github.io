@@ -57,6 +57,8 @@ description: "2-player Tic Tac Toe. Classic X vs O on a 3x3 grid. First to get 3
 .game-container { background: #0d0d1a; }
 </style>
 
+<script src="/assets/js/games/fullscreen.js"></script>
+
 <script>
 (function () {
   var board = Array(9).fill(null);
@@ -64,6 +66,7 @@ description: "2-player Tic Tac Toe. Classic X vs O on a 3x3 grid. First to get 3
   var gameOver = false;
   var scores = { X: 0, O: 0, draws: 0 };
   var WINS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  var gameStarted = false;
 
   var cells = document.querySelectorAll('.ttt-cell');
   var turnEl = document.getElementById('turnIndicator');
@@ -73,6 +76,8 @@ description: "2-player Tic Tac Toe. Classic X vs O on a 3x3 grid. First to get 3
   var drawsEl = document.getElementById('draws');
   var newRoundBtn = document.getElementById('newRoundBtn');
   var resetBtn = document.getElementById('resetBtn');
+
+  GameFullscreen.init('.game-container', { autoEnterOnStart: true });
 
   cells.forEach(function (cell) {
     cell.addEventListener('click', function () { handleClick(parseInt(this.dataset.index)); });
@@ -87,6 +92,12 @@ description: "2-player Tic Tac Toe. Classic X vs O on a 3x3 grid. First to get 3
 
   function handleClick(i) {
     if (gameOver || board[i]) return;
+    
+    if (!gameStarted) {
+      gameStarted = true;
+      GameFullscreen.onGameStart();
+    }
+    
     board[i] = currentPlayer;
     cells[i].textContent = currentPlayer;
     cells[i].classList.add(currentPlayer.toLowerCase(), 'taken');

@@ -59,6 +59,8 @@ description: "2-player Quick Draw. Tap your side when you see the target emoji. 
 
 <style>.game-container{background:#0d0d1a}</style>
 
+<script src="/assets/js/games/fullscreen.js"></script>
+
 <script>
 (function(){
   var scores = {p1:0, p2:0};
@@ -67,6 +69,8 @@ description: "2-player Quick Draw. Tap your side when you see the target emoji. 
   var currentTarget = '';
   var emojis = ['🌟','❤️','🔥','⚡','🎈','🍕','🎮','🚀','💎','🏆'];
   var distractors = ['😀','🐶','🌈','🍎','⚽','🎵','🌸','🦄','🍔','🎨'];
+  
+  GameFullscreen.init('.game-container', { autoEnterOnStart: true });
   
   var p1Zone = document.getElementById('p1Zone');
   var p2Zone = document.getElementById('p2Zone');
@@ -91,6 +95,7 @@ description: "2-player Quick Draw. Tap your side when you see the target emoji. 
     startBtn.style.display = 'none';
     statusMsg.textContent = '';
     statusMsg.className = 'game-status-msg';
+    GameFullscreen.onGameStart();
     nextRound();
   }
 

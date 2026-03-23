@@ -52,6 +52,8 @@ description: "2-player Color Match Race. Tap the matching color as fast as possi
 
 <style>.game-container{background:#0d0d1a}</style>
 
+<script src="/assets/js/games/fullscreen.js"></script>
+
 <script>
 (function(){
   var scores = {p1:0, p2:0};
@@ -63,6 +65,8 @@ description: "2-player Color Match Race. Tap the matching color as fast as possi
     '#10b981','#14b8a6','#06b6d4','#0ea5e9','#3b82f6','#6366f1',
     '#8b5cf6','#a855f7','#d946ef','#ec4899','#f43f5e'
   ];
+  
+  GameFullscreen.init('.game-container', { autoEnterOnStart: true });
   
   var targetColorEl = document.getElementById('targetColor');
   var choiceBtns = document.querySelectorAll('.color-choice-btn');
@@ -97,6 +101,7 @@ description: "2-player Color Match Race. Tap the matching color as fast as possi
     startBtn.style.display = 'none';
     statusMsg.textContent = '';
     statusMsg.className = 'game-status-msg';
+    GameFullscreen.onGameStart();
     nextRound();
   }
 

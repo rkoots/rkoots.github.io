@@ -1605,6 +1605,73 @@ body.game-layout {
   color: rgba(255,255,255,0.4);
 }
 
+/* ---- Fullscreen Button ---- */
+.btn-fullscreen {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  background: rgba(0,0,0,0.6);
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.btn-fullscreen:hover {
+  background: rgba(102,126,234,0.8);
+  border-color: rgba(102,126,234,0.6);
+  transform: scale(1.05);
+}
+
+.btn-fullscreen:active {
+  transform: scale(0.95);
+}
+
+/* Fullscreen mode styles */
+.game-container.fullscreen-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.game-container.fullscreen-mode .game-header {
+  display: none;
+}
+
+.game-container.fullscreen-mode .split-game {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-container.fullscreen-mode .game-board-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 /* ---- General Game Buttons ---- */
 .btn-game-action {
   background: linear-gradient(135deg, #667eea, #764ba2);
