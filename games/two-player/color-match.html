@@ -1,0 +1,201 @@
+---
+layout: game
+permalink: /games/two-player/color-match/
+title: "Color Match Race"
+description: "2-player Color Match Race. Tap the matching color as fast as possible. First to 7 wins!"
+---
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-title">
+      <span class="game-emoji">🎨</span>
+      <h1>Color Match Race</h1>
+    </div>
+    <a href="/games/two-player/" class="back-link"><i class="fas fa-arrow-left"></i> All 2P Games</a>
+  </div>
+
+  <div class="split-game" style="max-width:600px">
+    <div class="split-top-bar">
+      <div class="player-score p1-score">
+        <span class="label">Player 1</span>
+        <span class="score" id="p1score">0</span>
+      </div>
+      <div class="turn-indicator" id="roundInfo">Round 1</div>
+      <div class="player-score p2-score" style="text-align:right">
+        <span class="label">Player 2</span>
+        <span class="score" id="p2score">0</span>
+      </div>
+    </div>
+
+    <div class="game-board-area">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);margin-bottom:8px">Find this color:</div>
+        <div id="targetColor" style="width:100px;height:100px;border-radius:16px;margin:0 auto;border:3px solid rgba(255,255,255,0.3);box-shadow:0 4px 20px rgba(0,0,0,0.3)"></div>
+      </div>
+
+      <div class="color-choices" style="grid-template-columns:repeat(3,1fr);max-width:400px">
+        <button class="color-choice-btn" data-index="0"></button>
+        <button class="color-choice-btn" data-index="1"></button>
+        <button class="color-choice-btn" data-index="2"></button>
+        <button class="color-choice-btn" data-index="3"></button>
+        <button class="color-choice-btn" data-index="4"></button>
+        <button class="color-choice-btn" data-index="5"></button>
+      </div>
+
+      <p class="game-status-msg" id="statusMsg"></p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+        <button class="btn-game-action" id="startBtn">Start Game</button>
+        <button class="btn-game-reset" id="resetBtn">Reset Scores</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>.game-container{background:#0d0d1a}</style>
+
+<script>
+(function(){
+  var scores = {p1:0, p2:0};
+  var round = 0;
+  var gameActive = false;
+  var currentTarget = '';
+  var colors = [
+    '#ef4444','#f97316','#f59e0b','#eab308','#84cc16','#22c55e',
+    '#10b981','#14b8a6','#06b6d4','#0ea5e9','#3b82f6','#6366f1',
+    '#8b5cf6','#a855f7','#d946ef','#ec4899','#f43f5e'
+  ];
+  
+  var targetColorEl = document.getElementById('targetColor');
+  var choiceBtns = document.querySelectorAll('.color-choice-btn');
+  var statusMsg = document.getElementById('statusMsg');
+  var roundInfo = document.getElementById('roundInfo');
+  var p1ScoreEl = document.getElementById('p1score');
+  var p2ScoreEl = document.getElementById('p2score');
+  var startBtn = document.getElementById('startBtn');
+  var resetBtn = document.getElementById('resetBtn');
+  var lastWinner = null;
+
+  function pickRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function shuffle(arr) {
+    var copy = arr.slice();
+    for (var i = copy.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = copy[i];
+      copy[i] = copy[j];
+      copy[j] = temp;
+    }
+    return copy;
+  }
+
+  function startGame() {
+    scores = {p1:0, p2:0};
+    round = 0;
+    lastWinner = null;
+    updateScores();
+    startBtn.style.display = 'none';
+    statusMsg.textContent = '';
+    statusMsg.className = 'game-status-msg';
+    nextRound();
+  }
+
+  function nextRound() {
+    if (scores.p1 >= 7 || scores.p2 >= 7) {
+      endGame();
+      return;
+    }
+    round++;
+    roundInfo.textContent = 'Round ' + round;
+    gameActive = true;
+    
+    currentTarget = pickRandom(colors);
+    targetColorEl.style.background = currentTarget;
+    
+    var choices = [currentTarget];
+    while (choices.length < 6) {
+      var c = pickRandom(colors);
+      if (choices.indexOf(c) === -1) choices.push(c);
+    }
+    choices = shuffle(choices);
+    
+    choiceBtns.forEach(function(btn, i){
+      btn.style.background = choices[i];
+      btn.dataset.color = choices[i];
+      btn.disabled = false;
+      btn.style.opacity = '1';
+    });
+
+    statusMsg.textContent = 'Find the matching color!';
+    statusMsg.className = 'game-status-msg';
+  }
+
+  function handleChoice(color) {
+    if (!gameActive) return;
+    gameActive = false;
+    
+    choiceBtns.forEach(function(btn){ btn.disabled = true; });
+
+    if (color === currentTarget) {
+      var winner = lastWinner === 'p1' ? 'p2' : 'p1';
+      lastWinner = winner;
+      scores[winner]++;
+      updateScores();
+      statusMsg.textContent = 'Player ' + (winner === 'p1' ? '1' : '2') + ' scored! 🎉';
+      statusMsg.className = 'game-status-msg win';
+    } else {
+      statusMsg.textContent = 'Wrong color! Try again...';
+      statusMsg.className = 'game-status-msg lose';
+    }
+    
+    setTimeout(nextRound, 1200);
+  }
+
+  function endGame() {
+    gameActive = false;
+    var winner = scores.p1 >= 7 ? 'Player 1' : 'Player 2';
+    statusMsg.textContent = winner + ' wins the game! 🏆';
+    statusMsg.className = 'game-status-msg win';
+    roundInfo.textContent = 'Game Over';
+    startBtn.textContent = 'Play Again';
+    startBtn.style.display = 'inline-flex';
+    choiceBtns.forEach(function(btn){ btn.disabled = true; });
+  }
+
+  function updateScores() {
+    p1ScoreEl.textContent = scores.p1;
+    p2ScoreEl.textContent = scores.p2;
+  }
+
+  choiceBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      handleChoice(this.dataset.color);
+    });
+  });
+
+  startBtn.addEventListener('click', startGame);
+  
+  resetBtn.addEventListener('click', function(){
+    scores = {p1:0, p2:0};
+    round = 0;
+    lastWinner = null;
+    updateScores();
+    gameActive = false;
+    statusMsg.textContent = '';
+    roundInfo.textContent = 'Round 0';
+    startBtn.textContent = 'Start Game';
+    startBtn.style.display = 'inline-flex';
+    choiceBtns.forEach(function(btn){ 
+      btn.disabled = true;
+      btn.style.background = 'rgba(255,255,255,0.1)';
+    });
+    targetColorEl.style.background = 'rgba(255,255,255,0.1)';
+  });
+
+  choiceBtns.forEach(function(btn){ 
+    btn.disabled = true;
+    btn.style.background = 'rgba(255,255,255,0.1)';
+  });
+  targetColorEl.style.background = 'rgba(255,255,255,0.1)';
+}());
+</script>

@@ -1,0 +1,188 @@
+---
+layout: game
+permalink: /games/two-player/quick-draw/
+title: "Quick Draw"
+description: "2-player Quick Draw. Tap your side when you see the target emoji. First to 5 wins!"
+---
+<div class="game-container">
+  <div class="game-header">
+    <div class="game-title">
+      <span class="game-emoji">🎯</span>
+      <h1>Quick Draw</h1>
+    </div>
+    <a href="/games/two-player/" class="back-link"><i class="fas fa-arrow-left"></i> All 2P Games</a>
+  </div>
+
+  <div class="split-game" style="max-width:600px">
+    <div class="split-top-bar">
+      <div class="player-score p1-score">
+        <span class="label">Player 1</span>
+        <span class="score" id="p1score">0</span>
+      </div>
+      <div class="turn-indicator" id="roundInfo">Round 1</div>
+      <div class="player-score p2-score" style="text-align:right">
+        <span class="label">Player 2</span>
+        <span class="score" id="p2score">0</span>
+      </div>
+    </div>
+
+    <div class="game-board-area">
+      <div class="reaction-arena">
+        <div class="reaction-player-zone p1-zone" id="p1Zone">
+          <span class="reaction-player-label">Player 1</span>
+          <span class="reaction-player-score" id="p1display" style="color:#667eea">0</span>
+        </div>
+        
+        <div class="reaction-center">
+          <div id="targetEmoji" style="font-size:3rem;min-height:80px;display:flex;align-items:center;justify-content:center">
+            🎯
+          </div>
+          <div id="instruction" style="font-size:0.85rem;color:rgba(255,255,255,0.6);text-align:center">
+            Tap your side when you see: <span id="targetDisplay" style="color:#fbbf24;font-weight:700">🌟</span>
+          </div>
+        </div>
+
+        <div class="reaction-player-zone p2-zone" id="p2Zone">
+          <span class="reaction-player-label">Player 2</span>
+          <span class="reaction-player-score" id="p2display" style="color:#f093fb">0</span>
+        </div>
+      </div>
+
+      <p class="game-status-msg" id="statusMsg"></p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+        <button class="btn-game-action" id="startBtn">Start Game</button>
+        <button class="btn-game-reset" id="resetBtn">Reset Scores</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>.game-container{background:#0d0d1a}</style>
+
+<script>
+(function(){
+  var scores = {p1:0, p2:0};
+  var round = 0;
+  var gameActive = false;
+  var currentTarget = '';
+  var emojis = ['🌟','❤️','🔥','⚡','🎈','🍕','🎮','🚀','💎','🏆'];
+  var distractors = ['😀','🐶','🌈','🍎','⚽','🎵','🌸','🦄','🍔','🎨'];
+  
+  var p1Zone = document.getElementById('p1Zone');
+  var p2Zone = document.getElementById('p2Zone');
+  var targetEmoji = document.getElementById('targetEmoji');
+  var targetDisplay = document.getElementById('targetDisplay');
+  var statusMsg = document.getElementById('statusMsg');
+  var roundInfo = document.getElementById('roundInfo');
+  var p1ScoreEl = document.getElementById('p1score');
+  var p2ScoreEl = document.getElementById('p2score');
+  var startBtn = document.getElementById('startBtn');
+  var resetBtn = document.getElementById('resetBtn');
+
+  function pickRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function startGame() {
+    scores = {p1:0, p2:0};
+    round = 0;
+    updateScores();
+    startBtn.textContent = 'Next Round';
+    startBtn.style.display = 'none';
+    statusMsg.textContent = '';
+    statusMsg.className = 'game-status-msg';
+    nextRound();
+  }
+
+  function nextRound() {
+    if (scores.p1 >= 5 || scores.p2 >= 5) {
+      endGame();
+      return;
+    }
+    round++;
+    roundInfo.textContent = 'Round ' + round;
+    gameActive = false;
+    currentTarget = pickRandom(emojis);
+    targetDisplay.textContent = currentTarget;
+    targetEmoji.textContent = '🎯';
+    statusMsg.textContent = 'Get ready...';
+    statusMsg.className = 'game-status-msg';
+    
+    p1Zone.classList.remove('success','fail');
+    p2Zone.classList.remove('success','fail');
+
+    var delay = 1000 + Math.random() * 2000;
+    setTimeout(function(){
+      var showTarget = Math.random() > 0.3;
+      if (showTarget) {
+        targetEmoji.textContent = currentTarget;
+        gameActive = true;
+        statusMsg.textContent = 'TAP NOW!';
+        statusMsg.className = 'game-status-msg win';
+      } else {
+        targetEmoji.textContent = pickRandom(distractors);
+        statusMsg.textContent = "Don't tap!";
+        statusMsg.className = 'game-status-msg';
+      }
+    }, delay);
+  }
+
+  function handleTap(player) {
+    if (!gameActive) {
+      statusMsg.textContent = 'Too early or wrong emoji!';
+      statusMsg.className = 'game-status-msg lose';
+      if (player === 'p1') p1Zone.classList.add('fail');
+      else p2Zone.classList.add('fail');
+      setTimeout(nextRound, 1500);
+      return;
+    }
+    
+    gameActive = false;
+    scores[player]++;
+    updateScores();
+    statusMsg.textContent = 'Player ' + (player === 'p1' ? '1' : '2') + ' scored! 🎉';
+    statusMsg.className = 'game-status-msg win';
+    if (player === 'p1') p1Zone.classList.add('success');
+    else p2Zone.classList.add('success');
+    
+    setTimeout(nextRound, 1500);
+  }
+
+  function endGame() {
+    gameActive = false;
+    var winner = scores.p1 >= 5 ? 'Player 1' : 'Player 2';
+    statusMsg.textContent = winner + ' wins the game! 🏆';
+    statusMsg.className = 'game-status-msg win';
+    roundInfo.textContent = 'Game Over';
+    startBtn.textContent = 'Play Again';
+    startBtn.style.display = 'inline-flex';
+  }
+
+  function updateScores() {
+    p1ScoreEl.textContent = scores.p1;
+    p2ScoreEl.textContent = scores.p2;
+    document.getElementById('p1display').textContent = scores.p1;
+    document.getElementById('p2display').textContent = scores.p2;
+  }
+
+  p1Zone.addEventListener('click', function(){ handleTap('p1'); });
+  p2Zone.addEventListener('click', function(){ handleTap('p2'); });
+  p1Zone.addEventListener('touchstart', function(e){ e.preventDefault(); handleTap('p1'); });
+  p2Zone.addEventListener('touchstart', function(e){ e.preventDefault(); handleTap('p2'); });
+  
+  startBtn.addEventListener('click', startGame);
+  resetBtn.addEventListener('click', function(){
+    scores = {p1:0, p2:0};
+    round = 0;
+    updateScores();
+    gameActive = false;
+    statusMsg.textContent = '';
+    roundInfo.textContent = 'Round 0';
+    targetEmoji.textContent = '🎯';
+    startBtn.textContent = 'Start Game';
+    startBtn.style.display = 'inline-flex';
+    p1Zone.classList.remove('success','fail');
+    p2Zone.classList.remove('success','fail');
+  });
+}());
+</script>
