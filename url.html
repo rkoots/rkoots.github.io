@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Loader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+        
+        .error {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .error-content {
+            max-width: 500px;
+        }
+        
+        .error h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .error p {
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Get the src parameter from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const srcUrl = urlParams.get('src');
+        
+        if (srcUrl) {
+            try {
+                // Decode the URL (handles URL-encoded strings)
+                let decodedUrl = decodeURIComponent(srcUrl);
+                
+                // Remove quotes if present
+                decodedUrl = decodedUrl.replace(/^["']|["']$/g, '');
+                
+                // Validate URL format
+                const url = new URL(decodedUrl);
+                
+                // Create and append iframe
+                const iframe = document.createElement('iframe');
+                iframe.src = url.href;
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.setAttribute('loading', 'eager');
+                document.body.appendChild(iframe);
+            } catch (e) {
+                showError('Invalid URL provided');
+            }
+        } else {
+            showError('No URL specified. Please provide a URL using the <code>src</code> parameter.');
+        }
+        
+        function showError(message) {
+            document.body.innerHTML = `
+                <div class="error">
+                    <div class="error-content">
+                        <h1>Error</h1>
+                        <p>${message}</p>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
