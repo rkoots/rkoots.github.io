@@ -456,11 +456,20 @@ function endGame(){
   $('dhLbWrap').style.display=showLb?'block':'none';
   if(showLb){
     var gid='dhurandhar-'+mode;
-    var uid=window.GameAuth&&window.GameAuth.isSignedIn()?window.GameAuth.getCurrentUser().uid:null;
-    window.GameLeaderboard.load(gid,'dhLbList',uid);
     var signedIn=window.GameAuth&&window.GameAuth.isSignedIn();
-    $('dhSubmitBtn').style.display=signedIn?'inline-flex':'none';
+    var uid=signedIn?window.GameAuth.getCurrentUser().uid:null;
+    window.GameLeaderboard.load(gid,'dhLbList',uid);
+    $('dhSubmitBtn').style.display='none';
     $('dhSignInMsg').style.display=signedIn?'none':'flex';
+    document.querySelector('.btn-google-signin').style.display=signedIn?'none':'inline-flex';
+    if(signedIn){
+      document.querySelector('.auth-signed-in').style.display='flex';
+      document.querySelector('.auth-signed-out').style.display='none';
+      setTimeout(function(){submitScore();},500);
+    }else{
+      document.querySelector('.auth-signed-in').style.display='none';
+      document.querySelector('.auth-signed-out').style.display='flex';
+    }
   }
 }
 
