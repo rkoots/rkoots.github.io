@@ -25,6 +25,7 @@ console.log('[Exam] exam.js starting to load...');
     start: function () {
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
       console.log('[Exam] LearnExam.start() called');
       console.log('[Exam] LearnApp available:', !!window.LearnApp);
       console.log('[Exam] LearnApp.getActiveCourse available:', !!(window.LearnApp && LearnApp.getActiveCourse));
@@ -57,6 +58,10 @@ console.log('[Exam] exam.js starting to load...');
 =======
       var course = LearnApp.getActiveCourse();
       if (!course) {
+=======
+      var course = LearnApp.getActiveCourse();
+      if (!course) {
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
 =======
       var course = LearnApp.getActiveCourse();
       if (!course) {
@@ -148,8 +153,11 @@ console.log('[Exam] exam.js starting to load...');
   
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
   console.log('[Exam] LearnExam object defined with methods:', Object.keys(window.LearnExam || {}));
 
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
 =======
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
 =======
