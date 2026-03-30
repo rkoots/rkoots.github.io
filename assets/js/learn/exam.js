@@ -8,7 +8,7 @@ console.log('[Exam] exam.js starting to load...');
   console.log('[Exam] exam.js IIFE started...');
 
   var EXAM_DURATION = 45 * 60; // 45 minutes in seconds
-  var PASS_THRESHOLD = 70;     // percentage
+  var PASS_THRESHOLD = 5;     // percentage
 
   var _course = null;
   var _questions = [];
