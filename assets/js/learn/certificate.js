@@ -94,6 +94,15 @@ console.log('[Cert] certificate.js starting to load...');
       document.body.style.overflow = 'hidden';
     },
 
+    viewInNewWindow: function () {
+      if (!_certData) return;
+      var html = _buildFullPageCertHTML(_certData);
+      var newWindow = window.open('', '_blank');
+      newWindow.document.write(html);
+      newWindow.document.close();
+      LearnApp.toast('Certificate opened in new window!', 'success');
+    },
+
     syncLocalCertificates: function() {
       var user = GameAuth.getCurrentUser();
       if (!user) return;

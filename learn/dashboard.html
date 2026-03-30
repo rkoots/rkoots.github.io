@@ -105,11 +105,7 @@ permalink: /learn/dashboard.html
       <div class="dash-empty"><i class="fas fa-clipboard-list"></i><p>No exam attempts yet.</p></div>
     </div>
 
-    <!-- Leaderboard -->
-    <div class="dash-section-title" style="margin-top:36px"><i class="fas fa-trophy"></i> Global Leaderboard</div>
-    <div class="dash-leaderboard" id="leaderboardList">
-      <div class="lb-row" style="justify-content:center;color:#94a3b8;font-size:.875rem">Loading…</div>
-    </div>
+    
   </div>
 
 </div>
@@ -119,6 +115,7 @@ permalink: /learn/dashboard.html
   <div class="modal-box cert-modal-box">
     <button class="modal-close" onclick="DashCert.close()"><i class="fas fa-times"></i></button>
     <div class="cert-actions-top">
+      <button class="btn-ghost" onclick="DashCert.viewInNewWindow()"><i class="fas fa-external-link-alt"></i> View</button>
       <button class="btn-ghost" onclick="DashCert.download()"><i class="fas fa-download"></i> Download</button>
       <button class="btn-ghost" onclick="DashCert.share()"><i class="fas fa-share-alt"></i> Share</button>
     </div>
@@ -161,6 +158,9 @@ permalink: /learn/dashboard.html
     },
     share: function(){
       if(_activeCert && window.LearnCert) LearnCert.share();
+    },
+    viewInNewWindow: function(){
+      if(_activeCert && window.LearnCert) LearnCert.viewInNewWindow();
     },
     view: function(certData){
       _activeCert = certData;
@@ -334,9 +334,6 @@ permalink: /learn/dashboard.html
           '<div class="dash-cert-course">' + _esc(a.courseName||a.courseKey) + '</div>' +
           '<div class="dash-cert-score" style="' + scoreColor + '"><i class="fas fa-percentage"></i> ' + (a.score||0) + '% — ' + (passed ? 'PASSED' : 'FAILED') + '</div>' +
           '<div class="dash-cert-date"><i class="fas fa-calendar-alt"></i> ' + (a.lastAttempt ? new Date(a.lastAttempt).toLocaleDateString() : '') + '</div>' +
-          '<div class="dash-cert-actions">' +
-            '<a href="/learn/#' + _esc(a.courseKey) + '" class="dash-btn primary"><i class="fas fa-' + (passed ? 'redo' : 'book') + '"></i> ' + (passed ? 'Re-attempt' : 'Study & Retry') + '</a>' +
-          '</div>' +
         '</div></div>';
     }).join('');
   }
