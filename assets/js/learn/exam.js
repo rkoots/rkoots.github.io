@@ -328,6 +328,7 @@ console.log('[Exam] exam.js starting to load...');
             name: user.displayName || 'Learner',
             email: user.email,
             course: course.title,
+            courseId: course.id,  // Add course ID for proper storage
             score: score,
             correct: correct,
             total: total,
@@ -408,7 +409,8 @@ console.log('[Exam] exam.js starting to load...');
   function _storeCertificate(data, user) {
     var DB_URL = window.FIREBASE_DB_URL || 'https://games-rkoots-default-rtdb.firebaseio.com';
     var emailKey = data.email.replace(/[.#$\[\]]/g, '_');
-    var courseKey = data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+    // Use course ID instead of course title for consistent storage
+    var courseKey = _course ? _course.id : data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
     var path = DB_URL + '/certificates/' + emailKey + '/' + courseKey + '.json';
 
     if (!user || !user.getIdToken) {
@@ -466,7 +468,8 @@ console.log('[Exam] exam.js starting to load...');
       var localCerts = JSON.parse(localStorage.getItem('rkoots_certificates') || '{}');
       var emailKey = data.email.replace(/[.#$\[\]]/g, '_');
       if (!localCerts[emailKey]) localCerts[emailKey] = {};
-      var courseKey = data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+      // Use course ID instead of course title for consistency
+      var courseKey = _course ? _course.id : data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
       localCerts[emailKey][courseKey] = data;
       localStorage.setItem('rkoots_certificates', JSON.stringify(localCerts));
       console.log('[Exam] Certificate saved to localStorage');
