@@ -5,8 +5,8 @@
 (function () {
   'use strict';
 
-  var EXAM_DURATION = 45 * 60; // 45 minutes in seconds
-  var PASS_THRESHOLD = 70;     // percentage
+  var EXAM_DURATION = 1 * 60; // 45 minutes in seconds
+  var PASS_THRESHOLD = 5;     // percentage
 
   var _course = null;
   var _questions = [];
