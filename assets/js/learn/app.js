@@ -41,8 +41,13 @@
     },
 
     loadCourse: function (courseId) {
+      console.log('[App] Loading course:', courseId);
       var course = _getCourse(courseId);
-      if (!course) return;
+      if (!course) {
+        console.error('[App] Course not found:', courseId);
+        return;
+      }
+      console.log('[App] Found course:', course.title);
       _activeCourseId = courseId;
 
       LearnApp.showView('view-topic');
@@ -91,7 +96,10 @@
     },
 
     getActiveCourse: function () {
-      return _activeCourseId ? _getCourse(_activeCourseId) : null;
+      console.log('[App] Getting active course. Current ID:', _activeCourseId);
+      var course = _activeCourseId ? _getCourse(_activeCourseId) : null;
+      console.log('[App] Found course:', course);
+      return course;
     },
 
     toast: function (msg, type) {
