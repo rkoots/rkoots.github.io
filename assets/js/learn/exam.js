@@ -7,7 +7,7 @@
   'use strict';
 
   var EXAM_DURATION = 45 * 60; // 45 minutes in seconds
-  var PASS_THRESHOLD = 70;     // percentage
+  var PASS_THRESHOLD = 5;     // percentage
 
   var _course = null;
   var _questions = [];
@@ -595,8 +595,19 @@
         var certData = { score: score, correct: correct, total: total };
         console.log('[Exam] Certificate data to pass:', certData);
         actions.innerHTML =
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
           '<button class="btn-cert" onclick="console.log(\'[Exam] Certificate button clicked\'); LearnExam.close(); LearnCert.generate(' + JSON.stringify(certData) + ')"><i class="fas fa-certificate"></i> View My Certificate</button>' +
+=======
+          '<button class="btn-cert" id="viewCertBtn"><i class="fas fa-certificate"></i> View My Certificate</button>' +
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-65d93bf9/assets/js/learn/exam.js
           '<button class="btn-ghost" onclick="LearnExam.close()"><i class="fas fa-home"></i> Back to Course</button>';
+
+        // Add event listener with the actual data object
+        document.getElementById('viewCertBtn').addEventListener('click', function() {
+          console.log('[Exam] Certificate button clicked');
+          LearnExam.close();
+          LearnCert.generate(certData);
+        });
       } else {
         actions.innerHTML =
           '<button class="btn-primary-lg" onclick="LearnExam.close();setTimeout(function(){LearnExam.start();},200)"><i class="fas fa-redo"></i> Try Again</button>' +
