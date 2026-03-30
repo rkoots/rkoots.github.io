@@ -171,7 +171,12 @@ console.log('[Cert] certificate.js starting to load...');
       '<div class="cert-signatures">',
         '<div class="cert-sig-block">',
           '<div class="cert-sig-line"></div>',
-          '<div class="cert-sig-name" style="font-family:Georgia,serif;font-style:italic;font-size:1rem">RK</div>',
+          '<div class="cert-sig-name">' +
+            '<svg width="120" height="40" viewBox="0 0 120 40" style="font-family:Brush Script MT,cursive;font-size:24px;fill:#1e293b;">' +
+              '<path d="M10,25 Q15,10 25,20 T35,15 Q40,10 45,25 T55,20 Q60,15 65,25 T75,20" stroke="#1e293b" stroke-width="1.5" fill="none"/>' +
+              '<text x="80" y="25" font-style="italic" font-weight="600">Raj</text>' +
+            '</svg>' +
+          '</div>',
           '<div class="cert-sig-title">Course Director, rkoots</div>',
         '</div>',
         '<div class="cert-sig-block">',
@@ -194,27 +199,32 @@ console.log('[Cert] certificate.js starting to load...');
       '<style>' +
       '*{box-sizing:border-box;margin:0;padding:0}' +
       'body{font-family:Inter,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f8f9fc;padding:20px}' +
-      '.certificate-paper{background:#fff;border:8px solid transparent;border-image:linear-gradient(135deg,#c8a96e,#f0d080,#c8a96e,#a0784a) 1;' +
-      'padding:48px 52px;font-family:Georgia,serif;text-align:center;position:relative;box-shadow:inset 0 0 40px rgba(200,169,110,.12);max-width:780px;width:100%}' +
-      '.cert-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:8rem;color:rgba(102,126,234,.05);pointer-events:none}' +
+      /* Certificate Paper - Exact same as preview CSS */
+      '.certificate-paper{background:#fff;border:8px solid transparent;border-image:linear-gradient(135deg,#c8a96e,#f0d080,#c8a96e,#a0784a) 1;padding:48px 52px;font-family:Georgia,serif;text-align:center;position:relative;box-shadow:inset 0 0 40px rgba(200,169,110,0.12);max-width:780px;width:100%}' +
+      '.cert-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:8rem;color:rgba(102,126,234,0.05);pointer-events:none;user-select:none}' +
       '.cert-header-line{font-size:.75rem;letter-spacing:4px;text-transform:uppercase;color:#8b6914;margin-bottom:12px;font-family:Inter,sans-serif}' +
-      '.cert-logo-area{margin-bottom:16px}.cert-logo-icon{font-size:2.4rem;color:#c8a96e}' +
+      '.cert-logo-area{margin-bottom:16px}' +
+      '.cert-logo-icon{font-size:2.4rem;color:#c8a96e}' +
       '.cert-org{font-size:.9rem;font-weight:700;color:#667eea;letter-spacing:2px;text-transform:uppercase;font-family:Inter,sans-serif}' +
-      '.cert-divider{height:2px;background:linear-gradient(90deg,transparent,#c8a96e,#f0d080,#c8a96e,transparent);margin:20px auto;width:80%}' +
-      '.cert-title-block{margin:20px 0}.cert-main-title{font-size:2.2rem;color:#1e293b;font-weight:700;margin-bottom:4px}' +
+      '.cert-title-block{margin:20px 0}' +
+      '.cert-main-title{font-size:2.2rem;color:#1e293b;font-weight:700;margin-bottom:4px}' +
       '.cert-subtitle{font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:#8b6914;font-family:Inter,sans-serif}' +
+      '.cert-divider{height:2px;background:linear-gradient(90deg,transparent,#c8a96e,#f0d080,#c8a96e,transparent);margin:20px auto;width:80%}' +
       '.cert-presented-to{font-size:.85rem;color:#64748b;font-family:Inter,sans-serif;margin-bottom:4px}' +
       '.cert-name{font-size:2rem;font-weight:700;color:#1e293b;font-style:italic;margin-bottom:16px}' +
       '.cert-body-text{font-size:.9rem;color:#475569;line-height:1.7;max-width:560px;margin:0 auto 20px;font-family:Inter,sans-serif}' +
       '.cert-course-name{font-size:1.15rem;font-weight:700;color:#667eea;display:block;margin:4px 0 10px;font-family:Inter,sans-serif;font-style:normal}' +
       '.cert-seal{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;padding:6px 16px;border-radius:20px;font-size:.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:Inter,sans-serif;margin-bottom:20px}' +
-      '.cert-meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;font-family:Inter,sans-serif;font-size:.78rem;border-top:1px solid rgba(200,169,110,.3);border-bottom:1px solid rgba(200,169,110,.3);padding:14px 0;margin:16px 0;color:#64748b}' +
+      '.cert-meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;font-family:Inter,sans-serif;font-size:.78rem;border-top:1px solid rgba(200,169,110,0.3);border-bottom:1px solid rgba(200,169,110,0.3);padding:14px 0;margin:16px 0;color:#64748b}' +
       '.cert-meta-item strong{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:#8b6914;margin-bottom:2px}' +
       '.cert-signatures{display:flex;justify-content:space-around;margin-top:28px;font-family:Inter,sans-serif}' +
-      '.cert-sig-block{text-align:center}.cert-sig-line{width:140px;height:1px;background:#1e293b;margin:0 auto 6px}' +
-      '.cert-sig-name{font-size:.8rem;font-weight:700;color:#1e293b}.cert-sig-title{font-size:.7rem;color:#64748b}' +
-      '.cert-license-bar{margin-top:16px;font-family:monospace;font-size:.7rem;color:#94a3b8}' +
+      '.cert-sig-block{text-align:center}' +
+      '.cert-sig-line{width:140px;height:1px;background:#1e293b;margin:0 auto 6px}' +
+      '.cert-sig-name{font-size:.8rem;font-weight:700;color:#1e293b}' +
+      '.cert-sig-title{font-size:.7rem;color:#64748b}' +
+      '.cert-license-bar{margin-top:16px;font-family:JetBrains Mono,monospace;font-size:.7rem;color:#94a3b8;letter-spacing:.5px}' +
       '@media print{body{background:white;padding:0}.certificate-paper{border-image:none;border:8px solid #c8a96e;box-shadow:none}}' +
+      '@media (max-width:768px){.cert-meta-grid{grid-template-columns:1fr 1fr}.certificate-paper{padding:28px 20px}.cert-main-title{font-size:1.5rem}.cert-name{font-size:1.4rem}}' +
       '</style></head><body>' +
       '<div class="certificate-paper">' + body + '</div>' +
       '<script>window.onload=function(){window.print();}<\/script>' +

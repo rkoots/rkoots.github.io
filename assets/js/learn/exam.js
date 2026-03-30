@@ -297,8 +297,25 @@ console.log('[Exam] exam.js starting to load...');
     var actions = $('resultActions');
     if (actions) {
       if (passed) {
+        // Create certificate data for viewing (not generating)
+        var user = GameAuth.getCurrentUser();
+        var course = LearnApp.getActiveCourse();
+        var certData = {
+          name: user.displayName || 'Learner',
+          email: user.email,
+          course: course.title,
+          courseId: course.id,
+          score: score,
+          correct: correct,
+          total: total,
+          licenseNumber: _generateLicense(user.email, user.uid, new Date().getTime()),
+          examDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+          issueDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+          uid: user.uid
+        };
+        
         actions.innerHTML =
-          '<button class="btn-cert" onclick="LearnExam.close();LearnCert.generate(' + JSON.stringify({ score: score, correct: correct, total: total }) + ')"><i class="fas fa-certificate"></i> View My Certificate</button>' +
+          '<button class="btn-cert" onclick="LearnExam.close();LearnCert.viewFromDash(' + JSON.stringify(certData).replace(/'/g,"&#39;") + ')"><i class="fas fa-certificate"></i> View My Certificate</button>' +
           '<button class="btn-ghost" onclick="LearnExam.close()"><i class="fas fa-home"></i> Back to Course</button>';
       } else {
         actions.innerHTML =
