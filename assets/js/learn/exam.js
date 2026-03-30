@@ -23,11 +23,6 @@ console.log('[Exam] exam.js starting to load...');
   window.LearnExam = {
 
     start: function () {
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
       console.log('[Exam] LearnExam.start() called');
       console.log('[Exam] LearnApp available:', !!window.LearnApp);
       console.log('[Exam] LearnApp.getActiveCourse available:', !!(window.LearnApp && LearnApp.getActiveCourse));
@@ -57,27 +52,6 @@ console.log('[Exam] exam.js starting to load...');
         } else {
           alert('Please select a course first.');
         }
-=======
-      var course = LearnApp.getActiveCourse();
-      if (!course) {
-=======
-      var course = LearnApp.getActiveCourse();
-      if (!course) {
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
-      var course = LearnApp.getActiveCourse();
-      if (!course) {
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
-      var course = LearnApp.getActiveCourse();
-      if (!course) {
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
-      var course = LearnApp.getActiveCourse();
-      if (!course) {
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-        LearnApp.toast('Please select a course first.', 'error');
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
         return;
       }
       _course = course;
@@ -155,37 +129,14 @@ console.log('[Exam] exam.js starting to load...');
       _calculateAndShowResult();
     },
 
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-    _jumpTo: function (idx) {
-=======
     jumpTo: function (idx) {
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
-    jumpTo: function (idx) {
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
       _currentQ = idx;
       _renderQuestion();
     }
   };
   
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
   console.log('[Exam] LearnExam object defined with methods:', Object.keys(window.LearnExam || {}));
 
-=======
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
   /* ── Timer ── */
   function _startTimer() {
     _timerInterval = setInterval(function () {
@@ -493,31 +444,8 @@ console.log('[Exam] exam.js starting to load...');
         // Show success message
         if (window.LearnApp && LearnApp.toast) {
           LearnApp.toast('Certificate saved to your profile!', 'success');
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-=======
         } else {
           console.log('[Exam] Certificate saved to your profile!');
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
-        } else {
-          console.log('[Exam] Certificate saved to your profile!');
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
-        } else {
-          console.log('[Exam] Certificate saved to your profile!');
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
-        } else {
-          console.log('[Exam] Certificate saved to your profile!');
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
-        } else {
-          console.log('[Exam] Certificate saved to your profile!');
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
         }
       } else {
         throw new Error('HTTP ' + response.status);
@@ -527,31 +455,8 @@ console.log('[Exam] exam.js starting to load...');
       _storeCertificateLocally(data);
       if (window.LearnApp && LearnApp.toast) {
         LearnApp.toast('Certificate saved locally (cloud sync failed)', 'warning');
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
-=======
       } else {
         console.log('[Exam] Certificate saved locally (cloud sync failed)');
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
-      } else {
-        console.log('[Exam] Certificate saved locally (cloud sync failed)');
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
-      } else {
-        console.log('[Exam] Certificate saved locally (cloud sync failed)');
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
-      } else {
-        console.log('[Exam] Certificate saved locally (cloud sync failed)');
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
-=======
-      } else {
-        console.log('[Exam] Certificate saved locally (cloud sync failed)');
->>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
       }
     });
   }
