@@ -286,6 +286,28 @@ permalink: /learn/
 <script src="/assets/js/learn/app.js"></script>
 <script src="/assets/js/learn/exam.js"></script>
 <script src="/assets/js/learn/certificate.js"></script>
+<script>
+  // Simple test
+  console.log('[Test] All scripts loaded, checking LearnExam...');
+  console.log('[Test] LearnExam exists:', !!window.LearnExam);
+  if (!window.LearnExam) {
+    console.error('[Test] LearnExam still not found after loading all scripts!');
+  }
+</script>
+
+<script>
+  // Debug: Check if all required objects are loaded
+  window.addEventListener('load', function() {
+    console.log('[Debug] LearnApp available:', !!window.LearnApp);
+    console.log('[Debug] LearnExam available:', !!window.LearnExam);
+    console.log('[Debug] LearnCert available:', !!window.LearnCert);
+    console.log('[Debug] GameAuth available:', !!window.GameAuth);
+    
+    if (!window.LearnExam) {
+      console.error('[Debug] LearnExam not loaded!');
+    }
+  });
+</script>
 
 <script>
   // Debug: Check if all required objects are loaded

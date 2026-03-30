@@ -2,8 +2,10 @@
  * RKoots Learning Platform — exam.js
  * Handles: exam lifecycle, timer, question rendering, scoring, auto-submit
  */
+console.log('[Exam] exam.js starting to load...');
 (function () {
   'use strict';
+  console.log('[Exam] exam.js IIFE started...');
 
   var EXAM_DURATION = 45 * 60; // 45 minutes in seconds
   var PASS_THRESHOLD = 70;     // percentage
@@ -21,6 +23,8 @@
   window.LearnExam = {
 
     start: function () {
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
       console.log('[Exam] LearnExam.start() called');
       console.log('[Exam] LearnApp available:', !!window.LearnApp);
       console.log('[Exam] LearnApp.getActiveCourse available:', !!(window.LearnApp && LearnApp.getActiveCourse));
@@ -50,9 +54,17 @@
         } else {
           alert('Please select a course first.');
         }
+=======
+      var course = LearnApp.getActiveCourse();
+      if (!course) {
+=======
+      var course = LearnApp.getActiveCourse();
+      if (!course) {
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
+        LearnApp.toast('Please select a course first.', 'error');
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
         return;
       }
-      console.log('[Exam] Starting exam for course:', course.title);
       _course = course;
       _questions = _shuffle(course.questions.slice());
       if (_questions.length > 25) _questions = _questions.slice(0, 25);
@@ -133,7 +145,15 @@
       _renderQuestion();
     }
   };
+  
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+  console.log('[Exam] LearnExam object defined with methods:', Object.keys(window.LearnExam || {}));
 
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
   /* ── Timer ── */
   function _startTimer() {
     _timerInterval = setInterval(function () {
@@ -445,6 +465,11 @@
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+=======
+        } else {
+          console.log('[Exam] Certificate saved to your profile!');
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
 =======
         } else {
           console.log('[Exam] Certificate saved to your profile!');
@@ -474,6 +499,11 @@
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+=======
+      } else {
+        console.log('[Exam] Certificate saved locally (cloud sync failed)');
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
 =======
       } else {
         console.log('[Exam] Certificate saved locally (cloud sync failed)');
@@ -529,5 +559,9 @@
   function _escHtml(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
+
+  console.log('[Exam] exam.js IIFE completing...');
+  console.log('[Exam] LearnExam assigned:', !!window.LearnExam);
+  console.log('[Exam] exam.js loaded successfully!');
 
 }());
