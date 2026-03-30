@@ -197,6 +197,44 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
       {% endfor %}
     </div>
   </div>
+
+  <!-- Insights CTA Section -->
+  <div class="insights-cta-section">
+    <div class="insights-cta-content">
+      <div class="insights-cta-icon">
+        <i class="fas fa-lightbulb"></i>
+      </div>
+      <div class="insights-cta-text">
+        <h2>Industry Insights & Analysis</h2>
+        <p>Deep analysis of industry trends, technical innovations, and strategic insights for engineering leaders and senior developers navigating the evolving tech landscape.</p>
+        <div class="insights-cta-features">
+          <div class="feature-item">
+            <i class="fas fa-brain"></i>
+            <span>AI & Machine Learning Trends</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-cloud"></i>
+            <span>Cloud Architecture Insights</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-users-cog"></i>
+            <span>Engineering Leadership</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Industry Analysis</span>
+          </div>
+        </div>
+      </div>
+      <div class="insights-cta-action">
+        <a href="/insights/" class="insights-cta-button">
+          <span>Explore Insights</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+        <p class="insights-cta-note">Expert analysis • Updated weekly • Data-driven perspectives</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Floating CTA Button -->
@@ -542,6 +580,134 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
   color: #2c3e50;
 }
 
+/* Insights CTA Section Styles */
+.insights-cta-section {
+  margin-top: 80px;
+  padding: 60px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.insights-cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="50" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="30" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+.insights-cta-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.insights-cta-icon {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.insights-cta-icon i {
+  font-size: 2.5rem;
+  color: white;
+}
+
+.insights-cta-text h2 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.insights-cta-text p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  max-width: 500px;
+}
+
+.insights-cta-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+}
+
+.feature-item i {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  width: 20px;
+  text-align: center;
+}
+
+.insights-cta-action {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.insights-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  color: #667eea;
+  padding: 16px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.insights-cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  background: #f8f9fa;
+}
+
+.insights-cta-button i {
+  transition: transform 0.3s ease;
+}
+
+.insights-cta-button:hover i {
+  transform: translateX(5px);
+}
+
+.insights-cta-note {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .tools-grid {
     grid-template-columns: 1fr;
@@ -558,6 +724,35 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
   
   .category-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  .insights-cta-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 30px;
+    padding: 0 20px;
+  }
+  
+  .insights-cta-icon {
+    margin: 0 auto;
+  }
+  
+  .insights-cta-text {
+    text-align: center;
+  }
+  
+  .insights-cta-text h2 {
+    font-size: 1.5rem;
+  }
+  
+  .insights-cta-features {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .insights-cta-action {
+    text-align: center;
+    align-items: center;
   }
 }
 

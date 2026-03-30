@@ -36,28 +36,20 @@
           </a>
         </li>
 
-        <!-- Guide -->
-        <li class="nav-item">
-          <a href="/guide/" class="nav-link">
-            <i class="fas fa-book"></i>
-            <span class="nav-text">Guide</span>
-          </a>
-        </li>
-
-        <!-- Insights -->
-        <li class="nav-item">
-          <a href="/insights/" class="nav-link">
-            <i class="fas fa-lightbulb"></i>
-            <span class="nav-text">Insights</span>
-          </a>
-        </li>
+        
 
         <!-- Learn -->
-        <li class="nav-item">
+        <li class="nav-item has-dropdown">
           <a href="/learn/" class="nav-link">
             <i class="fas fa-graduation-cap"></i>
             <span class="nav-text">Learn</span>
+            <i class="fas fa-chevron-down nav-dropdown-arrow"></i>
           </a>
+          <div class="nav-dropdown">
+            <a href="/learn/"><i class="fas fa-th"></i> All Courses</a>
+            <a href="/learn/dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="/guide/"><i class="fas fa-book"></i> Guides</a>
+          </div>
         </li>
 
         <!-- Games -->
@@ -134,23 +126,17 @@
             <span>Finance</span>
           </a>
         </li>
-        <li class="mobile-nav-item">
-          <a href="/guide/" class="mobile-nav-link">
-            <i class="fas fa-book"></i>
-            <span>Guide</span>
-          </a>
-        </li>
-        <li class="mobile-nav-item">
-          <a href="/insights/" class="mobile-nav-link">
-            <i class="fas fa-lightbulb"></i>
-            <span>Insights</span>
-          </a>
-        </li>
-        <li class="mobile-nav-item">
-          <a href="/learn/" class="mobile-nav-link">
+                <li class="mobile-nav-item">
+          <button class="mobile-nav-toggle-btn" id="mobile-learn-toggle" aria-expanded="false">
             <i class="fas fa-graduation-cap"></i>
             <span>Learn</span>
-          </a>
+            <i class="fas fa-chevron-down mobile-nav-caret"></i>
+          </button>
+          <div class="mobile-nav-sub" id="mobile-learn-sub">
+            <a href="/learn/"><i class="fas fa-th"></i> All Courses</a>
+            <a href="/learn/dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="/guide/"><i class="fas fa-book"></i> Guides</a>
+          </div>
         </li>
         <li class="mobile-nav-item">
           <button class="mobile-nav-toggle-btn" id="mobile-games-toggle" aria-expanded="false">
@@ -176,13 +162,24 @@
   </div>
   <script>
   (function(){
-    var btn = document.getElementById('mobile-games-toggle');
-    var sub = document.getElementById('mobile-games-sub');
-    if(btn && sub){
-      btn.addEventListener('click', function(){
-        var open = sub.classList.toggle('open');
-        btn.classList.toggle('open', open);
-        btn.setAttribute('aria-expanded', open);
+    // Games toggle
+    var btnGames = document.getElementById('mobile-games-toggle');
+    var subGames = document.getElementById('mobile-games-sub');
+    if(btnGames && subGames){
+      btnGames.addEventListener('click', function(){
+        var open = subGames.classList.toggle('open');
+        btnGames.classList.toggle('open', open);
+        btnGames.setAttribute('aria-expanded', open);
+      });
+    }
+    // Learn toggle
+    var btnLearn = document.getElementById('mobile-learn-toggle');
+    var subLearn = document.getElementById('mobile-learn-sub');
+    if(btnLearn && subLearn){
+      btnLearn.addEventListener('click', function(){
+        var open = subLearn.classList.toggle('open');
+        btnLearn.classList.toggle('open', open);
+        btnLearn.setAttribute('aria-expanded', open);
       });
     }
   })();

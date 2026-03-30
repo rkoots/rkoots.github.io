@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  var EXAM_DURATION = 60 * 60; // 60 minutes in seconds
+  var EXAM_DURATION = 45 * 60; // 45 minutes in seconds
   var PASS_THRESHOLD = 70;     // percentage
 
   var _course = null;
@@ -25,7 +25,7 @@
       if (!course) return;
       _course = course;
       _questions = _shuffle(course.questions.slice());
-      if (_questions.length > 50) _questions = _questions.slice(0, 50);
+      if (_questions.length > 25) _questions = _questions.slice(0, 25);
       _answers = {};
       _currentQ = 0;
       _timeLeft = EXAM_DURATION;
@@ -33,7 +33,7 @@
 
       /* Reset screens */
       _showScreen('examStart');
-      $('examStartTitle').textContent = 'Exam: ' + course.title;
+      $('examStartTitle').textContent = 'Exam: ' + course.title + ' (25 Questions, 45 Minutes)';
 
       /* Sync auth gate */
       var user = GameAuth.getCurrentUser();

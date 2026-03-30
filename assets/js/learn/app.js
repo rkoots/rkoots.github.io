@@ -65,7 +65,7 @@
       }).join('');
       $('topicDifficulty').innerHTML = '<i class="fas fa-signal"></i> ' + _ucFirst(course.difficulty);
       $('topicDuration').innerHTML = '<i class="fas fa-clock"></i> ' + course.duration;
-      $('topicQuestions').innerHTML = '<i class="fas fa-question-circle"></i> ' + course.questions.length + ' exam questions';
+      $('topicQuestions').innerHTML = '<i class="fas fa-question-circle"></i> 25 exam questions';
 
       /* Content */
       $('topicBody').innerHTML = course.content;
@@ -137,7 +137,7 @@
         html += '<a class="sb-course" data-id="' + c.id + '" href="#' + c.id + '" onclick="LearnApp.loadCourse(\'' + c.id + '\');return false;">';
         html += '<i class="' + c.icon + ' sb-course-icon"></i>';
         html += '<span>' + _escHtml(c.title) + '</span>';
-        html += '<span class="sb-course-tag">' + c.questions.length + 'Q</span>';
+        html += '<span class="sb-course-tag">25Q</span>';
         html += '</a>';
       });
       html += '</div></div>';
@@ -162,7 +162,7 @@
       html += '<div class="cc-desc">' + _escHtml(c.description) + '</div>';
       html += '<div class="cc-meta">';
       html += '<span class="cc-difficulty ' + c.difficulty + '">' + _ucFirst(c.difficulty) + '</span>';
-      html += '<span class="cc-questions"><i class="fas fa-list-ol"></i> ' + c.questions.length + ' Q</span>';
+      html += '<span class="cc-questions"><i class="fas fa-list-ol"></i> 25 Q</span>';
       html += '</div></div>';
     });
     grid.innerHTML = html;
@@ -174,7 +174,7 @@
     courses.forEach(function (c) {
       _searchIndex.push({ type: 'course', id: c.id, title: c.title, sub: c.category, icon: c.icon });
       c.tags.forEach(function (tag) {
-        _searchIndex.push({ type: 'tag', id: c.id, title: c.title + ' — ' + tag, sub: 'Tag: ' + tag, icon: c.icon });
+        _searchIndex.push({ type: 'tag', id: c.id, title: c.title + ' — ' + tag, sub: 'Tag: ' + tag + ' (25Q)', icon: c.icon });
       });
     });
   }
