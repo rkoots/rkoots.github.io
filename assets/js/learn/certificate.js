@@ -5,6 +5,7 @@
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 /**
  * RKoots Learning Platform — certificate.js
  * Handles: certificate generation, license number, Firebase storage, PDF download
@@ -252,6 +253,8 @@
 
 }());
 =======
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/certificate.js
 =======
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/certificate.js
 =======
@@ -503,6 +506,17 @@
     var emailKey = data.email.replace(/[.#$\[\]]/g, '_');
     var courseKey = data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
     var path = DB_URL + '/certificates/' + emailKey + '/' + courseKey + '.json';
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
+=======
+    console.log('[Cert] Storage path:', path);
+
+    if (!user || !user.getIdToken) {
+      console.error('[Cert] No user or getIdToken method');
+      _storeCertificateLocally(data);
+      LearnApp.toast('Certificate generated (saved locally)', 'warning');
+      return;
+    }
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/certificate.js
 
     user.getIdToken().then(function (token) {
       return fetch(path + '?auth=' + token, {
@@ -530,6 +544,31 @@
     });
   }
 
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
+=======
+  /* ── Local Storage Fallback ── */
+  function _storeCertificateLocally(data) {
+    try {
+      var localCerts = JSON.parse(localStorage.getItem('rkoots_certificates') || '{}');
+      var emailKey = data.email.replace(/[.#$\[\]]/g, '_');
+      if (!localCerts[emailKey]) localCerts[emailKey] = {};
+      var courseKey = data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+      localCerts[emailKey][courseKey] = data;
+      localStorage.setItem('rkoots_certificates', JSON.stringify(localCerts));
+      console.log('[Cert] Certificate saved to localStorage');
+      
+      // Try to sync after a short delay
+      setTimeout(function() {
+        if (window.LearnCert && LearnCert.syncLocalCertificates) {
+          LearnCert.syncLocalCertificates();
+        }
+      }, 2000);
+    } catch (e) {
+      console.error('[Cert] Local storage failed:', e);
+    }
+  }
+
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/certificate.js
   function _escHtml(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
@@ -552,7 +591,10 @@
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-65d93bf9/assets/js/learn/certificate.js
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/certificate.js
 =======
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/certificate.js
 =======
