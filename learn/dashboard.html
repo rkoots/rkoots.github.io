@@ -15,6 +15,8 @@
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
 ---
 layout: null
 title: "My Learning Dashboard — RKoots"
@@ -375,6 +377,10 @@ permalink: /learn/dashboard.html
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
 =======
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
 ---
 layout: null
 title: "My Learning Dashboard — RKoots"
@@ -586,6 +592,8 @@ permalink: /learn/dashboard.html
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
     /* Load certificates from Firebase first, then merge with localStorage */
     fetch(DB_URL + '/certificates/' + emailKey + '.json')
       .then(function(r){ return r.json(); })
@@ -644,6 +652,10 @@ permalink: /learn/dashboard.html
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
 =======
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
     /* Load certificates */
     if (user && user.getIdToken) {
       user.getIdToken().then(function(token) {
@@ -658,6 +670,12 @@ permalink: /learn/dashboard.html
         .catch(function(){ _renderCerts(null); });
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
+=======
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
 =======
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
@@ -680,6 +698,8 @@ permalink: /learn/dashboard.html
     
     // If no data from Firebase, try localStorage
     if(!data || typeof data !== 'object' || Object.keys(data).length === 0){
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
@@ -866,6 +886,24 @@ permalink: /learn/dashboard.html
     }
     
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
+=======
+      try {
+        var localCerts = JSON.parse(localStorage.getItem('rkoots_certificates') || '{}');
+        var emailKey = safeKey((_currentUser && _currentUser.email) ? _currentUser.email : '');
+        if (localCerts[emailKey]) data = localCerts[emailKey];
+      } catch (e) {}
+    }
+    
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
+=======
+      try {
+        var localCerts = JSON.parse(localStorage.getItem('rkoots_certificates') || '{}');
+        var emailKey = safeKey((_currentUser && _currentUser.email) ? _currentUser.email : '');
+        if (localCerts[emailKey]) data = localCerts[emailKey];
+      } catch (e) {}
+    }
+    
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
     if(!data || typeof data !== 'object' || Object.keys(data).length === 0){
       list.innerHTML = '<div class="dash-empty"><i class="fas fa-certificate"></i><p>No certificates yet. Take an exam to earn one!</p>' +
         '<a href="/learn/" class="btn-primary" style="margin-top:12px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:24px;color:white;font-weight:600;font-family:inherit;background:linear-gradient(135deg,#667eea,#764ba2)"><i class="fas fa-rocket"></i> Browse Courses</a></div>';
@@ -996,7 +1034,13 @@ permalink: /learn/dashboard.html
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/learn/dashboard.html
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-65d93bf9/learn/dashboard.html
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
 =======
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/learn/dashboard.html
 =======

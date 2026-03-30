@@ -26,6 +26,8 @@ console.log('[Exam] exam.js starting to load...');
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
       console.log('[Exam] LearnExam.start() called');
       console.log('[Exam] LearnApp available:', !!window.LearnApp);
       console.log('[Exam] LearnApp.getActiveCourse available:', !!(window.LearnApp && LearnApp.getActiveCourse));
@@ -58,6 +60,14 @@ console.log('[Exam] exam.js starting to load...');
 =======
       var course = LearnApp.getActiveCourse();
       if (!course) {
+=======
+      var course = LearnApp.getActiveCourse();
+      if (!course) {
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
+=======
+      var course = LearnApp.getActiveCourse();
+      if (!course) {
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
 =======
       var course = LearnApp.getActiveCourse();
       if (!course) {
@@ -145,7 +155,15 @@ console.log('[Exam] exam.js starting to load...');
       _calculateAndShowResult();
     },
 
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
     _jumpTo: function (idx) {
+=======
+    jumpTo: function (idx) {
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
+=======
+    jumpTo: function (idx) {
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
       _currentQ = idx;
       _renderQuestion();
     }
@@ -154,8 +172,14 @@ console.log('[Exam] exam.js starting to load...');
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
   console.log('[Exam] LearnExam object defined with methods:', Object.keys(window.LearnExam || {}));
 
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
 =======
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
 =======
@@ -250,7 +274,7 @@ console.log('[Exam] exam.js starting to load...');
     if (!container) return;
     var html = '';
     for (var i = 0; i < _questions.length; i++) {
-      html += '<span class="qdot" data-idx="' + i + '" onclick="LearnExam._jumpTo(' + i + ')"></span>';
+      html += '<span class="qdot" data-idx="' + i + '" onclick="LearnExam.jumpTo(' + i + ')"></span>';
     }
     container.innerHTML = html;
     _updateDots();
