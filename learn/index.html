@@ -1,0 +1,285 @@
+---
+layout: null
+title: "RKoots Learning Platform"
+description: "Learn programming, earn free certifications. Courses on Python, JavaScript, Bootstrap, TypeScript, and more."
+permalink: /learn/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RKoots Learning Platform – Free Certifications</title>
+  <meta name="description" content="Learn programming, earn free certifications. Courses on Python, JavaScript, Bootstrap, TypeScript, and more.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/learn.css">
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script src="/assets/js/games/firebase-config.js"></script>
+  <script src="/assets/js/games/auth.js"></script>
+</head>
+<body class="learn-body">
+
+<!-- TOP NAVIGATION BAR -->
+<header class="learn-header">
+  <div class="learn-header-inner">
+    <div class="learn-brand">
+      <a href="/learn/" class="brand-link">
+        <i class="fas fa-graduation-cap"></i>
+        <span>RKoots<strong>Learn</strong></span>
+      </a>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <div class="learn-search-wrap">
+      <div class="learn-search">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="globalSearch" placeholder="Search courses, topics…" autocomplete="off">
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+
+    <nav class="learn-header-nav">
+      <a href="/learn/dashboard.html" class="nav-btn nav-btn-ghost auth-signed-in" style="display:none">
+        <i class="fas fa-th-large"></i> Dashboard
+      </a>
+      <div class="auth-signed-in user-pill" style="display:none">
+        <div class="auth-avatar-img user-avatar"></div>
+        <span class="auth-name"></span>
+        <button class="btn-signout" title="Sign out"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+      <button class="nav-btn nav-btn-primary btn-google-signin auth-signed-out">
+        <i class="fab fa-google"></i> Sign in with Google
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- LAYOUT WRAPPER -->
+<div class="learn-layout" id="learnLayout">
+
+  <!-- SIDEBAR -->
+  <aside class="learn-sidebar" id="learnSidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-label">COURSES</span>
+      <span class="sidebar-count" id="courseCount">0 courses</span>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <!-- Populated by JS -->
+    </nav>
+    <div class="sidebar-footer">
+      <a href="/learn/dashboard.html" class="sidebar-dash-link auth-signed-in" style="display:none">
+        <i class="fas fa-chart-bar"></i> My Progress
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="learn-main" id="learnMain">
+
+    <!-- HOME VIEW -->
+    <div class="learn-view" id="view-home">
+      <div class="home-hero">
+        <div class="home-hero-badge">
+          <i class="fas fa-certificate"></i> Free Certifications
+        </div>
+        <h1>Master New Skills,<br><span class="gradient-text">Earn Real Certificates</span></h1>
+        <p>Explore structured courses, complete exams, and receive digitally verifiable certificates — all for free.</p>
+        <div class="hero-cta">
+          <button class="btn-primary-lg" onclick="LearnApp.showCourseGrid()">
+            <i class="fas fa-rocket"></i> Browse Courses
+          </button>
+          <a href="/learn/dashboard.html" class="btn-ghost-lg auth-signed-in" style="display:none">
+            <i class="fas fa-chart-bar"></i> My Dashboard
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hstat"><strong id="statCourses">8</strong><span>Courses</span></div>
+          <div class="hstat"><strong>50</strong><span>Questions/Exam</span></div>
+          <div class="hstat"><strong>1hr</strong><span>Exam Duration</span></div>
+          <div class="hstat"><strong>100%</strong><span>Free</span></div>
+        </div>
+      </div>
+
+      <!-- Course Grid on Home -->
+      <div class="home-courses" id="homeCourseGrid">
+        <h2 class="section-heading"><i class="fas fa-layer-group"></i> All Courses</h2>
+        <div class="course-grid" id="courseCardGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TOPIC VIEW -->
+    <div class="learn-view hidden" id="view-topic">
+      <div class="topic-breadcrumb" id="topicBreadcrumb"></div>
+      <div class="topic-header">
+        <div class="topic-icon-wrap" id="topicIcon"></div>
+        <div class="topic-meta">
+          <h1 id="topicTitle">Topic</h1>
+          <div class="topic-tags" id="topicTags"></div>
+          <div class="topic-info">
+            <span id="topicDifficulty"></span>
+            <span id="topicDuration"></span>
+            <span id="topicQuestions"></span>
+          </div>
+        </div>
+        <div class="topic-actions">
+          <button class="btn-cert" id="btnGetCertified" onclick="LearnExam.start()">
+            <i class="fas fa-certificate"></i>
+            Get Free Certification
+          </button>
+        </div>
+      </div>
+
+      <div class="topic-progress-bar" id="topicProgressBar" style="display:none">
+        <div class="progress-label">Your best score</div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-value" id="progressValue"></div>
+      </div>
+
+      <div class="topic-body" id="topicBody">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="cert-callout">
+        <div class="cert-callout-icon"><i class="fas fa-award"></i></div>
+        <div class="cert-callout-text">
+          <strong>Ready to prove your skills?</strong>
+          <p>Pass the 50-question exam with 70%+ and earn your free certificate instantly.</p>
+        </div>
+        <button class="btn-cert" onclick="LearnExam.start()">
+          <i class="fas fa-play-circle"></i> Take the Exam
+        </button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ═══════════════ EXAM MODAL ═══════════════ -->
+<div class="modal-overlay hidden" id="examModal">
+  <div class="modal-box exam-modal-box">
+
+    <!-- Exam Start Screen -->
+    <div class="exam-screen" id="examStart">
+      <div class="exam-start-icon"><i class="fas fa-clipboard-list"></i></div>
+      <h2 id="examStartTitle">Exam</h2>
+      <div class="exam-rules">
+        <div class="rule-item"><i class="fas fa-question-circle"></i><span>50 multiple choice questions</span></div>
+        <div class="rule-item"><i class="fas fa-clock"></i><span>60 minutes time limit</span></div>
+        <div class="rule-item"><i class="fas fa-percentage"></i><span>70% passing score required</span></div>
+        <div class="rule-item"><i class="fas fa-certificate"></i><span>Certificate generated instantly on pass</span></div>
+      </div>
+      <div class="auth-gate auth-signed-out" id="examAuthGate">
+        <p><i class="fas fa-info-circle"></i> You must be signed in to take the exam and earn a certificate.</p>
+        <button class="btn-google-signin btn-primary-lg">
+          <i class="fab fa-google"></i> Sign in with Google
+        </button>
+      </div>
+      <div class="exam-start-actions auth-signed-in" id="examStartBtn" style="display:none">
+        <button class="btn-primary-lg" id="btnStartExam" onclick="LearnExam.begin()">
+          <i class="fas fa-play"></i> Start Exam
+        </button>
+        <button class="btn-ghost-lg" onclick="LearnExam.close()">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Exam Active Screen -->
+    <div class="exam-screen hidden" id="examActive">
+      <div class="exam-header-bar">
+        <div class="exam-progress-info">
+          <span class="exam-question-counter" id="examQCounter">Q 1 / 50</span>
+          <div class="exam-progress-mini">
+            <div class="exam-progress-fill" id="examProgressFill" style="width:2%"></div>
+          </div>
+        </div>
+        <div class="exam-timer" id="examTimer">
+          <i class="fas fa-clock"></i> <span id="timerDisplay">60:00</span>
+        </div>
+      </div>
+
+      <div class="question-area" id="questionArea">
+        <!-- Populated dynamically -->
+      </div>
+
+      <div class="exam-nav-bar">
+        <button class="btn-ghost" id="btnPrevQ" onclick="LearnExam.prevQuestion()" disabled>
+          <i class="fas fa-chevron-left"></i> Prev
+        </button>
+        <div class="question-dots" id="questionDots"></div>
+        <button class="btn-primary" id="btnNextQ" onclick="LearnExam.nextQuestion()">
+          Next <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <div class="exam-submit-row">
+        <button class="btn-warning" id="btnSubmitExam" onclick="LearnExam.submit(false)">
+          <i class="fas fa-paper-plane"></i> Submit Exam
+        </button>
+      </div>
+    </div>
+
+    <!-- Exam Result Screen -->
+    <div class="exam-screen hidden" id="examResult">
+      <div class="result-icon" id="resultIcon"></div>
+      <h2 id="resultTitle">Result</h2>
+      <div class="result-score-display">
+        <div class="score-ring" id="scoreRing">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="54" fill="none" stroke="#e9ecef" stroke-width="10"/>
+            <circle cx="60" cy="60" r="54" fill="none" stroke="#667eea" stroke-width="10"
+              stroke-dasharray="339.3" stroke-dashoffset="339.3"
+              id="scoreArc" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+          </svg>
+          <div class="score-number" id="scoreNumber">0%</div>
+        </div>
+        <div class="score-breakdown">
+          <div class="sb-item"><i class="fas fa-check-circle text-success"></i><span id="sbCorrect">0 Correct</span></div>
+          <div class="sb-item"><i class="fas fa-times-circle text-danger"></i><span id="sbWrong">0 Wrong</span></div>
+          <div class="sb-item"><i class="fas fa-minus-circle text-muted"></i><span id="sbSkipped">0 Skipped</span></div>
+        </div>
+      </div>
+      <p class="result-message" id="resultMessage"></p>
+      <div class="result-actions" id="resultActions">
+        <!-- Populated dynamically: certificate button or retry -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ CERTIFICATE MODAL ═══════════════ -->
+<div class="modal-overlay hidden" id="certModal">
+  <div class="modal-box cert-modal-box">
+    <button class="modal-close" onclick="LearnCert.close()"><i class="fas fa-times"></i></button>
+    <div class="cert-actions-top">
+      <button class="btn-ghost" onclick="LearnCert.download()"><i class="fas fa-download"></i> Download PDF</button>
+      <button class="btn-ghost" onclick="LearnCert.share()"><i class="fas fa-share-alt"></i> Share</button>
+    </div>
+    <div class="certificate-paper" id="certificatePaper">
+      <!-- Populated by LearnCert.generate() -->
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="learn-toast" id="learnToast"></div>
+
+<!-- Scripts -->
+<script src="/assets/js/learn/courses-p1.js"></script>
+<script src="/assets/js/learn/courses-p2.js"></script>
+<script src="/assets/js/learn/courses.js"></script>
+<script src="/assets/js/learn/app.js"></script>
+<script src="/assets/js/learn/exam.js"></script>
+<script src="/assets/js/learn/certificate.js"></script>
+
+</body>
+</html>
