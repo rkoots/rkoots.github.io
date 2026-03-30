@@ -11,7 +11,7 @@ keywords: ["developer tools", "engineering utilities", "productivity tools", "op
     <p>A curated set of engineering tools, APIs, and utilities to elevate your workflow and boost productivity.</p>
   </div>
 
-  {% assign tool_posts = site.posts | where: "categories", "tools" %}
+  {% assign tool_posts = site.posts | where: "categories", "tools" | where_exp: "post", "post.exclude_from_tools != true" %}
   {% if tool_posts.size > 0 %}
     <div class="tools-grid">
       {% for post in tool_posts %}
