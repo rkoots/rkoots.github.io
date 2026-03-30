@@ -5,8 +5,8 @@
 (function () {
   'use strict';
 
-  var EXAM_DURATION = 1 * 60; // 45 minutes in seconds
-  var PASS_THRESHOLD = 5;     // percentage
+  var EXAM_DURATION = 45 * 60; // 45 minutes in seconds
+  var PASS_THRESHOLD = 70;     // percentage
 
   var _course = null;
   var _questions = [];
@@ -22,11 +22,34 @@
 
     start: function () {
       console.log('[Exam] LearnExam.start() called');
-      var course = LearnApp.getActiveCourse();
+      console.log('[Exam] LearnApp available:', !!window.LearnApp);
+      console.log('[Exam] LearnApp.getActiveCourse available:', !!(window.LearnApp && LearnApp.getActiveCourse));
+      
+      var course = null;
+      if (window.LearnApp && LearnApp.getActiveCourse) {
+        course = LearnApp.getActiveCourse();
+      }
+      
+      // Fallback: try to get course from URL hash
+      if (!course && window.location.hash) {
+        var courseId = window.location.hash.substring(1); // Remove #
+        console.log('[Exam] Trying to load course from hash:', courseId);
+        if (window.LearnApp && LearnApp.loadCourse) {
+          LearnApp.loadCourse(courseId);
+          course = LearnApp.getActiveCourse();
+        }
+      }
+      
       console.log('[Exam] Active course:', course);
+      
       if (!course) {
         console.error('[Exam] No active course found. Cannot start exam.');
-        LearnApp.toast('Please select a course first.', 'error');
+        console.log('[Exam] Current URL hash:', window.location.hash);
+        if (window.LearnApp && LearnApp.toast) {
+          LearnApp.toast('Please select a course first.', 'error');
+        } else {
+          alert('Please select a course first.');
+        }
         return;
       }
       console.log('[Exam] Starting exam for course:', course.title);
@@ -419,6 +442,11 @@
         if (window.LearnApp && LearnApp.toast) {
           LearnApp.toast('Certificate saved to your profile!', 'success');
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+=======
+        } else {
+          console.log('[Exam] Certificate saved to your profile!');
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
 =======
         } else {
           console.log('[Exam] Certificate saved to your profile!');
@@ -433,6 +461,11 @@
       if (window.LearnApp && LearnApp.toast) {
         LearnApp.toast('Certificate saved locally (cloud sync failed)', 'warning');
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+=======
+      } else {
+        console.log('[Exam] Certificate saved locally (cloud sync failed)');
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
 =======
       } else {
         console.log('[Exam] Certificate saved locally (cloud sync failed)');

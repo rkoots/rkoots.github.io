@@ -8,6 +8,7 @@
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 /**
  * RKoots Learning Platform — certificate.js
  * Handles: certificate generation, license number, Firebase storage, PDF download
@@ -255,6 +256,8 @@
 
 }());
 =======
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/certificate.js
 =======
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/certificate.js
 =======
@@ -600,7 +603,10 @@
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-65d93bf9/assets/js/learn/certificate.js
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/certificate.js
 =======
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/certificate.js
 =======
