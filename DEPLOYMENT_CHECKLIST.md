@@ -44,7 +44,7 @@ ls -la _site/assets/js/canonical-enforcer.js
 ### Step 1: Commit Changes to Git
 
 ```bash
-cd d:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io
+cd rkoots.github.io
 
 # Check status
 git status
