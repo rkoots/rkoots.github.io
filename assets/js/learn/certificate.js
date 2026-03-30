@@ -19,6 +19,7 @@ console.log('[Cert] certificate.js starting to load...');
 
       var now = new Date();
       var licenseNumber = _generateLicense(user.email, user.uid, now.getTime());
+      var certificateId = _generateCertificateId(user.email, user.uid, now.getTime(), course.title);
       var examDate = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
       var issueDate = examDate;
 
@@ -27,6 +28,7 @@ console.log('[Cert] certificate.js starting to load...');
         email: user.email,
         course: course.title,
         courseId: course.id,  // Add course ID for proper storage
+        certificateId: certificateId,  // Add unique certificate ID
         score: result.score,
         correct: result.correct,
         total: result.total,
@@ -70,9 +72,14 @@ console.log('[Cert] certificate.js starting to load...');
 
     share: function () {
       if (!_certData) return;
-      var text = 'I just earned a free certificate in "' + _certData.course + '" on RKoots Learning Platform! Score: ' + _certData.score + '% | License: ' + _certData.licenseNumber;
+      var certificateUrl = _getCertificateUrl(_certData);
+      var text = 'I just earned a free certificate in "' + _certData.course + '" on RKoots Learning Platform! 🎓 Score: ' + _certData.score + '% | License: ' + _certData.licenseNumber + '\n\nView my certificate: ' + certificateUrl;
       if (navigator.share) {
-        navigator.share({ title: 'RKoots Certificate', text: text, url: 'https://rkoots.github.io/learn/' })
+        navigator.share({ 
+          title: 'RKoots Certificate', 
+          text: text, 
+          url: certificateUrl 
+        })
           .catch(function () {});
       } else {
         _copyToClipboard(text);
@@ -249,6 +256,25 @@ console.log('[Cert] certificate.js starting to load...');
     return prefix + '-' + year + '-' + hex;
   }
 
+  /* ── Certificate ID Generator ── */
+  function _generateCertificateId(email, uid, timestamp, courseTitle) {
+    var hash = _hashString((email || '') + (uid || '') + timestamp.toString() + (courseTitle || ''));
+    var prefix = 'CERT';
+    var year = new Date().getFullYear();
+    var hex = Math.abs(hash).toString(16).toUpperCase().padStart(12, '0').slice(0, 12);
+    return prefix + '-' + year + '-' + hex;
+  }
+
+  /* ── Get Unique Certificate URL ── */
+  function _getCertificateUrl(certData) {
+    var emailKey = (certData.email || '').replace(/[.#$\[\]]/g, '_');
+    var baseUrl = window.location.origin + '/learn/certificate.html';
+    var certUrl = baseUrl + '?id=' + encodeURIComponent(certData.certificateId || certData.courseId || 'unknown') + 
+                  '&user=' + encodeURIComponent(emailKey) +
+                  '&utm_source=share&utm_medium=social&utm_campaign=certificate';
+    return certUrl;
+  }
+
   function _hashString(str) {
     var hash = 0x811c9dc5;
     for (var i = 0; i < str.length; i++) {
@@ -262,8 +288,8 @@ console.log('[Cert] certificate.js starting to load...');
   function _storeCertificate(data, user) {
     var DB_URL = window.FIREBASE_DB_URL || 'https://games-rkoots-default-rtdb.firebaseio.com';
     var emailKey = data.email.replace(/[.#$\[\]]/g, '_');
-    // Use courseId from data if available, otherwise get from active course
-    var courseKey = data.courseId || (window.LearnApp && LearnApp.getActiveCourse ? LearnApp.getActiveCourse()?.id : null) || data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+    // Use certificate ID as the key for unique URLs
+    var courseKey = data.certificateId || data.courseId || (window.LearnApp && LearnApp.getActiveCourse ? LearnApp.getActiveCourse()?.id : null) || data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
     var path = DB_URL + '/certificates/' + emailKey + '/' + courseKey + '.json';
 
     console.log('[Cert] Storage path:', path);
@@ -283,6 +309,8 @@ console.log('[Cert] certificate.js starting to load...');
           name: data.name,
           email: data.email,
           course: data.course,
+          courseId: data.courseId,
+          certificateId: data.certificateId,
           score: data.score,
           correct: data.correct,
           total: data.total,
@@ -307,8 +335,8 @@ console.log('[Cert] certificate.js starting to load...');
       var localCerts = JSON.parse(localStorage.getItem('rkoots_certificates') || '{}');
       var emailKey = data.email.replace(/[.#$\[\]]/g, '_');
       if (!localCerts[emailKey]) localCerts[emailKey] = {};
-      // Use courseId from data if available, otherwise get from active course
-      var courseKey = data.courseId || (window.LearnApp && LearnApp.getActiveCourse ? LearnApp.getActiveCourse()?.id : null) || data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+      // Use certificate ID as the key for unique URLs
+      var courseKey = data.certificateId || data.courseId || (window.LearnApp && LearnApp.getActiveCourse ? LearnApp.getActiveCourse()?.id : null) || data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
       localCerts[emailKey][courseKey] = data;
       localStorage.setItem('rkoots_certificates', JSON.stringify(localCerts));
       console.log('[Cert] Certificate saved to localStorage');

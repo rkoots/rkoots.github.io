@@ -318,6 +318,12 @@ permalink: /learn/dashboard.html
         LearnCert.viewInNewWindow();
       }
     },
+    openDirectView: function(certData){
+      _activeCert = certData;
+      var certificateUrl = _getCertificateUrlForDash(certData);
+      window.open(certificateUrl, '_blank');
+      if (window.LearnApp) LearnApp.toast('Opening certificate...', 'success');
+    },
     downloadFromDash: function(certData){
       _activeCert = certData;
       if(window.LearnCert){
@@ -360,9 +366,9 @@ permalink: /learn/dashboard.html
   function _shareToLinkedIn() {
     if (!_shareCertData) return;
     
+    var certificateUrl = _getCertificateUrlForDash(_shareCertData);
     var text = 'I just earned a certificate in "' + _shareCertData.course + '" on RKoots Learning Platform! Score: ' + _shareCertData.score + '%';
-    var url = 'https://rkoots.github.io/learn/';
-    var linkedinUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url) + '&summary=' + encodeURIComponent(text);
+    var linkedinUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(certificateUrl) + '&summary=' + encodeURIComponent(text);
     
     window.open(linkedinUrl, '_blank', 'width=600,height=400');
     if (window.LearnApp) LearnApp.toast('Opening LinkedIn share...', 'success');
@@ -371,9 +377,9 @@ permalink: /learn/dashboard.html
   function _shareToTwitter() {
     if (!_shareCertData) return;
     
+    var certificateUrl = _getCertificateUrlForDash(_shareCertData);
     var text = 'I just earned a certificate in "' + _shareCertData.course + '" on RKoots Learning Platform! 🎓 Score: ' + _shareCertData.score + '% | License: ' + _shareCertData.licenseNumber;
-    var url = 'https://rkoots.github.io/learn/';
-    var twitterUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
+    var twitterUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(certificateUrl);
     
     window.open(twitterUrl, '_blank', 'width=600,height=400');
     if (window.LearnApp) LearnApp.toast('Opening Twitter share...', 'success');
@@ -382,12 +388,21 @@ permalink: /learn/dashboard.html
   function _shareToFacebook() {
     if (!_shareCertData) return;
     
+    var certificateUrl = _getCertificateUrlForDash(_shareCertData);
     var text = 'I just earned a certificate in "' + _shareCertData.course + '" on RKoots Learning Platform!';
-    var url = 'https://rkoots.github.io/learn/';
-    var facebookUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url) + '&quote=' + encodeURIComponent(text);
+    var facebookUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(certificateUrl) + '&quote=' + encodeURIComponent(text);
     
     window.open(facebookUrl, '_blank', 'width=600,height=400');
     if (window.LearnApp) LearnApp.toast('Opening Facebook share...', 'success');
+  }
+
+  function _getCertificateUrlForDash(certData) {
+    var emailKey = (certData.email || '').replace(/[.#$\[\]]/g, '_');
+    var baseUrl = window.location.origin + '/learn/certificate.html';
+    var certUrl = baseUrl + '?id=' + encodeURIComponent(certData.certificateId || certData.courseId || 'unknown') + 
+                  '&user=' + encodeURIComponent(emailKey) +
+                  '&utm_source=share&utm_medium=social&utm_campaign=certificate';
+    return certUrl;
   }
 
   function safeKey(email){ return (email||'').replace(/[.#$\[\]]/g,'_'); }
@@ -528,7 +543,7 @@ permalink: /learn/dashboard.html
           '<div class="dash-cert-date" style="font-family:monospace;font-size:.72rem;color:#94a3b8">License: ' + _esc(cert.licenseNumber||'') + '</div>' +
           '<div class="dash-cert-date" style="font-size:.75rem;color:#64748b"><i class="fas fa-list-ol"></i> 25 Questions</div>' +
           '<div class="dash-cert-actions">' +
-            '<button class="dash-btn primary" onclick=\'DashCert.viewInNewWindowFromDash(' + JSON.stringify(cert).replace(/'/g,"&#39;") + ')\'><i class="fas fa-eye"></i> View</button>' +
+            '<button class="dash-btn primary" onclick=\'DashCert.openDirectView(' + JSON.stringify(cert).replace(/'/g,"&#39;") + ')\'><i class="fas fa-eye"></i> View</button>' +
             '<button class="dash-btn" onclick=\'DashCert.downloadFromDash(' + JSON.stringify(cert).replace(/'/g,"&#39;") + ')\'><i class="fas fa-download"></i> Download</button>' +
             '<button class="dash-btn" onclick=\'DashCert.shareFromDash(' + JSON.stringify(cert).replace(/'/g,"&#39;") + ')\'><i class="fas fa-share-alt"></i> Share</button>' +
           '</div>' +

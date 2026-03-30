@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate Verification - RKoots Learning Platform</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Georgia&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/learn.css">
+  
+  <style>
+    body {
+      font-family: Inter, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .cert-container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      max-width: 900px;
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .cert-header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+    }
+    
+    .cert-header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .cert-header p {
+      margin: 8px 0 0 0;
+      opacity: 0.9;
+      font-size: 0.9rem;
+    }
+    
+    .cert-content {
+      padding: 40px;
+    }
+    
+    .certificate-paper {
+      background: #fff;
+      border: 8px solid transparent;
+      border-image: linear-gradient(135deg, #c8a96e, #f0d080, #c8a96e, #a0784a) 1;
+      padding: 48px 52px;
+      font-family: Georgia, serif;
+      text-align: center;
+      position: relative;
+      box-shadow: inset 0 0 40px rgba(200, 169, 110, 0.12);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    
+    .cert-watermark {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      color: rgba(102, 126, 234, 0.05);
+      pointer-events: none;
+      user-select: none;
+    }
+    
+    .cert-header-line {
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #8b6914;
+      margin-bottom: 12px;
+      font-family: Inter, sans-serif;
+    }
+    
+    .cert-logo-area {
+      margin-bottom: 16px;
+    }
+    
+    .cert-logo-icon {
+      font-size: 2.4rem;
+      color: #c8a96e;
+    }
+    
+    .cert-org {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #667eea;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: Inter, sans-serif;
+    }
+    
+    .cert-title-block {
+      margin: 20px 0;
+    }
+    
+    .cert-main-title {
+      font-size: 2.2rem;
+      color: #1e293b;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    
+    .cert-subtitle {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #8b6914;
+      font-family: Inter, sans-serif;
+    }
+    
+    .cert-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #c8a96e, #f0d080, #c8a96e, transparent);
+      margin: 20px auto;
+      width: 80%;
+    }
+    
+    .cert-presented-to {
+      font-size: 0.85rem;
+      color: #64748b;
+      font-family: Inter, sans-serif;
+      margin-bottom: 4px;
+    }
+    
+    .cert-name {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1e293b;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+    
+    .cert-body-text {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 auto 20px;
+      font-family: Inter, sans-serif;
+    }
+    
+    .cert-course-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #667eea;
+      display: block;
+      margin: 4px 0 10px;
+      font-family: Inter, sans-serif;
+      font-style: normal;
+    }
+    
+    .cert-seal {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: Inter, sans-serif;
+      margin-bottom: 20px;
+    }
+    
+    .cert-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      font-family: Inter, sans-serif;
+      font-size: 0.78rem;
+      border-top: 1px solid rgba(200, 169, 110, 0.3);
+      border-bottom: 1px solid rgba(200, 169, 110, 0.3);
+      padding: 14px 0;
+      margin: 16px 0;
+      color: #64748b;
+    }
+    
+    .cert-meta-item strong {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #8b6914;
+      margin-bottom: 2px;
+    }
+    
+    .cert-signatures {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 28px;
+      font-family: Inter, sans-serif;
+    }
+    
+    .cert-sig-block {
+      text-align: center;
+    }
+    
+    .cert-sig-line {
+      width: 140px;
+      height: 1px;
+      background: #1e293b;
+      margin: 0 auto 6px;
+    }
+    
+    .cert-sig-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    
+    .cert-sig-title {
+      font-size: 0.7rem;
+      color: #64748b;
+    }
+    
+    .cert-license-bar {
+      margin-top: 16px;
+      font-family: JetBrains Mono, monospace;
+      font-size: 0.7rem;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+    }
+    
+    .cert-actions {
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid #e2e8f0;
+      background: #f8fafc;
+    }
+    
+    .cert-actions h3 {
+      margin: 0 0 20px 0;
+      color: #1e293b;
+      font-size: 1.2rem;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    
+    .action-btn.primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    
+    .action-btn.secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+    
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #64748b;
+    }
+    
+    .loading i {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: block;
+      animation: spin 1s linear infinite;
+    }
+    
+    .error {
+      text-align: center;
+      padding: 60px 20px;
+      color: #dc3545;
+    }
+    
+    .error i {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      
+      .cert-container {
+        box-shadow: none;
+        border-radius: 0;
+      }
+      
+      .cert-header,
+      .cert-actions {
+        display: none;
+      }
+      
+      .certificate-paper {
+        border-image: none;
+        border: 8px solid #c8a96e;
+        box-shadow: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .cert-content {
+        padding: 20px;
+      }
+      
+      .certificate-paper {
+        padding: 28px 20px;
+      }
+      
+      .cert-main-title {
+        font-size: 1.5rem;
+      }
+      
+      .cert-name {
+        font-size: 1.4rem;
+      }
+      
+      .cert-meta-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .action-btn {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cert-container">
+    <div class="cert-header">
+      <h1><i class="fas fa-graduation-cap"></i> RKoots Learning Platform</h1>
+      <p>Certificate Verification - Public Access</p>
+    </div>
+    
+    <div class="cert-content">
+      <div id="loadingState" class="loading">
+        <i class="fas fa-spinner"></i>
+        <h3>Loading Certificate...</h3>
+        <p>Please wait while we verify your certificate.</p>
+      </div>
+      
+      <div id="errorState" class="error" style="display: none;">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h3>Certificate Not Found</h3>
+        <p>The certificate you're looking for could not be found or may have been revoked.</p>
+        <a href="/learn/" class="action-btn primary">
+          <i class="fas fa-arrow-left"></i> Back to Learning Platform
+        </a>
+      </div>
+      
+      <div id="certificateContent" style="display: none;">
+        <div class="certificate-paper" id="certificatePaper"></div>
+      </div>
+    </div>
+    
+    <div id="certActions" class="cert-actions" style="display: none;">
+      <h3>Share This Achievement</h3>
+      <div class="action-buttons">
+        <button class="action-btn primary" onclick="shareOnLinkedIn()">
+          <i class="fab fa-linkedin"></i> Share on LinkedIn
+        </button>
+        <button class="action-btn secondary" onclick="shareOnTwitter()">
+          <i class="fab fa-twitter"></i> Share on Twitter
+        </button>
+        <button class="action-btn secondary" onclick="shareOnFacebook()">
+          <i class="fab fa-facebook"></i> Share on Facebook
+        </button>
+        <button class="action-btn secondary" onclick="downloadCertificate()">
+          <i class="fas fa-download"></i> Download PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script src="/assets/js/games/firebase-config.js"></script>
+  
+  <script>
+    // Certificate data and URL parsing
+    var certificateData = null;
+    var certificateId = null;
+    
+    // Parse URL parameters
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+    
+    // Generate certificate HTML
+    function buildCertHTML(data) {
+      return [
+        '<div class="cert-watermark"><i class="fas fa-graduation-cap"></i></div>',
+        '<div class="cert-header-line">Certificate of Achievement</div>',
+        '<div class="cert-logo-area">',
+          '<div class="cert-logo-icon"><i class="fas fa-graduation-cap"></i></div>',
+          '<div class="cert-org">RKoots Learning Platform</div>',
+        '</div>',
+        '<div class="cert-divider"></div>',
+        '<div class="cert-title-block">',
+          '<div class="cert-main-title">Certificate of Achievement</div>',
+          '<div class="cert-subtitle">This is to certify that</div>',
+        '</div>',
+        '<div class="cert-presented-to">Presented to</div>',
+        '<div class="cert-name">' + escapeHtml(data.name) + '</div>',
+        '<div class="cert-body-text">',
+          'has been certified as',
+          '<span class="cert-course-name">' + escapeHtml(data.course) + '</span>',
+          'by undergoing the training and demonstrating through examination the required competency ',
+          'in the internationally recognized title, achieving a',
+        '</div>',
+        '<div class="cert-seal"><i class="fas fa-award"></i> Seal of Excellence</div>',
+        '<div class="cert-body-text" style="font-size:0.85rem;color:#475569">',
+          'based on a high score of <strong>' + data.score + '%</strong> (' + data.correct + '/' + data.total + ' correct)',
+        '</div>',
+        '<div class="cert-divider"></div>',
+        '<div class="cert-meta-grid">',
+          '<div class="cert-meta-item"><strong>Exam Date</strong>' + escapeHtml(data.examDate) + '</div>',
+          '<div class="cert-meta-item"><strong>Issue Date</strong>' + escapeHtml(data.issueDate) + '</div>',
+          '<div class="cert-meta-item"><strong>Score</strong>' + data.score + '% (' + data.correct + '/' + data.total + ')</div>',
+        '</div>',
+        '<div class="cert-signatures">',
+          '<div class="cert-sig-block">',
+            '<div class="cert-sig-line"></div>',
+            '<div class="cert-sig-name">' +
+              '<svg width="120" height="40" viewBox="0 0 120 40" style="font-family:Brush Script MT,cursive;font-size:24px;fill:#1e293b;">' +
+                '<path d="M10,25 Q15,10 25,20 T35,15 Q40,10 45,25 T55,20 Q60,15 65,25 T75,20" stroke="#1e293b" stroke-width="1.5" fill="none"/>' +
+                '<text x="80" y="25" font-style="italic" font-weight="600">Raj</text>' +
+              '</svg>' +
+            '</div>',
+            '<div class="cert-sig-title">Course Director, rkoots</div>',
+          '</div>',
+          '<div class="cert-sig-block">',
+            '<div class="cert-sig-line"></div>',
+            '<div class="cert-sig-name">' + escapeHtml(data.name) + '</div>',
+            '<div class="cert-sig-title">Certificate Holder</div>',
+          '</div>',
+        '</div>',
+        '<div class="cert-license-bar">License No: ' + escapeHtml(data.licenseNumber) + '</div>'
+      ].join('');
+    }
+    
+    function escapeHtml(str) {
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    
+    // Load certificate from Firebase
+    function loadCertificate() {
+      certificateId = getUrlParameter('id');
+      var emailKey = getUrlParameter('user');
+      
+      if (!certificateId || !emailKey) {
+        showError();
+        return;
+      }
+      
+      var DB_URL = window.FIREBASE_DB_URL || 'https://games-rkoots-default-rtdb.firebaseio.com';
+      var certPath = DB_URL + '/certificates/' + emailKey + '/' + certificateId + '.json';
+      
+      fetch(certPath)
+        .then(function(response) {
+          if (!response.ok) {
+            throw new Error('Certificate not found');
+          }
+          return response.json();
+        })
+        .then(function(data) {
+          if (!data) {
+            showError();
+            return;
+          }
+          
+          certificateData = data;
+          showCertificate();
+          
+          // Track UTM parameters for analytics
+          trackCertificateView();
+        })
+        .catch(function(error) {
+          console.error('Error loading certificate:', error);
+          showError();
+        });
+    }
+    
+    function showCertificate() {
+      var loadingState = document.getElementById('loadingState');
+      var errorState = document.getElementById('errorState');
+      var certificateContent = document.getElementById('certificateContent');
+      var certActions = document.getElementById('certActions');
+      var certificatePaper = document.getElementById('certificatePaper');
+      
+      loadingState.style.display = 'none';
+      errorState.style.display = 'none';
+      certificateContent.style.display = 'block';
+      certActions.style.display = 'block';
+      
+      certificatePaper.innerHTML = buildCertHTML(certificateData);
+      
+      // Update page title
+      document.title = 'Certificate - ' + certificateData.course + ' | RKoots Learning Platform';
+    }
+    
+    function showError() {
+      var loadingState = document.getElementById('loadingState');
+      var errorState = document.getElementById('errorState');
+      
+      loadingState.style.display = 'none';
+      errorState.style.display = 'block';
+    }
+    
+    function trackCertificateView() {
+      // Track page view with UTM parameters
+      var utmSource = getUrlParameter('utm_source') || 'direct';
+      var utmMedium = getUrlParameter('utm_medium') || 'certificate';
+      var utmCampaign = getUrlParameter('utm_campaign') || 'verification';
+      
+      console.log('Certificate viewed:', {
+        certificateId: certificateId,
+        utmSource: utmSource,
+        utmMedium: utmMedium,
+        utmCampaign: utmCampaign
+      });
+      
+      // You can add analytics tracking here
+      // gtag('event', 'certificate_view', { ... });
+    }
+    
+    // Share functions
+    function shareOnLinkedIn() {
+      var url = window.location.href;
+      var title = 'I earned a certificate in "' + certificateData.course + '" from RKoots Learning Platform!';
+      var summary = 'Score: ' + certificateData.score + '% | License: ' + certificateData.licenseNumber;
+      
+      var linkedinUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url) + 
+                      '&title=' + encodeURIComponent(title) + 
+                      '&summary=' + encodeURIComponent(summary);
+      
+      window.open(linkedinUrl, '_blank', 'width=600,height=400');
+    }
+    
+    function shareOnTwitter() {
+      var text = 'I just earned a certificate in "' + certificateData.course + '" on RKoots Learning Platform! 🎓 Score: ' + 
+                certificateData.score + '% | License: ' + certificateData.licenseNumber;
+      var url = window.location.href;
+      
+      var twitterUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
+      
+      window.open(twitterUrl, '_blank', 'width=600,height=400');
+    }
+    
+    function shareOnFacebook() {
+      var url = window.location.href;
+      var quote = 'I earned a certificate in "' + certificateData.course + '" from RKoots Learning Platform!';
+      
+      var facebookUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url) + '&quote=' + encodeURIComponent(quote);
+      
+      window.open(facebookUrl, '_blank', 'width=600,height=400');
+    }
+    
+    function downloadCertificate() {
+      // Create full page HTML for download
+      var html = buildCertHTML(certificateData);
+      var fullHtml = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Certificate – ' + 
+                     escapeHtml(certificateData.course) + '</title>' +
+                     '<link rel="preconnect" href="https://fonts.googleapis.com">' +
+                     '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Georgia&display=swap" rel="stylesheet">' +
+                     '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">' +
+                     '<style>' +
+                     '*{box-sizing:border-box;margin:0;padding:0}' +
+                     'body{font-family:Inter,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f8f9fc;padding:20px}' +
+                     '.certificate-paper{background:#fff;border:8px solid transparent;border-image:linear-gradient(135deg,#c8a96e,#f0d080,#c8a96e,#a0784a) 1;padding:48px 52px;font-family:Georgia,serif;text-align:center;position:relative;box-shadow:inset 0 0 40px rgba(200,169,110,0.12);max-width:780px;width:100%}' +
+                     '@media print{body{background:white;padding:0}.certificate-paper{border-image:none;border:8px solid #c8a96e;box-shadow:none}}' +
+                     '</style></head><body>' +
+                     '<div class="certificate-paper">' + html + '</div>' +
+                     '<script>window.onload=function(){window.print();}<\/script>' +
+                     '</body></html>';
+      
+      var blob = new Blob([fullHtml], { type: 'text/html' });
+      var downloadUrl = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = 'RKoots-Certificate-' + certificateData.course.replace(/\s+/g, '-') + '-' + certificateData.licenseNumber + '.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(downloadUrl);
+    }
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCertificate();
+    });
+  </script>
+</body>
+</html>
