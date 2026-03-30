@@ -138,7 +138,7 @@ permalink: /learn/
           </div>
         </div>
         <div class="topic-actions">
-          <button class="btn-cert" id="btnGetCertified" onclick="LearnExam.start()">
+          <button class="btn-cert" id="btnGetCertified" onclick="console.log('Button clicked'); console.log('LearnExam available:', !!window.LearnExam); if (window.LearnExam) { LearnExam.start(); } else { console.error('LearnExam not found!'); alert('LearnExam not found. Please refresh the page.'); }">
             <i class="fas fa-certificate"></i>
             Get Free Certification
           </button>
@@ -286,6 +286,21 @@ permalink: /learn/
 <script src="/assets/js/learn/app.js"></script>
 <script src="/assets/js/learn/exam.js"></script>
 <script src="/assets/js/learn/certificate.js"></script>
+
+<script>
+  // Debug: Check if all required objects are loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('[Debug] LearnApp available:', !!window.LearnApp);
+    console.log('[Debug] LearnExam available:', !!window.LearnExam);
+    console.log('[Debug] LearnCert available:', !!window.LearnCert);
+    console.log('[Debug] GameAuth available:', !!window.GameAuth);
+    
+    if (!window.LearnExam) {
+      console.error('[Debug] LearnExam not loaded!');
+      alert('Error: LearnExam not loaded. Please refresh the page.');
+    }
+  });
+</script>
 
 </body>
 </html>

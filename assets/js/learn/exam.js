@@ -126,6 +126,11 @@
       _stopTimer();
       _submitted = true;
       _calculateAndShowResult();
+    },
+
+    _jumpTo: function (idx) {
+      _currentQ = idx;
+      _renderQuestion();
     }
   };
 
@@ -222,11 +227,6 @@
     container.innerHTML = html;
     _updateDots();
   }
-
-  LearnExam._jumpTo = function (idx) {
-    _currentQ = idx;
-    _renderQuestion();
-  };
 
   function _updateDots() {
     var dots = document.querySelectorAll('.qdot');
@@ -443,6 +443,16 @@
           LearnApp.toast('Certificate saved to your profile!', 'success');
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+=======
+        } else {
+          console.log('[Exam] Certificate saved to your profile!');
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
+=======
+        } else {
+          console.log('[Exam] Certificate saved to your profile!');
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
 =======
         } else {
           console.log('[Exam] Certificate saved to your profile!');
@@ -462,6 +472,16 @@
         LearnApp.toast('Certificate saved locally (cloud sync failed)', 'warning');
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+=======
+      } else {
+        console.log('[Exam] Certificate saved locally (cloud sync failed)');
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
+=======
+      } else {
+        console.log('[Exam] Certificate saved locally (cloud sync failed)');
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
 =======
       } else {
         console.log('[Exam] Certificate saved locally (cloud sync failed)');
