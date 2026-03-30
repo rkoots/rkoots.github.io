@@ -283,6 +283,46 @@
 
     /* Save attempt to Firebase */
     _saveAttempt(score, passed, correct, total);
+    
+    /* Auto-generate and save certificate if passed */
+    if (passed && window.LearnCert) {
+      console.log('[Exam] Auto-generating certificate for passed exam...');
+      try {
+        // Generate certificate data without showing modal
+        var user = GameAuth.getCurrentUser();
+        var course = LearnApp.getActiveCourse();
+        
+        if (user && course) {
+          var now = new Date();
+          var licenseNumber = _generateLicense(user.email, user.uid, now.getTime());
+          var examDate = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+          var issueDate = examDate;
+          
+          var certData = {
+            name: user.displayName || 'Learner',
+            email: user.email,
+            course: course.title,
+            score: score,
+            correct: correct,
+            total: total,
+            licenseNumber: licenseNumber,
+            examDate: examDate,
+            issueDate: issueDate,
+            uid: user.uid
+          };
+          
+          // Build certificate HTML
+          certData.certificateHTML = _buildCertHTML(certData);
+          
+          // Store certificate to Firebase
+          _storeCertificate(certData, user);
+          
+          console.log('[Exam] Certificate auto-generated and saved');
+        }
+      } catch (e) {
+        console.error('[Exam] Failed to auto-generate certificate:', e);
+      }
+    }
   }
 
   function _saveAttempt(score, passed, correct, total) {
@@ -305,6 +345,114 @@
         })
       });
     }).catch(function (e) { console.warn('[Exam] Save attempt failed:', e); });
+  }
+
+  /* ── Certificate Helpers ── */
+  function _generateLicense(email, uid, timestamp) {
+    var hash = _hashString((email || '') + (uid || '') + timestamp.toString());
+    var prefix = 'RKL';
+    var year = new Date().getFullYear();
+    var hex = Math.abs(hash).toString(16).toUpperCase().padStart(8, '0').slice(0, 8);
+    return prefix + '-' + year + '-' + hex;
+  }
+
+  function _hashString(str) {
+    var hash = 0x811c9dc5;
+    for (var i = 0; i < str.length; i++) {
+      hash ^= str.charCodeAt(i);
+      hash = ((hash >>> 0) * 0x01000193) >>> 0;
+    }
+    return hash >>> 0;
+  }
+
+  function _buildCertHTML(data) {
+    // Simple certificate HTML generation
+    return '<div style="padding:40px;text-align:center;font-family:Georgia,serif">' +
+      '<h1 style="font-size:36px;color:#667eea">Certificate of Completion</h1>' +
+      '<p style="font-size:20px;margin:20px 0">This is to certify that</p>' +
+      '<h2 style="font-size:28px;color:#333">' + data.name + '</h2>' +
+      '<p style="font-size:20px;margin:20px 0">has successfully completed the course</p>' +
+      '<h3 style="font-size:24px;color:#667eea">' + data.course + '</h3>' +
+      '<p style="font-size:18px;margin:20px 0">with a score of ' + data.score + '%</p>' +
+      '<p style="font-size:16px;color:#666">License: ' + data.licenseNumber + '</p>' +
+      '<p style="font-size:16px;color:#666">Date: ' + data.examDate + '</p>' +
+      '</div>';
+  }
+
+  function _storeCertificate(data, user) {
+    var DB_URL = window.FIREBASE_DB_URL || 'https://games-rkoots-default-rtdb.firebaseio.com';
+    var emailKey = data.email.replace(/[.#$\[\]]/g, '_');
+    var courseKey = data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+    var path = DB_URL + '/certificates/' + emailKey + '/' + courseKey + '.json';
+
+    if (!user || !user.getIdToken) {
+      console.error('[Exam] No user or getIdToken method for certificate storage');
+      _storeCertificateLocally(data);
+      return;
+    }
+
+    user.getIdToken().then(function (token) {
+      var certData = {
+        name: data.name,
+        email: data.email,
+        course: data.course,
+        score: data.score,
+        correct: data.correct,
+        total: data.total,
+        licenseNumber: data.licenseNumber,
+        examDate: data.examDate,
+        issueDate: data.issueDate,
+        uid: data.uid,
+        certificateHTML: data.certificateHTML,
+        createdAt: new Date().toISOString()
+      };
+      
+      return fetch(path + '?auth=' + token, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(certData)
+      });
+    }).then(function (response) {
+      if (response.ok) {
+        console.log('[Exam] Certificate saved to Firebase successfully');
+        // Show success message
+        if (window.LearnApp && LearnApp.toast) {
+          LearnApp.toast('Certificate saved to your profile!', 'success');
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+=======
+        } else {
+          console.log('[Exam] Certificate saved to your profile!');
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
+        }
+      } else {
+        throw new Error('HTTP ' + response.status);
+      }
+    }).catch(function (e) {
+      console.error('[Exam] Certificate storage failed:', e);
+      _storeCertificateLocally(data);
+      if (window.LearnApp && LearnApp.toast) {
+        LearnApp.toast('Certificate saved locally (cloud sync failed)', 'warning');
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/exam.js
+=======
+      } else {
+        console.log('[Exam] Certificate saved locally (cloud sync failed)');
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/exam.js
+      }
+    });
+  }
+
+  function _storeCertificateLocally(data) {
+    try {
+      var localCerts = JSON.parse(localStorage.getItem('rkoots_certificates') || '{}');
+      var emailKey = data.email.replace(/[.#$\[\]]/g, '_');
+      if (!localCerts[emailKey]) localCerts[emailKey] = {};
+      var courseKey = data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+      localCerts[emailKey][courseKey] = data;
+      localStorage.setItem('rkoots_certificates', JSON.stringify(localCerts));
+      console.log('[Exam] Certificate saved to localStorage');
+    } catch (e) {
+      console.error('[Exam] Local storage failed:', e);
+    }
   }
 
   /* ── Helpers ── */
