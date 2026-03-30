@@ -1,3 +1,4 @@
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/games/challenges/reaction-speed.html
 ---
 layout: game
 permalink: /games/challenges/reaction-speed/
@@ -285,3 +286,269 @@ use_firebase: true
   }
 }());
 </script>
+=======
+---
+layout: game
+permalink: /games/challenges/reaction-speed/
+title: "Reaction Speed Test"
+description: "Click the circle the instant it turns green. Average of 5 rounds. Compete on the global leaderboard."
+---
+<div class="challenge-container">
+
+  <!-- Header -->
+  <div class="game-header" style="max-width:1100px">
+    <div class="game-title">
+      <span class="game-emoji">⚡</span>
+      <h1>Reaction Speed Test</h1>
+    </div>
+    <a href="/games/challenges/" class="back-link"><i class="fas fa-arrow-left"></i> All Challenges</a>
+  </div>
+
+  <!-- Auth bar -->
+  <div class="auth-panel" style="max-width:1100px">
+    <div class="auth-signed-out" style="display:flex;align-items:center;gap:10px;flex:1">
+      <span class="auth-signed-out-msg"><i class="fas fa-info-circle"></i> Sign in with Google to submit your score to the leaderboard.</span>
+    </div>
+    <div class="auth-signed-in" style="display:none;flex:1">
+      <div class="auth-user-info">
+        <div class="auth-avatar auth-avatar-img"></div>
+        <span class="auth-name"></span>
+      </div>
+    </div>
+    <button class="btn-google btn-google-signin">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      Sign in with Google
+    </button>
+    <button class="btn-signout" style="display:none">Sign out</button>
+  </div>
+
+  <!-- Main layout -->
+  <div class="challenge-layout" style="max-width:1100px">
+
+    <!-- Game Area -->
+    <div class="challenge-game-area">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+        <div class="reaction-stat"><div class="stat-val" id="roundDisp">0/5</div><div class="stat-lbl">Round</div></div>
+        <div class="reaction-stat"><div class="stat-val" id="lastTime">—</div><div class="stat-lbl">Last (ms)</div></div>
+        <div class="reaction-stat"><div class="stat-val" id="avgTime">—</div><div class="stat-lbl">Average (ms)</div></div>
+        <div class="reaction-stat"><div class="stat-val" id="bestTime">—</div><div class="stat-lbl">Best (ms)</div></div>
+      </div>
+
+      <div class="reaction-circle-area" id="circleArea">
+        <div class="reaction-circle" id="reactionCircle">Click to Start</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.35)" id="circleHint">5 rounds · click when GREEN</div>
+      </div>
+
+      <!-- Score submission -->
+      <div class="score-submit-area" id="scoreSubmit" style="display:none">
+        <div class="final-score-display">
+          <div class="score-label">Your Score</div>
+          <div><span class="score-value" id="finalScore">0</span><span class="score-unit">pts</span></div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.45);margin-top:6px" id="avgDisplay"></div>
+        </div>
+        <button class="btn-submit-score" id="submitBtn">
+          <i class="fas fa-upload"></i> Submit to Leaderboard
+        </button>
+        <button class="btn-play-again" id="playAgainBtn">
+          <i class="fas fa-redo"></i> Play Again
+        </button>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.35)" id="submitMsg"></div>
+      </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="leaderboard-panel">
+      <div class="leaderboard-header">
+        <i class="fas fa-trophy" style="color:#fbbf24"></i>
+        <h3>Leaderboard</h3>
+        <button onclick="loadLeaderboard()" style="margin-left:auto;background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:0.8rem;padding:4px 8px;border-radius:6px" title="Refresh"><i class="fas fa-sync-alt"></i></button>
+      </div>
+      <div class="leaderboard-body" id="leaderboardBody">
+        <div class="lb-loading">Sign in and play to see rankings</div>
+      </div>
+      <div class="lb-user-rank" id="userRankBar" style="display:none"></div>
+    </div>
+
+  </div>
+</div>
+
+<div id="game-toast" class="game-toast"></div>
+
+<script>
+(function(){
+  var CHALLENGE_ID = 'reaction-speed';
+  var ROUNDS = 5;
+  var phase = 'idle'; // idle | waiting | active | result | done
+  var roundNum = 0;
+  var times = [];
+  var signalTimer, safeTimer;
+
+  var circle = document.getElementById('reactionCircle');
+  var circleArea = document.getElementById('circleArea');
+  var hint = document.getElementById('circleHint');
+  var roundDisp = document.getElementById('roundDisp');
+  var lastTimeEl = document.getElementById('lastTime');
+  var avgTimeEl = document.getElementById('avgTime');
+  var bestTimeEl = document.getElementById('bestTime');
+  var scoreSubmit = document.getElementById('scoreSubmit');
+  var finalScoreEl = document.getElementById('finalScore');
+  var avgDisplay = document.getElementById('avgDisplay');
+  var submitBtn = document.getElementById('submitBtn');
+  var playAgainBtn = document.getElementById('playAgainBtn');
+  var submitMsg = document.getElementById('submitMsg');
+
+  function loadLeaderboard() {
+    var user = window.GameAuth ? GameAuth.getCurrentUser() : null;
+    var uid = user ? user.uid : null;
+    if (window.GameLeaderboard) {
+      GameLeaderboard.load(CHALLENGE_ID, 'leaderboardBody', uid).then(function(scores){
+        var bar = document.getElementById('userRankBar');
+        if (uid && scores.length > 0) {
+          var rank = scores.findIndex(function(s){ return s.userId === uid; }) + 1;
+          if (rank > 0) { bar.textContent = 'Your rank: #' + rank + ' of ' + scores.length; bar.style.display = 'block'; }
+        }
+      });
+    }
+  }
+
+  circleArea.addEventListener('click', handleClick);
+  circleArea.addEventListener('touchstart', function(e){ e.preventDefault(); handleClick(); }, {passive:false});
+
+  function handleClick() {
+    if (phase === 'idle') { startRound(); return; }
+    if (phase === 'waiting') {
+      // Too early
+      clearTimeout(signalTimer);
+      circle.className = 'reaction-circle too-early';
+      circle.textContent = 'Too early! ⚠️';
+      hint.textContent = 'Wait for GREEN before clicking!';
+      phase = 'idle';
+      safeTimer = setTimeout(function(){
+        if (phase === 'idle') startRound();
+      }, 1200);
+      return;
+    }
+    if (phase === 'active') {
+      var rt = Date.now() - window._signalTime;
+      clearTimeout(signalTimer);
+      times.push(rt);
+      lastTimeEl.textContent = rt;
+      var avg = Math.round(times.reduce(function(a,b){return a+b;},0)/times.length);
+      var best = Math.min.apply(null, times);
+      avgTimeEl.textContent = avg;
+      bestTimeEl.textContent = best;
+      roundDisp.textContent = times.length + '/' + ROUNDS;
+      circle.className = 'reaction-circle done';
+      circle.textContent = rt + ' ms';
+      hint.textContent = rt < 200 ? '🔥 Blazing!' : rt < 300 ? '⚡ Fast!' : rt < 500 ? '👍 Good' : '😴 Slow…';
+      phase = 'result';
+      if (times.length >= ROUNDS) {
+        setTimeout(finishGame, 1000);
+      } else {
+        safeTimer = setTimeout(startRound, 1200);
+      }
+      return;
+    }
+  }
+
+  function startRound() {
+    clearTimeout(signalTimer); clearTimeout(safeTimer);
+    roundNum = times.length + 1;
+    roundDisp.textContent = roundNum + '/' + ROUNDS;
+    phase = 'waiting';
+    circle.className = 'reaction-circle waiting';
+    circle.textContent = 'Wait…';
+    hint.textContent = 'Get ready…';
+    var delay = 1500 + Math.random() * 2500;
+    signalTimer = setTimeout(function(){
+      phase = 'active';
+      window._signalTime = Date.now();
+      circle.className = 'reaction-circle go';
+      circle.textContent = 'NOW!';
+      hint.textContent = 'CLICK!';
+      // Auto-miss after 3s
+      signalTimer = setTimeout(function(){
+        if (phase === 'active') {
+          times.push(3000);
+          circle.className = 'reaction-circle too-early';
+          circle.textContent = 'Missed! (3000ms)';
+          phase = 'result';
+          roundDisp.textContent = times.length + '/' + ROUNDS;
+          if (times.length >= ROUNDS) setTimeout(finishGame, 1000);
+          else safeTimer = setTimeout(startRound, 1400);
+        }
+      }, 3000);
+    }, delay);
+  }
+
+  function finishGame() {
+    phase = 'done';
+    var avg = Math.round(times.reduce(function(a,b){return a+b;},0)/times.length);
+    // Score: 1000 - avg ms, minimum 0; capped at 950
+    var score = Math.max(0, Math.min(950, 1000 - avg));
+    finalScoreEl.textContent = score;
+    avgDisplay.textContent = 'Average: ' + avg + 'ms · Best: ' + Math.min.apply(null,times) + 'ms';
+    scoreSubmit.style.display = 'flex';
+    circle.className = 'reaction-circle';
+    circle.textContent = '🏁 Done!';
+    hint.textContent = 'Check your score below';
+    loadLeaderboard();
+
+    submitBtn.onclick = function(){
+      var user = window.GameAuth ? GameAuth.getCurrentUser() : null;
+      if (!user) {
+        GameAuth.showToast('Sign in with Google first!', 'error');
+        return;
+      }
+      submitBtn.disabled = true;
+      submitMsg.textContent = 'Submitting…';
+      user.getIdToken().then(function(token){
+        return GameLeaderboard.submitScore(CHALLENGE_ID, user.uid, user.displayName || 'Player', score, token);
+      }).then(function(res){
+        if (res.updated) {
+          submitMsg.textContent = '✅ ' + res.reason;
+          GameAuth.showToast('Score submitted!', 'success');
+        } else {
+          submitMsg.textContent = '⚠️ ' + res.reason;
+          GameAuth.showToast(res.reason);
+        }
+        loadLeaderboard();
+      }).catch(function(e){
+        submitMsg.textContent = '❌ Error: ' + e.message;
+        submitBtn.disabled = false;
+      });
+    };
+  }
+
+  playAgainBtn.addEventListener('click', function(){
+    times = []; roundNum = 0; phase = 'idle';
+    roundDisp.textContent = '0/'+ROUNDS;
+    lastTimeEl.textContent = '—';
+    avgTimeEl.textContent = '—';
+    bestTimeEl.textContent = '—';
+    scoreSubmit.style.display = 'none';
+    submitBtn.disabled = false;
+    submitMsg.textContent = '';
+    circle.className = 'reaction-circle';
+    circle.textContent = 'Click to Start';
+    hint.textContent = '5 rounds · click when GREEN';
+  });
+
+  // Load leaderboard on page load
+  document.addEventListener('DOMContentLoaded', function(){
+    setTimeout(loadLeaderboard, 500);
+  });
+  if (document.readyState !== 'loading') setTimeout(loadLeaderboard, 500);
+
+  if (window.GameAuth) {
+    GameAuth.onAuthChange(function(user){
+      var signoutBtns = document.querySelectorAll('.btn-signout');
+      signoutBtns.forEach(function(b){ b.style.display = user ? 'inline-flex' : 'none'; });
+      var signinBtns = document.querySelectorAll('.btn-google-signin');
+      signinBtns.forEach(function(b){ b.style.display = user ? 'none' : 'inline-flex'; });
+      loadLeaderboard();
+    });
+  }
+}());
+</script>
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-65d93bf9/games/challenges/reaction-speed.html
