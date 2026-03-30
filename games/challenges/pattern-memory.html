@@ -1,4 +1,5 @@
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/games/challenges/pattern-memory.html
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/games/challenges/pattern-memory.html
 ---
 layout: game
 permalink: /games/challenges/pattern-memory/
@@ -220,6 +221,8 @@ use_firebase: true
 }());
 </script>
 =======
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/games/challenges/pattern-memory.html
 ---
 layout: game
 permalink: /games/challenges/pattern-memory/
@@ -433,10 +436,223 @@ description: "Challenge game: Remember increasingly complex visual patterns. How
     cell.addEventListener('click', function(){
       handleCellClick(parseInt(this.dataset.index));
     });
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/games/challenges/pattern-memory.html
+=======
+  <div class="game-header" style="width:100%;max-width:1100px">
+    <div class="game-title">
+      <span class="game-emoji">🧩</span>
+      <h1>Pattern Memory</h1>
+    </div>
+    <a href="/games/challenges/" class="back-link"><i class="fas fa-arrow-left"></i> All Challenges</a>
+  </div>
+
+  <div id="authPanel" class="auth-panel"></div>
+
+  <div class="challenge-layout">
+    <div class="challenge-game-area">
+      <div class="level-badge" id="levelBadge">Level 1</div>
+      
+      <div id="patternDisplay" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:300px;margin:20px auto">
+        <div class="pattern-cell" data-index="0"></div>
+        <div class="pattern-cell" data-index="1"></div>
+        <div class="pattern-cell" data-index="2"></div>
+        <div class="pattern-cell" data-index="3"></div>
+        <div class="pattern-cell" data-index="4"></div>
+        <div class="pattern-cell" data-index="5"></div>
+        <div class="pattern-cell" data-index="6"></div>
+        <div class="pattern-cell" data-index="7"></div>
+        <div class="pattern-cell" data-index="8"></div>
+      </div>
+
+      <p class="game-status-msg" id="statusMsg">Watch the pattern carefully!</p>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+        <button class="btn-game-action" id="startBtn">Start Challenge</button>
+        <button class="btn-game-reset" id="resetBtn" style="display:none">Try Again</button>
+      </div>
+
+      <div id="scoreArea" style="display:none"></div>
+    </div>
+
+    <div class="leaderboard-panel">
+      <div class="leaderboard-header">
+        <i class="fas fa-trophy"></i>
+        <h3>Top Scores</h3>
+      </div>
+      <div class="leaderboard-body" id="leaderboard">
+        <div class="lb-loading">Loading...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.challenge-container{background:#0d0d1a}
+.pattern-cell{
+  aspect-ratio:1;
+  background:rgba(255,255,255,0.06);
+  border:2px solid rgba(255,255,255,0.1);
+  border-radius:12px;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  min-height:80px;
+}
+.pattern-cell.active{
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  border-color:#667eea;
+  box-shadow:0 0 20px rgba(102,126,234,0.6);
+}
+.pattern-cell.user-selected{
+  background:rgba(102,126,234,0.3);
+  border-color:#667eea;
+}
+.pattern-cell.correct{
+  background:rgba(74,222,128,0.3);
+  border-color:#4ade80;
+}
+.pattern-cell.wrong{
+  background:rgba(248,113,113,0.3);
+  border-color:#f87171;
+}
+.pattern-cell:hover:not(.active){
+  background:rgba(102,126,234,0.15);
+  transform:scale(1.05);
+}
+</style>
+
+<script src="/assets/js/games/firebase-config.js"></script>
+<script src="/assets/js/games/auth.js"></script>
+<script src="/assets/js/games/leaderboard.js"></script>
+
+<script>
+(function(){
+  var level = 1;
+  var pattern = [];
+  var userPattern = [];
+  var gameActive = false;
+  var showingPattern = false;
+  var GAME_ID = 'pattern-memory';
+
+  var cells = document.querySelectorAll('.pattern-cell');
+  var statusMsg = document.getElementById('statusMsg');
+  var levelBadge = document.getElementById('levelBadge');
+  var startBtn = document.getElementById('startBtn');
+  var resetBtn = document.getElementById('resetBtn');
+  var scoreArea = document.getElementById('scoreArea');
+
+  GameAuth.init('authPanel');
+  GameLeaderboard.init('leaderboard', GAME_ID);
+
+  function startGame() {
+    level = 1;
+    pattern = [];
+    startBtn.style.display = 'none';
+    resetBtn.style.display = 'none';
+    scoreArea.style.display = 'none';
+    nextLevel();
+  }
+
+  function nextLevel() {
+    gameActive = false;
+    showingPattern = true;
+    userPattern = [];
+    levelBadge.textContent = 'Level ' + level;
+    statusMsg.textContent = 'Watch carefully...';
+    statusMsg.className = 'game-status-msg';
+    
+    cells.forEach(function(c){ 
+      c.classList.remove('active','user-selected','correct','wrong');
+      c.style.pointerEvents = 'none';
+    });
+
+    pattern.push(Math.floor(Math.random() * 9));
+    
+    var i = 0;
+    function showNext() {
+      if (i >= pattern.length) {
+        showingPattern = false;
+        gameActive = true;
+        statusMsg.textContent = 'Now repeat the pattern!';
+        statusMsg.className = 'game-status-msg win';
+        cells.forEach(function(c){ c.style.pointerEvents = 'auto'; });
+        return;
+      }
+      
+      cells[pattern[i]].classList.add('active');
+      setTimeout(function(){
+        cells[pattern[i]].classList.remove('active');
+        i++;
+        setTimeout(showNext, 300);
+      }, 600);
+    }
+    
+    setTimeout(showNext, 500);
+  }
+
+  function handleCellClick(index) {
+    if (!gameActive || showingPattern) return;
+    
+    userPattern.push(index);
+    cells[index].classList.add('user-selected');
+    
+    var currentStep = userPattern.length - 1;
+    if (userPattern[currentStep] !== pattern[currentStep]) {
+      gameOver(false);
+      return;
+    }
+    
+    if (userPattern.length === pattern.length) {
+      cells.forEach(function(c){ c.classList.add('correct'); });
+      statusMsg.textContent = 'Correct! Level ' + level + ' complete! 🎉';
+      statusMsg.className = 'game-status-msg win';
+      level++;
+      setTimeout(nextLevel, 1500);
+    }
+  }
+
+  function gameOver(won) {
+    gameActive = false;
+    var finalLevel = won ? level : level - 1;
+    
+    cells.forEach(function(c, i){
+      c.style.pointerEvents = 'none';
+      if (userPattern[i] !== pattern[i]) {
+        c.classList.add('wrong');
+      }
+    });
+
+    statusMsg.textContent = 'Game Over! You reached Level ' + finalLevel;
+    statusMsg.className = 'game-status-msg lose';
+    
+    scoreArea.innerHTML = '<div class="score-submit-area"><div class="final-score-display"><div class="score-label">Final Level</div><div class="score-value">' + finalLevel + '</div></div><button class="btn-submit-score" id="submitBtn">Submit Score</button><button class="btn-play-again" id="playAgainBtn">Play Again</button></div>';
+    scoreArea.style.display = 'block';
+    
+    document.getElementById('submitBtn').addEventListener('click', function(){
+      GameLeaderboard.submitScore(finalLevel, function(success){
+        if (success) {
+          statusMsg.textContent = 'Score submitted! 🎉';
+          statusMsg.className = 'game-status-msg win';
+        }
+      });
+    });
+    
+    document.getElementById('playAgainBtn').addEventListener('click', startGame);
+    resetBtn.style.display = 'inline-flex';
+  }
+
+  cells.forEach(function(cell){
+    cell.addEventListener('click', function(){
+      handleCellClick(parseInt(this.dataset.index));
+    });
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/games/challenges/pattern-memory.html
   });
 
   startBtn.addEventListener('click', startGame);
   resetBtn.addEventListener('click', startGame);
 }());
 </script>
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/games/challenges/pattern-memory.html
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-65d93bf9/games/challenges/pattern-memory.html
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-65d93bf9/games/challenges/pattern-memory.html
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/games/challenges/pattern-memory.html

@@ -1,4 +1,5 @@
 <<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 /**
  * RKoots Learning Platform — certificate.js
  * Handles: certificate generation, license number, Firebase storage, PDF download
@@ -246,6 +247,8 @@
 
 }());
 =======
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/certificate.js
 /**
  * RKoots Learning Platform — certificate.js
  * Handles: certificate generation, license number, Firebase storage, PDF download
@@ -481,79 +484,35 @@
 
   /* ── Firebase Storage ── */
   function _storeCertificate(data, user) {
-    console.log('[Cert] Starting certificate storage for:', data.email, data.course);
     var DB_URL = window.FIREBASE_DB_URL || 'https://games-rkoots-default-rtdb.firebaseio.com';
     var emailKey = data.email.replace(/[.#$\[\]]/g, '_');
     var courseKey = data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
     var path = DB_URL + '/certificates/' + emailKey + '/' + courseKey + '.json';
-    console.log('[Cert] Storage path:', path);
-
-    if (!user || !user.getIdToken) {
-      console.error('[Cert] No user or getIdToken method');
-      LearnApp.toast('Certificate generated (user auth error)', 'error');
-      return;
-    }
 
     user.getIdToken().then(function (token) {
-      console.log('[Cert] Got auth token, storing certificate...');
-      var certData = {
-        name: data.name,
-        email: data.email,
-        course: data.course,
-        score: data.score,
-        correct: data.correct,
-        total: data.total,
-        licenseNumber: data.licenseNumber,
-        examDate: data.examDate,
-        issueDate: data.issueDate,
-        uid: data.uid,
-        certificateHTML: data.certificateHTML,
-        createdAt: new Date().toISOString()
-      };
-      console.log('[Cert] Certificate data:', certData);
-      
       return fetch(path + '?auth=' + token, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(certData)
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          course: data.course,
+          score: data.score,
+          correct: data.correct,
+          total: data.total,
+          licenseNumber: data.licenseNumber,
+          examDate: data.examDate,
+          issueDate: data.issueDate,
+          uid: data.uid,
+          certificateHTML: data.certificateHTML
+        })
       });
-    }).then(function (response) {
-      console.log('[Cert] Storage response:', response.status, response.statusText);
-      if (response.ok) {
-        LearnApp.toast('Certificate saved to your profile!', 'success');
-        // Refresh dashboard if user is on it
-        if (window.location.pathname.includes('/dashboard.html')) {
-          setTimeout(function() { location.reload(); }, 1500);
-        }
-      } else {
-        throw new Error('HTTP ' + response.status + ': ' + response.statusText);
-      }
+    }).then(function () {
+      LearnApp.toast('Certificate saved to your profile!', 'success');
     }).catch(function (e) {
-      console.error('[Cert] Storage failed:', e);
-      // Fallback to localStorage
-      _storeCertificateLocally(data);
-      LearnApp.toast('Certificate generated! Saved locally (cloud sync failed)', 'warning');
+      console.warn('[Cert] Storage failed:', e);
+      LearnApp.toast('Certificate generated (offline save failed)', '');
     });
-  }
-
-  /* ── Local Storage Fallback ── */
-  function _storeCertificateLocally(data) {
-    try {
-      var localCerts = JSON.parse(localStorage.getItem('rkoots_certificates') || '{}');
-      var emailKey = data.email.replace(/[.#$\[\]]/g, '_');
-      if (!localCerts[emailKey]) localCerts[emailKey] = {};
-      var courseKey = data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
-      localCerts[emailKey][courseKey] = data;
-      localStorage.setItem('rkoots_certificates', JSON.stringify(localCerts));
-      console.log('[Cert] Certificate saved to localStorage');
-      
-      // Try to sync after a short delay
-      setTimeout(function() {
-        LearnCert.syncLocalCertificates();
-      }, 2000);
-    } catch (e) {
-      console.error('[Cert] Local storage failed:', e);
-    }
   }
 
   function _escHtml(str) {
@@ -572,4 +531,7 @@
   }
 
 }());
+<<<<<<< D:/VirtualMachines/vagrant-boxes/sbox/projects/Personal/rkoots.github.io/assets/js/learn/certificate.js
 >>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-65d93bf9/assets/js/learn/certificate.js
+=======
+>>>>>>> C:/Users/RajkumarV/.windsurf/worktrees/rkoots.github.io/rkoots.github.io-d0327794/assets/js/learn/certificate.js
