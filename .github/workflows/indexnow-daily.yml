@@ -1,0 +1,114 @@
+name: IndexNow Daily Submission
+
+on:
+  schedule:
+    # Run once daily at 2:00 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  submit-indexnow:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+          
+      - name: Run IndexNow submission
+        run: |
+          python - << 'EOF'
+          import requests
+          import xml.etree.ElementTree as ET
+          import time
+
+          # ---------------- CONFIG ----------------
+          SITEMAP_URL = "https://rkoots.github.io/sitemap.xml"
+          HOST = "rkoots.github.io"
+          API_KEY = "376c90018960451f80042ce22eeb9de4"
+          KEY_LOCATION = f"https://{HOST}/{API_KEY}.txt"
+
+          INDEXNOW_ENDPOINT = "https://api.indexnow.org/IndexNow"
+
+          BATCH_SIZE = 100
+          RETRIES = 3
+          TIMEOUT = 10
+          # ----------------------------------------
+
+
+          def fetch_urls():
+              print("Fetching sitemap...")
+              resp = requests.get(SITEMAP_URL, timeout=TIMEOUT)
+              resp.raise_for_status()
+
+              root = ET.fromstring(resp.content)
+              urls = [e.text.strip() for e in root.iter() if 'loc' in e.tag]
+
+              print(f"Found {len(urls)} URLs")
+              return urls
+
+
+          def submit_batch(batch, batch_number):
+              payload = {
+                  "host": HOST,
+                  "key": API_KEY,
+                  "keyLocation": KEY_LOCATION,
+                  "urlList": batch
+              }
+              print(payload)
+
+              for attempt in range(RETRIES):
+                  try:
+                      res = requests.post(
+                          INDEXNOW_ENDPOINT,
+                          json=payload,
+                          timeout=TIMEOUT
+                      )
+
+                      print(f"Batch {batch_number} → {res.status_code}")
+
+                      if res.status_code != 200:
+                          print("Response:", res.text)
+
+                      return True
+
+                  except requests.exceptions.RequestException as e:
+                      print(f"Batch {batch_number} Retry {attempt+1} failed:", e)
+                      time.sleep(2)
+
+              print(f"Batch {batch_number} completely failed.")
+              return False
+
+
+          def main():
+              urls = fetch_urls()
+
+              if not urls:
+                  print("No URLs found. Exiting.")
+                  return
+
+              success = 0
+              total_batches = (len(urls) // BATCH_SIZE) + 1
+
+              for i in range(0, len(urls), BATCH_SIZE):
+                  batch = urls[i:i + BATCH_SIZE]
+                  batch_number = (i // BATCH_SIZE) + 1
+
+                  if submit_batch(batch, batch_number):
+                      success += 1
+
+              print(f"\nCompleted: {success}/{total_batches} batches submitted")
+
+
+          if __name__ == "__main__":
+              main()
+          EOF
