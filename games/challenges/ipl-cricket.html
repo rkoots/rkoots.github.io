@@ -1,0 +1,412 @@
+---
+layout: game
+permalink: /games/challenges/ipl-cricket/
+title: "IPL 2026 Cricket Quiz Challenge"
+description: "Test your IPL 2026 knowledge! Answer questions about teams, standings, and match results. Timed 60-second quiz with global leaderboard."
+use_firebase: true
+---
+<style>
+.ipl-hero-banner{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 40%,#0f3460 100%);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:20px 24px;margin-bottom:16px;text-align:center;position:relative;overflow:hidden}
+.ipl-hero-banner::before{content:'🏏';position:absolute;font-size:8rem;opacity:0.06;right:-10px;top:-10px;line-height:1}
+.ipl-season-badge{display:inline-block;background:linear-gradient(90deg,#f0c000,#ff6600);color:#000;font-weight:800;font-size:0.7rem;padding:3px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:8px}
+.ipl-hero-banner h2{color:white;font-size:1.4rem;font-weight:800;margin:0 0 4px}
+.ipl-hero-banner p{color:rgba(255,255,255,0.5);font-size:0.78rem;margin:0}
+
+.ipl-table-wrap{margin-top:16px}
+.ipl-table-title{font-size:0.7rem;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.ipl-table-title span{flex:1;height:1px;background:rgba(255,255,255,0.07)}
+.ipl-table{width:100%;border-collapse:collapse;font-size:0.75rem}
+.ipl-table th{color:rgba(255,255,255,0.3);font-weight:600;text-transform:uppercase;font-size:0.62rem;letter-spacing:0.5px;padding:4px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06)}
+.ipl-table th:first-child,.ipl-table td:first-child{text-align:left}
+.ipl-table td{padding:5px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(255,255,255,0.7)}
+.ipl-table tr:last-child td{border-bottom:none}
+.ipl-team-cell{display:flex;align-items:center;gap:6px}
+.ipl-team-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ipl-team-abbr{font-weight:700;font-size:0.78rem}
+.ipl-pts-col{font-weight:800;color:white!important}
+.ipl-pos-col{color:rgba(255,255,255,0.3);font-size:0.68rem;width:16px}
+.ipl-top4{background:rgba(255,215,0,0.04)}
+.ipl-table .nrr-pos{color:#4ade80!important}
+.ipl-table .nrr-neg{color:#f87171!important}
+.ipl-updated{font-size:0.62rem;color:rgba(255,255,255,0.2);text-align:right;margin-top:4px}
+
+.quiz-question{font-size:clamp(1rem,3vw,1.2rem);font-weight:700;color:white;line-height:1.45;text-align:center;min-height:56px;display:flex;align-items:center;justify-content:center;padding:4px 0}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+@media(max-width:420px){.quiz-opts{grid-template-columns:1fr}}
+.quiz-opt{background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:inherit;padding:10px 14px;cursor:pointer;transition:all 0.15s;text-align:left;line-height:1.3}
+.quiz-opt:hover:not(:disabled){background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.25);transform:translateY(-1px)}
+.quiz-opt.correct{background:rgba(74,222,128,0.2)!important;border-color:#4ade80!important;color:#4ade80!important}
+.quiz-opt.wrong{background:rgba(248,113,113,0.2)!important;border-color:#f87171!important;color:#f87171!important}
+.quiz-opt:disabled{cursor:default}
+
+.ipl-start-info{text-align:center;padding:8px 0}
+.ipl-start-info p{color:rgba(255,255,255,0.45);font-size:0.82rem;line-height:1.6;margin:0 0 16px}
+
+.streak-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.3);border-radius:20px;padding:3px 10px;font-size:0.72rem;color:#fbbf24;font-weight:600;transition:all 0.3s}
+.streak-badge.hot{animation:streakPulse 0.5s ease}
+@keyframes streakPulse{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+
+.team-badge{display:inline-block;padding:1px 6px;border-radius:4px;font-size:0.62rem;font-weight:700;letter-spacing:0.3px}
+</style>
+
+<div class="challenge-container">
+
+  <div class="game-header" style="max-width:1100px">
+    <div class="game-title">
+      <span class="game-emoji">🏏</span>
+      <h1>IPL 2026 Cricket Quiz</h1>
+    </div>
+    <a href="/games/challenges/" class="back-link"><i class="fas fa-arrow-left"></i> All Challenges</a>
+  </div>
+
+  <div class="auth-panel" style="max-width:1100px">
+    <div class="auth-signed-out" style="display:flex;align-items:center;gap:10px;flex:1">
+      <span class="auth-signed-out-msg"><i class="fas fa-info-circle"></i> Sign in to submit your score.</span>
+    </div>
+    <div class="auth-signed-in" style="display:none;flex:1">
+      <div class="auth-user-info">
+        <div class="auth-avatar auth-avatar-img"></div>
+        <span class="auth-name"></span>
+      </div>
+    </div>
+    <button class="btn-google btn-google-signin">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      Sign in with Google
+    </button>
+    <button class="btn-signout" style="display:none">Sign out</button>
+  </div>
+
+  <div class="challenge-layout" style="max-width:1100px">
+
+    <div class="challenge-game-area">
+      <div class="typing-stats">
+        <div class="typing-stat"><div class="stat-val" id="timerDisp">60</div><div class="stat-lbl">Seconds</div></div>
+        <div class="typing-stat"><div class="stat-val" id="correctDisp">0</div><div class="stat-lbl">Correct</div></div>
+        <div class="typing-stat"><div class="stat-val" id="wrongDisp">0</div><div class="stat-lbl">Wrong</div></div>
+        <div class="typing-stat"><div class="stat-val" id="scoreDisp">0</div><div class="stat-lbl">Score</div></div>
+      </div>
+
+      <div id="quizArea" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px 18px;display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.35)" id="diffLabel">—</div>
+          <div class="streak-badge" id="streakBadge" style="opacity:0">🔥 <span id="streakCount">0</span> streak</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.35)" id="qCount">Q 1</div>
+        </div>
+        <div class="quiz-question" id="questionText">Loading…</div>
+        <div class="quiz-opts" id="quizOpts"></div>
+        <p class="game-status-msg" id="feedbackMsg" style="margin-top:10px;font-size:0.82rem;text-align:center;min-height:20px"></p>
+      </div>
+
+      <div id="startArea">
+        <div class="ipl-hero-banner">
+          <div class="ipl-season-badge">IPL 2026 · LIVE SEASON</div>
+          <h2>🏆 Know Your IPL?</h2>
+          <p>Answer as many questions as possible in 60 seconds.<br>Harder questions = more points. Build streaks for bonus!</p>
+        </div>
+
+        <div class="ipl-table-wrap">
+          <div class="ipl-table-title"><span></span> Points Table · April 6, 2026 <span></span></div>
+          <table class="ipl-table" id="iplTableStart">
+            <thead>
+              <tr>
+                <th>#</th><th style="text-align:left">Team</th><th>M</th><th>W</th><th>L</th><th>Pts</th><th>NRR</th>
+              </tr>
+            </thead>
+            <tbody id="iplTableBody"></tbody>
+          </table>
+          <div class="ipl-updated">Data as of April 6, 2026 · Source: IPL 2026</div>
+        </div>
+
+        <div class="ipl-start-info" style="margin-top:18px">
+          <p>⭐ Easy = 5 pts &nbsp;|&nbsp; ⭐⭐ Medium = 10 pts &nbsp;|&nbsp; ⭐⭐⭐ Hard = 15 pts<br>🔥 3-streak bonus: +5 pts per answer</p>
+          <button class="btn-game-action" id="startBtn">Start Quiz 🏏</button>
+        </div>
+      </div>
+
+      <div class="score-submit-area" id="scoreSubmit" style="display:none">
+        <div class="final-score-display">
+          <div class="score-label">Final Score</div>
+          <div><span class="score-value" id="finalScore">0</span><span class="score-unit">pts</span></div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.45);margin-top:6px" id="scoreBreakdown"></div>
+        </div>
+        <button class="btn-submit-score" id="submitBtn"><i class="fas fa-upload"></i> Submit Score</button>
+        <button class="btn-play-again" id="playAgainBtn"><i class="fas fa-redo"></i> Play Again</button>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.35)" id="submitMsg"></div>
+      </div>
+    </div>
+
+    <div class="leaderboard-panel">
+      <div class="leaderboard-header">
+        <i class="fas fa-trophy" style="color:#fbbf24"></i>
+        <h3>Leaderboard</h3>
+        <button onclick="loadLeaderboard()" style="margin-left:auto;background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:0.8rem;padding:4px 8px;border-radius:6px"><i class="fas fa-sync-alt"></i></button>
+      </div>
+      <div class="leaderboard-body" id="leaderboardBody"><div class="lb-loading">Loading…</div></div>
+      <div class="lb-user-rank" id="userRankBar" style="display:none"></div>
+
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06)">
+        <div class="ipl-table-title"><span></span> Live Table <span></span></div>
+        <table class="ipl-table">
+          <thead>
+            <tr><th>#</th><th style="text-align:left">Team</th><th>Pts</th><th>NRR</th></tr>
+          </thead>
+          <tbody id="iplSideTable"></tbody>
+        </table>
+        <div class="ipl-updated">April 6, 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="game-toast" class="game-toast"></div>
+
+<script>
+(function(){
+  var CHALLENGE_ID = 'ipl-cricket-2026';
+
+  var IPL_TABLE = [
+    {pos:1,  team:'RCB',  name:'Royal Challengers Bengaluru', color:'#e83232', m:2, w:2, l:0, pts:4,  nrr:'+2.501', form:['W','W']},
+    {pos:2,  team:'RR',   name:'Rajasthan Royals',            color:'#3e7ef0', m:2, w:2, l:0, pts:4,  nrr:'+2.233', form:['W','W']},
+    {pos:3,  team:'DC',   name:'Delhi Capitals',              color:'#003ccc', m:2, w:2, l:0, pts:4,  nrr:'+0.985', form:['W','W']},
+    {pos:4,  team:'PBKS', name:'Punjab Kings',                color:'#dc143c', m:2, w:2, l:0, pts:4,  nrr:'+0.621', form:['W','W']},
+    {pos:5,  team:'SRH',  name:'Sunrisers Hyderabad',         color:'#ff6600', m:1, w:0, l:1, pts:0,  nrr:'-2.501', form:['L']},
+    {pos:6,  team:'MI',   name:'Mumbai Indians',              color:'#004ba0', m:1, w:0, l:1, pts:0,  nrr:'-0.985', form:['L']},
+    {pos:7,  team:'LSG',  name:'Lucknow Super Giants',        color:'#00bcd4', m:1, w:0, l:1, pts:0,  nrr:'-0.621', form:['L']},
+    {pos:8,  team:'GT',   name:'Gujarat Titans',              color:'#1a2b6d', m:2, w:0, l:2, pts:0,  nrr:'-1.123', form:['L','L']},
+    {pos:9,  team:'KKR',  name:'Kolkata Knight Riders',       color:'#7b2d8b', m:1, w:0, l:1, pts:0,  nrr:'-1.050', form:['L']},
+    {pos:10, team:'CSK',  name:'Chennai Super Kings',         color:'#f0c000', m:3, w:0, l:3, pts:0,  nrr:'-1.880', form:['L','L','L']}
+  ];
+
+  var QUESTIONS = [
+    // Easy (5 pts)
+    {q:'Which team is currently LEADING the IPL 2026 points table?', opts:['Mumbai Indians','Royal Challengers Bengaluru','Rajasthan Royals','Delhi Capitals'], ans:1, pts:5, diff:'⭐ Easy'},
+    {q:'How many points does a team earn for a WIN in IPL?', opts:['1','3','2','4'], ans:2, pts:5, diff:'⭐ Easy'},
+    {q:'Which IPL team is nicknamed the "Yellow Army"?', opts:['Gujarat Titans','Mumbai Indians','Chennai Super Kings','Rajasthan Royals'], ans:2, pts:5, diff:'⭐ Easy'},
+    {q:'Which IPL team plays at Wankhede Stadium?', opts:['KKR','CSK','SRH','MI'], ans:3, pts:5, diff:'⭐ Easy'},
+    {q:'How many teams compete in IPL 2026?', opts:['8','10','12','6'], ans:1, pts:5, diff:'⭐ Easy'},
+    {q:'What does "RCB" stand for?', opts:['Rajasthan Cricket Board','Royal Challengers Bengaluru','Royal Club Bengaluru','Red Cricket Bengaluru'], ans:1, pts:5, diff:'⭐ Easy'},
+    {q:'Which IPL team plays at Eden Gardens, Kolkata?', opts:['CSK','RCB','KKR','MI'], ans:2, pts:5, diff:'⭐ Easy'},
+    {q:'What does "SRH" stand for?', opts:['Southern Riders Hyderabad','Sunrisers Hyderabad','Super Riders Hyderabad','Sunrise Heroes'], ans:1, pts:5, diff:'⭐ Easy'},
+    {q:'Which IPL team wears predominantly ORANGE jerseys?', opts:['Rajasthan Royals','Gujarat Titans','Mumbai Indians','Sunrisers Hyderabad'], ans:3, pts:5, diff:'⭐ Easy'},
+    {q:'What colour jersey does CSK wear?', opts:['Blue','Orange','Yellow','Red'], ans:2, pts:5, diff:'⭐ Easy'},
+    {q:'How many teams qualify for the IPL playoffs?', opts:['2','4','6','3'], ans:1, pts:5, diff:'⭐ Easy'},
+    {q:'What does "LSG" stand for?', opts:['Lucknow Super Giants','Lucknow Sports Group','Lucknow Super Gladiators','Lohardaga Super Giants'], ans:0, pts:5, diff:'⭐ Easy'},
+    {q:'What does "GT" stand for in IPL?', opts:['Greater Teams','Gujarat Titans','Gujarat Tigers','Grand Teams'], ans:1, pts:5, diff:'⭐ Easy'},
+    {q:'Which IPL team wears purple and gold jerseys?', opts:['Rajasthan Royals','Gujarat Titans','LSG','Kolkata Knight Riders'], ans:3, pts:5, diff:'⭐ Easy'},
+    {q:'Which city is the home of Royal Challengers Bengaluru?', opts:['Hyderabad','Pune','Bengaluru','Delhi'], ans:2, pts:5, diff:'⭐ Easy'},
+    {q:'Which team plays at MA Chidambaram Stadium?', opts:['RCB','SRH','CSK','RR'], ans:2, pts:5, diff:'⭐ Easy'},
+    {q:'Which IPL team\'s home is the Narendra Modi Stadium in Ahmedabad?', opts:['MI','CSK','GT','PBKS'], ans:2, pts:5, diff:'⭐ Easy'},
+    {q:'What does "PBKS" stand for?', opts:['Punjab Batting Kings Squad','Punjab Kings','Pune Boys Kings Squad','Punjab Battle Kings'], ans:1, pts:5, diff:'⭐ Easy'},
+    // Medium (10 pts)
+    {q:'RCB beat SRH by how many wickets in IPL 2026 Match 1?', opts:['4 wickets','5 wickets','6 wickets','7 wickets'], ans:2, pts:10, diff:'⭐⭐ Medium'},
+    {q:'Which team beat CSK by 8 wickets in IPL 2026 Match 3?', opts:['RCB','Delhi Capitals','Mumbai Indians','Rajasthan Royals'], ans:3, pts:10, diff:'⭐⭐ Medium'},
+    {q:'PBKS beat GT by how many wickets in IPL 2026 Match 4?', opts:['1 wicket','2 wickets','3 wickets','4 wickets'], ans:2, pts:10, diff:'⭐⭐ Medium'},
+    {q:'DC beat LSG by how many wickets in IPL 2026 Match 5?', opts:['4 wickets','5 wickets','6 wickets','7 wickets'], ans:2, pts:10, diff:'⭐⭐ Medium'},
+    {q:'PBKS beat CSK by how many wickets in IPL 2026 Match 7?', opts:['3 wickets','4 wickets','5 wickets','6 wickets'], ans:2, pts:10, diff:'⭐⭐ Medium'},
+    {q:'DC beat MI by how many wickets in IPL 2026 Match 8?', opts:['4 wickets','5 wickets','6 wickets','7 wickets'], ans:2, pts:10, diff:'⭐⭐ Medium'},
+    {q:'RR beat GT by how many runs in IPL 2026 Match 9?', opts:['4 runs','6 runs','8 runs','10 runs'], ans:1, pts:10, diff:'⭐⭐ Medium'},
+    {q:'RCB beat CSK by how many runs in IPL 2026 Match 11?', opts:['23 runs','33 runs','43 runs','53 runs'], ans:2, pts:10, diff:'⭐⭐ Medium'},
+    {q:'Which team has lost ALL their matches in IPL 2026\'s early rounds (3 losses)?', opts:['Gujarat Titans','Mumbai Indians','Kolkata Knight Riders','Chennai Super Kings'], ans:3, pts:10, diff:'⭐⭐ Medium'},
+    {q:'Which team has the HIGHEST NRR in IPL 2026?', opts:['Rajasthan Royals','Delhi Capitals','Royal Challengers Bengaluru','Punjab Kings'], ans:2, pts:10, diff:'⭐⭐ Medium'},
+    {q:'Which team WON the opening match of IPL 2026?', opts:['Mumbai Indians','Rajasthan Royals','Delhi Capitals','Royal Challengers Bengaluru'], ans:3, pts:10, diff:'⭐⭐ Medium'},
+    {q:'RCB beat which team in the very FIRST match of IPL 2026?', opts:['Chennai Super Kings','Kolkata Knight Riders','Sunrisers Hyderabad','Mumbai Indians'], ans:2, pts:10, diff:'⭐⭐ Medium'},
+    {q:'RCB\'s NRR in the IPL 2026 early standings is?', opts:['+1.233','+2.501','+3.001','+0.501'], ans:1, pts:10, diff:'⭐⭐ Medium'},
+    {q:'Rajasthan Royals beat CSK by 8 wickets in Match 3. Where was this match played?', opts:['Bengaluru','Jaipur','Chennai','Delhi'], ans:2, pts:10, diff:'⭐⭐ Medium'},
+    {q:'Gujarat Titans (GT) has lost how many matches so far in IPL 2026?', opts:['0','1','2','3'], ans:2, pts:10, diff:'⭐⭐ Medium'},
+    {q:'How many IPL 2026 matches had RCB played after Match 11?', opts:['1','2','3','4'], ans:1, pts:10, diff:'⭐⭐ Medium'},
+    // Hard (15 pts)
+    {q:'RR\'s NRR in the IPL 2026 early standings is?', opts:['+1.500','+2.233','+0.800','+3.100'], ans:1, pts:15, diff:'⭐⭐⭐ Hard'},
+    {q:'Which team is ranked 5th in the IPL 2026 points table?', opts:['Mumbai Indians','Gujarat Titans','Lucknow Super Giants','Sunrisers Hyderabad'], ans:3, pts:15, diff:'⭐⭐⭐ Hard'},
+    {q:'How many teams are TIED at 4 points at the top of IPL 2026 table?', opts:['2','3','4','5'], ans:2, pts:15, diff:'⭐⭐⭐ Hard'},
+    {q:'Which team is ranked 8th in the IPL 2026 points table?', opts:['Kolkata Knight Riders','Mumbai Indians','Gujarat Titans','Lucknow Super Giants'], ans:2, pts:15, diff:'⭐⭐⭐ Hard'},
+    {q:'How many matches has CSK played in IPL 2026 (as of April 6)?', opts:['1','2','3','4'], ans:2, pts:15, diff:'⭐⭐⭐ Hard'},
+    {q:'Among teams tied at 4 points, who leads the IPL 2026 table on NRR?', opts:['Rajasthan Royals','Delhi Capitals','Punjab Kings','Royal Challengers Bengaluru'], ans:3, pts:15, diff:'⭐⭐⭐ Hard'},
+    {q:'Which team is ranked LAST (10th) in the IPL 2026 points table?', opts:['Gujarat Titans','Kolkata Knight Riders','Sunrisers Hyderabad','Chennai Super Kings'], ans:3, pts:15, diff:'⭐⭐⭐ Hard'},
+    {q:'Which team has lost both of their matches in IPL 2026, finishing 8th?', opts:['Kolkata Knight Riders','Mumbai Indians','Gujarat Titans','Lucknow Super Giants'], ans:2, pts:15, diff:'⭐⭐⭐ Hard'},
+    {q:'In IPL 2026, DC beat LSG and then which other team to stay unbeaten?', opts:['SRH','RR','MI','CSK'], ans:2, pts:15, diff:'⭐⭐⭐ Hard'},
+    {q:'IPL 2026 — which match number was RCB vs CSK in which RCB won by 43 runs?', opts:['Match 7','Match 9','Match 11','Match 13'], ans:2, pts:15, diff:'⭐⭐⭐ Hard'}
+  ];
+
+  var phase='idle', timeLeft, score, correct, wrong, timerInterval;
+  var currentQ, usedQs, streak, streakBonus;
+
+  var timerEl  = document.getElementById('timerDisp');
+  var correctEl= document.getElementById('correctDisp');
+  var wrongEl  = document.getElementById('wrongDisp');
+  var scoreEl  = document.getElementById('scoreDisp');
+  var quizArea = document.getElementById('quizArea');
+  var questionEl=document.getElementById('questionText');
+  var optsEl   = document.getElementById('quizOpts');
+  var diffEl   = document.getElementById('diffLabel');
+  var qCountEl = document.getElementById('qCount');
+  var feedbackEl=document.getElementById('feedbackMsg');
+  var streakBadge=document.getElementById('streakBadge');
+  var streakCount=document.getElementById('streakCount');
+  var startArea= document.getElementById('startArea');
+  var startBtn = document.getElementById('startBtn');
+  var scoreSubmit=document.getElementById('scoreSubmit');
+  var finalScoreEl=document.getElementById('finalScore');
+  var scoreBreakdown=document.getElementById('scoreBreakdown');
+  var submitBtn= document.getElementById('submitBtn');
+  var playAgainBtn=document.getElementById('playAgainBtn');
+  var submitMsg= document.getElementById('submitMsg');
+
+  renderTable('iplTableBody', true);
+  renderTable('iplSideTable', false);
+
+  startBtn.addEventListener('click', function(){ startArea.style.display='none'; quizArea.style.display='block'; startGame(); });
+  playAgainBtn.addEventListener('click', resetUI);
+
+  function renderTable(tbodyId, full){
+    var tbody = document.getElementById(tbodyId);
+    if(!tbody) return;
+    IPL_TABLE.forEach(function(t){
+      var row = document.createElement('tr');
+      if(t.pts>0) row.className='ipl-top4';
+      var nrrClass = t.nrr.charAt(0)==='+' ? 'nrr-pos' : 'nrr-neg';
+      if(full){
+        row.innerHTML='<td class="ipl-pos-col">'+t.pos+'</td>'
+          +'<td><div class="ipl-team-cell"><div class="ipl-team-dot" style="background:'+t.color+'"></div><span class="ipl-team-abbr" style="color:'+t.color+'">'+t.team+'</span></div></td>'
+          +'<td>'+t.m+'</td><td>'+t.w+'</td><td>'+t.l+'</td>'
+          +'<td class="ipl-pts-col">'+t.pts+'</td>'
+          +'<td class="'+nrrClass+'">'+t.nrr+'</td>';
+      } else {
+        row.innerHTML='<td class="ipl-pos-col">'+t.pos+'</td>'
+          +'<td><div class="ipl-team-cell"><div class="ipl-team-dot" style="background:'+t.color+'"></div><span class="ipl-team-abbr" style="color:'+t.color+'">'+t.team+'</span></div></td>'
+          +'<td class="ipl-pts-col">'+t.pts+'</td>'
+          +'<td class="'+nrrClass+'">'+t.nrr+'</td>';
+      }
+      tbody.appendChild(row);
+    });
+  }
+
+  function startGame(){
+    phase='playing'; score=0; correct=0; wrong=0; timeLeft=60; streak=0; streakBonus=0;
+    usedQs=[];
+    scoreSubmit.style.display='none';
+    timerEl.textContent=60; correctEl.textContent='0'; wrongEl.textContent='0'; scoreEl.textContent='0';
+    streakBadge.style.opacity='0';
+    nextQuestion();
+    timerInterval=setInterval(function(){
+      timeLeft--;
+      timerEl.textContent=timeLeft;
+      if(timeLeft<=10) timerEl.style.color='#f87171';
+      if(timeLeft<=0){ clearInterval(timerInterval); endGame(); }
+    },1000);
+  }
+
+  function nextQuestion(){
+    if(phase!=='playing') return;
+    var available=QUESTIONS.filter(function(q,i){return usedQs.indexOf(i)===-1;});
+    if(!available.length){ usedQs=[]; available=QUESTIONS.slice(); }
+    var idx=Math.floor(Math.random()*available.length);
+    var orig=QUESTIONS.indexOf(available[idx]);
+    usedQs.push(orig);
+    currentQ=available[idx];
+
+    questionEl.textContent=currentQ.q;
+    diffEl.textContent=currentQ.diff+' · +'+currentQ.pts+' pts';
+    qCountEl.textContent='Q '+(correct+wrong+1);
+    feedbackEl.textContent=''; feedbackEl.className='game-status-msg';
+
+    optsEl.innerHTML='';
+    currentQ.opts.forEach(function(opt,i){
+      var btn=document.createElement('button');
+      btn.className='quiz-opt';
+      btn.textContent=opt;
+      btn.addEventListener('click',function(){ answer(i,btn); });
+      optsEl.appendChild(btn);
+    });
+  }
+
+  function answer(idx, btn){
+    if(phase!=='playing') return;
+    var allBtns=optsEl.querySelectorAll('.quiz-opt');
+    allBtns.forEach(function(b){ b.disabled=true; });
+
+    if(idx===currentQ.ans){
+      btn.classList.add('correct');
+      streak++;
+      var bonus=(streak>=3)?5:0;
+      var earned=currentQ.pts+bonus;
+      score+=earned; correct++;
+      scoreEl.textContent=score; correctEl.textContent=correct;
+      streakBadge.style.opacity='1';
+      streakCount.textContent=streak;
+      if(streak>=3) streakBadge.classList.add('hot');
+      var msg='✅ +'+currentQ.pts+' pts!';
+      if(bonus>0) msg+=' 🔥 +'+bonus+' streak bonus!';
+      feedbackEl.textContent=msg; feedbackEl.className='game-status-msg win';
+    } else {
+      btn.classList.add('wrong');
+      allBtns[currentQ.ans].classList.add('correct');
+      streak=0;
+      streakBadge.style.opacity='0';
+      wrong++;
+      wrongEl.textContent=wrong;
+      feedbackEl.textContent='❌ '+currentQ.opts[currentQ.ans]; feedbackEl.className='game-status-msg lose';
+    }
+    if(streak>=3) streakBonus++;
+    setTimeout(nextQuestion, 900);
+  }
+
+  function endGame(){
+    phase='done';
+    timerEl.style.color='';
+    var allBtns=optsEl.querySelectorAll('.quiz-opt');
+    allBtns.forEach(function(b){ b.disabled=true; });
+    finalScoreEl.textContent=score;
+    scoreBreakdown.textContent=correct+' correct · '+wrong+' wrong · best streak '+streak+' · '+score+' pts';
+    quizArea.style.display='none';
+    scoreSubmit.style.display='flex';
+    loadLeaderboard();
+
+    submitBtn.onclick=function(){
+      var user=window.GameAuth?GameAuth.getCurrentUser():null;
+      if(!user){ GameAuth.showToast('Sign in first!','error'); return; }
+      submitBtn.disabled=true; submitMsg.textContent='Submitting…';
+      user.getIdToken().then(function(token){
+        return GameLeaderboard.submitScore(CHALLENGE_ID,user.uid,user.displayName||'Player',score,token);
+      }).then(function(res){
+        submitMsg.textContent=res.updated?'✅ '+res.reason:'⚠️ '+res.reason;
+        if(res.updated) GameAuth.showToast('Score submitted!','success');
+        loadLeaderboard();
+      }).catch(function(e){ submitMsg.textContent='❌ '+e.message; submitBtn.disabled=false; });
+    };
+  }
+
+  function resetUI(){
+    scoreSubmit.style.display='none';
+    quizArea.style.display='none';
+    startArea.style.display='block';
+    timerEl.textContent=60; timerEl.style.color='';
+    correctEl.textContent='0'; wrongEl.textContent='0'; scoreEl.textContent='0';
+    feedbackEl.textContent=''; submitBtn.disabled=false; submitMsg.textContent='';
+    streakBadge.style.opacity='0';
+  }
+
+  function loadLeaderboard(){
+    var user=window.GameAuth?GameAuth.getCurrentUser():null;
+    var uid=user?user.uid:null;
+    if(window.GameLeaderboard){
+      GameLeaderboard.load(CHALLENGE_ID,'leaderboardBody',uid).then(function(scores){
+        var bar=document.getElementById('userRankBar');
+        if(uid&&scores&&scores.length>0){
+          var rank=scores.findIndex(function(s){return s.userId===uid;})+1;
+          if(rank>0){bar.textContent='Your rank: #'+rank+' of '+scores.length;bar.style.display='block';}
+        }
+      });
+    }
+  }
+
+  if(document.readyState!=='loading') setTimeout(loadLeaderboard,500);
+  document.addEventListener('DOMContentLoaded',function(){ setTimeout(loadLeaderboard,500); });
+  if(window.GameAuth){
+    GameAuth.onAuthChange(function(user){
+      document.querySelectorAll('.btn-signout').forEach(function(b){ b.style.display=user?'inline-flex':'none'; });
+      document.querySelectorAll('.btn-google-signin').forEach(function(b){ b.style.display=user?'none':'inline-flex'; });
+      loadLeaderboard();
+    });
+  }
+}());
+</script>
