@@ -561,19 +561,20 @@
       }
       
       var DB_URL = window.FIREBASE_DB_URL || 'https://games-rkoots-default-rtdb.firebaseio.com';
+      
+      // First try to fetch by UID (new structure)
       var certPath = DB_URL + '/certificates/' + userUid + '/' + certificateId + '.json';
       
       fetch(certPath)
         .then(function(response) {
           if (!response.ok) {
-            throw new Error('Certificate not found');
+            throw new Error('Certificate not found at UID path');
           }
           return response.json();
         })
         .then(function(data) {
           if (!data) {
-            showError();
-            return;
+            throw new Error('No data at UID path');
           }
           
           certificateData = data;
@@ -583,8 +584,56 @@
           trackCertificateView();
         })
         .catch(function(error) {
-          console.error('Error loading certificate:', error);
-          showError();
+          console.log('UID lookup failed, trying email-based lookup:', error.message);
+          
+          // If UID lookup fails, try to find the certificate by searching all user folders
+          // This is for backward compatibility with existing certificates stored under email keys
+          var usersPath = DB_URL + '/certificates.json';
+          
+          fetch(usersPath)
+            .then(function(response) {
+              if (!response.ok) {
+                throw new Error('Cannot fetch certificates index');
+              }
+              return response.json();
+            })
+            .then(function(allUsers) {
+              if (!allUsers) {
+                throw new Error('No certificates found');
+              }
+              
+              // Search through all user folders for the certificate with matching UID
+              var foundCertificate = null;
+              var foundUserKey = null;
+              
+              for (var userKey in allUsers) {
+                if (allUsers.hasOwnProperty(userKey)) {
+                  var userCerts = allUsers[userKey];
+                  if (userCerts && userCerts[certificateId]) {
+                    var cert = userCerts[certificateId];
+                    // Check if this certificate has the matching UID
+                    if (cert.uid === userUid) {
+                      foundCertificate = cert;
+                      foundUserKey = userKey;
+                      break;
+                    }
+                  }
+                }
+              }
+              
+              if (foundCertificate) {
+                console.log('Found certificate under user key:', foundUserKey);
+                certificateData = foundCertificate;
+                showCertificate();
+                trackCertificateView();
+              } else {
+                throw new Error('Certificate not found with matching UID');
+              }
+            })
+            .catch(function(searchError) {
+              console.error('Email-based lookup failed:', searchError);
+              showError();
+            });
         });
     }
     
