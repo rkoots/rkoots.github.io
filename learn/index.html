@@ -420,6 +420,12 @@ permalink: /learn/
   if (!window.LearnExam) {
     console.error('[Test] LearnExam still not found after loading all scripts!');
   }
+  
+  // Debug AI courses loading
+  console.log('[Debug] COURSES_AI loaded:', !!window.COURSES_AI);
+  console.log('[Debug] COURSES_AI length:', window.COURSES_AI ? window.COURSES_AI.length : 0);
+  console.log('[Debug] LEARN_COURSES total:', window.LEARN_COURSES ? window.LEARN_COURSES.length : 0);
+  console.log('[Debug] AI courses:', window.COURSES_AI ? window.COURSES_AI.map(c => c.title) : 'None');
 </script>
 
 <script>
