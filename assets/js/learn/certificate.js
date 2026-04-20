@@ -115,8 +115,8 @@ console.log('[Cert] certificate.js starting to load...');
       if (!user) return;
       
       var localCerts = JSON.parse(localStorage.getItem('rkoots_certificates') || '{}');
-      var emailKey = user.email.replace(/[.#$\[\]]/g, '_');
-      var userLocalCerts = localCerts[emailKey];
+      var userUid = user.uid || '';
+      var userLocalCerts = localCerts[userUid];
       
       if (!userLocalCerts || Object.keys(userLocalCerts).length === 0) return;
       
@@ -130,7 +130,7 @@ console.log('[Cert] certificate.js starting to load...');
         var matchingCourse = courses.find(function(c) { return c.title === certData.course; });
         var actualCourseKey = matchingCourse ? matchingCourse.id : courseKey;
         
-        var path = DB_URL + '/certificates/' + emailKey + '/' + actualCourseKey + '.json';
+        var path = DB_URL + '/certificates/' + userUid + '/' + actualCourseKey + '.json';
         
         user.getIdToken().then(function(token) {
           return fetch(path + '?auth=' + token, {
@@ -142,7 +142,7 @@ console.log('[Cert] certificate.js starting to load...');
           if (response.ok) {
             console.log('[Cert] Synced certificate for course:', actualCourseKey);
             // Remove from localStorage after successful sync
-            delete localCerts[emailKey][courseKey];
+            delete localCerts[userUid][courseKey];
             localStorage.setItem('rkoots_certificates', JSON.stringify(localCerts));
           }
         }).catch(function(e) {
@@ -267,10 +267,10 @@ console.log('[Cert] certificate.js starting to load...');
 
   /* ── Get Unique Certificate URL ── */
   function _getCertificateUrl(certData) {
-    var emailKey = (certData.email || '').replace(/[.#$\[\]]/g, '_');
+    var userUid = certData.uid || certData.userId || '';
     var baseUrl = window.location.origin + '/learn/certificate.html';
     var certUrl = baseUrl + '?id=' + encodeURIComponent(certData.certificateId || certData.courseId || 'unknown') + 
-                  '&user=' + encodeURIComponent(emailKey) +
+                  '&uid=' + encodeURIComponent(userUid) +
                   '&utm_source=share&utm_medium=social&utm_campaign=certificate';
     return certUrl;
   }
@@ -287,10 +287,10 @@ console.log('[Cert] certificate.js starting to load...');
   /* ── Firebase Storage ── */
   function _storeCertificate(data, user) {
     var DB_URL = window.FIREBASE_DB_URL || 'https://games-rkoots-default-rtdb.firebaseio.com';
-    var emailKey = data.email.replace(/[.#$\[\]]/g, '_');
+    var userUid = data.uid || user.uid || '';
     // Use certificate ID as the key for unique URLs
     var courseKey = data.certificateId || data.courseId || (window.LearnApp && LearnApp.getActiveCourse ? LearnApp.getActiveCourse()?.id : null) || data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
-    var path = DB_URL + '/certificates/' + emailKey + '/' + courseKey + '.json';
+    var path = DB_URL + '/certificates/' + userUid + '/' + courseKey + '.json';
 
     console.log('[Cert] Storage path:', path);
 
@@ -333,11 +333,11 @@ console.log('[Cert] certificate.js starting to load...');
   function _storeCertificateLocally(data) {
     try {
       var localCerts = JSON.parse(localStorage.getItem('rkoots_certificates') || '{}');
-      var emailKey = data.email.replace(/[.#$\[\]]/g, '_');
-      if (!localCerts[emailKey]) localCerts[emailKey] = {};
+      var userUid = data.uid || '';
+      if (!localCerts[userUid]) localCerts[userUid] = {};
       // Use certificate ID as the key for unique URLs
       var courseKey = data.certificateId || data.courseId || (window.LearnApp && LearnApp.getActiveCourse ? LearnApp.getActiveCourse()?.id : null) || data.course.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
-      localCerts[emailKey][courseKey] = data;
+      localCerts[userUid][courseKey] = data;
       localStorage.setItem('rkoots_certificates', JSON.stringify(localCerts));
       console.log('[Cert] Certificate saved to localStorage');
       

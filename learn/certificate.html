@@ -375,6 +375,30 @@
         width: 100%;
         max-width: 280px;
       }
+      
+      .cta-section {
+        padding: 25px 20px !important;
+      }
+      
+      .cta-section h3 {
+        font-size: 1.1rem !important;
+      }
+      
+      .cta-section p {
+        font-size: 0.85rem !important;
+        margin-bottom: 15px !important;
+      }
+      
+      .cta-button {
+        padding: 12px 20px !important;
+        font-size: 0.9rem !important;
+      }
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      background: #f8f9fa;
     }
   </style>
 </head>
@@ -422,6 +446,32 @@
           <i class="fas fa-download"></i> Download PDF
         </button>
       </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <div class="cta-section" style="background: linear-gradient(135deg, #667eea, #764ba2); padding: 30px; text-align: center; border-top: 1px solid #e2e8f0;">
+      <h3 style="color: white; margin: 0 0 10px 0; font-size: 1.3rem; font-weight: 600;">
+        <i class="fas fa-graduation-cap"></i> Earn Your Free Certificate Today!
+      </h3>
+      <p style="color: rgba(255, 255, 255, 0.9); margin: 0 0 20px 0; font-size: 0.95rem;">
+        Join thousands of learners advancing their careers with accredited, free certificate courses.
+      </p>
+      <a href="/learn/" class="cta-button" style="
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: white;
+        color: #667eea;
+        padding: 14px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      ">
+        <i class="fas fa-rocket"></i> Start Free Certification
+      </a>
     </div>
   </div>
 
@@ -503,15 +553,15 @@
     // Load certificate from Firebase
     function loadCertificate() {
       certificateId = getUrlParameter('id');
-      var emailKey = getUrlParameter('user');
+      var userUid = getUrlParameter('uid');
       
-      if (!certificateId || !emailKey) {
+      if (!certificateId || !userUid) {
         showError();
         return;
       }
       
       var DB_URL = window.FIREBASE_DB_URL || 'https://games-rkoots-default-rtdb.firebaseio.com';
-      var certPath = DB_URL + '/certificates/' + emailKey + '/' + certificateId + '.json';
+      var certPath = DB_URL + '/certificates/' + userUid + '/' + certificateId + '.json';
       
       fetch(certPath)
         .then(function(response) {

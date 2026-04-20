@@ -397,10 +397,10 @@ permalink: /learn/dashboard.html
   }
 
   function _getCertificateUrlForDash(certData) {
-    var emailKey = (certData.email || '').replace(/[.#$\[\]]/g, '_');
+    var userUid = certData.uid || certData.userId || '';
     var baseUrl = window.location.origin + '/learn/certificate.html';
     var certUrl = baseUrl + '?id=' + encodeURIComponent(certData.certificateId || certData.courseId || 'unknown') + 
-                  '&user=' + encodeURIComponent(emailKey) +
+                  '&uid=' + encodeURIComponent(userUid) +
                   '&utm_source=share&utm_medium=social&utm_campaign=certificate';
     return certUrl;
   }
