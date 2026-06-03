@@ -181,7 +181,7 @@ This article was automatically generated from RSS feeds. For more tech insights 
             smtp_port = int(os.getenv('SMTP_PORT', '587'))
             sender_email = os.getenv('SENDER_EMAIL', 'market007ads@gmail.com')
             sender_password = os.getenv('SENDER_PASSWORD', '')
-            recipient_email = os.getenv('RECIPIENT_EMAIL', 'rkoots.rkoots_autobot@blogger.com')
+            recipient_email = os.getenv('RECIPIENT_EMAIL', 'rkoots.rkoots_autobot@blogger.com, rkoots.aiwatchdaily@blogger.com')
             
             if not sender_password:
                 logger.error("Sender password not configured")
