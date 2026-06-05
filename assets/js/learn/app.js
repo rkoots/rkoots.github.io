@@ -358,11 +358,12 @@
     var html = '';
     certs.forEach(function (cert) {
       var scoreClass = cert.score >= 90 ? 'score-excellent' : cert.score >= 80 ? 'score-good' : 'score-pass';
-      // Only include UID in URL if it's not an email (privacy protection)
-      var certUrl = window.location.origin + '/learn/certificate.html?id=' + encodeURIComponent(cert.certificateId || cert.certKey);
-      if (cert.userUid && !cert.userUid.includes('@')) {
-        certUrl += '&uid=' + encodeURIComponent(cert.userUid);
-      }
+      // Use cert.uid (Firebase user ID) from certificate data, not the Firebase key
+      var userUid = cert.uid || cert.userId || '';
+      var baseUrl = window.location.origin + '/learn/certificate.html';
+      var certUrl = baseUrl + '?id=' + encodeURIComponent(cert.certificateId || cert.certKey || 'unknown') +
+                    '&uid=' + encodeURIComponent(userUid) +
+                    '&utm_source=share&utm_medium=social&utm_campaign=certificate';
       html += '<div class="recent-cert-item">';
       html += '<div class="rc-avatar"><i class="fas fa-user"></i></div>';
       html += '<div class="rc-info">';
