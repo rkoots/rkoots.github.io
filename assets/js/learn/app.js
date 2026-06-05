@@ -325,9 +325,12 @@
           if (userCerts) {
             Object.keys(userCerts).forEach(function (certKey) {
               var cert = userCerts[certKey];
-              cert.userUid = userUid;
-              cert.certKey = certKey;
-              certs.push(cert);
+              // Only include if the userUid is not an email (privacy protection)
+              if (userUid && !userUid.includes('@')) {
+                cert.userUid = userUid;
+                cert.certKey = certKey;
+                certs.push(cert);
+              }
             });
           }
         });
