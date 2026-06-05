@@ -325,12 +325,9 @@
           if (userCerts) {
             Object.keys(userCerts).forEach(function (certKey) {
               var cert = userCerts[certKey];
-              // Only include if the userUid is not an email (privacy protection)
-              if (userUid && !userUid.includes('@')) {
-                cert.userUid = userUid;
-                cert.certKey = certKey;
-                certs.push(cert);
-              }
+              cert.userUid = userUid;
+              cert.certKey = certKey;
+              certs.push(cert);
             });
           }
         });
@@ -361,7 +358,11 @@
     var html = '';
     certs.forEach(function (cert) {
       var scoreClass = cert.score >= 90 ? 'score-excellent' : cert.score >= 80 ? 'score-good' : 'score-pass';
-      var certUrl = window.location.origin + '/learn/certificate.html?id=' + encodeURIComponent(cert.certificateId || cert.certKey) + '&uid=' + encodeURIComponent(cert.userUid);
+      // Only include UID in URL if it's not an email (privacy protection)
+      var certUrl = window.location.origin + '/learn/certificate.html?id=' + encodeURIComponent(cert.certificateId || cert.certKey);
+      if (cert.userUid && !cert.userUid.includes('@')) {
+        certUrl += '&uid=' + encodeURIComponent(cert.userUid);
+      }
       html += '<div class="recent-cert-item">';
       html += '<div class="rc-avatar"><i class="fas fa-user"></i></div>';
       html += '<div class="rc-info">';
