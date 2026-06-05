@@ -23,6 +23,7 @@
       _initSidebarToggle();
       _syncAuthUI();
       _routeFromHash();
+      _loadRecentCertificates();
       window.addEventListener('hashchange', _routeFromHash);
     },
 
@@ -306,6 +307,59 @@
 
   function _safeKey(email) {
     return (email || '').replace(/[.#$\[\]]/g, '_');
+  }
+
+  function _loadRecentCertificates() {
+    var DB_URL = window.FIREBASE_DB_URL || 'https://games-rkoots-default-rtdb.firebaseio.com';
+    var path = DB_URL + '/public_certificates.json';
+
+    fetch(path)
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data) return;
+
+        var certs = [];
+        Object.keys(data).forEach(function (key) {
+          certs.push(data[key]);
+        });
+
+        // Sort by timestamp descending and take last 10
+        certs.sort(function (a, b) {
+          return (b.timestamp || 0) - (a.timestamp || 0);
+        });
+        var recentCerts = certs.slice(0, 10);
+
+        _renderRecentCertificates(recentCerts);
+      })
+      .catch(function (e) {
+        console.log('[App] Failed to load recent certificates:', e);
+      });
+  }
+
+  function _renderRecentCertificates(certs) {
+    var container = $('recentCertificatesList');
+    if (!container) return;
+
+    if (!certs || certs.length === 0) {
+      container.innerHTML = '<p class="no-certs">No certificates earned yet. Be the first!</p>';
+      return;
+    }
+
+    var html = '';
+    certs.forEach(function (cert) {
+      var scoreClass = cert.score >= 90 ? 'score-excellent' : cert.score >= 80 ? 'score-good' : 'score-pass';
+      html += '<div class="recent-cert-item">';
+      html += '<div class="rc-avatar"><i class="fas fa-user"></i></div>';
+      html += '<div class="rc-info">';
+      html += '<div class="rc-name">' + _escHtml(cert.name) + '</div>';
+      html += '<div class="rc-course">' + _escHtml(cert.course) + '</div>';
+      html += '</div>';
+      html += '<div class="rc-score ' + scoreClass + '">' + cert.score + '%</div>';
+      html += '<div class="rc-date">' + _escHtml(cert.examDate) + '</div>';
+      html += '</div>';
+    });
+
+    container.innerHTML = html;
   }
 
   /* ── Bootstrap ── */

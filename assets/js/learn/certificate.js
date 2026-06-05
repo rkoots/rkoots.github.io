@@ -201,7 +201,8 @@ console.log('[Cert] certificate.js starting to load...');
           '<div class="cert-sig-title">Certificate Holder</div>',
         '</div>',
       '</div>',
-      '<div class="cert-license-bar">License No: ' + _escHtml(d.licenseNumber) + '</div>'
+      '<div class="cert-license-bar">License No: ' + _escHtml(d.licenseNumber) + '</div>',
+      '<div class="cert-license-bar"><a href="https://rkoots.github.io/" target="_blank">https://rkoots.github.io/</a></div>'
     ].join('');
   }
 
@@ -301,31 +302,64 @@ console.log('[Cert] certificate.js starting to load...');
       return;
     }
 
+    var certData = {
+      name: data.name,
+      email: data.email,
+      course: data.course,
+      courseId: data.courseId,
+      certificateId: data.certificateId,
+      score: data.score,
+      correct: data.correct,
+      total: data.total,
+      licenseNumber: data.licenseNumber,
+      examDate: data.examDate,
+      issueDate: data.issueDate,
+      uid: data.uid,
+      certificateHTML: data.certificateHTML,
+      timestamp: new Date().getTime()
+    };
+
     user.getIdToken().then(function (token) {
       return fetch(path + '?auth=' + token, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          course: data.course,
-          courseId: data.courseId,
-          certificateId: data.certificateId,
-          score: data.score,
-          correct: data.correct,
-          total: data.total,
-          licenseNumber: data.licenseNumber,
-          examDate: data.examDate,
-          issueDate: data.issueDate,
-          uid: data.uid,
-          certificateHTML: data.certificateHTML
-        })
+        body: JSON.stringify(certData)
       });
     }).then(function () {
       LearnApp.toast('Certificate saved to your profile!', 'success');
+      // Also save to public recent certificates
+      _storePublicCertificate(certData);
     }).catch(function (e) {
       console.warn('[Cert] Storage failed:', e);
       LearnApp.toast('Certificate generated (offline save failed)', '');
+    });
+  }
+
+  /* ── Public Certificate Storage for Recent Certificates ── */
+  function _storePublicCertificate(data) {
+    var DB_URL = window.FIREBASE_DB_URL || 'https://games-rkoots-default-rtdb.firebaseio.com';
+    var publicPath = DB_URL + '/public_certificates/' + data.certificateId + '.json';
+
+    // Store public data only (no email, no uid)
+    var publicData = {
+      name: data.name,
+      course: data.course,
+      score: data.score,
+      examDate: data.examDate,
+      licenseNumber: data.licenseNumber,
+      timestamp: data.timestamp
+    };
+
+    fetch(publicPath, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(publicData)
+    }).then(function (response) {
+      if (response.ok) {
+        console.log('[Cert] Public certificate stored');
+      }
+    }).catch(function (e) {
+      console.warn('[Cert] Public storage failed:', e);
     });
   }
 
