@@ -311,7 +311,7 @@
 
   function _loadRecentCertificates() {
     var DB_URL = window.FIREBASE_DB_URL || 'https://games-rkoots-default-rtdb.firebaseio.com';
-    var path = DB_URL + '/public_certificates.json';
+    var path = DB_URL + '/certificates.json';
 
     fetch(path)
       .then(function (r) { return r.json(); })
@@ -319,17 +319,27 @@
         if (!data) return;
 
         var certs = [];
-        Object.keys(data).forEach(function (key) {
-          certs.push(data[key]);
+        // Flatten all certificates from all users
+        Object.keys(data).forEach(function (userUid) {
+          var userCerts = data[userUid];
+          if (userCerts) {
+            Object.keys(userCerts).forEach(function (certKey) {
+              var cert = userCerts[certKey];
+              cert.userUid = userUid;
+              cert.certKey = certKey;
+              certs.push(cert);
+            });
+          }
         });
 
-        // Sort by timestamp descending and take last 10
-        certs.sort(function (a, b) {
-          return (b.timestamp || 0) - (a.timestamp || 0);
-        });
-        var recentCerts = certs.slice(0, 10);
+        // Pick 10 random certificates
+        var randomCerts = [];
+        if (certs.length > 0) {
+          var shuffled = certs.sort(function () { return 0.5 - Math.random(); });
+          randomCerts = shuffled.slice(0, 10);
+        }
 
-        _renderRecentCertificates(recentCerts);
+        _renderRecentCertificates(randomCerts);
       })
       .catch(function (e) {
         console.log('[App] Failed to load recent certificates:', e);
@@ -348,6 +358,7 @@
     var html = '';
     certs.forEach(function (cert) {
       var scoreClass = cert.score >= 90 ? 'score-excellent' : cert.score >= 80 ? 'score-good' : 'score-pass';
+      var certUrl = window.location.origin + '/learn/certificate.html?id=' + encodeURIComponent(cert.certificateId || cert.certKey) + '&uid=' + encodeURIComponent(cert.userUid);
       html += '<div class="recent-cert-item">';
       html += '<div class="rc-avatar"><i class="fas fa-user"></i></div>';
       html += '<div class="rc-info">';
@@ -356,6 +367,7 @@
       html += '</div>';
       html += '<div class="rc-score ' + scoreClass + '">' + cert.score + '%</div>';
       html += '<div class="rc-date">' + _escHtml(cert.examDate) + '</div>';
+      html += '<a href="' + certUrl + '" target="_blank" class="rc-view-link"><i class="fas fa-external-link-alt"></i> View</a>';
       html += '</div>';
     });
 

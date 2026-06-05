@@ -875,6 +875,26 @@ html { scroll-behavior: smooth; }
   flex-shrink: 0;
 }
 
+.rc-view-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: var(--primary);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.rc-view-link:hover {
+  background: var(--secondary);
+  transform: translateY(-1px);
+}
+
 .no-certs {
   text-align: center;
   padding: 32px 20px;
