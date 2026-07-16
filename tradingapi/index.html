@@ -11,17 +11,15 @@
         window.onload = function () {
             const params = new URLSearchParams(window.location.search);
             const tokenId = params.get("tokenId");
-            const app = params.get("app");
-
-            if (!tokenId) {
-                document.body.innerHTML = "<h3>Error: tokenId missing in URL</h3>";
-                return;
-            }
+            const requestToken = params.get("requestToken");
+            const success = params.get("success");
+            const state = params.get("state");
 
             let payload;
             let firebaseUrl;
 
-            if (app === "paytm") {
+            // Check if Paytm (success=true and state=Auto_Trade)
+            if (success === "true" && state === "Auto_Trade" && requestToken) {
                 // Paytm format
                 const today = new Date();
                 const yyyy = today.getFullYear();
@@ -31,16 +29,19 @@
 
                 payload = {
                     dtm: dateStr,
-                    talk: tokenId
+                    talk: requestToken
                 };
                 firebaseUrl = "https://studio-2616610665-59648-default-rtdb.asia-southeast1.firebasedatabase.app/ptm.json";
-            } else {
-                // Dhan format (default)
+            } else if (tokenId) {
+                // Dhan format
                 payload = {
                     at: tokenId,
                     dtm: new Date().toISOString()
                 };
                 firebaseUrl = "https://studio-2616610665-59648-default-rtdb.asia-southeast1.firebasedatabase.app/dhan.json";
+            } else {
+                document.body.innerHTML = "<h3>Error: Invalid parameters. Expected tokenId for Dhan or success=true&state=Auto_Trade&requestToken for Paytm</h3>";
+                return;
             }
 
             fetch(firebaseUrl, {
