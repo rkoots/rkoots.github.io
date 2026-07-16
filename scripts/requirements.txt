@@ -1,8 +1,12 @@
 requests
+
 pandas
+
 numpy
+
 scikit-learn
+
 xgboost
+
 ta
-feedparser
-beautifulsoup4
+
