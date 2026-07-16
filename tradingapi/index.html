@@ -11,19 +11,37 @@
         window.onload = function () {
             const params = new URLSearchParams(window.location.search);
             const tokenId = params.get("tokenId");
+            const app = params.get("app");
 
             if (!tokenId) {
                 document.body.innerHTML = "<h3>Error: tokenId missing in URL</h3>";
                 return;
             }
 
-            const payload = {
-                at: tokenId,
-                dtm: new Date().toISOString()
-            };
+            let payload;
+            let firebaseUrl;
 
-            const firebaseUrl =
-                "https://studio-2616610665-59648-default-rtdb.asia-southeast1.firebasedatabase.app/dhan.json";
+            if (app === "paytm") {
+                // Paytm format
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                const dateStr = `${yyyy}-${mm}-${dd}`;
+
+                payload = {
+                    dtm: dateStr,
+                    talk: tokenId
+                };
+                firebaseUrl = "https://studio-2616610665-59648-default-rtdb.asia-southeast1.firebasedatabase.app/ptm.json";
+            } else {
+                // Dhan format (default)
+                payload = {
+                    at: tokenId,
+                    dtm: new Date().toISOString()
+                };
+                firebaseUrl = "https://studio-2616610665-59648-default-rtdb.asia-southeast1.firebasedatabase.app/dhan.json";
+            }
 
             fetch(firebaseUrl, {
                 method: "PUT",
