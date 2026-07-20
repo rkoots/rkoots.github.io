@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EB Tracker - Home Electricity & Solar Net Metering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9',
+                        secondary: '#10b981',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        dark: '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; }
+        .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); }
+        .card { transition: all 0.2s ease; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+        input, textarea, select { transition: border-color 0.2s; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: #0ea5e9; }
+        .chart-container { position: relative; height: 300px; width: 100%; }
+        .chart-container-lg { position: relative; height: 400px; width: 100%; }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+        .status-online { background: #10b981; }
+        .status-offline { background: #ef4444; }
+        .status-syncing { background: #f59e0b; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .dark .glass { background: rgba(15,23,42,0.6); }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen">
+    <div id="app" class="max-w-7xl mx-auto p-4 md:p-6">
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-slate-800 dark:text-white">
+                    <i class="fas fa-bolt text-warning mr-2"></i>EB Tracker
+                </h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Home Electricity & Solar Net Metering Dashboard</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-800 rounded-full shadow text-sm">
+                    <span id="statusDot" class="status-dot status-offline"></span>
+                    <span id="statusText" class="text-gray-600 dark:text-gray-300">Offline</span>
+                </div>
+                <button onclick="EBApp.toggleDarkMode()" class="p-2 rounded-lg bg-white dark:bg-slate-800 shadow hover:bg-gray-100 dark:hover:bg-slate-700 transition">
+                    <i id="darkModeIcon" class="fas fa-moon text-gray-600 dark:text-yellow-400"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Alerts -->
+        <div id="alertBox" class="hidden mb-4 p-4 rounded-lg text-sm"></div>
+
+        <!-- Reading Entry -->
+        <section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 md:p-6 mb-6">
+            <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                <i class="fas fa-tachometer-alt text-primary"></i>
+                New Reading
+                <span class="text-xs font-normal text-gray-500 dark:text-gray-400 ml-auto" id="currentIstTime"></span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+                <div class="md:col-span-3">
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Import Reading (kWh)</label>
+                    <input type="number" id="importReading" step="0.1" class="w-full p-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-lg font-semibold" placeholder="0.0">
+                </div>
+                <div class="md:col-span-3">
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Export Reading (kWh)</label>
+                    <input type="number" id="exportReading" step="0.1" class="w-full p-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-lg font-semibold" placeholder="0.0">
+                </div>
+                <div class="md:col-span-4">
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Notes (optional)</label>
+                    <input type="text" id="readingNotes" class="w-full p-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700" placeholder="e.g. Monthly reading, after solar install">
+                </div>
+                <div class="md:col-span-2">
+                    <button onclick="EBApp.saveReading()" class="w-full py-3 px-4 bg-primary hover:bg-sky-600 text-white rounded-lg font-semibold transition flex items-center justify-center gap-2">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+                <button onclick="EBApp.openHistoryImport()" class="px-4 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition">
+                    <i class="fas fa-history mr-1"></i> Historical Import
+                </button>
+                <button onclick="EBApp.generateBill()" class="px-4 py-2 text-sm bg-secondary hover:bg-emerald-600 text-white rounded-lg transition">
+                    <i class="fas fa-file-invoice-dollar mr-1"></i> Generate Bill
+                </button>
+                <button onclick="EBApp.exportCSV()" class="px-4 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition">
+                    <i class="fas fa-download mr-1"></i> Export CSV
+                </button>
+                <button onclick="EBApp.openBackup()" class="px-4 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition">
+                    <i class="fas fa-cloud-download-alt mr-1"></i> Backup / Restore
+                </button>
+            </div>
+        </section>
+
+        <!-- Dashboard Cards -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6" id="dashboardCards">
+            <!-- Cards rendered by JS -->
+        </section>
+
+        <!-- Charts -->
+        <section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 md:p-6 mb-6">
+            <h2 class="text-lg font-semibold mb-4"><i class="fas fa-chart-line text-primary mr-2"></i>Trends & Analytics</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Import Reading over Time</h3>
+                    <div class="chart-container"><canvas id="chartImport"></canvas></div>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Export Reading over Time</h3>
+                    <div class="chart-container"><canvas id="chartExport"></canvas></div>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Net Consumption</h3>
+                    <div class="chart-container"><canvas id="chartNet"></canvas></div>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Daily Average Usage</h3>
+                    <div class="chart-container"><canvas id="chartDailyAvg"></canvas></div>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Bill Trend</h3>
+                    <div class="chart-container"><canvas id="chartBillTrend"></canvas></div>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Monthly Units</h3>
+                    <div class="chart-container"><canvas id="chartMonthlyUnits"></canvas></div>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Solar Offset %</h3>
+                    <div class="chart-container"><canvas id="chartSolarOffset"></canvas></div>
+                </div>
+                <div>
+                    <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Cost per Day</h3>
+                    <div class="chart-container"><canvas id="chartCostPerDay"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bill History -->
+        <section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 md:p-6 mb-6">
+            <h2 class="text-lg font-semibold mb-4"><i class="fas fa-file-invoice text-primary mr-2"></i>Bill History</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-gray-50 dark:bg-slate-700 text-gray-600 dark:text-gray-300 font-medium">
+                        <tr>
+                            <th class="p-3 rounded-tl-lg">Bill Date</th>
+                            <th class="p-3">Days</th>
+                            <th class="p-3">Import Units</th>
+                            <th class="p-3">Export Units</th>
+                            <th class="p-3">Net Units</th>
+                            <th class="p-3">Avg/Day</th>
+                            <th class="p-3">Bill Amount</th>
+                            <th class="p-3">Tariff</th>
+                            <th class="p-3 rounded-tr-lg">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="billHistoryTable" class="divide-y divide-gray-100 dark:divide-slate-700">
+                        <!-- Rows rendered by JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="noBillsMessage" class="hidden text-center py-8 text-gray-500 dark:text-gray-400">No bills generated yet.</div>
+        </section>
+
+        <!-- Readings Table -->
+        <section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 md:p-6 mb-6">
+            <h2 class="text-lg font-semibold mb-4"><i class="fas fa-table text-primary mr-2"></i>Reading History</h2>
+            <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-gray-50 dark:bg-slate-700 text-gray-600 dark:text-gray-300 font-medium sticky top-0">
+                        <tr>
+                            <th class="p-3">Date/Time</th>
+                            <th class="p-3">Import</th>
+                            <th class="p-3">Export</th>
+                            <th class="p-3">Import Δ</th>
+                            <th class="p-3">Export Δ</th>
+                            <th class="p-3">Net</th>
+                            <th class="p-3">Avg/Day</th>
+                            <th class="p-3">Est. Bill</th>
+                            <th class="p-3">Notes</th>
+                            <th class="p-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="readingsTable" class="divide-y divide-gray-100 dark:divide-slate-700">
+                        <!-- Rows rendered by JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="noReadingsMessage" class="hidden text-center py-8 text-gray-500 dark:text-gray-400">No readings saved yet.</div>
+        </section>
+
+        <!-- Tariff & Settings -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 md:p-6">
+                <h2 class="text-lg font-semibold mb-4"><i class="fas fa-sliders-h text-primary mr-2"></i>Tariff Configuration</h2>
+                <div id="tariffDisplay" class="space-y-3">
+                    <!-- Tariff info rendered by JS -->
+                </div>
+                <button onclick="EBApp.openTariffEditor()" class="mt-4 px-4 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition">
+                    Edit Tariff
+                </button>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 md:p-6">
+                <h2 class="text-lg font-semibold mb-4"><i class="fas fa-cog text-primary mr-2"></i>Settings</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Billing Cycle Day</label>
+                        <input type="number" id="billingDay" min="1" max="31" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700" value="1">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Solar Export Compensation (₹/kWh)</label>
+                        <input type="number" id="exportCompensation" step="0.01" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700" value="0.00">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" id="netMetering" class="w-4 h-4" checked>
+                        <label for="netMetering" class="text-sm text-gray-700 dark:text-gray-300">Enable Net Metering (export offsets import)</label>
+                    </div>
+                    <button onclick="EBApp.saveSettings()" class="px-4 py-2 bg-primary hover:bg-sky-600 text-white rounded-lg transition">
+                        Save Settings
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seed / Reset -->
+        <section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 md:p-6 mb-6">
+            <h2 class="text-lg font-semibold mb-4"><i class="fas fa-database text-primary mr-2"></i>Database</h2>
+            <div class="flex flex-wrap gap-2">
+                <button onclick="EBApp.seedHistoricalBills()" class="px-4 py-2 text-sm bg-warning hover:bg-amber-600 text-white rounded-lg transition">
+                    Seed Historical Bills
+                </button>
+                <button onclick="EBApp.resetAllData()" class="px-4 py-2 text-sm bg-danger hover:bg-red-600 text-white rounded-lg transition">
+                    Reset All Data
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Historical Import Modal -->
+    <div id="historyModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+            <h3 class="text-lg font-semibold mb-4">Import Historical Reading</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Date & Time (IST)</label>
+                    <input type="datetime-local" id="histDateTime" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Import Reading (kWh)</label>
+                    <input type="number" id="histImport" step="0.1" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Export Reading (kWh)</label>
+                    <input type="number" id="histExport" step="0.1" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700" placeholder="0">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Notes</label>
+                    <input type="text" id="histNotes" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700">
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button onclick="EBApp.closeModal('historyModal')" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-700">Cancel</button>
+                    <button onclick="EBApp.saveHistoricalReading()" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-sky-600">Import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tariff Editor Modal -->
+    <div id="tariffModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
+            <h3 class="text-lg font-semibold mb-4">Edit Tariff</h3>
+            <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Tariff Name</label>
+                        <input type="text" id="tariffName" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Version</label>
+                        <input type="text" id="tariffVersion" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Import Slabs (JSON array)</label>
+                    <textarea id="tariffSlabs" rows="5" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 font-mono text-xs"></textarea>
+                    <p class="text-xs text-gray-500 mt-1">Format: [{"limit": 100, "rate": 0}, {"limit": 200, "rate": 2.35}, {"limit": null, "rate": 7.15}]</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Fixed Charges (JSON array)</label>
+                    <textarea id="tariffFixed" rows="3" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 font-mono text-xs"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Solar Export Compensation (₹/kWh)</label>
+                    <input type="number" id="tariffExportComp" step="0.01" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700">
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button onclick="EBApp.closeModal('tariffModal')" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-700">Cancel</button>
+                    <button onclick="EBApp.saveTariff()" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-sky-600">Save Tariff</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Backup/Restore Modal -->
+    <div id="backupModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
+            <h3 class="text-lg font-semibold mb-4">Backup & Restore</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Backup JSON</label>
+                    <textarea id="backupJson" rows="10" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 font-mono text-xs" readonly></textarea>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="EBApp.copyBackup()" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-sky-600">Copy to Clipboard</button>
+                    <button onclick="EBApp.downloadBackup()" class="px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700">Download JSON</button>
+                </div>
+                <hr class="border-gray-200 dark:border-slate-700">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Restore from JSON</label>
+                    <textarea id="restoreJson" rows="5" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 font-mono text-xs" placeholder="Paste backup JSON here..."></textarea>
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button onclick="EBApp.closeModal('backupModal')" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-700">Cancel</button>
+                    <button onclick="EBApp.restoreFromJson()" class="px-4 py-2 bg-secondary text-white rounded-lg hover:bg-emerald-600">Restore</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const EBApp = (() => {
+        const FB_BASE = 'https://rkoots1.firebaseio.com/eb';
+        const state = {
+            readings: [],
+            bills: [],
+            tariff: null,
+            settings: {},
+            analytics: {},
+            charts: {},
+            darkMode: false,
+            eventSource: null,
+            pendingWrites: new Set()
+        };
+
+        // Utils
+        const nowIST = () => {
+            const d = new Date();
+            const istOffset = 5.5 * 60 * 60 * 1000;
+            const utc = d.getTime() + (d.getTimezoneOffset() * 60 * 1000);
+            return new Date(utc + istOffset);
+        };
+
+        const formatIST = (date) => {
+            const d = date instanceof Date ? date : new Date(date);
+            return d.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' });
+        };
+
+        const toISOTS = (date) => {
+            const d = date instanceof Date ? date : new Date(date);
+            return d.toISOString();
+        };
+
+        const daysBetween = (d1, d2) => {
+            const a = new Date(d1); a.setHours(0,0,0,0);
+            const b = new Date(d2); b.setHours(0,0,0,0);
+            return Math.max(0, Math.round((b - a) / (1000 * 60 * 60 * 24)));
+        };
+
+        const money = (n) => `₹${Number(n || 0).toFixed(2)}`;
+        const num = (n, d = 1) => Number(n || 0).toFixed(d);
+
+        const sortByDate = (arr, key = 'timestamp') => arr.slice().sort((a, b) => new Date(a[key]) - new Date(b[key]));
+
+        const showAlert = (msg, type = 'info') => {
+            const box = document.getElementById('alertBox');
+            box.textContent = msg;
+            box.className = `mb-4 p-4 rounded-lg text-sm fade-in ${
+                type === 'error' ? 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200' :
+                type === 'success' ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200' :
+                'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
+            }`;
+            box.classList.remove('hidden');
+            setTimeout(() => box.classList.add('hidden'), 5000);
+        };
+
+        // Firebase REST helpers
+        const fbGet = async (path) => {
+            const url = `${FB_BASE}/${path}.json`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`GET ${path} failed: ${res.status}`);
+            return await res.json();
+        };
+
+        const fbPut = async (path, data) => {
+            const url = `${FB_BASE}/${path}.json`;
+            const res = await fetch(url, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            if (!res.ok) throw new Error(`PUT ${path} failed: ${res.status}`);
+            return await res.json();
+        };
+
+        const fbPatch = async (path, data) => {
+            const url = `${FB_BASE}/${path}.json`;
+            const res = await fetch(url, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            if (!res.ok) throw new Error(`PATCH ${path} failed: ${res.status}`);
+            return await res.json();
+        };
+
+        const fbPost = async (path, data) => {
+            const url = `${FB_BASE}/${path}.json`;
+            const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            if (!res.ok) throw new Error(`POST ${path} failed: ${res.status}`);
+            return await res.json();
+        };
+
+        const fbDelete = async (path) => {
+            const url = `${FB_BASE}/${path}.json`;
+            const res = await fetch(url, { method: 'DELETE' });
+            if (!res.ok) throw new Error(`DELETE ${path} failed: ${res.status}`);
+            return res.ok;
+        };
+
+        // Status
+        const setStatus = (status) => {
+            const dot = document.getElementById('statusDot');
+            const txt = document.getElementById('statusText');
+            dot.className = `status-dot ${status === 'online' ? 'status-online' : status === 'syncing' ? 'status-syncing' : 'status-offline'}`;
+            txt.textContent = status === 'online' ? 'Online' : status === 'syncing' ? 'Syncing...' : 'Offline';
+        };
+
+        // Defaults
+        const defaultTariff = () => ({
+            name: 'Tamil Nadu Domestic Tariff 2024-25 (TANGEDCO)',
+            version: '2024-07-01',
+            effectiveDate: '2024-07-01',
+            slabs: [
+                { limit: 100, rate: 0.00 },
+                { limit: 200, rate: 2.35 },
+                { limit: 400, rate: 4.70 },
+                { limit: 500, rate: 6.30 },
+                { limit: 600, rate: 7.15 },
+                { limit: null, rate: 8.50 }
+            ],
+            fixedCharges: [
+                { limit: 100, amount: 0.00 },
+                { limit: 200, amount: 20.00 },
+                { limit: 400, amount: 30.00 },
+                { limit: 500, amount: 50.00 },
+                { limit: 600, amount: 60.00 },
+                { limit: null, amount: 70.00 }
+            ],
+            solarExportCompensation: 0.00,
+            netMetering: true,
+            notes: 'Bi-monthly domestic tariff. First 100 units free. Rates are indicative and should be updated from official TANGEDCO notification.'
+        });
+
+        const defaultSettings = () => ({
+            billingDay: 1,
+            exportCompensation: 0.00,
+            netMetering: true,
+            currency: 'INR',
+            createdAt: toISOTS(nowIST())
+        });
+
+        // Tariff engine
+        const calculateEnergyCharges = (units) => {
+            const t = state.tariff || defaultTariff();
+            let remaining = Math.max(0, units);
+            let charge = 0;
+            let previous = 0;
+            for (const slab of t.slabs) {
+                const upper = slab.limit === null ? Infinity : slab.limit;
+                const slabUnits = Math.max(0, Math.min(remaining, upper - previous));
+                charge += slabUnits * slab.rate;
+                remaining -= slabUnits;
+                previous = upper;
+                if (remaining <= 0) break;
+            }
+            return charge;
+        };
+
+        const calculateFixedCharges = (units) => {
+            const t = state.tariff || defaultTariff();
+            for (const slab of t.fixedCharges) {
+                const upper = slab.limit === null ? Infinity : slab.limit;
+                if (units <= upper) return slab.amount;
+            }
+            return 0;
+        };
+
+        const calculateBill = (netUnits, days = 30) => {
+            const t = state.tariff || defaultTariff();
+            const energy = calculateEnergyCharges(netUnits);
+            const fixed = calculateFixedCharges(netUnits);
+            const netExportAdjustment = 0; // net metering carry-forward, no cash credit unless configured
+            const exportCredit = 0;
+            const total = Math.max(0, energy + fixed - exportCredit + netExportAdjustment);
+            return {
+                energyCharges: energy,
+                fixedCharges: fixed,
+                netExportAdjustment,
+                exportCredit,
+                total,
+                tariffName: t.name,
+                tariffVersion: t.version
+            };
+        };
+
+        const calculateReading = (reading, prevReading) => {
+            const importDelta = reading.importReading - (prevReading ? prevReading.importReading : reading.importReading);
+            const exportDelta = reading.exportReading - (prevReading ? prevReading.exportReading : reading.exportReading);
+            const netUnits = importDelta - exportDelta;
+            const days = prevReading ? daysBetween(prevReading.timestamp, reading.timestamp) : 0;
+            const avgDaily = days > 0 ? netUnits / days : 0;
+            const estimatedBill = calculateBill(netUnits, days || 60);
+            return {
+                ...reading,
+                importDelta: Math.max(0, importDelta),
+                exportDelta: Math.max(0, exportDelta),
+                netUnits,
+                averageDailyUsage: avgDaily,
+                estimatedBill: estimatedBill.total,
+                daysSincePrevious: days
+            };
+        };
+
+        // Load / init
+        const loadAll = async () => {
+            setStatus('syncing');
+            try {
+                const [readingsData, billsData, tariffData, settingsData, analyticsData] = await Promise.all([
+                    fbGet('readings'),
+                    fbGet('bills'),
+                    fbGet('tariff'),
+                    fbGet('settings'),
+                    fbGet('analytics')
+                ]);
+
+                state.readings = readingsData ? Object.entries(readingsData).map(([k, v]) => ({ ...v, id: k })) : [];
+                state.bills = billsData ? Object.entries(billsData).map(([k, v]) => ({ ...v, id: k })) : [];
+                state.tariff = tariffData || defaultTariff();
+                state.settings = settingsData || defaultSettings();
+                state.analytics = analyticsData || {};
+
+                setStatus('online');
+                recalcAll();
+                render();
+                startListener();
+            } catch (e) {
+                console.error(e);
+                setStatus('offline');
+                showAlert('Failed to sync with Firebase. Working with local defaults.', 'error');
+                state.tariff = defaultTariff();
+                state.settings = defaultSettings();
+                recalcAll();
+                render();
+            }
+        };
+
+        const recalcReadings = () => {
+            state.readings = sortByDate(state.readings);
+            for (let i = 0; i < state.readings.length; i++) {
+                const prev = i > 0 ? state.readings[i - 1] : null;
+                state.readings[i] = { ...state.readings[i], ...calculateReading(state.readings[i], prev) };
+            }
+        };
+
+        const recalcBills = () => {
+            state.bills = sortByDate(state.bills, 'billDate');
+        };
+
+        const recalcAll = () => {
+            recalcReadings();
+            recalcBills();
+            state.analytics = buildAnalytics();
+        };
+
+        const buildAnalytics = () => {
+            if (state.readings.length < 1) return {};
+            const last = state.readings[state.readings.length - 1];
+            const prev = state.readings.length > 1 ? state.readings[state.readings.length - 2] : null;
+            const lastBill = state.bills.length > 0 ? state.bills[state.bills.length - 1] : null;
+
+            const allNetUnits = state.readings.map(r => r.netUnits || 0);
+            const allImportDelta = state.readings.map(r => r.importDelta || 0);
+            const allExportDelta = state.readings.map(r => r.exportDelta || 0);
+            const allAvg = state.readings.filter(r => (r.averageDailyUsage || 0) > 0).map(r => r.averageDailyUsage);
+
+            const avgDailyNet = allAvg.length ? allAvg.reduce((a, b) => a + b, 0) / allAvg.length : 0;
+            const avgDailyImport = state.readings.filter(r => r.daysSincePrevious > 0).length ? 
+                state.readings.filter(r => r.daysSincePrevious > 0).reduce((s, r) => s + (r.importDelta / r.daysSincePrevious), 0) / state.readings.filter(r => r.daysSincePrevious > 0).length : 0;
+            const avgDailyExport = state.readings.filter(r => r.daysSincePrevious > 0).length ? 
+                state.readings.filter(r => r.daysSincePrevious > 0).reduce((s, r) => s + (r.exportDelta / r.daysSincePrevious), 0) / state.readings.filter(r => r.daysSincePrevious > 0).length : 0;
+
+            const avgBill = state.bills.length ? state.bills.reduce((s, b) => s + (b.billAmount || 0), 0) / state.bills.length : 0;
+
+            // Solar offset % = export / (import + export) if import > 0 else 0
+            const totalImport = allImportDelta.reduce((a, b) => a + b, 0);
+            const totalExport = allExportDelta.reduce((a, b) => a + b, 0);
+            const solarOffset = totalImport + totalExport > 0 ? (totalExport / (totalImport + totalExport)) * 100 : 0;
+
+            const projectedMonthlyUnits = avgDailyNet * 30;
+            const projectedMonthlyBill = calculateBill(projectedMonthlyUnits, 30).total;
+            const projectedNextBill = lastBill ? calculateBill(projectedMonthlyUnits, lastBill.noOfDays || 60).total : projectedMonthlyBill;
+
+            const daysSinceLast = last ? daysBetween(new Date(last.timestamp), nowIST()) : 0;
+            const cycleStart = lastBill ? new Date(lastBill.billDate) : (state.readings[0] ? new Date(state.readings[0].timestamp) : nowIST());
+            const cycleDays = Math.max(1, daysBetween(cycleStart, nowIST()));
+            const currentCycleStartReading = lastBill ? lastBill.endReading : (state.readings[0] ? state.readings[0].importReading : 0);
+            const currentCycleStartExport = lastBill ? lastBill.endExport : (state.readings[0] ? state.readings[0].exportReading : 0);
+            const currentNetUnits = (last.importReading - currentCycleStartReading) - (last.exportReading - currentCycleStartExport);
+            const currentCycleEst = calculateBill(currentNetUnits, cycleDays);
+
+            return {
+                lastReading: last,
+                previousReading: prev,
+                lastBill,
+                averageDailyUsage: avgDailyNet,
+                averageDailyImport,
+                averageDailyExport,
+                averageBillPerMonth: avgBill,
+                highestDailyUsage: allAvg.length ? Math.max(...allAvg) : 0,
+                lowestDailyUsage: allAvg.length ? Math.min(...allAvg) : 0,
+                highestConsumptionReading: allNetUnits.length ? Math.max(...allNetUnits) : 0,
+                lowestConsumptionReading: allNetUnits.length ? Math.min(...allNetUnits) : 0,
+                solarOffset,
+                projectedMonthlyUnits,
+                projectedMonthlyBill,
+                projectedNextBill,
+                daysSinceLastReading: daysSinceLast,
+                currentCycle: {
+                    startDate: cycleStart,
+                    startReading: currentCycleStartReading,
+                    startExport: currentCycleStartExport,
+                    currentImport: last ? last.importReading : 0,
+                    currentExport: last ? last.exportReading : 0,
+                    importDelta: last ? last.importReading - currentCycleStartReading : 0,
+                    exportDelta: last ? last.exportReading - currentCycleStartExport : 0,
+                    netUnits: currentNetUnits,
+                    estimatedBill: currentCycleEst.total,
+                    days: cycleDays
+                }
+            };
+        };
+
+        // Render
+        const render = () => {
+            document.getElementById('currentIstTime').textContent = `IST: ${formatIST(nowIST())}`;
+            renderDashboard();
+            renderReadings();
+            renderBills();
+            renderTariff();
+            renderSettings();
+            renderCharts();
+        };
+
+        const renderDashboard = () => {
+            const a = state.analytics;
+            const c = a.currentCycle || {};
+            const last = a.lastReading;
+            const lastBill = a.lastBill;
+
+            const cards = [
+                { label: 'Current Import Reading', value: last ? num(last.importReading) : '-', unit: 'kWh', icon: 'fa-plug', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-slate-700' },
+                { label: 'Current Export Reading', value: last ? num(last.exportReading) : '-', unit: 'kWh', icon: 'fa-solar-panel', color: 'text-green-500', bg: 'bg-green-50 dark:bg-slate-700' },
+                { label: 'Net Units (Current Cycle)', value: c.netUnits !== undefined ? num(c.netUnits) : '-', unit: 'kWh', icon: 'fa-exchange-alt', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-slate-700' },
+                { label: 'Current Billing Cycle', value: c.startDate ? formatIST(c.startDate).split(',')[0] : '-', unit: '', icon: 'fa-calendar-alt', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-slate-700' },
+                { label: 'Estimated Bill', value: c.estimatedBill !== undefined ? money(c.estimatedBill) : '-', unit: '', icon: 'fa-rupee-sign', color: 'text-red-500', bg: 'bg-red-50 dark:bg-slate-700' },
+                { label: 'Average Daily Consumption', value: a.averageDailyUsage !== undefined ? num(a.averageDailyUsage, 2) : '-', unit: 'kWh/day', icon: 'fa-chart-area', color: 'text-indigo-500', bg: 'bg-indigo-50 dark:bg-slate-700' },
+                { label: 'Average Daily Export', value: a.averageDailyExport !== undefined ? num(a.averageDailyExport, 2) : '-', unit: 'kWh/day', icon: 'fa-sun', color: 'text-yellow-500', bg: 'bg-yellow-50 dark:bg-slate-700' },
+                { label: 'Projected Monthly Bill', value: a.projectedMonthlyBill !== undefined ? money(a.projectedMonthlyBill) : '-', unit: '', icon: 'fa-file-invoice-dollar', color: 'text-pink-500', bg: 'bg-pink-50 dark:bg-slate-700' },
+                { label: 'Projected Monthly Units', value: a.projectedMonthlyUnits !== undefined ? num(a.projectedMonthlyUnits) : '-', unit: 'kWh', icon: 'fa-bolt', color: 'text-cyan-500', bg: 'bg-cyan-50 dark:bg-slate-700' },
+                { label: 'Last Reading Date', value: last ? formatIST(last.timestamp).split(',')[0] : '-', unit: '', icon: 'fa-clock', color: 'text-teal-500', bg: 'bg-teal-50 dark:bg-slate-700' },
+                { label: 'Days Since Last Reading', value: a.daysSinceLastReading !== undefined ? a.daysSinceLastReading : '-', unit: 'days', icon: 'fa-hourglass-half', color: 'text-gray-500', bg: 'bg-gray-50 dark:bg-slate-700' },
+                { label: 'Solar Offset %', value: a.solarOffset !== undefined ? num(a.solarOffset, 1) : '-', unit: '%', icon: 'fa-leaf', color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-slate-700' }
+            ];
+
+            const container = document.getElementById('dashboardCards');
+            container.innerHTML = cards.map(c => `
+                <div class="card bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-slate-700">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 uppercase font-semibold">${c.label}</p>
+                            <p class="text-2xl font-bold mt-1 ${c.color}">${c.value}</p>
+                            <p class="text-xs text-gray-400 dark:text-gray-500">${c.unit}</p>
+                        </div>
+                        <div class="p-2 rounded-lg ${c.bg}">
+                            <i class="fas ${c.icon} ${c.color} text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Additional insights
+            const insightHTML = `
+                <div class="col-span-full bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl p-4 border border-primary/20">
+                    <h3 class="font-semibold mb-2">Insights</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <div><span class="text-gray-500 dark:text-gray-400">Avg Bill/Month:</span> <span class="font-semibold">${money(a.averageBillPerMonth)}</span></div>
+                        <div><span class="text-gray-500 dark:text-gray-400">Highest Daily:</span> <span class="font-semibold">${num(a.highestDailyUsage, 2)} kWh</span></div>
+                        <div><span class="text-gray-500 dark:text-gray-400">Lowest Daily:</span> <span class="font-semibold">${num(a.lowestDailyUsage, 2)} kWh</span></div>
+                        <div><span class="text-gray-500 dark:text-gray-400">Projected Next Bill:</span> <span class="font-semibold">${money(a.projectedNextBill)}</span></div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', insightHTML);
+        };
+
+        const renderReadings = () => {
+            const tbody = document.getElementById('readingsTable');
+            const msg = document.getElementById('noReadingsMessage');
+            if (!state.readings.length) {
+                tbody.innerHTML = '';
+                msg.classList.remove('hidden');
+                return;
+            }
+            msg.classList.add('hidden');
+            tbody.innerHTML = state.readings.slice().reverse().map(r => `
+                <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/50 fade-in">
+                    <td class="p-3 whitespace-nowrap">${formatIST(r.timestamp)}</td>
+                    <td class="p-3">${num(r.importReading)}</td>
+                    <td class="p-3">${num(r.exportReading)}</td>
+                    <td class="p-3">${num(r.importDelta)}</td>
+                    <td class="p-3">${num(r.exportDelta)}</td>
+                    <td class="p-3 ${r.netUnits < 0 ? 'text-green-500' : ''}">${num(r.netUnits)}</td>
+                    <td class="p-3">${num(r.averageDailyUsage, 2)}</td>
+                    <td class="p-3">${money(r.estimatedBill)}</td>
+                    <td class="p-3 max-w-xs truncate" title="${(r.notes || '').replace(/"/g, '&quot;')}">${r.notes || ''}</td>
+                    <td class="p-3">
+                        <button onclick="EBApp.editReading('${r.id}')" class="text-primary hover:underline mr-2 text-xs"><i class="fas fa-edit"></i></button>
+                        <button onclick="EBApp.deleteReading('${r.id}')" class="text-danger hover:underline text-xs"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        };
+
+        const renderBills = () => {
+            const tbody = document.getElementById('billHistoryTable');
+            const msg = document.getElementById('noBillsMessage');
+            if (!state.bills.length) {
+                tbody.innerHTML = '';
+                msg.classList.remove('hidden');
+                return;
+            }
+            msg.classList.add('hidden');
+            tbody.innerHTML = state.bills.slice().reverse().map(b => `
+                <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/50 fade-in">
+                    <td class="p-3 whitespace-nowrap">${formatIST(b.billDate)}</td>
+                    <td class="p-3">${b.noOfDays}</td>
+                    <td class="p-3">${num(b.importUnits)}</td>
+                    <td class="p-3">${num(b.exportUnits)}</td>
+                    <td class="p-3 ${b.netUnits < 0 ? 'text-green-500' : ''}">${num(b.netUnits)}</td>
+                    <td class="p-3">${num(b.averageDailyUsage, 2)}</td>
+                    <td class="p-3 font-semibold">${money(b.billAmount)}</td>
+                    <td class="p-3 text-xs">${b.tariffUsed || 'Default'}</td>
+                    <td class="p-3">
+                        <button onclick="EBApp.deleteBill('${b.id}')" class="text-danger hover:underline text-xs"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        };
+
+        const renderTariff = () => {
+            const t = state.tariff || defaultTariff();
+            const slabs = (t.slabs || []).map(s => `<li>Up to ${s.limit === null ? '∞' : s.limit} units @ ₹${s.rate}/unit</li>`).join('');
+            const fixed = (t.fixedCharges || []).map(s => `<li>Up to ${s.limit === null ? '∞' : s.limit} units: ₹${s.amount}</li>`).join('');
+            document.getElementById('tariffDisplay').innerHTML = `
+                <div class="grid grid-cols-2 gap-2 text-sm">
+                    <div><span class="text-gray-500 dark:text-gray-400">Name:</span> <span class="font-medium">${t.name}</span></div>
+                    <div><span class="text-gray-500 dark:text-gray-400">Version:</span> <span class="font-medium">${t.version}</span></div>
+                    <div><span class="text-gray-500 dark:text-gray-400">Export Compensation:</span> <span class="font-medium">₹${t.solarExportCompensation}/kWh</span></div>
+                    <div><span class="text-gray-500 dark:text-gray-400">Net Metering:</span> <span class="font-medium">${t.netMetering ? 'Yes' : 'No'}</span></div>
+                </div>
+                <div class="text-sm"><span class="text-gray-500 dark:text-gray-400">Import Slabs:</span><ul class="list-disc list-inside mt-1">${slabs}</ul></div>
+                <div class="text-sm"><span class="text-gray-500 dark:text-gray-400">Fixed Charges:</span><ul class="list-disc list-inside mt-1">${fixed}</ul></div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 italic">${t.notes || ''}</p>
+            `;
+        };
+
+        const renderSettings = () => {
+            const s = state.settings || defaultSettings();
+            document.getElementById('billingDay').value = s.billingDay || 1;
+            document.getElementById('exportCompensation').value = s.exportCompensation || 0;
+            document.getElementById('netMetering').checked = s.netMetering !== false;
+        };
+
+        // Charts
+        const commonChartOptions = (title) => ({
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { labels: { color: state.darkMode ? '#e2e8f0' : '#334155' } },
+                title: { display: false }
+            },
+            scales: {
+                x: { ticks: { color: state.darkMode ? '#94a3b8' : '#64748b' }, grid: { color: state.darkMode ? '#334155' : '#e2e8f0' } },
+                y: { ticks: { color: state.darkMode ? '#94a3b8' : '#64748b' }, grid: { color: state.darkMode ? '#334155' : '#e2e8f0' } }
+            }
+        });
+
+        const chartColors = (alpha = 0.7) => ({
+            import: `rgba(14, 165, 233, ${alpha})`,
+            export: `rgba(16, 185, 129, ${alpha})`,
+            net: `rgba(139, 92, 246, ${alpha})`,
+            bill: `rgba(245, 158, 11, ${alpha})`,
+            avg: `rgba(239, 68, 68, ${alpha})`,
+            solar: `rgba(245, 158, 11, ${alpha})`
+        });
+
+        const renderCharts = () => {
+            const labels = state.readings.map(r => formatIST(r.timestamp).split(',')[0]);
+            const importData = state.readings.map(r => r.importReading);
+            const exportData = state.readings.map(r => r.exportReading);
+            const netData = state.readings.map(r => r.netUnits);
+            const avgData = state.readings.map(r => r.averageDailyUsage);
+            const billLabels = state.bills.map(b => formatIST(b.billDate).split(',')[0]);
+            const billData = state.bills.map(b => b.billAmount);
+
+            // Monthly aggregation for some charts
+            const monthly = {};
+            state.readings.forEach(r => {
+                const d = new Date(r.timestamp);
+                const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                if (!monthly[key]) monthly[key] = { importDelta: 0, exportDelta: 0, net: 0, days: 0, count: 0, cost: 0 };
+                monthly[key].importDelta += r.importDelta || 0;
+                monthly[key].exportDelta += r.exportDelta || 0;
+                monthly[key].net += r.netUnits || 0;
+                monthly[key].days += r.daysSincePrevious || 0;
+                monthly[key].count += 1;
+                monthly[key].cost += r.estimatedBill || 0;
+            });
+            const monthKeys = Object.keys(monthly).sort();
+            const monthlyUnits = monthKeys.map(k => monthly[k].net);
+            const monthlySolarOffset = monthKeys.map(k => {
+                const m = monthly[k];
+                return m.importDelta + m.exportDelta > 0 ? (m.exportDelta / (m.importDelta + m.exportDelta)) * 100 : 0;
+            });
+            const monthlyCostPerDay = monthKeys.map(k => {
+                const m = monthly[k];
+                return m.days > 0 ? m.cost / m.days : 0;
+            });
+
+            const makeChart = (id, type, datasets) => {
+                const ctx = document.getElementById(id);
+                if (!ctx) return;
+                if (state.charts[id]) state.charts[id].destroy();
+                state.charts[id] = new Chart(ctx, {
+                    type,
+                    data: { labels: datasets.labels, datasets: datasets.data },
+                    options: commonChartOptions()
+                });
+            };
+
+            const c = chartColors();
+
+            makeChart('chartImport', 'line', { labels, data: [{ label: 'Import Reading (kWh)', data: importData, borderColor: c.import, backgroundColor: c.import, fill: false, tension: 0.3 }] });
+            makeChart('chartExport', 'line', { labels, data: [{ label: 'Export Reading (kWh)', data: exportData, borderColor: c.export, backgroundColor: c.export, fill: false, tension: 0.3 }] });
+            makeChart('chartNet', 'line', { labels, data: [{ label: 'Net Units (kWh)', data: netData, borderColor: c.net, backgroundColor: c.net, fill: true, tension: 0.3 }] });
+            makeChart('chartDailyAvg', 'line', { labels, data: [{ label: 'Avg Daily Usage (kWh/day)', data: avgData, borderColor: c.avg, backgroundColor: c.avg, fill: true, tension: 0.3, spanGaps: true }] });
+            makeChart('chartBillTrend', 'bar', { labels: billLabels, data: [{ label: 'Bill Amount (₹)', data: billData, backgroundColor: c.bill }] });
+            makeChart('chartMonthlyUnits', 'bar', { labels: monthKeys, data: [{ label: 'Monthly Net Units (kWh)', data: monthlyUnits, backgroundColor: c.net }] });
+            makeChart('chartSolarOffset', 'line', { labels: monthKeys, data: [{ label: 'Solar Offset %', data: monthlySolarOffset, borderColor: c.solar, backgroundColor: c.solar, fill: true, tension: 0.3 }] });
+            makeChart('chartCostPerDay', 'bar', { labels: monthKeys, data: [{ label: 'Cost per Day (₹)', data: monthlyCostPerDay, backgroundColor: c.bill }] });
+        };
+
+        // Firebase listener
+        const startListener = () => {
+            if (state.eventSource) state.eventSource.close();
+            try {
+                const url = `${FB_BASE}.json`;
+                const es = new EventSource(url);
+                es.onmessage = (e) => {
+                    if (!e.data) return;
+                    try {
+                        const msg = JSON.parse(e.data);
+                        if (msg.path !== undefined || msg.data !== undefined) {
+                            // Fire on any change; avoid loops by checking timestamp not too recent
+                            loadAll();
+                        }
+                    } catch (err) {}
+                };
+                es.onerror = () => setStatus('offline');
+                state.eventSource = es;
+            } catch (e) {
+                console.warn('SSE not supported, using polling fallback');
+                setInterval(() => loadAll(), 30000);
+            }
+        };
+
+        // Actions
+        const validateReading = (imp, exp, isHistorical = false, ts = null) => {
+            if (imp === '' || isNaN(imp) || Number(imp) < 0) return 'Please enter a valid import reading.';
+            if (exp === '' || isNaN(exp) || Number(exp) < 0) return 'Please enter a valid export reading.';
+            const importVal = Number(imp);
+            const exportVal = Number(exp);
+
+            if (!isHistorical) {
+                const last = state.readings.length ? state.readings[state.readings.length - 1] : null;
+                if (last && importVal < last.importReading) {
+                    return `Warning: New import reading (${importVal}) is lower than previous cumulative reading (${last.importReading}). Cumulative readings should only increase.`;
+                }
+                if (last && exportVal < last.exportReading) {
+                    return `Warning: New export reading (${exportVal}) is lower than previous cumulative reading (${last.exportReading}).`;
+                }
+            } else {
+                // For historical, check against nearest previous reading by date
+                const sorted = sortByDate(state.readings);
+                const idx = sorted.findIndex(r => new Date(r.timestamp) >= new Date(ts));
+                const prev = idx > 0 ? sorted[idx - 1] : (sorted.length ? sorted[sorted.length - 1] : null);
+                const next = idx >= 0 && idx < sorted.length ? sorted[idx] : null;
+                if (prev && importVal < prev.importReading) return `Import reading cannot be lower than previous reading on ${formatIST(prev.timestamp)} (${prev.importReading}).`;
+                if (next && importVal > next.importReading) return `Import reading cannot be higher than next reading on ${formatIST(next.timestamp)} (${next.importReading}).`;
+                if (prev && exportVal < prev.exportReading) return `Export reading cannot be lower than previous reading on ${formatIST(prev.timestamp)}.`;
+                if (next && exportVal > next.exportReading) return `Export reading cannot be higher than next reading on ${formatIST(next.timestamp)}.`;
+            }
+            return null;
+        };
+
+        const saveReading = async (isHistorical = false, ts = null, imp = null, exp = null, notes = null) => {
+            const importInput = imp !== null ? imp : document.getElementById('importReading').value;
+            const exportInput = exp !== null ? exp : document.getElementById('exportReading').value;
+            const notesInput = notes !== null ? notes : (document.getElementById('readingNotes') || {}).value || '';
+
+            const err = validateReading(importInput, exportInput, isHistorical, ts);
+            if (err) {
+                showAlert(err, 'error');
+                return;
+            }
+
+            const timestamp = isHistorical && ts ? toISOTS(new Date(ts)) : toISOTS(nowIST());
+            const reading = {
+                timestamp,
+                importReading: Number(importInput),
+                exportReading: Number(exportInput),
+                notes: notesInput,
+                updatedAt: toISOTS(nowIST())
+            };
+
+            setStatus('syncing');
+            try {
+                const res = await fbPost('readings', reading);
+                reading.id = res.name;
+                state.readings.push(reading);
+                recalcAll();
+                render();
+                if (!isHistorical) {
+                    document.getElementById('importReading').value = '';
+                    document.getElementById('exportReading').value = '';
+                    document.getElementById('readingNotes').value = '';
+                }
+                setStatus('online');
+                showAlert('Reading saved successfully.', 'success');
+            } catch (e) {
+                setStatus('offline');
+                showAlert('Failed to save reading to Firebase.', 'error');
+            }
+        };
+
+        const generateBill = async () => {
+            if (state.readings.length < 2) {
+                showAlert('Need at least two readings to generate a bill.', 'error');
+                return;
+            }
+
+            const lastBill = state.bills.length ? state.bills[state.bills.length - 1] : null;
+            const startDate = lastBill ? new Date(lastBill.billDate) : new Date(state.readings[0].timestamp);
+            const endReading = state.readings[state.readings.length - 1];
+            const startReading = lastBill ? state.readings.find(r => r.importReading === lastBill.endReading && r.exportReading === lastBill.endExport) : state.readings[0];
+
+            // Use latest reading as cycle end, find first reading after last bill
+            let cycleReadings = state.readings.filter(r => new Date(r.timestamp) >= startDate);
+            if (!cycleReadings.length) cycleReadings = [endReading];
+            const cycleStartReading = cycleReadings[0];
+            const cycleEndReading = cycleReadings[cycleReadings.length - 1];
+
+            const importUnits = cycleEndReading.importReading - cycleStartReading.importReading;
+            const exportUnits = cycleEndReading.exportReading - cycleStartReading.exportReading;
+            const netUnits = importUnits - exportUnits;
+            const noOfDays = Math.max(1, daysBetween(cycleStartReading.timestamp, cycleEndReading.timestamp));
+            const avgDaily = importUnits / noOfDays;
+            const bill = calculateBill(netUnits, noOfDays);
+
+            const newBill = {
+                billDate: toISOTS(nowIST()),
+                startDate: cycleStartReading.timestamp,
+                endDate: cycleEndReading.timestamp,
+                startReading: cycleStartReading.importReading,
+                endReading: cycleEndReading.importReading,
+                startExport: cycleStartReading.exportReading,
+                endExport: cycleEndReading.exportReading,
+                importUnits,
+                exportUnits,
+                netUnits,
+                averageDailyUsage: avgDaily,
+                billAmount: bill.total,
+                noOfDays,
+                tariffUsed: bill.tariffName,
+                energyCharges: bill.energyCharges,
+                fixedCharges: bill.fixedCharges,
+                netExportAdjustment: bill.netExportAdjustment,
+                createdAt: toISOTS(nowIST())
+            };
+
+            setStatus('syncing');
+            try {
+                const res = await fbPost('bills', newBill);
+                newBill.id = res.name;
+                state.bills.push(newBill);
+                recalcAll();
+                render();
+                setStatus('online');
+                showAlert(`Bill generated: ${money(bill.total)} for ${num(netUnits)} kWh over ${noOfDays} days.`, 'success');
+            } catch (e) {
+                setStatus('offline');
+                showAlert('Failed to save bill.', 'error');
+            }
+        };
+
+        const deleteReading = async (id) => {
+            if (!confirm('Delete this reading? All downstream calculations will update.')) return;
+            setStatus('syncing');
+            try {
+                await fbDelete(`readings/${id}`);
+                state.readings = state.readings.filter(r => r.id !== id);
+                recalcAll();
+                render();
+                setStatus('online');
+                showAlert('Reading deleted.', 'success');
+            } catch (e) {
+                setStatus('offline');
+                showAlert('Delete failed.', 'error');
+            }
+        };
+
+        const deleteBill = async (id) => {
+            if (!confirm('Delete this bill?')) return;
+            setStatus('syncing');
+            try {
+                await fbDelete(`bills/${id}`);
+                state.bills = state.bills.filter(b => b.id !== id);
+                recalcAll();
+                render();
+                setStatus('online');
+                showAlert('Bill deleted.', 'success');
+            } catch (e) {
+                setStatus('offline');
+                showAlert('Delete failed.', 'error');
+            }
+        };
+
+        const editReading = (id) => {
+            const r = state.readings.find(x => x.id === id);
+            if (!r) return;
+            const newImp = prompt('Update Import Reading:', r.importReading);
+            if (newImp === null) return;
+            const newExp = prompt('Update Export Reading:', r.exportReading);
+            if (newExp === null) return;
+            const newNotes = prompt('Update Notes:', r.notes || '');
+            if (newNotes === null) return;
+
+            const importVal = Number(newImp);
+            const exportVal = Number(newExp);
+            if (isNaN(importVal) || importVal < 0 || isNaN(exportVal) || exportVal < 0) {
+                showAlert('Invalid values.', 'error');
+                return;
+            }
+            updateReading(id, { importReading: importVal, exportReading: exportVal, notes: newNotes });
+        };
+
+        const updateReading = async (id, updates) => {
+            setStatus('syncing');
+            try {
+                await fbPatch(`readings/${id}`, { ...updates, updatedAt: toISOTS(nowIST()) });
+                const idx = state.readings.findIndex(r => r.id === id);
+                if (idx >= 0) state.readings[idx] = { ...state.readings[idx], ...updates };
+                recalcAll();
+                render();
+                setStatus('online');
+                showAlert('Reading updated.', 'success');
+            } catch (e) {
+                setStatus('offline');
+                showAlert('Update failed.', 'error');
+            }
+        };
+
+        // Modals
+        const openHistoryImport = () => {
+            document.getElementById('historyModal').classList.remove('hidden');
+            document.getElementById('historyModal').classList.add('flex');
+            const now = nowIST();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('histDateTime').value = now.toISOString().slice(0, 16);
+        };
+
+        const saveHistoricalReading = () => {
+            const ts = document.getElementById('histDateTime').value;
+            const imp = document.getElementById('histImport').value;
+            const exp = document.getElementById('histExport').value || 0;
+            const notes = document.getElementById('histNotes').value;
+            if (!ts) { showAlert('Please select a date/time.', 'error'); return; }
+            saveReading(true, ts, imp, exp, notes);
+            closeModal('historyModal');
+            document.getElementById('histImport').value = '';
+            document.getElementById('histExport').value = '';
+            document.getElementById('histNotes').value = '';
+        };
+
+        const closeModal = (id) => {
+            document.getElementById(id).classList.add('hidden');
+            document.getElementById(id).classList.remove('flex');
+        };
+
+        const openTariffEditor = () => {
+            const t = state.tariff || defaultTariff();
+            document.getElementById('tariffName').value = t.name;
+            document.getElementById('tariffVersion').value = t.version;
+            document.getElementById('tariffSlabs').value = JSON.stringify(t.slabs || [], null, 2);
+            document.getElementById('tariffFixed').value = JSON.stringify(t.fixedCharges || [], null, 2);
+            document.getElementById('tariffExportComp').value = t.solarExportCompensation || 0;
+            document.getElementById('tariffModal').classList.remove('hidden');
+            document.getElementById('tariffModal').classList.add('flex');
+        };
+
+        const saveTariff = async () => {
+            try {
+                const newTariff = {
+                    name: document.getElementById('tariffName').value,
+                    version: document.getElementById('tariffVersion').value,
+                    slabs: JSON.parse(document.getElementById('tariffSlabs').value),
+                    fixedCharges: JSON.parse(document.getElementById('tariffFixed').value),
+                    solarExportCompensation: Number(document.getElementById('tariffExportComp').value),
+                    netMetering: document.getElementById('netMetering').checked,
+                    updatedAt: toISOTS(nowIST())
+                };
+                setStatus('syncing');
+                await fbPut('tariff', newTariff);
+                state.tariff = newTariff;
+                recalcAll();
+                render();
+                closeModal('tariffModal');
+                setStatus('online');
+                showAlert('Tariff saved.', 'success');
+            } catch (e) {
+                showAlert('Invalid tariff JSON or save failed.', 'error');
+            }
+        };
+
+        const saveSettings = async () => {
+            const settings = {
+                billingDay: Number(document.getElementById('billingDay').value) || 1,
+                exportCompensation: Number(document.getElementById('exportCompensation').value) || 0,
+                netMetering: document.getElementById('netMetering').checked,
+                updatedAt: toISOTS(nowIST())
+            };
+            setStatus('syncing');
+            try {
+                await fbPut('settings', settings);
+                state.settings = settings;
+                recalcAll();
+                render();
+                setStatus('online');
+                showAlert('Settings saved.', 'success');
+            } catch (e) {
+                setStatus('offline');
+                showAlert('Failed to save settings.', 'error');
+            }
+        };
+
+        // CSV / Backup
+        const exportCSV = () => {
+            let csv = 'Timestamp,Import Reading,Export Reading,Import Delta,Export Delta,Net Units,Avg Daily Usage,Estimated Bill,Notes\n';
+            state.readings.forEach(r => {
+                csv += `${r.timestamp},${r.importReading},${r.exportReading},${r.importDelta},${r.exportDelta},${r.netUnits},${r.averageDailyUsage},${r.estimatedBill},"${(r.notes || '').replace(/"/g, '""')}"\n`;
+            });
+            csv += '\nBill Date,Start Reading,End Reading,Import Units,Export Units,Net Units,Avg Daily Usage,Bill Amount,No Of Days,Tariff\n';
+            state.bills.forEach(b => {
+                csv += `${b.billDate},${b.startReading},${b.endReading},${b.importUnits},${b.exportUnits},${b.netUnits},${b.averageDailyUsage},${b.billAmount},${b.noOfDays},"${b.tariffUsed || ''}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `eb-tracker-${new Date().toISOString().slice(0, 10)}.csv`;
+            a.click();
+            showAlert('CSV downloaded.', 'success');
+        };
+
+        const openBackup = () => {
+            const data = {
+                readings: state.readings,
+                bills: state.bills,
+                tariff: state.tariff,
+                settings: state.settings,
+                analytics: state.analytics,
+                exportedAt: toISOTS(nowIST())
+            };
+            document.getElementById('backupJson').value = JSON.stringify(data, null, 2);
+            document.getElementById('backupModal').classList.remove('hidden');
+            document.getElementById('backupModal').classList.add('flex');
+        };
+
+        const copyBackup = () => {
+            const el = document.getElementById('backupJson');
+            el.select();
+            document.execCommand('copy');
+            showAlert('Backup copied to clipboard.', 'success');
+        };
+
+        const downloadBackup = () => {
+            const blob = new Blob([document.getElementById('backupJson').value], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `eb-backup-${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+        };
+
+        const restoreFromJson = async () => {
+            try {
+                const text = document.getElementById('restoreJson').value;
+                const data = JSON.parse(text);
+                if (!confirm('This will overwrite existing data. Continue?')) return;
+                setStatus('syncing');
+                await fbPut('', {
+                    readings: {},
+                    bills: {},
+                    tariff: data.tariff,
+                    settings: data.settings,
+                    analytics: {}
+                });
+                // Re-push readings and bills
+                const readings = {};
+                (data.readings || []).forEach((r, i) => { readings[`r${i}`] = r; });
+                const bills = {};
+                (data.bills || []).forEach((b, i) => { bills[`b${i}`] = b; });
+                await fbPut('readings', readings);
+                await fbPut('bills', bills);
+                showAlert('Restore complete. Reloading...', 'success');
+                closeModal('backupModal');
+                await loadAll();
+            } catch (e) {
+                setStatus('offline');
+                showAlert('Restore failed. Invalid JSON or Firebase error.', 'error');
+            }
+        };
+
+        // Seed historical bills
+        const seedHistoricalBills = async () => {
+            if (state.bills.length && !confirm('Seed historical bills? Existing bills will remain.')) return;
+            
+            // Interpret given "Reading" as import units for that billing cycle.
+            // Bill dates: 27 Sep 2024 15:00, 26 Nov 2024 09:00, 27 Jan 2025 09:30, 27 Mar 2025 09:30, 27 May 2025 09:30
+            const seeds = [
+                { date: '2024-09-27T15:00:00+05:30', importUnits: 563, billAmount: 0 },
+                { date: '2024-11-26T09:00:00+05:30', importUnits: 385.3, billAmount: 0 },
+                { date: '2025-01-27T09:30:00+05:30', importUnits: 973.3, billAmount: 1123.40 },
+                { date: '2025-03-27T09:30:00+05:30', importUnits: 1758.2, billAmount: 2235.80 },
+                { date: '2025-05-27T09:30:00+05:30', importUnits: 3509.0, billAmount: 3273.00 }
+            ];
+
+            let cumulative = 0;
+            const newBills = [];
+            for (let i = 0; i < seeds.length; i++) {
+                const s = seeds[i];
+                const startReading = cumulative;
+                const endReading = cumulative + s.importUnits;
+                cumulative = endReading;
+                const prevDate = i > 0 ? new Date(seeds[i - 1].date) : new Date(s.date);
+                const noOfDays = Math.max(1, daysBetween(prevDate, new Date(s.date)));
+                const avgDaily = s.importUnits / noOfDays;
+                const bill = calculateBill(s.importUnits, noOfDays);
+                newBills.push({
+                    billDate: s.date,
+                    startDate: prevDate.toISOString(),
+                    endDate: s.date,
+                    startReading,
+                    endReading,
+                    startExport: 0,
+                    endExport: 0,
+                    importUnits: s.importUnits,
+                    exportUnits: 0,
+                    netUnits: s.importUnits,
+                    averageDailyUsage: avgDaily,
+                    billAmount: s.billAmount === 0 && i > 0 ? bill.total : s.billAmount,
+                    noOfDays,
+                    tariffUsed: (state.tariff || defaultTariff()).name,
+                    energyCharges: bill.energyCharges,
+                    fixedCharges: bill.fixedCharges,
+                    netExportAdjustment: 0,
+                    createdAt: toISOTS(nowIST())
+                });
+            }
+
+            // If bill amount is 0 but not first, keep 0 as seed says 0.00
+            newBills[1].billAmount = 0.00;
+
+            setStatus('syncing');
+            try {
+                for (const b of newBills) {
+                    const res = await fbPost('bills', b);
+                    b.id = res.name;
+                    state.bills.push(b);
+                }
+                recalcAll();
+                render();
+                setStatus('online');
+                showAlert('Historical bills seeded.', 'success');
+            } catch (e) {
+                setStatus('offline');
+                showAlert('Failed to seed bills.', 'error');
+            }
+        };
+
+        const resetAllData = async () => {
+            if (!confirm('WARNING: This will delete ALL readings and bills from Firebase. Continue?')) return;
+            setStatus('syncing');
+            try {
+                await fbPut('', { readings: {}, bills: {}, tariff: state.tariff, settings: state.settings, analytics: {} });
+                state.readings = [];
+                state.bills = [];
+                state.analytics = {};
+                render();
+                setStatus('online');
+                showAlert('All data reset.', 'success');
+            } catch (e) {
+                setStatus('offline');
+                showAlert('Reset failed.', 'error');
+            }
+        };
+
+        // Dark mode
+        const toggleDarkMode = () => {
+            state.darkMode = !state.darkMode;
+            document.documentElement.classList.toggle('dark', state.darkMode);
+            document.getElementById('darkModeIcon').className = state.darkMode ? 'fas fa-sun text-yellow-400' : 'fas fa-moon text-gray-600';
+            localStorage.setItem('eb-dark-mode', state.darkMode ? '1' : '0');
+            renderCharts();
+        };
+
+        // Init
+        const init = async () => {
+            state.darkMode = localStorage.getItem('eb-dark-mode') === '1' || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            document.documentElement.classList.toggle('dark', state.darkMode);
+            document.getElementById('darkModeIcon').className = state.darkMode ? 'fas fa-sun text-yellow-400' : 'fas fa-moon text-gray-600';
+            await loadAll();
+        };
+
+        // Close modals on outside click
+        window.addEventListener('click', (e) => {
+            ['historyModal', 'tariffModal', 'backupModal'].forEach(id => {
+                const m = document.getElementById(id);
+                if (e.target === m) m.classList.add('hidden');
+            });
+        });
+
+        return {
+            init,
+            saveReading,
+            generateBill,
+            deleteReading,
+            deleteBill,
+            editReading,
+            openHistoryImport,
+            saveHistoricalReading,
+            closeModal,
+            openTariffEditor,
+            saveTariff,
+            saveSettings,
+            exportCSV,
+            openBackup,
+            copyBackup,
+            downloadBackup,
+            restoreFromJson,
+            seedHistoricalBills,
+            resetAllData,
+            toggleDarkMode
+        };
+    })();
+
+    document.addEventListener('DOMContentLoaded', EBApp.init);
+    </script>
+</body>
+</html>
