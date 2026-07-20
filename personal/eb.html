@@ -6,9 +6,11 @@
     <title>EB Tracker - Home Electricity & Solar Net Metering</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -60,6 +62,47 @@
 
         <!-- Alerts -->
         <div id="alertBox" class="hidden mb-4 p-4 rounded-lg text-sm"></div>
+
+        <!-- Current Cycle Summary / ADR Widget -->
+        <section class="bg-gradient-to-r from-slate-800 to-slate-900 text-white rounded-xl shadow-sm p-4 md:p-6 mb-6">
+            <h2 class="text-base font-semibold mb-3 flex items-center gap-2">
+                <i class="fas fa-bolt text-warning"></i>
+                Current Billing Cycle Summary
+                <span id="summaryCycleDate" class="ml-auto text-xs font-normal text-slate-300"></span>
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                <div class="bg-white/10 rounded-lg p-3 text-center">
+                    <p class="text-xs text-slate-300">Import Units</p>
+                    <p id="summaryImportUnits" class="text-xl font-bold text-blue-300">-</p>
+                    <p class="text-xs text-slate-400">kWh</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-3 text-center">
+                    <p class="text-xs text-slate-300">Export Units</p>
+                    <p id="summaryExportUnits" class="text-xl font-bold text-green-300">-</p>
+                    <p class="text-xs text-slate-400">kWh</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-3 text-center">
+                    <p class="text-xs text-slate-300">Net Units</p>
+                    <p id="summaryNetUnits" class="text-xl font-bold text-purple-300">-</p>
+                    <p class="text-xs text-slate-400">kWh</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-3 text-center">
+                    <p class="text-xs text-slate-300">Import ADR</p>
+                    <p id="summaryImportAdr" class="text-xl font-bold text-blue-300">-</p>
+                    <p class="text-xs text-slate-400">kWh/day</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-3 text-center">
+                    <p class="text-xs text-slate-300">Export ADR</p>
+                    <p id="summaryExportAdr" class="text-xl font-bold text-green-300">-</p>
+                    <p class="text-xs text-slate-400">kWh/day</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-3 text-center">
+                    <p class="text-xs text-slate-300">Net ADR</p>
+                    <p id="summaryNetAdr" class="text-xl font-bold text-purple-300">-</p>
+                    <p class="text-xs text-slate-400">kWh/day</p>
+                </div>
+            </div>
+        </section>
 
         <!-- Reading Entry -->
         <section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 md:p-6 mb-6">
@@ -626,8 +669,13 @@
             const cycleDays = Math.max(1, daysBetween(cycleStart, nowIST()));
             const currentCycleStartReading = lastBill ? lastBill.endReading : (state.readings[0] ? state.readings[0].importReading : 0);
             const currentCycleStartExport = lastBill ? lastBill.endExport : (state.readings[0] ? state.readings[0].exportReading : 0);
-            const currentNetUnits = (last.importReading - currentCycleStartReading) - (last.exportReading - currentCycleStartExport);
+            const currentImportDelta = last ? last.importReading - currentCycleStartReading : 0;
+            const currentExportDelta = last ? last.exportReading - currentCycleStartExport : 0;
+            const currentNetUnits = currentImportDelta - currentExportDelta;
             const currentCycleEst = calculateBill(currentNetUnits, cycleDays);
+            const importAdr = cycleDays > 0 ? currentImportDelta / cycleDays : 0;
+            const exportAdr = cycleDays > 0 ? currentExportDelta / cycleDays : 0;
+            const netAdr = cycleDays > 0 ? currentNetUnits / cycleDays : 0;
 
             return {
                 lastReading: last,
@@ -652,9 +700,12 @@
                     startExport: currentCycleStartExport,
                     currentImport: last ? last.importReading : 0,
                     currentExport: last ? last.exportReading : 0,
-                    importDelta: last ? last.importReading - currentCycleStartReading : 0,
-                    exportDelta: last ? last.exportReading - currentCycleStartExport : 0,
+                    importDelta: currentImportDelta,
+                    exportDelta: currentExportDelta,
                     netUnits: currentNetUnits,
+                    importAdr,
+                    exportAdr,
+                    netAdr,
                     estimatedBill: currentCycleEst.total,
                     days: cycleDays
                 }
@@ -664,12 +715,28 @@
         // Render
         const render = () => {
             document.getElementById('currentIstTime').textContent = `IST: ${formatIST(nowIST())}`;
+            renderSummary();
             renderDashboard();
             renderReadings();
             renderBills();
             renderTariff();
             renderSettings();
             renderCharts();
+        };
+
+        const renderSummary = () => {
+            const c = state.analytics.currentCycle || {};
+            const setText = (id, value, decimals = 1) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value !== undefined && !isNaN(value) ? Number(value).toFixed(decimals) : '-';
+            };
+            document.getElementById('summaryCycleDate').textContent = c.startDate ? `Since ${formatIST(c.startDate).split(',')[0]}` : '';
+            setText('summaryImportUnits', c.importDelta);
+            setText('summaryExportUnits', c.exportDelta);
+            setText('summaryNetUnits', c.netUnits);
+            setText('summaryImportAdr', c.importAdr, 2);
+            setText('summaryExportAdr', c.exportAdr, 2);
+            setText('summaryNetAdr', c.netAdr, 2);
         };
 
         const renderDashboard = () => {
@@ -802,16 +869,34 @@
         };
 
         // Charts
-        const commonChartOptions = (title) => ({
+        const commonChartOptions = ({ time = false, bar = false, yTitle = '' } = {}) => ({
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
                 legend: { labels: { color: '#334155' } },
-                title: { display: false }
+                title: { display: false },
+                tooltip: {
+                    callbacks: {
+                        title: (items) => time ? formatIST(items[0].parsed.x) : (items[0].label || '')
+                    }
+                }
             },
             scales: {
-                x: { ticks: { color: '#64748b' }, grid: { color: '#e2e8f0' } },
-                y: { ticks: { color: '#64748b' }, grid: { color: '#e2e8f0' } }
+                x: time ? {
+                    type: 'time',
+                    time: { tooltipFormat: 'PP p', displayFormats: { day: 'd MMM', month: 'MMM yyyy' } },
+                    ticks: { color: '#64748b', maxRotation: 45, minRotation: 45 },
+                    grid: { color: '#e2e8f0' },
+                    offset: bar
+                } : {
+                    ticks: { color: '#64748b' },
+                    grid: { color: '#e2e8f0' }
+                },
+                y: {
+                    title: yTitle ? { display: true, text: yTitle, color: '#64748b', font: { size: 11 } } : undefined,
+                    ticks: { color: '#64748b' },
+                    grid: { color: '#e2e8f0' }
+                }
             }
         });
 
@@ -825,19 +910,12 @@
         });
 
         const renderCharts = () => {
-            const labels = state.readings.map(r => formatIST(r.timestamp).split(',')[0]);
-            const importData = state.readings.map(r => r.importReading);
-            const exportData = state.readings.map(r => r.exportReading);
-            const netData = state.readings.map(r => r.netUnits);
-            const avgData = state.readings.map(r => r.averageDailyUsage);
-            const billLabels = state.bills.map(b => formatIST(b.billDate).split(',')[0]);
-            const billData = state.bills.map(b => b.billAmount);
+            const c = chartColors();
 
-            // Monthly aggregation for some charts
+            // Aggregate readings by month in Asia/Kolkata time for monthly charts
             const monthly = {};
             state.readings.forEach(r => {
-                const d = new Date(r.timestamp);
-                const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                const key = toISOTS(new Date(r.timestamp)).slice(0, 7);
                 if (!monthly[key]) monthly[key] = { importDelta: 0, exportDelta: 0, net: 0, days: 0, count: 0, cost: 0 };
                 monthly[key].importDelta += r.importDelta || 0;
                 monthly[key].exportDelta += r.exportDelta || 0;
@@ -847,37 +925,74 @@
                 monthly[key].cost += r.estimatedBill || 0;
             });
             const monthKeys = Object.keys(monthly).sort();
-            const monthlyUnits = monthKeys.map(k => monthly[k].net);
+            const monthPoint = (key) => new Date(`${key}-15T00:00:00+05:30`);
+            const monthlyUnits = monthKeys.map(k => ({ x: monthPoint(k), y: monthly[k].net }));
             const monthlySolarOffset = monthKeys.map(k => {
                 const m = monthly[k];
-                return m.importDelta + m.exportDelta > 0 ? (m.exportDelta / (m.importDelta + m.exportDelta)) * 100 : 0;
+                return { x: monthPoint(k), y: m.importDelta + m.exportDelta > 0 ? (m.exportDelta / (m.importDelta + m.exportDelta)) * 100 : 0 };
             });
             const monthlyCostPerDay = monthKeys.map(k => {
                 const m = monthly[k];
-                return m.days > 0 ? m.cost / m.days : 0;
+                return { x: monthPoint(k), y: m.days > 0 ? m.cost / m.days : 0 };
             });
 
-            const makeChart = (id, type, datasets) => {
+            const makeChart = (id, type, data, options = {}) => {
                 const ctx = document.getElementById(id);
                 if (!ctx) return;
                 if (state.charts[id]) state.charts[id].destroy();
-                state.charts[id] = new Chart(ctx, {
-                    type,
-                    data: { labels: datasets.labels, datasets: datasets.data },
-                    options: commonChartOptions()
-                });
+                state.charts[id] = new Chart(ctx, { type, data: { datasets: data }, options });
             };
 
-            const c = chartColors();
+            // Time-based line charts: actual reading interval spacing
+            makeChart('chartImport', 'line', [{
+                label: 'Import Reading (kWh)',
+                data: state.readings.map(r => ({ x: r.timestamp, y: r.importReading })),
+                borderColor: c.import, backgroundColor: c.import, fill: false, tension: 0.3
+            }], commonChartOptions({ time: true, yTitle: 'kWh' }));
 
-            makeChart('chartImport', 'line', { labels, data: [{ label: 'Import Reading (kWh)', data: importData, borderColor: c.import, backgroundColor: c.import, fill: false, tension: 0.3 }] });
-            makeChart('chartExport', 'line', { labels, data: [{ label: 'Export Reading (kWh)', data: exportData, borderColor: c.export, backgroundColor: c.export, fill: false, tension: 0.3 }] });
-            makeChart('chartNet', 'line', { labels, data: [{ label: 'Net Units (kWh)', data: netData, borderColor: c.net, backgroundColor: c.net, fill: true, tension: 0.3 }] });
-            makeChart('chartDailyAvg', 'line', { labels, data: [{ label: 'Avg Daily Usage (kWh/day)', data: avgData, borderColor: c.avg, backgroundColor: c.avg, fill: true, tension: 0.3, spanGaps: true }] });
-            makeChart('chartBillTrend', 'bar', { labels: billLabels, data: [{ label: 'Bill Amount (₹)', data: billData, backgroundColor: c.bill }] });
-            makeChart('chartMonthlyUnits', 'bar', { labels: monthKeys, data: [{ label: 'Monthly Net Units (kWh)', data: monthlyUnits, backgroundColor: c.net }] });
-            makeChart('chartSolarOffset', 'line', { labels: monthKeys, data: [{ label: 'Solar Offset %', data: monthlySolarOffset, borderColor: c.solar, backgroundColor: c.solar, fill: true, tension: 0.3 }] });
-            makeChart('chartCostPerDay', 'bar', { labels: monthKeys, data: [{ label: 'Cost per Day (₹)', data: monthlyCostPerDay, backgroundColor: c.bill }] });
+            makeChart('chartExport', 'line', [{
+                label: 'Export Reading (kWh)',
+                data: state.readings.map(r => ({ x: r.timestamp, y: r.exportReading })),
+                borderColor: c.export, backgroundColor: c.export, fill: false, tension: 0.3
+            }], commonChartOptions({ time: true, yTitle: 'kWh' }));
+
+            makeChart('chartNet', 'line', [{
+                label: 'Net Units (kWh)',
+                data: state.readings.map(r => ({ x: r.timestamp, y: r.netUnits })),
+                borderColor: c.net, backgroundColor: c.net, fill: true, tension: 0.3
+            }], commonChartOptions({ time: true, yTitle: 'kWh' }));
+
+            makeChart('chartDailyAvg', 'line', [{
+                label: 'Avg Daily Usage (kWh/day)',
+                data: state.readings.filter(r => r.daysSincePrevious > 0).map(r => ({ x: r.timestamp, y: r.averageDailyUsage })),
+                borderColor: c.avg, backgroundColor: c.avg, fill: true, tension: 0.3, spanGaps: true
+            }], commonChartOptions({ time: true, yTitle: 'kWh/day' }));
+
+            // Bill trend with actual bill dates
+            makeChart('chartBillTrend', 'bar', [{
+                label: 'Bill Amount (₹)',
+                data: state.bills.map(b => ({ x: b.billDate, y: b.billAmount })),
+                backgroundColor: c.bill
+            }], commonChartOptions({ time: true, bar: true, yTitle: '₹' }));
+
+            // Monthly charts use mid-month date points
+            makeChart('chartMonthlyUnits', 'bar', [{
+                label: 'Monthly Net Units (kWh)',
+                data: monthlyUnits,
+                backgroundColor: c.net
+            }], commonChartOptions({ time: true, bar: true, yTitle: 'kWh' }));
+
+            makeChart('chartSolarOffset', 'line', [{
+                label: 'Solar Offset %',
+                data: monthlySolarOffset,
+                borderColor: c.solar, backgroundColor: c.solar, fill: true, tension: 0.3
+            }], commonChartOptions({ time: true, yTitle: '%' }));
+
+            makeChart('chartCostPerDay', 'bar', [{
+                label: 'Cost per Day (₹)',
+                data: monthlyCostPerDay,
+                backgroundColor: c.bill
+            }], commonChartOptions({ time: true, bar: true, yTitle: '₹' }));
         };
 
         // Polling sync (reliable fallback for static pages)
@@ -1372,9 +1487,7 @@
             copyBackup,
             downloadBackup,
             restoreFromJson,
-            seedHistoricalBills,
-            resetAllData,
-            toggleDarkMode
+            seedHistoricalBills
         };
     })();
 
