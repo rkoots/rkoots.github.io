@@ -647,10 +647,10 @@
             const allExportDelta = state.readings.map(r => r.exportDelta || 0);
             const allAvg = state.readings.filter(r => (r.averageDailyUsage || 0) > 0).map(r => r.averageDailyUsage);
 
-            const avgDailyNet = allAvg.length ? allAvg.reduce((a, b) => a + b, 0) / allAvg.length : 0;
-            const avgDailyImport = state.readings.filter(r => r.daysSincePrevious > 0).length ? 
+            const averageDailyUsage = allAvg.length ? allAvg.reduce((a, b) => a + b, 0) / allAvg.length : 0;
+            const averageDailyImport = state.readings.filter(r => r.daysSincePrevious > 0).length ? 
                 state.readings.filter(r => r.daysSincePrevious > 0).reduce((s, r) => s + (r.importDelta / r.daysSincePrevious), 0) / state.readings.filter(r => r.daysSincePrevious > 0).length : 0;
-            const avgDailyExport = state.readings.filter(r => r.daysSincePrevious > 0).length ? 
+            const averageDailyExport = state.readings.filter(r => r.daysSincePrevious > 0).length ? 
                 state.readings.filter(r => r.daysSincePrevious > 0).reduce((s, r) => s + (r.exportDelta / r.daysSincePrevious), 0) / state.readings.filter(r => r.daysSincePrevious > 0).length : 0;
 
             const avgBill = state.bills.length ? state.bills.reduce((s, b) => s + (b.billAmount || 0), 0) / state.bills.length : 0;
@@ -660,7 +660,7 @@
             const totalExport = allExportDelta.reduce((a, b) => a + b, 0);
             const solarOffset = totalImport + totalExport > 0 ? (totalExport / (totalImport + totalExport)) * 100 : 0;
 
-            const projectedMonthlyUnits = avgDailyNet * 30;
+            const projectedMonthlyUnits = averageDailyUsage * 30;
             const projectedMonthlyBill = calculateBill(projectedMonthlyUnits, 30).total;
             const projectedNextBill = lastBill ? calculateBill(projectedMonthlyUnits, lastBill.noOfDays || 60).total : projectedMonthlyBill;
 
@@ -681,7 +681,7 @@
                 lastReading: last,
                 previousReading: prev,
                 lastBill,
-                averageDailyUsage: avgDailyNet,
+                averageDailyUsage,
                 averageDailyImport,
                 averageDailyExport,
                 averageBillPerMonth: avgBill,
@@ -945,16 +945,16 @@
 
             // Time-based line charts: actual reading interval spacing
             makeChart('chartImport', 'line', [{
-                label: 'Import Reading (kWh)',
-                data: state.readings.map(r => ({ x: r.timestamp, y: r.importReading })),
+                label: 'Import ADR (kWh/day)',
+                data: state.readings.filter(r => r.daysSincePrevious > 0).map(r => ({ x: r.timestamp, y: r.daysSincePrevious > 0 ? r.importDelta / r.daysSincePrevious : 0 })),
                 borderColor: c.import, backgroundColor: c.import, fill: false, tension: 0.3
-            }], commonChartOptions({ time: true, yTitle: 'kWh' }));
+            }], commonChartOptions({ time: true, yTitle: 'kWh/day' }));
 
             makeChart('chartExport', 'line', [{
-                label: 'Export Reading (kWh)',
-                data: state.readings.map(r => ({ x: r.timestamp, y: r.exportReading })),
+                label: 'Export ADR (kWh/day)',
+                data: state.readings.filter(r => r.daysSincePrevious > 0).map(r => ({ x: r.timestamp, y: r.daysSincePrevious > 0 ? r.exportDelta / r.daysSincePrevious : 0 })),
                 borderColor: c.export, backgroundColor: c.export, fill: false, tension: 0.3
-            }], commonChartOptions({ time: true, yTitle: 'kWh' }));
+            }], commonChartOptions({ time: true, yTitle: 'kWh/day' }));
 
             makeChart('chartNet', 'line', [{
                 label: 'Net Units (kWh)',
