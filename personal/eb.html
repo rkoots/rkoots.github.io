@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -53,14 +52,9 @@
                 </h1>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Home Electricity & Solar Net Metering Dashboard</p>
             </div>
-            <div class="flex items-center gap-3">
-                <div class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-800 rounded-full shadow text-sm">
-                    <span id="statusDot" class="status-dot status-offline"></span>
-                    <span id="statusText" class="text-gray-600 dark:text-gray-300">Offline</span>
-                </div>
-                <button onclick="EBApp.toggleDarkMode()" class="p-2 rounded-lg bg-white dark:bg-slate-800 shadow hover:bg-gray-100 dark:hover:bg-slate-700 transition">
-                    <i id="darkModeIcon" class="fas fa-moon text-gray-600 dark:text-yellow-400"></i>
-                </button>
+            <div class="flex items-center gap-2 px-3 py-1.5 bg-white rounded-full shadow text-sm">
+                <span id="statusDot" class="status-dot status-offline"></span>
+                <span id="statusText" class="text-gray-600">Offline</span>
             </div>
         </header>
 
@@ -75,19 +69,15 @@
                 <span class="text-xs font-normal text-gray-500 dark:text-gray-400 ml-auto" id="currentIstTime"></span>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
-                <div class="md:col-span-3">
+                <div class="col-span-1 md:col-span-5">
                     <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Import Reading (kWh)</label>
                     <input type="number" id="importReading" step="0.1" class="w-full p-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-lg font-semibold" placeholder="0.0">
                 </div>
-                <div class="md:col-span-3">
+                <div class="col-span-1 md:col-span-5">
                     <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Export Reading (kWh)</label>
                     <input type="number" id="exportReading" step="0.1" class="w-full p-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-lg font-semibold" placeholder="0.0">
                 </div>
-                <div class="md:col-span-4">
-                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Notes (optional)</label>
-                    <input type="text" id="readingNotes" class="w-full p-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700" placeholder="e.g. Monthly reading, after solar install">
-                </div>
-                <div class="md:col-span-2">
+                <div class="col-span-1 md:col-span-2">
                     <button onclick="EBApp.saveReading()" class="w-full py-3 px-4 bg-primary hover:bg-sky-600 text-white rounded-lg font-semibold transition flex items-center justify-center gap-2">
                         <i class="fas fa-save"></i> Save
                     </button>
@@ -194,7 +184,6 @@
                             <th class="p-3">Net</th>
                             <th class="p-3">Avg/Day</th>
                             <th class="p-3">Est. Bill</th>
-                            <th class="p-3">Notes</th>
                             <th class="p-3">Actions</th>
                         </tr>
                     </thead>
@@ -246,9 +235,6 @@
                 <button onclick="EBApp.seedHistoricalBills()" class="px-4 py-2 text-sm bg-warning hover:bg-amber-600 text-white rounded-lg transition">
                     Seed Historical Bills
                 </button>
-                <button onclick="EBApp.resetAllData()" class="px-4 py-2 text-sm bg-danger hover:bg-red-600 text-white rounded-lg transition">
-                    Reset All Data
-                </button>
             </div>
         </section>
     </div>
@@ -269,10 +255,6 @@
                 <div>
                     <label class="block text-sm font-medium mb-1">Export Reading (kWh)</label>
                     <input type="number" id="histExport" step="0.1" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700" placeholder="0">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1">Notes</label>
-                    <input type="text" id="histNotes" class="w-full p-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700">
                 </div>
                 <div class="flex justify-end gap-2">
                     <button onclick="EBApp.closeModal('historyModal')" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-700">Cancel</button>
@@ -354,32 +336,45 @@
             settings: {},
             analytics: {},
             charts: {},
-            darkMode: false,
-            eventSource: null,
-            pendingWrites: new Set()
+            pollInterval: null
         };
 
         // Utils
         const nowIST = () => {
             const d = new Date();
-            const istOffset = 5.5 * 60 * 60 * 1000;
-            const utc = d.getTime() + (d.getTimezoneOffset() * 60 * 1000);
-            return new Date(utc + istOffset);
+            const s = d.toLocaleString('sv-SE', { timeZone: 'Asia/Kolkata', hour12: false }).replace(' ', 'T');
+            return new Date(s + '+05:30');
         };
 
         const formatIST = (date) => {
+            if (!date) return '';
             const d = date instanceof Date ? date : new Date(date);
-            return d.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' });
+            if (isNaN(d.getTime())) return String(date);
+            return d.toLocaleString('en-IN', {
+                timeZone: 'Asia/Kolkata',
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', hour12: false
+            });
         };
 
         const toISOTS = (date) => {
+            if (!date) return '';
             const d = date instanceof Date ? date : new Date(date);
-            return d.toISOString();
+            if (isNaN(d.getTime())) return String(date);
+            const parts = new Intl.DateTimeFormat('en-CA', {
+                timeZone: 'Asia/Kolkata',
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                hour12: false
+            }).formatToParts(d);
+            const get = (type) => parts.find(p => p.type === type)?.value;
+            return `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}:${get('second')}+05:30`;
         };
 
         const daysBetween = (d1, d2) => {
-            const a = new Date(d1); a.setHours(0,0,0,0);
-            const b = new Date(d2); b.setHours(0,0,0,0);
+            const a = new Date(d1);
+            const b = new Date(d2);
+            if (isNaN(a.getTime()) || isNaN(b.getTime())) return 0;
             return Math.max(0, Math.round((b - a) / (1000 * 60 * 60 * 24)));
         };
 
@@ -478,9 +473,12 @@
             createdAt: toISOTS(nowIST())
         });
 
+        const getTariff = () => (state.tariff && typeof state.tariff === 'object' && Array.isArray(state.tariff.slabs)) ? state.tariff : defaultTariff();
+        const getSettings = () => (state.settings && typeof state.settings === 'object') ? state.settings : defaultSettings();
+
         // Tariff engine
         const calculateEnergyCharges = (units) => {
-            const t = state.tariff || defaultTariff();
+            const t = getTariff();
             let remaining = Math.max(0, units);
             let charge = 0;
             let previous = 0;
@@ -496,7 +494,7 @@
         };
 
         const calculateFixedCharges = (units) => {
-            const t = state.tariff || defaultTariff();
+            const t = getTariff();
             for (const slab of t.fixedCharges) {
                 const upper = slab.limit === null ? Infinity : slab.limit;
                 if (units <= upper) return slab.amount;
@@ -505,7 +503,7 @@
         };
 
         const calculateBill = (netUnits, days = 30) => {
-            const t = state.tariff || defaultTariff();
+            const t = getTariff();
             const energy = calculateEnergyCharges(netUnits);
             const fixed = calculateFixedCharges(netUnits);
             const netExportAdjustment = 0; // net metering carry-forward, no cash credit unless configured
@@ -541,7 +539,7 @@
         };
 
         // Load / init
-        const loadAll = async () => {
+        const loadAll = async (silent = false) => {
             setStatus('syncing');
             try {
                 const [readingsData, billsData, tariffData, settingsData, analyticsData] = await Promise.all([
@@ -559,15 +557,19 @@
                 state.analytics = analyticsData || {};
 
                 setStatus('online');
-                recalcAll();
-                render();
-                startListener();
+                try {
+                    recalcAll();
+                    render();
+                } catch (renderErr) {
+                    console.error('Render error during sync:', renderErr);
+                    if (!silent) showAlert('Data synced, but error rendering page. Check console.', 'error');
+                }
             } catch (e) {
-                console.error(e);
+                console.error('Sync error:', e);
                 setStatus('offline');
-                showAlert('Failed to sync with Firebase. Working with local defaults.', 'error');
-                state.tariff = defaultTariff();
-                state.settings = defaultSettings();
+                if (!silent) showAlert('Failed to sync with Firebase: ' + e.message + '. Using local defaults.', 'error');
+                state.tariff = getTariff();
+                state.settings = getSettings();
                 recalcAll();
                 render();
             }
@@ -620,7 +622,7 @@
             const projectedNextBill = lastBill ? calculateBill(projectedMonthlyUnits, lastBill.noOfDays || 60).total : projectedMonthlyBill;
 
             const daysSinceLast = last ? daysBetween(new Date(last.timestamp), nowIST()) : 0;
-            const cycleStart = lastBill ? new Date(lastBill.billDate) : (state.readings[0] ? new Date(state.readings[0].timestamp) : nowIST());
+            const cycleStart = lastBill ? new Date(lastBill.endDate) : (state.readings[0] ? new Date(state.readings[0].timestamp) : nowIST());
             const cycleDays = Math.max(1, daysBetween(cycleStart, nowIST()));
             const currentCycleStartReading = lastBill ? lastBill.endReading : (state.readings[0] ? state.readings[0].importReading : 0);
             const currentCycleStartExport = lastBill ? lastBill.endExport : (state.readings[0] ? state.readings[0].exportReading : 0);
@@ -741,7 +743,6 @@
                     <td class="p-3 ${r.netUnits < 0 ? 'text-green-500' : ''}">${num(r.netUnits)}</td>
                     <td class="p-3">${num(r.averageDailyUsage, 2)}</td>
                     <td class="p-3">${money(r.estimatedBill)}</td>
-                    <td class="p-3 max-w-xs truncate" title="${(r.notes || '').replace(/"/g, '&quot;')}">${r.notes || ''}</td>
                     <td class="p-3">
                         <button onclick="EBApp.editReading('${r.id}')" class="text-primary hover:underline mr-2 text-xs"><i class="fas fa-edit"></i></button>
                         <button onclick="EBApp.deleteReading('${r.id}')" class="text-danger hover:underline text-xs"><i class="fas fa-trash"></i></button>
@@ -777,7 +778,7 @@
         };
 
         const renderTariff = () => {
-            const t = state.tariff || defaultTariff();
+            const t = getTariff();
             const slabs = (t.slabs || []).map(s => `<li>Up to ${s.limit === null ? '∞' : s.limit} units @ ₹${s.rate}/unit</li>`).join('');
             const fixed = (t.fixedCharges || []).map(s => `<li>Up to ${s.limit === null ? '∞' : s.limit} units: ₹${s.amount}</li>`).join('');
             document.getElementById('tariffDisplay').innerHTML = `
@@ -794,7 +795,7 @@
         };
 
         const renderSettings = () => {
-            const s = state.settings || defaultSettings();
+            const s = getSettings();
             document.getElementById('billingDay').value = s.billingDay || 1;
             document.getElementById('exportCompensation').value = s.exportCompensation || 0;
             document.getElementById('netMetering').checked = s.netMetering !== false;
@@ -805,12 +806,12 @@
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { labels: { color: state.darkMode ? '#e2e8f0' : '#334155' } },
+                legend: { labels: { color: '#334155' } },
                 title: { display: false }
             },
             scales: {
-                x: { ticks: { color: state.darkMode ? '#94a3b8' : '#64748b' }, grid: { color: state.darkMode ? '#334155' : '#e2e8f0' } },
-                y: { ticks: { color: state.darkMode ? '#94a3b8' : '#64748b' }, grid: { color: state.darkMode ? '#334155' : '#e2e8f0' } }
+                x: { ticks: { color: '#64748b' }, grid: { color: '#e2e8f0' } },
+                y: { ticks: { color: '#64748b' }, grid: { color: '#e2e8f0' } }
             }
         });
 
@@ -879,28 +880,10 @@
             makeChart('chartCostPerDay', 'bar', { labels: monthKeys, data: [{ label: 'Cost per Day (₹)', data: monthlyCostPerDay, backgroundColor: c.bill }] });
         };
 
-        // Firebase listener
-        const startListener = () => {
-            if (state.eventSource) state.eventSource.close();
-            try {
-                const url = `${FB_BASE}.json`;
-                const es = new EventSource(url);
-                es.onmessage = (e) => {
-                    if (!e.data) return;
-                    try {
-                        const msg = JSON.parse(e.data);
-                        if (msg.path !== undefined || msg.data !== undefined) {
-                            // Fire on any change; avoid loops by checking timestamp not too recent
-                            loadAll();
-                        }
-                    } catch (err) {}
-                };
-                es.onerror = () => setStatus('offline');
-                state.eventSource = es;
-            } catch (e) {
-                console.warn('SSE not supported, using polling fallback');
-                setInterval(() => loadAll(), 30000);
-            }
+        // Polling sync (reliable fallback for static pages)
+        const startPolling = () => {
+            if (state.pollInterval) clearInterval(state.pollInterval);
+            state.pollInterval = setInterval(() => loadAll(true), 30000);
         };
 
         // Actions
@@ -932,10 +915,9 @@
             return null;
         };
 
-        const saveReading = async (isHistorical = false, ts = null, imp = null, exp = null, notes = null) => {
+        const saveReading = async (isHistorical = false, ts = null, imp = null, exp = null) => {
             const importInput = imp !== null ? imp : document.getElementById('importReading').value;
             const exportInput = exp !== null ? exp : document.getElementById('exportReading').value;
-            const notesInput = notes !== null ? notes : (document.getElementById('readingNotes') || {}).value || '';
 
             const err = validateReading(importInput, exportInput, isHistorical, ts);
             if (err) {
@@ -948,46 +930,69 @@
                 timestamp,
                 importReading: Number(importInput),
                 exportReading: Number(exportInput),
-                notes: notesInput,
                 updatedAt: toISOTS(nowIST())
             };
 
             setStatus('syncing');
             try {
                 const res = await fbPost('readings', reading);
+                if (!res || !res.name) throw new Error('Invalid response');
                 reading.id = res.name;
                 state.readings.push(reading);
-                recalcAll();
-                render();
-                if (!isHistorical) {
-                    document.getElementById('importReading').value = '';
-                    document.getElementById('exportReading').value = '';
-                    document.getElementById('readingNotes').value = '';
-                }
                 setStatus('online');
                 showAlert('Reading saved successfully.', 'success');
             } catch (e) {
+                console.error('Save error:', e);
                 setStatus('offline');
-                showAlert('Failed to save reading to Firebase.', 'error');
+                showAlert('Failed to save reading to Firebase: ' + e.message, 'error');
+                return;
+            }
+
+            try {
+                recalcAll();
+                render();
+            } catch (renderErr) {
+                console.error('Render error after save:', renderErr);
+            }
+
+            if (!isHistorical) {
+                try {
+                    document.getElementById('importReading').value = '';
+                    document.getElementById('exportReading').value = '';
+                } catch (elErr) {}
             }
         };
 
         const generateBill = async () => {
-            if (state.readings.length < 2) {
-                showAlert('Need at least two readings to generate a bill.', 'error');
+            if (state.readings.length < 1) {
+                showAlert('Need at least one reading to generate a bill.', 'error');
                 return;
             }
 
-            const lastBill = state.bills.length ? state.bills[state.bills.length - 1] : null;
-            const startDate = lastBill ? new Date(lastBill.billDate) : new Date(state.readings[0].timestamp);
-            const endReading = state.readings[state.readings.length - 1];
-            const startReading = lastBill ? state.readings.find(r => r.importReading === lastBill.endReading && r.exportReading === lastBill.endExport) : state.readings[0];
+            const sortedReadings = sortByDate(state.readings);
+            const sortedBills = sortByDate(state.bills, 'billDate');
+            const lastBill = sortedBills.length ? sortedBills[sortedBills.length - 1] : null;
 
-            // Use latest reading as cycle end, find first reading after last bill
-            let cycleReadings = state.readings.filter(r => new Date(r.timestamp) >= startDate);
-            if (!cycleReadings.length) cycleReadings = [endReading];
-            const cycleStartReading = cycleReadings[0];
-            const cycleEndReading = cycleReadings[cycleReadings.length - 1];
+            let cycleStartReading, cycleEndReading;
+            if (lastBill) {
+                const lastBillEndTs = new Date(lastBill.endDate).getTime();
+                const startCandidates = sortedReadings.filter(r => new Date(r.timestamp).getTime() <= lastBillEndTs);
+                const start = startCandidates.length ? startCandidates[startCandidates.length - 1] : sortedReadings[0];
+                const end = sortedReadings[sortedReadings.length - 1];
+                if (new Date(end.timestamp).getTime() <= lastBillEndTs) {
+                    showAlert('No new readings since last bill. Add a new reading first.', 'error');
+                    return;
+                }
+                cycleStartReading = start;
+                cycleEndReading = end;
+            } else {
+                if (sortedReadings.length < 2) {
+                    showAlert('Need at least two readings for first bill.', 'error');
+                    return;
+                }
+                cycleStartReading = sortedReadings[0];
+                cycleEndReading = sortedReadings[sortedReadings.length - 1];
+            }
 
             const importUnits = cycleEndReading.importReading - cycleStartReading.importReading;
             const exportUnits = cycleEndReading.exportReading - cycleStartReading.exportReading;
@@ -1020,15 +1025,23 @@
             setStatus('syncing');
             try {
                 const res = await fbPost('bills', newBill);
+                if (!res || !res.name) throw new Error('Invalid response');
                 newBill.id = res.name;
                 state.bills.push(newBill);
-                recalcAll();
-                render();
                 setStatus('online');
                 showAlert(`Bill generated: ${money(bill.total)} for ${num(netUnits)} kWh over ${noOfDays} days.`, 'success');
             } catch (e) {
+                console.error('Bill save error:', e);
                 setStatus('offline');
-                showAlert('Failed to save bill.', 'error');
+                showAlert('Failed to save bill: ' + e.message, 'error');
+                return;
+            }
+
+            try {
+                recalcAll();
+                render();
+            } catch (renderErr) {
+                console.error('Render error after bill:', renderErr);
             }
         };
 
@@ -1071,8 +1084,6 @@
             if (newImp === null) return;
             const newExp = prompt('Update Export Reading:', r.exportReading);
             if (newExp === null) return;
-            const newNotes = prompt('Update Notes:', r.notes || '');
-            if (newNotes === null) return;
 
             const importVal = Number(newImp);
             const exportVal = Number(newExp);
@@ -1080,7 +1091,7 @@
                 showAlert('Invalid values.', 'error');
                 return;
             }
-            updateReading(id, { importReading: importVal, exportReading: exportVal, notes: newNotes });
+            updateReading(id, { importReading: importVal, exportReading: exportVal });
         };
 
         const updateReading = async (id, updates) => {
@@ -1104,21 +1115,25 @@
             document.getElementById('historyModal').classList.remove('hidden');
             document.getElementById('historyModal').classList.add('flex');
             const now = nowIST();
-            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-            document.getElementById('histDateTime').value = now.toISOString().slice(0, 16);
+            const pad = n => String(n).padStart(2, '0');
+            const y = now.getFullYear();
+            const m = pad(now.getMonth() + 1);
+            const d = pad(now.getDate());
+            const h = pad(now.getHours());
+            const min = pad(now.getMinutes());
+            document.getElementById('histDateTime').value = `${y}-${m}-${d}T${h}:${min}`;
         };
 
         const saveHistoricalReading = () => {
             const ts = document.getElementById('histDateTime').value;
             const imp = document.getElementById('histImport').value;
             const exp = document.getElementById('histExport').value || 0;
-            const notes = document.getElementById('histNotes').value;
             if (!ts) { showAlert('Please select a date/time.', 'error'); return; }
-            saveReading(true, ts, imp, exp, notes);
+            // Treat manual input as Asia/Kolkata time
+            saveReading(true, ts + '+05:30', imp, exp);
             closeModal('historyModal');
             document.getElementById('histImport').value = '';
             document.getElementById('histExport').value = '';
-            document.getElementById('histNotes').value = '';
         };
 
         const closeModal = (id) => {
@@ -1127,7 +1142,7 @@
         };
 
         const openTariffEditor = () => {
-            const t = state.tariff || defaultTariff();
+            const t = getTariff();
             document.getElementById('tariffName').value = t.name;
             document.getElementById('tariffVersion').value = t.version;
             document.getElementById('tariffSlabs').value = JSON.stringify(t.slabs || [], null, 2);
@@ -1184,9 +1199,9 @@
 
         // CSV / Backup
         const exportCSV = () => {
-            let csv = 'Timestamp,Import Reading,Export Reading,Import Delta,Export Delta,Net Units,Avg Daily Usage,Estimated Bill,Notes\n';
+            let csv = 'Timestamp,Import Reading,Export Reading,Import Delta,Export Delta,Net Units,Avg Daily Usage,Estimated Bill\n';
             state.readings.forEach(r => {
-                csv += `${r.timestamp},${r.importReading},${r.exportReading},${r.importDelta},${r.exportDelta},${r.netUnits},${r.averageDailyUsage},${r.estimatedBill},"${(r.notes || '').replace(/"/g, '""')}"\n`;
+                csv += `${r.timestamp},${r.importReading},${r.exportReading},${r.importDelta},${r.exportDelta},${r.netUnits},${r.averageDailyUsage},${r.estimatedBill}\n`;
             });
             csv += '\nBill Date,Start Reading,End Reading,Import Units,Export Units,Net Units,Avg Daily Usage,Bill Amount,No Of Days,Tariff\n';
             state.bills.forEach(b => {
@@ -1297,7 +1312,7 @@
                     averageDailyUsage: avgDaily,
                     billAmount: s.billAmount === 0 && i > 0 ? bill.total : s.billAmount,
                     noOfDays,
-                    tariffUsed: (state.tariff || defaultTariff()).name,
+                    tariffUsed: (getTariff()).name,
                     energyCharges: bill.energyCharges,
                     fixedCharges: bill.fixedCharges,
                     netExportAdjustment: 0,
@@ -1325,38 +1340,10 @@
             }
         };
 
-        const resetAllData = async () => {
-            if (!confirm('WARNING: This will delete ALL readings and bills from Firebase. Continue?')) return;
-            setStatus('syncing');
-            try {
-                await fbPut('', { readings: {}, bills: {}, tariff: state.tariff, settings: state.settings, analytics: {} });
-                state.readings = [];
-                state.bills = [];
-                state.analytics = {};
-                render();
-                setStatus('online');
-                showAlert('All data reset.', 'success');
-            } catch (e) {
-                setStatus('offline');
-                showAlert('Reset failed.', 'error');
-            }
-        };
-
-        // Dark mode
-        const toggleDarkMode = () => {
-            state.darkMode = !state.darkMode;
-            document.documentElement.classList.toggle('dark', state.darkMode);
-            document.getElementById('darkModeIcon').className = state.darkMode ? 'fas fa-sun text-yellow-400' : 'fas fa-moon text-gray-600';
-            localStorage.setItem('eb-dark-mode', state.darkMode ? '1' : '0');
-            renderCharts();
-        };
-
         // Init
         const init = async () => {
-            state.darkMode = localStorage.getItem('eb-dark-mode') === '1' || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-            document.documentElement.classList.toggle('dark', state.darkMode);
-            document.getElementById('darkModeIcon').className = state.darkMode ? 'fas fa-sun text-yellow-400' : 'fas fa-moon text-gray-600';
             await loadAll();
+            startPolling();
         };
 
         // Close modals on outside click
