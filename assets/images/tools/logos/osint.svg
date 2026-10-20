@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="OSINT Toolkit Logo">
+  <defs>
+    <linearGradient id="osint-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="cyan-glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="28" fill="url(#osint-bg)" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.4"/>
+  
+  <!-- Radar concentric circles -->
+  <circle cx="64" cy="64" r="42" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.4"/>
+  <circle cx="64" cy="64" r="30" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="64" cy="64" r="18" fill="none" stroke="#06b6d4" stroke-width="2" opacity="0.8"/>
+  
+  <!-- Crosshairs -->
+  <line x1="64" y1="18" x2="64" y2="110" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  <line x1="18" y1="64" x2="110" y2="64" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  
+  <!-- Target Reticle & Blip -->
+  <circle cx="64" cy="64" r="6" fill="#38bdf8" filter="url(#glow)"/>
+  <circle cx="64" cy="64" r="2" fill="#ffffff"/>
+  
+  <!-- Sweeping scanner line / satellite ping -->
+  <circle cx="82" cy="46" r="4" fill="#a855f7" filter="url(#glow)"/>
+  <path d="M64 64 L88 40" stroke="#a855f7" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+  
+  <!-- Corner Tech Accents -->
+  <path d="M22 32 L22 22 L32 22" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+  <path d="M106 32 L106 22 L96 22" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+  <path d="M22 96 L22 106 L32 106" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+  <path d="M106 96 L106 106 L96 106" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+</svg>
