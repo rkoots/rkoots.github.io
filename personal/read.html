@@ -113,6 +113,10 @@
             background-color: white;
             border-radius: 4px;
         }
+        .lending-row, .lending-header-row {
+            grid-template-columns: 2fr 2fr auto;
+            align-items: center;
+        }
         .person-header {
             font-weight: bold;
             text-align: center;
@@ -450,41 +454,53 @@
                 <h2>Lending</h2>
                 <div id="lendingContainer">
                     <div class="subsection">
-                        <div class="person-row">
+                        <div class="person-row lending-header-row">
                             <div class="person-header">Platform</div>
                             <div class="person-header">Amount</div>
+                            <div class="person-header" style="max-width: 60px;">Action</div>
                         </div>
-                        <div class="person-row">
+                        <div class="person-row lending-row">
                             <input type="text" id="lending_a_name" name="lending_a_name" value="SH">
                             <input type="number" id="lending_a_amount" name="lending_a_amount" value="15000" step="0.01">
+                            <button type="button" onclick="this.closest('.person-row').remove()" style="background-color: #dc3545; padding: 4px 8px; font-size: 12px; margin: 0; max-width: 60px;">X</button>
                         </div>
-                        <div class="person-row">
+                        <div class="person-row lending-row">
                             <input type="text" id="lending_b_name" name="lending_b_name" value="Ven R">
                             <input type="number" id="lending_b_amount" name="lending_b_amount" value="45000" step="0.01">
+                            <button type="button" onclick="this.closest('.person-row').remove()" style="background-color: #dc3545; padding: 4px 8px; font-size: 12px; margin: 0; max-width: 60px;">X</button>
                         </div>
-                        <div class="person-row">
+                        <div class="person-row lending-row">
                             <input type="text" id="lending_c_name" name="lending_c_name" value="Anbu">
                             <input type="number" id="lending_c_amount" name="lending_c_amount" value="18000" step="0.01">
+                            <button type="button" onclick="this.closest('.person-row').remove()" style="background-color: #dc3545; padding: 4px 8px; font-size: 12px; margin: 0; max-width: 60px;">X</button>
                         </div>
-                        <div class="person-row">
+                        <div class="person-row lending-row">
                             <input type="text" id="lending_d_name" name="lending_d_name" value="Mdy T">
                             <input type="number" id="lending_d_amount" name="lending_d_amount" value="100000" step="0.01">
+                            <button type="button" onclick="this.closest('.person-row').remove()" style="background-color: #dc3545; padding: 4px 8px; font-size: 12px; margin: 0; max-width: 60px;">X</button>
                         </div>
-                        <div class="person-row">
+                        <div class="person-row lending-row">
                             <input type="text" id="lending_e_name" name="lending_e_name" value="Myd BBj">
                             <input type="number" id="lending_e_amount" name="lending_e_amount" value="400000" step="0.01">
+                            <button type="button" onclick="this.closest('.person-row').remove()" style="background-color: #dc3545; padding: 4px 8px; font-size: 12px; margin: 0; max-width: 60px;">X</button>
                         </div>
-                        <div class="person-row">
+                        <div class="person-row lending-row">
                             <input type="text" id="lending_f_name" name="lending_f_name" value="Ekk-Advance">
                             <input type="number" id="lending_f_amount" name="lending_f_amount" value="-350000" step="0.01">
+                            <button type="button" onclick="this.closest('.person-row').remove()" style="background-color: #dc3545; padding: 4px 8px; font-size: 12px; margin: 0; max-width: 60px;">X</button>
                         </div>
-                        <div class="person-row">
+                        <div class="person-row lending-row">
                             <input type="text" id="lending_g_name" name="lending_g_name" value="TMB-Advance">
                             <input type="number" id="lending_g_amount" name="lending_g_amount" value="-60000" step="0.01">
+                            <button type="button" onclick="this.closest('.person-row').remove()" style="background-color: #dc3545; padding: 4px 8px; font-size: 12px; margin: 0; max-width: 60px;">X</button>
                         </div>
-                        <div class="person-row">
+                        <div class="person-row lending-row">
                             <input type="text" id="lending_h_name" name="lending_h_name" value="CC-Dues">
                             <input type="number" id="lending_h_amount" name="lending_h_amount" value="-60000" step="0.01">
+                            <button type="button" onclick="this.closest('.person-row').remove()" style="background-color: #dc3545; padding: 4px 8px; font-size: 12px; margin: 0; max-width: 60px;">X</button>
+                        </div>
+                        <div class="lending-btn-container" style="margin-top: 10px;">
+                            <button type="button" onclick="addLendingRow()" style="background-color: #28a745; padding: 6px 14px; font-size: 14px;">+ Add Lending Row</button>
                         </div>
                     </div>
                 </div>
@@ -819,6 +835,176 @@
             console.log("=== Form Population Complete ===");
         }
 
+        // Helper to safely escape HTML attributes/text
+        function escapeHtml(text) {
+            if (text === null || text === undefined) return '';
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Parse lending data from any format into an array of { name, amount }
+        function parseLendingEntries(lendingData) {
+            if (!lendingData) return [];
+            
+            if (Array.isArray(lendingData)) {
+                return lendingData.map((item, idx) => {
+                    if (typeof item === 'object' && item !== null) {
+                        return {
+                            name: item.name || item.platform || `Platform ${idx + 1}`,
+                            amount: item.amount !== undefined ? item.amount : (item.value !== undefined ? item.value : 0)
+                        };
+                    }
+                    return { name: `Platform ${idx + 1}`, amount: Number(item) || 0 };
+                });
+            }
+            
+            const entries = [];
+            Object.entries(lendingData).forEach(([key, val]) => {
+                let name = key;
+                let amount = val;
+                
+                if (typeof val === 'object' && val !== null) {
+                    if (val.name !== undefined) name = val.name;
+                    if (val.amount !== undefined) amount = val.amount;
+                    else if (val.value !== undefined) amount = val.value;
+                }
+                
+                // If key is a single letter (a-h) from template and value didn't provide a name, preserve initial name if exists
+                if (/^[a-h]$/i.test(key) && (typeof val !== 'object' || !val.name)) {
+                    const el = document.getElementById(`lending_${key.toLowerCase()}_name`);
+                    if (el && el.value) {
+                        name = el.value;
+                    }
+                }
+                
+                entries.push({
+                    name: name,
+                    amount: typeof amount === 'number' ? amount : (parseFloat(amount) || 0)
+                });
+            });
+            return entries;
+        }
+
+        let extraLendingCounter = 100;
+        function addLendingRow(name = '', amount = 0) {
+            const subsection = document.querySelector('#lendingContainer .subsection');
+            if (!subsection) return;
+            
+            const idSuffix = `custom_${extraLendingCounter++}`;
+            const row = document.createElement('div');
+            row.className = 'person-row lending-row';
+            row.innerHTML = `
+                <input type="text" id="lending_${idSuffix}_name" name="lending_${idSuffix}_name" value="${escapeHtml(name)}" placeholder="Platform Name">
+                <input type="number" id="lending_${idSuffix}_amount" name="lending_${idSuffix}_amount" value="${amount}" step="0.01" placeholder="Amount">
+                <button type="button" onclick="this.closest('.person-row').remove()" style="background-color: #dc3545; padding: 4px 8px; font-size: 12px; margin: 0; max-width: 60px;">X</button>
+            `;
+            
+            const btnContainer = subsection.querySelector('.lending-btn-container');
+            if (btnContainer) {
+                subsection.insertBefore(row, btnContainer);
+            } else {
+                subsection.appendChild(row);
+            }
+        }
+
+        // Render lending entries into the form
+        function populateLending(lendingData) {
+            if (!lendingData) return;
+            const entries = parseLendingEntries(lendingData);
+            if (entries.length === 0) return;
+            
+            const container = document.getElementById('lendingContainer');
+            if (!container) return;
+            
+            let html = `
+                <div class="subsection">
+                    <div class="person-row lending-header-row">
+                        <div class="person-header">Platform</div>
+                        <div class="person-header">Amount</div>
+                        <div class="person-header" style="max-width: 60px;">Action</div>
+                    </div>
+            `;
+            
+            entries.forEach((entry, index) => {
+                const idSuffix = String.fromCharCode(97 + (index % 26)) + (index >= 26 ? index : '');
+                html += `
+                    <div class="person-row lending-row">
+                        <input type="text" id="lending_${idSuffix}_name" name="lending_${idSuffix}_name" value="${escapeHtml(String(entry.name))}" placeholder="Platform Name">
+                        <input type="number" id="lending_${idSuffix}_amount" name="lending_${idSuffix}_amount" value="${entry.amount}" step="0.01" placeholder="Amount">
+                        <button type="button" onclick="this.closest('.person-row').remove()" style="background-color: #dc3545; padding: 4px 8px; font-size: 12px; margin: 0; max-width: 60px;">X</button>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    <div class="lending-btn-container" style="margin-top: 10px;">
+                        <button type="button" onclick="addLendingRow()" style="background-color: #28a745; padding: 6px 14px; font-size: 14px;">+ Add Lending Row</button>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function getEntrySortTime(entry, fallbackIndex = 0) {
+            const ts = Number(entry?.timestamp);
+            if (!Number.isNaN(ts) && ts > 0) return ts;
+
+            const dateTs = new Date(entry?.date || '').getTime();
+            if (!Number.isNaN(dateTs) && dateTs > 0) return dateTs;
+
+            return fallbackIndex;
+        }
+
+        function getLatestPortfolioEntry(portfolioData) {
+            if (!portfolioData) return null;
+            
+            if (Array.isArray(portfolioData)) {
+                const entries = portfolioData.filter(e => e != null);
+                if (entries.length === 0) return null;
+                let latest = entries[entries.length - 1];
+                let latestTime = getEntrySortTime(latest, entries.length - 1);
+                entries.forEach((e, idx) => {
+                    const t = getEntrySortTime(e, idx);
+                    if (t >= latestTime) {
+                        latestTime = t;
+                        latest = e;
+                    }
+                });
+                return latest;
+            }
+            
+            if (typeof portfolioData === 'object') {
+                const numericKeys = Object.keys(portfolioData)
+                    .map(k => parseInt(k, 10))
+                    .filter(k => !isNaN(k))
+                    .sort((a, b) => a - b);
+
+                const entries = Object.values(portfolioData).filter(e => e != null);
+                if (entries.length === 0) return null;
+
+                let latestEntry = numericKeys.length > 0 
+                    ? portfolioData[numericKeys[numericKeys.length - 1]] 
+                    : entries[entries.length - 1];
+                
+                let maxSortTime = getEntrySortTime(latestEntry);
+
+                entries.forEach((entry, idx) => {
+                    const sortTime = getEntrySortTime(entry, idx);
+                    if (sortTime >= maxSortTime) {
+                        maxSortTime = sortTime;
+                        latestEntry = entry;
+                    }
+                });
+                return latestEntry;
+            }
+            return null;
+        }
+
         // Fetch and populate the last portfolio data for all sections
         async function fetchAndPopulateLastPortfolioData() {
             try {
@@ -832,20 +1018,7 @@
                     const portfolioData = snapshot.val();
                     console.log("Portfolio data fetched:", portfolioData);
                     
-                    // Get the latest entry (assuming it's an array or object with numeric keys)
-                    let latestEntry = null;
-                    
-                    if (Array.isArray(portfolioData)) {
-                        // If it's an array, get the last item
-                        latestEntry = portfolioData[portfolioData.length - 1];
-                    } else if (typeof portfolioData === 'object') {
-                        // If it's an object, find the entry with the highest key (latest)
-                        const keys = Object.keys(portfolioData).map(key => parseInt(key)).filter(key => !isNaN(key));
-                        if (keys.length > 0) {
-                            const maxKey = Math.max(...keys);
-                            latestEntry = portfolioData[maxKey];
-                        }
-                    }
+                    const latestEntry = getLatestPortfolioEntry(portfolioData);
                     
                     if (latestEntry) {
                         console.log("Latest portfolio entry:", latestEntry);
@@ -896,6 +1069,36 @@
                         });
                     });
                 }
+
+                // Populate Mutual Funds
+                if (data.mutualFunds) {
+                    console.log("Populating mutual funds from last portfolio data...");
+                    const platformAliases = {
+                        'paytm': 'ptm',
+                        'groww': 'grow',
+                        'cherry': 'kotak'
+                    };
+                    Object.entries(data.mutualFunds).forEach(([platform, persons]) => {
+                        if (typeof persons === 'object' && persons !== null) {
+                            let platKey = platform.toLowerCase();
+                            if (platformAliases[platKey]) {
+                                platKey = platformAliases[platKey];
+                            }
+                            Object.entries(persons).forEach(([person, value]) => {
+                                const field = document.getElementById(`mf_${platKey}_${person.toLowerCase()}`);
+                                if (field && value !== undefined && value !== null) {
+                                    field.value = value;
+                                    console.log(`Set mf_${platKey}_${person.toLowerCase()} = ${value}`);
+                                } else {
+                                    console.log(`MF field not found or value undefined: mf_${platKey}_${person.toLowerCase()}`);
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    console.log("No mutual funds found in last portfolio entry, trying MF node...");
+                    fetchAndPopulateMutualFunds();
+                }
                 
                 // Populate Equity
                 if (data.equity) {
@@ -928,22 +1131,7 @@
                 // Populate Lending
                 if (data.lending) {
                     console.log("Populating lending...");
-                    Object.entries(data.lending).forEach(([platform, value]) => {
-                        // Handle both single values and object with amounts
-                        if (typeof value === 'object' && value.amount !== undefined) {
-                            const field = document.getElementById(`lending_${platform.toLowerCase()}_amount`);
-                            if (field) {
-                                field.value = value.amount;
-                                console.log(`Set lending_${platform.toLowerCase()}_amount = ${value.amount}`);
-                            }
-                        } else if (typeof value === 'number') {
-                            const field = document.getElementById(`lending_${platform.toLowerCase()}_amount`);
-                            if (field) {
-                                field.value = value;
-                                console.log(`Set lending_${platform.toLowerCase()}_amount = ${value}`);
-                            }
-                        }
-                    });
+                    populateLending(data.lending);
                 }
                 
                 showStatus('Form populated with last portfolio data', 'success');
@@ -956,7 +1144,6 @@
 
         // Fetch data when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            fetchAndPopulateMutualFunds();
             fetchAndPopulateLastPortfolioData();
         });
 
